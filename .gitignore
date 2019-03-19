@@ -1,8 +1,6 @@
+/*
 !.gitignore
 !README.md
 !pom.xml
 !resources/
 !src/
-AM00.iml
-.idea
-.DS_Store
