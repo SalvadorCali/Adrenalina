@@ -1,8 +1,8 @@
 /*
+target/
 !.gitignore
 !README.md
 !pom.xml
 !resources/
 !src/
 !deliverables
-*/target/**
