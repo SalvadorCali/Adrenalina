@@ -183,37 +183,85 @@
 
       { "cardtype": "ammocard",
         "element" : [
-          {"id" : "0A","name" : "Red_Yellow_Yellow"},
-          {"id" : "1A","name" : "Red_Blue_Blue"},
-          {"id" : "2A","name" : "Blue_Yellow_Yellow"},
-          {"id" : "3A","name" : "Blue_Red_Red"},
-          {"id" : "4A","name" : "Yellow_Blue_Blue"},
-          {"id" : "5A","name" : "Yellow_Red_Red"},
-          {"id" : "6A","name" : "Pu_Red_Red"},
-          {"id" : "7A","name" : "Pu_Blue_Blue"},
-          {"id" : "8A","name" : "Pu_Yellow_Yellow"},
-          {"id" : "9A","name" : "Pu_Red_Blue"},
-          {"id" : "10A","name" : "Pu_Red_Yellow"},
-          {"id" : "11A","name" : "Pu_Blue_Yellow"}]
+          {"id" : "0A","name" : "Yellow_Blue_Blue",
+            "value": "YBB",
+            "num_card" : 3
+          },
+          {"id" : "1A","name" : "Yellow_Red_Red",
+            "value" : "YRR",
+            "num_card" : 3
+          },
+          {"id" : "2A","name" : "Red_Blue_Blue",
+            "value" : "RBB",
+            "num_card" : 3
+          },
+          {"id" : "3A","name" : "Red_Yellow_Yellow",
+            "value" : "RYY",
+            "num_card" : 3
+          },
+          {"id" : "4A","name" : "Blue_Yellow_Yellow",
+            "value" : "BYY",
+            "num_card" : 3
+          },
+          {"id" : "5A","name" : "Blue_Red_Red",
+            "value" : "BRR",
+            "num_card" : 3
+          },
+          {"id" : "6A","name" : "Yellow_Blue_Blue",
+            "value": "YBB",
+            "num_card" : 3
+          },
+          {"id" : "7A","name" : "Pu_Red_Red",
+            "value" : "PRR",
+            "num_card" : 3
+          },
+          {"id" : "8A","name" : "Pu_Blue_Blue",
+            "value" : "PBB",
+            "num_card" : 3
+          },
+          {"id" : "9A","name" : "Pu_Yellow_Yellow",
+            "value" : "PYY",
+            "num_card" : 3
+          },
+          {"id" : "10A","name" : "Pu_Red_Blue",
+            "value" : "PRB",
+            "num_card" : 3
+          },
+          {"id" : "11A","name" : "Pu_Red_Yellow",
+            "value" : "PRY",
+            "num_card" : 3
+          },
+          {"id" : "12A","name" : "Pu_Blue_Yellow",
+            "value" : "PBY",
+            "num_card" : 3
+          }]
       },
 
       { "cardtype": "powerupcard",
         "element" : [
           {"id" :  "0P","name" :  "TARGETING SCOPE",
-            "info_card_effect" : "You may play this card when yiu are dealing damage to one or more targets.Pay 1 ammo cube of any color.Choose 1 of those targets and give it an extra point of damage.Note: You cannot use this to do 1 damage to a target that is receiving only marks.",
-            "ammo_value": 1
+            "info_card_effect" : "You may play this card when you are dealing damage to one or more targets.Pay 1 ammo cube of any color.Choose 1 of those targets and give it an extra point of damage.",
+            "ammo_value": 1,
+            "ammo_color" : ["B", "Y", "R"],
+            "effect" : {"target" : 1, "ammo_needed" : 1, "ammo_color" : "ANY", "need_damage" : true, "damage" : 1}
           },
           {"id" :  "1P","name" :  "NEWTON",
             "info_card_effect": "You may play this card on your turn before or after any action.Choose any other player's figure and move it 1 or 2 squares in one direction.(You can't use this to move a figure after it respawns at the end of your turn.That would be too late.)",
-            "ammo_value": 1
+            "ammo_value": 1,
+            "ammo_color" : ["B", "Y", "R"],
+            "effect" : {"not_doing_action" : true, "target" : 1, "move_target" : 2}
           },
           {"id" :  "2P","name" :  "TAGBACK GRENADE",
             "info_card_effect" : "You may play this card when you receive damage from a player you can see.Give that player 1 mark.",
-            "ammo_value": 1
+            "ammo_value": 1,
+            "ammo_color" : ["B", "Y", "R"],
+            "effect" : {"damage_received" : true, "range" : 3, "mark" : 1}
           },
           {"id" :  "3P","name" :  "TELEPORTER",
             "info_card_effect" : "You may play this card on your turn before or after any action.Pick up your figure and set it down of any square of the board.(You can't use this after you see where someone respawns at the end of your turn.By then it is too late.)",
-            "ammo_value": 1
+            "ammo_value": 1,
+            "ammo_color" : ["B", "Y", "R"],
+            "effect" : {"not_doing_action" : true, "move" : 10}
           }
         ]
       }
