@@ -1,11 +1,14 @@
 package it.polimi.ingsw.model;
 
+import java.util.List;
+
 public abstract class Square {
     private Color color;
     private Cardinal north;
     private Cardinal south;
     private Cardinal west;
     private Cardinal east;
+    private List<Player> players;
 
     public Color getColor(){
         return this.color;

@@ -1,4 +1,4 @@
 package it.polimi.ingsw.model;
 
-public interface Card {
+public abstract class Card {
 }
