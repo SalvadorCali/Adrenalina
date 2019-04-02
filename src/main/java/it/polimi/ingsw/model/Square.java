@@ -2,6 +2,8 @@ package it.polimi.ingsw.model;
 
 import java.util.List;
 
+import static it.polimi.ingsw.model.Direction.LEFT;
+
 public abstract class Square {
     private Color color;
     private Cardinal north;
@@ -50,5 +52,20 @@ public abstract class Square {
         this.east = east;
     }
 
-    public abstract Card grab();
+    public boolean canMove(Direction direction) {
+        switch (direction) {
+            case UP:
+                return getNorth().equals(Cardinal.DOOR) || getNorth().equals(Cardinal.ROOM);
+            case DOWN:
+                return getSouth().equals(Cardinal.DOOR) || getSouth().equals(Cardinal.ROOM);
+            case RIGHT:
+                return getEast().equals(Cardinal.DOOR) || getEast().equals(Cardinal.ROOM);
+            case LEFT:
+                return getWest().equals(Cardinal.DOOR) || getWest().equals(Cardinal.ROOM);
+            default:
+                return false;
+        }
+    }
+
+
 }

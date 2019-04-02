@@ -62,6 +62,13 @@ public class Game {
         this.finalFrenzy = finalFrenzy;
     }
 
+    public void endTurn(){
+    }
+
+    public boolean move(Direction...directions){
+         return getBoard().canMove(getCurrentPlayer(), directions);
+    }
+
     //methods
 
 }
