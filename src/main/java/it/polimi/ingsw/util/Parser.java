@@ -1,9 +1,6 @@
 package it.polimi.ingsw.util;
 
-import it.polimi.ingsw.model.Card;
-import it.polimi.ingsw.model.Color;
-import it.polimi.ingsw.model.Deck;
-import it.polimi.ingsw.model.WeaponCard;
+import it.polimi.ingsw.model.*;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -23,15 +20,15 @@ public class Parser {
         Color cardColor;
         for(int i=0; i < 21; i++){
             InputStream input = Parser.class.getClassLoader().getResourceAsStream("cardconfig.json");
-            Object fileReader = null;
+            Object reader = null;
             try {
-                fileReader = new JSONParser().parse(new InputStreamReader(input));
+                reader = new JSONParser().parse(new InputStreamReader(input));
             } catch (ParseException e) {
                 e.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            JSONObject firstObject = (JSONObject) fileReader;
+            JSONObject firstObject = (JSONObject) reader;
             firstObject = (JSONObject)firstObject.get("cardconfig");
             JSONArray firstArray = (JSONArray) firstObject.get("elements");
             JSONObject secondObject = (JSONObject) firstArray.get(0);
@@ -45,6 +42,38 @@ public class Parser {
         }
         weapons.shuffle();
         return weapons;
+    }
+
+    public static Deck createPowerups(){
+        Deck powerups = new Deck();
+        String cardName;
+        for(int i=0; i < 4; i++){
+            InputStream input = Parser.class.getClassLoader().getResourceAsStream("cardconfig.json");
+            Object reader = null;
+            try {
+                reader = new JSONParser().parse(new InputStreamReader(input));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            JSONObject firstObject = (JSONObject) reader;
+            firstObject = (JSONObject)firstObject.get("cardconfig");
+            JSONArray firstArray = (JSONArray) firstObject.get("elements");
+            JSONObject secondObject = (JSONObject) firstArray.get(2);
+            JSONArray secondArray = (JSONArray) secondObject.get("element");
+            JSONObject thirdObject = (JSONObject) secondArray.get(i);
+
+            cardName = (String) thirdObject.get("name");
+            Card card = new PowerupCard(cardName, Color.BLUE);
+            powerups.addCard(card);
+            card = new PowerupCard(cardName, Color.YELLOW);
+            powerups.addCard(card);
+            card = new PowerupCard(cardName, Color.RED);
+            powerups.addCard(card);
+        }
+        powerups.shuffle();
+        return powerups;
     }
 
     private static Color castStringToColor(String color){
