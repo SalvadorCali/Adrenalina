@@ -1,8 +1,7 @@
 package it.polimi.ingsw.model;
 
 public class InactivePoint extends Square {
-    @Override
-    public Card grab() {
-        return null;
+    public InactivePoint(TokenColor color, Cardinal north, Cardinal south, Cardinal west, Cardinal east) {
+        super(color, north, south, west, east);
     }
 }

@@ -2,9 +2,7 @@ package it.polimi.ingsw.model;
 
 public class AmmoPoint extends Square {
     private Card ammoCard;
-
-    @Override
-    public Card grab() {
-        return null;
+    public AmmoPoint(TokenColor color, Cardinal north, Cardinal south, Cardinal west, Cardinal east) {
+        super(color, north, south, west, east);
     }
 }

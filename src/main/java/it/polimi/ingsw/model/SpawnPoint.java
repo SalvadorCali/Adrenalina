@@ -5,9 +5,7 @@ import java.util.List;
 public class SpawnPoint extends Square {
     private List<Card> weapons;
 
-    @Override
-    public Card grab() {
-        //necessary a number to handle the choice of the user
-        return null;
+    public SpawnPoint(TokenColor color, Cardinal north, Cardinal south, Cardinal west, Cardinal east) {
+        super(color, north, south, west, east);
     }
 }

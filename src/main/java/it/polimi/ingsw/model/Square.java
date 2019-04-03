@@ -5,20 +5,21 @@ import java.util.List;
 import static it.polimi.ingsw.model.Direction.LEFT;
 
 public abstract class Square {
-    private Color color;
+    private TokenColor color;
     private Cardinal north;
     private Cardinal south;
     private Cardinal west;
     private Cardinal east;
     private List<Player> players;
 
-    public Color getColor(){
-        return this.color;
+    public Square(TokenColor color, Cardinal north, Cardinal south, Cardinal west, Cardinal east){
+        this.color = color;
+        this.north = north;
+        this.south = south;
+        this.west = west;
+        this.east = east;
     }
 
-    public void setColor(Color color){
-        this.color = color;
-    }
 
     public Cardinal getNorth() {
         return north;
@@ -68,4 +69,11 @@ public abstract class Square {
     }
 
 
+    public TokenColor getColor() {
+        return color;
+    }
+
+    public void setColor(TokenColor color) {
+        this.color = color;
+    }
 }

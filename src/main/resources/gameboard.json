@@ -1,507 +1,507 @@
 {
   "gameboard": {
-    "element": [
+    "elements": [
       {
         "id": "0",
-        "type": "BASIC",
+        "type": "basic",
         "squares": [
           {
-            "type": "inactive",
+            "type": "ammo",
             "x": "0",
             "y": "0",
+            "color": "red",
+            "north": "none",
+            "south": "room",
+            "east": "door",
+            "west": "none"
+          },
+          {
+            "type": "ammo",
+            "x": "0",
+            "y": "1",
             "color": "blue",
-            "north": "door",
+            "north": "none",
             "south": "door",
             "east": "door",
-            "west": "door"
+            "west": "room"
+          },
+          {
+            "type": "spawn",
+            "x": "0",
+            "y": "2",
+            "color": "blue",
+            "north": "none",
+            "south": "door",
+            "east": "room",
+            "west": "none"
           },
           {
             "type": "inactive",
             "x": "0",
+            "y": "3",
+            "color": "none",
+            "north": "none",
+            "south": "none",
+            "east": "none",
+            "west": "none"
+          },
+          {
+            "type": "spawn",
+            "x": "1",
             "y": "0",
-            "color": "blue",
+            "color": "red",
+            "north": "room",
+            "south": "door",
+            "east": "none",
+            "west": "wall"
+          },
+          {
+            "type": "ammo",
+            "x": "1",
+            "y": "1",
+            "color": "purple",
             "north": "door",
             "south": "door",
+            "east": "room",
+            "west": "wall"
+          },
+          {
+            "type": "ammo",
+            "x": "1",
+            "y": "2",
+            "color": "purple",
+            "north": "door",
+            "south": "wall",
             "east": "door",
+            "west": "room"
+          },
+          {
+            "type": "ammo",
+            "x": "1",
+            "y": "3",
+            "color": "yellow",
+            "north": "none",
+            "south": "room",
+            "east": "none",
             "west": "door"
           },
           {
-            "type": "inactive",
-            "x": "0",
+            "type": "ammo",
+            "x": "2",
             "y": "0",
-            "color": "blue",
+            "color": "grey",
             "north": "door",
-            "south": "door",
-            "east": "door",
-            "west": "door"
+            "south": "none",
+            "east": "room",
+            "west": "none"
           },
           {
-            "type": "inactive",
-            "x": "0",
-            "y": "0",
-            "color": "blue",
+            "type": "ammo",
+            "x": "2",
+            "y": "1",
+            "color": "grey",
             "north": "door",
-            "south": "door",
-            "east": "door",
-            "west": "door"
+            "south": "none",
+            "east": "room",
+            "west": "room"
           },
           {
-            "type": "inactive",
-            "x": "0",
-            "y": "0",
-            "color": "blue",
-            "north": "door",
-            "south": "door",
+            "type": "ammo",
+            "x": "2",
+            "y": "2",
+            "color": "grey",
+            "north": "wall",
+            "south": "none",
             "east": "door",
-            "west": "door"
+            "west": "room"
           },
           {
-            "type": "inactive",
-            "x": "0",
-            "y": "0",
-            "color": "blue",
-            "north": "door",
-            "south": "door",
-            "east": "door",
-            "west": "door"
-          },
-          {
-            "type": "inactive",
-            "x": "0",
-            "y": "0",
-            "color": "blue",
-            "north": "door",
-            "south": "door",
-            "east": "door",
-            "west": "door"
-          },
-          {
-            "type": "inactive",
-            "x": "0",
-            "y": "0",
-            "color": "blue",
-            "north": "door",
-            "south": "door",
-            "east": "door",
-            "west": "door"
-          },
-          {
-            "type": "inactive",
-            "x": "0",
-            "y": "0",
-            "color": "blue",
-            "north": "door",
-            "south": "door",
-            "east": "door",
-            "west": "door"
-          },
-          {
-            "type": "inactive",
-            "x": "0",
-            "y": "0",
-            "color": "blue",
-            "north": "door",
-            "south": "door",
-            "east": "door",
-            "west": "door"
-          },
-          {
-            "type": "inactive",
-            "x": "0",
-            "y": "0",
-            "color": "blue",
-            "north": "door",
-            "south": "door",
-            "east": "door",
-            "west": "door"
-          },
-          {
-            "type": "inactive",
-            "x": "0",
-            "y": "0",
-            "color": "blue",
-            "north": "door",
-            "south": "door",
-            "east": "door",
+            "type": "spawn",
+            "x": "2",
+            "y": "3",
+            "color": "yellow",
+            "north": "room",
+            "south": "none",
+            "east": "none",
             "west": "door"
           }
         ]
       },
       {
-        "id": "0",
-        "type": "BASIC",
+        "id": "1",
+        "type": "generic",
         "squares": [
           {
-            "type": "inactive",
+            "type": "ammo",
             "x": "0",
             "y": "0",
             "color": "blue",
-            "north": "door",
+            "north": "none",
+            "south": "door",
+            "east": "room",
+            "west": "none"
+          },
+          {
+            "type": "ammo",
+            "x": "0",
+            "y": "1",
+            "color": "blue",
+            "north": "none",
+            "south": "wall",
+            "east": "room",
+            "west": "room"
+          },
+          {
+            "type": "spawn",
+            "x": "0",
+            "y": "2",
+            "color": "blue",
+            "north": "none",
             "south": "door",
             "east": "door",
+            "west": "room"
+          },
+          {
+            "type": "ammo",
+            "x": "0",
+            "y": "3",
+            "color": "green",
+            "north": "none",
+            "south": "door",
+            "east": "door",
+            "west": "none"
+          },
+          {
+            "type": "spawn",
+            "x": "1",
+            "y": "0",
+            "color": "red",
+            "north": "door",
+            "south": "none",
+            "east": "room",
+            "west": "none"
+          },
+          {
+            "type": "ammo",
+            "x": "1",
+            "y": "1",
+            "color": "red",
+            "north": "wall",
+            "south": "door",
+            "east": "wall",
+            "west": "room"
+          },
+          {
+            "type": "ammo",
+            "x": "1",
+            "y": "2",
+            "color": "yellow",
+            "north": "door",
+            "south": "room",
+            "east": "room",
+            "west": "wall"
+          },
+          {
+            "type": "ammo",
+            "x": "1",
+            "y": "3",
+            "color": "yellow",
+            "north": "door",
+            "south": "room",
+            "east": "none",
+            "west": "room"
+          },
+          {
+            "type": "inactive",
+            "x": "2",
+            "y": "0",
+            "color": "none",
+            "north": "none",
+            "south": "none",
+            "east": "none",
+            "west": "none"
+          },
+          {
+            "type": "ammo",
+            "x": "2",
+            "y": "1",
+            "color": "grey",
+            "north": "door",
+            "south": "none",
+            "east": "door",
+            "west": "none"
+          },
+          {
+            "type": "ammo",
+            "x": "2",
+            "y": "2",
+            "color": "yellow",
+            "north": "room",
+            "south": "none",
+            "east": "room",
             "west": "door"
+          },
+          {
+            "type": "spawn",
+            "x": "2",
+            "y": "3",
+            "color": "yellow",
+            "north": "room",
+            "south": "none",
+            "east": "none",
+            "west": "room"
+          }
+        ]
+      },
+      {
+        "id": "2",
+        "type": "3_4",
+        "squares": [
+          {
+            "type": "ammo",
+            "x": "0",
+            "y": "0",
+            "color": "blue",
+            "north": "none",
+            "south": "door",
+            "east": "room",
+            "west": "none"
+          },
+          {
+            "type": "ammo",
+            "x": "0",
+            "y": "1",
+            "color": "blue",
+            "north": "none",
+            "south": "wall",
+            "east": "room",
+            "west": "room"
+          },
+          {
+            "type": "spawn",
+            "x": "0",
+            "y": "2",
+            "color": "blue",
+            "north": "none",
+            "south": "door",
+            "east": "none",
+            "west": "room"
           },
           {
             "type": "inactive",
             "x": "0",
+            "y": "3",
+            "color": "none",
+            "north": "none",
+            "south": "none",
+            "east": "none",
+            "west": "none"
+          },
+          {
+            "type": "spawn",
+            "x": "1",
             "y": "0",
-            "color": "blue",
+            "color": "red",
             "north": "door",
+            "south": "none",
+            "east": "room",
+            "west": "none"
+          },
+          {
+            "type": "ammo",
+            "x": "1",
+            "y": "1",
+            "color": "red",
+            "north": "wall",
             "south": "door",
+            "east": "room",
+            "west": "room"
+          },
+          {
+            "type": "ammo",
+            "x": "1",
+            "y": "2",
+            "color": "purple",
+            "north": "door",
+            "south": "wall",
             "east": "door",
+            "west": "room"
+          },
+          {
+            "type": "ammo",
+            "x": "1",
+            "y": "3",
+            "color": "yellow",
+            "north": "none",
+            "south": "room",
+            "east": "none",
             "west": "door"
           },
           {
             "type": "inactive",
-            "x": "0",
+            "x": "2",
             "y": "0",
-            "color": "blue",
-            "north": "door",
-            "south": "door",
-            "east": "door",
-            "west": "door"
+            "color": "none",
+            "north": "none",
+            "south": "none",
+            "east": "none",
+            "west": "none"
           },
           {
-            "type": "inactive",
-            "x": "0",
-            "y": "0",
-            "color": "blue",
+            "type": "ammo",
+            "x": "2",
+            "y": "1",
+            "color": "grey",
             "north": "door",
-            "south": "door",
-            "east": "door",
-            "west": "door"
+            "south": "none",
+            "east": "room",
+            "west": "none"
           },
           {
-            "type": "inactive",
-            "x": "0",
-            "y": "0",
-            "color": "blue",
-            "north": "door",
-            "south": "door",
+            "type": "ammo",
+            "x": "2",
+            "y": "2",
+            "color": "grey",
+            "north": "wall",
+            "south": "none",
             "east": "door",
-            "west": "door"
+            "west": "room"
           },
           {
-            "type": "inactive",
-            "x": "0",
-            "y": "0",
-            "color": "blue",
-            "north": "door",
-            "south": "door",
-            "east": "door",
-            "west": "door"
-          },
-          {
-            "type": "inactive",
-            "x": "0",
-            "y": "0",
-            "color": "blue",
-            "north": "door",
-            "south": "door",
-            "east": "door",
-            "west": "door"
-          },
-          {
-            "type": "inactive",
-            "x": "0",
-            "y": "0",
-            "color": "blue",
-            "north": "door",
-            "south": "door",
-            "east": "door",
-            "west": "door"
-          },
-          {
-            "type": "inactive",
-            "x": "0",
-            "y": "0",
-            "color": "blue",
-            "north": "door",
-            "south": "door",
-            "east": "door",
-            "west": "door"
-          },
-          {
-            "type": "inactive",
-            "x": "0",
-            "y": "0",
-            "color": "blue",
-            "north": "door",
-            "south": "door",
-            "east": "door",
-            "west": "door"
-          },
-          {
-            "type": "inactive",
-            "x": "0",
-            "y": "0",
-            "color": "blue",
-            "north": "door",
-            "south": "door",
-            "east": "door",
-            "west": "door"
-          },
-          {
-            "type": "inactive",
-            "x": "0",
-            "y": "0",
-            "color": "blue",
-            "north": "door",
-            "south": "door",
-            "east": "door",
+            "type": "spawn",
+            "x": "2",
+            "y": "3",
+            "color": "yellow",
+            "north": "room",
+            "south": "none",
+            "east": "none",
             "west": "door"
           }
         ]
       },
       {
-        "id": "0",
-        "type": "BASIC",
+        "id": "3",
+        "type": "4_5",
         "squares": [
           {
-            "type": "inactive",
+            "type": "ammo",
             "x": "0",
             "y": "0",
-            "color": "blue",
-            "north": "door",
-            "south": "door",
+            "color": "red",
+            "north": "none",
+            "south": "room",
             "east": "door",
+            "west": "none"
+          },
+          {
+            "type": "ammo",
+            "x": "0",
+            "y": "1",
+            "color": "blue",
+            "north": "none",
+            "south": "door",
+            "east": "room",
             "west": "door"
           },
           {
-            "type": "inactive",
+            "type": "spawn",
             "x": "0",
-            "y": "0",
+            "y": "2",
             "color": "blue",
-            "north": "door",
+            "north": "none",
             "south": "door",
             "east": "door",
+            "west": "room"
+          },
+          {
+            "type": "ammo",
+            "x": "0",
+            "y": "3",
+            "color": "green",
+            "north": "none",
+            "south": "door",
+            "east": "none",
             "west": "door"
           },
           {
-            "type": "inactive",
-            "x": "0",
+            "type": "spawn",
+            "x": "1",
             "y": "0",
-            "color": "blue",
+            "color": "red",
+            "north": "room",
+            "south": "door",
+            "east": "wall",
+            "west": "none"
+          },
+          {
+            "type": "ammo",
+            "x": "1",
+            "y": "1",
+            "color": "purple",
             "north": "door",
             "south": "door",
+            "east": "wall",
+            "west": "wall"
+          },
+          {
+            "type": "ammo",
+            "x": "1",
+            "y": "2",
+            "color": "yellow",
+            "north": "door",
+            "south": "room",
+            "east": "room",
+            "west": "wall"
+          },
+          {
+            "type": "ammo",
+            "x": "1",
+            "y": "3",
+            "color": "yellow",
+            "north": "door",
+            "south": "room",
+            "east": "none",
+            "west": "room"
+          },
+          {
+            "type": "ammo",
+            "x": "2",
+            "y": "0",
+            "color": "grey",
+            "north": "door",
+            "south": "none",
+            "east": "room",
+            "west": "none"
+          },
+          {
+            "type": "ammo",
+            "x": "2",
+            "y": "1",
+            "color": "grey",
+            "north": "door",
+            "south": "none",
             "east": "door",
+            "west": "room"
+          },
+          {
+            "type": "ammo",
+            "x": "2",
+            "y": "2",
+            "color": "yellow",
+            "north": "room",
+            "south": "none",
+            "east": "room",
             "west": "door"
           },
           {
-            "type": "inactive",
-            "x": "0",
-            "y": "0",
-            "color": "blue",
-            "north": "door",
-            "south": "door",
-            "east": "door",
-            "west": "door"
-          },
-          {
-            "type": "inactive",
-            "x": "0",
-            "y": "0",
-            "color": "blue",
-            "north": "door",
-            "south": "door",
-            "east": "door",
-            "west": "door"
-          },
-          {
-            "type": "inactive",
-            "x": "0",
-            "y": "0",
-            "color": "blue",
-            "north": "door",
-            "south": "door",
-            "east": "door",
-            "west": "door"
-          },
-          {
-            "type": "inactive",
-            "x": "0",
-            "y": "0",
-            "color": "blue",
-            "north": "door",
-            "south": "door",
-            "east": "door",
-            "west": "door"
-          },
-          {
-            "type": "inactive",
-            "x": "0",
-            "y": "0",
-            "color": "blue",
-            "north": "door",
-            "south": "door",
-            "east": "door",
-            "west": "door"
-          },
-          {
-            "type": "inactive",
-            "x": "0",
-            "y": "0",
-            "color": "blue",
-            "north": "door",
-            "south": "door",
-            "east": "door",
-            "west": "door"
-          },
-          {
-            "type": "inactive",
-            "x": "0",
-            "y": "0",
-            "color": "blue",
-            "north": "door",
-            "south": "door",
-            "east": "door",
-            "west": "door"
-          },
-          {
-            "type": "inactive",
-            "x": "0",
-            "y": "0",
-            "color": "blue",
-            "north": "door",
-            "south": "door",
-            "east": "door",
-            "west": "door"
-          },
-          {
-            "type": "inactive",
-            "x": "0",
-            "y": "0",
-            "color": "blue",
-            "north": "door",
-            "south": "door",
-            "east": "door",
-            "west": "door"
-          }
-        ]
-      },
-      {
-        "id": "0",
-        "type": "BASIC",
-        "squares": [
-          {
-            "type": "inactive",
-            "x": "0",
-            "y": "0",
-            "color": "blue",
-            "north": "door",
-            "south": "door",
-            "east": "door",
-            "west": "door"
-          },
-          {
-            "type": "inactive",
-            "x": "0",
-            "y": "0",
-            "color": "blue",
-            "north": "door",
-            "south": "door",
-            "east": "door",
-            "west": "door"
-          },
-          {
-            "type": "inactive",
-            "x": "0",
-            "y": "0",
-            "color": "blue",
-            "north": "door",
-            "south": "door",
-            "east": "door",
-            "west": "door"
-          },
-          {
-            "type": "inactive",
-            "x": "0",
-            "y": "0",
-            "color": "blue",
-            "north": "door",
-            "south": "door",
-            "east": "door",
-            "west": "door"
-          },
-          {
-            "type": "inactive",
-            "x": "0",
-            "y": "0",
-            "color": "blue",
-            "north": "door",
-            "south": "door",
-            "east": "door",
-            "west": "door"
-          },
-          {
-            "type": "inactive",
-            "x": "0",
-            "y": "0",
-            "color": "blue",
-            "north": "door",
-            "south": "door",
-            "east": "door",
-            "west": "door"
-          },
-          {
-            "type": "inactive",
-            "x": "0",
-            "y": "0",
-            "color": "blue",
-            "north": "door",
-            "south": "door",
-            "east": "door",
-            "west": "door"
-          },
-          {
-            "type": "inactive",
-            "x": "0",
-            "y": "0",
-            "color": "blue",
-            "north": "door",
-            "south": "door",
-            "east": "door",
-            "west": "door"
-          },
-          {
-            "type": "inactive",
-            "x": "0",
-            "y": "0",
-            "color": "blue",
-            "north": "door",
-            "south": "door",
-            "east": "door",
-            "west": "door"
-          },
-          {
-            "type": "inactive",
-            "x": "0",
-            "y": "0",
-            "color": "blue",
-            "north": "door",
-            "south": "door",
-            "east": "door",
-            "west": "door"
-          },
-          {
-            "type": "inactive",
-            "x": "0",
-            "y": "0",
-            "color": "blue",
-            "north": "door",
-            "south": "door",
-            "east": "door",
-            "west": "door"
-          },
-          {
-            "type": "inactive",
-            "x": "0",
-            "y": "0",
-            "color": "blue",
-            "north": "door",
-            "south": "door",
-            "east": "door",
-            "west": "door"
+            "type": "spawn",
+            "x": "2",
+            "y": "3",
+            "color": "yellow",
+            "north": "room",
+            "south": "none",
+            "east": "none",
+            "west": "room"
           }
         ]
       }

@@ -6,12 +6,25 @@ public class GameBoard {
     private static final int ROWS = 3;
     private static final int COLUMNS = 4;
 
+    public GameBoard(BoardType type, Square[][] arena){
+        this.type = type;
+        this.arena = arena;
+    }
+
     public BoardType getType() {
         return type;
     }
 
     public void setType(BoardType type) {
         this.type = type;
+    }
+
+    public Square[][] getArena() {
+        return arena;
+    }
+
+    public void setArena(Square[][] arena) {
+        this.arena = arena;
     }
 
     public boolean canMove(Player player, Direction... directions){
