@@ -1,6 +1,6 @@
 package it.polimi.ingsw.model.cards;
 
-import it.polimi.ingsw.model.Ammo;
+import it.polimi.ingsw.model.gamecomponents.Ammo;
 
 public class AmmoCard {
 

@@ -1,6 +1,6 @@
 package it.polimi.ingsw.model.cards;
 
-import it.polimi.ingsw.model.Color;
+import it.polimi.ingsw.model.gamecomponents.Color;
 
 public abstract class Card {
     private String name;

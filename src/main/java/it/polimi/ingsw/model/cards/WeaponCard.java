@@ -1,6 +1,6 @@
 package it.polimi.ingsw.model.cards;
 
-import it.polimi.ingsw.model.Color;
+import it.polimi.ingsw.model.gamecomponents.Color;
 import it.polimi.ingsw.model.cards.effects.Effect;
 
 import java.util.List;

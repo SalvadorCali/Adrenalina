@@ -1,4 +1,4 @@
-package it.polimi.ingsw.model;
+package it.polimi.ingsw.model.gamecomponents;
 
 import it.polimi.ingsw.model.cards.AmmoCard;
 import it.polimi.ingsw.model.cards.PowerupCard;

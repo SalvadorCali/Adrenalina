@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model;
 
+import it.polimi.ingsw.model.gamecomponents.*;
 import it.polimi.ingsw.util.Parser;
 import org.junit.jupiter.api.Test;
 import java.util.List;

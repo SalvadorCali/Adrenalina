@@ -2,6 +2,8 @@ package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.model.cards.Card;
 import it.polimi.ingsw.model.cards.WeaponCard;
+import it.polimi.ingsw.model.gamecomponents.Color;
+import it.polimi.ingsw.model.gamecomponents.Deck;
 import it.polimi.ingsw.util.Parser;
 import org.junit.Test;
 

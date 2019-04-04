@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model;
 
+import it.polimi.ingsw.model.gamecomponents.*;
 import org.junit.jupiter.api.Test;
 import static org.junit.Assert.*;
 

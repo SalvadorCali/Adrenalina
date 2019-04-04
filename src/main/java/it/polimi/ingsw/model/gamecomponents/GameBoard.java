@@ -1,4 +1,4 @@
-package it.polimi.ingsw.model;
+package it.polimi.ingsw.model.gamecomponents;
 
 public class GameBoard {
     private BoardType type;
