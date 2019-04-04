@@ -41,4 +41,12 @@ public class Player {
     public void setPosition(Position position) {
         this.position = position;
     }
+
+    public PlayerBoard getPlayerBoard() {
+        return playerBoard;
+    }
+
+    public void setPlayerBoard(PlayerBoard playerBoard) {
+        this.playerBoard = playerBoard;
+    }
 }
