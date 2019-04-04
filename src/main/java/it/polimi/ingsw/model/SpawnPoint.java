@@ -8,4 +8,9 @@ public class SpawnPoint extends Square {
     public SpawnPoint(TokenColor color, Cardinal north, Cardinal south, Cardinal west, Cardinal east) {
         super(color, north, south, west, east);
     }
+
+    @Override
+    public Card grab(int choice) {
+        return weapons.get(choice);
+    }
 }

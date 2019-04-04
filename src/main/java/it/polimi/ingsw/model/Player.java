@@ -11,6 +11,11 @@ public class Player {
     private PlayerBoard playerBoard;
     private Position position;
 
+    public Player(TokenColor color){
+        this.color = color;
+        this.position = position;
+    }
+
     public TokenColor getColor() {
         return color;
     }

@@ -56,7 +56,16 @@ public class GameBoard {
             }
         }
 
+        if(moved)
+            move(x,y, player);
+
         return moved;
+
+    }
+
+    public void move(int x, int y, Player player){
+        arena[player.getPosition().getX()][player.getPosition().getY()].moveAway(player);
+        arena[x][y].move(player);
     }
 
 

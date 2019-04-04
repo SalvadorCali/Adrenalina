@@ -1,8 +1,8 @@
 package it.polimi.ingsw.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import static it.polimi.ingsw.model.Direction.LEFT;
 
 public abstract class Square {
     private TokenColor color;
@@ -18,6 +18,7 @@ public abstract class Square {
         this.south = south;
         this.west = west;
         this.east = east;
+        players = new ArrayList<>();
     }
 
 
@@ -53,6 +54,18 @@ public abstract class Square {
         this.east = east;
     }
 
+    public TokenColor getColor() {
+        return color;
+    }
+
+    public void setColor(TokenColor color) {
+        this.color = color;
+    }
+
+    public List<Player> getPlayers(){
+        return players;
+    }
+
     public boolean canMove(Direction direction) {
         switch (direction) {
             case UP:
@@ -68,12 +81,19 @@ public abstract class Square {
         }
     }
 
-
-    public TokenColor getColor() {
-        return color;
+    public void move(Player player) {
+        players.add(player);
     }
 
-    public void setColor(TokenColor color) {
-        this.color = color;
+    public void moveAway(Player player) {
+
+        for(int i = 0 ; i < players.size(); i++){
+            if(players.get(i).getColor().equals(player.getColor()))
+                players.remove(i);
+        }
     }
+
+    public abstract Card grab(int choice);
+
+
 }

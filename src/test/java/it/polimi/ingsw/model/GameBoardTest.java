@@ -10,7 +10,7 @@ import static org.junit.Assert.assertTrue;
 class GameBoardTest {
 
     private List<GameBoard> gameBoards = Parser.createGameBoards();
-    private Player player = new Player();
+    private Player player = new Player(TokenColor.GREEN);
     private Position position = new Position(1,1);
 
     @Test

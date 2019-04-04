@@ -9,6 +9,9 @@ class SquareTest {
     Square square2 = new AmmoPoint(TokenColor.YELLOW, Cardinal.DOOR, Cardinal.ROOM, Cardinal.NONE, Cardinal.WALL);
     Square square3 = new SpawnPoint(TokenColor.GREEN, Cardinal.WALL, Cardinal.NONE, Cardinal.DOOR, Cardinal.ROOM);
     Square square4 = new AmmoPoint(TokenColor.GREY, Cardinal.NONE, Cardinal.WALL, Cardinal.ROOM, Cardinal.DOOR);
+    Position position = new Position(1,1);
+    Player player = new Player(TokenColor.GREY);
+    Player player2 = new Player(TokenColor.YELLOW);
 
     @Test
     void canMoveTest(){
@@ -32,6 +35,26 @@ class SquareTest {
         assertFalse(square4.canMove(Direction.DOWN));
         assertTrue(square4.canMove(Direction.RIGHT));
         assertTrue(square4.canMove(Direction.LEFT));
+
+    }
+
+    @Test
+    void moveTest(){
+
+        player.setPosition(position);
+        square.canMove(Direction.UP);
+        square.move(player);
+        assertTrue(square.getPlayers().contains(player));
+    }
+
+    @Test
+    void moveAwayTest(){
+
+        square.getPlayers().add(player);
+        square.getPlayers().add(player2);
+        square.moveAway(player);
+        assertFalse(square.getPlayers().contains(player));
+        assertTrue(square.getPlayers().contains(player2));
 
     }
 }

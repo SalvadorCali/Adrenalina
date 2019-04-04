@@ -5,4 +5,9 @@ public class AmmoPoint extends Square {
     public AmmoPoint(TokenColor color, Cardinal north, Cardinal south, Cardinal west, Cardinal east) {
         super(color, north, south, west, east);
     }
+
+    @Override
+    public Card grab(int choice) {
+        return ammoCard;
+    }
 }
