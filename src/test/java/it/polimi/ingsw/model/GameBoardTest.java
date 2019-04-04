@@ -15,7 +15,7 @@ class GameBoardTest {
 
     @Test
     void correctSingleMoveTest(){
-        GameBoard gameBoard = gameBoards.get(0);
+        GameBoard gameBoard = gameBoards.get(3);
         player.setPosition(position);
         assertTrue(gameBoard.canMove(player, Direction.DOWN));
     }
@@ -23,7 +23,7 @@ class GameBoardTest {
     @Test
     void correctDoubleMoveTest(){
 
-        GameBoard gameBoard = gameBoards.get(0);
+        GameBoard gameBoard = gameBoards.get(3);
         player.setPosition(position);
         assertTrue(gameBoard.canMove(player, Direction.DOWN, Direction.RIGHT));
     }
@@ -31,7 +31,7 @@ class GameBoardTest {
     @Test
     void correctTripleMoveTest(){
 
-        GameBoard gameBoard = gameBoards.get(0);
+        GameBoard gameBoard = gameBoards.get(3);
         player.setPosition(position);
         assertTrue(gameBoard.canMove(player, Direction.DOWN, Direction.RIGHT,Direction.RIGHT ));
     }
@@ -39,7 +39,7 @@ class GameBoardTest {
     @Test
     void correctQuadrupleMoveTest(){
 
-        GameBoard gameBoard = gameBoards.get(0);
+        GameBoard gameBoard = gameBoards.get(3);
         player.setPosition(position);
         assertTrue(gameBoard.canMove(player, Direction.DOWN, Direction.RIGHT,Direction.RIGHT, Direction.UP ));
     }
@@ -47,7 +47,7 @@ class GameBoardTest {
     @Test
     void firstMoveErrorTest(){
 
-        GameBoard gameBoard = gameBoards.get(0);
+        GameBoard gameBoard = gameBoards.get(3);
         player.setPosition(position);
         assertFalse(gameBoard.canMove(player, Direction.RIGHT));
     }
@@ -55,7 +55,7 @@ class GameBoardTest {
     @Test
     void doubleMoveErrorTest(){
 
-        GameBoard gameBoard = gameBoards.get(0);
+        GameBoard gameBoard = gameBoards.get(3);
         player.setPosition(position);
         assertFalse(gameBoard.canMove(player, Direction.DOWN, Direction.DOWN));
     }
@@ -63,7 +63,7 @@ class GameBoardTest {
     @Test
     void tripleMoveErrorTest(){
 
-        GameBoard gameBoard = gameBoards.get(0);
+        GameBoard gameBoard = gameBoards.get(3);
         player.setPosition(position);
         assertFalse(gameBoard.canMove(player, Direction.DOWN, Direction.RIGHT, Direction.DOWN));
     }
@@ -71,7 +71,7 @@ class GameBoardTest {
     @Test
     void quadrupleMoveErrorTest(){
 
-        GameBoard gameBoard = gameBoards.get(0);
+        GameBoard gameBoard = gameBoards.get(3);
         player.setPosition(position);
         assertFalse(gameBoard.canMove(player, Direction.DOWN, Direction.RIGHT, Direction.UP,Direction.LEFT));
     }

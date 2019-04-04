@@ -83,20 +83,24 @@ public class Parser {
         BoardType boardType;
         TokenColor color;
         Cardinal north, south, east, west;
-        Square[][] arena = new Square[3][4];
+        //Square[][] arena = new Square[3][4];
+
+        InputStream input = Parser.class.getClassLoader().getResourceAsStream("gameboard.json");
+        Object reader = null;
+        try {
+            reader = new JSONParser().parse(new InputStreamReader(input));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        JSONObject firstObject = (JSONObject) reader;
+        firstObject = (JSONObject)firstObject.get("gameboard");
+        JSONArray firstArray = (JSONArray) firstObject.get("elements");
+
+
         for(int i=0; i < 4; i++){
-            InputStream input = Parser.class.getClassLoader().getResourceAsStream("gameboard.json");
-            Object reader = null;
-            try {
-                reader = new JSONParser().parse(new InputStreamReader(input));
-            } catch (ParseException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            JSONObject firstObject = (JSONObject) reader;
-            firstObject = (JSONObject)firstObject.get("gameboard");
-            JSONArray firstArray = (JSONArray) firstObject.get("elements");
+            Square[][] arena = new Square[3][4];
             JSONObject secondObject = (JSONObject) firstArray.get(i);
             boardType = castStringToBoardType((String) secondObject.get("type"));
             JSONArray secondArray = (JSONArray) secondObject.get("squares");
@@ -124,8 +128,25 @@ public class Parser {
                     l++;
                 }
             }
+            /*
+            for(int j = 0; j<3; j++){
+                for(int k=0; k<4; k++){
+                    System.out.println(arena[j][k].getColor());
+                }
+            }
+            */
             gameBoards.add(new GameBoard(boardType, arena));
+            //System.out.println(gameBoards.get(i).getType());
         }
+/*
+        for(int i = 0; i<4; i++){
+            for(int j = 0; j<3; j++){
+                for(int k=0; k<4; k++){
+                    System.out.println(gameBoards.get(i).getArena()[j][k].getColor());
+                }
+            }
+        }
+        */
         return gameBoards;
     }
 
