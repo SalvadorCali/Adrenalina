@@ -1,6 +1,9 @@
 package it.polimi.ingsw.util;
 
 import it.polimi.ingsw.model.*;
+import it.polimi.ingsw.model.cards.Card;
+import it.polimi.ingsw.model.cards.PowerupCard;
+import it.polimi.ingsw.model.cards.WeaponCard;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;

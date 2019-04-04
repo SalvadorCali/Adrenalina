@@ -1,5 +1,7 @@
 package it.polimi.ingsw.model;
 
+import it.polimi.ingsw.model.cards.Card;
+
 import java.util.List;
 
 public class SpawnPoint extends Square {
@@ -10,7 +12,7 @@ public class SpawnPoint extends Square {
     }
 
     @Override
-    public Card grab(int choice) {
-        return weapons.get(choice);
+    public void grab(Player player, int choice) {
+
     }
 }

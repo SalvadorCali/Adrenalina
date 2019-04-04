@@ -1,6 +1,9 @@
 package it.polimi.ingsw.model;
 
-public class PowerAmmo extends AmmoCard{
+import it.polimi.ingsw.model.cards.AmmoCard;
+import it.polimi.ingsw.model.cards.PowerupCard;
+
+public class PowerAmmo extends AmmoCard {
 
     private PowerupCard powerup;
 

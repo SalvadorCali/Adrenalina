@@ -1,6 +1,8 @@
 package it.polimi.ingsw.model;
 
-public class ThirdAmmo extends AmmoCard{
+import it.polimi.ingsw.model.cards.AmmoCard;
+
+public class ThirdAmmo extends AmmoCard {
 
     private Ammo thirdAmmo;
 

@@ -93,7 +93,7 @@ public abstract class Square {
         }
     }
 
-    public abstract Card grab(int choice);
+    public abstract void grab(Player player, int choice);
 
 
 }
