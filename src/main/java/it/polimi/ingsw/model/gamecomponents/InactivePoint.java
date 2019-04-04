@@ -8,7 +8,7 @@ public class InactivePoint extends Square {
     }
 
     @Override
-    public Card grab(int choice) {
-        return null;
+    public void grab(Player player, int choice) {
     }
+
 }

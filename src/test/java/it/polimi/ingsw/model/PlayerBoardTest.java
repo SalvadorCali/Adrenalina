@@ -2,6 +2,8 @@ package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.model.gamecomponents.AdrenalineZone;
 import it.polimi.ingsw.model.gamecomponents.PlayerBoard;
+import it.polimi.ingsw.model.gamecomponents.Token;
+import it.polimi.ingsw.model.gamecomponents.TokenColor;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
