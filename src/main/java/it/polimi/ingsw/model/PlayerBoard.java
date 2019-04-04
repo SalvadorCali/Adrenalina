@@ -7,11 +7,17 @@ public class PlayerBoard {
     private int deathNumber;
     private List<Token> revengeMarks;
 
+    //getters and setters
     public int getDeathNumber() {
         return deathNumber;
     }
 
     public void setDeathNumber(int deathNumber) {
         this.deathNumber = deathNumber;
+    }
+
+    //methods
+    public void addRevengeMarks(){
+
     }
 }

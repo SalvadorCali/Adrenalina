@@ -5,6 +5,18 @@ public class Token {
     private TokenColor secondColor;
     private boolean overkill;
 
+    public Token(TokenColor firstColor){
+        this.firstColor = firstColor;
+        this.secondColor = TokenColor.NONE;
+        this.overkill = false;
+    }
+
+    public Token(TokenColor firstColor, TokenColor secondColor){
+        this.firstColor = firstColor;
+        this.secondColor = secondColor;
+        this.overkill = true;
+    }
+
     public TokenColor getFirstColor() {
         return firstColor;
     }

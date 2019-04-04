@@ -62,6 +62,8 @@ public class Game {
         this.finalFrenzy = finalFrenzy;
     }
 
+    //methods
+
     public void endTurn(){
     }
 
@@ -69,6 +71,6 @@ public class Game {
          return getBoard().canMove(getCurrentPlayer(), directions);
     }
 
-    //methods
+
 
 }
