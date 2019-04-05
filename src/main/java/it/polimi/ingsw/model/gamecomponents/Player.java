@@ -49,4 +49,20 @@ public class Player {
     public void setPlayerBoard(PlayerBoard playerBoard) {
         this.playerBoard = playerBoard;
     }
+
+    public List<Ammo> getAmmoBox() {
+        return ammoBox;
+    }
+
+    public List<Ammo> getAmmoReserve() {
+        return ammoReserve;
+    }
+
+    public List<Card> getWeapons() {
+        return weapons;
+    }
+
+    public void setWeapons(List<Card> weapons) {
+        this.weapons = weapons;
+    }
 }

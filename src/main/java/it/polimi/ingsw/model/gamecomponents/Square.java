@@ -5,15 +5,16 @@ import java.util.List;
 
 
 public abstract class Square {
-    private TokenColor color;
+    private TokenColor tokenColor;
     private Cardinal north;
     private Cardinal south;
     private Cardinal west;
     private Cardinal east;
     private List<Player> players;
+    private Color color;
 
-    public Square(TokenColor color, Cardinal north, Cardinal south, Cardinal west, Cardinal east){
-        this.color = color;
+    public Square(TokenColor tokenColor, Cardinal north, Cardinal south, Cardinal west, Cardinal east){
+        this.tokenColor = tokenColor;
         this.north = north;
         this.south = south;
         this.west = west;
@@ -54,12 +55,16 @@ public abstract class Square {
         this.east = east;
     }
 
-    public TokenColor getColor() {
+    public Color getColor() {
         return color;
     }
 
-    public void setColor(TokenColor color) {
+    public void setColor(Color color) {
         this.color = color;
+    }
+
+    public void setTokenColor(TokenColor color) {
+        this.tokenColor = tokenColor;
     }
 
     public List<Player> getPlayers(){
