@@ -1,4 +1,4 @@
-package it.polimi.ingsw.model.gamecomponents;
+package it.polimi.ingsw.model.enums;
 
 public enum Direction {
     UP, DOWN, RIGHT, LEFT;

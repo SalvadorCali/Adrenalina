@@ -1,29 +1,28 @@
 package it.polimi.ingsw.model.gamecomponents;
 
-import it.polimi.ingsw.model.cards.Card;
+import it.polimi.ingsw.model.cards.WeaponCard;
+import it.polimi.ingsw.model.enums.Cardinal;
+import it.polimi.ingsw.model.enums.TokenColor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class SpawnPoint extends Square {
 
-    private List<Card> weapons;
+    private List<WeaponCard> weapons;
 
     public SpawnPoint(TokenColor color, Cardinal north, Cardinal south, Cardinal west, Cardinal east) {
         super(color, north, south, west, east);
+        weapons = new ArrayList<>();
     }
 
     @Override
     public void grab(Player player, int choice) {
-
+        player.addWeapon(weapons.get(choice));
     }
 
-    public List<Card> getWeapons() {
+    public List<WeaponCard> getWeapons() {
         return weapons;
-    }
-
-    @Override
-    public Color getColor() {
-        return super.getColor();
     }
 
     public void spawn(Player player){

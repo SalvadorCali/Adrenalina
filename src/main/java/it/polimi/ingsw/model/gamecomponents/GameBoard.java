@@ -1,5 +1,8 @@
 package it.polimi.ingsw.model.gamecomponents;
 
+import it.polimi.ingsw.model.enums.BoardType;
+import it.polimi.ingsw.model.enums.Direction;
+
 public class GameBoard {
     private BoardType type;
     private Square[][] arena;

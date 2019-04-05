@@ -1,5 +1,8 @@
 package it.polimi.ingsw.model.gamecomponents;
 
+import it.polimi.ingsw.model.enums.AdrenalineZone;
+import it.polimi.ingsw.model.enums.TokenColor;
+
 import java.util.ArrayList;
 import java.util.List;
 

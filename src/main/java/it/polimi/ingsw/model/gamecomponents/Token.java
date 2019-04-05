@@ -1,5 +1,7 @@
 package it.polimi.ingsw.model.gamecomponents;
 
+import it.polimi.ingsw.model.enums.TokenColor;
+
 public class Token {
     private TokenColor firstColor;
     private TokenColor secondColor;

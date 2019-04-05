@@ -1,5 +1,7 @@
 package it.polimi.ingsw.model.gamecomponents;
 
+import it.polimi.ingsw.model.enums.Direction;
+
 import java.util.List;
 
 public class Game {

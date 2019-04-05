@@ -5,10 +5,15 @@ import it.polimi.ingsw.model.cards.PowerupCard;
 
 public class PowerUpAmmo extends AmmoCard {
 
-    private PowerupCard powerup;
+    private PowerupCard powerupCard;
 
-    public PowerupCard getPowerup() {
-        return powerup;
+    public PowerUpAmmo(Ammo firstAmmo, Ammo secondAmmo) {
+        super(firstAmmo, secondAmmo);
+        setPowerup(true);
+    }
+
+    public PowerupCard getPowerupCard() {
+        return powerupCard;
     }
     
 }

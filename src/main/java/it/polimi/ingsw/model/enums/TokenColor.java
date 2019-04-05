@@ -1,4 +1,4 @@
-package it.polimi.ingsw.model.gamecomponents;
+package it.polimi.ingsw.model.enums;
 
 public enum TokenColor {
     NONE,

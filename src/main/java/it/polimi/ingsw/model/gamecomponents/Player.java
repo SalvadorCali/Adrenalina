@@ -1,14 +1,21 @@
 package it.polimi.ingsw.model.gamecomponents;
 
 import it.polimi.ingsw.model.cards.Card;
+import it.polimi.ingsw.model.cards.WeaponCard;
+import it.polimi.ingsw.model.enums.Color;
+import it.polimi.ingsw.model.enums.TokenColor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Player {
     private TokenColor color;
     private int score;
-    private List<Card> weapons;
+    private List<WeaponCard> weapons;
     private List<Ammo> ammoBox;
+    private int yellowAmmo;
+    private int blueAmmo;
+    private int redAmmo;
     private List<Ammo> ammoReserve;
     private PlayerBoard playerBoard;
     private Position position;
@@ -16,6 +23,7 @@ public class Player {
     public Player(TokenColor color){
         this.color = color;
         this.position = position;
+        weapons = new ArrayList<>();
     }
 
     public TokenColor getColor() {
@@ -58,11 +66,54 @@ public class Player {
         return ammoReserve;
     }
 
-    public List<Card> getWeapons() {
+    public List<WeaponCard> getWeapons() {
         return weapons;
     }
 
-    public void setWeapons(List<Card> weapons) {
+    public void setWeapons(List<WeaponCard> weapons) {
         this.weapons = weapons;
+    }
+
+    //methods
+    public void addWeapon(WeaponCard weapon){
+        weapons.add(weapon);
+    }
+
+    public void addAmmo(Ammo...ammos){
+        for(Ammo ammo : ammos){
+            if(canAddAmmo(ammo.getColor())){
+                ammoBox.add(ammo);
+                increaseAmmoNumber(ammo.getColor());
+            }
+        }
+    }
+
+    public boolean canAddAmmo(Color color){
+        switch (color){
+            case BLUE:
+                return (blueAmmo < 3);
+            case RED:
+                return (redAmmo < 3);
+            case YELLOW:
+                return (yellowAmmo < 3);
+            default:
+                return false;
+        }
+    }
+
+    public void increaseAmmoNumber(Color color){
+        switch (color){
+            case BLUE:
+                blueAmmo++;
+                break;
+            case RED:
+                redAmmo++;
+                break;
+            case YELLOW:
+                yellowAmmo++;
+                break;
+            default:
+                break;
+        }
     }
 }

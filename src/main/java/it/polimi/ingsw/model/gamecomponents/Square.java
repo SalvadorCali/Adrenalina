@@ -1,5 +1,10 @@
 package it.polimi.ingsw.model.gamecomponents;
 
+import it.polimi.ingsw.model.enums.Cardinal;
+import it.polimi.ingsw.model.enums.Color;
+import it.polimi.ingsw.model.enums.Direction;
+import it.polimi.ingsw.model.enums.TokenColor;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -63,7 +68,7 @@ public abstract class Square {
         this.color = color;
     }
 
-    public void setTokenColor(TokenColor color) {
+    public void setTokenColor(TokenColor tokenColor) {
         this.tokenColor = tokenColor;
     }
 
