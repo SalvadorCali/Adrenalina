@@ -2,6 +2,7 @@ package it.polimi.ingsw.model.cards.effects.weapons;
 
 import it.polimi.ingsw.model.cards.effects.ActionInterface;
 import it.polimi.ingsw.model.enums.TokenColor;
+import it.polimi.ingsw.model.gamecomponents.Player;
 
 public class DamageMarkEffect extends BasicEffect {
 
@@ -9,7 +10,7 @@ public class DamageMarkEffect extends BasicEffect {
 
     private int markPower;
 
-    private int distanceLimit;
+    private int distanceLimit; //need to separate move() and canMove() in GameBoard 
 
     public DamageMarkEffect(int damagePower, int markPower, int distanceLimit){
 
@@ -19,9 +20,13 @@ public class DamageMarkEffect extends BasicEffect {
     }
 
     @Override
-    public boolean canUseEffect(ActionInterface actionInterface) {
-        return false;
+    public boolean canUseEffect(ActionInterface actionInterface){
+
+        return actionInterface.isVisible(TokenColor.BLUE);
     }
+
+
+
 
     @Override
     public void useEffect(ActionInterface actionInterface) {

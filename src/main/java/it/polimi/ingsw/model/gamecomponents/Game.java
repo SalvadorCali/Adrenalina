@@ -83,6 +83,11 @@ public class Game {
         return null;
     }
 
+    public boolean isVisible(Player victim){
+
+        return getBoard().isVisible(getCurrentPlayer(), victim);
+    }
+
 
 
 }

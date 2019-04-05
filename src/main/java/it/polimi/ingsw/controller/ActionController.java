@@ -24,5 +24,11 @@ public class ActionController implements ActionInterface {
 
     }
 
+    @Override
+    public boolean isVisible(TokenColor color) {
+
+        return game.isVisible(game.findPlayer(color));
+    }
+
 }
 

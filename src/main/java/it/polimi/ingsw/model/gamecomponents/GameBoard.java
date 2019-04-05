@@ -1,6 +1,7 @@
 package it.polimi.ingsw.model.gamecomponents;
 
 import it.polimi.ingsw.model.enums.BoardType;
+import it.polimi.ingsw.model.enums.Cardinal;
 import it.polimi.ingsw.model.enums.Direction;
 
 public class GameBoard {
@@ -70,6 +71,45 @@ public class GameBoard {
         arena[player.getPosition().getX()][player.getPosition().getY()].moveAway(player);
         arena[x][y].move(player);
     }
+
+    public boolean isVisible(Player shooter, Player victim) {
+
+        int x = shooter.getPosition().getX();
+        int y = shooter.getPosition().getY();
+        int x_2 = victim.getPosition().getX();
+        int y_2 = victim.getPosition().getY();
+
+        return (sameRoom(x, y, x_2, y_2) || throughDoor(x, y, x_2, y_2));
+    }
+
+    private boolean sameRoom(int x, int y, int x_2, int y_2){
+
+        return (getArena()[x][y].getColor().equals(getArena()[x_2][y_2].getColor()));
+
+    }
+
+    private boolean throughDoor(int x, int y, int x_2, int y_2){
+
+        if(arena[x][y].getNorth().equals(Cardinal.DOOR))
+            if (sameRoom(x - 1, y, x_2, y_2))
+                return true;
+
+        if(arena[x][y].getSouth().equals(Cardinal.DOOR))
+            if (sameRoom(x + 1, y, x_2, y_2))
+                return true;
+
+        if(arena[x][y].getEast().equals(Cardinal.DOOR))
+            if (sameRoom(x, y + 1, x_2, y_2))
+                return true;
+
+        if(arena[x][y].getSouth().equals(Cardinal.DOOR))
+            if (sameRoom(x, y - 1, x_2, y_2))
+                return true;
+
+        return false;
+    }
+
+
 
 
 }
