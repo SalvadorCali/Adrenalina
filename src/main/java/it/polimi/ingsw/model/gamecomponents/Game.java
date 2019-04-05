@@ -1,6 +1,8 @@
 package it.polimi.ingsw.model.gamecomponents;
 
+import it.polimi.ingsw.model.enums.Color;
 import it.polimi.ingsw.model.enums.Direction;
+import it.polimi.ingsw.model.enums.TokenColor;
 
 import java.util.List;
 
@@ -71,6 +73,14 @@ public class Game {
 
     public boolean move(Direction...directions){
          return getBoard().canMove(getCurrentPlayer(), directions);
+    }
+
+    public Player findPlayer(TokenColor color){
+        for(Player player: players)
+            if(player.getColor().equals(color))
+                return player;
+
+        return null;
     }
 
 
