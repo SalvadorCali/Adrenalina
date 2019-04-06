@@ -15,6 +15,7 @@ class GameBoardTest {
     private List<GameBoard> gameBoards = Parser.createGameBoards();
     private Player player = new Player(TokenColor.GREEN);
     private Position position = new Position(1,1);
+    private Player victim = new Player(TokenColor.GREY);
 
     @Test
     void correctSingleMoveTest(){
@@ -77,5 +78,38 @@ class GameBoardTest {
         GameBoard gameBoard = gameBoards.get(3);
         player.setPosition(position);
         assertFalse(gameBoard.canMove(player, Direction.DOWN, Direction.RIGHT, Direction.UP,Direction.LEFT));
+    }
+
+    @Test
+    void isVisibleSameRoomTest(){
+        GameBoard gameBoard = gameBoards.get(0);
+        player.setPosition(position);
+        victim.setPosition(position);
+        assertTrue(gameBoard.isVisible(player, victim));
+    }
+
+    @Test
+    void isVisibleThroughDoorTest(){
+        GameBoard gameBoard = gameBoards.get(0);
+        player.setPosition(position);
+        victim.setPosition(new Position(2, 2));
+        assertTrue(gameBoard.isVisible(player, victim));
+
+        player.setPosition(new Position(0,0));
+        victim.setPosition(new Position(2, 3));
+        assertFalse(gameBoard.isVisible(player, victim));
+    }
+
+    @Test
+    void isVisibleErrorTest(){
+        GameBoard gameBoard = gameBoards.get(0);
+        player.setPosition(position);
+        Position victimPosition = new Position(0, 0);
+        victim.setPosition(victimPosition);
+        assertFalse(gameBoard.isVisible(player, victim));
+
+        player.setPosition(new Position(0,0));
+        victim.setPosition(new Position(2, 3));
+        assertFalse(gameBoard.isVisible(player, victim));
     }
 }

@@ -102,7 +102,7 @@ public class GameBoard {
             if (sameRoom(x, y + 1, x_2, y_2))
                 return true;
 
-        if(arena[x][y].getSouth().equals(Cardinal.DOOR))
+        if(arena[x][y].getWest().equals(Cardinal.DOOR))
             if (sameRoom(x, y - 1, x_2, y_2))
                 return true;
 
