@@ -22,9 +22,4 @@ public class AppTest
     {
         assertTrue( true );
     }
-
-    @Test
-    public void test(){
-        List<AmmoCard> ammos = Parser.createAmmos();
-    }
 }

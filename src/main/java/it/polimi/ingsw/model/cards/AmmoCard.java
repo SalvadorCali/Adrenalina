@@ -33,7 +33,7 @@ public class AmmoCard {
     }
 
     public Ammo getThirdAmmo() {
-        return secondAmmo;
+        return thirdAmmo;
     }
 
     public boolean isPowerup() {

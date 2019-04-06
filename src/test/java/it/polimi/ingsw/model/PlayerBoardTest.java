@@ -4,7 +4,7 @@ import it.polimi.ingsw.model.enums.AdrenalineZone;
 import it.polimi.ingsw.model.gamecomponents.PlayerBoard;
 import it.polimi.ingsw.model.gamecomponents.Token;
 import it.polimi.ingsw.model.enums.TokenColor;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import static org.junit.Assert.*;
 
 public class PlayerBoardTest {

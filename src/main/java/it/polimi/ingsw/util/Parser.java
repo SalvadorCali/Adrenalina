@@ -123,7 +123,6 @@ public class Parser {
         BoardType boardType;
         TokenColor color;
         Cardinal north, south, east, west;
-        //Square[][] arena = new Square[3][4];
 
         InputStream input = Parser.class.getClassLoader().getResourceAsStream("gameboard.json");
         Object reader = null;
@@ -168,25 +167,8 @@ public class Parser {
                     l++;
                 }
             }
-            /*
-            for(int j = 0; j<3; j++){
-                for(int k=0; k<4; k++){
-                    System.out.println(arena[j][k].getColor());
-                }
-            }
-            */
             gameBoards.add(new GameBoard(boardType, arena));
-            //System.out.println(gameBoards.get(i).getType());
         }
-/*
-        for(int i = 0; i<4; i++){
-            for(int j = 0; j<3; j++){
-                for(int k=0; k<4; k++){
-                    System.out.println(gameBoards.get(i).getArena()[j][k].getColor());
-                }
-            }
-        }
-        */
         return gameBoards;
     }
 

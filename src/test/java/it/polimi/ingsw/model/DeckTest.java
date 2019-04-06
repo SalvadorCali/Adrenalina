@@ -5,7 +5,7 @@ import it.polimi.ingsw.model.cards.WeaponCard;
 import it.polimi.ingsw.model.enums.Color;
 import it.polimi.ingsw.model.gamecomponents.Deck;
 import it.polimi.ingsw.util.Parser;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static org.junit.Assert.*;
 

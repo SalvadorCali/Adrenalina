@@ -26,6 +26,11 @@ public class Player {
         this.color = color;
         weapons = new ArrayList<>();
         powerups = new ArrayList<>();
+        ammoBox = new ArrayList<>();
+        ammoReserve = new ArrayList<>();
+        yellowAmmo = 0;
+        blueAmmo = 0;
+        redAmmo = 0;
     }
 
     public TokenColor getColor() {
@@ -66,6 +71,10 @@ public class Player {
 
     public List<Ammo> getAmmoReserve() {
         return ammoReserve;
+    }
+
+    public List<PowerupCard> getPowerups() {
+        return powerups;
     }
 
     public List<WeaponCard> getWeapons() {
