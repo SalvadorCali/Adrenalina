@@ -2,6 +2,7 @@ package it.polimi.ingsw.model.gamecomponents;
 
 import it.polimi.ingsw.model.cards.AmmoCard;
 import it.polimi.ingsw.model.cards.Card;
+import it.polimi.ingsw.model.cards.effects.ActionInterface;
 import it.polimi.ingsw.model.enums.Cardinal;
 import it.polimi.ingsw.model.enums.TokenColor;
 
@@ -20,14 +21,13 @@ public class AmmoPoint extends Square {
     }
 
     @Override
-    public void grab(Player player, int choice) {
+    public void grab(ActionInterface actionInterface, int choice) {
         if(ammoCard.isPowerup()){
-            player.addAmmo(ammoCard.getFirstAmmo(), ammoCard.getSecondAmmo());
+            actionInterface.addAmmo(ammoCard.getFirstAmmo(), ammoCard.getSecondAmmo());
+            actionInterface.addPowerup();
         }
-        /*
         else{
-            player.addAmmo(ammoCard.getFirstAmmo(), ammoCard.getSecondAmmo(), ammoCard.getThird);
+            actionInterface.addAmmo(ammoCard.getFirstAmmo(), ammoCard.getSecondAmmo(), ammoCard.getThirdAmmo());
         }
-        */
     }
 }

@@ -16,6 +16,10 @@ public class Game {
     private Deck ammo;
     private boolean finalFrenzy;
 
+    public Deck getDeck(){
+        return powerup;
+    }
+
     //getters and setters
 
     public GameBoard getBoard() {

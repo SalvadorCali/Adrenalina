@@ -1,6 +1,7 @@
 package it.polimi.ingsw.model.gamecomponents;
 
 import it.polimi.ingsw.model.cards.Card;
+import it.polimi.ingsw.model.cards.PowerupCard;
 import it.polimi.ingsw.model.cards.WeaponCard;
 import it.polimi.ingsw.model.enums.Color;
 import it.polimi.ingsw.model.enums.TokenColor;
@@ -12,6 +13,7 @@ public class Player {
     private TokenColor color;
     private int score;
     private List<WeaponCard> weapons;
+    private List<PowerupCard> powerups;
     private List<Ammo> ammoBox;
     private int yellowAmmo;
     private int blueAmmo;
@@ -22,8 +24,8 @@ public class Player {
 
     public Player(TokenColor color){
         this.color = color;
-        this.position = position;
         weapons = new ArrayList<>();
+        powerups = new ArrayList<>();
     }
 
     public TokenColor getColor() {
@@ -77,6 +79,10 @@ public class Player {
     //methods
     public void addWeapon(WeaponCard weapon){
         weapons.add(weapon);
+    }
+
+    public void addPowerup(PowerupCard powerup){
+        powerups.add(powerup);
     }
 
     public void addAmmo(Ammo...ammos){

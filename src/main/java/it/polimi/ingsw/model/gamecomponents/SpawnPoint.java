@@ -1,6 +1,7 @@
 package it.polimi.ingsw.model.gamecomponents;
 
 import it.polimi.ingsw.model.cards.WeaponCard;
+import it.polimi.ingsw.model.cards.effects.ActionInterface;
 import it.polimi.ingsw.model.enums.Cardinal;
 import it.polimi.ingsw.model.enums.TokenColor;
 
@@ -17,8 +18,8 @@ public class SpawnPoint extends Square {
     }
 
     @Override
-    public void grab(Player player, int choice) {
-        player.addWeapon(weapons.get(choice));
+    public void grab(ActionInterface actionInterface, int choice) {
+        actionInterface.addWeapon(weapons.get(choice));
     }
 
     public List<WeaponCard> getWeapons() {

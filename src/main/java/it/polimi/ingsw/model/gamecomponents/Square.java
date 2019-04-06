@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model.gamecomponents;
 
+import it.polimi.ingsw.model.cards.effects.ActionInterface;
 import it.polimi.ingsw.model.enums.Cardinal;
 import it.polimi.ingsw.model.enums.Color;
 import it.polimi.ingsw.model.enums.Direction;
@@ -103,7 +104,7 @@ public abstract class Square {
         }
     }
 
-    public abstract void grab(Player player, int choice);
+    public abstract void grab(ActionInterface actionInterface, int choice);
 
 
 }

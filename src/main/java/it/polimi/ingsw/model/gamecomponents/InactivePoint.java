@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model.gamecomponents;
 
+import it.polimi.ingsw.model.cards.effects.ActionInterface;
 import it.polimi.ingsw.model.enums.Cardinal;
 import it.polimi.ingsw.model.enums.TokenColor;
 
@@ -9,7 +10,7 @@ public class InactivePoint extends Square {
     }
 
     @Override
-    public void grab(Player player, int choice) {
+    public void grab(ActionInterface actionInterface, int choice) {
     }
 
 }
