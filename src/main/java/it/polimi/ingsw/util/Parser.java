@@ -35,9 +35,9 @@ public class Parser {
             try {
                 reader = new JSONParser().parse(new InputStreamReader(input));
             } catch (ParseException e) {
-                e.printStackTrace();
+                Printer.err(e);
             } catch (IOException e) {
-                e.printStackTrace();
+                Printer.err(e);
             }
             JSONObject firstObject = (JSONObject) reader;
             firstObject = (JSONObject)firstObject.get("cardconfig");
@@ -65,9 +65,9 @@ public class Parser {
             try {
                 reader = new JSONParser().parse(new InputStreamReader(input));
             } catch (ParseException e) {
-                e.printStackTrace();
+                Printer.err(e);
             } catch (IOException e) {
-                e.printStackTrace();
+                Printer.err(e);
             }
             JSONObject firstObject = (JSONObject) reader;
             firstObject = (JSONObject) firstObject.get("cardconfig");
@@ -95,9 +95,9 @@ public class Parser {
             try {
                 reader = new JSONParser().parse(new InputStreamReader(input));
             } catch (ParseException e) {
-                e.printStackTrace();
+                Printer.err(e);
             } catch (IOException e) {
-                e.printStackTrace();
+                Printer.err(e);
             }
             JSONObject firstObject = (JSONObject) reader;
             firstObject = (JSONObject)firstObject.get("cardconfig");
@@ -129,9 +129,9 @@ public class Parser {
         try {
             reader = new JSONParser().parse(new InputStreamReader(input));
         } catch (ParseException e) {
-            e.printStackTrace();
+            Printer.err(e);
         } catch (IOException e) {
-            e.printStackTrace();
+            Printer.err(e);
         }
         JSONObject firstObject = (JSONObject) reader;
         firstObject = (JSONObject)firstObject.get("gameboard");

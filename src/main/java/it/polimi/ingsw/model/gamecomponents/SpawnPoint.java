@@ -17,13 +17,16 @@ public class SpawnPoint extends Square {
         weapons = new ArrayList<>();
     }
 
+    //getters and setters
+    public List<WeaponCard> getWeapons() {
+        return weapons;
+    }
+
+    //methods
+    //public void addWeapons
     @Override
     public void grab(ActionInterface actionInterface, int choice) {
         actionInterface.addWeapon(weapons.get(choice));
-    }
-
-    public List<WeaponCard> getWeapons() {
-        return weapons;
     }
 
     public void spawn(Player player){

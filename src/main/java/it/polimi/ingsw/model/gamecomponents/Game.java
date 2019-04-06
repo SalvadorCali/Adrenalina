@@ -4,7 +4,9 @@ import it.polimi.ingsw.model.cards.AmmoCard;
 import it.polimi.ingsw.model.enums.Color;
 import it.polimi.ingsw.model.enums.Direction;
 import it.polimi.ingsw.model.enums.TokenColor;
+import it.polimi.ingsw.util.Parser;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Game {
@@ -13,12 +15,18 @@ public class Game {
     private List<Player> players;
     private List<Token> killshotTrack;
     private Deck weapons;
-    private Deck powerup;
+    private Deck powerups;
     private List<AmmoCard> ammos;
     private boolean finalFrenzy;
 
-    public Deck getDeck(){
-        return powerup;
+    public Game(GameBoard board, Deck weapons, Deck powerups, List<AmmoCard> ammos){
+        this.board = board;
+        players = new ArrayList<>();
+        killshotTrack = new ArrayList<>();
+        this.weapons = weapons;
+        this.powerups = powerups;
+        this.ammos = ammos;
+        finalFrenzy = false;
     }
 
     //getters and setters
@@ -48,11 +56,11 @@ public class Game {
     }
 
     public Deck getPowerup() {
-        return powerup;
+        return powerups;
     }
 
-    public void setPowerup(Deck powerup) {
-        this.powerup = powerup;
+    public void setPowerup(Deck powerups) {
+        this.powerups = powerups;
     }
 
     public boolean isFinalFrenzy() {

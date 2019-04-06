@@ -7,7 +7,9 @@ import it.polimi.ingsw.model.gamecomponents.Ammo;
 import it.polimi.ingsw.model.gamecomponents.Game;
 
 public class ActionController implements ActionInterface {
-
+    public ActionController(Game game){
+        this.game = game;
+    }
 
     private Game game;
 
