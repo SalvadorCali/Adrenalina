@@ -95,9 +95,9 @@ class GameBoardTest {
         victim.setPosition(new Position(2, 2));
         assertTrue(gameBoard.isVisible(player, victim));
 
-        player.setPosition(new Position(0,0));
-        victim.setPosition(new Position(2, 3));
-        assertFalse(gameBoard.isVisible(player, victim));
+        player.setPosition(new Position(1,0));
+        victim.setPosition(new Position(2, 2));
+        assertTrue(gameBoard.isVisible(player, victim));
     }
 
     @Test
