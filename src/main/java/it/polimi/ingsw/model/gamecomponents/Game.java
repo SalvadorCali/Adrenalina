@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model.gamecomponents;
 
+import it.polimi.ingsw.model.cards.AmmoCard;
 import it.polimi.ingsw.model.enums.Color;
 import it.polimi.ingsw.model.enums.Direction;
 import it.polimi.ingsw.model.enums.TokenColor;
@@ -13,7 +14,7 @@ public class Game {
     private List<Token> killshotTrack;
     private Deck weapons;
     private Deck powerup;
-    private Deck ammo;
+    private List<AmmoCard> ammos;
     private boolean finalFrenzy;
 
     public Deck getDeck(){
@@ -52,14 +53,6 @@ public class Game {
 
     public void setPowerup(Deck powerup) {
         this.powerup = powerup;
-    }
-
-    public Deck getAmmo() {
-        return ammo;
-    }
-
-    public void setAmmo(Deck ammo) {
-        this.ammo = ammo;
     }
 
     public boolean isFinalFrenzy() {

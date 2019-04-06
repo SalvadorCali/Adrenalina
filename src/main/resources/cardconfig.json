@@ -207,31 +207,27 @@
             "value" : "BRR",
             "num_card" : 3
           },
-          {"id" : "6A","name" : "Yellow_Blue_Blue",
-            "value": "YBB",
-            "num_card" : 3
-          },
-          {"id" : "7A","name" : "Pu_Red_Red",
+          {"id" : "6A","name" : "Pu_Red_Red",
             "value" : "PRR",
             "num_card" : 3
           },
-          {"id" : "8A","name" : "Pu_Blue_Blue",
+          {"id" : "7A","name" : "Pu_Blue_Blue",
             "value" : "PBB",
             "num_card" : 3
           },
-          {"id" : "9A","name" : "Pu_Yellow_Yellow",
+          {"id" : "8A","name" : "Pu_Yellow_Yellow",
             "value" : "PYY",
             "num_card" : 3
           },
-          {"id" : "10A","name" : "Pu_Red_Blue",
+          {"id" : "9A","name" : "Pu_Red_Blue",
             "value" : "PRB",
             "num_card" : 3
           },
-          {"id" : "11A","name" : "Pu_Red_Yellow",
+          {"id" : "10A","name" : "Pu_Red_Yellow",
             "value" : "PRY",
             "num_card" : 3
           },
-          {"id" : "12A","name" : "Pu_Blue_Yellow",
+          {"id" : "11A","name" : "Pu_Blue_Yellow",
             "value" : "PBY",
             "num_card" : 3
           }]

@@ -5,6 +5,10 @@ import it.polimi.ingsw.model.enums.Color;
 public class Ammo {
     private Color color;
 
+    public Ammo(Color color){
+        this.color = color;
+    }
+
     public void setColor(Color color) {
         this.color = color;
     }

@@ -1,5 +1,6 @@
 package it.polimi.ingsw.util;
 
+import it.polimi.ingsw.model.cards.AmmoCard;
 import it.polimi.ingsw.model.cards.Card;
 import it.polimi.ingsw.model.cards.PowerupCard;
 import it.polimi.ingsw.model.cards.WeaponCard;
@@ -17,6 +18,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Parser {
@@ -51,6 +53,37 @@ public class Parser {
         }
         weapons.shuffle();
         return weapons;
+    }
+
+    public static List<AmmoCard> createAmmos(){
+        List<AmmoCard> ammos = new ArrayList<>();
+        String combination;
+        AmmoCard ammoCard;
+        for(int i=0; i < 12; i++) {
+            InputStream input = Parser.class.getClassLoader().getResourceAsStream("cardconfig.json");
+            Object reader = null;
+            try {
+                reader = new JSONParser().parse(new InputStreamReader(input));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            JSONObject firstObject = (JSONObject) reader;
+            firstObject = (JSONObject) firstObject.get("cardconfig");
+            JSONArray firstArray = (JSONArray) firstObject.get("elements");
+            JSONObject secondObject = (JSONObject) firstArray.get(1);
+            JSONArray secondArray = (JSONArray) secondObject.get("element");
+            JSONObject thirdObject = (JSONObject) secondArray.get(i);
+
+            for(int j=0; j<3; j++){
+                combination = (String) thirdObject.get("value");
+                ammoCard = generateAmmoCard(combination);
+                ammos.add(ammoCard);
+            }
+        }
+        Collections.shuffle(ammos);
+        return ammos;
     }
 
     public static Deck createPowerups(){
@@ -214,6 +247,37 @@ public class Parser {
                 return Cardinal.WALL;
             default:
                 return Cardinal.NONE;
+        }
+    }
+
+    private static AmmoCard generateAmmoCard(String combination){
+        switch(combination){
+            case "YBB":
+                return new AmmoCard(new Ammo(Color.YELLOW), new Ammo(Color.BLUE), new Ammo(Color.BLUE));
+            case "YRR":
+                return new AmmoCard(new Ammo(Color.YELLOW), new Ammo(Color.RED), new Ammo(Color.RED));
+            case "RBB":
+                return new AmmoCard(new Ammo(Color.RED), new Ammo(Color.BLUE), new Ammo(Color.BLUE));
+            case "RYY":
+                return new AmmoCard(new Ammo(Color.RED), new Ammo(Color.YELLOW), new Ammo(Color.YELLOW));
+            case "BYY":
+                return new AmmoCard(new Ammo(Color.BLUE), new Ammo(Color.YELLOW), new Ammo(Color.YELLOW));
+            case "BRR":
+                return new AmmoCard(new Ammo(Color.BLUE), new Ammo(Color.RED), new Ammo(Color.RED));
+            case "PRR":
+                return new AmmoCard(new Ammo(Color.RED), new Ammo(Color.RED));
+            case "PBB":
+                return new AmmoCard(new Ammo(Color.BLUE), new Ammo(Color.BLUE));
+            case "PYY":
+                return new AmmoCard(new Ammo(Color.YELLOW), new Ammo(Color.YELLOW));
+            case "PRB":
+                return new AmmoCard(new Ammo(Color.RED), new Ammo(Color.BLUE));
+            case "PRY":
+                return new AmmoCard(new Ammo(Color.RED), new Ammo(Color.YELLOW));
+            case "PBY":
+                return new AmmoCard(new Ammo(Color.BLUE), new Ammo(Color.YELLOW));
+            default:
+                return new AmmoCard(new Ammo(Color.NONE), new Ammo(Color.NONE));
         }
     }
 }
