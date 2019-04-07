@@ -80,4 +80,35 @@ public class PlayerBoardTest {
         assertEquals(0, playerBoard.getDamageIndex());
         assertEquals(AdrenalineZone.DEFAULT, playerBoard.getAdrenalineZone());
     }
+
+    @Test
+    public void scoringTest(){
+        PlayerBoard playerBoard = new PlayerBoard();
+        playerBoard.setDamageBoard(createDamageBoard());
+        playerBoard.scoring();
+
+        assertEquals(9, playerBoard.getScoreList().get(TokenColor.BLUE).intValue());
+        assertEquals(1, playerBoard.getScoreList().get(TokenColor.YELLOW).intValue());
+        assertEquals(1, playerBoard.getScoreList().get(TokenColor.GREEN).intValue());
+        assertEquals(1, playerBoard.getScoreList().get(TokenColor.GREY).intValue());
+        assertEquals(2, playerBoard.getScoreList().get(TokenColor.PURPLE).intValue());
+    }
+
+    private Token[] createDamageBoard(){
+        Token[] damageBoard = damageBoard = new Token[12];
+        damageBoard[0] = new Token(TokenColor.BLUE);
+        damageBoard[1] = new Token(TokenColor.YELLOW);
+        damageBoard[2] = new Token(TokenColor.GREEN);
+        damageBoard[3] = new Token(TokenColor.BLUE);
+        damageBoard[4] = new Token(TokenColor.BLUE);
+        damageBoard[5] = new Token(TokenColor.GREY);
+        damageBoard[6] = new Token(TokenColor.PURPLE);
+        damageBoard[7] = new Token(TokenColor.PURPLE);
+        damageBoard[8] = new Token(TokenColor.BLUE);
+        damageBoard[9] = new Token(TokenColor.BLUE);
+        damageBoard[10] = new Token(TokenColor.BLUE);
+        damageBoard[11] = new Token(TokenColor.BLUE);
+
+        return damageBoard;
+    }
 }

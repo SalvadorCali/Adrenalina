@@ -73,6 +73,14 @@ public class PlayerBoard {
         this.dead = dead;
     }
 
+    public Map<TokenColor, Integer> getScoreList() {
+        return scoreList;
+    }
+
+    public void setScoreList(Map<TokenColor, Integer> scoreList) {
+        this.scoreList = scoreList;
+    }
+
     //methods
     private void createScoreList(){
         for(TokenColor color : TokenColor.values()){
