@@ -82,6 +82,14 @@ public class GameBoard {
         return (sameRoom(x, y, x_2, y_2) || throughDoor(x, y, x_2, y_2));
     }
 
+    public boolean isVisibleDifferentSquare(Player shooter, int x_2, int y_2){
+
+        int x = shooter.getPosition().getX();
+        int y = shooter.getPosition().getY();
+
+        return ((sameRoom(x, y, x_2, y_2) || throughDoor(x, y, x_2, y_2))&&(x!= x_2 || y!= y_2));
+    }
+
     private boolean sameRoom(int x, int y, int x_2, int y_2){
 
         return (getArena()[x][y].getColor().equals(getArena()[x_2][y_2].getColor()));

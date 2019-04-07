@@ -60,5 +60,10 @@ public class ActionController implements ActionInterface {
     public boolean sameSquare(TokenColor color) {
         return game.sameSquare(color);
     }
+
+    @Override
+    public boolean isVisibleDifferentSquare(int x, int y){
+        return game.getBoard().isVisibleDifferentSquare(game.getCurrentPlayer(), x, y);
+    }
 }
 

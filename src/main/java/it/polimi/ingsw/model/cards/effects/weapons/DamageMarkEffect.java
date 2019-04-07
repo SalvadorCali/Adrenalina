@@ -12,9 +12,11 @@ public class DamageMarkEffect extends BasicEffect {
 
     private boolean sameSquare;
 
-    private int ammoNumber;
+    private int ammoNumber, secondAmmoNumber;
 
-    private Color ammoColor;
+    private Color ammoColor, secondAmmoColor;
+
+    private Color victim;
 
     public DamageMarkEffect(int damagePower, int markPower, boolean sameSquare, int ammoNumber, Color ammoColor){
 
@@ -28,6 +30,8 @@ public class DamageMarkEffect extends BasicEffect {
     @Override
     public boolean canUseEffect(ActionInterface actionInterface) {
 
+        //victim = actionInterface.getVictim();
+
         if(sameSquare){
             return (super.ammoControl(ammoNumber, ammoColor, actionInterface) && actionInterface.sameSquare(TokenColor.BLUE)); // Spada Fotonica || Martello Ionico
 
@@ -37,8 +41,6 @@ public class DamageMarkEffect extends BasicEffect {
             if ((damagePower == 3) && (markPower == 0) && (ammoNumber == 2)) //Razzo Termico
                 return (super.ammoControl(ammoNumber, ammoColor, actionInterface) && !actionInterface.isVisible(TokenColor.BLUE));
         }
-
-
         return false;
     }
 

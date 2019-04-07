@@ -22,4 +22,6 @@ public interface ActionInterface {
     void addWeapon(WeaponCard weaponCard);
 
     boolean sameSquare(TokenColor color);
+
+    boolean isVisibleDifferentSquare(int x, int y);
 }
