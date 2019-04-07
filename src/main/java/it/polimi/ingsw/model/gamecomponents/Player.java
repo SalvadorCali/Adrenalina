@@ -138,4 +138,14 @@ public class Player {
 
         return (redAmmos >= redAmmo && blueAmmos >= blueAmmo && yellowAmmos >= yellowAmmo);
     }
+
+    public void updateAmmoBox(int redAmmos, int blueAmmos, int yellowAmmos) {
+
+        redAmmo-=redAmmos;
+        blueAmmo-=blueAmmos;
+        yellowAmmo-=yellowAmmos;
+
+        //need to update AmmoBox
+
+    }
 }

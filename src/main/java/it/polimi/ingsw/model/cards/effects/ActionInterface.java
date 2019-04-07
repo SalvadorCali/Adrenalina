@@ -23,4 +23,6 @@ public interface ActionInterface {
     boolean sameSquare(TokenColor color);
 
     boolean isVisibleDifferentSquare(int x, int y);
+
+    void updateAmmoBox(int redAmmos, int blueAmmos, int redAmmos1);
 }

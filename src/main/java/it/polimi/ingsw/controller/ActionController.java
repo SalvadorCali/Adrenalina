@@ -65,5 +65,10 @@ public class ActionController implements ActionInterface {
     public boolean isVisibleDifferentSquare(int x, int y){
         return game.getBoard().isVisibleDifferentSquare(game.getCurrentPlayer(), x, y);
     }
+
+    @Override
+    public void updateAmmoBox(int redAmmos, int blueAmmos, int yellowAmmos) {
+        game.getCurrentPlayer().updateAmmoBox(redAmmos, blueAmmos, yellowAmmos);
+    }
 }
 
