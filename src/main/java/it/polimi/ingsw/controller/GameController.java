@@ -7,6 +7,7 @@ import it.polimi.ingsw.model.cards.effects.ActionInterface;
 import it.polimi.ingsw.model.gamecomponents.Deck;
 import it.polimi.ingsw.model.gamecomponents.Game;
 import it.polimi.ingsw.model.gamecomponents.GameBoard;
+import it.polimi.ingsw.model.gamecomponents.Player;
 import it.polimi.ingsw.util.Parser;
 
 import java.util.List;
@@ -32,7 +33,11 @@ public class GameController {
         actionInterface = new ActionController(game);
     }
 
-    //methods need to be implemented
+    //methods
+    public void addPlayer(Player player){
+        game.addPlayer(player);
+    }
+
     private void countTurn(){
 
     }

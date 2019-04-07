@@ -34,4 +34,11 @@ public class SpawnPoint extends Square {
     public void spawn(Player player){
         //to implement
    }
+   /*
+    public String toString(){
+        StringBuilder string = new StringBuilder();
+        string.append("—");
+        return string.toString();
+    }
+    */
 }

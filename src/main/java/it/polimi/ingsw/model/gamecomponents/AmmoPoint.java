@@ -1,7 +1,6 @@
 package it.polimi.ingsw.model.gamecomponents;
 
 import it.polimi.ingsw.model.cards.AmmoCard;
-import it.polimi.ingsw.model.cards.Card;
 import it.polimi.ingsw.model.cards.effects.ActionInterface;
 import it.polimi.ingsw.model.enums.Cardinal;
 import it.polimi.ingsw.model.enums.TokenColor;
@@ -12,6 +11,7 @@ public class AmmoPoint extends Square {
         super(color, north, south, west, east);
     }
 
+    //getters and setters
     public AmmoCard getAmmoCard() {
         return ammoCard;
     }
@@ -20,6 +20,7 @@ public class AmmoPoint extends Square {
         this.ammoCard = ammoCard;
     }
 
+    //methods
     @Override
     public void grab(ActionInterface actionInterface, int choice) {
         if(ammoCard.isPowerup()){

@@ -3,8 +3,7 @@ package it.polimi.ingsw.model.gamecomponents;
 import it.polimi.ingsw.model.enums.AdrenalineZone;
 import it.polimi.ingsw.model.enums.TokenColor;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class PlayerBoard {
     private Token[] damageBoard;
@@ -13,6 +12,8 @@ public class PlayerBoard {
     private int deathNumber;
     private List<Token> revengeMarks;
     private AdrenalineZone adrenalineZone;
+    private boolean dead;
+    private Map<TokenColor, Integer> scoreList;
 
     public PlayerBoard(){
         damageBoard = new Token[MAX_DAMAGE];
@@ -23,6 +24,8 @@ public class PlayerBoard {
         deathNumber = 0;
         revengeMarks = new ArrayList<>();
         adrenalineZone = AdrenalineZone.DEFAULT;
+        scoreList = new EnumMap<>(TokenColor.class);
+        createScoreList();
     }
 
     //getters and setters
@@ -62,7 +65,20 @@ public class PlayerBoard {
         return adrenalineZone;
     }
 
+    public boolean isDead() {
+        return dead;
+    }
+
+    public void setDead(boolean dead) {
+        this.dead = dead;
+    }
+
     //methods
+    private void createScoreList(){
+        for(TokenColor color : TokenColor.values()){
+            scoreList.put(color, 0);
+        }
+    }
     public void addRevengeMarks(TokenColor color){
         revengeMarks.add(new Token(color));
     }
@@ -80,6 +96,9 @@ public class PlayerBoard {
             }
             else if(damageIndex == 5){
                 adrenalineZone = AdrenalineZone.SECOND;
+            }
+            else if(damageIndex == 10){
+                dead = true;
             }
         }
     }
@@ -109,5 +128,19 @@ public class PlayerBoard {
         }
         resetDamage();
         adrenalineZone = AdrenalineZone.DEFAULT;
+        dead = false;
+    }
+
+    public Map<TokenColor, Integer> scoring(){
+        int score;
+        for(int i=0; i<MAX_DAMAGE; i++){
+            score = scoreList.get(damageBoard[i].getFirstColor());
+            scoreList.replace(damageBoard[i].getFirstColor(), score, score + 1);
+        }
+        score = scoreList.get(getFirstBlood());
+        scoreList.replace(getFirstBlood(), score, score + 1);
+        score = scoreList.get(getKillshot());
+        scoreList.replace(getKillshot(), score, score + 1);
+        return scoreList;
     }
 }

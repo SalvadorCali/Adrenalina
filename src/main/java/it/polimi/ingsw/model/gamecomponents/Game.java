@@ -6,8 +6,7 @@ import it.polimi.ingsw.model.enums.Direction;
 import it.polimi.ingsw.model.enums.TokenColor;
 import it.polimi.ingsw.util.Parser;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class Game {
     private GameBoard board;
@@ -18,11 +17,15 @@ public class Game {
     private Deck powerups;
     private List<AmmoCard> ammos;
     private boolean finalFrenzy;
+    private boolean inGame;
+    private Map<TokenColor, Integer> scoreList;
 
     public Game(GameBoard board, Deck weapons, Deck powerups, List<AmmoCard> ammos){
         this.board = board;
         players = new ArrayList<>();
         killshotTrack = new ArrayList<>();
+        scoreList = new EnumMap<>(TokenColor.class);
+        createScoreList();
         this.weapons = weapons;
         this.powerups = powerups;
         this.ammos = ammos;
@@ -72,6 +75,31 @@ public class Game {
     }
 
     //methods
+    private void createScoreList(){
+        for(TokenColor color : TokenColor.values()){
+            scoreList.put(color, 0);
+        }
+    }
+    public void addPlayer(Player player){
+        players.add(player);
+        if(players.size()==5){
+            inGame = true;
+        }
+    }
+
+    public void scoring(){
+        Map<TokenColor, Integer> tmpScoreList;
+        int score;
+        for(Player player : players){
+            if(player.getPlayerBoard().isDead()){
+                tmpScoreList = player.getPlayerBoard().scoring();
+                for(TokenColor color : TokenColor.values()){
+                    score = scoreList.get(color);
+                    scoreList.replace(color, score, score + tmpScoreList.get(color));
+                }
+            }
+        }
+    }
 
     public void endTurn(){
     }
