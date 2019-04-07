@@ -15,8 +15,8 @@ public class ActionController implements ActionInterface {
     private Game game;
 
     @Override
-    public boolean ammoControl(int ammos, Color color) {
-        return game.getCurrentPlayer().ammoControl(ammos, color);
+    public boolean ammoControl(int redAmmos, int blueAmmos, int yellowAmmos) {
+        return game.getCurrentPlayer().ammoControl(redAmmos, blueAmmos, yellowAmmos);
     }
 
     @Override

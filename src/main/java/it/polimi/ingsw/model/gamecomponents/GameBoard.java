@@ -87,7 +87,7 @@ public class GameBoard {
         int x = shooter.getPosition().getX();
         int y = shooter.getPosition().getY();
 
-        return ((sameRoom(x, y, x_2, y_2) || throughDoor(x, y, x_2, y_2))&&(x!= x_2 || y!= y_2));
+        return ((sameRoom(x, y, x_2, y_2) || throughDoor(x, y, x_2, y_2))&& !arena[x][y].getColor().equals(arena[x_2][y_2].getColor()));
     }
 
     private boolean sameRoom(int x, int y, int x_2, int y_2){

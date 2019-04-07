@@ -9,8 +9,8 @@ public abstract class BasicEffect extends Effect {
 
     public abstract void useEffect(ActionInterface actionInterface);
 
-    protected boolean ammoControl(int ammos, Color ammoColor, ActionInterface actionInterface){
-        return (actionInterface.ammoControl(ammos, ammoColor));
+    protected boolean ammoControl(int redAmmos, int blueAmmos, int yellowAmmos, ActionInterface actionInterface){
+        return (actionInterface.ammoControl(redAmmos, blueAmmos, yellowAmmos));
     }
 
 }

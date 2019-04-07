@@ -1,13 +1,12 @@
 package it.polimi.ingsw.model.cards.effects;
 
 import it.polimi.ingsw.model.cards.WeaponCard;
-import it.polimi.ingsw.model.enums.Color;
 import it.polimi.ingsw.model.enums.TokenColor;
 import it.polimi.ingsw.model.gamecomponents.Ammo;
 
 public interface ActionInterface {
 
-    boolean ammoControl(int ammos, Color color);
+    boolean ammoControl(int redAmmos, int blueAmmos, int yellowAmmos);
 
     void playerDamage(TokenColor color, int damagePower);
 

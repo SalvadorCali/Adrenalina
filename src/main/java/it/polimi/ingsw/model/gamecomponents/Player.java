@@ -134,16 +134,8 @@ public class Player {
         }
     }
 
-    public boolean ammoControl(int ammos, Color color){
-        switch (color){
-            case BLUE:
-                return (blueAmmo >= ammos);
-            case RED:
-                return (redAmmo >= ammos);
-            case YELLOW:
-                return (yellowAmmo >= ammos);
-            default:
-                return false;
-        }
+    public boolean ammoControl(int redAmmos, int blueAmmos, int yellowAmmos){
+
+        return (redAmmos >= redAmmo && blueAmmos >= blueAmmo && yellowAmmos >= yellowAmmo);
     }
 }
