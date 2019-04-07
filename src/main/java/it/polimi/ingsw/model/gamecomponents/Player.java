@@ -131,4 +131,17 @@ public class Player {
                 break;
         }
     }
+
+    public boolean ammoControl(int ammos, Color color){
+        switch (color){
+            case BLUE:
+                return (blueAmmo >= ammos);
+            case RED:
+                return (redAmmo >= ammos);
+            case YELLOW:
+                return (yellowAmmo >= ammos);
+            default:
+                return false;
+        }
+    }
 }

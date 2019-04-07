@@ -2,6 +2,7 @@ package it.polimi.ingsw.controller;
 import it.polimi.ingsw.model.cards.PowerupCard;
 import it.polimi.ingsw.model.cards.WeaponCard;
 import it.polimi.ingsw.model.cards.effects.ActionInterface;
+import it.polimi.ingsw.model.enums.Color;
 import it.polimi.ingsw.model.enums.TokenColor;
 import it.polimi.ingsw.model.gamecomponents.Ammo;
 import it.polimi.ingsw.model.gamecomponents.Game;
@@ -12,6 +13,11 @@ public class ActionController implements ActionInterface {
     }
 
     private Game game;
+
+    @Override
+    public boolean ammoControl(int ammos, Color color) {
+        return game.getCurrentPlayer().ammoControl(ammos, color);
+    }
 
     @Override
     public void playerDamage(TokenColor color, int damagePower) {
@@ -48,6 +54,11 @@ public class ActionController implements ActionInterface {
     @Override
     public void addWeapon(WeaponCard weaponCard){
         game.getCurrentPlayer().addWeapon(weaponCard);
+    }
+
+    @Override
+    public boolean sameSquare(TokenColor color) {
+        return game.sameSquare(color);
     }
 }
 

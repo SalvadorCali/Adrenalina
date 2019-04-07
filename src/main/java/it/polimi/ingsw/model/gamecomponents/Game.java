@@ -93,6 +93,10 @@ public class Game {
         return getBoard().isVisible(getCurrentPlayer(), victim);
     }
 
+    public boolean sameSquare(TokenColor color){
+        return currentPlayer.getPosition().equals(findPlayer(color).getPosition());
+    }
+
 
 
 }
