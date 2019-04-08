@@ -13,7 +13,7 @@ public class PlayerBoard {
     private List<Token> revengeMarks;
     private AdrenalineZone adrenalineZone;
     private boolean dead;
-    private Map<TokenColor, Integer> scoreList;
+    private Map<TokenColor, Score> scoreList;
 
     public PlayerBoard(){
         damageBoard = new Token[MAX_DAMAGE];
@@ -73,18 +73,18 @@ public class PlayerBoard {
         this.dead = dead;
     }
 
-    public Map<TokenColor, Integer> getScoreList() {
+    public Map<TokenColor, Score> getScoreList() {
         return scoreList;
     }
 
-    public void setScoreList(Map<TokenColor, Integer> scoreList) {
+    public void setScoreList(Map<TokenColor, Score> scoreList) {
         this.scoreList = scoreList;
     }
 
     //methods
     private void createScoreList(){
         for(TokenColor color : TokenColor.values()){
-            scoreList.put(color, 0);
+            scoreList.put(color, new Score(color, 0));
         }
     }
     public void addRevengeMarks(TokenColor color){
@@ -139,16 +139,98 @@ public class PlayerBoard {
         dead = false;
     }
 
-    public Map<TokenColor, Integer> scoring(){
-        int score;
+    /*
+    public Map<TokenColor, Score> scoring(){
+        Score score;
         for(int i=0; i<MAX_DAMAGE; i++){
             score = scoreList.get(damageBoard[i].getFirstColor());
-            scoreList.replace(damageBoard[i].getFirstColor(), score, score + 1);
+            score.setScore(score.getScore() + 1);
+            scoreList.replace(damageBoard[i].getFirstColor(), score);
         }
+
+        List<Score> scores = new ArrayList<>();
+        scoreList.forEach((key, value) -> scores.add(value));
+
+        for(int k=0; k<scores.size(); k++){
+
+        }
+
+        int max = 0;
+        for(int i=0; i<scores.size(); i++){
+            max = Math.max(max, scores.get(i).getScore());
+        }
+
+        ArrayList<Score> maximumScores = new ArrayList<>();
+        for(int i=0; i<scores.size(); i++){
+            if(max == scores.get(i).getScore()){
+                maximumScores.add(scores.get(i));
+            }
+        }
+        ArrayList<Integer> numbers = new ArrayList<>();
+        numbers.add(8);
+        numbers.add(6);
+        numbers.add(4);
+        numbers.add(2);
+        if(maximumScores.size() > 1){
+            evaluate_max:
+            for(int i=0; i<MAX_DAMAGE; i++){
+                for(int j=0; j<maximumScores.size(); j++){
+                    if(damageBoard[i].getFirstColor().equals(maximumScores.get(j).getColor())){
+                        scoreList.replace(damageBoard[i].getFirstColor(), new Score(damageBoard[i].getFirstColor(), numbers.get(0)));
+                        maximumScores.remove(j);
+                        numbers.remove(0);
+                        break evaluate_max;
+                    }
+                }
+            }
+        }else{
+            scoreList.replace(maximumScores.get(0).getColor(), new Score(maximumScores.get(0).getColor(), numbers.get(0)));
+        }
+
+
+
         score = scoreList.get(getFirstBlood());
         scoreList.replace(getFirstBlood(), score, score + 1);
         score = scoreList.get(getKillshot());
         scoreList.replace(getKillshot(), score, score + 1);
         return scoreList;
     }
+
+    public void givePoints(){
+        int blueScore = 0;
+        int greenScore = 0;
+        int greyScore = 0;
+        int purpleScore = 0;
+        int yellowScore = 0;
+
+        for(int i=0; i<MAX_DAMAGE; i++){
+            switch (damageBoard[i].getFirstColor()){
+                case BLUE:
+                    blueScore++;
+                    break;
+                case GREEN:
+                    greenScore++;
+                    break;
+                case GREY:
+                    greyScore++;
+                    break;
+                case PURPLE:
+                    purpleScore++;
+                    break;
+                case YELLOW:
+                    yellowScore++;
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        int max = Math.max(Math.max(Math.max(Math.max(blueScore, greenScore), greyScore), purpleScore), yellowScore);
+
+    }
+
+    private void findMax(Integer value){
+
+    }
+    */
 }

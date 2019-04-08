@@ -84,7 +84,7 @@ public class Game {
             inGame = true;
         }
     }
-
+/*
     public void scoring(){
         Map<TokenColor, Integer> tmpScoreList;
         int score;
@@ -98,6 +98,7 @@ public class Game {
             }
         }
     }
+    */
 
     public void endTurn(){
     }

@@ -29,11 +29,12 @@ public class CLIHandler {
     }
 
     public void printScore(){
-
+/*
         Map<TokenColor, Integer> scoreList = playerBoard.getScoreList();
 
         System.out.println("Actual Score: \n");
         System.out.println(Arrays.asList(scoreList));
+        */
     }
 
     public void printDeathNumber(){
