@@ -23,8 +23,14 @@ public class MovementEffect extends BasicEffect {
 
     @Override
     public boolean canUseEffect(ActionInterface actionInterface) {
+
         if(redAmmos + blueAmmos + yellowAmmos == 0)
             canUse = actionInterface.canMove(victim, firstMove, secondMove)&& ammoControl(redAmmos, blueAmmos, yellowAmmos, actionInterface); //isVisible(newPosition); RaggioTraente(Mod1) || Lanciagranate
+        if(redAmmos == 0 && blueAmmos == 0 && yellowAmmos == 1)
+            return ammoControl(redAmmos, blueAmmos, yellowAmmos, actionInterface) && actionInterface.sameSquare(victim) && actionInterface.canMove(victim, firstMove, secondMove); //Fucile a Pompa
+        if(redAmmos == 1 && blueAmmos == 0 && yellowAmmos == 0)
+            return ammoControl(redAmmos,blueAmmos,yellowAmmos,actionInterface)&& !actionInterface.sameSquare(victim) && actionInterface.canMove(victim, firstMove, secondMove); //Lanciarazzi
+
         return false;
     }
 
