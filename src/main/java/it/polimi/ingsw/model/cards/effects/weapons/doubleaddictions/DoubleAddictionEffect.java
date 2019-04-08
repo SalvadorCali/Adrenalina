@@ -1,4 +1,4 @@
-package it.polimi.ingsw.model.cards.effects.weapons;
+package it.polimi.ingsw.model.cards.effects.weapons.doubleaddictions;
 
 import it.polimi.ingsw.model.cards.effects.Effect;
 

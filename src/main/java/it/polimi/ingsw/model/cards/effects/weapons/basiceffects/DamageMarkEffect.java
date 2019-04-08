@@ -1,6 +1,7 @@
-package it.polimi.ingsw.model.cards.effects.weapons;
+package it.polimi.ingsw.model.cards.effects.weapons.basiceffects;
 
 import it.polimi.ingsw.model.cards.effects.ActionInterface;
+import it.polimi.ingsw.model.cards.effects.weapons.basiceffects.BasicEffect;
 import it.polimi.ingsw.model.enums.TokenColor;
 
 public class DamageMarkEffect extends BasicEffect {

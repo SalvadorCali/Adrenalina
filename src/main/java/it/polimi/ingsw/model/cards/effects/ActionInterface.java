@@ -1,8 +1,11 @@
 package it.polimi.ingsw.model.cards.effects;
 
 import it.polimi.ingsw.model.cards.WeaponCard;
+import it.polimi.ingsw.model.enums.Direction;
 import it.polimi.ingsw.model.enums.TokenColor;
 import it.polimi.ingsw.model.gamecomponents.Ammo;
+
+import java.util.List;
 
 public interface ActionInterface {
 
@@ -25,4 +28,6 @@ public interface ActionInterface {
     boolean isVisibleDifferentSquare(int x, int y);
 
     void updateAmmoBox(int redAmmos, int blueAmmos, int redAmmos1);
+
+    boolean canMove(TokenColor victim, Direction... directions);
 }

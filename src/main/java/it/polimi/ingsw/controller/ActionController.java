@@ -3,9 +3,12 @@ import it.polimi.ingsw.model.cards.PowerupCard;
 import it.polimi.ingsw.model.cards.WeaponCard;
 import it.polimi.ingsw.model.cards.effects.ActionInterface;
 import it.polimi.ingsw.model.enums.Color;
+import it.polimi.ingsw.model.enums.Direction;
 import it.polimi.ingsw.model.enums.TokenColor;
 import it.polimi.ingsw.model.gamecomponents.Ammo;
 import it.polimi.ingsw.model.gamecomponents.Game;
+
+import java.util.List;
 
 public class ActionController implements ActionInterface {
     public ActionController(Game game){
@@ -69,6 +72,10 @@ public class ActionController implements ActionInterface {
     @Override
     public void updateAmmoBox(int redAmmos, int blueAmmos, int yellowAmmos) {
         game.getCurrentPlayer().updateAmmoBox(redAmmos, blueAmmos, yellowAmmos);
+    }
+    @Override
+    public boolean canMove(TokenColor victim, Direction... directions) {
+        return game.getBoard().canMove(game.findPlayer(victim), directions);
     }
 }
 
