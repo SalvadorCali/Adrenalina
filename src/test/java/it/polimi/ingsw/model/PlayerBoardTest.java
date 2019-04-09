@@ -2,9 +2,15 @@ package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.model.enums.AdrenalineZone;
 import it.polimi.ingsw.model.gamecomponents.PlayerBoard;
+import it.polimi.ingsw.model.gamecomponents.Score;
 import it.polimi.ingsw.model.gamecomponents.Token;
 import it.polimi.ingsw.model.enums.TokenColor;
+import it.polimi.ingsw.util.Printer;
 import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
+import java.util.Map;
+
 import static org.junit.Assert.*;
 
 public class PlayerBoardTest {
@@ -80,36 +86,44 @@ public class PlayerBoardTest {
         assertEquals(0, playerBoard.getDamageIndex());
         assertEquals(AdrenalineZone.DEFAULT, playerBoard.getAdrenalineZone());
     }
-/*
+
     @Test
     public void scoringTest(){
         PlayerBoard playerBoard = new PlayerBoard();
-        playerBoard.setDamageBoard(createDamageBoard());
-        playerBoard.scoring();
+        playerBoard.addDamage(TokenColor.BLUE, TokenColor.BLUE, TokenColor.PURPLE,
+                TokenColor.YELLOW, TokenColor.BLUE, TokenColor.PURPLE,
+                TokenColor.YELLOW, TokenColor.BLUE, TokenColor.PURPLE,
+                TokenColor.YELLOW, TokenColor.BLUE);
+        ArrayList<TokenColor> playerColors = new ArrayList<>();
+        playerColors.add(TokenColor.YELLOW);
+        playerColors.add(TokenColor.BLUE);
+        playerColors.add(TokenColor.PURPLE);
+        playerColors.add(TokenColor.GREY);
+        Map<TokenColor, Score> newScore = playerBoard.scoring(playerColors);
 
-        assertEquals(9, playerBoard.getScoreList().get(TokenColor.BLUE).intValue());
-        assertEquals(1, playerBoard.getScoreList().get(TokenColor.YELLOW).intValue());
-        assertEquals(1, playerBoard.getScoreList().get(TokenColor.GREEN).intValue());
-        assertEquals(1, playerBoard.getScoreList().get(TokenColor.GREY).intValue());
-        assertEquals(2, playerBoard.getScoreList().get(TokenColor.PURPLE).intValue());
+        assertEquals(10, newScore.get(TokenColor.BLUE).getScore());
+        assertEquals(6, newScore.get(TokenColor.PURPLE).getScore());
+        assertEquals(4, newScore.get(TokenColor.YELLOW).getScore());
+        assertEquals(2, newScore.get(TokenColor.GREY).getScore());
     }
 
-    private Token[] createDamageBoard(){
-        Token[] damageBoard = damageBoard = new Token[12];
-        damageBoard[0] = new Token(TokenColor.BLUE);
-        damageBoard[1] = new Token(TokenColor.YELLOW);
-        damageBoard[2] = new Token(TokenColor.GREEN);
-        damageBoard[3] = new Token(TokenColor.BLUE);
-        damageBoard[4] = new Token(TokenColor.BLUE);
-        damageBoard[5] = new Token(TokenColor.GREY);
-        damageBoard[6] = new Token(TokenColor.PURPLE);
-        damageBoard[7] = new Token(TokenColor.PURPLE);
-        damageBoard[8] = new Token(TokenColor.BLUE);
-        damageBoard[9] = new Token(TokenColor.BLUE);
-        damageBoard[10] = new Token(TokenColor.BLUE);
-        damageBoard[11] = new Token(TokenColor.BLUE);
+    @Test
+    public void scoringTestWithOverkill(){
+        PlayerBoard playerBoard = new PlayerBoard();
+        playerBoard.addDamage(TokenColor.BLUE, TokenColor.BLUE, TokenColor.PURPLE,
+                TokenColor.YELLOW, TokenColor.BLUE, TokenColor.PURPLE,
+                TokenColor.YELLOW, TokenColor.BLUE, TokenColor.PURPLE,
+                TokenColor.YELLOW, TokenColor.BLUE, TokenColor.YELLOW);
+        ArrayList<TokenColor> playerColors = new ArrayList<>();
+        playerColors.add(TokenColor.YELLOW);
+        playerColors.add(TokenColor.BLUE);
+        playerColors.add(TokenColor.PURPLE);
+        playerColors.add(TokenColor.GREY);
+        Map<TokenColor, Score> newScore = playerBoard.scoring(playerColors);
 
-        return damageBoard;
+        assertEquals(10, newScore.get(TokenColor.BLUE).getScore());
+        assertEquals(6, newScore.get(TokenColor.YELLOW).getScore());
+        assertEquals(4, newScore.get(TokenColor.PURPLE).getScore());
+        assertEquals(2, newScore.get(TokenColor.GREY).getScore());
     }
-    */
 }

@@ -10,6 +10,7 @@ public class Game {
     private GameBoard board;
     private Player currentPlayer;
     private List<Player> players;
+    private ArrayList<TokenColor> playerColors;
     private List<Token> killshotTrack;
     private Deck weapons;
     private Deck powerups;
@@ -22,7 +23,7 @@ public class Game {
         this.board = board;
         players = new ArrayList<>();
         killshotTrack = new ArrayList<>();
-        scoreList = new EnumMap<>(TokenColor.class);
+        scoreList = new HashMap<>();
         createScoreList();
         this.weapons = weapons;
         this.powerups = powerups;
@@ -74,8 +75,10 @@ public class Game {
 
     //methods
     private void createScoreList(){
-        for(TokenColor color : TokenColor.values()){
-            scoreList.put(color, 0);
+        playerColors = new ArrayList<>();
+        for(Player player : players){
+            scoreList.put(player.getColor(), 0);
+            playerColors.add(player.getColor());
         }
     }
     public void addPlayer(Player player){
@@ -84,21 +87,27 @@ public class Game {
             inGame = true;
         }
     }
-/*
+
     public void scoring(){
-        Map<TokenColor, Integer> tmpScoreList;
-        int score;
+        Map<TokenColor, Score> tmpScoreList;
+        ArrayList<TokenColor> tmpPlayerColors = playerColors;
         for(Player player : players){
             if(player.getPlayerBoard().isDead()){
-                tmpScoreList = player.getPlayerBoard().scoring();
-                for(TokenColor color : TokenColor.values()){
-                    score = scoreList.get(color);
-                    scoreList.replace(color, score, score + tmpScoreList.get(color));
+                for(int i=0; i<tmpPlayerColors.size(); i++){
+                    if(tmpPlayerColors.get(i).equals(player.getColor())){
+                        tmpPlayerColors.remove(i);
+                    }
+                }
+                tmpScoreList = player.getPlayerBoard().scoring(tmpPlayerColors);
+                for(int i=0; i<playerColors.size(); i++){
+                    int actualScore = scoreList.get(playerColors.get(i));
+                    actualScore+= tmpScoreList.get(playerColors.get(i)).getScore();
+                    scoreList.replace(players.get(i).getColor(), actualScore);
                 }
             }
         }
     }
-    */
+
 
     public void endTurn(){
     }

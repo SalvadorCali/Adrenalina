@@ -2,6 +2,7 @@ package it.polimi.ingsw.model.gamecomponents;
 
 import it.polimi.ingsw.model.enums.AdrenalineZone;
 import it.polimi.ingsw.model.enums.TokenColor;
+import it.polimi.ingsw.util.Printer;
 
 import java.util.*;
 
@@ -13,6 +14,7 @@ public class PlayerBoard {
     private List<Token> revengeMarks;
     private AdrenalineZone adrenalineZone;
     private boolean dead;
+    private boolean overkill;
     private Map<TokenColor, Score> scoreList;
 
     public PlayerBoard(){
@@ -73,6 +75,14 @@ public class PlayerBoard {
         this.dead = dead;
     }
 
+    public boolean isOverkill() {
+        return overkill;
+    }
+
+    public void setOverkill(boolean overkill) {
+        this.overkill = overkill;
+    }
+
     public Map<TokenColor, Score> getScoreList() {
         return scoreList;
     }
@@ -105,8 +115,11 @@ public class PlayerBoard {
             else if(damageIndex == 5){
                 adrenalineZone = AdrenalineZone.SECOND;
             }
-            else if(damageIndex == 10){
+            else if(damageIndex == 11){
                 dead = true;
+            }
+            else if(damageIndex == 12){
+                overkill = true;
             }
         }
     }
@@ -138,10 +151,21 @@ public class PlayerBoard {
         adrenalineZone = AdrenalineZone.DEFAULT;
         dead = false;
     }
-/*
-    public Map<TokenColor, Score> scoring(){
+
+    public Map<TokenColor, Score> scoring(ArrayList<TokenColor> playerColors){
         Score score;
-        for(int i=0; i<MAX_DAMAGE; i++){
+        int maxDamage;
+        if(isOverkill()){
+            maxDamage = 12;
+        }else{
+            maxDamage = 11;
+        }
+        scoreList = new HashMap<>();
+        for(TokenColor color : playerColors){
+            scoreList.put(color, new Score(color, 0));
+        }
+
+        for(int i=0; i<maxDamage; i++){
             score = scoreList.get(damageBoard[i].getFirstColor());
             score.setScore(score.getScore() + 1);
             scoreList.replace(damageBoard[i].getFirstColor(), score);
@@ -150,48 +174,59 @@ public class PlayerBoard {
         List<Score> scores = new ArrayList<>();
         scoreList.forEach((key, value) -> scores.add(value));
 
-        for(int k=0; k<scores.size(); k++){
-
-        }
-
-        int max = 0;
-        for(int i=0; i<scores.size(); i++){
-            max = Math.max(max, scores.get(i).getScore());
-        }
-
-        ArrayList<Score> maximumScores = new ArrayList<>();
-        for(int i=0; i<scores.size(); i++){
-            if(max == scores.get(i).getScore()){
-                maximumScores.add(scores.get(i));
+        int scoreValuesIndex = 0;
+        ArrayList<Integer> scoreValues = getScoreValues();
+        int number = scores.size();
+        for(int k=0; k<number; k++){
+            int max = 0;
+            for(int i=0; i<scores.size(); i++){
+                max = Math.max(max, scores.get(i).getScore());
             }
-        }
-        ArrayList<Integer> numbers = new ArrayList<>();
-        numbers.add(8);
-        numbers.add(6);
-        numbers.add(4);
-        numbers.add(2);
-        if(maximumScores.size() > 1){
-            evaluate_max:
-            for(int i=0; i<MAX_DAMAGE; i++){
-                for(int j=0; j<maximumScores.size(); j++){
-                    if(damageBoard[i].getFirstColor().equals(maximumScores.get(j).getColor())){
-                        scoreList.replace(damageBoard[i].getFirstColor(), new Score(damageBoard[i].getFirstColor(), numbers.get(0)));
-                        maximumScores.remove(j);
-                        numbers.remove(0);
-                        break evaluate_max;
-                    }
+            
+            ArrayList<Score> maximumScores = new ArrayList<>();
+            for(int i=0; i<scores.size(); i++){
+                if(max == scores.get(i).getScore()){
+                    maximumScores.add(scores.get(i));
                 }
             }
-        }else{
-            scoreList.replace(maximumScores.get(0).getColor(), new Score(maximumScores.get(0).getColor(), numbers.get(0)));
+
+            if(maximumScores.size() > 1){
+                evaluate_max:
+                for(int i=0; i<maxDamage; i++){
+                    for(int j=0; j<maximumScores.size(); j++){
+                        if(damageBoard[i].getFirstColor().equals(maximumScores.get(j).getColor())){
+                            scoreList.replace(damageBoard[i].getFirstColor(), new Score(damageBoard[i].getFirstColor(), scoreValues.get(scoreValuesIndex)));
+                            scoreValuesIndex++;
+                            for(int l=0; l<scores.size(); l++){
+                                if(maximumScores.get(j).equals(scores.get(l))){
+                                    scores.remove(l);
+                                    break;
+                                }
+                            }
+                            maximumScores.remove(j);
+                            break evaluate_max;
+                        }
+                    }
+                }
+            }else{
+                scoreList.replace(maximumScores.get(0).getColor(), new Score(maximumScores.get(0).getColor(), scoreValues.get(scoreValuesIndex)));
+                scoreValuesIndex++;
+                for(int l=0; l<scores.size(); l++){
+                    if(maximumScores.get(0).equals(scores.get(l))){
+                        scores.remove(l);
+                        break;
+                    }
+                }
+                maximumScores.remove(0);
+            }
         }
 
-
-
         score = scoreList.get(getFirstBlood());
-        scoreList.replace(getFirstBlood(), score, score + 1);
+        score.setScore(score.getScore() + 1);
+        scoreList.replace(getFirstBlood(), score);
         score = scoreList.get(getKillshot());
-        scoreList.replace(getKillshot(), score, score + 1);
+        score.setScore(score.getScore() + 1);
+        scoreList.replace(getKillshot(), score);
         return scoreList;
     }
 
@@ -232,5 +267,27 @@ public class PlayerBoard {
 
     }
 
-*/
+    private ArrayList<Integer> getScoreValues(){
+        ArrayList<Integer> scoreValues;
+        Integer[] numbers;
+        if(deathNumber == 0){
+            numbers = new Integer[]{8,6,4,2};
+            scoreValues = new ArrayList<>(Arrays.asList(numbers));
+        }else if(deathNumber == 1){
+            numbers = new Integer[]{6,4,2,1};
+            scoreValues = new ArrayList<>(Arrays.asList(numbers));
+        }else if(deathNumber == 2){
+            numbers = new Integer[]{4,2,1,1};
+            scoreValues = new ArrayList<>(Arrays.asList(numbers));
+        }else if(deathNumber == 3){
+            numbers = new Integer[]{2,1,1,1};
+            scoreValues = new ArrayList<>(Arrays.asList(numbers));
+        }else {
+            numbers = new Integer[]{1,1,1,1};
+            scoreValues = new ArrayList<>(Arrays.asList(numbers));
+        }
+        return scoreValues;
+    }
+
+
 }
