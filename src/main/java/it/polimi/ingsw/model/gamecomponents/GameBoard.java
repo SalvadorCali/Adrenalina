@@ -120,6 +120,18 @@ public class GameBoard {
         return 3;
     }
 
+    public void roomDamage(int x, int y, int damagePower, int markPower, TokenColor shooterColor){
+
+        TokenColor color = getArena()[x][y].getColor();
+
+        for(int i = 0; i < ROWS; i++){
+            for(int j = 0; j < COLUMNS; j++){
+                if(getArena()[i][j].getColor().equals(color))
+                    getArena()[i][j].squareDamage(damagePower, markPower, shooterColor);
+            }
+        }
+    }
+
     private boolean sameRoom ( int x, int y, int x_2, int y_2){
 
             return (getArena()[x][y].getColor().equals(getArena()[x_2][y_2].getColor()));
@@ -146,6 +158,8 @@ public class GameBoard {
 
         return false;
     }
+
+
 
 
 

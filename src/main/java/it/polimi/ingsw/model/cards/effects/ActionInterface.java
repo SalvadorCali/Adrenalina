@@ -32,4 +32,8 @@ public interface ActionInterface {
     boolean canMove(TokenColor victim, Direction... directions);
 
     int distanceControl(int x, int y);
+
+    void roomDamage(int x, int y, int damagePower, int markPower);
+
+    void squareDamage(int x, int y, int damagePower, int markPower);
 }

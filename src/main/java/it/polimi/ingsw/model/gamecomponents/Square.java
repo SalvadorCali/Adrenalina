@@ -99,6 +99,11 @@ public abstract class Square {
         }
     }
 
+    public void squareDamage(int damagePower, int markPower, TokenColor color) {
+        for(Player player: getPlayers()){
+            player.getPlayerBoard().addDamage(color);
+        }
+    }
     public abstract void grab(ActionInterface actionInterface, int choice);
 
 

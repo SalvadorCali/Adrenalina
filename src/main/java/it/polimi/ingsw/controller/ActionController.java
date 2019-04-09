@@ -84,5 +84,17 @@ public class ActionController implements ActionInterface {
 
         return game.getBoard().distance(game.getCurrentPlayer(), x, y);
     }
+
+    @Override
+    public void roomDamage(int x, int y, int damagePower, int markPower) {
+
+        game.getBoard().roomDamage(x, y, damagePower, markPower, game.getCurrentPlayer().getColor());
+    }
+
+    @Override
+    public void squareDamage(int x, int y, int damagePower, int markPower) {
+
+        game.getBoard().getArena()[x][y].squareDamage(damagePower, markPower, game.getCurrentPlayer().getColor());
+    }
 }
 

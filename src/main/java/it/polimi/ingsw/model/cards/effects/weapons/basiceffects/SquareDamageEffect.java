@@ -34,7 +34,7 @@ public class SquareDamageEffect extends BasicEffect {
 
         //x = actionInterface.getX();
         //y = actionInterface.getY();
-        
+
         canUse = actionInterface.ammoControl(redAmmos, yellowAmmos, blueAmmos); // Electroscythe
 
         if(effectName.equals("Furnace"))
@@ -51,9 +51,10 @@ public class SquareDamageEffect extends BasicEffect {
     public void useEffect(ActionInterface actionInterface) {
 
         if(effectName.equals("Furnace")) {
-            //actionInterface.roomDamage(x,y, damagePower, markPower);
+            actionInterface.roomDamage(x, y, damagePower, markPower);
         }else
-            //actionInterface.squareDamage(x,y, damagePower, markPower);
+            actionInterface.squareDamage(x, y, damagePower, markPower);
+
         actionInterface.updateAmmoBox(redAmmos, blueAmmos, yellowAmmos);
 
     }
