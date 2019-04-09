@@ -1,27 +1,31 @@
 package it.polimi.ingsw.model.cards.effects.weapons.basiceffects;
 
 import it.polimi.ingsw.model.cards.effects.ActionInterface;
-import it.polimi.ingsw.model.cards.effects.weapons.basiceffects.BasicEffect;
 import it.polimi.ingsw.model.enums.TokenColor;
 
 public class DamageMarkEffect extends BasicEffect {
+
+    private String effectName;
 
     private int damagePower;
 
     private int markPower;
 
-    private boolean sameSquare;
-
     private int redAmmos, blueAmmos, yellowAmmos;
 
-    public DamageMarkEffect(int damagePower, int markPower, boolean sameSquare, int redAmmos, int blueAmmos, int yellowAmmos ){
+    private TokenColor victim;
 
+    private boolean canUse;
+
+    public DamageMarkEffect(String effectName, int damagePower, int markPower, int redAmmos, int blueAmmos, int yellowAmmos ){
+
+        this.effectName = effectName;
         this.damagePower = damagePower;
         this.markPower = markPower;
-        this.sameSquare = sameSquare;
         this.redAmmos = redAmmos;
         this.blueAmmos = blueAmmos;
         this.yellowAmmos = yellowAmmos;
+        this.canUse = true;
     }
 
     @Override
@@ -29,22 +33,23 @@ public class DamageMarkEffect extends BasicEffect {
 
         //victim = actionInterface.getVictim();
 
-        if(sameSquare){
-            return (ammoControl(redAmmos, blueAmmos, yellowAmmos, actionInterface) && actionInterface.sameSquare(TokenColor.BLUE)); // Spada Fotonica || Martello Ionico
-        }else {
-            if (((damagePower == 2) && (markPower == 1)) || ((damagePower == 1) && (markPower == 2)))
-                return (ammoControl(redAmmos, blueAmmos, yellowAmmos, actionInterface) && actionInterface.isVisible(TokenColor.BLUE)); // Distruttore || Torpedine || Fucile al plasma// ZX2
-            if ((damagePower == 3) && (markPower == 0) && (redAmmos == 1) && (yellowAmmos == 1)) //Razzo Termico
-                return (ammoControl(redAmmos, blueAmmos, yellowAmmos, actionInterface) && !actionInterface.isVisible(TokenColor.BLUE));
-        }
-        return false;
+        canUse = ammoControl(redAmmos, blueAmmos, yellowAmmos, actionInterface);
+
+        if(effectName.equals("Cyberblade")|| effectName.equals("Sledgehammer"))
+            canUse = actionInterface.sameSquare(victim);
+        else if(effectName.equals("Lock Rifle")|| effectName.equals("T.H.O.R") || effectName.equals("Plasma Gun") || effectName.equals("ZX-2"))
+            canUse = actionInterface.isVisible(victim);
+        else
+            canUse = !actionInterface.isVisible(victim);
+
+        return canUse;
     }
 
     @Override
     public void useEffect(ActionInterface actionInterface) {
 
-        actionInterface.playerDamage(TokenColor.BLUE, damagePower);
-        actionInterface.playerMark(TokenColor.BLUE, markPower);
+        actionInterface.playerDamage(victim, damagePower);
+        actionInterface.playerMark(victim, markPower);
         actionInterface.updateAmmoBox(redAmmos, blueAmmos, yellowAmmos);
     }
 
