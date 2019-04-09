@@ -5,13 +5,26 @@ import it.polimi.ingsw.model.cards.effects.weapons.basiceffects.BasicEffect;
 
 public class SquareDamageEffect extends BasicEffect {
 
+    private String effectName;
+
     private int damagePower;
+
+    private int markPower;
 
     private int redAmmos, blueAmmos, yellowAmmos;
 
     private int x, y;
 
-    boolean firstMode;
+    boolean canUse = true;
+
+    public SquareDamageEffect(String effectName, int damagePower, int redAmmos, int blueAmmos, int yellowAmmos){
+
+        this.effectName = effectName;
+        this.damagePower = damagePower;
+        this.redAmmos = redAmmos;
+        this.blueAmmos = blueAmmos;
+        this.yellowAmmos = yellowAmmos;
+    }
 
     //x = actionInterface.getX();
     //y = actionInterface.getY();
@@ -21,22 +34,25 @@ public class SquareDamageEffect extends BasicEffect {
 
         //x = actionInterface.getX();
         //y = actionInterface.getY();
+        canUse = actionInterface.ammoControl(redAmmos, yellowAmmos, blueAmmos); // Electroscythe
 
-        if(redAmmos + blueAmmos + yellowAmmos == 0 || (redAmmos == 1 && blueAmmos == 1 && yellowAmmos == 0))
-            return ammoControl(redAmmos, blueAmmos, yellowAmmos, actionInterface); //Falce Protonica
-        if(redAmmos == 0 && blueAmmos == 1 && yellowAmmos == 0)
-            if(firstMode)
-                return ammoControl(redAmmos, blueAmmos, yellowAmmos, actionInterface) && actionInterface.isVisibleDifferentSquare(x, y); //Vulcanizzatore (Mod1)
-            else
-                return false;
-                //return ammoControl(redAmmos, blueAmmos, yellowAmmos, actionInterface) && actionInterface.distanceControl(x, y); //Vulcanizzatore(Mod2)
-
-        return false;
+        if(effectName.equals("Furnace"))
+            canUse = actionInterface.isVisibleDifferentSquare(x, y);
+        else if(effectName.equals("Furnace2")) {
+            //canUse = actionInterface.distanceControl(x, y);
+        }
+        return canUse;
 
     }
 
     @Override
     public void useEffect(ActionInterface actionInterface) {
+
+        if(effectName.equals("Furnace")) {
+            //actionInterface.roomDamage(x,y, damagePower, markPower);
+        }else
+            //actionInterface.squareDamage(x,y, damagePower, markPower);
+        actionInterface.updateAmmoBox(redAmmos, blueAmmos, yellowAmmos);
 
     }
 }
