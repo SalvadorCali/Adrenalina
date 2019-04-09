@@ -9,6 +9,10 @@ import it.polimi.ingsw.model.gamecomponents.Player;
 import it.polimi.ingsw.util.Parser;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import static org.junit.Assert.*;
 
 public class PlayerTest {
@@ -57,5 +61,39 @@ public class PlayerTest {
         assertEquals(Color.RED, player.getAmmoBox().get(2).getColor());
         assertEquals(Color.BLUE, player.getAmmoBox().get(3).getColor());
         assertEquals(Color.YELLOW, player.getAmmoBox().get(4).getColor());
+    }
+
+    @Test
+    public void correctUpdateAmmoBox(){
+        Player player = new Player(TokenColor.YELLOW);
+        player.setAmmoBox(createAmmoBox());
+        player.setAmmoReserve(createAmmoReserve());
+        player.updateAmmoBox(1,1,0);
+        assertEquals(1, player.getAmmoBox().size());
+        assertEquals(8, player.getAmmoReserve().size());
+    }
+
+    @Test
+    public void wrongUpdateAmmoBox(){
+        Player player = new Player(TokenColor.GREY);
+        player.setAmmoBox(createAmmoBox());
+        player.setAmmoReserve(createAmmoReserve());
+        player.updateAmmoBox(1,1,0);
+        assertNotEquals(3, player.getAmmoBox().size());
+        assertNotEquals(6, player.getAmmoReserve().size());
+    }
+
+    private ArrayList<Ammo> createAmmoBox(){
+        Ammo[] ammos = new Ammo[]{new Ammo(Color.BLUE), new Ammo(Color.BLUE), new Ammo(Color.RED)};
+        ArrayList<Ammo> ammoBox = new ArrayList<>();
+        ammoBox.addAll(Arrays.asList(ammos));
+        return ammoBox;
+    }
+
+    private ArrayList<Ammo> createAmmoReserve(){
+        Ammo[] ammos = new Ammo[]{new Ammo(Color.YELLOW), new Ammo(Color.YELLOW), new Ammo(Color.YELLOW), new Ammo(Color.BLUE), new Ammo(Color.RED), new Ammo(Color.RED)};
+        ArrayList<Ammo> ammoReserve = new ArrayList<>();
+        ammoReserve.addAll(Arrays.asList(ammos));
+        return ammoReserve;
     }
 }

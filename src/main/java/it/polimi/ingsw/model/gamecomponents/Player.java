@@ -75,6 +75,14 @@ public class Player {
         return ammoReserve;
     }
 
+    public void setAmmoBox(List<Ammo> ammoBox) {
+        this.ammoBox = ammoBox;
+    }
+
+    public void setAmmoReserve(List<Ammo> ammoReserve) {
+        this.ammoReserve = ammoReserve;
+    }
+
     public List<PowerupCard> getPowerups() {
         return powerups;
     }
@@ -140,12 +148,36 @@ public class Player {
     }
 
     public void updateAmmoBox(int redAmmos, int blueAmmos, int yellowAmmos) {
-
         redAmmo-=redAmmos;
         blueAmmo-=blueAmmos;
         yellowAmmo-=yellowAmmos;
 
-        //need to update AmmoBox
-
+        for(int i=0; i<ammoBox.size(); i++){
+            switch (ammoBox.get(i).getColor()){
+                case RED:
+                    if(redAmmos > 0){
+                        redAmmos--;
+                        ammoReserve.add(ammoBox.get(i));
+                        ammoBox.remove(i);
+                    }
+                    break;
+                case BLUE:
+                    if(blueAmmos > 0){
+                        blueAmmos--;
+                        ammoReserve.add(ammoBox.get(i));
+                        ammoBox.remove(i);
+                    }
+                    break;
+                case YELLOW:
+                    if(yellowAmmos > 0){
+                        yellowAmmos--;
+                        ammoReserve.add(ammoBox.get(i));
+                        ammoBox.remove(i);
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 }
