@@ -122,13 +122,27 @@ public class GameBoard {
 
     public void roomDamage(int x, int y, int damagePower, int markPower, TokenColor shooterColor){
 
+
+
+
         TokenColor color = getArena()[x][y].getColor();
 
-        for(int i = 0; i < ROWS; i++){
-            for(int j = 0; j < COLUMNS; j++){
-                if(getArena()[i][j].getColor().equals(color))
-                    getArena()[i][j].squareDamage(damagePower, markPower, shooterColor);
+        if(type.equals(BoardType.PLAYERS_3_4) && (color.equals(TokenColor.PURPLE)|| color.equals(TokenColor.RED))){
+            for(int i = 0; i < ROWS; i++){
+                for(int j = 0; j < COLUMNS; j++){
+                    if(getArena()[i][j].getColor().equals(TokenColor.RED) || getArena()[i][j].getColor().equals(TokenColor.PURPLE) )
+                        getArena()[i][j].squareDamage(damagePower, markPower, shooterColor);
+                }
             }
+
+
+        }else{
+            for(int i = 0; i < ROWS; i++){
+                for(int j = 0; j < COLUMNS; j++){
+                    if(getArena()[i][j].getColor().equals(color))
+                        getArena()[i][j].squareDamage(damagePower, markPower, shooterColor);
+            }
+        }
         }
     }
 

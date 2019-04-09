@@ -4,6 +4,7 @@ import it.polimi.ingsw.model.cards.WeaponCard;
 import it.polimi.ingsw.model.enums.Direction;
 import it.polimi.ingsw.model.enums.TokenColor;
 import it.polimi.ingsw.model.gamecomponents.Ammo;
+import it.polimi.ingsw.model.gamecomponents.Player;
 
 import java.util.List;
 
@@ -36,4 +37,6 @@ public interface ActionInterface {
     void roomDamage(int x, int y, int damagePower, int markPower);
 
     void squareDamage(int x, int y, int damagePower, int markPower);
+
+    void move(int x, int y, Player victim);
 }

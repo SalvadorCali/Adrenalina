@@ -7,6 +7,7 @@ import it.polimi.ingsw.model.enums.Direction;
 import it.polimi.ingsw.model.enums.TokenColor;
 import it.polimi.ingsw.model.gamecomponents.Ammo;
 import it.polimi.ingsw.model.gamecomponents.Game;
+import it.polimi.ingsw.model.gamecomponents.Player;
 
 import java.util.List;
 
@@ -95,6 +96,11 @@ public class ActionController implements ActionInterface {
     public void squareDamage(int x, int y, int damagePower, int markPower) {
 
         game.getBoard().getArena()[x][y].squareDamage(damagePower, markPower, game.getCurrentPlayer().getColor());
+    }
+
+    @Override
+    public void move(int x, int y, Player victim) {
+        game.getBoard().move(x, y, victim);
     }
 }
 

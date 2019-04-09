@@ -21,6 +21,7 @@ public class MovementEffect extends BasicEffect {
 
     private Player victim;
 
+    private Player player = new Player(TokenColor.NONE);
 
     public MovementEffect(String effectName, int damagePower, int markPower, int redAmmos, int blueAmmos, int yellowAmmos ){
 
@@ -45,8 +46,6 @@ public class MovementEffect extends BasicEffect {
 
         canUse = ammoControl(redAmmos, blueAmmos, yellowAmmos, actionInterface);
 
-
-        Player player = new Player(TokenColor.NONE);
         player.setPosition(victim.getPosition());
 
         if(effectName.equals("Tractor Beam1")) {
@@ -86,6 +85,9 @@ public class MovementEffect extends BasicEffect {
 
     @Override
     public void useEffect(ActionInterface actionInterface) {
+
+        actionInterface.move(player.getPosition().getX(), player.getPosition().getY(), victim);
+        actionInterface.playerDamage(victim.getColor(), damagePower);
 
     }
 
