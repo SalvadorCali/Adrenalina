@@ -182,17 +182,19 @@ public class Player {
         }
     }
 
-    public void updatePosition(Direction direction){
+    public void updatePosition(Direction... directions){
 
-        switch (direction){
-            case UP:
-                getPosition().setX(getPosition().getX() - 1);
-            case DOWN:
-                getPosition().setX(getPosition().getX() + 1);
-            case RIGHT:
-                getPosition().setY(getPosition().getY() + 1);
-            case LEFT:
-                getPosition().setY(getPosition().getY() - 1);
+        for(Direction direction : directions) {
+            switch (direction) {
+                case UP:
+                    getPosition().setX(getPosition().getX() - 1);
+                case DOWN:
+                    getPosition().setX(getPosition().getX() + 1);
+                case RIGHT:
+                    getPosition().setY(getPosition().getY() + 1);
+                case LEFT:
+                    getPosition().setY(getPosition().getY() - 1);
+            }
         }
     }
 }

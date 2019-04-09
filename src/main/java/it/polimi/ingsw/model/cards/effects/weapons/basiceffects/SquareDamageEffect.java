@@ -21,6 +21,7 @@ public class SquareDamageEffect extends BasicEffect {
 
         this.effectName = effectName;
         this.damagePower = damagePower;
+        this.markPower = markPower;
         this.redAmmos = redAmmos;
         this.blueAmmos = blueAmmos;
         this.yellowAmmos = yellowAmmos;
