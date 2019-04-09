@@ -3,6 +3,7 @@ package it.polimi.ingsw.model.gamecomponents;
 import it.polimi.ingsw.model.enums.BoardType;
 import it.polimi.ingsw.model.enums.Cardinal;
 import it.polimi.ingsw.model.enums.Direction;
+import it.polimi.ingsw.model.enums.TokenColor;
 
 public class GameBoard {
     private BoardType type;
@@ -60,9 +61,6 @@ public class GameBoard {
             }
         }
 
-        if(moved)
-            move(x,y, player);
-
         return moved;
 
     }
@@ -90,33 +88,65 @@ public class GameBoard {
         return ((sameRoom(x, y, x_2, y_2) || throughDoor(x, y, x_2, y_2))&& !arena[x][y].getColor().equals(arena[x_2][y_2].getColor()));
     }
 
-    private boolean sameRoom(int x, int y, int x_2, int y_2){
+    public int distance(Player shooter, Player victim) {
 
-        return (getArena()[x][y].getColor().equals(getArena()[x_2][y_2].getColor()));
+        Player player = new Player(TokenColor.NONE);
+        player.setPosition(shooter.getPosition());
+        int x = player.getPosition().getX();
+        int y = player.getPosition().getY();
+        int x_2 = victim.getPosition().getX();
+        int y_2 = victim.getPosition().getY();
 
+        for (Direction direction : Direction.values()) {
+            if (canMove(player, direction)) {
+                player.updatePosition(direction);
+                if (player.getPosition().getX() == x_2 && player.getPosition().getY() == y_2)
+                    return 1;
+            }
+        }
+
+        player.setPosition(shooter.getPosition());
+
+        for (Direction direction : Direction.values()) {
+            if (canMove(player, direction)) {
+                player.updatePosition(direction);
+                for (Direction direction1 : Direction.values()) {
+                    if (canMove(player, direction1))
+                        player.updatePosition(direction1);
+                    if (player.getPosition().getX() == x_2 && player.getPosition().getY() == y_2)
+                        return 2;
+                }
+            }
+        }
+        return 3;
     }
 
-    private boolean throughDoor(int x, int y, int x_2, int y_2){
+    private boolean sameRoom ( int x, int y, int x_2, int y_2){
 
-        if(arena[x][y].getNorth().equals(Cardinal.DOOR))
+            return (getArena()[x][y].getColor().equals(getArena()[x_2][y_2].getColor()));
+
+        }
+
+    private boolean throughDoor ( int x, int y, int x_2, int y_2){
+
+        if (arena[x][y].getNorth().equals(Cardinal.DOOR))
             if (sameRoom(x - 1, y, x_2, y_2))
                 return true;
 
-        if(arena[x][y].getSouth().equals(Cardinal.DOOR))
+        if (arena[x][y].getSouth().equals(Cardinal.DOOR))
             if (sameRoom(x + 1, y, x_2, y_2))
                 return true;
 
-        if(arena[x][y].getEast().equals(Cardinal.DOOR))
+        if (arena[x][y].getEast().equals(Cardinal.DOOR))
             if (sameRoom(x, y + 1, x_2, y_2))
                 return true;
 
-        if(arena[x][y].getWest().equals(Cardinal.DOOR))
+        if (arena[x][y].getWest().equals(Cardinal.DOOR))
             if (sameRoom(x, y - 1, x_2, y_2))
                 return true;
 
         return false;
     }
-
 
 
 

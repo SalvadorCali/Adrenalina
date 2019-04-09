@@ -4,6 +4,7 @@ import it.polimi.ingsw.model.cards.Card;
 import it.polimi.ingsw.model.cards.PowerupCard;
 import it.polimi.ingsw.model.cards.WeaponCard;
 import it.polimi.ingsw.model.enums.Color;
+import it.polimi.ingsw.model.enums.Direction;
 import it.polimi.ingsw.model.enums.TokenColor;
 
 import java.util.ArrayList;
@@ -178,6 +179,20 @@ public class Player {
                 default:
                     break;
             }
+        }
+    }
+
+    public void updatePosition(Direction direction){
+
+        switch (direction){
+            case UP:
+                getPosition().setX(getPosition().getX() - 1);
+            case DOWN:
+                getPosition().setX(getPosition().getX() + 1);
+            case RIGHT:
+                getPosition().setY(getPosition().getY() + 1);
+            case LEFT:
+                getPosition().setY(getPosition().getY() - 1);
         }
     }
 }
