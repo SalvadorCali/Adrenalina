@@ -34,12 +34,14 @@ public class SquareDamageEffect extends BasicEffect {
 
         //x = actionInterface.getX();
         //y = actionInterface.getY();
+        
         canUse = actionInterface.ammoControl(redAmmos, yellowAmmos, blueAmmos); // Electroscythe
 
         if(effectName.equals("Furnace"))
             canUse = actionInterface.isVisibleDifferentSquare(x, y);
         else if(effectName.equals("Furnace2")) {
-            //canUse = actionInterface.distanceControl(x, y);
+            if(actionInterface.distanceControl(x, y) == 1)
+                canUse = true;
         }
         return canUse;
 

@@ -88,14 +88,13 @@ public class GameBoard {
         return ((sameRoom(x, y, x_2, y_2) || throughDoor(x, y, x_2, y_2))&& !arena[x][y].getColor().equals(arena[x_2][y_2].getColor()));
     }
 
-    public int distance(Player shooter, Player victim) {
+    public int distance(Player shooter, int x_2, int y_2) {
 
         Player player = new Player(TokenColor.NONE);
         player.setPosition(shooter.getPosition());
-        int x = player.getPosition().getX();
-        int y = player.getPosition().getY();
-        int x_2 = victim.getPosition().getX();
-        int y_2 = victim.getPosition().getY();
+
+        if (player.getPosition().getX() == x_2 && player.getPosition().getY() == y_2)
+            return 0;
 
         for (Direction direction : Direction.values()) {
             if (canMove(player, direction)) {

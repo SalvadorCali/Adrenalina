@@ -73,9 +73,16 @@ public class ActionController implements ActionInterface {
     public void updateAmmoBox(int redAmmos, int blueAmmos, int yellowAmmos) {
         game.getCurrentPlayer().updateAmmoBox(redAmmos, blueAmmos, yellowAmmos);
     }
+
     @Override
     public boolean canMove(TokenColor victim, Direction... directions) {
         return game.getBoard().canMove(game.findPlayer(victim), directions);
+    }
+
+    @Override
+    public int distanceControl(int x, int y){
+
+        return game.getBoard().distance(game.getCurrentPlayer(), x, y);
     }
 }
 

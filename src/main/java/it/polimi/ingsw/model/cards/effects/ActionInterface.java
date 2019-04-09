@@ -30,4 +30,6 @@ public interface ActionInterface {
     void updateAmmoBox(int redAmmos, int blueAmmos, int redAmmos1);
 
     boolean canMove(TokenColor victim, Direction... directions);
+
+    int distanceControl(int x, int y);
 }
