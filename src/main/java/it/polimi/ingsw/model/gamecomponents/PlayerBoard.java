@@ -138,8 +138,7 @@ public class PlayerBoard {
         adrenalineZone = AdrenalineZone.DEFAULT;
         dead = false;
     }
-
-    /*
+/*
     public Map<TokenColor, Score> scoring(){
         Score score;
         for(int i=0; i<MAX_DAMAGE; i++){
@@ -232,5 +231,6 @@ public class PlayerBoard {
     private void findMax(Integer value){
 
     }
-    */
+
+*/
 }
