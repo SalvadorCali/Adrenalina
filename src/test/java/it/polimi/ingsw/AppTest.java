@@ -3,6 +3,7 @@ package it.polimi.ingsw;
 
 import it.polimi.ingsw.model.cards.AmmoCard;
 import it.polimi.ingsw.util.Parser;
+import it.polimi.ingsw.util.Printer;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -22,4 +23,5 @@ public class AppTest
     {
         assertTrue( true );
     }
+
 }

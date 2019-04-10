@@ -12,7 +12,7 @@ public class SpawnPoint extends Square {
     private List<WeaponCard> weapons;
 
     public SpawnPoint(TokenColor color, Cardinal north, Cardinal south, Cardinal west, Cardinal east) {
-        super(color, north, south, west, east);
+        super(color, north, south, west, east, true);
         this.weapons = new ArrayList<>();
     }
 
@@ -30,15 +30,17 @@ public class SpawnPoint extends Square {
     public void grab(ActionInterface actionInterface, int choice) {
         actionInterface.addWeapon(weapons.get(choice));
     }
+    @Override
+    public void fill(ActionInterface actionInterface){
+        List<WeaponCard> newWeapons = new ArrayList<>();
+        newWeapons.add(actionInterface.getWeapon());
+        newWeapons.add(actionInterface.getWeapon());
+        newWeapons.add(actionInterface.getWeapon());
+        setWeapons(newWeapons);
+    }
 
     public void spawn(Player player){
         //to implement
-   }
-   /*
-    public String toString(){
-        StringBuilder string = new StringBuilder();
-        string.append("—");
-        return string.toString();
     }
-    */
+
 }

@@ -8,7 +8,7 @@ import it.polimi.ingsw.model.enums.TokenColor;
 public class AmmoPoint extends Square {
     private AmmoCard ammoCard;
     public AmmoPoint(TokenColor color, Cardinal north, Cardinal south, Cardinal west, Cardinal east) {
-        super(color, north, south, west, east);
+        super(color, north, south, west, east, false);
     }
 
     //getters and setters
@@ -30,5 +30,9 @@ public class AmmoPoint extends Square {
         else{
             actionInterface.addAmmo(ammoCard.getFirstAmmo(), ammoCard.getSecondAmmo(), ammoCard.getThirdAmmo());
         }
+    }
+    @Override
+    public void fill(ActionInterface actionInterface){
+        setAmmoCard(actionInterface.getAmmo());
     }
 }

@@ -1,6 +1,7 @@
 package it.polimi.ingsw.model.gamecomponents;
 
 import it.polimi.ingsw.model.cards.AmmoCard;
+import it.polimi.ingsw.model.cards.effects.ActionInterface;
 import it.polimi.ingsw.model.enums.Direction;
 import it.polimi.ingsw.model.enums.TokenColor;
 import it.polimi.ingsw.util.Printer;
@@ -66,6 +67,14 @@ public class Game {
         this.powerups = powerups;
     }
 
+    public List<AmmoCard> getAmmos() {
+        return ammos;
+    }
+
+    public void setAmmos(List<AmmoCard> ammos) {
+        this.ammos = ammos;
+    }
+
     public boolean isFinalFrenzy() {
         return finalFrenzy;
     }
@@ -83,6 +92,21 @@ public class Game {
     }
 
     //methods
+    public void createKillshotTrack(int skulls){
+        for(int i=0; i<skulls; i++){
+            killshotTrack.add(new Token(TokenColor.SKULL));
+        }
+    }
+    public void fillSquares(ActionInterface actionInterface){
+        Square[][] arena = board.getArena();
+        for(int i=0; i<3; i++){
+            for(int j=0; j<4; j++){
+                if(!arena[i][j].getColor().equals(TokenColor.NONE)){
+                    arena[i][j].fill(actionInterface);
+                }
+            }
+        }
+    }
     public void createScoreList(){
         for(Player player : players){
             scoreList.put(player.getColor(), 0);

@@ -1,4 +1,5 @@
 package it.polimi.ingsw.controller;
+import it.polimi.ingsw.model.cards.AmmoCard;
 import it.polimi.ingsw.model.cards.PowerupCard;
 import it.polimi.ingsw.model.cards.WeaponCard;
 import it.polimi.ingsw.model.cards.effects.ActionInterface;
@@ -101,6 +102,16 @@ public class ActionController implements ActionInterface {
     @Override
     public void move(int x, int y, Player victim) {
         game.getBoard().move(x, y, victim);
+    }
+
+    @Override
+    public AmmoCard getAmmo() {
+        return game.getAmmos().remove(0);
+    }
+
+    @Override
+    public WeaponCard getWeapon() {
+        return (WeaponCard) game.getWeapons().draw();
     }
 }
 

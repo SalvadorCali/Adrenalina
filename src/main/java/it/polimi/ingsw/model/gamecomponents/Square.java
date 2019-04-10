@@ -17,13 +17,15 @@ public abstract class Square {
     private Cardinal west;
     private Cardinal east;
     private List<Player> players;
+    private boolean spawn;
 
-    public Square(TokenColor color, Cardinal north, Cardinal south, Cardinal west, Cardinal east){
+    public Square(TokenColor color, Cardinal north, Cardinal south, Cardinal west, Cardinal east, boolean spawn){
         this.color = color;
         this.north = north;
         this.south = south;
         this.west = west;
         this.east = east;
+        this.spawn = spawn;
         players = new ArrayList<>();
     }
 
@@ -68,6 +70,14 @@ public abstract class Square {
         this.color = color;
     }
 
+    public boolean isSpawn() {
+        return spawn;
+    }
+
+    public void setSpawn(boolean spawn) {
+        this.spawn = spawn;
+    }
+
     public List<Player> getPlayers(){
         return players;
     }
@@ -105,6 +115,7 @@ public abstract class Square {
         }
     }
     public abstract void grab(ActionInterface actionInterface, int choice);
+    public abstract void fill(ActionInterface actionInterface);
 
 
 }

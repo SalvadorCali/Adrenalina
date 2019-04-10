@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model.cards.effects;
 
+import it.polimi.ingsw.model.cards.AmmoCard;
 import it.polimi.ingsw.model.cards.WeaponCard;
 import it.polimi.ingsw.model.enums.Direction;
 import it.polimi.ingsw.model.enums.TokenColor;
@@ -39,4 +40,8 @@ public interface ActionInterface {
     void squareDamage(int x, int y, int damagePower, int markPower);
 
     void move(int x, int y, Player victim);
+
+    AmmoCard getAmmo();
+
+    WeaponCard getWeapon();
 }
