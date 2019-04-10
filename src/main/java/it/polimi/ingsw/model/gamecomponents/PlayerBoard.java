@@ -9,6 +9,7 @@ import java.util.*;
 public class PlayerBoard {
     private Token[] damageBoard;
     private static final int MAX_DAMAGE = 12;
+    private int maxDamage;
     private int damageIndex;
     private int deathNumber;
     private List<Token> revengeMarks;
@@ -26,8 +27,7 @@ public class PlayerBoard {
         deathNumber = 0;
         revengeMarks = new ArrayList<>();
         adrenalineZone = AdrenalineZone.DEFAULT;
-        scoreList = new EnumMap<>(TokenColor.class);
-        createScoreList();
+        scoreList = new HashMap<>();
     }
 
     //getters and setters
@@ -92,11 +92,6 @@ public class PlayerBoard {
     }
 
     //methods
-    private void createScoreList(){
-        for(TokenColor color : TokenColor.values()){
-            scoreList.put(color, new Score(color, 0));
-        }
-    }
     public void addRevengeMarks(TokenColor color){
         revengeMarks.add(new Token(color));
     }
@@ -116,9 +111,11 @@ public class PlayerBoard {
                 adrenalineZone = AdrenalineZone.SECOND;
             }
             else if(damageIndex == 11){
+                maxDamage = 11;
                 dead = true;
             }
             else if(damageIndex == 12){
+                maxDamage = 12;
                 overkill = true;
             }
         }
@@ -152,15 +149,8 @@ public class PlayerBoard {
         dead = false;
     }
 
-    public Map<TokenColor, Score> scoring(ArrayList<TokenColor> playerColors){
+    public Map<TokenColor, Score> createScoreList(ArrayList<TokenColor> playerColors){
         Score score;
-        int maxDamage;
-        if(isOverkill()){
-            maxDamage = 12;
-        }else{
-            maxDamage = 11;
-        }
-        scoreList = new HashMap<>();
         for(TokenColor color : playerColors){
             scoreList.put(color, new Score(color, 0));
         }
@@ -169,22 +159,28 @@ public class PlayerBoard {
             score.setScore(score.getScore() + 1);
             scoreList.replace(damageBoard[i].getFirstColor(), score);
         }
-        List<Score> scores = new ArrayList<>();
-        scoreList.forEach((key, value) -> scores.add(value));
+        return scoreList;
+    }
+
+    public Map<TokenColor, Score> scoring(ArrayList<TokenColor> playerColors){
+        Score score;
+        List<Score> turnScores = new ArrayList<>();
+        scoreList = createScoreList(playerColors);
+        scoreList.forEach((key, value) -> turnScores.add(value));
 
         int scoreValuesIndex = 0;
         ArrayList<Integer> scoreValues = getScoreValues();
-        int number = scores.size();
+        int number = turnScores.size();
         for(int k=0; k<number; k++){
             int max = 0;
-            for(int i=0; i<scores.size(); i++){
-                max = Math.max(max, scores.get(i).getScore());
+            for (Score turnScore : turnScores) {
+                max = Math.max(max, turnScore.getScore());
             }
             if(max != 0){
                 ArrayList<Score> maximumScores = new ArrayList<>();
-                for(int i=0; i<scores.size(); i++){
-                    if(max == scores.get(i).getScore()){
-                        maximumScores.add(scores.get(i));
+                for (Score turnScore : turnScores) {
+                    if (max == turnScore.getScore()) {
+                        maximumScores.add(turnScore);
                     }
                 }
                 if(maximumScores.size() > 1){
@@ -194,9 +190,9 @@ public class PlayerBoard {
                             if(damageBoard[i].getFirstColor().equals(maximumScores.get(j).getColor())){
                                 scoreList.replace(damageBoard[i].getFirstColor(), new Score(damageBoard[i].getFirstColor(), scoreValues.get(scoreValuesIndex)));
                                 scoreValuesIndex++;
-                                for(int l=0; l<scores.size(); l++){
-                                    if(maximumScores.get(j).equals(scores.get(l))){
-                                        scores.remove(l);
+                                for(int l=0; l<turnScores.size(); l++){
+                                    if(maximumScores.get(j).equals(turnScores.get(l))){
+                                        turnScores.remove(l);
                                         break;
                                     }
                                 }
@@ -208,9 +204,9 @@ public class PlayerBoard {
                 }else{
                     scoreList.replace(maximumScores.get(0).getColor(), new Score(maximumScores.get(0).getColor(), scoreValues.get(scoreValuesIndex)));
                     scoreValuesIndex++;
-                    for(int l=0; l<scores.size(); l++){
-                        if(maximumScores.get(0).equals(scores.get(l))){
-                            scores.remove(l);
+                    for(int l=0; l<turnScores.size(); l++){
+                        if(maximumScores.get(0).equals(turnScores.get(l))){
+                            turnScores.remove(l);
                             break;
                         }
                     }
@@ -226,43 +222,6 @@ public class PlayerBoard {
         score.setScore(score.getScore() + 1);
         scoreList.replace(getKillshot(), score);
         return scoreList;
-    }
-
-    public void givePoints(){
-        int blueScore = 0;
-        int greenScore = 0;
-        int greyScore = 0;
-        int purpleScore = 0;
-        int yellowScore = 0;
-
-        for(int i=0; i<MAX_DAMAGE; i++){
-            switch (damageBoard[i].getFirstColor()){
-                case BLUE:
-                    blueScore++;
-                    break;
-                case GREEN:
-                    greenScore++;
-                    break;
-                case GREY:
-                    greyScore++;
-                    break;
-                case PURPLE:
-                    purpleScore++;
-                    break;
-                case YELLOW:
-                    yellowScore++;
-                    break;
-                default:
-                    break;
-            }
-        }
-
-        int max = Math.max(Math.max(Math.max(Math.max(blueScore, greenScore), greyScore), purpleScore), yellowScore);
-
-    }
-
-    private void findMax(Integer value){
-
     }
 
     private ArrayList<Integer> getScoreValues(){
@@ -286,6 +245,4 @@ public class PlayerBoard {
         }
         return scoreValues;
     }
-
-
 }

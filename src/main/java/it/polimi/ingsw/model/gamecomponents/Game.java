@@ -26,14 +26,6 @@ public class Game {
         killshotTrack = new ArrayList<>();
         scoreList = new HashMap<>();
         playerColors = new ArrayList<>();
-        /*
-        for(Player player : players){
-            scoreList.put(player.getColor(), 0);
-            playerColors.add(player.getColor());
-        }
-        */
-
-        //createScoreList();
         this.weapons = weapons;
         this.powerups = powerups;
         this.ammos = ammos;
@@ -109,9 +101,9 @@ public class Game {
         ArrayList<TokenColor> tmpPlayerColors = new ArrayList<>();
         for(Player player : players){
             if(player.getPlayerBoard().isDead()){
-                for(int i=0; i<playerColors.size(); i++){
-                    if(!playerColors.get(i).equals(player.getColor())){
-                        tmpPlayerColors.add(playerColors.get(i));
+                for (TokenColor playerColor : playerColors) {
+                    if (!playerColor.equals(player.getColor())) {
+                        tmpPlayerColors.add(playerColor);
                     }
                 }
                 tmpScoreList = player.getPlayerBoard().scoring(tmpPlayerColors);
@@ -122,7 +114,6 @@ public class Game {
                         actualScore+= tmpScoreList.get(playerColors.get(i)).getScore();
                         scoreList.replace(players.get(i).getColor(), actualScore);
                     }
-
                 }
             }
         }
@@ -152,7 +143,4 @@ public class Game {
     public boolean sameSquare(TokenColor color){
         return currentPlayer.getPosition().equals(findPlayer(color).getPosition());
     }
-
-
-
 }
