@@ -164,13 +164,11 @@ public class PlayerBoard {
         for(TokenColor color : playerColors){
             scoreList.put(color, new Score(color, 0));
         }
-
         for(int i=0; i<maxDamage; i++){
             score = scoreList.get(damageBoard[i].getFirstColor());
             score.setScore(score.getScore() + 1);
             scoreList.replace(damageBoard[i].getFirstColor(), score);
         }
-
         List<Score> scores = new ArrayList<>();
         scoreList.forEach((key, value) -> scores.add(value));
 
@@ -182,42 +180,42 @@ public class PlayerBoard {
             for(int i=0; i<scores.size(); i++){
                 max = Math.max(max, scores.get(i).getScore());
             }
-            
-            ArrayList<Score> maximumScores = new ArrayList<>();
-            for(int i=0; i<scores.size(); i++){
-                if(max == scores.get(i).getScore()){
-                    maximumScores.add(scores.get(i));
+            if(max != 0){
+                ArrayList<Score> maximumScores = new ArrayList<>();
+                for(int i=0; i<scores.size(); i++){
+                    if(max == scores.get(i).getScore()){
+                        maximumScores.add(scores.get(i));
+                    }
                 }
-            }
-
-            if(maximumScores.size() > 1){
-                evaluate_max:
-                for(int i=0; i<maxDamage; i++){
-                    for(int j=0; j<maximumScores.size(); j++){
-                        if(damageBoard[i].getFirstColor().equals(maximumScores.get(j).getColor())){
-                            scoreList.replace(damageBoard[i].getFirstColor(), new Score(damageBoard[i].getFirstColor(), scoreValues.get(scoreValuesIndex)));
-                            scoreValuesIndex++;
-                            for(int l=0; l<scores.size(); l++){
-                                if(maximumScores.get(j).equals(scores.get(l))){
-                                    scores.remove(l);
-                                    break;
+                if(maximumScores.size() > 1){
+                    evaluate_max:
+                    for(int i=0; i<maxDamage; i++){
+                        for(int j=0; j<maximumScores.size(); j++){
+                            if(damageBoard[i].getFirstColor().equals(maximumScores.get(j).getColor())){
+                                scoreList.replace(damageBoard[i].getFirstColor(), new Score(damageBoard[i].getFirstColor(), scoreValues.get(scoreValuesIndex)));
+                                scoreValuesIndex++;
+                                for(int l=0; l<scores.size(); l++){
+                                    if(maximumScores.get(j).equals(scores.get(l))){
+                                        scores.remove(l);
+                                        break;
+                                    }
                                 }
+                                maximumScores.remove(j);
+                                break evaluate_max;
                             }
-                            maximumScores.remove(j);
-                            break evaluate_max;
                         }
                     }
-                }
-            }else{
-                scoreList.replace(maximumScores.get(0).getColor(), new Score(maximumScores.get(0).getColor(), scoreValues.get(scoreValuesIndex)));
-                scoreValuesIndex++;
-                for(int l=0; l<scores.size(); l++){
-                    if(maximumScores.get(0).equals(scores.get(l))){
-                        scores.remove(l);
-                        break;
+                }else{
+                    scoreList.replace(maximumScores.get(0).getColor(), new Score(maximumScores.get(0).getColor(), scoreValues.get(scoreValuesIndex)));
+                    scoreValuesIndex++;
+                    for(int l=0; l<scores.size(); l++){
+                        if(maximumScores.get(0).equals(scores.get(l))){
+                            scores.remove(l);
+                            break;
+                        }
                     }
+                    maximumScores.remove(0);
                 }
-                maximumScores.remove(0);
             }
         }
 

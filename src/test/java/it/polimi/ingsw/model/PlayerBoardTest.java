@@ -104,7 +104,7 @@ public class PlayerBoardTest {
         assertEquals(10, newScore.get(TokenColor.BLUE).getScore());
         assertEquals(6, newScore.get(TokenColor.PURPLE).getScore());
         assertEquals(4, newScore.get(TokenColor.YELLOW).getScore());
-        assertEquals(2, newScore.get(TokenColor.GREY).getScore());
+        assertEquals(0, newScore.get(TokenColor.GREY).getScore());
     }
 
     @Test
@@ -124,6 +124,6 @@ public class PlayerBoardTest {
         assertEquals(10, newScore.get(TokenColor.BLUE).getScore());
         assertEquals(6, newScore.get(TokenColor.YELLOW).getScore());
         assertEquals(4, newScore.get(TokenColor.PURPLE).getScore());
-        assertEquals(2, newScore.get(TokenColor.GREY).getScore());
+        assertEquals(0, newScore.get(TokenColor.GREY).getScore());
     }
 }

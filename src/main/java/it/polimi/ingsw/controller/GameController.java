@@ -33,6 +33,11 @@ public class GameController {
         actionInterface = new ActionController(game);
     }
 
+    //getters and setters
+    public Game getGame() {
+        return game;
+    }
+
     //methods
     public void addPlayer(Player player){
         game.addPlayer(player);

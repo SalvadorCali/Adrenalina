@@ -3,6 +3,7 @@ package it.polimi.ingsw.model.gamecomponents;
 import it.polimi.ingsw.model.cards.AmmoCard;
 import it.polimi.ingsw.model.enums.Direction;
 import it.polimi.ingsw.model.enums.TokenColor;
+import it.polimi.ingsw.util.Printer;
 
 import java.util.*;
 
@@ -24,7 +25,15 @@ public class Game {
         players = new ArrayList<>();
         killshotTrack = new ArrayList<>();
         scoreList = new HashMap<>();
-        createScoreList();
+        playerColors = new ArrayList<>();
+        /*
+        for(Player player : players){
+            scoreList.put(player.getColor(), 0);
+            playerColors.add(player.getColor());
+        }
+        */
+
+        //createScoreList();
         this.weapons = weapons;
         this.powerups = powerups;
         this.ammos = ammos;
@@ -73,9 +82,16 @@ public class Game {
         this.finalFrenzy = finalFrenzy;
     }
 
+    public Map<TokenColor, Integer> getScoreList() {
+        return scoreList;
+    }
+
+    public List<Player> getPlayers() {
+        return players;
+    }
+
     //methods
-    private void createScoreList(){
-        playerColors = new ArrayList<>();
+    public void createScoreList(){
         for(Player player : players){
             scoreList.put(player.getColor(), 0);
             playerColors.add(player.getColor());
@@ -90,19 +106,23 @@ public class Game {
 
     public void scoring(){
         Map<TokenColor, Score> tmpScoreList;
-        ArrayList<TokenColor> tmpPlayerColors = playerColors;
+        ArrayList<TokenColor> tmpPlayerColors = new ArrayList<>();
         for(Player player : players){
             if(player.getPlayerBoard().isDead()){
-                for(int i=0; i<tmpPlayerColors.size(); i++){
-                    if(tmpPlayerColors.get(i).equals(player.getColor())){
-                        tmpPlayerColors.remove(i);
+                for(int i=0; i<playerColors.size(); i++){
+                    if(!playerColors.get(i).equals(player.getColor())){
+                        tmpPlayerColors.add(playerColors.get(i));
                     }
                 }
                 tmpScoreList = player.getPlayerBoard().scoring(tmpPlayerColors);
+                tmpPlayerColors.clear();
                 for(int i=0; i<playerColors.size(); i++){
-                    int actualScore = scoreList.get(playerColors.get(i));
-                    actualScore+= tmpScoreList.get(playerColors.get(i)).getScore();
-                    scoreList.replace(players.get(i).getColor(), actualScore);
+                    if(tmpScoreList.containsKey(playerColors.get(i))){
+                        int actualScore = scoreList.get(playerColors.get(i));
+                        actualScore+= tmpScoreList.get(playerColors.get(i)).getScore();
+                        scoreList.replace(players.get(i).getColor(), actualScore);
+                    }
+
                 }
             }
         }
