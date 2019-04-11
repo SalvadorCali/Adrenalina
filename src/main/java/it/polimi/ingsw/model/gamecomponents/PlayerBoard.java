@@ -167,7 +167,7 @@ public class PlayerBoard {
         dead = false;
     }
 
-    public Map<TokenColor, Score> createScoreList(ArrayList<TokenColor> playerColors){
+    private Map<TokenColor, Score> createScoreList(ArrayList<TokenColor> playerColors){
         Score score;
         for(TokenColor color : playerColors){
             scoreList.put(color, new Score(color, 0));

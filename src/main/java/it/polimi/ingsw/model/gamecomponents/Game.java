@@ -91,6 +91,10 @@ public class Game {
         return players;
     }
 
+    public List<Token> getKillshotTrack() {
+        return killshotTrack;
+    }
+
     //methods
     public void createKillshotTrack(int skulls){
         for(int i=0; i<skulls; i++){

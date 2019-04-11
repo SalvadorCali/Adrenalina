@@ -14,7 +14,7 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 public class SpawnPointTest {
     @Test
@@ -33,5 +33,16 @@ public class SpawnPointTest {
         square.grab(actionInterface, 2);
 
         assertEquals(weapons.get(2), player.getWeapons().get(0));
+    }
+
+    @Test
+    public void fillTest(){
+        Game game = new Game(Parser.createGameBoards().get(0), Parser.createWeapons(), Parser.createPowerups(), Parser.createAmmos());
+        ActionInterface actionInterface = new ActionController(game);
+        SpawnPoint square = new SpawnPoint(TokenColor.BLUE, Cardinal.DOOR, Cardinal.ROOM, Cardinal.WALL, Cardinal.DOOR);
+        assertEquals(0, square.getWeapons().size());
+
+        square.fill(actionInterface);
+        assertEquals(3, square.getWeapons().size());
     }
 }

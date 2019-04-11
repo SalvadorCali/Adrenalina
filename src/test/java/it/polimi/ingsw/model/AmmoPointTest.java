@@ -29,4 +29,15 @@ public class AmmoPointTest {
         assertEquals(Color.BLUE, player.getAmmoBox().get(1).getColor());
         assertEquals(1, player.getPowerups().size());
     }
+
+    @Test
+    public void fillTest(){
+        Game game = new Game(Parser.createGameBoards().get(0), Parser.createWeapons(), Parser.createPowerups(), Parser.createAmmos());
+        ActionInterface actionInterface = new ActionController(game);
+        AmmoPoint square = new AmmoPoint(TokenColor.BLUE, Cardinal.DOOR, Cardinal.ROOM, Cardinal.WALL, Cardinal.DOOR);
+        assertNull(square.getAmmoCard());
+
+        square.fill(actionInterface);
+        assertNotNull(square.getAmmoCard());
+    }
 }

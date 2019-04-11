@@ -1,6 +1,8 @@
 package it.polimi.ingsw.model;
 
+import it.polimi.ingsw.controller.ActionController;
 import it.polimi.ingsw.controller.GameController;
+import it.polimi.ingsw.model.cards.effects.ActionInterface;
 import it.polimi.ingsw.model.enums.TokenColor;
 import it.polimi.ingsw.model.gamecomponents.Game;
 import it.polimi.ingsw.model.gamecomponents.Player;
@@ -23,6 +25,32 @@ public class GameTest {
         assertEquals(15, scoreList.get(TokenColor.GREY).intValue());
         assertEquals(0, scoreList.get(TokenColor.PURPLE).intValue());
     }
+
+    @Test
+    public void createKillshotTrackTest(){
+        Game game = createGame();
+        game.createKillshotTrack(5);
+        assertEquals(5, game.getKillshotTrack().size());
+        for(int i=0; i<5; i++){
+            assertEquals(TokenColor.SKULL, game.getKillshotTrack().get(i).getFirstColor());
+        }
+    }
+    /*
+    @Test
+    public void fillSquaresTest(){
+        Game game = createGame();
+        ActionInterface actionInterface = new ActionController(game);
+        game.fillSquares(actionInterface);
+        for(int i=0; i<3; i++){
+            for(int j=0; j<4; j++){
+                if(!game.getBoard().getArena()[i][j].getColor().equals(TokenColor.NONE)){
+
+                }
+            }
+        }
+        game.getBoard().getArena();
+    }
+    */
 
     public Game createGame(){
         GameController gameController = new GameController();
