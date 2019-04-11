@@ -114,6 +114,10 @@ public abstract class Square {
             player.getPlayerBoard().addDamage(color);
         }
     }
+
+    public void addPlayer(Player player){
+        players.add(player);
+    }
     public abstract void grab(ActionInterface actionInterface, int choice);
     public abstract void fill(ActionInterface actionInterface);
 

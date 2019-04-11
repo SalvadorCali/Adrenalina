@@ -120,6 +120,38 @@ public class Game {
         }
     }
 
+    public void setRevengeMarks(){
+        for(Player player : players){
+            if(player.getPlayerBoard().isOverkill()){
+                TokenColor tokenColor = player.getPlayerBoard().getOverkill();
+                for(Player player1 : players){
+                    if(tokenColor.equals(player.getColor())){
+                        player1.getPlayerBoard().addRevengeMarks(tokenColor);
+                    }
+                }
+            }
+        }
+    }
+
+    public void doubleKill(){
+        List<Score> killshots = new ArrayList<>();
+        for(Player player : players){
+            if(player.getPlayerBoard().isDead()){
+                TokenColor tokenColor = player.getPlayerBoard().getKillshot();
+                killshots.add(new Score(tokenColor, 1));
+            }
+        }
+        if(killshots.size()>1){
+            for (Score score : killshots){
+                if(score.getScore()>1){
+                    int actualScore = scoreList.get(score.getColor());
+                    actualScore += 1;
+                    scoreList.replace(score.getColor(), actualScore);
+                }
+            }
+        }
+    }
+
     public void scoring(){
         Map<TokenColor, Score> tmpScoreList;
         ArrayList<TokenColor> tmpPlayerColors = new ArrayList<>();

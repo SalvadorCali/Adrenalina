@@ -104,22 +104,40 @@ public class PlayerBoard {
         for(TokenColor color : colors){
             damageBoard[damageIndex] = new Token(color);
             damageIndex++;
-            if(damageIndex == 2){
+            if(!revengeMarks.isEmpty()){
+                damageIndex = findRevengeMarks(color, damageIndex);
+            }
+            if(damageIndex >= 2 && damageIndex < 5){
                 adrenalineZone = AdrenalineZone.FIRST;
             }
-            else if(damageIndex == 5){
+            else if(damageIndex >= 5){
                 adrenalineZone = AdrenalineZone.SECOND;
             }
-            else if(damageIndex == 11){
+            if(damageIndex == 11){
                 maxDamage = 11;
                 dead = true;
             }
-            else if(damageIndex == 12){
+            if(damageIndex == 12){
                 maxDamage = 12;
                 overkill = true;
             }
         }
     }
+
+    public int findRevengeMarks(TokenColor color, int damageIndex){
+        int revengeMarksSize = revengeMarks.size();
+        for(int i=0; i<revengeMarksSize; i++){
+            if(revengeMarks.get(i).getFirstColor().equals(color)){
+                damageBoard[damageIndex] = new Token(color);
+                damageIndex++;
+                revengeMarks.remove(i);
+                i--;
+            }
+        }
+        return damageIndex;
+    }
+
+
 
     public void resetDamage(){
         for(int i=0; i<MAX_DAMAGE; i++){

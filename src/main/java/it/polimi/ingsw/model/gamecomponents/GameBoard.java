@@ -1,9 +1,6 @@
 package it.polimi.ingsw.model.gamecomponents;
 
-import it.polimi.ingsw.model.enums.BoardType;
-import it.polimi.ingsw.model.enums.Cardinal;
-import it.polimi.ingsw.model.enums.Direction;
-import it.polimi.ingsw.model.enums.TokenColor;
+import it.polimi.ingsw.model.enums.*;
 
 public class GameBoard {
     private BoardType type;
@@ -173,6 +170,30 @@ public class GameBoard {
         return false;
     }
 
+    public void setPlayer(Player player, Color color){
+        TokenColor tokenColor = castColorToTokenColor(color);
+        for(int i=0; i<3; i++){
+            for(int j=0; j<4; j++){
+                if(arena[i][j].isSpawn() && arena[i][j].getColor().equals(tokenColor)){
+                    arena[i][j].addPlayer(player);
+                    break;
+                }
+            }
+        }
+    }
+
+    public TokenColor castColorToTokenColor(Color color){
+        switch (color){
+            case BLUE:
+                return TokenColor.BLUE;
+            case RED:
+                return TokenColor.RED;
+            case YELLOW:
+                return TokenColor.YELLOW;
+            default:
+                return TokenColor.NONE;
+        }
+    }
 
 
 

@@ -24,6 +24,7 @@ public class Player {
     private List<Ammo> ammoReserve;
     private PlayerBoard playerBoard;
     private Position position;
+    private int actionNumber;
 
     public Player(TokenColor color){
         this.color = color;
@@ -34,6 +35,7 @@ public class Player {
         yellowAmmo = 0;
         blueAmmo = 0;
         redAmmo = 0;
+        actionNumber = 0;
     }
 
     public TokenColor getColor() {
@@ -94,6 +96,14 @@ public class Player {
 
     public void setWeapons(List<WeaponCard> weapons) {
         this.weapons = weapons;
+    }
+
+    public int getActionNumber() {
+        return actionNumber;
+    }
+
+    public void setActionNumber(int actionNumber) {
+        this.actionNumber = actionNumber;
     }
 
     //methods
