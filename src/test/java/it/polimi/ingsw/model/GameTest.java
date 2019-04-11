@@ -52,6 +52,16 @@ public class GameTest {
     }
     */
 
+    @Test
+    public void setRevengeMarksTest(){
+        Game game = createGame();
+        game.setRevengeMarks();
+
+        assertEquals(TokenColor.GREY, game.getPlayers().get(1).getPlayerBoard().getRevengeMarks().get(0).getFirstColor());
+        assertEquals(TokenColor.PURPLE, game.getPlayers().get(1).getPlayerBoard().getRevengeMarks().get(1).getFirstColor());
+        assertEquals(TokenColor.YELLOW, game.getPlayers().get(2).getPlayerBoard().getRevengeMarks().get(0).getFirstColor());
+    }
+
     public Game createGame(){
         GameController gameController = new GameController();
         Game game = gameController.getGame();

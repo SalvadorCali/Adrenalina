@@ -129,8 +129,8 @@ public class Game {
             if(player.getPlayerBoard().isOverkill()){
                 TokenColor tokenColor = player.getPlayerBoard().getOverkill();
                 for(Player player1 : players){
-                    if(tokenColor.equals(player.getColor())){
-                        player1.getPlayerBoard().addRevengeMarks(tokenColor);
+                    if(tokenColor.equals(player1.getColor())){
+                        player1.getPlayerBoard().addRevengeMarks(player.getColor());
                     }
                 }
             }
