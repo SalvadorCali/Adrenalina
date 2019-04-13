@@ -1,7 +1,9 @@
-package it.polimi.ingsw.network;
+package it.polimi.ingsw.network.server;
 
+import it.polimi.ingsw.network.ConnectionManager;
 import it.polimi.ingsw.util.Printer;
 
+import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
@@ -14,6 +16,11 @@ public class Server {
         } catch (UnknownHostException e) {
             Printer.err(e);
         }
-
+        try {
+            ConnectionManager connection = new ConnectionManager();
+            connection.start();
+        } catch (IOException e) {
+            Printer.err(e);
+        }
     }
 }

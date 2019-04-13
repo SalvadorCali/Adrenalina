@@ -1,5 +1,6 @@
 package it.polimi.ingsw.network;
 
+import it.polimi.ingsw.network.server.socket.SocketServer;
 import it.polimi.ingsw.util.Printer;
 
 import java.io.IOException;
@@ -8,13 +9,15 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class ConnectionManager implements ConnectionInterface, Runnable {
+    private static final int SOCKET_PORT = 4321;
+    private static final int EXECUTOR_SIZE = 30;
     private ServerSocket serverSocket;
     private Thread thisThread;
     private final ExecutorService pool;
 
     public ConnectionManager() throws IOException {
-        serverSocket = new ServerSocket(4321);
-        pool = Executors.newFixedThreadPool(30);
+        serverSocket = new ServerSocket(SOCKET_PORT);
+        pool = Executors.newFixedThreadPool(EXECUTOR_SIZE);
     }
 
     public void start(){
