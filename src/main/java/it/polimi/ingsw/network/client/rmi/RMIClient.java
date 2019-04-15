@@ -22,7 +22,6 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
         String host = userInputStream.readLine();
         ConnectionInterface connectionInterface = (ConnectionInterface) java.rmi.Naming.lookup("server");
         server = connectionInterface.enrol(this);
-        server.hello();
     }
     @Override
     public void start() {

@@ -12,9 +12,4 @@ public class RMIServer extends UnicastRemoteObject implements RMIServerInterface
         super();
         this.client = client;
     }
-
-    @Override
-    public void hello() throws RemoteException {
-        Printer.println("Hello");
-    }
 }
