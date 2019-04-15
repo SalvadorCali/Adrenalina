@@ -7,6 +7,8 @@ import it.polimi.ingsw.util.Printer;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
 import java.util.Objects;
 
 public class Client {
@@ -14,25 +16,36 @@ public class Client {
         Printer.print("[CLIENT]Choose 'rmi' or 'socket':");
         BufferedReader userInputStream = new BufferedReader(new InputStreamReader(System.in));
         String choice = "default";
-        try {
-            choice = userInputStream.readLine();
-        } catch (IOException e) {
-            Printer.err(e);
-        }
-        ClientInterface client = null;
-        while(!(choice.equalsIgnoreCase("rmi") || choice.equalsIgnoreCase("socket"))){
-            if(choice.equals("rmi")){
-                client = new RMIClient();
-            }else{
-                try {
-                    client = new SocketClient();
-                } catch (IOException e) {
-                    Printer.err(e);
-                }
+        while(!(choice.equalsIgnoreCase("rmi") || choice.equalsIgnoreCase("socket"))) {
+            try {
+                choice = userInputStream.readLine();
+            } catch (IOException e) {
+                Printer.err(e);
             }
         }
+
+        ClientInterface client = null;
+
+        if(choice.equals("rmi")){
+            try {
+                client = new RMIClient();
+            } catch (IOException | NotBoundException e) {
+                Printer.err(e);
+            }
+        }else{
+            try {
+                client = new SocketClient();
+            } catch (IOException e) {
+                Printer.err(e);
+            }
+        }
+
         if(Objects.nonNull(client)){
-            client.start();
+            try {
+                client.start();
+            } catch (RemoteException e) {
+                Printer.err(e);
+            }
         }
     }
 }

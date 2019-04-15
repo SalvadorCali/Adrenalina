@@ -1,10 +1,32 @@
 package it.polimi.ingsw.network.client.rmi;
 
-import it.polimi.ingsw.network.client.ClientInterface;
+import it.polimi.ingsw.network.ConnectionInterface;
+import it.polimi.ingsw.network.server.rmi.RMIServerInterface;
+import it.polimi.ingsw.util.Config;
+import it.polimi.ingsw.util.Printer;
+import it.polimi.ingsw.view.CommandLine;
+import it.polimi.ingsw.view.ViewInterface;
 
-public class RMIClient implements ClientInterface {
+import java.io.*;
+import java.rmi.NotBoundException;
+import java.rmi.server.UnicastRemoteObject;
+
+public class RMIClient extends UnicastRemoteObject implements RMIClientInterface {
+    private RMIServerInterface server;
+    private ViewInterface view;
+    private String username;
+
+    public RMIClient() throws IOException, NotBoundException {
+        BufferedReader userInputStream = new BufferedReader(new InputStreamReader(System.in));
+        Printer.print("[CLIENT]Please, set an ip address:");
+        String host = userInputStream.readLine();
+        ConnectionInterface connectionInterface = (ConnectionInterface) java.rmi.Naming.lookup("server");
+        server = connectionInterface.enrol(this);
+        server.hello();
+    }
     @Override
     public void start() {
-
+        view = new CommandLine(this);
+        view.start();
     }
 }
