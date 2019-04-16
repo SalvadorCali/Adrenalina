@@ -6,6 +6,7 @@ import it.polimi.ingsw.network.client.rmi.RMIClientInterface;
 import it.polimi.ingsw.util.Printer;
 import it.polimi.ingsw.view.Response;
 
+import java.io.IOException;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
@@ -25,7 +26,7 @@ public class RMIServer extends UnicastRemoteObject implements RMIServerInterface
     }
 
     @Override
-    public void notifyLogin(Response response) throws RemoteException {
+    public void notifyLogin(Response response, String username) throws IOException {
 
     }
 }

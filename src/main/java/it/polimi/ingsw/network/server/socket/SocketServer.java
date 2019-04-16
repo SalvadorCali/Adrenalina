@@ -67,7 +67,12 @@ public class SocketServer implements Runnable, ServerInterface {
     }
 
     @Override
-    public void notifyLogin(Response response) throws RemoteException {
-        
+    public void notifyLogin(Response response, String username) throws IOException {
+        objectOutputStream.writeObject(Message.NOTIFY);
+        objectOutputStream.flush();
+        objectOutputStream.writeUTF(username);
+        objectOutputStream.flush();
+        objectOutputStream.writeObject(response);
+        objectOutputStream.flush();
     }
 }

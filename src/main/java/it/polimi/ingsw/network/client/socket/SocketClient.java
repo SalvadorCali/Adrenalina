@@ -7,6 +7,7 @@ import it.polimi.ingsw.util.Config;
 import it.polimi.ingsw.util.Printer;
 import it.polimi.ingsw.view.CommandLine;
 import it.polimi.ingsw.view.Message;
+import it.polimi.ingsw.view.Response;
 import it.polimi.ingsw.view.ViewInterface;
 
 import java.io.*;
@@ -44,11 +45,25 @@ public class SocketClient implements ClientInterface, Runnable {
         Thread currentThread = Thread.currentThread();
         while (this.thisThread == currentThread){
             try {
-                int val = objectInputStream.readInt();
-                //handle the message
-            } catch (IOException e) {
+                Message message = (Message) objectInputStream.readObject();
+                readRequest(message);
+            } catch (IOException | ClassNotFoundException e) {
                 Printer.err(e);
             }
+        }
+    }
+
+    public void readRequest(Message message){
+        switch(message){
+            case NOTIFY:
+                try {
+                    notifyLogin();
+                } catch (IOException | ClassNotFoundException e) {
+                    Printer.err(e);
+                }
+                break;
+            default:
+                break;
         }
     }
 
@@ -62,5 +77,11 @@ public class SocketClient implements ClientInterface, Runnable {
         } catch (IOException e) {
             Printer.err(e);
         }
+    }
+
+    public void notifyLogin() throws IOException, ClassNotFoundException {
+        String username = objectInputStream.readUTF();
+        Response response = (Response) objectInputStream.readObject();
+        view.notifyLogin(username, response);
     }
 }

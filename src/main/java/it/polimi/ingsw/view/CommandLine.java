@@ -77,4 +77,9 @@ public class CommandLine implements ViewInterface {
         Printer.println("show <object> :");
         Printer.println("move <first direction, ..., last direction> :");
     }
+
+    @Override
+    public void notifyLogin(String username, Response response){
+
+    }
 }
