@@ -1,5 +1,7 @@
 package it.polimi.ingsw.network.server;
 
+import it.polimi.ingsw.controller.GameController;
+import it.polimi.ingsw.controller.ServerController;
 import it.polimi.ingsw.network.ConnectionManager;
 import it.polimi.ingsw.util.Printer;
 
@@ -17,7 +19,7 @@ public class Server {
             Printer.err(e);
         }
         try {
-            ConnectionManager connection = new ConnectionManager();
+            ConnectionManager connection = new ConnectionManager(new ServerController());
             connection.start();
         } catch (IOException e) {
             Printer.err(e);

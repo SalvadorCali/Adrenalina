@@ -6,6 +6,7 @@ import it.polimi.ingsw.util.Printer;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.rmi.RemoteException;
 import java.util.StringTokenizer;
 
 public class CommandLine implements ViewInterface {
@@ -23,7 +24,7 @@ public class CommandLine implements ViewInterface {
         Thread receiveMessage = new Thread(() -> {
             while(true){
                 try {
-                    handle(userInputStream.readLine());
+                    readInput(userInputStream.readLine());
                 } catch (IOException e) {
                     Printer.err(e);
                 }
@@ -32,14 +33,20 @@ public class CommandLine implements ViewInterface {
         receiveMessage.start();
     }
 
-    private void handle(String message){
+    private void readInput(String message){
         StringTokenizer string = new StringTokenizer(message);
         switch(string.nextToken()){
             case "help":
                 help();
                 break;
             case "login":
-                //method
+                if(string.hasMoreTokens()){
+                    try {
+                        client.login(string.nextToken());
+                    } catch (RemoteException e) {
+                        Printer.err(e);
+                    }
+                }
                 break;
             case "disconnect":
                 //method

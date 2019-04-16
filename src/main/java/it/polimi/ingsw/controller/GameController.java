@@ -10,6 +10,7 @@ import it.polimi.ingsw.model.gamecomponents.GameBoard;
 import it.polimi.ingsw.model.gamecomponents.Player;
 import it.polimi.ingsw.util.Parser;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class GameController {
@@ -43,6 +44,7 @@ public class GameController {
     }
 
     //methods
+
     public void addPlayer(Player player){
         game.addPlayer(player);
     }

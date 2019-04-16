@@ -1,5 +1,7 @@
 package it.polimi.ingsw.network;
 
+import it.polimi.ingsw.controller.GameController;
+import it.polimi.ingsw.controller.ServerController;
 import it.polimi.ingsw.network.client.rmi.RMIClientInterface;
 import it.polimi.ingsw.network.server.rmi.RMIServer;
 import it.polimi.ingsw.network.server.rmi.RMIServerInterface;
@@ -19,8 +21,11 @@ public class ConnectionManager extends UnicastRemoteObject implements Connection
     private ServerSocket serverSocket;
     private Thread thisThread;
     private final ExecutorService pool;
+    private ServerController serverController;
 
-    public ConnectionManager() throws IOException {
+    public ConnectionManager(ServerController serverController) throws IOException {
+        this.serverController = serverController;
+
         //socket
         serverSocket = new ServerSocket(Config.SOCKET_PORT);
         pool = Executors.newFixedThreadPool(Config.EXECUTOR_SIZE);
@@ -40,7 +45,7 @@ public class ConnectionManager extends UnicastRemoteObject implements Connection
         Thread currentThread = Thread.currentThread();
         while (thisThread == currentThread) {
             try {
-                pool.execute(new SocketServer(serverSocket.accept()));
+                pool.execute(new SocketServer(serverSocket.accept(), serverController));
             } catch (Exception e) {
                 Printer.err(e);
             }
@@ -49,6 +54,6 @@ public class ConnectionManager extends UnicastRemoteObject implements Connection
 
     @Override
     public RMIServerInterface enrol(RMIClientInterface client) throws RemoteException {
-        return new RMIServer(client);
+        return new RMIServer(client, serverController);
     }
 }
