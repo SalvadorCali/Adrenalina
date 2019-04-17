@@ -19,6 +19,7 @@ public class Game {
     private List<AmmoCard> ammos;
     private boolean finalFrenzy;
     private boolean inGame;
+    private boolean colorSelection;
     private Map<TokenColor, Integer> scoreList;
 
     public Game(GameBoard board, Deck weapons, Deck powerups, List<AmmoCard> ammos){
@@ -34,6 +35,21 @@ public class Game {
     }
 
     //getters and setters
+    public boolean isInGame() {
+        return inGame;
+    }
+
+    public void setInGame(boolean inGame) {
+        this.inGame = inGame;
+    }
+
+    public boolean isColorSelection() {
+        return colorSelection;
+    }
+
+    public void setColorSelection(boolean colorSelection) {
+        this.colorSelection = colorSelection;
+    }
 
     public GameBoard getBoard() {
         return board;
@@ -95,7 +111,15 @@ public class Game {
         return killshotTrack;
     }
 
+    public ArrayList<TokenColor> getPlayerColors() {
+        return playerColors;
+    }
+
     //methods
+    public void addPlayerColors(TokenColor color){
+        playerColors.add(color);
+    }
+
     public void createKillshotTrack(int skulls){
         for(int i=0; i<skulls; i++){
             killshotTrack.add(new Token(TokenColor.SKULL));

@@ -1,6 +1,9 @@
 package it.polimi.ingsw.view;
 
 import it.polimi.ingsw.network.client.ClientInterface;
+import it.polimi.ingsw.network.enums.Advise;
+import it.polimi.ingsw.network.enums.Response;
+import it.polimi.ingsw.util.Parser;
 import it.polimi.ingsw.util.Printer;
 
 import java.io.BufferedReader;
@@ -48,6 +51,15 @@ public class CommandLine implements ViewInterface {
                     }
                 }
                 break;
+            case "color":
+                if(string.hasMoreTokens()){
+                    try {
+                        client.chooseColor(Parser.castStringToTokenColor(string.nextToken()));
+                    } catch (RemoteException e) {
+                        Printer.err(e);
+                    }
+                }
+                break;
             case "disconnect":
                 //method
                 break;
@@ -73,13 +85,38 @@ public class CommandLine implements ViewInterface {
         Printer.println("[CLIENT]List of Commands");
         Printer.println("help :");
         Printer.println("login <username> :");
+        Printer.println("color <character_color> :");
         Printer.println("disconnect :");
         Printer.println("show <object> :");
-        Printer.println("move <first direction, ..., last direction> :");
+        Printer.println("move <first_direction, ..., last_direction> :");
     }
 
     @Override
-    public void notifyLogin(String username, Response response){
+    public void notifyLogin(Response response, String username){
+        switch(response){
+            case WRONG:
+                Printer.print("Username already used! Please choose another username:");
+                break;
+            case RIGHT:
+                Printer.println(username + " connected!");
+                Printer.print("[CLIENT]Please, insert a command:");
+                break;
+            case ALL:
+                Printer.println(username + " connected!");
+                break;
+            default:
+                break;
+        }
+    }
 
+    @Override
+    public void printMessage(Advise advise){
+        switch(advise){
+            case COLOR:
+                Printer.print("Please, choose a color:");
+                break;
+            default:
+                break;
+        }
     }
 }

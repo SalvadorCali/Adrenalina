@@ -1,17 +1,16 @@
 package it.polimi.ingsw.network.server.socket;
 
-import it.polimi.ingsw.controller.GameController;
 import it.polimi.ingsw.controller.ServerController;
+import it.polimi.ingsw.network.enums.Advise;
 import it.polimi.ingsw.network.server.ServerInterface;
 import it.polimi.ingsw.util.Printer;
-import it.polimi.ingsw.view.Message;
-import it.polimi.ingsw.view.Response;
+import it.polimi.ingsw.network.enums.Message;
+import it.polimi.ingsw.network.enums.Response;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-import java.rmi.RemoteException;
 
 public class SocketServer implements Runnable, ServerInterface {
     private Thread thisThread;
@@ -73,6 +72,14 @@ public class SocketServer implements Runnable, ServerInterface {
         objectOutputStream.writeUTF(username);
         objectOutputStream.flush();
         objectOutputStream.writeObject(response);
+        objectOutputStream.flush();
+    }
+
+    @Override
+    public void sendMessage(Advise advise) throws IOException {
+        objectOutputStream.writeObject(Message.MESSAGE);
+        objectOutputStream.flush();
+        objectOutputStream.writeObject(advise);
         objectOutputStream.flush();
     }
 }

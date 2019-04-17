@@ -44,6 +44,27 @@ public class GameController {
     }
 
     //methods
+    public void startGame(){
+        game.createKillshotTrack(8);
+        game.fillSquares(actionInterface);
+        game.createScoreList();
+    }
+
+    public void setInGame(boolean inGame){
+        game.setInGame(inGame);
+    }
+
+    public boolean isInGame(){
+        return game.isInGame();
+    }
+
+    public void setColorSelection(boolean colorSelection){
+        game.setColorSelection(colorSelection);
+    }
+
+    public boolean isColorSelection(){
+        return game.isColorSelection();
+    }
 
     public void addPlayer(Player player){
         game.addPlayer(player);

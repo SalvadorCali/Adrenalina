@@ -185,7 +185,7 @@ public class Parser {
         }
     }
 
-    private static TokenColor castStringToTokenColor(String color){
+    public static TokenColor castStringToTokenColor(String color){
         switch(color){
             case "blue":
                 return TokenColor.BLUE;

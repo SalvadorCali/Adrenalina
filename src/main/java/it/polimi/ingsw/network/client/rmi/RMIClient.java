@@ -2,10 +2,11 @@ package it.polimi.ingsw.network.client.rmi;
 
 import it.polimi.ingsw.model.enums.TokenColor;
 import it.polimi.ingsw.network.ConnectionInterface;
+import it.polimi.ingsw.network.enums.Advise;
 import it.polimi.ingsw.network.server.rmi.RMIServerInterface;
-import it.polimi.ingsw.util.Config;
 import it.polimi.ingsw.util.Printer;
 import it.polimi.ingsw.view.CommandLine;
+import it.polimi.ingsw.network.enums.Response;
 import it.polimi.ingsw.view.ViewInterface;
 
 import java.io.*;
@@ -37,8 +38,22 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
         try {
             server.login(username);
         } catch (RemoteException e) {
-            e.printStackTrace();
+            Printer.err(e);
         }
+    }
 
+    @Override
+    public void chooseColor(TokenColor color) throws RemoteException {
+
+    }
+
+    @Override
+    public void notifyLogin(Response response, String username){
+        view.notifyLogin(response, username);
+    }
+
+    @Override
+    public void printMessage(Advise advise){
+        view.printMessage(advise);
     }
 }

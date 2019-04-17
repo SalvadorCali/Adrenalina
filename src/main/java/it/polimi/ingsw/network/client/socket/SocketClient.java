@@ -3,15 +3,17 @@ package it.polimi.ingsw.network.client.socket;
 import it.polimi.ingsw.controller.PlayerController;
 import it.polimi.ingsw.model.enums.TokenColor;
 import it.polimi.ingsw.network.client.ClientInterface;
+import it.polimi.ingsw.network.enums.Advise;
 import it.polimi.ingsw.util.Config;
 import it.polimi.ingsw.util.Printer;
 import it.polimi.ingsw.view.CommandLine;
-import it.polimi.ingsw.view.Message;
-import it.polimi.ingsw.view.Response;
+import it.polimi.ingsw.network.enums.Message;
+import it.polimi.ingsw.network.enums.Response;
 import it.polimi.ingsw.view.ViewInterface;
 
 import java.io.*;
 import java.net.Socket;
+import java.rmi.RemoteException;
 
 public class SocketClient implements ClientInterface, Runnable {
     private Thread thisThread;
@@ -62,6 +64,12 @@ public class SocketClient implements ClientInterface, Runnable {
                     Printer.err(e);
                 }
                 break;
+            case MESSAGE:
+                try {
+                    printMessage();
+                } catch (IOException | ClassNotFoundException e) {
+                    Printer.err(e);
+                }
             default:
                 break;
         }
@@ -79,9 +87,26 @@ public class SocketClient implements ClientInterface, Runnable {
         }
     }
 
+    @Override
+    public void chooseColor(TokenColor color) throws RemoteException {
+        try {
+            objectOutputStream.writeObject(Message.COLOR);
+            objectOutputStream.flush();
+            objectOutputStream.writeObject(color);
+            objectOutputStream.flush();
+        } catch (IOException e) {
+            Printer.err(e);
+        }
+    }
+
     public void notifyLogin() throws IOException, ClassNotFoundException {
         String username = objectInputStream.readUTF();
         Response response = (Response) objectInputStream.readObject();
-        view.notifyLogin(username, response);
+        view.notifyLogin(response, username);
+    }
+
+    public void printMessage() throws IOException, ClassNotFoundException {
+        Advise advise = (Advise) objectInputStream.readObject();
+        view.printMessage(advise);
     }
 }

@@ -1,10 +1,10 @@
 package it.polimi.ingsw.network.server.rmi;
 
-import it.polimi.ingsw.controller.GameController;
 import it.polimi.ingsw.controller.ServerController;
 import it.polimi.ingsw.network.client.rmi.RMIClientInterface;
+import it.polimi.ingsw.network.enums.Advise;
+import it.polimi.ingsw.network.enums.Response;
 import it.polimi.ingsw.util.Printer;
-import it.polimi.ingsw.view.Response;
 
 import java.io.IOException;
 import java.rmi.RemoteException;
@@ -27,6 +27,15 @@ public class RMIServer extends UnicastRemoteObject implements RMIServerInterface
 
     @Override
     public void notifyLogin(Response response, String username) throws IOException {
+        client.notifyLogin(response, username);
+    }
 
+    @Override
+    public void sendMessage(Advise advise){
+        try {
+            client.printMessage(advise);
+        } catch (RemoteException e) {
+            Printer.err(e);
+        }
     }
 }
