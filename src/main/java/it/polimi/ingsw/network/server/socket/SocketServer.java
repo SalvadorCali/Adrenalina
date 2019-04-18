@@ -92,8 +92,13 @@ public class SocketServer implements Runnable, ServerInterface {
     }
 
     @Override
-    public void notify(Message message, Subject subject, Object object) throws RemoteException {
-
+    public void notify(Message message, Subject subject, Object object) throws IOException {
+        objectOutputStream.writeObject(message);
+        objectOutputStream.flush();
+        objectOutputStream.writeObject(subject);
+        objectOutputStream.flush();
+        objectOutputStream.writeObject(object);
+        objectOutputStream.flush();
     }
 
     @Override

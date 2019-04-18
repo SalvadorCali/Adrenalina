@@ -66,13 +66,15 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
     public void notify(Message message, Subject subject, Object object) throws RemoteException {
         switch (message){
             case LOGIN:
+                view.notify(message, subject, object);
                 break;
             case COLOR:
                 if(subject.equals(Subject.RIGHT)){
                     Player player = (Player) object;
                     playerController.setPlayer(player);
+                    view.notify(message, subject, object);
                 }else{
-
+                    view.notify(message, subject, object);
                 }
                 break;
             default:

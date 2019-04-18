@@ -64,6 +64,8 @@ public class SocketClient implements ClientInterface, Runnable {
                     Printer.err(e);
                 }
                 break;
+            case COLOR:
+
             case MESSAGE:
                 try {
                     printMessage();

@@ -87,13 +87,13 @@ public class ServerController {
             gameController.getGame().addPlayer((player));
             try {
                 server.notify(Message.COLOR, Subject.RIGHT, player);
-            } catch (RemoteException e) {
+            } catch (IOException e) {
                 Printer.err(e);
             }
         }else{
             try {
                 server.notify(Message.COLOR, Subject.WRONG, color);
-            } catch (RemoteException e) {
+            } catch (IOException e) {
                 Printer.err(e);
             }
         }
