@@ -3,7 +3,8 @@ package it.polimi.ingsw.network.server.rmi;
 import it.polimi.ingsw.controller.ServerController;
 import it.polimi.ingsw.network.client.rmi.RMIClientInterface;
 import it.polimi.ingsw.network.enums.Advise;
-import it.polimi.ingsw.network.enums.Response;
+import it.polimi.ingsw.network.enums.Message;
+import it.polimi.ingsw.network.enums.Subject;
 import it.polimi.ingsw.util.Printer;
 
 import java.io.IOException;
@@ -26,8 +27,13 @@ public class RMIServer extends UnicastRemoteObject implements RMIServerInterface
     }
 
     @Override
-    public void notifyLogin(Response response, String username) throws IOException {
-        client.notifyLogin(response, username);
+    public void notifyLogin(Subject subject, String username) throws IOException {
+        client.notifyLogin(subject, username);
+    }
+
+    @Override
+    public void notify(Message message, Subject subject, Object object) throws RemoteException {
+        client.notify(message, subject, object);
     }
 
     @Override

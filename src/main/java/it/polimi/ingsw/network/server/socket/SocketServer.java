@@ -1,16 +1,18 @@
 package it.polimi.ingsw.network.server.socket;
 
 import it.polimi.ingsw.controller.ServerController;
+import it.polimi.ingsw.model.enums.TokenColor;
 import it.polimi.ingsw.network.enums.Advise;
 import it.polimi.ingsw.network.server.ServerInterface;
 import it.polimi.ingsw.util.Printer;
 import it.polimi.ingsw.network.enums.Message;
-import it.polimi.ingsw.network.enums.Response;
+import it.polimi.ingsw.network.enums.Subject;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.rmi.RemoteException;
 
 public class SocketServer implements Runnable, ServerInterface {
     private Thread thisThread;
@@ -51,6 +53,8 @@ public class SocketServer implements Runnable, ServerInterface {
             case LOGIN:
                 login();
                 break;
+            case COLOR:
+                break;
             default:
                 break;
         }
@@ -65,14 +69,31 @@ public class SocketServer implements Runnable, ServerInterface {
         serverController.addClient(clientName, this);
     }
 
+    public void chooseColor(){
+        TokenColor color = TokenColor.NONE;
+        try {
+            color = (TokenColor) objectInputStream.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            Printer.err(e);
+        }
+        if(!color.equals(TokenColor.NONE)) {
+            serverController.chooseColor(clientName, color);
+        }
+    }
+
     @Override
-    public void notifyLogin(Response response, String username) throws IOException {
+    public void notifyLogin(Subject subject, String username) throws IOException {
         objectOutputStream.writeObject(Message.NOTIFY);
         objectOutputStream.flush();
         objectOutputStream.writeUTF(username);
         objectOutputStream.flush();
-        objectOutputStream.writeObject(response);
+        objectOutputStream.writeObject(subject);
         objectOutputStream.flush();
+    }
+
+    @Override
+    public void notify(Message message, Subject subject, Object object) throws RemoteException {
+
     }
 
     @Override

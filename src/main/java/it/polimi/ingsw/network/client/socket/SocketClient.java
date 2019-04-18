@@ -8,7 +8,7 @@ import it.polimi.ingsw.util.Config;
 import it.polimi.ingsw.util.Printer;
 import it.polimi.ingsw.view.CommandLine;
 import it.polimi.ingsw.network.enums.Message;
-import it.polimi.ingsw.network.enums.Response;
+import it.polimi.ingsw.network.enums.Subject;
 import it.polimi.ingsw.view.ViewInterface;
 
 import java.io.*;
@@ -16,14 +16,15 @@ import java.net.Socket;
 import java.rmi.RemoteException;
 
 public class SocketClient implements ClientInterface, Runnable {
+    private PlayerController playerController;
     private Thread thisThread;
     private ObjectInputStream objectInputStream;
     private ObjectOutputStream objectOutputStream;
-    private PlayerController playerController;
     private ViewInterface view;
     private String username;
 
     public SocketClient() throws IOException {
+        playerController = new PlayerController(this);
         BufferedReader userInputStream = new BufferedReader(new InputStreamReader(System.in));
         Printer.print("[CLIENT]Please, set an ip address:");
         String host = userInputStream.readLine();
@@ -32,7 +33,6 @@ public class SocketClient implements ClientInterface, Runnable {
         objectOutputStream = new ObjectOutputStream(clientSocket.getOutputStream());
         objectInputStream = new ObjectInputStream(clientSocket.getInputStream());
 
-        playerController = new PlayerController(this);
         view = new CommandLine(this);
         view.start();
     }
@@ -101,8 +101,8 @@ public class SocketClient implements ClientInterface, Runnable {
 
     public void notifyLogin() throws IOException, ClassNotFoundException {
         String username = objectInputStream.readUTF();
-        Response response = (Response) objectInputStream.readObject();
-        view.notifyLogin(response, username);
+        Subject subject = (Subject) objectInputStream.readObject();
+        view.notifyLogin(subject, username);
     }
 
     public void printMessage() throws IOException, ClassNotFoundException {

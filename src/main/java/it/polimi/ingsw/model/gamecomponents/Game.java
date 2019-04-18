@@ -116,8 +116,17 @@ public class Game {
     }
 
     //methods
-    public void addPlayerColors(TokenColor color){
+    public synchronized void addPlayerColors(TokenColor color){
         playerColors.add(color);
+    }
+
+    public synchronized boolean containsColor(TokenColor color){
+        for(TokenColor tokenColor : playerColors){
+            if(color.equals(tokenColor)){
+                return true;
+            }
+        }
+        return false;
     }
 
     public void createKillshotTrack(int skulls){

@@ -16,7 +16,7 @@ public class PlayerController {
         return player;
     }
 
-    public void createPlayer(TokenColor color){
-        player = new Player(color);
+    public void setPlayer(Player player){
+        this.player = player;
     }
 }

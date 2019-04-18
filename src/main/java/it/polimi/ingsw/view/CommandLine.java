@@ -2,7 +2,7 @@ package it.polimi.ingsw.view;
 
 import it.polimi.ingsw.network.client.ClientInterface;
 import it.polimi.ingsw.network.enums.Advise;
-import it.polimi.ingsw.network.enums.Response;
+import it.polimi.ingsw.network.enums.Subject;
 import it.polimi.ingsw.util.Parser;
 import it.polimi.ingsw.util.Printer;
 
@@ -92,8 +92,8 @@ public class CommandLine implements ViewInterface {
     }
 
     @Override
-    public void notifyLogin(Response response, String username){
-        switch(response){
+    public void notifyLogin(Subject subject, String username){
+        switch(subject){
             case WRONG:
                 Printer.print("Username already used! Please choose another username:");
                 break;

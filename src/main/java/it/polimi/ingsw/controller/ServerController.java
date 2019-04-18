@@ -1,11 +1,15 @@
 package it.polimi.ingsw.controller;
 
+import it.polimi.ingsw.model.enums.TokenColor;
+import it.polimi.ingsw.model.gamecomponents.Player;
 import it.polimi.ingsw.network.enums.Advise;
+import it.polimi.ingsw.network.enums.Message;
 import it.polimi.ingsw.network.server.ServerInterface;
 import it.polimi.ingsw.util.Printer;
-import it.polimi.ingsw.network.enums.Response;
+import it.polimi.ingsw.network.enums.Subject;
 
 import java.io.IOException;
+import java.rmi.RemoteException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
@@ -28,7 +32,7 @@ public class ServerController {
             Runnable adderTask = () -> {
                 if(clients.containsKey(username)){
                     try {
-                        server.notifyLogin(Response.WRONG, username);
+                        server.notifyLogin(Subject.WRONG, username);
                     } catch (IOException e) {
                         Printer.err(e);
                     }
@@ -37,9 +41,9 @@ public class ServerController {
                     clients.forEach((u, s) -> {
                         try {
                             if(u.equals(username)){
-                                s.notifyLogin(Response.RIGHT, username);
+                                s.notifyLogin(Subject.RIGHT, username);
                             }else{
-                                s.notifyLogin(Response.ALL, username);
+                                s.notifyLogin(Subject.ALL, username);
                             }
                         } catch (IOException e) {
                             Printer.err(e);
@@ -72,6 +76,26 @@ public class ServerController {
             adder.execute(adderTask);
         }else{
             Printer.println("Game già iniziato!");
+        }
+    }
+
+    public void chooseColor(String username, TokenColor color){
+        ServerInterface server = clients.get(username);
+        if(!gameController.getGame().containsColor(color)){
+            gameController.getGame().addPlayerColors(color);
+            Player player = new Player(color);
+            gameController.getGame().addPlayer((player));
+            try {
+                server.notify(Message.COLOR, Subject.RIGHT, player);
+            } catch (RemoteException e) {
+                Printer.err(e);
+            }
+        }else{
+            try {
+                server.notify(Message.COLOR, Subject.WRONG, color);
+            } catch (RemoteException e) {
+                Printer.err(e);
+            }
         }
     }
 /*
