@@ -11,4 +11,5 @@ public interface ClientInterface {
     void login(String username) throws RemoteException;
     void chooseColor(TokenColor color) throws RemoteException;
     void move(Direction...directions) throws IOException;
+    void grab() throws IOException;
 }

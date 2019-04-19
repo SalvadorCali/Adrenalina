@@ -121,6 +121,12 @@ public class SocketClient implements ClientInterface, Runnable {
         }
     }
 
+    @Override
+    public void grab() throws IOException {
+        objectOutputStream.writeObject(Message.GRAB);
+        objectOutputStream.flush();
+    }
+
     public void notifyColor() throws IOException, ClassNotFoundException {
         Subject subject = (Subject) objectInputStream.readObject();
         Object object = objectInputStream.readObject();

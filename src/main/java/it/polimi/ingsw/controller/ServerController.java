@@ -119,6 +119,9 @@ public class ServerController {
                 Printer.err(e);
             }
         }
+    }
 
+    public void grab(String username){
+        gameController.grab(players.get(username));
     }
 }

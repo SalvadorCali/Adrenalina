@@ -59,6 +59,9 @@ public class SocketServer implements Runnable, ServerInterface {
             case MOVE:
                 move();
                 break;
+            case GRAB:
+                grab();
+                break;
             default:
                 break;
         }
@@ -93,6 +96,10 @@ public class SocketServer implements Runnable, ServerInterface {
         } catch (IOException | ClassNotFoundException e) {
             Printer.err(e);
         }
+    }
+
+    public void grab(){
+        serverController.grab(clientName);
     }
 
     public void chooseColor(){

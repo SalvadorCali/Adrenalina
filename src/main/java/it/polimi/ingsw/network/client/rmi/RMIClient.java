@@ -59,6 +59,11 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
     }
 
     @Override
+    public void grab() throws RemoteException {
+        server.grab();
+    }
+
+    @Override
     public void notifyLogin(Subject subject, String username){
         view.notifyLogin(subject, username);
     }

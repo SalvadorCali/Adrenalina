@@ -78,4 +78,10 @@ public class GameController {
     public void move(Player player, Direction...directions){
         //game.getBoard().move();
     }
+
+    public void grab(Player player){
+        int x = player.getPosition().getX();
+        int y = player.getPosition().getY();
+        game.getBoard().getArena()[x][y].grab(actionInterface, 0);
+    }
 }

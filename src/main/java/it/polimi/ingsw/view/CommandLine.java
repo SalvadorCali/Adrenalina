@@ -133,12 +133,12 @@ public class CommandLine implements ViewInterface {
             case "grab":
                 if(string.hasMoreTokens()){
                     String next = string.nextToken();
-                    if(next.equals("weapon")){
-                        //client.grabWeapon();
-                        break;
-                    }else{
-                        //client.grabAmmo();
-                        break;
+                    //client.moveAndGrab();
+                }else{
+                    try {
+                        client.grab();
+                    } catch (IOException e) {
+                        Printer.err(e);
                     }
                 }
                 Printer.println("Invalid Command. Please insert a command.");

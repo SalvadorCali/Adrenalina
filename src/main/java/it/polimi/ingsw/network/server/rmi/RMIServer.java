@@ -34,6 +34,11 @@ public class RMIServer extends UnicastRemoteObject implements RMIServerInterface
     }
 
     @Override
+    public void grab() throws RemoteException{
+        serverController.grab(clientName);
+    }
+
+    @Override
     public void notifyLogin(Subject subject, String username) throws IOException {
         client.notifyLogin(subject, username);
     }
