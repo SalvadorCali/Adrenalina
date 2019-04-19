@@ -21,6 +21,7 @@ public class CommandLine implements ViewInterface {
     private ClientInterface client;
     private PlayerController playerController;
     private BufferedReader userInputStream;
+    private MapCLI mapCLI;
 
     public CommandLine(ClientInterface client){
         this.client = client;
@@ -100,6 +101,8 @@ public class CommandLine implements ViewInterface {
                             Printer.println("Your weapons are:");
                             Printer.println(playerController.getWeapons());
                             break;
+                        case "map":
+                            mapCLI.printMap();
                         default:
                             break;
                     }

@@ -164,6 +164,8 @@ public class MapCLI {
                }
 
                //missing ammo methods
+                //if(arena[i][j].haveAmmo)
+                    //spaceAmmoPoint[k] = ammo;
 
                k++;
            }
