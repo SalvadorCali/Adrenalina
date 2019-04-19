@@ -161,11 +161,14 @@ public class MapCLI {
                if(arena[i][j].isSpawn()){
 
                    spaceSpawnPoint[k] = spawnPoint;
+                   spaceAmmoPoint[k] = SPACE;
+
                }
 
-               //missing ammo methods
-                //if(arena[i][j].haveAmmo)
-                    //spaceAmmoPoint[k] = ammo;
+               if(!arena[i][j].isSpawn()) {
+
+                   spaceAmmoPoint[k] = ammo;
+               }
 
                k++;
            }
