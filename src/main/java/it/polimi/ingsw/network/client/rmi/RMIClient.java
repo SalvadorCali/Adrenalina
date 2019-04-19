@@ -1,6 +1,7 @@
 package it.polimi.ingsw.network.client.rmi;
 
 import it.polimi.ingsw.controller.PlayerController;
+import it.polimi.ingsw.model.enums.Direction;
 import it.polimi.ingsw.model.enums.TokenColor;
 import it.polimi.ingsw.model.gamecomponents.Player;
 import it.polimi.ingsw.network.ConnectionInterface;
@@ -50,6 +51,11 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
     @Override
     public void chooseColor(TokenColor color) throws RemoteException {
 
+    }
+
+    @Override
+    public void move(Direction... directions) throws RemoteException {
+        server.move(directions);
     }
 
     @Override

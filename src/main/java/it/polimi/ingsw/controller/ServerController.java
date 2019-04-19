@@ -1,5 +1,6 @@
 package it.polimi.ingsw.controller;
 
+import it.polimi.ingsw.model.enums.Direction;
 import it.polimi.ingsw.model.enums.TokenColor;
 import it.polimi.ingsw.model.gamecomponents.Player;
 import it.polimi.ingsw.network.enums.Advise;
@@ -9,7 +10,6 @@ import it.polimi.ingsw.util.Printer;
 import it.polimi.ingsw.network.enums.Subject;
 
 import java.io.IOException;
-import java.rmi.RemoteException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
@@ -19,26 +19,28 @@ import java.util.concurrent.TimeUnit;
 
 public class ServerController {
     private GameController gameController;
-    private Map<String, ServerInterface> clients;
+    private Map<String, ServerInterface> servers;
+    private Map<String, Player> players;
 
     public ServerController(){
         gameController = new GameController();
-        clients = new HashMap<>();
+        servers = new HashMap<>();
+        players = new HashMap<>();
     }
 
     public void addClient(String username, ServerInterface server){
         if(!gameController.isInGame()){
             ExecutorService adder = Executors.newFixedThreadPool(1);
             Runnable adderTask = () -> {
-                if(clients.containsKey(username)){
+                if(servers.containsKey(username)){
                     try {
                         server.notifyLogin(Subject.WRONG, username);
                     } catch (IOException e) {
                         Printer.err(e);
                     }
                 }else{
-                    clients.put(username, server);
-                    clients.forEach((u, s) -> {
+                    servers.put(username, server);
+                    servers.forEach((u, s) -> {
                         try {
                             if(u.equals(username)){
                                 s.notifyLogin(Subject.RIGHT, username);
@@ -49,12 +51,11 @@ public class ServerController {
                             Printer.err(e);
                         }
                     });
-                    if(clients.size() == 3){
+                    if(servers.size() == 3){
                         ScheduledExecutorService createGame = Executors.newSingleThreadScheduledExecutor();
                         Runnable createGameTask = () -> {
-                            gameController.setInGame(true);
                             gameController.setColorSelection(true);
-                            clients.forEach((u, s) -> {
+                            servers.forEach((u, s) -> {
                                 try {
                                     s.sendMessage(Advise.COLOR);
                                 } catch (IOException e) {
@@ -80,15 +81,19 @@ public class ServerController {
     }
 
     public void chooseColor(String username, TokenColor color){
-        ServerInterface server = clients.get(username);
+        ServerInterface server = servers.get(username);
         if(!gameController.getGame().containsColor(color)){
             gameController.getGame().addPlayerColors(color);
             Player player = new Player(color);
             gameController.getGame().addPlayer((player));
+            players.put(username, player);
             try {
                 server.notify(Message.COLOR, Subject.RIGHT, player);
             } catch (IOException e) {
                 Printer.err(e);
+            }
+            if(gameController.getGame().getPlayerColors().size() == gameController.getGame().getPlayers().size()){
+               gameController.setInGame(true);
             }
         }else{
             try {
@@ -98,11 +103,22 @@ public class ServerController {
             }
         }
     }
-/*
-    public void createPlayer(TokenColor color){
-        if(gameController.getGame().getPlayerColors().isEmpty()){
-            gameController.getGame().
+
+    public void move(String username, Direction...directions){
+        if(gameController.canMove(players.get(username), directions)){
+            gameController.move(players.get(username), directions);
+            try {
+                servers.get(username).notify(Message.MOVE, Subject.RIGHT, username);
+            } catch (IOException e) {
+                Printer.err(e);
+            }
+        }else{
+            try {
+                servers.get(username).notify(Message.MOVE, Subject.WRONG, username);
+            } catch (IOException e) {
+                Printer.err(e);
+            }
         }
+
     }
-    */
 }

@@ -1,6 +1,7 @@
 package it.polimi.ingsw.network.client.socket;
 
 import it.polimi.ingsw.controller.PlayerController;
+import it.polimi.ingsw.model.enums.Direction;
 import it.polimi.ingsw.model.enums.TokenColor;
 import it.polimi.ingsw.network.client.ClientInterface;
 import it.polimi.ingsw.network.enums.Advise;
@@ -65,13 +66,19 @@ public class SocketClient implements ClientInterface, Runnable {
                 }
                 break;
             case COLOR:
-
+                try {
+                    notifyColor();
+                } catch (IOException | ClassNotFoundException e) {
+                    Printer.err(e);
+                }
+                break;
             case MESSAGE:
                 try {
                     printMessage();
                 } catch (IOException | ClassNotFoundException e) {
                     Printer.err(e);
                 }
+                break;
             default:
                 break;
         }
@@ -99,6 +106,25 @@ public class SocketClient implements ClientInterface, Runnable {
         } catch (IOException e) {
             Printer.err(e);
         }
+    }
+
+    @Override
+    public void move(Direction... directions) throws IOException {
+        objectOutputStream.writeObject(Message.MOVE);
+        objectOutputStream.flush();
+        int directionsSize = directions.length;
+        objectOutputStream.writeInt(directionsSize);
+        objectOutputStream.flush();
+        for (Direction direction : directions) {
+            objectOutputStream.writeObject(direction);
+            objectOutputStream.flush();
+        }
+    }
+
+    public void notifyColor() throws IOException, ClassNotFoundException {
+        Subject subject = (Subject) objectInputStream.readObject();
+        Object object = objectInputStream.readObject();
+        view.notify(Message.COLOR, subject, object);
     }
 
     public void notifyLogin() throws IOException, ClassNotFoundException {

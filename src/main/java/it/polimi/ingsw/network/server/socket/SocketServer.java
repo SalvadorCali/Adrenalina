@@ -1,6 +1,7 @@
 package it.polimi.ingsw.network.server.socket;
 
 import it.polimi.ingsw.controller.ServerController;
+import it.polimi.ingsw.model.enums.Direction;
 import it.polimi.ingsw.model.enums.TokenColor;
 import it.polimi.ingsw.network.enums.Advise;
 import it.polimi.ingsw.network.server.ServerInterface;
@@ -55,6 +56,9 @@ public class SocketServer implements Runnable, ServerInterface {
                 break;
             case COLOR:
                 break;
+            case MOVE:
+                move();
+                break;
             default:
                 break;
         }
@@ -67,6 +71,28 @@ public class SocketServer implements Runnable, ServerInterface {
             Printer.err(e);
         }
         serverController.addClient(clientName, this);
+    }
+
+    public void move(){
+        Direction first, second, third;
+        try {
+            int directionsSize = objectInputStream.readInt();
+            if(directionsSize == 1){
+                first = (Direction) objectInputStream.readObject();
+                serverController.move(clientName, first);
+            }else if(directionsSize == 2){
+                first = (Direction) objectInputStream.readObject();
+                second = (Direction) objectInputStream.readObject();
+                serverController.move(clientName, first, second);
+            }else if(directionsSize == 3){
+                first = (Direction) objectInputStream.readObject();
+                second = (Direction) objectInputStream.readObject();
+                third = (Direction) objectInputStream.readObject();
+                serverController.move(clientName, first, second, third);
+            }
+        } catch (IOException | ClassNotFoundException e) {
+            Printer.err(e);
+        }
     }
 
     public void chooseColor(){
