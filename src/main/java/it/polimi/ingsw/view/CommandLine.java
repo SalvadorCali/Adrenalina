@@ -1,6 +1,7 @@
 package it.polimi.ingsw.view;
 
 import it.polimi.ingsw.controller.PlayerController;
+import it.polimi.ingsw.model.enums.AdrenalineZone;
 import it.polimi.ingsw.model.enums.Direction;
 import it.polimi.ingsw.model.enums.TokenColor;
 import it.polimi.ingsw.network.client.ClientInterface;
@@ -117,28 +118,64 @@ public class CommandLine implements ViewInterface {
                         second = Converter.fromStringToDirection(string.nextToken());
                         if(string.hasMoreTokens()){
                             third = Converter.fromStringToDirection(string.nextToken());
-                            //client.move(first, second, third);
+                            try {
+                                client.move(first, second, third);
+                            } catch (IOException e) {
+                                Printer.err(e);
+                            }
                             break;
                         }else{
-                            //client.move(first, second);
+                            try {
+                                client.move(first, second);
+                            } catch (IOException e) {
+                                Printer.err(e);
+                            }
                             break;
                         }
                     }else{
-                        //client.move(first);
+                        try {
+                            client.move(first);
+                        } catch (IOException e) {
+                            Printer.err(e);
+                        }
                         break;
                     }
                 }
                 Printer.println("Invalid Command. Please insert a command.");
                 break;
             case "grab":
-                if(string.hasMoreTokens()){
+                if(string.hasMoreTokens()) {
                     String next = string.nextToken();
-                    //client.moveAndGrab();
-                }else{
-                    try {
-                        client.grab();
-                    } catch (IOException e) {
-                        Printer.err(e);
+                    int choice = Integer.parseInt(next);
+                    if (string.hasMoreTokens()) {
+                        Direction firstD = Converter.fromStringToDirection(string.nextToken());
+                        if (!client.getAdrenalineZone().equals(AdrenalineZone.DEFAULT)) {
+                            if (string.hasMoreTokens()) {
+                                try {
+                                    client.grab(choice, firstD, Converter.fromStringToDirection(string.nextToken()));
+                                } catch (IOException e) {
+                                    Printer.err(e);
+                                }
+                            } else {
+                                try {
+                                    client.grab(choice, firstD);
+                                } catch (IOException e) {
+                                    Printer.err(e);
+                                }
+                            }
+                        } else {
+                            try {
+                                client.grab(choice, firstD);
+                            } catch (IOException e) {
+                                Printer.err(e);
+                            }
+                        }
+                    } else {
+                        try {
+                            client.grab(0);
+                        } catch (IOException e) {
+                            Printer.err(e);
+                        }
                     }
                 }
                 Printer.println("Invalid Command. Please insert a command.");
@@ -160,6 +197,7 @@ public class CommandLine implements ViewInterface {
         Printer.println("disconnect :");
         Printer.println("show <object> :");
         Printer.println("move <first_direction, ..., last_direction> :");
+        Printer.println("grab <direction> <0, 1, 2, 3>:");
     }
 
     @Override

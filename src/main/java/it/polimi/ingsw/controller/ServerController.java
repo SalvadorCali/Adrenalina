@@ -121,7 +121,7 @@ public class ServerController {
         }
     }
 
-    public void grab(String username){
-        gameController.grab(players.get(username));
+    public void grab(String username, int choice, Direction...directions){
+        gameController.grab(players.get(username), choice, directions);
     }
 }

@@ -1,6 +1,7 @@
 package it.polimi.ingsw.network.client.socket;
 
 import it.polimi.ingsw.controller.PlayerController;
+import it.polimi.ingsw.model.enums.AdrenalineZone;
 import it.polimi.ingsw.model.enums.Direction;
 import it.polimi.ingsw.model.enums.TokenColor;
 import it.polimi.ingsw.network.client.ClientInterface;
@@ -122,9 +123,18 @@ public class SocketClient implements ClientInterface, Runnable {
     }
 
     @Override
-    public void grab() throws IOException {
+    public void grab(int choice, Direction...directions) throws IOException {
+        int directionsSize = directions.length;
         objectOutputStream.writeObject(Message.GRAB);
         objectOutputStream.flush();
+        objectOutputStream.writeInt(choice);
+        objectOutputStream.flush();
+        objectOutputStream.writeInt(directionsSize);
+        objectOutputStream.flush();
+        for (Direction direction : directions) {
+            objectOutputStream.writeObject(direction);
+            objectOutputStream.flush();
+        }
     }
 
     public void notifyColor() throws IOException, ClassNotFoundException {
@@ -142,5 +152,10 @@ public class SocketClient implements ClientInterface, Runnable {
     public void printMessage() throws IOException, ClassNotFoundException {
         Advise advise = (Advise) objectInputStream.readObject();
         view.printMessage(advise);
+    }
+
+    @Override
+    public AdrenalineZone getAdrenalineZone(){
+        return playerController.getAdrenalineZone();
     }
 }

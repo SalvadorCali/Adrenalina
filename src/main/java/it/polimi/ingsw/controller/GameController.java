@@ -79,9 +79,14 @@ public class GameController {
         //game.getBoard().move();
     }
 
-    public void grab(Player player){
+    public void grab(Player player, int choice, Direction...directions){
+        if(directions.length > 0){
+            if(canMove(player, directions)){
+                move(player, directions);
+            }
+        }
         int x = player.getPosition().getX();
         int y = player.getPosition().getY();
-        game.getBoard().getArena()[x][y].grab(actionInterface, 0);
+        game.getBoard().getArena()[x][y].grab(actionInterface, choice);
     }
 }

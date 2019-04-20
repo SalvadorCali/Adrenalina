@@ -34,8 +34,8 @@ public class RMIServer extends UnicastRemoteObject implements RMIServerInterface
     }
 
     @Override
-    public void grab() throws RemoteException{
-        serverController.grab(clientName);
+    public void grab(int choice, Direction...directions) throws RemoteException{
+        serverController.grab(clientName, choice, directions);
     }
 
     @Override

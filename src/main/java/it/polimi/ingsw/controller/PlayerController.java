@@ -2,6 +2,7 @@ package it.polimi.ingsw.controller;
 
 import it.polimi.ingsw.model.cards.PowerupCard;
 import it.polimi.ingsw.model.cards.WeaponCard;
+import it.polimi.ingsw.model.enums.AdrenalineZone;
 import it.polimi.ingsw.model.enums.TokenColor;
 import it.polimi.ingsw.model.gamecomponents.Ammo;
 import it.polimi.ingsw.model.gamecomponents.Player;
@@ -44,5 +45,9 @@ public class PlayerController {
 
     public List<WeaponCard> getWeapons(){
         return player.getWeapons();
+    }
+
+    public AdrenalineZone getAdrenalineZone(){
+        return player.getPlayerBoard().getAdrenalineZone();
     }
 }

@@ -1,5 +1,6 @@
 package it.polimi.ingsw.network.client;
 
+import it.polimi.ingsw.model.enums.AdrenalineZone;
 import it.polimi.ingsw.model.enums.Direction;
 import it.polimi.ingsw.model.enums.TokenColor;
 
@@ -11,5 +12,6 @@ public interface ClientInterface {
     void login(String username) throws RemoteException;
     void chooseColor(TokenColor color) throws RemoteException;
     void move(Direction...directions) throws IOException;
-    void grab() throws IOException;
+    void grab(int choice, Direction...directions) throws IOException;
+    AdrenalineZone getAdrenalineZone();
 }

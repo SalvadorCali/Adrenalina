@@ -99,7 +99,24 @@ public class SocketServer implements Runnable, ServerInterface {
     }
 
     public void grab(){
-        serverController.grab(clientName);
+        int choice = 0;
+        Direction first, second;
+        try {
+            choice = objectInputStream.readInt();
+            int directionsSize = objectInputStream.readInt();
+            if(directionsSize == 0){
+                serverController.grab(clientName, choice);
+            }else if(directionsSize == 1){
+                first = (Direction) objectInputStream.readObject();
+                serverController.grab(clientName, choice, first);
+            }else{
+                first = (Direction) objectInputStream.readObject();
+                second = (Direction) objectInputStream.readObject();
+                serverController.grab(clientName, choice, first, second);
+            }
+        } catch (IOException | ClassNotFoundException e) {
+            Printer.err(e);
+        }
     }
 
     public void chooseColor(){
