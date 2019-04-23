@@ -47,6 +47,11 @@ public class ActionController implements ActionInterface {
     }
 
     @Override
+    public boolean isVisible(TokenColor shooter, TokenColor victim) {
+        return game.getBoard().isVisible(game.findPlayer(shooter), game.findPlayer(victim));
+    }
+
+    @Override
     public void addAmmo(Ammo...ammos){
         game.getCurrentPlayer().addAmmo(ammos);
     }
@@ -118,6 +123,7 @@ public class ActionController implements ActionInterface {
     public Player getCurrentPlayer() {
         return game.getCurrentPlayer();
     }
+
 
 }
 
