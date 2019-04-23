@@ -66,6 +66,11 @@ public class MovementEffect extends BasicEffect {
                 }
             }
 
+            if(effectName.equals("Power Glove")) {
+                if(actionInterface.distanceControl(player.getPosition().getX(), player.getPosition().getY()) != 1)
+                    canUse = false;
+            }
+
             if (effectName.equals("Grenade Launcher") || effectName.equals("Rocket Launcher")) {
                 canUse = actionInterface.isVisible(player.getColor());
                 if (canUse) {
@@ -93,9 +98,11 @@ public class MovementEffect extends BasicEffect {
     @Override
     public void useEffect(ActionInterface actionInterface) {
 
-        actionInterface.move(player.getPosition().getX(), player.getPosition().getY(), victim);
+        if(!effectName.equals("Power Glove"))
+            actionInterface.move(player.getPosition().getX(), player.getPosition().getY(), victim);
+        else
+            actionInterface.move(player.getPosition().getX(), player.getPosition().getY(), actionInterface.getCurrentPlayer());
         actionInterface.playerDamage(victim.getColor(), damagePower);
-
     }
 
     private void oneMovementControl(ActionInterface actionInterface, Player player){

@@ -113,5 +113,11 @@ public class ActionController implements ActionInterface {
     public WeaponCard getWeapon() {
         return (WeaponCard) game.getWeapons().draw();
     }
+
+    @Override
+    public Player getCurrentPlayer() {
+        return game.getCurrentPlayer();
+    }
+
 }
 

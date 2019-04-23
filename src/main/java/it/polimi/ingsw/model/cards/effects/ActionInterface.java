@@ -44,4 +44,6 @@ public interface ActionInterface {
     AmmoCard getAmmo();
 
     WeaponCard getWeapon();
+
+    Player getCurrentPlayer();
 }
