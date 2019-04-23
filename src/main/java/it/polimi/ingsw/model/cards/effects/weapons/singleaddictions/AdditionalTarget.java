@@ -17,6 +17,18 @@ public class AdditionalTarget extends SingleAddictionEffect {
 
     private boolean canUse;
 
+    public AdditionalTarget(String effectName, int damagePower, int markPower, Player victim, Player additionalVictim, int redAmmos, int blueAmmos, int yellowAmmos){
+
+        this.effectName = effectName;
+        this.damagePower = damagePower;
+        this.markPower = markPower;
+        this.victim = victim;
+        this.additionalVictim = additionalVictim;
+        this.redAmmos = redAmmos;
+        this.blueAmmos = blueAmmos;
+        this.yellowAmmos = yellowAmmos;
+    }
+
     @Override
     public boolean canUseEffect(ActionInterface actionInterface) {
 
