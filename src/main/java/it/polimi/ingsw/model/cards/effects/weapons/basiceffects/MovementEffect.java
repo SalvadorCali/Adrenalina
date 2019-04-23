@@ -50,7 +50,7 @@ public class MovementEffect extends BasicEffect {
 
             player.setPosition(victim.getPosition());
 
-            if (effectName.equals("Tractor Beam1")) {
+            if (effectName.equals("Tractor Beam1")  || effectName.equals("Tractor Beam2")) {
                 if (firstMove != null && secondMove != null) {
                     canUse = actionInterface.canMove(victim.getColor(), firstMove, secondMove);
                     player.updatePosition(firstMove, secondMove);
@@ -58,7 +58,12 @@ public class MovementEffect extends BasicEffect {
                     canUse = actionInterface.canMove(victim.getColor(), firstMove);
                     player.updatePosition(firstMove);
                 }
-                canUse = actionInterface.isVisible(player.getColor());
+                if(canUse) {
+                    if (effectName.equals("Tractor Beam1"))
+                        canUse = actionInterface.isVisible(player.getColor());
+                    else
+                        canUse = actionInterface.sameSquare(player.getColor());
+                }
             }
 
             if (effectName.equals("Grenade Launcher") || effectName.equals("Rocket Launcher")) {
