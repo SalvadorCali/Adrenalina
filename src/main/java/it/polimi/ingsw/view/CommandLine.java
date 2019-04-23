@@ -48,7 +48,7 @@ public class CommandLine implements ViewInterface {
         this.playerController = playerController;
     }
 
-    private void readInput(String message){
+    private void readInput(String message) throws RemoteException {
         StringTokenizer string = new StringTokenizer(message);
         switch(string.nextToken()){
             case "help":
@@ -180,7 +180,7 @@ public class CommandLine implements ViewInterface {
         }
     }
 
-    private void grab(StringTokenizer input){
+    private void grab(StringTokenizer input) throws RemoteException {
         if(input.hasMoreTokens()) {
             String next = input.nextToken();
             int choice = Integer.parseInt(next);
