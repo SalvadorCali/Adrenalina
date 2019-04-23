@@ -94,6 +94,7 @@ public class ServerController {
             }
             if(gameController.getGame().getPlayerColors().size() == gameController.getGame().getPlayers().size()){
                gameController.setInGame(true);
+               //TurnTimer timer = new TurnTimer(gameController, servers, players);
             }
         }else{
             try {

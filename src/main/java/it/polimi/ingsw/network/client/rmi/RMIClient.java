@@ -93,7 +93,7 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
                 break;
         }
     }
-
+    @Override
     public AdrenalineZone getAdrenalineZone(){
         return playerController.getAdrenalineZone();
     }

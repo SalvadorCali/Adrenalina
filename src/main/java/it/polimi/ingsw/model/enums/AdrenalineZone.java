@@ -1,5 +1,7 @@
 package it.polimi.ingsw.model.enums;
 
-public enum AdrenalineZone {
+import java.io.Serializable;
+
+public enum AdrenalineZone implements Serializable {
     DEFAULT, FIRST, SECOND;
 }

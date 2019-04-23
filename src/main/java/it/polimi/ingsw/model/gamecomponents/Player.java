@@ -25,6 +25,7 @@ public class Player {
     private PlayerBoard playerBoard;
     private Position position;
     private int actionNumber;
+    private boolean myTurn;
 
     public Player(TokenColor color){
         this.color = color;
@@ -104,6 +105,14 @@ public class Player {
 
     public void setActionNumber(int actionNumber) {
         this.actionNumber = actionNumber;
+    }
+
+    public boolean isMyTurn() {
+        return myTurn;
+    }
+
+    public void setMyTurn(boolean myTurn) {
+        this.myTurn = myTurn;
     }
 
     //methods

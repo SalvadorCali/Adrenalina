@@ -55,133 +55,30 @@ public class CommandLine implements ViewInterface {
                 help();
                 break;
             case "login":
-                if(string.hasMoreTokens()){
-                    try {
-                        client.login(string.nextToken());
-                        break;
-                    } catch (RemoteException e) {
-                        Printer.err(e);
-                    }
-                }
+                login(string);
                 Printer.println("Invalid Command. Please insert a command.");
                 break;
             case "color":
-                if(string.hasMoreTokens()){
-                    try {
-                        client.chooseColor(Parser.castStringToTokenColor(string.nextToken()));
-                        break;
-                    } catch (RemoteException e) {
-                        Printer.err(e);
-                    }
-                }
+                color(string);
                 Printer.println("Invalid Command. Please insert a command.");
                 break;
             case "disconnect":
                 //method
                 break;
             case "show":
-                if(string.hasMoreTokens()){
-                    String next = string.nextToken();
-                    switch (next){
-                        case "score":
-                            Printer.println("Your score is: " + playerController.getScore());
-                            break;
-                        case "playerboard":
-                            Printer.println("Your board is:");
-                            Printer.println(playerController.getPlayerBoard());
-                            break;
-                        case "ammos":
-                            Printer.println("Your ammos are:");
-                            Printer.println(playerController.getAmmos());
-                            break;
-                        case "powerups":
-                            Printer.println("Your powerups are:");
-                            Printer.println(playerController.getPowerups());
-                            break;
-                        case "weapons":
-                            Printer.println("Your weapons are:");
-                            Printer.println(playerController.getWeapons());
-                            break;
-                        case "map":
-                            mapCLI.printMap();
-                        default:
-                            break;
-                    }
-                }
+                show(string);
                 Printer.println("Invalid Command. Please insert a command.");
                 break;
             case "move":
-                Direction first, second, third;
-                if(string.hasMoreTokens()){
-                    first = Converter.fromStringToDirection(string.nextToken());
-                    if(string.hasMoreTokens()){
-                        second = Converter.fromStringToDirection(string.nextToken());
-                        if(string.hasMoreTokens()){
-                            third = Converter.fromStringToDirection(string.nextToken());
-                            try {
-                                client.move(first, second, third);
-                            } catch (IOException e) {
-                                Printer.err(e);
-                            }
-                            break;
-                        }else{
-                            try {
-                                client.move(first, second);
-                            } catch (IOException e) {
-                                Printer.err(e);
-                            }
-                            break;
-                        }
-                    }else{
-                        try {
-                            client.move(first);
-                        } catch (IOException e) {
-                            Printer.err(e);
-                        }
-                        break;
-                    }
-                }
+                move(string);
                 Printer.println("Invalid Command. Please insert a command.");
                 break;
             case "grab":
-                if(string.hasMoreTokens()) {
-                    String next = string.nextToken();
-                    int choice = Integer.parseInt(next);
-                    if (string.hasMoreTokens()) {
-                        Direction firstD = Converter.fromStringToDirection(string.nextToken());
-                        if (!client.getAdrenalineZone().equals(AdrenalineZone.DEFAULT)) {
-                            if (string.hasMoreTokens()) {
-                                try {
-                                    client.grab(choice, firstD, Converter.fromStringToDirection(string.nextToken()));
-                                } catch (IOException e) {
-                                    Printer.err(e);
-                                }
-                            } else {
-                                try {
-                                    client.grab(choice, firstD);
-                                } catch (IOException e) {
-                                    Printer.err(e);
-                                }
-                            }
-                        } else {
-                            try {
-                                client.grab(choice, firstD);
-                            } catch (IOException e) {
-                                Printer.err(e);
-                            }
-                        }
-                    } else {
-                        try {
-                            client.grab(0);
-                        } catch (IOException e) {
-                            Printer.err(e);
-                        }
-                    }
-                }
+                grab(string);
                 Printer.println("Invalid Command. Please insert a command.");
                 break;
             case "shoot":
-                //method
+                shoot(string);
                 break;
             default:
                 Printer.println("Invalid Command. Please insert a command.");
@@ -198,6 +95,187 @@ public class CommandLine implements ViewInterface {
         Printer.println("show <object> :");
         Printer.println("move <first_direction, ..., last_direction> :");
         Printer.println("grab <direction> <0, 1, 2, 3>:");
+        Printer.println("shoot <victim> <weapon_name> <weapon_effect_number...>");
+    }
+
+    private void login(StringTokenizer input){
+        if(input.hasMoreTokens()){
+            try {
+                client.login(input.nextToken());
+            } catch (RemoteException e) {
+                Printer.err(e);
+            }
+        }
+    }
+
+    private void color(StringTokenizer input){
+        if(input.hasMoreTokens()){
+            try {
+                client.chooseColor(Parser.castStringToTokenColor(input.nextToken()));
+            } catch (RemoteException e) {
+                Printer.err(e);
+            }
+        }
+    }
+
+    private void show(StringTokenizer input){
+        if(input.hasMoreTokens()){
+            String next = input.nextToken();
+            switch (next){
+                case "score":
+                    Printer.println("Your score is: " + playerController.getScore());
+                    break;
+                case "playerboard":
+                    Printer.println("Your board is:");
+                    Printer.println(playerController.getPlayerBoard());
+                    break;
+                case "ammos":
+                    Printer.println("Your ammos are:");
+                    Printer.println(playerController.getAmmos());
+                    break;
+                case "powerups":
+                    Printer.println("Your powerups are:");
+                    Printer.println(playerController.getPowerups());
+                    break;
+                case "weapons":
+                    Printer.println("Your weapons are:");
+                    Printer.println(playerController.getWeapons());
+                    break;
+                case "map":
+                    mapCLI.printMap();
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
+    private void move(StringTokenizer input){
+        Direction first, second, third;
+        if(input.hasMoreTokens()){
+            first = Converter.fromStringToDirection(input.nextToken());
+            if(input.hasMoreTokens()){
+                second = Converter.fromStringToDirection(input.nextToken());
+                if(input.hasMoreTokens()){
+                    third = Converter.fromStringToDirection(input.nextToken());
+                    try {
+                        client.move(first, second, third);
+                    } catch (IOException e) {
+                        Printer.err(e);
+                    }
+                }else{
+                    try {
+                        client.move(first, second);
+                    } catch (IOException e) {
+                        Printer.err(e);
+                    }
+                }
+            }else{
+                try {
+                    client.move(first);
+                } catch (IOException e) {
+                    Printer.err(e);
+                }
+            }
+        }
+    }
+
+    private void grab(StringTokenizer input){
+        if(input.hasMoreTokens()) {
+            String next = input.nextToken();
+            int choice = Integer.parseInt(next);
+            if (input.hasMoreTokens()) {
+                Direction firstD = Converter.fromStringToDirection(input.nextToken());
+                if (!client.getAdrenalineZone().equals(AdrenalineZone.DEFAULT)) {
+                    if (input.hasMoreTokens()) {
+                        try {
+                            client.grab(choice, firstD, Converter.fromStringToDirection(input.nextToken()));
+                        } catch (IOException e) {
+                            Printer.err(e);
+                        }
+                    } else {
+                        try {
+                            client.grab(choice, firstD);
+                        } catch (IOException e) {
+                            Printer.err(e);
+                        }
+                    }
+                } else {
+                    try {
+                        client.grab(choice, firstD);
+                    } catch (IOException e) {
+                        Printer.err(e);
+                    }
+                }
+            } else {
+                try {
+                    client.grab(0);
+                } catch (IOException e) {
+                    Printer.err(e);
+                }
+            }
+        }
+    }
+
+    private void shoot(StringTokenizer input){
+        String victim;
+        String weapon;
+        if(input.hasMoreTokens()){
+            victim = input.nextToken();
+            if(input.hasMoreTokens()){
+                weapon = input.nextToken();
+                weaponEffect(weapon);
+            }
+        }
+    }
+
+    private void weaponEffect(String weapon){
+        switch(weapon){
+            case "lock rifle":
+                break;
+            case "machine gun":
+                break;
+            case "thor":
+                break;
+            case "plasma gun":
+                break;
+            case "whisper":
+                break;
+            case "electroscythe":
+                break;
+            case "tractor beam":
+                break;
+            case "vortex cannon":
+                break;
+            case "furnace":
+                break;
+            case "heatseeker":
+                break;
+            case "hellion":
+                break;
+            case "flamethrower":
+                break;
+            case "grenade launcher":
+                break;
+            case "rocket launcher":
+                break;
+            case "railgun":
+                break;
+            case "cyberblade":
+                break;
+            case "zx-2":
+                break;
+            case "shotgun":
+                break;
+            case "power glove":
+                break;
+            case "shockwave":
+                break;
+            case "sledgehammer":
+                break;
+            default:
+                break;
+        }
     }
 
     @Override
