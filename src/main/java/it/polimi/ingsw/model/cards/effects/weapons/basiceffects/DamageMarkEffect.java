@@ -1,7 +1,6 @@
 package it.polimi.ingsw.model.cards.effects.weapons.basiceffects;
 
 import it.polimi.ingsw.model.cards.effects.ActionInterface;
-import it.polimi.ingsw.model.enums.TokenColor;
 import it.polimi.ingsw.model.gamecomponents.Player;
 
 public class DamageMarkEffect extends BasicEffect {
@@ -36,16 +35,17 @@ public class DamageMarkEffect extends BasicEffect {
 
         canUse = ammoControl(redAmmos, blueAmmos, yellowAmmos, actionInterface);
 
-        if(effectName.equals("Cyberblade")|| effectName.equals("Sledgehammer"))
-            canUse = actionInterface.sameSquare(victim.getColor());
-        else if(effectName.equals("Lock Rifle")|| effectName.equals("T.H.O.R") || effectName.equals("Plasma Gun") || effectName.equals("ZX-2") || effectName.equals("Whisper")) {
-            canUse = actionInterface.isVisible(victim.getColor());
-            if (effectName.equals("Whisper") && actionInterface.distanceControl(victim.getPosition().getX(),victim.getPosition().getY()) >= 2)
-                canUse = true;
-        }
-        else
-            canUse = !actionInterface.isVisible(victim.getColor());
+        if (canUse) {
 
+            if (effectName.equals("Cyberblade") || effectName.equals("Sledgehammer"))
+                canUse = actionInterface.sameSquare(victim.getColor());
+            else if (effectName.equals("Lock Rifle") || effectName.equals("T.H.O.R") || effectName.equals("Plasma Gun") || effectName.equals("ZX-2") || effectName.equals("Whisper")) {
+                canUse = actionInterface.isVisible(victim.getColor());
+                if (canUse && effectName.equals("Whisper") && actionInterface.distanceControl(victim.getPosition().getX(), victim.getPosition().getY()) >= 2)
+                    canUse = true;
+            }else
+                canUse = !actionInterface.isVisible(victim.getColor());
+        }
         return canUse;
     }
 
@@ -55,8 +55,7 @@ public class DamageMarkEffect extends BasicEffect {
         actionInterface.playerDamage(victim.getColor(), damagePower);
         actionInterface.playerMark(victim.getColor(), markPower);
         actionInterface.updateAmmoBox(redAmmos, blueAmmos, yellowAmmos);
+
     }
-
-
 
 }
