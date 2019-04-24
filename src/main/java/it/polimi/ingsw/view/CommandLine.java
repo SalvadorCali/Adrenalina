@@ -100,10 +100,14 @@ public class CommandLine implements ViewInterface {
 
     private void login(StringTokenizer input){
         if(input.hasMoreTokens()){
-            try {
-                client.login(input.nextToken());
-            } catch (RemoteException e) {
-                Printer.err(e);
+            String username = input.nextToken();
+            if(input.hasMoreTokens()){
+                String color = input.nextToken();
+                try {
+                    client.login(username, Parser.castStringToTokenColor(color));
+                } catch (RemoteException e) {
+                    Printer.err(e);
+                }
             }
         }
     }

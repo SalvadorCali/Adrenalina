@@ -2,6 +2,7 @@ package it.polimi.ingsw.network.server.rmi;
 
 import it.polimi.ingsw.controller.ServerController;
 import it.polimi.ingsw.model.enums.Direction;
+import it.polimi.ingsw.model.enums.TokenColor;
 import it.polimi.ingsw.network.client.rmi.RMIClientInterface;
 import it.polimi.ingsw.network.enums.Advise;
 import it.polimi.ingsw.network.enums.Message;
@@ -24,8 +25,8 @@ public class RMIServer extends UnicastRemoteObject implements RMIServerInterface
     }
 
     @Override
-    public void login(String username){
-        serverController.addClient(username, this);
+    public void login(String username, TokenColor color){
+        serverController.login(username, color, this);
     }
 
     @Override

@@ -4,6 +4,7 @@ import it.polimi.ingsw.controller.PlayerController;
 import it.polimi.ingsw.model.enums.AdrenalineZone;
 import it.polimi.ingsw.model.enums.Direction;
 import it.polimi.ingsw.model.enums.TokenColor;
+import it.polimi.ingsw.model.gamecomponents.Token;
 import it.polimi.ingsw.network.client.ClientInterface;
 import it.polimi.ingsw.network.enums.Advise;
 import it.polimi.ingsw.util.Config;
@@ -86,11 +87,13 @@ public class SocketClient implements ClientInterface, Runnable {
     }
 
     @Override
-    public void login(String username){
+    public void login(String username, TokenColor color){
         try {
             objectOutputStream.writeObject(Message.LOGIN);
             objectOutputStream.flush();
             objectOutputStream.writeUTF(username);
+            objectOutputStream.flush();
+            objectOutputStream.writeObject(color);
             objectOutputStream.flush();
         } catch (IOException e) {
             Printer.err(e);

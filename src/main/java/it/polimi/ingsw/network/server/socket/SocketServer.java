@@ -68,12 +68,14 @@ public class SocketServer implements Runnable, ServerInterface {
     }
 
     public void login(){
+        TokenColor color = TokenColor.NONE;
         try{
             clientName = objectInputStream.readUTF();
-        } catch (IOException e) {
+            color = (TokenColor) objectInputStream.readObject();
+        } catch (IOException | ClassNotFoundException e) {
             Printer.err(e);
         }
-        serverController.addClient(clientName, this);
+        serverController.login(clientName, color, this);
     }
 
     public void move(){

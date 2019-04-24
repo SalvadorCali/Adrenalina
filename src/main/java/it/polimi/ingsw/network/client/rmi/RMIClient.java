@@ -40,10 +40,10 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
     }
 
     @Override
-    public void login(String username){
+    public void login(String username, TokenColor color){
         this.username = username;
         try {
-            server.login(username);
+            server.login(username, color);
         } catch (RemoteException e) {
             Printer.err(e);
         }

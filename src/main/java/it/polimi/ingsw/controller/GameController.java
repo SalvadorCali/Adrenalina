@@ -5,6 +5,7 @@ import it.polimi.ingsw.model.cards.PowerupCard;
 import it.polimi.ingsw.model.cards.WeaponCard;
 import it.polimi.ingsw.model.cards.effects.ActionInterface;
 import it.polimi.ingsw.model.enums.Direction;
+import it.polimi.ingsw.model.enums.TokenColor;
 import it.polimi.ingsw.model.gamecomponents.Deck;
 import it.polimi.ingsw.model.gamecomponents.Game;
 import it.polimi.ingsw.model.gamecomponents.GameBoard;
@@ -73,6 +74,10 @@ public class GameController {
 
     public boolean canMove(Player player, Direction...directions){
         return game.getBoard().canMove(player, directions);
+    }
+
+    public ArrayList<TokenColor> getPlayerColors() {
+        return game.getPlayerColors();
     }
 
     public void move(Player player, Direction...directions){

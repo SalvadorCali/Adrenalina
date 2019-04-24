@@ -20,63 +20,72 @@ import java.util.concurrent.TimeUnit;
 public class ServerController {
     private GameController gameController;
     private Map<String, ServerInterface> servers;
+    private Map<TokenColor, ServerInterface> colors;
     private Map<String, Player> players;
 
     public ServerController(){
         gameController = new GameController();
         servers = new HashMap<>();
+        colors = new HashMap<>();
         players = new HashMap<>();
     }
 
-    public void addClient(String username, ServerInterface server){
+    public void login(String username, TokenColor color, ServerInterface server){
         if(!gameController.isInGame()){
-            ExecutorService adder = Executors.newFixedThreadPool(1);
-            Runnable adderTask = () -> {
-                if(servers.containsKey(username)){
+            boolean newUsername = !servers.containsKey(username);
+            boolean newColor = !colors.containsKey(color);
+            if(newUsername && newColor){
+                servers.put(username, server);
+                colors.put(color, server);
+                servers.forEach((u, s) -> {
                     try {
-                        server.notifyLogin(Subject.WRONG, username);
+                        if(u.equals(username)){
+                            s.notify(Message.LOGIN_COLOR, Subject.RIGHT, username);
+                        }else{
+                            s.notify(Message.LOGIN_COLOR, Subject.ALL, username);
+                        }
+                    } catch (IOException e) {
+                        Printer.err(e);
+                    }
+                });
+                if(servers.size() == 3){
+                    ScheduledExecutorService createGame = Executors.newSingleThreadScheduledExecutor();
+                    Runnable createGameTask = () -> {
+                        gameController.setColorSelection(true);
+                        servers.forEach((u, s) -> {
+                            try {
+                                s.sendMessage(Advise.COLOR);
+                            } catch (IOException e) {
+                                Printer.err(e);
+                            }
+                        });
+                        Printer.println("Game iniziato!");
+                    };
+                    createGame.schedule(createGameTask, 10000, TimeUnit.MILLISECONDS);
+                }
+            }else if(newUsername || newColor){
+                if(newUsername){
+                    try {
+                        server.notify(Message.LOGIN, Subject.WRONG, username);
                     } catch (IOException e) {
                         Printer.err(e);
                     }
                 }else{
-                    servers.put(username, server);
-                    servers.forEach((u, s) -> {
-                        try {
-                            if(u.equals(username)){
-                                s.notifyLogin(Subject.RIGHT, username);
-                            }else{
-                                s.notifyLogin(Subject.ALL, username);
-                            }
-                        } catch (IOException e) {
-                            Printer.err(e);
-                        }
-                    });
-                    if(servers.size() == 3){
-                        ScheduledExecutorService createGame = Executors.newSingleThreadScheduledExecutor();
-                        Runnable createGameTask = () -> {
-                            gameController.setColorSelection(true);
-                            servers.forEach((u, s) -> {
-                                try {
-                                    s.sendMessage(Advise.COLOR);
-                                } catch (IOException e) {
-                                    Printer.err(e);
-                                }
-                            });
-                            Printer.println("Game iniziato!");
-                        };
-                        createGame.schedule(createGameTask, 10000, TimeUnit.MILLISECONDS);
-                        adder.shutdownNow();
-                        try {
-                            adder.awaitTermination(0, TimeUnit.MILLISECONDS);
-                        } catch (InterruptedException e) {
-                            Printer.err(e);
-                        }
+                    try {
+                        server.notify(Message.COLOR, Subject.WRONG, color);
+                    } catch (IOException e) {
+                        Printer.err(e);
                     }
                 }
-            };
-            adder.execute(adderTask);
+            }else{
+                try {
+                    server.notify(Message.LOGIN_COLOR, Subject.WRONG, username);
+                } catch (IOException e) {
+                    Printer.err(e);
+                }
+            }
         }else{
-            Printer.println("Game già iniziato!");
+            Printer.println("Game iniziato!");
         }
     }
 
