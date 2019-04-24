@@ -61,11 +61,7 @@ public class SocketClient implements ClientInterface, Runnable {
     public void readRequest(Message message){
         switch(message){
             case NOTIFY:
-                try {
-                    notifyLogin();
-                } catch (IOException | ClassNotFoundException e) {
-                    Printer.err(e);
-                }
+                    notifyMessage();
                 break;
             case COLOR:
                 try {
@@ -150,6 +146,10 @@ public class SocketClient implements ClientInterface, Runnable {
         String username = objectInputStream.readUTF();
         Subject subject = (Subject) objectInputStream.readObject();
         view.notifyLogin(subject, username);
+    }
+
+    public void notifyMessage(){
+
     }
 
     public void printMessage() throws IOException, ClassNotFoundException {

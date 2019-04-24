@@ -77,6 +77,9 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
     @Override
     public void notify(Message message, Subject subject, Object object) throws RemoteException {
         switch (message){
+            case USERNAME:
+                view.notify(message, subject, object);
+                break;
             case LOGIN:
                 view.notify(message, subject, object);
                 break;

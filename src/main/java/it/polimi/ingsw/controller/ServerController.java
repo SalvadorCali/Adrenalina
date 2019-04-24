@@ -40,9 +40,9 @@ public class ServerController {
                 servers.forEach((u, s) -> {
                     try {
                         if(u.equals(username)){
-                            s.notify(Message.LOGIN_COLOR, Subject.RIGHT, username);
+                            s.notify(Message.LOGIN, Subject.RIGHT, username);
                         }else{
-                            s.notify(Message.LOGIN_COLOR, Subject.ALL, username);
+                            s.notify(Message.LOGIN, Subject.ALL, username);
                         }
                     } catch (IOException e) {
                         Printer.err(e);
@@ -66,7 +66,7 @@ public class ServerController {
             }else if(newUsername || newColor){
                 if(newUsername){
                     try {
-                        server.notify(Message.LOGIN, Subject.WRONG, username);
+                        server.notify(Message.USERNAME, Subject.WRONG, username);
                     } catch (IOException e) {
                         Printer.err(e);
                     }
@@ -79,7 +79,7 @@ public class ServerController {
                 }
             }else{
                 try {
-                    server.notify(Message.LOGIN_COLOR, Subject.WRONG, username);
+                    server.notify(Message.LOGIN, Subject.WRONG, username);
                 } catch (IOException e) {
                     Printer.err(e);
                 }

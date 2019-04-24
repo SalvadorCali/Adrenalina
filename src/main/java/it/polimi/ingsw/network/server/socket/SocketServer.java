@@ -56,6 +56,8 @@ public class SocketServer implements Runnable, ServerInterface {
                 break;
             case COLOR:
                 break;
+            case USERNAME:
+                break;
             case MOVE:
                 move();
                 break;
@@ -145,6 +147,8 @@ public class SocketServer implements Runnable, ServerInterface {
 
     @Override
     public void notify(Message message, Subject subject, Object object) throws IOException {
+        objectOutputStream.writeObject(Message.NOTIFY);
+        objectOutputStream.flush();
         objectOutputStream.writeObject(message);
         objectOutputStream.flush();
         objectOutputStream.writeObject(subject);

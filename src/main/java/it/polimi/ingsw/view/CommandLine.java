@@ -8,6 +8,7 @@ import it.polimi.ingsw.network.client.ClientInterface;
 import it.polimi.ingsw.network.enums.Advise;
 import it.polimi.ingsw.network.enums.Message;
 import it.polimi.ingsw.network.enums.Subject;
+import it.polimi.ingsw.util.Config;
 import it.polimi.ingsw.util.Converter;
 import it.polimi.ingsw.util.Parser;
 import it.polimi.ingsw.util.Printer;
@@ -56,32 +57,28 @@ public class CommandLine implements ViewInterface {
                 break;
             case "login":
                 login(string);
-                Printer.println("Invalid Command. Please insert a command.");
-                break;
-            case "color":
-                color(string);
-                Printer.println("Invalid Command. Please insert a command.");
+                Printer.println(Config.INVALID_COMMAND);
                 break;
             case "disconnect":
                 //method
                 break;
             case "show":
                 show(string);
-                Printer.println("Invalid Command. Please insert a command.");
+                Printer.println(Config.INVALID_COMMAND);
                 break;
             case "move":
                 move(string);
-                Printer.println("Invalid Command. Please insert a command.");
+                Printer.println(Config.INVALID_COMMAND);
                 break;
             case "grab":
                 grab(string);
-                Printer.println("Invalid Command. Please insert a command.");
+                Printer.println(Config.INVALID_COMMAND);
                 break;
             case "shoot":
                 shoot(string);
                 break;
             default:
-                Printer.println("Invalid Command. Please insert a command.");
+                Printer.println(Config.INVALID_COMMAND);
                 break;
         }
     }
@@ -108,16 +105,6 @@ public class CommandLine implements ViewInterface {
                 } catch (RemoteException e) {
                     Printer.err(e);
                 }
-            }
-        }
-    }
-
-    private void color(StringTokenizer input){
-        if(input.hasMoreTokens()){
-            try {
-                client.chooseColor(Parser.castStringToTokenColor(input.nextToken()));
-            } catch (RemoteException e) {
-                Printer.err(e);
             }
         }
     }
@@ -316,6 +303,9 @@ public class CommandLine implements ViewInterface {
 
     public void notify(Message message, Subject subject, Object object){
         switch(message){
+            case USERNAME:
+                notifyLogin(subject, (String) object);
+                break;
             case LOGIN:
                 notifyLogin(subject, (String) object);
                 break;
