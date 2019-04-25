@@ -7,7 +7,7 @@ import it.polimi.ingsw.model.enums.TokenColor;
 import it.polimi.ingsw.network.client.ClientInterface;
 import it.polimi.ingsw.network.enums.Advise;
 import it.polimi.ingsw.network.enums.Message;
-import it.polimi.ingsw.network.enums.Subject;
+import it.polimi.ingsw.network.enums.Outcome;
 import it.polimi.ingsw.util.Config;
 import it.polimi.ingsw.util.Converter;
 import it.polimi.ingsw.util.Parser;
@@ -104,7 +104,7 @@ public class CommandLine implements ViewInterface {
             if(input.hasMoreTokens()){
                 String color = input.nextToken();
                 try {
-                    client.login(username, Parser.castStringToTokenColor(color));
+                    client.login(username, Converter.fromStringToTokenColor(color));
                 } catch (RemoteException e) {
                     Printer.err(e);
                 }
@@ -281,8 +281,8 @@ public class CommandLine implements ViewInterface {
     }
 
     @Override
-    public void notifyLogin(Subject subject, String username){
-        switch(subject){
+    public void notifyLogin(Outcome outcome, String username){
+        switch(outcome){
             case WRONG:
                 Printer.print("Username already used! Please choose another username:");
                 break;
@@ -298,8 +298,8 @@ public class CommandLine implements ViewInterface {
         }
     }
 
-    public void notifyColor(Subject subject, TokenColor color){
-        switch(subject){
+    public void notifyColor(Outcome outcome, TokenColor color){
+        switch(outcome){
             case WRONG:
                 Printer.print("Color already chosen! Please choose another color:");
                 break;
@@ -312,30 +312,37 @@ public class CommandLine implements ViewInterface {
         }
     }
 
-    private void notifyEndTurn(Subject subject){
+    private void notifyEndTurn(){
         Printer.println("Your turn is ended!");
     }
 
-    public void notify(Message message, Subject subject){
+    public void notify(Message message){
         switch (message){
             case END_TURN:
-                notifyEndTurn(subject);
+                notifyEndTurn();
                 break;
             default:
                 break;
         }
     }
 
-    public void notify(Message message, Subject subject, Object object){
+    public void notify(Message message, Outcome outcome){
+        switch (message){
+            default:
+                break;
+        }
+    }
+
+    public void notify(Message message, Outcome outcome, Object object){
         switch(message){
             case USERNAME:
-                notifyLogin(subject, (String) object);
+                notifyLogin(outcome, (String) object);
                 break;
             case LOGIN:
-                notifyLogin(subject, (String) object);
+                notifyLogin(outcome, (String) object);
                 break;
             case COLOR:
-                notifyColor(subject, (TokenColor) object);
+                notifyColor(outcome, (TokenColor) object);
                 break;
             default:
                 break;

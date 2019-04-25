@@ -2,12 +2,13 @@ package it.polimi.ingsw.view;
 
 import it.polimi.ingsw.network.enums.Advise;
 import it.polimi.ingsw.network.enums.Message;
-import it.polimi.ingsw.network.enums.Subject;
+import it.polimi.ingsw.network.enums.Outcome;
 
 public interface ViewInterface {
     void start();
-    void notifyLogin(Subject subject, String username);
-    void notify(Message message, Subject subject);
-    void notify(Message message, Subject subject, Object object);
+    void notifyLogin(Outcome outcome, String username);
+    void notify(Message message);
+    void notify(Message message, Outcome outcome);
+    void notify(Message message, Outcome outcome, Object object);
     void printMessage(Advise advise);
 }

@@ -21,6 +21,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import static it.polimi.ingsw.util.Converter.*;
+
 public class Parser {
 
     private Parser(){}
@@ -47,7 +49,7 @@ public class Parser {
             JSONObject thirdObject = (JSONObject) secondArray.get(i);
 
             cardName = (String) thirdObject.get("name");
-            cardColor = castStringToColor((String) thirdObject.get("colour"));
+            cardColor = fromStringToColor((String) thirdObject.get("colour"));
             Card card = new WeaponCard(cardName, cardColor);
             weapons.addCard(card);
         }
@@ -141,18 +143,18 @@ public class Parser {
         for(int i=0; i < 4; i++){
             Square[][] arena = new Square[3][4];
             JSONObject secondObject = (JSONObject) firstArray.get(i);
-            boardType = castStringToBoardType((String) secondObject.get("type"));
+            boardType = fromStringToBoardType((String) secondObject.get("type"));
             JSONArray secondArray = (JSONArray) secondObject.get("squares");
 
             int l = 0;
             for(int j=0; j < 3; j++){
                 for(int k=0; k < 4; k++){
                     JSONObject thirdObject = (JSONObject) secondArray.get(l);
-                    color = castStringToTokenColor((String) thirdObject.get("color"));
-                    north = castStringToCardinal((String) thirdObject.get("north"));
-                    south = castStringToCardinal((String) thirdObject.get("south"));
-                    east = castStringToCardinal((String) thirdObject.get("east"));
-                    west = castStringToCardinal((String) thirdObject.get("west"));
+                    color = fromStringToTokenColor((String) thirdObject.get("color"));
+                    north = fromStringToCardinal((String) thirdObject.get("north"));
+                    south = fromStringToCardinal((String) thirdObject.get("south"));
+                    east = fromStringToCardinal((String) thirdObject.get("east"));
+                    west = fromStringToCardinal((String) thirdObject.get("west"));
                     switch((String) thirdObject.get("type")){
                         case "ammo":
                             arena[j][k] = new AmmoPoint(color, north, south, west, east);
@@ -170,66 +172,6 @@ public class Parser {
             gameBoards.add(new GameBoard(boardType, arena));
         }
         return gameBoards;
-    }
-
-    private static Color castStringToColor(String color){
-        switch(color){
-            case "B":
-                return Color.BLUE;
-            case "R":
-                return Color.RED;
-            case "Y":
-                return Color.YELLOW;
-            default:
-                return Color.NONE;
-        }
-    }
-
-    public static TokenColor castStringToTokenColor(String color){
-        switch(color){
-            case "blue":
-                return TokenColor.BLUE;
-            case "green":
-                return TokenColor.GREEN;
-            case "grey":
-                return TokenColor.GREY;
-            case "purple":
-                return TokenColor.PURPLE;
-            case "red":
-                return TokenColor.RED;
-            case "yellow":
-                return TokenColor.YELLOW;
-            default:
-                return TokenColor.NONE;
-        }
-    }
-
-    private static BoardType castStringToBoardType(String boardType){
-        switch(boardType){
-            case "basic":
-                return BoardType.BASIC;
-            case "generic":
-                return BoardType.GENERIC;
-            case "3_4":
-                return BoardType.PLAYERS_3_4;
-            case "4_5":
-                return BoardType.PLAYERS_4_5;
-            default:
-                return BoardType.BASIC;
-        }
-    }
-
-    private static Cardinal castStringToCardinal(String cardinal){
-        switch (cardinal){
-            case "door":
-                return Cardinal.DOOR;
-            case "room":
-                return Cardinal.ROOM;
-            case "wall":
-                return Cardinal.WALL;
-            default:
-                return Cardinal.NONE;
-        }
     }
 
     private static AmmoCard generateAmmoCard(String combination){

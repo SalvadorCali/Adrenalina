@@ -1,9 +1,9 @@
 package it.polimi.ingsw.network.enums;
 
-public enum Subject {
+public enum Outcome {
     WRONG(0), RIGHT(1), ALL(2);
     private final int number;
-    Subject(int number){
+    Outcome(int number){
         this.number = number;
     }
     public int getNumber(){

@@ -10,7 +10,7 @@ import it.polimi.ingsw.util.Config;
 import it.polimi.ingsw.util.Printer;
 import it.polimi.ingsw.view.CommandLine;
 import it.polimi.ingsw.network.enums.Message;
-import it.polimi.ingsw.network.enums.Subject;
+import it.polimi.ingsw.network.enums.Outcome;
 import it.polimi.ingsw.view.ViewInterface;
 
 import java.io.*;
@@ -139,25 +139,25 @@ public class SocketClient implements ClientInterface, Runnable {
     }
 
     public void notifyColor() throws IOException, ClassNotFoundException {
-        Subject subject = (Subject) objectInputStream.readObject();
+        Outcome outcome = (Outcome) objectInputStream.readObject();
         Object object = objectInputStream.readObject();
-        view.notify(Message.COLOR, subject, object);
+        view.notify(Message.COLOR, outcome, object);
     }
 
     public void notifyLogin() throws IOException, ClassNotFoundException {
         String username = objectInputStream.readUTF();
-        Subject subject = (Subject) objectInputStream.readObject();
-        view.notifyLogin(subject, username);
+        Outcome outcome = (Outcome) objectInputStream.readObject();
+        view.notifyLogin(outcome, username);
     }
 
     public void notifyMessage() throws IOException, ClassNotFoundException {
         Message message = (Message) objectInputStream.readObject();
-        Subject subject = (Subject) objectInputStream.readObject();
+        Outcome outcome = (Outcome) objectInputStream.readObject();
         if(message.equals(Message.END_TURN)){
-            view.notify(message, subject);
+            view.notify(message, outcome);
         }else{
             Object object = objectInputStream.readObject();
-            view.notify(message, subject, object);
+            view.notify(message, outcome, object);
         }
     }
 

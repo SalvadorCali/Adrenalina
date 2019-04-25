@@ -7,13 +7,12 @@ import it.polimi.ingsw.network.enums.Advise;
 import it.polimi.ingsw.network.server.ServerInterface;
 import it.polimi.ingsw.util.Printer;
 import it.polimi.ingsw.network.enums.Message;
-import it.polimi.ingsw.network.enums.Subject;
+import it.polimi.ingsw.network.enums.Outcome;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-import java.rmi.RemoteException;
 
 public class SocketServer implements Runnable, ServerInterface {
     private Thread thisThread;
@@ -131,32 +130,40 @@ public class SocketServer implements Runnable, ServerInterface {
     }
 
     @Override
-    public void notifyLogin(Subject subject, String username) throws IOException {
+    public void notifyLogin(Outcome outcome, String username) throws IOException {
         objectOutputStream.writeObject(Message.NOTIFY);
         objectOutputStream.flush();
         objectOutputStream.writeUTF(username);
         objectOutputStream.flush();
-        objectOutputStream.writeObject(subject);
+        objectOutputStream.writeObject(outcome);
         objectOutputStream.flush();
     }
 
     @Override
-    public void notify(Message message, Subject subject) throws IOException {
+    public void notify(Message message) throws IOException {
         objectOutputStream.writeObject(Message.NOTIFY);
         objectOutputStream.flush();
         objectOutputStream.writeObject(message);
-        objectOutputStream.flush();
-        objectOutputStream.writeObject(subject);
         objectOutputStream.flush();
     }
 
     @Override
-    public void notify(Message message, Subject subject, Object object) throws IOException {
+    public void notify(Message message, Outcome outcome) throws IOException {
         objectOutputStream.writeObject(Message.NOTIFY);
         objectOutputStream.flush();
         objectOutputStream.writeObject(message);
         objectOutputStream.flush();
-        objectOutputStream.writeObject(subject);
+        objectOutputStream.writeObject(outcome);
+        objectOutputStream.flush();
+    }
+
+    @Override
+    public void notify(Message message, Outcome outcome, Object object) throws IOException {
+        objectOutputStream.writeObject(Message.NOTIFY);
+        objectOutputStream.flush();
+        objectOutputStream.writeObject(message);
+        objectOutputStream.flush();
+        objectOutputStream.writeObject(outcome);
         objectOutputStream.flush();
         objectOutputStream.writeObject(object);
         objectOutputStream.flush();

@@ -11,7 +11,7 @@ import it.polimi.ingsw.network.enums.Message;
 import it.polimi.ingsw.network.server.rmi.RMIServerInterface;
 import it.polimi.ingsw.util.Printer;
 import it.polimi.ingsw.view.CommandLine;
-import it.polimi.ingsw.network.enums.Subject;
+import it.polimi.ingsw.network.enums.Outcome;
 import it.polimi.ingsw.view.ViewInterface;
 
 import java.io.*;
@@ -70,8 +70,8 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
     }
 
     @Override
-    public void notifyLogin(Subject subject, String username){
-        view.notifyLogin(subject, username);
+    public void notifyLogin(Outcome outcome, String username){
+        view.notifyLogin(outcome, username);
     }
 
     @Override
@@ -80,10 +80,10 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
     }
 
     @Override
-    public void notify(Message message, Subject subject) throws RemoteException{
+    public void notify(Message message) throws RemoteException{
         switch (message){
             case END_TURN:
-                view.notify(message, subject);
+                view.notify(message);
                 break;
             default:
                 break;
@@ -91,21 +91,32 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
     }
 
     @Override
-    public void notify(Message message, Subject subject, Object object) throws RemoteException {
+    public void notify(Message message, Outcome outcome) throws RemoteException{
+        switch (message){
+            case END_TURN:
+                view.notify(message, outcome);
+                break;
+            default:
+                break;
+        }
+    }
+
+    @Override
+    public void notify(Message message, Outcome outcome, Object object) throws RemoteException {
         switch (message){
             case USERNAME:
-                view.notify(message, subject, object);
+                view.notify(message, outcome, object);
                 break;
             case LOGIN:
-                view.notify(message, subject, object);
+                view.notify(message, outcome, object);
                 break;
             case COLOR:
-                if(subject.equals(Subject.RIGHT)){
+                if(outcome.equals(Outcome.RIGHT)){
                     Player player = (Player) object;
                     playerController.setPlayer(player);
-                    view.notify(message, subject, object);
+                    view.notify(message, outcome, object);
                 }else{
-                    view.notify(message, subject, object);
+                    view.notify(message, outcome, object);
                 }
                 break;
             default:

@@ -6,7 +6,7 @@ import it.polimi.ingsw.model.gamecomponents.Player;
 import it.polimi.ingsw.network.enums.Message;
 import it.polimi.ingsw.network.server.ServerInterface;
 import it.polimi.ingsw.util.Printer;
-import it.polimi.ingsw.network.enums.Subject;
+import it.polimi.ingsw.network.enums.Outcome;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -38,9 +38,9 @@ public class ServerController {
                 servers.forEach((u, s) -> {
                     try {
                         if(u.equals(username)){
-                            s.notify(Message.LOGIN, Subject.RIGHT, username);
+                            s.notify(Message.LOGIN, Outcome.RIGHT, username);
                         }else{
-                            s.notify(Message.LOGIN, Subject.ALL, username);
+                            s.notify(Message.LOGIN, Outcome.ALL, username);
                         }
                     } catch (IOException e) {
                         Printer.err(e);
@@ -54,20 +54,20 @@ public class ServerController {
             }else if(newUsername || newColor){
                 if(newUsername){
                     try {
-                        server.notify(Message.USERNAME, Subject.WRONG, username);
+                        server.notify(Message.USERNAME, Outcome.WRONG, username);
                     } catch (IOException e) {
                         Printer.err(e);
                     }
                 }else{
                     try {
-                        server.notify(Message.COLOR, Subject.WRONG, color);
+                        server.notify(Message.COLOR, Outcome.WRONG, color);
                     } catch (IOException e) {
                         Printer.err(e);
                     }
                 }
             }else{
                 try {
-                    server.notify(Message.LOGIN, Subject.WRONG, username);
+                    server.notify(Message.LOGIN, Outcome.WRONG, username);
                 } catch (IOException e) {
                     Printer.err(e);
                 }
@@ -81,7 +81,7 @@ public class ServerController {
         colors.forEach((c, u) -> {
             try {
                 Player player = new Player(c);
-                servers.get(u).notify(Message.PLAYER, Subject.RIGHT, player);
+                servers.get(u).notify(Message.PLAYER, Outcome.RIGHT, player);
                 players.put(colors.get(c), player);
                 gameController.getGame().addPlayerColors(c);
                 gameController.getGame().addPlayer((player));
@@ -99,13 +99,13 @@ public class ServerController {
         if(gameController.canMove(players.get(username), directions)){
             gameController.move(players.get(username), directions);
             try {
-                servers.get(username).notify(Message.MOVE, Subject.RIGHT, username);
+                servers.get(username).notify(Message.MOVE, Outcome.RIGHT, username);
             } catch (IOException e) {
                 Printer.err(e);
             }
         }else{
             try {
-                servers.get(username).notify(Message.MOVE, Subject.WRONG, username);
+                servers.get(username).notify(Message.MOVE, Outcome.WRONG, username);
             } catch (IOException e) {
                 Printer.err(e);
             }
@@ -119,7 +119,7 @@ public class ServerController {
     public void endTurn(String username){
         gameController.endTurn(players.get(username));
         try {
-            servers.get(username).notify(Message.END_TURN, Subject.RIGHT);
+            servers.get(username).notify(Message.END_TURN, Outcome.RIGHT);
         } catch (IOException e) {
             Printer.err(e);
         }

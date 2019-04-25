@@ -6,7 +6,7 @@ import it.polimi.ingsw.model.enums.TokenColor;
 import it.polimi.ingsw.network.client.rmi.RMIClientInterface;
 import it.polimi.ingsw.network.enums.Advise;
 import it.polimi.ingsw.network.enums.Message;
-import it.polimi.ingsw.network.enums.Subject;
+import it.polimi.ingsw.network.enums.Outcome;
 import it.polimi.ingsw.util.Printer;
 
 import java.io.IOException;
@@ -45,18 +45,23 @@ public class RMIServer extends UnicastRemoteObject implements RMIServerInterface
     }
 
     @Override
-    public void notifyLogin(Subject subject, String username) throws IOException {
-        client.notifyLogin(subject, username);
+    public void notifyLogin(Outcome outcome, String username) throws IOException {
+        client.notifyLogin(outcome, username);
     }
 
     @Override
-    public void notify(Message message, Subject subject) throws RemoteException {
-        client.notify(message, subject);
+    public void notify(Message message) throws RemoteException {
+        client.notify(message);
     }
 
     @Override
-    public void notify(Message message, Subject subject, Object object) throws RemoteException {
-        client.notify(message, subject, object);
+    public void notify(Message message, Outcome outcome) throws RemoteException {
+        client.notify(message, outcome);
+    }
+
+    @Override
+    public void notify(Message message, Outcome outcome, Object object) throws RemoteException {
+        client.notify(message, outcome, object);
     }
 
     @Override
