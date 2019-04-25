@@ -10,7 +10,6 @@ import it.polimi.ingsw.network.enums.Message;
 import it.polimi.ingsw.network.enums.Outcome;
 import it.polimi.ingsw.util.Config;
 import it.polimi.ingsw.util.Converter;
-import it.polimi.ingsw.util.Parser;
 import it.polimi.ingsw.util.Printer;
 
 import java.io.BufferedReader;
@@ -87,15 +86,15 @@ public class CommandLine implements ViewInterface {
     }
 
     private void help(){
-        Printer.println("[CLIENT]List of Commands");
-        Printer.println("help :");
-        Printer.println("login <username> :");
-        Printer.println("color <character_color> :");
+        Printer.println("List of Commands:");
+        Printer.println("help : gives you the list of commands");
+        Printer.println("login <username> <color>:");
         Printer.println("disconnect :");
         Printer.println("show <object> :");
         Printer.println("move <first_direction, ..., last_direction> :");
         Printer.println("grab <direction> <0, 1, 2, 3>:");
         Printer.println("shoot <victim> <weapon_name> <weapon_effect_number...>");
+        Printer.println("end : ends your turn");
     }
 
     private void login(StringTokenizer input){
