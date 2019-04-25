@@ -312,6 +312,20 @@ public class CommandLine implements ViewInterface {
         }
     }
 
+    private void notifyEndTurn(Subject subject){
+        Printer.println("Your turn is ended!");
+    }
+
+    public void notify(Message message, Subject subject){
+        switch (message){
+            case END_TURN:
+                notifyEndTurn(subject);
+                break;
+            default:
+                break;
+        }
+    }
+
     public void notify(Message message, Subject subject, Object object){
         switch(message){
             case USERNAME:

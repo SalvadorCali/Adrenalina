@@ -141,6 +141,16 @@ public class SocketServer implements Runnable, ServerInterface {
     }
 
     @Override
+    public void notify(Message message, Subject subject) throws IOException {
+        objectOutputStream.writeObject(Message.NOTIFY);
+        objectOutputStream.flush();
+        objectOutputStream.writeObject(message);
+        objectOutputStream.flush();
+        objectOutputStream.writeObject(subject);
+        objectOutputStream.flush();
+    }
+
+    @Override
     public void notify(Message message, Subject subject, Object object) throws IOException {
         objectOutputStream.writeObject(Message.NOTIFY);
         objectOutputStream.flush();

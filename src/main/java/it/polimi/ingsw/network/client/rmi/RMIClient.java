@@ -80,6 +80,17 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
     }
 
     @Override
+    public void notify(Message message, Subject subject) throws RemoteException{
+        switch (message){
+            case END_TURN:
+                view.notify(message, subject);
+                break;
+            default:
+                break;
+        }
+    }
+
+    @Override
     public void notify(Message message, Subject subject, Object object) throws RemoteException {
         switch (message){
             case USERNAME:

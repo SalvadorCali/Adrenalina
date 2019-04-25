@@ -47,6 +47,7 @@ public class GameController {
 
     //methods
     public void startGame(){
+        game.setInGame(true);
         game.createKillshotTrack(8);
         game.fillSquares(actionInterface);
         game.createScoreList();
@@ -93,5 +94,9 @@ public class GameController {
         int x = player.getPosition().getX();
         int y = player.getPosition().getY();
         game.getBoard().getArena()[x][y].grab(actionInterface, choice);
+    }
+
+    public void endTurn(Player player){
+        game.endTurn(player);
     }
 }

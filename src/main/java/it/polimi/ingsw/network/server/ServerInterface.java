@@ -9,6 +9,7 @@ import java.rmi.RemoteException;
 
 public interface ServerInterface {
     void notifyLogin(Subject subject, String username) throws IOException;
+    void notify(Message message, Subject subject) throws IOException;
     void notify(Message message, Subject subject, Object object) throws IOException;
     void sendMessage(Advise advise) throws IOException;
 }

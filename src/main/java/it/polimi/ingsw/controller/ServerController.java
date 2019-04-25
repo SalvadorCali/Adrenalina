@@ -48,23 +48,7 @@ public class ServerController {
                 });
                 if(servers.size() == 3){
                     ScheduledExecutorService createGame = Executors.newSingleThreadScheduledExecutor();
-                    Runnable createGameTask = () -> {
-                        colors.forEach((c, u) -> {
-                            try {
-                                Player player = new Player(c);
-                                servers.get(u).notify(Message.PLAYER, Subject.RIGHT, player);
-                                players.put(colors.get(c), player);
-                                gameController.getGame().addPlayerColors(c);
-                                gameController.getGame().addPlayer((player));
-                            } catch (IOException e) {
-                                Printer.err(e);
-                            }
-                        });
-                        gameController.setInGame(true);
-                        TurnTimer timer = new TurnTimer(gameController, servers, players);
-                        timer.start();
-                        Printer.println("Game iniziato!");
-                    };
+                    Runnable createGameTask = this::startGame;
                     createGame.schedule(createGameTask, 10000, TimeUnit.MILLISECONDS);
                 }
             }else if(newUsername || newColor){
@@ -93,6 +77,24 @@ public class ServerController {
         }
     }
 
+    private void startGame(){
+        colors.forEach((c, u) -> {
+            try {
+                Player player = new Player(c);
+                servers.get(u).notify(Message.PLAYER, Subject.RIGHT, player);
+                players.put(colors.get(c), player);
+                gameController.getGame().addPlayerColors(c);
+                gameController.getGame().addPlayer((player));
+            } catch (IOException e) {
+                Printer.err(e);
+            }
+        });
+        gameController.startGame();
+        TurnTimer timer = new TurnTimer(gameController, servers, players);
+        timer.start();
+        Printer.println("Game iniziato!");
+    }
+
     public void move(String username, Direction...directions){
         if(gameController.canMove(players.get(username), directions)){
             gameController.move(players.get(username), directions);
@@ -115,6 +117,11 @@ public class ServerController {
     }
 
     public void endTurn(String username){
-        //method
+        gameController.endTurn(players.get(username));
+        try {
+            servers.get(username).notify(Message.END_TURN, Subject.RIGHT);
+        } catch (IOException e) {
+            Printer.err(e);
+        }
     }
 }

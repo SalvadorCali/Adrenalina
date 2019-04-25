@@ -50,6 +50,11 @@ public class RMIServer extends UnicastRemoteObject implements RMIServerInterface
     }
 
     @Override
+    public void notify(Message message, Subject subject) throws RemoteException {
+        client.notify(message, subject);
+    }
+
+    @Override
     public void notify(Message message, Subject subject, Object object) throws RemoteException {
         client.notify(message, subject, object);
     }

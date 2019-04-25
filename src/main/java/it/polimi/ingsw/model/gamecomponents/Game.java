@@ -13,6 +13,7 @@ public class Game {
     private Player currentPlayer;
     private List<Player> players;
     private ArrayList<TokenColor> playerColors;
+    private Map<String, TokenColor> playersMap;
     private List<Token> killshotTrack;
     private Deck weapons;
     private Deck powerups;
@@ -28,6 +29,7 @@ public class Game {
         killshotTrack = new ArrayList<>();
         scoreList = new HashMap<>();
         playerColors = new ArrayList<>();
+        playersMap = new HashMap<>();
         this.weapons = weapons;
         this.powerups = powerups;
         this.ammos = ammos;
@@ -212,8 +214,18 @@ public class Game {
         }
     }
 
-
-    public void endTurn(){
+    public void endTurn(Player player){
+        for(int i=0; i<players.size(); i++){
+            if(players.get(i).equals(player)){
+                player.setMyTurn(false);
+                if(i==players.size()-1){
+                    players.get(0).setMyTurn(true);
+                }else{
+                    players.get(i+1).setMyTurn(true);
+                }
+                break;
+            }
+        }
     }
 
     public boolean move(Direction...directions){

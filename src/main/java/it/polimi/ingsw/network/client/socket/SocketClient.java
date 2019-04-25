@@ -153,8 +153,12 @@ public class SocketClient implements ClientInterface, Runnable {
     public void notifyMessage() throws IOException, ClassNotFoundException {
         Message message = (Message) objectInputStream.readObject();
         Subject subject = (Subject) objectInputStream.readObject();
-        Object object = objectInputStream.readObject();
-        view.notify(message, subject, object);
+        if(message.equals(Message.END_TURN)){
+            view.notify(message, subject);
+        }else{
+            Object object = objectInputStream.readObject();
+            view.notify(message, subject, object);
+        }
     }
 
     public void printMessage() throws IOException, ClassNotFoundException {
