@@ -57,25 +57,28 @@ public class CommandLine implements ViewInterface {
                 break;
             case "login":
                 login(string);
-                Printer.println(Config.INVALID_COMMAND);
+                //Printer.println(Config.INVALID_COMMAND);
                 break;
             case "disconnect":
                 //method
                 break;
             case "show":
                 show(string);
-                Printer.println(Config.INVALID_COMMAND);
+                //Printer.println(Config.INVALID_COMMAND);
                 break;
             case "move":
                 move(string);
-                Printer.println(Config.INVALID_COMMAND);
+                //Printer.println(Config.INVALID_COMMAND);
                 break;
             case "grab":
                 grab(string);
-                Printer.println(Config.INVALID_COMMAND);
+                //Printer.println(Config.INVALID_COMMAND);
                 break;
             case "shoot":
                 shoot(string);
+                break;
+            case "end":
+                endTurn();
                 break;
             default:
                 Printer.println(Config.INVALID_COMMAND);
@@ -266,6 +269,14 @@ public class CommandLine implements ViewInterface {
                 break;
             default:
                 break;
+        }
+    }
+
+    private void endTurn(){
+        try {
+            client.endTurn();
+        } catch (IOException e) {
+            Printer.err(e);
         }
     }
 

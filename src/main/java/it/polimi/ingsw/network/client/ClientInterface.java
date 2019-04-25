@@ -13,5 +13,6 @@ public interface ClientInterface {
     void chooseColor(TokenColor color) throws RemoteException;
     void move(Direction...directions) throws IOException;
     void grab(int choice, Direction...directions) throws IOException;
+    void endTurn() throws IOException;
     AdrenalineZone getAdrenalineZone() throws RemoteException;
 }

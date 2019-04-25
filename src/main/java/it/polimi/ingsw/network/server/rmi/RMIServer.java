@@ -40,6 +40,11 @@ public class RMIServer extends UnicastRemoteObject implements RMIServerInterface
     }
 
     @Override
+    public void endTurn() throws RemoteException{
+        serverController.endTurn(clientName);
+    }
+
+    @Override
     public void notifyLogin(Subject subject, String username) throws IOException {
         client.notifyLogin(subject, username);
     }

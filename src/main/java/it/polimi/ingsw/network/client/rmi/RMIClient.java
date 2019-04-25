@@ -65,6 +65,11 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
     }
 
     @Override
+    public void endTurn() throws RemoteException{
+        server.endTurn();
+    }
+
+    @Override
     public void notifyLogin(Subject subject, String username){
         view.notifyLogin(subject, username);
     }

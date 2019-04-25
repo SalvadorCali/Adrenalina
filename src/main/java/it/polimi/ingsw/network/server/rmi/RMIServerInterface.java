@@ -12,4 +12,5 @@ public interface RMIServerInterface extends ServerInterface, Remote {
     void login(String username, TokenColor color) throws RemoteException;
     void move(Direction...directions) throws RemoteException;
     void grab(int choice, Direction...directions) throws RemoteException;
+    void endTurn() throws RemoteException;
 }

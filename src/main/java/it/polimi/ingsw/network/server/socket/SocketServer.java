@@ -64,6 +64,9 @@ public class SocketServer implements Runnable, ServerInterface {
             case GRAB:
                 grab();
                 break;
+            case END_TURN:
+                endTurn();
+                break;
             default:
                 break;
         }
@@ -123,16 +126,8 @@ public class SocketServer implements Runnable, ServerInterface {
         }
     }
 
-    public void chooseColor(){
-        TokenColor color = TokenColor.NONE;
-        try {
-            color = (TokenColor) objectInputStream.readObject();
-        } catch (IOException | ClassNotFoundException e) {
-            Printer.err(e);
-        }
-        if(!color.equals(TokenColor.NONE)) {
-            serverController.chooseColor(clientName, color);
-        }
+    public void endTurn(){
+        serverController.endTurn(clientName);
     }
 
     @Override

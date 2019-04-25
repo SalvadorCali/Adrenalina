@@ -4,7 +4,6 @@ import it.polimi.ingsw.controller.PlayerController;
 import it.polimi.ingsw.model.enums.AdrenalineZone;
 import it.polimi.ingsw.model.enums.Direction;
 import it.polimi.ingsw.model.enums.TokenColor;
-import it.polimi.ingsw.model.gamecomponents.Token;
 import it.polimi.ingsw.network.client.ClientInterface;
 import it.polimi.ingsw.network.enums.Advise;
 import it.polimi.ingsw.util.Config;
@@ -61,11 +60,8 @@ public class SocketClient implements ClientInterface, Runnable {
     public void readRequest(Message message){
         switch(message){
             case NOTIFY:
-                    notifyMessage();
-                break;
-            case COLOR:
                 try {
-                    notifyColor();
+                    notifyMessage();
                 } catch (IOException | ClassNotFoundException e) {
                     Printer.err(e);
                 }
@@ -136,6 +132,12 @@ public class SocketClient implements ClientInterface, Runnable {
         }
     }
 
+    @Override
+    public void endTurn() throws IOException {
+        objectOutputStream.writeObject(Message.END_TURN);
+        objectOutputStream.flush();
+    }
+
     public void notifyColor() throws IOException, ClassNotFoundException {
         Subject subject = (Subject) objectInputStream.readObject();
         Object object = objectInputStream.readObject();
@@ -148,8 +150,11 @@ public class SocketClient implements ClientInterface, Runnable {
         view.notifyLogin(subject, username);
     }
 
-    public void notifyMessage(){
-
+    public void notifyMessage() throws IOException, ClassNotFoundException {
+        Message message = (Message) objectInputStream.readObject();
+        Subject subject = (Subject) objectInputStream.readObject();
+        Object object = objectInputStream.readObject();
+        view.notify(message, subject, object);
     }
 
     public void printMessage() throws IOException, ClassNotFoundException {
