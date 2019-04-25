@@ -4,6 +4,7 @@ import it.polimi.ingsw.controller.PlayerController;
 import it.polimi.ingsw.model.enums.AdrenalineZone;
 import it.polimi.ingsw.model.enums.Direction;
 import it.polimi.ingsw.model.enums.TokenColor;
+import it.polimi.ingsw.model.gamecomponents.Player;
 import it.polimi.ingsw.network.client.ClientInterface;
 import it.polimi.ingsw.network.enums.Advise;
 import it.polimi.ingsw.util.Config;
@@ -93,18 +94,6 @@ public class SocketClient implements ClientInterface, Runnable {
     }
 
     @Override
-    public void chooseColor(TokenColor color) throws RemoteException {
-        try {
-            objectOutputStream.writeObject(Message.COLOR);
-            objectOutputStream.flush();
-            objectOutputStream.writeObject(color);
-            objectOutputStream.flush();
-        } catch (IOException e) {
-            Printer.err(e);
-        }
-    }
-
-    @Override
     public void move(Direction... directions) throws IOException {
         objectOutputStream.writeObject(Message.MOVE);
         objectOutputStream.flush();
@@ -138,26 +127,34 @@ public class SocketClient implements ClientInterface, Runnable {
         objectOutputStream.flush();
     }
 
-    public void notifyColor() throws IOException, ClassNotFoundException {
-        Outcome outcome = (Outcome) objectInputStream.readObject();
-        Object object = objectInputStream.readObject();
-        view.notify(Message.COLOR, outcome, object);
-    }
-
-    public void notifyLogin() throws IOException, ClassNotFoundException {
-        String username = objectInputStream.readUTF();
-        Outcome outcome = (Outcome) objectInputStream.readObject();
-        view.notifyLogin(outcome, username);
-    }
-
     public void notifyMessage() throws IOException, ClassNotFoundException {
         Message message = (Message) objectInputStream.readObject();
-        Outcome outcome = (Outcome) objectInputStream.readObject();
-        if(message.equals(Message.END_TURN)){
-            view.notify(message, outcome);
-        }else{
-            Object object = objectInputStream.readObject();
-            view.notify(message, outcome, object);
+        Outcome outcome;
+        Object object;
+        switch(message){
+            case NEW_TURN:
+                view.notify(message);
+                break;
+            case END_TURN:
+                view.notify(message);
+                break;
+            case LOGIN:
+                outcome = (Outcome) objectInputStream.readObject();
+                object = (String) objectInputStream.readObject();
+                view.notify(message, outcome, object);
+                break;
+            case COLOR:
+                outcome = (Outcome) objectInputStream.readObject();
+                object = (TokenColor) objectInputStream.readObject();
+                view.notify(message, outcome, object);
+                break;
+            case PLAYER:
+                outcome = (Outcome) objectInputStream.readObject();
+                object = objectInputStream.readObject();
+                playerController.setPlayer((Player) object);
+                break;
+            default:
+                break;
         }
     }
 

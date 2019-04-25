@@ -50,11 +50,6 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
     }
 
     @Override
-    public void chooseColor(TokenColor color) throws RemoteException {
-
-    }
-
-    @Override
     public void move(Direction... directions) throws RemoteException {
         server.move(directions);
     }
@@ -82,6 +77,9 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
     @Override
     public void notify(Message message) throws RemoteException{
         switch (message){
+            case NEW_TURN:
+                view.notify(message);
+                break;
             case END_TURN:
                 view.notify(message);
                 break;
@@ -93,9 +91,6 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
     @Override
     public void notify(Message message, Outcome outcome) throws RemoteException{
         switch (message){
-            case END_TURN:
-                view.notify(message, outcome);
-                break;
             default:
                 break;
         }
@@ -104,22 +99,14 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
     @Override
     public void notify(Message message, Outcome outcome, Object object) throws RemoteException {
         switch (message){
-            case USERNAME:
-                view.notify(message, outcome, object);
-                break;
-            case LOGIN:
-                view.notify(message, outcome, object);
-                break;
-            case COLOR:
-                if(outcome.equals(Outcome.RIGHT)){
+            case PLAYER:
+                if(outcome.equals(Outcome.RIGHT)) {
                     Player player = (Player) object;
                     playerController.setPlayer(player);
-                    view.notify(message, outcome, object);
-                }else{
-                    view.notify(message, outcome, object);
                 }
                 break;
             default:
+                view.notify(message, outcome, object);
                 break;
         }
     }

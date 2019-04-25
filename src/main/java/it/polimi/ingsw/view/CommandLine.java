@@ -300,7 +300,7 @@ public class CommandLine implements ViewInterface {
     public void notifyColor(Outcome outcome, TokenColor color){
         switch(outcome){
             case WRONG:
-                Printer.print("Color already chosen! Please choose another color:");
+                Printer.println("Color already chosen! Please choose another color:");
                 break;
             case RIGHT:
                 Printer.println("Your color is " + Converter.fromTokenColorToString(color));
@@ -311,12 +311,19 @@ public class CommandLine implements ViewInterface {
         }
     }
 
+    private void notifyNewTurn(){
+        Printer.println("It's your turn!");
+    }
+
     private void notifyEndTurn(){
         Printer.println("Your turn is ended!");
     }
 
     public void notify(Message message){
         switch (message){
+            case NEW_TURN:
+                notifyNewTurn();
+                break;
             case END_TURN:
                 notifyEndTurn();
                 break;
@@ -334,9 +341,6 @@ public class CommandLine implements ViewInterface {
 
     public void notify(Message message, Outcome outcome, Object object){
         switch(message){
-            case USERNAME:
-                notifyLogin(outcome, (String) object);
-                break;
             case LOGIN:
                 notifyLogin(outcome, (String) object);
                 break;

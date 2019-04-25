@@ -7,12 +7,13 @@ import it.polimi.ingsw.model.enums.Color;
 import it.polimi.ingsw.model.enums.Direction;
 import it.polimi.ingsw.model.enums.TokenColor;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Player {
+public class Player implements Serializable {
     private TokenColor color;
     private int score;
     private List<WeaponCard> weapons;
@@ -26,6 +27,7 @@ public class Player {
     private Position position;
     private int actionNumber;
     private boolean myTurn;
+    private String username;
 
     public Player(TokenColor color){
         this.color = color;
@@ -113,6 +115,14 @@ public class Player {
 
     public void setMyTurn(boolean myTurn) {
         this.myTurn = myTurn;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     //methods

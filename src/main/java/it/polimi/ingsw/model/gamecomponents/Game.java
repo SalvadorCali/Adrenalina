@@ -33,6 +33,7 @@ public class Game {
         this.weapons = weapons;
         this.powerups = powerups;
         this.ammos = ammos;
+        inGame = false;
         finalFrenzy = false;
     }
 

@@ -11,11 +11,13 @@ import java.util.Map;
 import static java.lang.Thread.sleep;
 
 public class TurnTimer extends Thread {
+    private ServerController serverController;
     private GameController gameController;
     private Map<String, ServerInterface> servers;
     private List<Player> playersList;
 
-    public TurnTimer(GameController gameController, Map<String, ServerInterface>servers, Map<String, Player> players){
+    public TurnTimer(ServerController serverController, GameController gameController, Map<String, ServerInterface>servers, Map<String, Player> players){
+        this.serverController = serverController;
         this.gameController = gameController;
         this.servers = servers;
         playersList = new ArrayList<>();
@@ -32,6 +34,7 @@ public class TurnTimer extends Thread {
                 try {
                     sleep(30000);
                     playersList.get(i).setMyTurn(false);
+                    serverController.endTurn(playersList.get(i).getUsername());
                     if(i == playersList.size() - 1){
                         i = -1;
                     }
