@@ -4,7 +4,10 @@ package it.polimi.ingsw.view;
 import it.polimi.ingsw.model.enums.Cardinal;
 import it.polimi.ingsw.model.enums.TokenColor;
 import it.polimi.ingsw.model.gamecomponents.GameBoard;
+import it.polimi.ingsw.model.gamecomponents.Player;
 import it.polimi.ingsw.model.gamecomponents.Square;
+
+import java.util.List;
 
 public class MapCLI {
 
@@ -34,8 +37,8 @@ public class MapCLI {
         String color = BLACK;
         String spawnPoint = "*";
         String ammo = "A";
-        String enemy = color + "X";
-        String player = color + "O";
+        String player = color + "X";
+        List<Player> genericPlayer;
 
         //walls and door
         String door = SPACE;
@@ -65,7 +68,6 @@ public class MapCLI {
 
         //fourth square
         String spacePlayer4[] = new String[MAX_NUM_PLAYER];
-
 
 
         //fifth square
@@ -137,7 +139,7 @@ public class MapCLI {
            }
        }
 
-       //create doors, spawn and ammopoints
+       //create doors, spawn and ammoPoints
        int k = 0;
        for(int i = 0; i < ROWS; i++){
            for (int j = 0; j < COLUMNS; j++){
@@ -173,6 +175,137 @@ public class MapCLI {
                k++;
            }
        }
+
+
+        for(int i = 0; i < ROWS; i++){
+            for (int j = 0; j < COLUMNS; j++){
+
+                genericPlayer = arena[i][j].getPlayers();
+
+                if(!arena[0][0].getPlayers().isEmpty()){
+                    for(int index = 0; index < MAX_NUM_PLAYER; index ++){
+
+                        color = String.valueOf(genericPlayer.get(index).getColor());
+                        player = color + "X";
+
+                        spacePlayer1[index] = player;
+                    }
+                }
+
+                if(!arena[0][1].getPlayers().isEmpty()){
+                    for(int index = 0; index < MAX_NUM_PLAYER; index ++){
+
+                        color = String.valueOf(genericPlayer.get(index).getColor());
+                        player = color + "X";
+
+                        spacePlayer2[index] = player;
+                    }
+                }
+
+                if(!arena[0][2].getPlayers().isEmpty()){
+                    for(int index = 0; index < MAX_NUM_PLAYER; index ++){
+
+                        color = String.valueOf(genericPlayer.get(index).getColor());
+                        player = color + "X";
+
+                        spacePlayer3[index] = player;
+                    }
+                }
+
+                if(!arena[0][3].getPlayers().isEmpty()){
+                    for(int index = 0; index < MAX_NUM_PLAYER; index ++){
+
+                        color = String.valueOf(genericPlayer.get(index).getColor());
+                        player = color + "X";
+
+                        spacePlayer4[index] = player;
+                    }
+                }
+
+                if(!arena[1][0].getPlayers().isEmpty()){
+                    for(int index = 0; index < MAX_NUM_PLAYER; index ++){
+
+                        color = String.valueOf(genericPlayer.get(index).getColor());
+                        player = color + "X";
+
+                        spacePlayer5[index] = player;
+                    }
+                }
+
+                if(!arena[1][1].getPlayers().isEmpty()){
+                    for(int index = 0; index < MAX_NUM_PLAYER; index ++){
+
+                        color = String.valueOf(genericPlayer.get(index).getColor());
+                        player = color + "X";
+
+                        spacePlayer6[index] = player;
+                    }
+                }
+
+                if(!arena[1][2].getPlayers().isEmpty()){
+                    for(int index = 0; index < MAX_NUM_PLAYER; index ++){
+
+                        color = String.valueOf(genericPlayer.get(index).getColor());
+                        player = color + "X";
+
+                        spacePlayer7[index] = player;
+                    }
+                }
+
+                if(!arena[1][3].getPlayers().isEmpty()){
+                    for(int index = 0; index < MAX_NUM_PLAYER; index ++){
+
+                        color = String.valueOf(genericPlayer.get(index).getColor());
+                        player = color + "X";
+
+                        spacePlayer8[index] = player;
+                    }
+                }
+
+                if(!arena[2][0].getPlayers().isEmpty()){
+                    for(int index = 0; index < MAX_NUM_PLAYER; index ++){
+
+                        color = String.valueOf(genericPlayer.get(index).getColor());
+                        player = color + "X";
+
+                        spacePlayer9[index] = player;
+                    }
+                }
+
+                if(!arena[2][1].getPlayers().isEmpty()){
+                    for(int index = 0; index < MAX_NUM_PLAYER; index ++){
+
+                        color = String.valueOf(genericPlayer.get(index).getColor());
+                        player = color + "X";
+
+                        spacePlayer10[index] = player;
+                    }
+                }
+
+
+                if(!arena[2][2].getPlayers().isEmpty()){
+                    for(int index = 0; index < MAX_NUM_PLAYER; index ++){
+
+                        color = String.valueOf(genericPlayer.get(index).getColor());
+                        player = color + "X";
+
+                        spacePlayer11[index] = player;
+                    }
+                }
+
+
+                if(!arena[2][3].getPlayers().isEmpty()){
+                    for(int index = 0; index < MAX_NUM_PLAYER; index ++){
+
+                        color = String.valueOf(genericPlayer.get(index).getColor());
+                        player = color + "X";
+
+                        spacePlayer12[index] = player;
+                    }
+                }
+            }
+
+        }
 
 
         //first row
