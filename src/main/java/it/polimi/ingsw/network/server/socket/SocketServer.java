@@ -3,7 +3,6 @@ package it.polimi.ingsw.network.server.socket;
 import it.polimi.ingsw.controller.ServerController;
 import it.polimi.ingsw.model.enums.Direction;
 import it.polimi.ingsw.model.enums.TokenColor;
-import it.polimi.ingsw.network.enums.Advise;
 import it.polimi.ingsw.network.server.ServerInterface;
 import it.polimi.ingsw.util.Printer;
 import it.polimi.ingsw.network.enums.Message;
@@ -130,16 +129,6 @@ public class SocketServer implements Runnable, ServerInterface {
     }
 
     @Override
-    public void notifyLogin(Outcome outcome, String username) throws IOException {
-        objectOutputStream.writeObject(Message.NOTIFY);
-        objectOutputStream.flush();
-        objectOutputStream.writeUTF(username);
-        objectOutputStream.flush();
-        objectOutputStream.writeObject(outcome);
-        objectOutputStream.flush();
-    }
-
-    @Override
     public void notify(Message message) throws IOException {
         objectOutputStream.writeObject(Message.NOTIFY);
         objectOutputStream.flush();
@@ -166,14 +155,6 @@ public class SocketServer implements Runnable, ServerInterface {
         objectOutputStream.writeObject(outcome);
         objectOutputStream.flush();
         objectOutputStream.writeObject(object);
-        objectOutputStream.flush();
-    }
-
-    @Override
-    public void sendMessage(Advise advise) throws IOException {
-        objectOutputStream.writeObject(Message.MESSAGE);
-        objectOutputStream.flush();
-        objectOutputStream.writeObject(advise);
         objectOutputStream.flush();
     }
 }

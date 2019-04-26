@@ -110,6 +110,10 @@ public class Game {
         return players;
     }
 
+    public void setPlayers(List<Player> players) {
+        this.players = players;
+    }
+
     public List<Token> getKillshotTrack() {
         return killshotTrack;
     }

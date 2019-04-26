@@ -6,7 +6,6 @@ import it.polimi.ingsw.model.enums.Direction;
 import it.polimi.ingsw.model.enums.TokenColor;
 import it.polimi.ingsw.model.gamecomponents.Player;
 import it.polimi.ingsw.network.client.ClientInterface;
-import it.polimi.ingsw.network.enums.Advise;
 import it.polimi.ingsw.util.Config;
 import it.polimi.ingsw.util.Printer;
 import it.polimi.ingsw.view.CommandLine;
@@ -16,7 +15,6 @@ import it.polimi.ingsw.view.ViewInterface;
 
 import java.io.*;
 import java.net.Socket;
-import java.rmi.RemoteException;
 
 public class SocketClient implements ClientInterface, Runnable {
     private PlayerController playerController;
@@ -63,13 +61,6 @@ public class SocketClient implements ClientInterface, Runnable {
             case NOTIFY:
                 try {
                     notifyMessage();
-                } catch (IOException | ClassNotFoundException e) {
-                    Printer.err(e);
-                }
-                break;
-            case MESSAGE:
-                try {
-                    printMessage();
                 } catch (IOException | ClassNotFoundException e) {
                     Printer.err(e);
                 }
@@ -156,11 +147,6 @@ public class SocketClient implements ClientInterface, Runnable {
             default:
                 break;
         }
-    }
-
-    public void printMessage() throws IOException, ClassNotFoundException {
-        Advise advise = (Advise) objectInputStream.readObject();
-        view.printMessage(advise);
     }
 
     @Override

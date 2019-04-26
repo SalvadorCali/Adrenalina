@@ -5,7 +5,6 @@ import it.polimi.ingsw.model.enums.AdrenalineZone;
 import it.polimi.ingsw.model.enums.Direction;
 import it.polimi.ingsw.model.enums.TokenColor;
 import it.polimi.ingsw.network.client.ClientInterface;
-import it.polimi.ingsw.network.enums.Advise;
 import it.polimi.ingsw.network.enums.Message;
 import it.polimi.ingsw.network.enums.Outcome;
 import it.polimi.ingsw.util.Config;
@@ -15,6 +14,7 @@ import it.polimi.ingsw.util.Printer;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.rmi.RemoteException;
 import java.util.StringTokenizer;
 
@@ -31,7 +31,8 @@ public class CommandLine implements ViewInterface {
 
     @Override
     public void start(){
-        Printer.print("[CLIENT]Please, insert a command:");
+        Printer.println("[SERVER]Please, insert the following command ->");
+        Printer.print("login <username> <color> : ");
         Thread receiveMessage = new Thread(() -> {
             while(true){
                 try {
@@ -279,7 +280,6 @@ public class CommandLine implements ViewInterface {
         }
     }
 
-    @Override
     public void notifyLogin(Outcome outcome, String username){
         switch(outcome){
             case WRONG:
@@ -287,7 +287,7 @@ public class CommandLine implements ViewInterface {
                 break;
             case RIGHT:
                 Printer.println(username + " connected!");
-                Printer.print("[CLIENT]Please, insert a command:");
+                //Printer.print("[CLIENT]Please, insert a command:");
                 break;
             case ALL:
                 Printer.println(username + " connected!");
@@ -304,7 +304,7 @@ public class CommandLine implements ViewInterface {
                 break;
             case RIGHT:
                 Printer.println("Your color is " + Converter.fromTokenColorToString(color));
-                Printer.print("[CLIENT]Please, insert a command:");
+                //Printer.print("[CLIENT]Please, insert a command:");
                 break;
             default:
                 break;
@@ -313,10 +313,24 @@ public class CommandLine implements ViewInterface {
 
     private void notifyNewTurn(){
         Printer.println("It's your turn!");
+        Printer.println("Print information for new turn:");
     }
 
     private void notifyEndTurn(){
         Printer.println("Your turn is ended!");
+    }
+
+    private void notifyGame(Outcome outcome){
+        switch (outcome){
+            case WRONG:
+                Printer.println("Game is already begun!");
+                break;
+            case ALL:
+                Printer.println("Game is started!");
+                break;
+            default:
+                break;
+        }
     }
 
     public void notify(Message message){
@@ -334,6 +348,9 @@ public class CommandLine implements ViewInterface {
 
     public void notify(Message message, Outcome outcome){
         switch (message){
+            case GAME:
+                notifyGame(outcome);
+                break;
             default:
                 break;
         }
@@ -346,17 +363,6 @@ public class CommandLine implements ViewInterface {
                 break;
             case COLOR:
                 notifyColor(outcome, (TokenColor) object);
-                break;
-            default:
-                break;
-        }
-    }
-
-    @Override
-    public void printMessage(Advise advise){
-        switch(advise){
-            case COLOR:
-                Printer.print("Please, choose a color:");
                 break;
             default:
                 break;

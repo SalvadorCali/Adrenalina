@@ -4,7 +4,6 @@ import it.polimi.ingsw.controller.ServerController;
 import it.polimi.ingsw.model.enums.Direction;
 import it.polimi.ingsw.model.enums.TokenColor;
 import it.polimi.ingsw.network.client.rmi.RMIClientInterface;
-import it.polimi.ingsw.network.enums.Advise;
 import it.polimi.ingsw.network.enums.Message;
 import it.polimi.ingsw.network.enums.Outcome;
 import it.polimi.ingsw.util.Printer;
@@ -45,11 +44,6 @@ public class RMIServer extends UnicastRemoteObject implements RMIServerInterface
     }
 
     @Override
-    public void notifyLogin(Outcome outcome, String username) throws IOException {
-        client.notifyLogin(outcome, username);
-    }
-
-    @Override
     public void notify(Message message) throws RemoteException {
         client.notify(message);
     }
@@ -62,14 +56,5 @@ public class RMIServer extends UnicastRemoteObject implements RMIServerInterface
     @Override
     public void notify(Message message, Outcome outcome, Object object) throws RemoteException {
         client.notify(message, outcome, object);
-    }
-
-    @Override
-    public void sendMessage(Advise advise){
-        try {
-            client.printMessage(advise);
-        } catch (RemoteException e) {
-            Printer.err(e);
-        }
     }
 }

@@ -6,7 +6,6 @@ import it.polimi.ingsw.model.enums.Direction;
 import it.polimi.ingsw.model.enums.TokenColor;
 import it.polimi.ingsw.model.gamecomponents.Player;
 import it.polimi.ingsw.network.ConnectionInterface;
-import it.polimi.ingsw.network.enums.Advise;
 import it.polimi.ingsw.network.enums.Message;
 import it.polimi.ingsw.network.server.rmi.RMIServerInterface;
 import it.polimi.ingsw.util.Printer;
@@ -62,16 +61,6 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
     @Override
     public void endTurn() throws RemoteException{
         server.endTurn();
-    }
-
-    @Override
-    public void notifyLogin(Outcome outcome, String username){
-        view.notifyLogin(outcome, username);
-    }
-
-    @Override
-    public void printMessage(Advise advise){
-        view.printMessage(advise);
     }
 
     @Override

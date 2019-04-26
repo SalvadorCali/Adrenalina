@@ -46,7 +46,8 @@ public class GameController {
     }
 
     //methods
-    public void startGame(){
+    public void startGame(List<Player> players){
+        game.setPlayers(players);
         game.setInGame(true);
         game.createKillshotTrack(8);
         game.fillSquares(actionInterface);
