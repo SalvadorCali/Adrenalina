@@ -37,7 +37,7 @@ public class MapCLI {
         String color = BLACK;
         String spawnPoint = "*";
         String ammo = "A";
-        String player = color + "X";
+        String player;
         List<Player> genericPlayer;
 
         //walls and door
@@ -183,7 +183,7 @@ public class MapCLI {
                 genericPlayer = arena[i][j].getPlayers();
 
                 if(!arena[0][0].getPlayers().isEmpty()){
-                    for(int index = 0; index < MAX_NUM_PLAYER; index ++){
+                    for(int index = 0; index < genericPlayer.size(); index ++){
 
                         color = String.valueOf(genericPlayer.get(index).getColor());
                         player = color + "X";
@@ -193,7 +193,7 @@ public class MapCLI {
                 }
 
                 if(!arena[0][1].getPlayers().isEmpty()){
-                    for(int index = 0; index < MAX_NUM_PLAYER; index ++){
+                    for(int index = 0; index < genericPlayer.size(); index ++){
 
                         color = String.valueOf(genericPlayer.get(index).getColor());
                         player = color + "X";
@@ -203,7 +203,7 @@ public class MapCLI {
                 }
 
                 if(!arena[0][2].getPlayers().isEmpty()){
-                    for(int index = 0; index < MAX_NUM_PLAYER; index ++){
+                    for(int index = 0; index < genericPlayer.size(); index ++){
 
                         color = String.valueOf(genericPlayer.get(index).getColor());
                         player = color + "X";
@@ -213,7 +213,7 @@ public class MapCLI {
                 }
 
                 if(!arena[0][3].getPlayers().isEmpty()){
-                    for(int index = 0; index < MAX_NUM_PLAYER; index ++){
+                    for(int index = 0; index < genericPlayer.size(); index ++){
 
                         color = String.valueOf(genericPlayer.get(index).getColor());
                         player = color + "X";
@@ -223,7 +223,7 @@ public class MapCLI {
                 }
 
                 if(!arena[1][0].getPlayers().isEmpty()){
-                    for(int index = 0; index < MAX_NUM_PLAYER; index ++){
+                    for(int index = 0; index < genericPlayer.size(); index ++){
 
                         color = String.valueOf(genericPlayer.get(index).getColor());
                         player = color + "X";
@@ -233,7 +233,7 @@ public class MapCLI {
                 }
 
                 if(!arena[1][1].getPlayers().isEmpty()){
-                    for(int index = 0; index < MAX_NUM_PLAYER; index ++){
+                    for(int index = 0; index < genericPlayer.size(); index ++){
 
                         color = String.valueOf(genericPlayer.get(index).getColor());
                         player = color + "X";
@@ -243,7 +243,7 @@ public class MapCLI {
                 }
 
                 if(!arena[1][2].getPlayers().isEmpty()){
-                    for(int index = 0; index < MAX_NUM_PLAYER; index ++){
+                    for(int index = 0; index < genericPlayer.size(); index ++){
 
                         color = String.valueOf(genericPlayer.get(index).getColor());
                         player = color + "X";
@@ -253,7 +253,7 @@ public class MapCLI {
                 }
 
                 if(!arena[1][3].getPlayers().isEmpty()){
-                    for(int index = 0; index < MAX_NUM_PLAYER; index ++){
+                    for(int index = 0; index < genericPlayer.size(); index ++){
 
                         color = String.valueOf(genericPlayer.get(index).getColor());
                         player = color + "X";
@@ -263,7 +263,7 @@ public class MapCLI {
                 }
 
                 if(!arena[2][0].getPlayers().isEmpty()){
-                    for(int index = 0; index < MAX_NUM_PLAYER; index ++){
+                    for(int index = 0; index < genericPlayer.size(); index ++){
 
                         color = String.valueOf(genericPlayer.get(index).getColor());
                         player = color + "X";
@@ -273,7 +273,7 @@ public class MapCLI {
                 }
 
                 if(!arena[2][1].getPlayers().isEmpty()){
-                    for(int index = 0; index < MAX_NUM_PLAYER; index ++){
+                    for(int index = 0; index < genericPlayer.size(); index ++){
 
                         color = String.valueOf(genericPlayer.get(index).getColor());
                         player = color + "X";
@@ -284,7 +284,7 @@ public class MapCLI {
 
 
                 if(!arena[2][2].getPlayers().isEmpty()){
-                    for(int index = 0; index < MAX_NUM_PLAYER; index ++){
+                    for(int index = 0; index < genericPlayer.size(); index ++){
 
                         color = String.valueOf(genericPlayer.get(index).getColor());
                         player = color + "X";
@@ -295,7 +295,7 @@ public class MapCLI {
 
 
                 if(!arena[2][3].getPlayers().isEmpty()){
-                    for(int index = 0; index < MAX_NUM_PLAYER; index ++){
+                    for(int index = 0; index < genericPlayer.size(); index ++){
 
                         color = String.valueOf(genericPlayer.get(index).getColor());
                         player = color + "X";
