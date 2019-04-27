@@ -176,7 +176,7 @@ public class MapCLI {
            }
        }
 
-
+        //put players on the CLI
         for(int i = 0; i < ROWS; i++){
             for (int j = 0; j < COLUMNS; j++){
 
