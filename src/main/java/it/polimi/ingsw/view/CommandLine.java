@@ -60,7 +60,7 @@ public class CommandLine implements ViewInterface {
                 //Printer.println(Config.INVALID_COMMAND);
                 break;
             case "disconnect":
-                //method
+                disconnect();
                 break;
             case "show":
                 show(string);
@@ -110,6 +110,10 @@ public class CommandLine implements ViewInterface {
                 }
             }
         }
+    }
+
+    private void disconnect(){
+        client.disconnect();
     }
 
     private void show(StringTokenizer input){

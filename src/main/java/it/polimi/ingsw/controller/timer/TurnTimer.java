@@ -1,15 +1,13 @@
-package it.polimi.ingsw.controller;
+package it.polimi.ingsw.controller.timer;
 
+import it.polimi.ingsw.controller.GameController;
+import it.polimi.ingsw.controller.ServerController;
 import it.polimi.ingsw.model.gamecomponents.Player;
 import it.polimi.ingsw.network.server.ServerInterface;
 import it.polimi.ingsw.util.Config;
 import it.polimi.ingsw.util.Printer;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-
-import static java.lang.Thread.sleep;
 
 public class TurnTimer extends Thread {
     private ServerController serverController;

@@ -49,6 +49,12 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
     }
 
     @Override
+    public void disconnect(){
+        server.disconnect();
+        System.exit(1);
+    }
+
+    @Override
     public void move(Direction... directions) throws RemoteException {
         server.move(directions);
     }
@@ -99,6 +105,10 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
                 break;
         }
     }
+
+    @Override
+    public void testConnection(){}
+
     @Override
     public AdrenalineZone getAdrenalineZone(){
         return playerController.getAdrenalineZone();

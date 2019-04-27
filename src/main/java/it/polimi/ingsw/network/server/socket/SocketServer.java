@@ -52,7 +52,8 @@ public class SocketServer implements Runnable, ServerInterface {
             case LOGIN:
                 login();
                 break;
-            case COLOR:
+            case DISCONNECT:
+                disconnect();
                 break;
             case USERNAME:
                 break;
@@ -79,6 +80,10 @@ public class SocketServer implements Runnable, ServerInterface {
             Printer.err(e);
         }
         serverController.login(clientName, color, this);
+    }
+
+    public void disconnect(){
+        serverController.disconnect(clientName);
     }
 
     public void move(){

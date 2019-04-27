@@ -12,6 +12,7 @@ public class Config {
     //timer
     public static final int TURN_TIME = 10000;
     public static final int START_TIME = 10000;
+    public static final int DISCONNECTION_TIME = 5000;
 
     //game
     public static final int MIN_PLAYERS = 3;

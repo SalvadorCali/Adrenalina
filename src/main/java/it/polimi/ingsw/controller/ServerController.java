@@ -1,5 +1,6 @@
 package it.polimi.ingsw.controller;
 
+import it.polimi.ingsw.controller.timer.TurnTimer;
 import it.polimi.ingsw.model.enums.Direction;
 import it.polimi.ingsw.model.enums.TokenColor;
 import it.polimi.ingsw.model.gamecomponents.Player;
@@ -23,6 +24,7 @@ public class ServerController {
     private Map<String, ServerInterface> servers;
     private Map<TokenColor, String> colors;
     private Map<String, Player> users;
+    private Map<String, Player> disconnectedUsers;
     private List<Player> players;
 
     public ServerController(){
@@ -30,6 +32,7 @@ public class ServerController {
         servers = new HashMap<>();
         colors = new HashMap<>();
         users = new HashMap<>();
+        disconnectedUsers = new HashMap<>();
         players = new ArrayList<>();
     }
 
@@ -119,6 +122,13 @@ public class ServerController {
         TurnTimer timer = new TurnTimer(this, gameController, players);
         timer.start();
         Printer.println("Game iniziato!");
+    }
+
+    public void disconnect(String username){
+        if(users.containsKey(username)){
+            disconnectedUsers.put(username, users.get(username));
+            users.remove(username);
+        }
     }
 
     public void move(String username, Direction...directions){

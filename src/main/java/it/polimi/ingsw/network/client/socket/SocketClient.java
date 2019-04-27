@@ -85,6 +85,9 @@ public class SocketClient implements ClientInterface, Runnable {
     }
 
     @Override
+    public void disconnect(){}
+
+    @Override
     public void move(Direction... directions) throws IOException {
         objectOutputStream.writeObject(Message.MOVE);
         objectOutputStream.flush();
@@ -148,6 +151,9 @@ public class SocketClient implements ClientInterface, Runnable {
                 break;
         }
     }
+
+    @Override
+    public void testConnection(){}
 
     @Override
     public AdrenalineZone getAdrenalineZone(){
