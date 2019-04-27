@@ -223,13 +223,20 @@ public class Game {
         for(int i=0; i<players.size(); i++){
             if(players.get(i).equals(player)){
                 player.setMyTurn(false);
-                if(i==players.size()-1){
-                    players.get(0).setMyTurn(true);
-                }else{
-                    players.get(i+1).setMyTurn(true);
-                }
+                do{
+                    currentPlayer = nextPlayer(i);
+                }while(!currentPlayer.isDisconnected());
+                currentPlayer.setMyTurn(true);
                 break;
             }
+        }
+    }
+
+    private Player nextPlayer(int index){
+        if(index == players.size() - 1){
+            return players.get(0);
+        }else{
+            return players.get(index + 1);
         }
     }
 

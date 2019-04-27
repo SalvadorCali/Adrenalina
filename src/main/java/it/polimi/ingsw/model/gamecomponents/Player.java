@@ -28,6 +28,7 @@ public class Player implements Serializable {
     private int actionNumber;
     private boolean myTurn;
     private String username;
+    private boolean disconnected;
 
     public Player(TokenColor color){
         this.color = color;
@@ -123,6 +124,14 @@ public class Player implements Serializable {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public boolean isDisconnected() {
+        return disconnected;
+    }
+
+    public void setDisconnected(boolean disconnected) {
+        this.disconnected = disconnected;
     }
 
     //methods

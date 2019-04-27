@@ -9,6 +9,7 @@ import it.polimi.ingsw.network.server.ServerInterface;
 import it.polimi.ingsw.util.Config;
 import it.polimi.ingsw.util.Printer;
 import it.polimi.ingsw.network.enums.Outcome;
+import org.omg.PortableInterceptor.USER_EXCEPTION;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -69,10 +70,16 @@ public class ServerController {
                 }
             }
         }else{
-            try {
-                server.notify(Message.GAME, Outcome.WRONG);
-            } catch (IOException e) {
-                Printer.err(e);
+            if(disconnectedUsers.containsKey(username)){
+                if(disconnectedUsers.get(username).getColor().equals(color)){
+                    reconnect(username);
+                }
+            }else{
+                try {
+                    server.notify(Message.GAME, Outcome.WRONG);
+                } catch (IOException e) {
+                    Printer.err(e);
+                }
             }
         }
     }
@@ -127,8 +134,26 @@ public class ServerController {
     public void disconnect(String username){
         if(users.containsKey(username)){
             disconnectedUsers.put(username, users.get(username));
+            users.get(username).setDisconnected(true);
             users.remove(username);
         }
+    }
+
+    private void reconnect(String username){
+        users.put(username, disconnectedUsers.get(username));
+        users.get(username).setDisconnected(false);
+        disconnectedUsers.remove(username);
+        servers.forEach((u, s) -> {
+            try {
+                if(u.equals(username)){
+                    s.notify(Message.LOGIN, Outcome.RIGHT, username);
+                }else{
+                    s.notify(Message.LOGIN, Outcome.ALL, username);
+                }
+            } catch (IOException e) {
+                Printer.err(e);
+            }
+        });
     }
 
     public void move(String username, Direction...directions){
