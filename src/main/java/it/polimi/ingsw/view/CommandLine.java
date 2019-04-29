@@ -113,7 +113,11 @@ public class CommandLine implements ViewInterface {
     }
 
     private void disconnect(){
-        client.disconnect();
+        try {
+            client.disconnect();
+        } catch (RemoteException e) {
+            Printer.err(e);
+        }
     }
 
     private void show(StringTokenizer input){

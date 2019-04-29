@@ -3,6 +3,9 @@ package it.polimi.ingsw.controller.timer;
 import it.polimi.ingsw.network.client.ClientInterface;
 import it.polimi.ingsw.network.server.ServerInterface;
 import it.polimi.ingsw.util.Config;
+import it.polimi.ingsw.util.Printer;
+
+import java.rmi.RemoteException;
 
 public class ConnectionTimer extends Thread {
     private ClientInterface client;
@@ -16,11 +19,20 @@ public class ConnectionTimer extends Thread {
     public void run(){
         boolean loop = true;
         while(loop){
-            client.testConnection();
+            try {
+                client.testConnection();
+            } catch (RemoteException e) {
+                Printer.err(e);
+            }
             try {
                 sleep(Config.DISCONNECTION_TIME);
             } catch (InterruptedException e) {
-                server.disconnect();
+                try {
+                    server.disconnect();
+                } catch (RemoteException e1) {
+                    Printer.err(e1);
+                }
+                loop = false;
             }
         }
 

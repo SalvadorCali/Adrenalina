@@ -50,7 +50,11 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
 
     @Override
     public void disconnect(){
-        server.disconnect();
+        try {
+            server.disconnect();
+        } catch (RemoteException e) {
+            Printer.err(e);
+        }
         System.exit(1);
     }
 
@@ -85,10 +89,7 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
 
     @Override
     public void notify(Message message, Outcome outcome) throws RemoteException{
-        switch (message){
-            default:
-                break;
-        }
+        view.notify(message, outcome);
     }
 
     @Override

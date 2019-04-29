@@ -22,6 +22,7 @@ public class SocketClient implements ClientInterface, Runnable {
     private ObjectInputStream objectInputStream;
     private ObjectOutputStream objectOutputStream;
     private ViewInterface view;
+    private Socket clientSocket;
     private String username;
 
     public SocketClient() throws IOException {
@@ -29,7 +30,7 @@ public class SocketClient implements ClientInterface, Runnable {
         BufferedReader userInputStream = new BufferedReader(new InputStreamReader(System.in));
         Printer.print("[CLIENT]Please, set an ip address:");
         String host = userInputStream.readLine();
-        Socket clientSocket = new Socket(host, Config.SOCKET_PORT);
+        clientSocket = new Socket(host, Config.SOCKET_PORT);
 
         objectOutputStream = new ObjectOutputStream(clientSocket.getOutputStream());
         objectInputStream = new ObjectInputStream(clientSocket.getInputStream());
@@ -85,7 +86,17 @@ public class SocketClient implements ClientInterface, Runnable {
     }
 
     @Override
-    public void disconnect(){}
+    public void disconnect(){
+        try {
+            objectOutputStream.writeObject(Message.DISCONNECT);
+            objectOutputStream.flush();
+            objectInputStream.close();
+            objectOutputStream.close();
+            clientSocket.close();
+        } catch (IOException e) {
+            Printer.err(e);
+        }
+    }
 
     @Override
     public void move(Direction... directions) throws IOException {
@@ -131,6 +142,10 @@ public class SocketClient implements ClientInterface, Runnable {
                 break;
             case END_TURN:
                 view.notify(message);
+                break;
+            case GAME:
+                outcome = (Outcome) objectInputStream.readObject();
+                view.notify(message, outcome);
                 break;
             case LOGIN:
                 outcome = (Outcome) objectInputStream.readObject();

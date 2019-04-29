@@ -84,6 +84,13 @@ public class SocketServer implements Runnable, ServerInterface {
 
     public void disconnect(){
         serverController.disconnect(clientName);
+        try {
+            objectInputStream.close();
+            objectOutputStream.close();
+            socket.close();
+        } catch (IOException e) {
+            Printer.err(e);
+        }
     }
 
     public void move(){
