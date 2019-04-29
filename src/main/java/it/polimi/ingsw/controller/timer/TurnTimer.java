@@ -27,7 +27,7 @@ public class TurnTimer extends Thread {
                 players.get(i).setMyTurn(true);
                 try {
                     sleep(Config.TURN_TIME);
-                    players.get(i).setMyTurn(false);
+                    //players.get(i).setMyTurn(false);
                     serverController.endTurn(players.get(i).getUsername());
                     if(i == players.size() - 1){
                         i = -1;

@@ -4,6 +4,7 @@ import it.polimi.ingsw.model.cards.AmmoCard;
 import it.polimi.ingsw.model.cards.effects.ActionInterface;
 import it.polimi.ingsw.model.enums.Direction;
 import it.polimi.ingsw.model.enums.TokenColor;
+import it.polimi.ingsw.util.Printer;
 
 import java.util.*;
 
@@ -224,7 +225,8 @@ public class Game {
                 player.setMyTurn(false);
                 do{
                     currentPlayer = nextPlayer(i);
-                }while(!currentPlayer.isDisconnected());
+                    Printer.println(currentPlayer.getUsername());
+                }while(currentPlayer.isDisconnected());
                 currentPlayer.setMyTurn(true);
                 break;
             }
