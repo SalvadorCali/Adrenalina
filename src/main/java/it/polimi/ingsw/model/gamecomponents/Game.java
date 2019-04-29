@@ -4,7 +4,6 @@ import it.polimi.ingsw.model.cards.AmmoCard;
 import it.polimi.ingsw.model.cards.effects.ActionInterface;
 import it.polimi.ingsw.model.enums.Direction;
 import it.polimi.ingsw.model.enums.TokenColor;
-import it.polimi.ingsw.util.Printer;
 
 import java.util.*;
 

@@ -9,7 +9,6 @@ import it.polimi.ingsw.network.server.ServerInterface;
 import it.polimi.ingsw.util.Config;
 import it.polimi.ingsw.util.Printer;
 import it.polimi.ingsw.network.enums.Outcome;
-import org.omg.PortableInterceptor.USER_EXCEPTION;
 
 import java.io.IOException;
 import java.util.ArrayList;
