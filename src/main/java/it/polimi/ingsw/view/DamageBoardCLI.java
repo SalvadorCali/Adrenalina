@@ -54,7 +54,7 @@ public class DamageBoardCLI {
         //initialize marks
         for(int i = 0; i< MAX_MARK; i++){
 
-            mark[i] = MARK;
+            mark[i] = " ";
             colorMark[i] = BLACK;
         }
 
@@ -72,11 +72,11 @@ public class DamageBoardCLI {
             }
         }
 
-        for(int i = 0; i< mark.length; i++){
+        //for(int i = 0; i< mark.length; i++){
 
             //colorMark[i] ;
-            mark[i] = MARK;
-        }
+          //  mark[i] = MARK;
+        //}
 
         //give name current player
         namePlayer = currentPlayer;
@@ -89,9 +89,9 @@ public class DamageBoardCLI {
 
         Printer.print("Marks: ");
 
-        Printer.print(" _ _ _ _");
-        Printer.print("|" + " " + mark[0] + " " + mark[1] + " " + mark[2] + " " + "|" );
-        Printer.print(" ¯ ¯ ¯ ¯");
+        Printer.print(" _ _ _ _" + RESET);
+        Printer.print("|" + " " + mark[0] + " " + mark[1] + " " + mark[2] + " " + "|" + RESET);
+        Printer.print(" ¯ ¯ ¯ ¯" + RESET);
 
     }
 }
