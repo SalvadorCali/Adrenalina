@@ -34,7 +34,6 @@ public class MapCLI {
 
     private GameBoard gameBoard;
     private Square[][] arena;
-    private MapCLI boardMap;
 
 
     public MapCLI(GameController gameController){

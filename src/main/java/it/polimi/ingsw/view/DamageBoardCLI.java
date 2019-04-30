@@ -1,8 +1,12 @@
 package it.polimi.ingsw.view;
 
+import it.polimi.ingsw.controller.GameController;
+import it.polimi.ingsw.model.gamecomponents.Game;
 import it.polimi.ingsw.model.gamecomponents.PlayerBoard;
 import it.polimi.ingsw.model.gamecomponents.Token;
 import it.polimi.ingsw.util.Printer;
+
+import java.util.List;
 
 public class DamageBoardCLI {
 
@@ -20,15 +24,21 @@ public class DamageBoardCLI {
     private final static Integer MAX_MARK = 3;
     private final static String MARK = "M";
 
+    private List<Token> damageBoard;
+    private String currentPlayer;
 
-    private Token[] damageBoard;
-    private PlayerBoard playerBoard;
+
+    public DamageBoardCLI(GameController gameController){
+
+        damageBoard = gameController.getGame().getKillshotTrack();
+        currentPlayer = gameController.getGame().getCurrentPlayer().toString();
+    }
 
 
     public void main(String[] args) {
 
         Integer damage[] = new Integer[MAX_DAMAGE];
-        String namePlayer = "gianni";
+        String namePlayer;
         String colorDamage[] = new String[MAX_DAMAGE];
         String[] mark = new String[MAX_MARK];
         String colorMark[] = new String[MAX_MARK];
@@ -45,17 +55,14 @@ public class DamageBoardCLI {
         for(int i = 0; i< MAX_MARK; i++){
 
             mark[i] = MARK;
-
+            colorMark[i] = BLACK;
         }
-
-
-        damageBoard = playerBoard.getDamageBoard();
 
 
         //color and assign damage
         for(int i = 0; i < damage.length; i++){
 
-            colorDamage[i] = damageBoard[i].toString();
+            colorDamage[i] = damageBoard.get(i).getFirstColor().toString();
             damage[i]= 1;
 
             if(colorDamage[i] == null){
@@ -65,7 +72,14 @@ public class DamageBoardCLI {
             }
         }
 
+        for(int i = 0; i< mark.length; i++){
 
+            //colorMark[i] ;
+            mark[i] = MARK;
+        }
+
+        //give name current player
+        namePlayer = currentPlayer;
 
         Printer.print("DamageBoard:" + namePlayer);
         Printer.print(" _ _ _ _ _ _ _ _ _ _ _ _ _ _ _" + RESET);
