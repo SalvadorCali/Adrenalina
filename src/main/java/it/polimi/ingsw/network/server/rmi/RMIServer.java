@@ -7,6 +7,7 @@ import it.polimi.ingsw.model.enums.TokenColor;
 import it.polimi.ingsw.network.client.rmi.RMIClientInterface;
 import it.polimi.ingsw.network.enums.Message;
 import it.polimi.ingsw.network.enums.Outcome;
+import it.polimi.ingsw.util.Config;
 import it.polimi.ingsw.util.Printer;
 
 import java.io.IOException;
@@ -20,7 +21,7 @@ public class RMIServer extends UnicastRemoteObject implements RMIServerInterface
     private String clientName;
 
     public RMIServer(RMIClientInterface client, ServerController serverController) throws RemoteException {
-        super();
+        super(Config.RMI_FREE_PORT);
         this.serverController = serverController;
         this.client = client;
     }

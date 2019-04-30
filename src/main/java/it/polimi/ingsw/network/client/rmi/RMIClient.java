@@ -30,6 +30,7 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
     private String username;
 
     public RMIClient() throws IOException, NotBoundException {
+        super(Config.RMI_FREE_PORT);
         playerController = new PlayerController(this);
         BufferedReader userInputStream = new BufferedReader(new InputStreamReader(System.in));
         Printer.print("[CLIENT]Please, set an ip address:");

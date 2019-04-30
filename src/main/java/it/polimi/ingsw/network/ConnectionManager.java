@@ -27,7 +27,7 @@ public class ConnectionManager extends UnicastRemoteObject implements Connection
     private ServerController serverController;
 
     public ConnectionManager(ServerController serverController) throws IOException {
-        super();
+        super(Config.RMI_FREE_PORT);
         this.serverController = serverController;
 
         //socket
