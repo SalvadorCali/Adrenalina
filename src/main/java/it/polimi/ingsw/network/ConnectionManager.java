@@ -20,13 +20,14 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class ConnectionManager implements ConnectionInterface, Runnable {
+public class ConnectionManager extends UnicastRemoteObject implements ConnectionInterface, Runnable {
     private ServerSocket serverSocket;
     private Thread thisThread;
     private final ExecutorService pool;
     private ServerController serverController;
 
     public ConnectionManager(ServerController serverController) throws IOException {
+        super();
         this.serverController = serverController;
 
         //socket
@@ -41,7 +42,7 @@ public class ConnectionManager implements ConnectionInterface, Runnable {
 
         //rmi new
         Registry registry = LocateRegistry.createRegistry(Config.RMI_PORT);
-        ConnectionInterface server = (ConnectionInterface) UnicastRemoteObject.exportObject(this, Config.RMI_PORT);
+        //ConnectionInterface server = (ConnectionInterface) UnicastRemoteObject.exportObject(this, Config.RMI_PORT);
         try {
             registry.bind("server", this);
         } catch (AlreadyBoundException e) {
