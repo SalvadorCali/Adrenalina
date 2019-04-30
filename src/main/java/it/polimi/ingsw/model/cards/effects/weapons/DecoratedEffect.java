@@ -7,6 +7,8 @@ public abstract class DecoratedEffect extends Effect {
 
     protected Effect effect;
 
+
+
     @Override
     public abstract boolean canUseEffect(ActionInterface actionInterface);
 

@@ -2,6 +2,7 @@ package it.polimi.ingsw.model.cards.effects.weapons.singleaddictions;
 
 import it.polimi.ingsw.model.cards.effects.ActionInterface;
 import it.polimi.ingsw.model.enums.Direction;
+import it.polimi.ingsw.model.gamecomponents.Player;
 
 public class AdditionalMove extends SingleAddictionEffect {
 
@@ -15,15 +16,47 @@ public class AdditionalMove extends SingleAddictionEffect {
 
     private boolean canUse;
 
+    private Player player;
+
+    private boolean basicFirst;
+
     private Direction firstMove, secondMove;
+
+
 
     @Override
     public boolean canUseEffect(ActionInterface actionInterface) {
-        return false;
+
+        player.setPosition(actionInterface.getCurrentPlayer().getPosition());
+
+        if(basicFirst) {
+            canUse = super.effect.canUseEffect(actionInterface) && actionInterface.ammoControl(redAmmos, blueAmmos, yellowAmmos);
+            if (canUse) {
+                movementControl(actionInterface);
+            }
+        }else{
+            movementControl(actionInterface);
+            if(canUse){
+                //actionInterface.updateFakePlayerPosition(player);
+                canUse = actionInterface.ammoControl(redAmmos, blueAmmos, yellowAmmos) && super.effect.canUseEffect(actionInterface);
+            }
+        }
+        return canUse;
     }
 
     @Override
     public void useEffect(ActionInterface actionInterface) {
+
+    }
+
+    private void movementControl(ActionInterface actionInterface) {
+        if (firstMove != null && secondMove != null){
+            canUse = actionInterface.canMove(player.getColor(), firstMove, secondMove);
+            player.updatePosition(firstMove, secondMove);
+        } else if (firstMove != null && secondMove == null) {
+            canUse = actionInterface.canMove(player.getColor(), firstMove);
+            player.updatePosition(firstMove);
+        }
 
     }
 }
