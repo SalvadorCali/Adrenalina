@@ -220,60 +220,140 @@ public class CommandLine implements ViewInterface {
     }
 
     private void shoot(StringTokenizer input){
-        String victim;
         String weapon;
         if(input.hasMoreTokens()){
-            victim = input.nextToken();
-            if(input.hasMoreTokens()){
-                weapon = input.nextToken();
+            weapon = input.nextToken();
+            try {
                 weaponEffect(weapon);
+            } catch (IOException e) {
+                Printer.err(e);
             }
         }
     }
 
-    private void weaponEffect(String weapon){
+    private void weaponEffect(String weapon) throws IOException {
+        StringTokenizer string;
         switch(weapon){
-            case "lock rifle":
+            case "lockrifle":
+                Printer.println("Please choose your victims: <victim1> <victim2>");
+                string = new StringTokenizer(userInputStream.readLine());
+                if(string.hasMoreTokens()){
+                    TokenColor firstVictim = Converter.fromStringToTokenColor(string.nextToken());
+                    if(string.hasMoreTokens()){
+                        TokenColor secondVictim = Converter.fromStringToTokenColor(string.nextToken());
+                        //
+                    }else{
+                        //
+                    }
+                }
                 break;
             case "machine gun":
+                Printer.println("Basic effect: <1> <victim>");
+                Printer.println("Basic effect: <1> <victim> <victim>");
+                Printer.println("With focus shot: <2> <victim>");
+                Printer.println("With focus shot: <2> <victim> <victim> <victim>");
+                //da terminare
                 break;
             case "thor":
+                Printer.println("Basic effect: <victim>");
+                Printer.println("With chain reaction: <2>");
+                Printer.println("With high voltage: <2>");
                 break;
             case "plasma gun":
+                Printer.println("Basic effect: <1> <victim>");
+                Printer.println("With phase glide: <2> <victim> <direction> <direction>");
+                Printer.println("With phase glide: <2> <victim> <direction>");
+                Printer.println("With phase glide: <2> <direction> <direction> <victim>");
+                Printer.println("With phase glide: <2> <direction> <victim>");
+                Printer.println("With phase glide: <3> <victim> <direction> <direction>");
+                Printer.println("With phase glide: <3> <victim> <direction>");
+                Printer.println("With phase glide: <3> <direction> <direction> <victim>");
+                Printer.println("With phase glide: <3> <direction> <victim>");
+                //da terminare
                 break;
             case "whisper":
+                Printer.println("Effect: <victim>");
                 break;
             case "electroscythe":
+                Printer.println("Basic mode: <1>");
+                Printer.println("In reaper mode: <2>");
+                string = new StringTokenizer(userInputStream.readLine());
+                if(string.hasMoreTokens()){
+                    int choice = Integer.parseInt(string.nextToken());
+                    //
+                }
                 break;
-            case "tractor beam":
+            case "tractorbeam":
+                Printer.println("Basic mode: <victim> <directions...>");
+                Printer.println("In reaper mode: <victim>");
                 break;
             case "vortex cannon":
+                Printer.println("Basic effect: <1> <squareX> <squareY> <victim>");
+                Printer.println("With black hole: <2> <squareX> <squareY> <victim> <victim>");
+                Printer.println("With black hole: <2> <squareX> <squareY> <victim> <victim> <victim>");
                 break;
             case "furnace":
+                Printer.println("Basic mode: <1> <squareX> <squareY>");
+                Printer.println("In cozy fire mode: <2> <squareX> <squareY>");
                 break;
             case "heatseeker":
+                Printer.println("Effect: <victim>");
                 break;
             case "hellion":
+                Printer.println("Basic mode: <1> <victim> <squareX> <squareY>");
+                Printer.println("In nano-tracer mode: <2> <victim> <squareX> <squareY>");
                 break;
             case "flamethrower":
+                Printer.println("Basic mode: <direction> <victim1> <victim2>");
+                Printer.println("In barbecue mode: <direction>");
                 break;
             case "grenade launcher":
+                Printer.println("Basic effect: <1> <victim>");
+                Printer.println("Basic effect: <1> <victim> <direction>");
+                Printer.println("With extra grenade: <2> <victim> <direction> <squareX> <squareY>");
+                Printer.println("With extra grenade: <2> <squareX> <squareY> <victim> <direction>");
                 break;
             case "rocket launcher":
                 break;
             case "railgun":
+                Printer.println("Basic mode: <1> <direction> <victim>");
+                Printer.println("In piercing mode: <2> <direction> <victim>");
+                Printer.println("In piercing mode: <2> <direction> <victim1> <victim2>");
                 break;
             case "cyberblade":
+                Printer.println("Basic effect: <1> <victim>");
+                Printer.println("With shadow step: <2> <victim> <direction>");
+                Printer.println("With slice and dice: <3> <victim> <direction>");
+                //da terminare
                 break;
             case "zx-2":
+                Printer.println("Basic mode: <1> <victim>");
+                Printer.println("In scanner mode: <2> <victim>");
+                Printer.println("In scanner mode: <2> <victim> <victim>");
+                Printer.println("In scanner mode: <2> <victim> <victim> <victim>");
                 break;
             case "shotgun":
+                Printer.println("Basic mode: <1> <victim>");
+                Printer.println("Basic mode: <1> <victim> <direction>");
+                Printer.println("In long barrel mode: <2> <victim>");
                 break;
             case "power glove":
+                Printer.println("Basic mode: <1> <victim>");
+                Printer.println("In rocket fist mode: <2> <direction>");
+                Printer.println("In rocket fist mode: <2> <direction> <victim>");
+                //da terminare
                 break;
             case "shockwave":
+                Printer.println("Basic mode: <1> <victim>");
+                Printer.println("Basic mode: <1> <victim> <victim>");
+                Printer.println("Basic mode: <1> <victim> <victim>");
+                Printer.println("In tsunami mode: <2>");
                 break;
             case "sledgehammer":
+                Printer.println("Basic mode: <1> <victim>");
+                Printer.println("In pulverize mode: <2> <victim>");
+                Printer.println("In pulverize mode: <2> <victim> <direction>");
+                Printer.println("In pulverize mode: <2> <victim> <direction> <direction>");
                 break;
             default:
                 break;

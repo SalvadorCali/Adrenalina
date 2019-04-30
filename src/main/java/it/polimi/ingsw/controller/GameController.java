@@ -97,6 +97,10 @@ public class GameController {
         game.getBoard().getArena()[x][y].grab(actionInterface, choice);
     }
 
+    public void shoot(){
+
+    }
+
     public void endTurn(Player player){
         game.endTurn(player);
     }
