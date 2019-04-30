@@ -3,6 +3,7 @@ package it.polimi.ingsw.network;
 import it.polimi.ingsw.controller.GameController;
 import it.polimi.ingsw.controller.ServerController;
 import it.polimi.ingsw.network.client.rmi.RMIClientInterface;
+import it.polimi.ingsw.network.server.ServerInterface;
 import it.polimi.ingsw.network.server.rmi.RMIServer;
 import it.polimi.ingsw.network.server.rmi.RMIServerInterface;
 import it.polimi.ingsw.network.server.socket.SocketServer;
@@ -67,6 +68,7 @@ public class ConnectionManager implements ConnectionInterface, Runnable {
 
     @Override
     public RMIServerInterface enrol(RMIClientInterface client) throws RemoteException {
-        return new RMIServer(client, serverController);
+        return (RMIServerInterface) UnicastRemoteObject.exportObject(new RMIServer(client, serverController), Config.RMI_FREE_PORT);
+        //return new RMIServer(client, serverController);
     }
 }
