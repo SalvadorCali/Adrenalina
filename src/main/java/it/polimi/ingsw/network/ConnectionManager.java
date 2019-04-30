@@ -11,13 +11,15 @@ import it.polimi.ingsw.util.Printer;
 
 import java.io.IOException;
 import java.net.ServerSocket;
+import java.rmi.AlreadyBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class ConnectionManager extends UnicastRemoteObject implements ConnectionInterface, Runnable {
+public class ConnectionManager implements ConnectionInterface, Runnable {
     private ServerSocket serverSocket;
     private Thread thisThread;
     private final ExecutorService pool;
@@ -30,9 +32,20 @@ public class ConnectionManager extends UnicastRemoteObject implements Connection
         serverSocket = new ServerSocket(Config.SOCKET_PORT);
         pool = Executors.newFixedThreadPool(Config.EXECUTOR_SIZE);
 
-        //rmi
+        //rmi extends UnicastRemoteObject
+        /*
         LocateRegistry.createRegistry(Config.RMI_PORT);
         java.rmi.Naming.rebind("server", this);
+        */
+
+        //rmi new
+        Registry registry = LocateRegistry.createRegistry(Config.RMI_PORT);
+        ConnectionInterface server = (ConnectionInterface) UnicastRemoteObject.exportObject(this, Config.RMI_PORT);
+        try {
+            registry.bind("server", this);
+        } catch (AlreadyBoundException e) {
+            Printer.err(e);
+        }
     }
 
     public void start(){

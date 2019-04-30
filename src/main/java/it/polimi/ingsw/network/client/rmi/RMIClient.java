@@ -8,6 +8,7 @@ import it.polimi.ingsw.model.gamecomponents.Player;
 import it.polimi.ingsw.network.ConnectionInterface;
 import it.polimi.ingsw.network.enums.Message;
 import it.polimi.ingsw.network.server.rmi.RMIServerInterface;
+import it.polimi.ingsw.util.Config;
 import it.polimi.ingsw.util.Printer;
 import it.polimi.ingsw.view.CommandLine;
 import it.polimi.ingsw.network.enums.Outcome;
@@ -16,6 +17,8 @@ import it.polimi.ingsw.view.ViewInterface;
 import java.io.*;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 
 public class RMIClient extends UnicastRemoteObject implements RMIClientInterface {
@@ -29,8 +32,15 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
         BufferedReader userInputStream = new BufferedReader(new InputStreamReader(System.in));
         Printer.print("[CLIENT]Please, set an ip address:");
         String host = userInputStream.readLine();
+        //old
+        /*
         ConnectionInterface connectionInterface = (ConnectionInterface) java.rmi.Naming.lookup("server");
         server = connectionInterface.enrol(this);
+        */
+        //new
+        Registry registry = LocateRegistry.getRegistry(host, Config.RMI_PORT);
+        ConnectionInterface connection = (ConnectionInterface) registry.lookup("server");
+        server = connection.enrol(this);
     }
     @Override
     public void start() {
