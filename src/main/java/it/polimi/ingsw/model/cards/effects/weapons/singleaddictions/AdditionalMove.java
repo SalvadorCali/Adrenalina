@@ -29,18 +29,25 @@ public class AdditionalMove extends SingleAddictionEffect {
 
         player.setPosition(actionInterface.getCurrentPlayer().getPosition());
 
-        if(basicFirst) {
-            canUse = super.effect.canUseEffect(actionInterface) && actionInterface.ammoControl(redAmmos, blueAmmos, yellowAmmos);
-            if (canUse) {
-                movementControl(actionInterface);
+            if(basicFirst) {
+                canUse = super.effect.canUseEffect(actionInterface) && actionInterface.ammoControl(redAmmos, blueAmmos, yellowAmmos);
+                if (canUse) {
+                    if(effectName.equals("Plasma Gun") || effectName.equals("Rocket Launcher"))
+                        movementControl(actionInterface);
+                    else
+                        oneMovementControl(actionInterface, player);
+                }
+            }else{
+                if(effectName.equals("Plasma Gun") || effectName.equals("Rocket Launcher"))
+                    movementControl(actionInterface);
+                else
+                    oneMovementControl(actionInterface, player);
+                if(canUse){
+                    //actionInterface.updateFakePlayerPosition(player);
+                    canUse = actionInterface.ammoControl(redAmmos, blueAmmos, yellowAmmos) && super.effect.canUseEffect(actionInterface);
+                }
             }
-        }else{
-            movementControl(actionInterface);
-            if(canUse){
-                //actionInterface.updateFakePlayerPosition(player);
-                canUse = actionInterface.ammoControl(redAmmos, blueAmmos, yellowAmmos) && super.effect.canUseEffect(actionInterface);
-            }
-        }
+
         return canUse;
     }
 
@@ -58,5 +65,14 @@ public class AdditionalMove extends SingleAddictionEffect {
             player.updatePosition(firstMove);
         }
 
+    }
+
+    private void oneMovementControl(ActionInterface actionInterface, Player player){
+
+        if(firstMove != null && secondMove == null)
+            canUse = actionInterface.canMove(player.getColor(),firstMove);
+        else if (firstMove!= null && secondMove!= null){
+            canUse = false;
+        }
     }
 }
