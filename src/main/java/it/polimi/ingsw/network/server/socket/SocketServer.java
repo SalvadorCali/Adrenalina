@@ -1,6 +1,7 @@
 package it.polimi.ingsw.network.server.socket;
 
 import it.polimi.ingsw.controller.ServerController;
+import it.polimi.ingsw.controller.timer.ConnectionTimer;
 import it.polimi.ingsw.model.enums.Direction;
 import it.polimi.ingsw.model.enums.TokenColor;
 import it.polimi.ingsw.network.server.ServerInterface;
@@ -16,6 +17,7 @@ import java.net.Socket;
 public class SocketServer implements Runnable, ServerInterface {
     private Thread thisThread;
     private Socket socket;
+    private ConnectionTimer connectionTimer;
     private ObjectInputStream objectInputStream;
     private ObjectOutputStream objectOutputStream;
     private ServerController serverController;
@@ -76,6 +78,8 @@ public class SocketServer implements Runnable, ServerInterface {
         try{
             clientName = objectInputStream.readUTF();
             color = (TokenColor) objectInputStream.readObject();
+            connectionTimer = (ConnectionTimer) objectInputStream.readObject();
+            connectionTimer.setServer(this);
         } catch (IOException | ClassNotFoundException e) {
             Printer.err(e);
         }

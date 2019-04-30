@@ -1,6 +1,7 @@
 package it.polimi.ingsw.network.server.rmi;
 
 import it.polimi.ingsw.controller.ServerController;
+import it.polimi.ingsw.controller.timer.ConnectionTimer;
 import it.polimi.ingsw.model.enums.Direction;
 import it.polimi.ingsw.model.enums.TokenColor;
 import it.polimi.ingsw.network.client.rmi.RMIClientInterface;
@@ -15,6 +16,7 @@ import java.rmi.server.UnicastRemoteObject;
 public class RMIServer extends UnicastRemoteObject implements RMIServerInterface {
     private RMIClientInterface client;
     private ServerController serverController;
+    private ConnectionTimer connectionTimer;
     private String clientName;
 
     public RMIServer(RMIClientInterface client, ServerController serverController) throws RemoteException {
@@ -24,7 +26,9 @@ public class RMIServer extends UnicastRemoteObject implements RMIServerInterface
     }
 
     @Override
-    public void login(String username, TokenColor color){
+    public void login(String username, TokenColor color, ConnectionTimer connectionTimer){
+        this.connectionTimer = connectionTimer;
+        connectionTimer.setServer(this);
         serverController.login(username, color, this);
     }
 

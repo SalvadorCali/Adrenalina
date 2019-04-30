@@ -1,6 +1,7 @@
 package it.polimi.ingsw.network.client.rmi;
 
 import it.polimi.ingsw.controller.PlayerController;
+import it.polimi.ingsw.controller.timer.ConnectionTimer;
 import it.polimi.ingsw.model.enums.AdrenalineZone;
 import it.polimi.ingsw.model.enums.Direction;
 import it.polimi.ingsw.model.enums.TokenColor;
@@ -23,6 +24,7 @@ import java.rmi.server.UnicastRemoteObject;
 
 public class RMIClient extends UnicastRemoteObject implements RMIClientInterface {
     private RMIServerInterface server;
+    private ConnectionTimer connectionTimer;
     private PlayerController playerController;
     private ViewInterface view;
     private String username;
@@ -50,9 +52,10 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
 
     @Override
     public void login(String username, TokenColor color){
+        connectionTimer = new ConnectionTimer(this);
         this.username = username;
         try {
-            server.login(username, color);
+            server.login(username, color, connectionTimer);
         } catch (RemoteException e) {
             Printer.err(e);
         }
@@ -110,6 +113,12 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
                     Player player = (Player) object;
                     playerController.setPlayer(player);
                 }
+                break;
+            case LOGIN:
+                if(outcome.equals(Outcome.RIGHT)) {
+                    connectionTimer.start();
+                }
+                view.notify(message, outcome, object);
                 break;
             default:
                 view.notify(message, outcome, object);

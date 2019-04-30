@@ -5,13 +5,17 @@ import it.polimi.ingsw.network.server.ServerInterface;
 import it.polimi.ingsw.util.Config;
 import it.polimi.ingsw.util.Printer;
 
+import java.io.Serializable;
 import java.rmi.RemoteException;
 
-public class ConnectionTimer extends Thread {
-    private ClientInterface client;
+public class ConnectionTimer extends Thread implements Serializable {
+    private transient ClientInterface client;
     private ServerInterface server;
-    public ConnectionTimer(ClientInterface client, ServerInterface server){
+    public ConnectionTimer(ClientInterface client){
         this.client = client;
+    }
+
+    public void setServer(ServerInterface server){
         this.server = server;
     }
 

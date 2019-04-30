@@ -1,6 +1,7 @@
 package it.polimi.ingsw.network.client.socket;
 
 import it.polimi.ingsw.controller.PlayerController;
+import it.polimi.ingsw.controller.timer.ConnectionTimer;
 import it.polimi.ingsw.model.enums.AdrenalineZone;
 import it.polimi.ingsw.model.enums.Direction;
 import it.polimi.ingsw.model.enums.TokenColor;
@@ -21,6 +22,7 @@ public class SocketClient implements ClientInterface, Runnable {
     private Thread thisThread;
     private ObjectInputStream objectInputStream;
     private ObjectOutputStream objectOutputStream;
+    private ConnectionTimer connectionTimer;
     private ViewInterface view;
     private Socket clientSocket;
     private String username;
@@ -74,11 +76,14 @@ public class SocketClient implements ClientInterface, Runnable {
     @Override
     public void login(String username, TokenColor color){
         try {
+            connectionTimer = new ConnectionTimer(this);
             objectOutputStream.writeObject(Message.LOGIN);
             objectOutputStream.flush();
             objectOutputStream.writeUTF(username);
             objectOutputStream.flush();
             objectOutputStream.writeObject(color);
+            objectOutputStream.flush();
+            objectOutputStream.writeObject(connectionTimer);
             objectOutputStream.flush();
         } catch (IOException e) {
             Printer.err(e);
@@ -149,6 +154,9 @@ public class SocketClient implements ClientInterface, Runnable {
                 break;
             case LOGIN:
                 outcome = (Outcome) objectInputStream.readObject();
+                if(outcome.equals(Outcome.RIGHT)){
+                    connectionTimer.start();
+                }
                 object = (String) objectInputStream.readObject();
                 view.notify(message, outcome, object);
                 break;
