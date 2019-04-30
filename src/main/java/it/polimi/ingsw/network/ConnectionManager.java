@@ -71,4 +71,9 @@ public class ConnectionManager implements ConnectionInterface, Runnable {
         //return (RMIServerInterface) UnicastRemoteObject.exportObject(new RMIServer(client, serverController), Config.RMI_FREE_PORT);
         return new RMIServer(client, serverController);
     }
+
+    @Override
+    public void print(){
+        Printer.println("prova");
+    }
 }
