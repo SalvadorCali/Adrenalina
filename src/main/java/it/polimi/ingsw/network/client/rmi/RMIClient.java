@@ -16,6 +16,7 @@ import it.polimi.ingsw.network.enums.Outcome;
 import it.polimi.ingsw.view.ViewInterface;
 
 import java.io.*;
+import java.net.InetAddress;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
@@ -35,7 +36,7 @@ public class RMIClient implements RMIClientInterface {
         BufferedReader userInputStream = new BufferedReader(new InputStreamReader(System.in));
         Printer.print("[CLIENT]Please, set an ip address:");
         String host = userInputStream.readLine();
-        System.setProperty("java.rmi.server.hostname", host);
+        //System.setProperty("java.rmi.client.hostname", InetAddress.getLocalHost().getHostAddress());
         //old
         /*
         ConnectionInterface connectionInterface = (ConnectionInterface) java.rmi.Naming.lookup("server");

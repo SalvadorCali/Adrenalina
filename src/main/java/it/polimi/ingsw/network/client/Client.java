@@ -7,14 +7,24 @@ import it.polimi.ingsw.util.Printer;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.util.Objects;
 
 public class Client {
     public static void main(String[] args){
-        Printer.print("[CLIENT]Choose 'rmi' or 'socket':");
+        Printer.print("[CLIENT]Please, set an ip address:");
         BufferedReader userInputStream = new BufferedReader(new InputStreamReader(System.in));
+        try {
+            String host = userInputStream.readLine();
+            System.setProperty("java.rmi.server.hostname", host);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Printer.print("[CLIENT]Choose 'rmi' or 'socket':");
+
         String choice = "default";
         while(!(choice.equalsIgnoreCase("rmi") || choice.equalsIgnoreCase("socket"))) {
             try {
