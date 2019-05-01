@@ -7,14 +7,17 @@ import it.polimi.ingsw.util.Printer;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
+import java.net.*;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
+import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.List;
 import java.util.Objects;
 
 public class Client {
-    public static void main(String[] args){
+    public static void main(String[] args) throws SocketException {
+        /*
         Printer.print("[CLIENT]Please, set an ip address:");
         BufferedReader userInputStream = new BufferedReader(new InputStreamReader(System.in));
         try {
@@ -22,6 +25,19 @@ public class Client {
             System.setProperty("java.rmi.server.hostname", host);
         } catch (IOException e) {
             e.printStackTrace();
+        }
+        */
+        BufferedReader userInputStream = new BufferedReader(new InputStreamReader(System.in));
+        List<InetAddress> addresses = getAddresses();
+        Printer.println("[SERVER]Current ip addresses:");
+        addresses.forEach(a -> Printer.println("    " + a));
+        if(!addresses.isEmpty()){
+            //Printer.println(addresses.get(0).toString().substring(1));
+            if(System.getProperty("os.name").contains("ind")){
+                System.setProperty("java.rmi.server.hostname", addresses.get(1).toString().substring(1));
+            }else{
+                System.setProperty("java.rmi.server.hostname", addresses.get(0).toString().substring(1));
+            }
         }
         Printer.print("[CLIENT]Choose 'rmi' or 'socket':");
 
@@ -57,5 +73,21 @@ public class Client {
                 Printer.err(e);
             }
         }
+    }
+
+    private static List<InetAddress> getAddresses() throws SocketException {
+        Enumeration<NetworkInterface> networkInterfaces = NetworkInterface.getNetworkInterfaces();
+        List<InetAddress> addressesList = new ArrayList<>();
+        while(networkInterfaces.hasMoreElements()) {
+            NetworkInterface networkInterface = networkInterfaces.nextElement();
+            Enumeration<InetAddress> addresses = networkInterface.getInetAddresses();
+            while(addresses.hasMoreElements()){
+                InetAddress address = addresses.nextElement();
+                if(address instanceof Inet4Address && !address.isLoopbackAddress()){
+                    addressesList.add(address);
+                }
+            }
+        }
+        return addressesList;
     }
 }

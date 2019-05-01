@@ -18,8 +18,13 @@ public class Server {
         Printer.println("[SERVER]Current ip addresses:");
         addresses.forEach(a -> Printer.println("    " + a));
         if(!addresses.isEmpty()){
+            if(System.getProperty("os.name").contains("ind")){
+                System.setProperty("java.rmi.server.hostname", addresses.get(1).toString().substring(1));
+            }else{
+                System.setProperty("java.rmi.server.hostname", addresses.get(0).toString().substring(1));
+            }
             //Printer.println(addresses.get(0).toString().substring(1));
-            System.setProperty("java.rmi.server.hostname", addresses.get(0).toString().substring(1));
+
         }
         try {
             ConnectionManager connection = new ConnectionManager(new ServerController());
