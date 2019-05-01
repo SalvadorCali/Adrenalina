@@ -37,6 +37,7 @@ public class ServerController {
     }
 
     public void login(String username, TokenColor color, ServerInterface server){
+        Printer.println("prova3");
         if(!gameController.isInGame()){
             boolean newUsername = !servers.containsKey(username); //contains
             boolean newColor = !colors.containsKey(color); //contains
@@ -89,7 +90,9 @@ public class ServerController {
         servers.forEach((u, s) -> {
             try {
                 if(u.equals(username)){
+                    Printer.println("prova4");
                     s.notify(Message.LOGIN, Outcome.RIGHT, username);
+                    Printer.println("prova4.5");
                 }else{
                     s.notify(Message.LOGIN, Outcome.ALL, username);
                 }

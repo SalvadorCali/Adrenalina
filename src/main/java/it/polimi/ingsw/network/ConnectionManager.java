@@ -42,12 +42,12 @@ public class ConnectionManager implements ConnectionInterface, Runnable {
 
         //rmi new
         Registry registry = LocateRegistry.createRegistry(Config.RMI_PORT);
-        ConnectionInterface server = (ConnectionInterface) UnicastRemoteObject.exportObject(this, Config.RMI_PORT);
-        try {
-            registry.bind("server", this);
-        } catch (AlreadyBoundException e) {
-            Printer.err(e);
-        }
+        //ConnectionInterface server = (ConnectionInterface) UnicastRemoteObject.exportObject(this, Config.RMI_PORT);
+        //try {
+            registry.rebind("server", (ConnectionInterface) UnicastRemoteObject.exportObject(this, Config.RMI_FREE_PORT));
+        //} catch (AlreadyBoundException e) {
+          //  Printer.err(e);
+        //}
     }
 
     public void start(){

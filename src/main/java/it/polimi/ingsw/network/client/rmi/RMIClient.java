@@ -43,7 +43,7 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
         server = connectionInterface.enrol(this);
         */
         //new
-        Registry registry = LocateRegistry.getRegistry(host, Config.RMI_PORT);
+        Registry registry = LocateRegistry.getRegistry(host, Config.RMI_FREE_PORT);
         ConnectionInterface connection = (ConnectionInterface) registry.lookup("server");
         connection.print();
         server = connection.enrol(this);
