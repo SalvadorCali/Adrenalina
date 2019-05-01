@@ -2,6 +2,7 @@ package it.polimi.ingsw.network.client;
 
 import it.polimi.ingsw.network.client.rmi.RMIClient;
 import it.polimi.ingsw.network.client.socket.SocketClient;
+import it.polimi.ingsw.util.Connection;
 import it.polimi.ingsw.util.Printer;
 
 import java.io.BufferedReader;
@@ -28,9 +29,11 @@ public class Client {
         }
         */
         BufferedReader userInputStream = new BufferedReader(new InputStreamReader(System.in));
-        List<InetAddress> addresses = getAddresses();
+        List<InetAddress> addresses = Connection.getAddresses();
+        /*
         Printer.println("[SERVER]Current ip addresses:");
         addresses.forEach(a -> Printer.println("    " + a));
+        */
         if(!addresses.isEmpty()){
             //Printer.println(addresses.get(0).toString().substring(1));
             if(System.getProperty("os.name").contains("ind")){
@@ -73,21 +76,5 @@ public class Client {
                 Printer.err(e);
             }
         }
-    }
-
-    private static List<InetAddress> getAddresses() throws SocketException {
-        Enumeration<NetworkInterface> networkInterfaces = NetworkInterface.getNetworkInterfaces();
-        List<InetAddress> addressesList = new ArrayList<>();
-        while(networkInterfaces.hasMoreElements()) {
-            NetworkInterface networkInterface = networkInterfaces.nextElement();
-            Enumeration<InetAddress> addresses = networkInterface.getInetAddresses();
-            while(addresses.hasMoreElements()){
-                InetAddress address = addresses.nextElement();
-                if(address instanceof Inet4Address && !address.isLoopbackAddress()){
-                    addressesList.add(address);
-                }
-            }
-        }
-        return addressesList;
     }
 }

@@ -28,7 +28,6 @@ public class RMIServer extends UnicastRemoteObject implements RMIServerInterface
 
     @Override
     public void login(String username, TokenColor color, ConnectionTimer connectionTimer){
-        Printer.println("Prova2");
         this.connectionTimer = connectionTimer;
         connectionTimer.setServer(this);
         serverController.login(username, color, this);

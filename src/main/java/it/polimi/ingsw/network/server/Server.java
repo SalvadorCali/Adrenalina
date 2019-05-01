@@ -3,6 +3,7 @@ package it.polimi.ingsw.network.server;
 import it.polimi.ingsw.controller.GameController;
 import it.polimi.ingsw.controller.ServerController;
 import it.polimi.ingsw.network.ConnectionManager;
+import it.polimi.ingsw.util.Connection;
 import it.polimi.ingsw.util.Printer;
 
 import java.io.IOException;
@@ -14,7 +15,7 @@ import java.util.List;
 public class Server {
     public static void main(String[] args) throws UnknownHostException, SocketException {
         //1st method
-        List<InetAddress> addresses = getAddresses();
+        List<InetAddress> addresses = Connection.getAddresses();
         Printer.println("[SERVER]Current ip addresses:");
         addresses.forEach(a -> Printer.println("    " + a));
         if(!addresses.isEmpty()){
@@ -32,21 +33,5 @@ public class Server {
         } catch (IOException e) {
             Printer.err(e);
         }
-    }
-
-    private static List<InetAddress> getAddresses() throws SocketException{
-        Enumeration<NetworkInterface> networkInterfaces = NetworkInterface.getNetworkInterfaces();
-        List<InetAddress> addressesList = new ArrayList<>();
-        while(networkInterfaces.hasMoreElements()) {
-            NetworkInterface networkInterface = networkInterfaces.nextElement();
-            Enumeration<InetAddress> addresses = networkInterface.getInetAddresses();
-            while(addresses.hasMoreElements()){
-                InetAddress address = addresses.nextElement();
-                if(address instanceof Inet4Address && !address.isLoopbackAddress()){
-                    addressesList.add(address);
-                }
-            }
-        }
-        return addressesList;
     }
 }
