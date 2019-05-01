@@ -13,12 +13,14 @@ public class Game {
     private Player currentPlayer;
     private List<Player> players;
     private ArrayList<TokenColor> playerColors;
+    private Map<String, TokenColor> playersMap;
     private List<Token> killshotTrack;
     private Deck weapons;
     private Deck powerups;
     private List<AmmoCard> ammos;
     private boolean finalFrenzy;
     private boolean inGame;
+    private boolean colorSelection;
     private Map<TokenColor, Integer> scoreList;
 
     public Game(GameBoard board, Deck weapons, Deck powerups, List<AmmoCard> ammos){
@@ -27,13 +29,30 @@ public class Game {
         killshotTrack = new ArrayList<>();
         scoreList = new HashMap<>();
         playerColors = new ArrayList<>();
+        playersMap = new HashMap<>();
         this.weapons = weapons;
         this.powerups = powerups;
         this.ammos = ammos;
+        inGame = false;
         finalFrenzy = false;
     }
 
     //getters and setters
+    public boolean isInGame() {
+        return inGame;
+    }
+
+    public void setInGame(boolean inGame) {
+        this.inGame = inGame;
+    }
+
+    public boolean isColorSelection() {
+        return colorSelection;
+    }
+
+    public void setColorSelection(boolean colorSelection) {
+        this.colorSelection = colorSelection;
+    }
 
     public GameBoard getBoard() {
         return board;
@@ -91,11 +110,32 @@ public class Game {
         return players;
     }
 
+    public void setPlayers(List<Player> players) {
+        this.players = players;
+    }
+
     public List<Token> getKillshotTrack() {
         return killshotTrack;
     }
 
+    public ArrayList<TokenColor> getPlayerColors() {
+        return playerColors;
+    }
+
     //methods
+    public synchronized void addPlayerColors(TokenColor color){
+        playerColors.add(color);
+    }
+
+    public synchronized boolean containsColor(TokenColor color){
+        for(TokenColor tokenColor : playerColors){
+            if(color.equals(tokenColor)){
+                return true;
+            }
+        }
+        return false;
+    }
+
     public void createKillshotTrack(int skulls){
         for(int i=0; i<skulls; i++){
             killshotTrack.add(new Token(TokenColor.SKULL));
@@ -179,8 +219,26 @@ public class Game {
         }
     }
 
+    public void endTurn(Player player){
+        for(int i=0; i<players.size(); i++){
+            if(players.get(i).equals(player)){
+                player.setMyTurn(false);
+                do{
+                    currentPlayer = nextPlayer(i);
+                    Printer.println(currentPlayer.getUsername());
+                }while(currentPlayer.isDisconnected());
+                currentPlayer.setMyTurn(true);
+                break;
+            }
+        }
+    }
 
-    public void endTurn(){
+    private Player nextPlayer(int index){
+        if(index == players.size() - 1){
+            return players.get(0);
+        }else{
+            return players.get(index + 1);
+        }
     }
 
     public boolean move(Direction...directions){

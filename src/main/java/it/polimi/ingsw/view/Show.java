@@ -1,4 +1,4 @@
-package it.polimi.ingsw.util;
+package it.polimi.ingsw.view;
 
 
 import it.polimi.ingsw.model.cards.PowerupCard;
@@ -9,14 +9,17 @@ import it.polimi.ingsw.model.gamecomponents.*;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Scanner;
 
-public class CLIHandler {
+public class Show {
 
     private Player shooter;
     private Player victim;
     private PlayerBoard playerBoard;
     private GameBoard gameBoard;
     private Square[][] arena;
+    private MapCLI mapCLI;
+
 
     public void printDmgBoard(){
 
@@ -47,13 +50,7 @@ public class CLIHandler {
 
     public void printArena(){
 
-        arena = gameBoard.getArena();
-
-        for(int i = 0; i < arena.length; i++) {
-            for (int j = 0; j < arena[i].length; j++)
-                System.out.print(arena[i][j] + " ");
-            System.out.println();
-        }
+        mapCLI.printMap();
     }
 
     public void printYourPosition(){
@@ -111,11 +108,6 @@ public class CLIHandler {
         powerupCards = shooter.getPowerups();
 
         System.out.println(Arrays.asList(powerupCards));
-    }
-
-    public void whichTurn(){
-
-        //this methods should print player's turn
     }
 
 }

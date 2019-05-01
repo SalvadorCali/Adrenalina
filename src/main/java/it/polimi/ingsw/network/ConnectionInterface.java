@@ -8,4 +8,5 @@ import java.rmi.RemoteException;
 
 public interface ConnectionInterface extends Remote {
     RMIServerInterface enrol(RMIClientInterface client) throws RemoteException;
+    void print() throws RemoteException;
 }
