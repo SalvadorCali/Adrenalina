@@ -35,6 +35,7 @@ public class RMIClient implements RMIClientInterface {
         BufferedReader userInputStream = new BufferedReader(new InputStreamReader(System.in));
         Printer.print("[CLIENT]Please, set an ip address:");
         String host = userInputStream.readLine();
+        System.setProperty("java.rmi.server.hostname", host);
         //old
         /*
         ConnectionInterface connectionInterface = (ConnectionInterface) java.rmi.Naming.lookup("server");
