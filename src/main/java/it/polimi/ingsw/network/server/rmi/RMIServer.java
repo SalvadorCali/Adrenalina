@@ -14,20 +14,21 @@ import java.io.IOException;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
-public class RMIServer implements RMIServerInterface {
+public class RMIServer extends UnicastRemoteObject implements RMIServerInterface {
     private RMIClientInterface client;
     private ServerController serverController;
     private ConnectionTimer connectionTimer;
     private String clientName;
 
     public RMIServer(RMIClientInterface client, ServerController serverController) throws RemoteException {
-        //super(Config.RMI_FREE_PORT);
+        super(Config.RMI_FREE_PORT);
         this.serverController = serverController;
         this.client = client;
     }
 
     @Override
     public void login(String username, TokenColor color, ConnectionTimer connectionTimer){
+        Printer.println("Prova2");
         this.connectionTimer = connectionTimer;
         connectionTimer.setServer(this);
         serverController.login(username, color, this);

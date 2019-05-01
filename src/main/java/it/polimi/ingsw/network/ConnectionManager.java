@@ -69,8 +69,8 @@ public class ConnectionManager implements ConnectionInterface, Runnable {
 
     @Override
     public RMIServerInterface enrol(RMIClientInterface client) throws RemoteException {
-        return (RMIServerInterface) UnicastRemoteObject.exportObject(new RMIServer(client, serverController), Config.RMI_FREE_PORT);
-        //return new RMIServer(client, serverController);
+        //return (RMIServerInterface) UnicastRemoteObject.exportObject(new RMIServer(client, serverController), Config.RMI_FREE_PORT);
+        return new RMIServer(client, serverController);
     }
 
     @Override

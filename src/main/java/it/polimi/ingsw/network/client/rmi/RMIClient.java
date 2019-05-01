@@ -23,7 +23,7 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 
-public class RMIClient implements RMIClientInterface {
+public class RMIClient extends UnicastRemoteObject implements RMIClientInterface {
     private RMIServerInterface server;
     private ConnectionTimer connectionTimer;
     private PlayerController playerController;
@@ -31,7 +31,7 @@ public class RMIClient implements RMIClientInterface {
     private String username;
 
     public RMIClient() throws IOException, NotBoundException {
-        //super(Config.RMI_FREE_PORT);
+        super(Config.RMI_FREE_PORT);
         playerController = new PlayerController(this);
         BufferedReader userInputStream = new BufferedReader(new InputStreamReader(System.in));
         Printer.print("[CLIENT]Please, set an ip address:");
@@ -46,7 +46,8 @@ public class RMIClient implements RMIClientInterface {
         Registry registry = LocateRegistry.getRegistry(host, Config.RMI_PORT);
         ConnectionInterface connection = (ConnectionInterface) registry.lookup("server");
         connection.print();
-        server = connection.enrol((RMIClientInterface) UnicastRemoteObject.exportObject(this, Config.RMI_FREE_PORT));
+        server = connection.enrol(this);
+        //server = connection.enrol((RMIClientInterface) UnicastRemoteObject.exportObject(this, Config.RMI_FREE_PORT));
     }
     @Override
     public void start() {
