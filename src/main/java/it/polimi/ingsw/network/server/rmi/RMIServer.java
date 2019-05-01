@@ -14,14 +14,14 @@ import java.io.IOException;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
-public class RMIServer extends UnicastRemoteObject implements RMIServerInterface {
+public class RMIServer implements RMIServerInterface {
     private RMIClientInterface client;
     private ServerController serverController;
     private ConnectionTimer connectionTimer;
     private String clientName;
 
     public RMIServer(RMIClientInterface client, ServerController serverController) throws RemoteException {
-        super(Config.RMI_FREE_PORT);
+        //super(Config.RMI_FREE_PORT);
         this.serverController = serverController;
         this.client = client;
     }

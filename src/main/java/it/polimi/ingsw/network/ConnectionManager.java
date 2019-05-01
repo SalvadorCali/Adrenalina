@@ -20,14 +20,14 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class ConnectionManager extends UnicastRemoteObject implements ConnectionInterface, Runnable {
+public class ConnectionManager implements ConnectionInterface, Runnable {
     private ServerSocket serverSocket;
     private Thread thisThread;
     private final ExecutorService pool;
     private ServerController serverController;
 
     public ConnectionManager(ServerController serverController) throws IOException {
-        super(Config.RMI_FREE_PORT);
+        //super(Config.RMI_FREE_PORT);
         this.serverController = serverController;
 
         //socket
@@ -42,7 +42,7 @@ public class ConnectionManager extends UnicastRemoteObject implements Connection
 
         //rmi new
         Registry registry = LocateRegistry.createRegistry(Config.RMI_PORT);
-        //ConnectionInterface server = (ConnectionInterface) UnicastRemoteObject.exportObject(this, Config.RMI_PORT);
+        ConnectionInterface server = (ConnectionInterface) UnicastRemoteObject.exportObject(this, Config.RMI_PORT);
         try {
             registry.bind("server", this);
         } catch (AlreadyBoundException e) {
@@ -69,8 +69,8 @@ public class ConnectionManager extends UnicastRemoteObject implements Connection
 
     @Override
     public RMIServerInterface enrol(RMIClientInterface client) throws RemoteException {
-        //return (RMIServerInterface) UnicastRemoteObject.exportObject(new RMIServer(client, serverController), Config.RMI_FREE_PORT);
-        return new RMIServer(client, serverController);
+        return (RMIServerInterface) UnicastRemoteObject.exportObject(new RMIServer(client, serverController), Config.RMI_FREE_PORT);
+        //return new RMIServer(client, serverController);
     }
 
     @Override

@@ -19,7 +19,7 @@ public class Server {
         addresses.forEach(a -> Printer.println("    " + a));
         if(!addresses.isEmpty()){
             //Printer.println(addresses.get(0).toString().substring(1));
-            System.setProperty("java.rmi.server.hostname", addresses.get(0).toString());
+            System.setProperty("java.rmi.server.hostname", addresses.get(0).toString().substring(1));
         }
         try {
             ConnectionManager connection = new ConnectionManager(new ServerController());
