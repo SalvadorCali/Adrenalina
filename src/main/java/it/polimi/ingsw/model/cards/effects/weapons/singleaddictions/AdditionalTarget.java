@@ -11,7 +11,7 @@ public class AdditionalTarget extends SingleAddictionEffect {
 
     private int markPower;
 
-    private Player victim, additionalVictim;
+    private Player victim, additionalVictim, player;
 
     private int redAmmos, blueAmmos, yellowAmmos;
 

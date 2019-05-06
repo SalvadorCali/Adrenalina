@@ -67,5 +67,7 @@ public class SquareDamageEffect extends BasicEffect {
         actionInterface.updateAmmoBox(redAmmos, blueAmmos, yellowAmmos);
     }
 
-
+    public Player getVictim(){
+        return victim;
+    }
 }

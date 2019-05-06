@@ -48,6 +48,4 @@ public interface ActionInterface {
     WeaponCard getWeapon();
 
     Player getCurrentPlayer();
-
-    boolean squareControl(int x, int y, Player player);
 }

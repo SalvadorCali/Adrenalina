@@ -35,13 +35,13 @@ public class AdditionalMove extends SingleAddictionEffect {
                     if(effectName.equals("Plasma Gun") || effectName.equals("Rocket Launcher"))
                         movementControl(actionInterface);
                     else
-                        oneMovementControl(actionInterface);
+                        oneMovementControl(actionInterface, player);
                 }
             }else{
                 if(effectName.equals("Plasma Gun") || effectName.equals("Rocket Launcher"))
                     movementControl(actionInterface);
                 else
-                    oneMovementControl(actionInterface);
+                    oneMovementControl(actionInterface, player);
                 if(canUse){
                     //actionInterface.updateFakePlayerPosition(player);
                     canUse = actionInterface.ammoControl(redAmmos, blueAmmos, yellowAmmos) && super.effect.canUseEffect(actionInterface);
@@ -54,11 +54,6 @@ public class AdditionalMove extends SingleAddictionEffect {
     @Override
     public void useEffect(ActionInterface actionInterface) {
 
-        if(effectName.equals("Plasma Gun")) {
-            super.effect.useEffect(actionInterface);
-            actionInterface.move(player.getPosition().getX(), player.getPosition().getY(), actionInterface.getCurrentPlayer());
-        }
-        actionInterface.updateAmmoBox(redAmmos, blueAmmos, yellowAmmos);
     }
 
     private void movementControl(ActionInterface actionInterface) {
@@ -72,7 +67,7 @@ public class AdditionalMove extends SingleAddictionEffect {
 
     }
 
-    private void oneMovementControl(ActionInterface actionInterface){
+    private void oneMovementControl(ActionInterface actionInterface, Player player){
 
         if(firstMove != null && secondMove == null)
             canUse = actionInterface.canMove(player.getColor(),firstMove);

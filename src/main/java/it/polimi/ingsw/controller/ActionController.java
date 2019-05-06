@@ -124,12 +124,6 @@ public class ActionController implements ActionInterface {
         return game.getCurrentPlayer();
     }
 
-    @Override
-    public boolean squareControl(int x, int y, Player player) {
-
-        return game.getBoard().getArena()[x][y].getPlayers().contains(player);
-    }
-
 
 }
 
