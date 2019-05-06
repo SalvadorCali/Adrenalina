@@ -31,15 +31,15 @@ public class DamageBoardCLI {
     public DamageBoardCLI(GameController gameController){
 
         damageBoard = gameController.getGame().getKillshotTrack();
-        currentPlayer = gameController.getGame().getCurrentPlayer().toString();
+        //currentPlayer = gameController.getGame().getCurrentPlayer().toString();
     }
 
 
-    public void main(String[] args) {
+    public void printDamageBoard() {
 
         Integer damage[] = new Integer[MAX_DAMAGE];
         String namePlayer;
-        String colorDamage[] = new String[MAX_DAMAGE];
+        String colorDamage[] = new String[300];
         String[] mark = new String[MAX_MARK];
         String colorMark[] = new String[MAX_MARK];
 
@@ -62,8 +62,8 @@ public class DamageBoardCLI {
         //color and assign damage
         for(int i = 0; i < damage.length; i++){
 
-            colorDamage[i] = damageBoard.get(i).getFirstColor().toString();
-            damage[i]= 1;
+//            colorDamage[i] = damageBoard.get(i).getFirstColor().toString();
+            damage[i]= 0;
 
             if(colorDamage[i] == null){
 
@@ -72,26 +72,26 @@ public class DamageBoardCLI {
             }
         }
 
-        //for(int i = 0; i< mark.length; i++){
+        for(int i = 0; i< mark.length; i++){
 
-            //colorMark[i] ;
-          //  mark[i] = MARK;
-        //}
+            //colorMark[i];
+            mark[i] = MARK;
+        }
 
         //give name current player
         namePlayer = currentPlayer;
 
-        Printer.print("DamageBoard:" + namePlayer);
-        Printer.print(" _ _ _ _ _ _ _ _ _ _ _ _ _ _ _" + RESET);
-        Printer.print("|" + colorDamage[0] + damage[0] + SPACE + colorDamage[1] + damage[1] + SPACE + "|" + SPACE + colorDamage[2] + damage[2] + SPACE + colorDamage[3] + damage[3] + SPACE + colorDamage[4] + damage[4] + SPACE + "|" + SPACE + colorDamage[5] + damage[5] + SPACE + colorDamage[6] + damage[6] + SPACE + colorDamage[7] + damage[7] + SPACE + colorDamage[8] + damage[8] + SPACE + colorDamage[9] + damage[9] + SPACE + "|" + SPACE + colorDamage[10] + damage[10] + SPACE + colorDamage[11] + damage[11] + GREY + "|" + RESET);
-        Printer.print(" ¯ ¯ ¯ ¯ ¯ ¯ ¯ ¯ ¯ ¯ ¯ ¯ ¯ ¯ ¯" + RESET);
+        Printer.print("DamageBoard: " + namePlayer + "\n");
+        Printer.print(" _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\n" + RESET);
+        Printer.print("|" + colorDamage[0] + damage[0] + SPACE + colorDamage[1] + damage[1] + SPACE + GREY + "|" + SPACE + colorDamage[2] + damage[2] + SPACE + colorDamage[3] + damage[3] + SPACE + colorDamage[4] + damage[4] + SPACE + GREY + "|" + SPACE + colorDamage[5] + damage[5] + SPACE + colorDamage[6] + damage[6] + SPACE + colorDamage[7] + damage[7] + SPACE + colorDamage[8] + damage[8] + SPACE + colorDamage[9] + damage[9] + SPACE + GREY + "|" + SPACE + colorDamage[10] + damage[10] + SPACE + colorDamage[11] + damage[11] + GREY + "|\n" + RESET);
+        Printer.print(" ¯ ¯ ¯ ¯ ¯ ¯ ¯ ¯ ¯ ¯ ¯ ¯ ¯ ¯ ¯\n" + RESET);
 
 
-        Printer.print("Marks: ");
+        Printer.print("Marks:\n");
 
-        Printer.print(" _ _ _ _" + RESET);
-        Printer.print("|" + " " + mark[0] + " " + mark[1] + " " + mark[2] + " " + "|" + RESET);
-        Printer.print(" ¯ ¯ ¯ ¯" + RESET);
+        Printer.print(" _ _ _ _\n" + RESET);
+        Printer.print("|" + " " + mark[0] + " " + mark[1] + " " + mark[2] + " " + "|\n" + RESET);
+        Printer.print(" ¯ ¯ ¯ ¯\n" + RESET);
 
     }
 }

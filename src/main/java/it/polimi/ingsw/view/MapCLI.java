@@ -63,7 +63,7 @@ public class MapCLI {
         String []wallWest = new String[NUM_SQUARES];
         String spaceSpawnPoint[] = new String[NUM_SQUARES];
         String space = SPACE;
-        String[] spaceAmmoPoint = new String[100];
+        String[] spaceAmmoPoint = new String[20];
 
 
         //first square
