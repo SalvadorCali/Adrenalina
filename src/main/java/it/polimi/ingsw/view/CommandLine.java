@@ -1,5 +1,6 @@
 package it.polimi.ingsw.view;
 
+import it.polimi.ingsw.controller.GameController;
 import it.polimi.ingsw.controller.PlayerController;
 import it.polimi.ingsw.model.enums.AdrenalineZone;
 import it.polimi.ingsw.model.enums.Direction;
@@ -22,7 +23,8 @@ public class CommandLine implements ViewInterface {
     private ClientInterface client;
     private PlayerController playerController;
     private BufferedReader userInputStream;
-    private MapCLI mapCLI;
+    private GameController game = new GameController();
+    private MapCLI mapCLI = new MapCLI(game);
 
     public CommandLine(ClientInterface client){
         this.client = client;
@@ -144,6 +146,7 @@ public class CommandLine implements ViewInterface {
                     Printer.println(playerController.getWeapons());
                     break;
                 case "map":
+                    Printer.println("The Game's Board:");
                     mapCLI.printMap();
                     break;
                 default:

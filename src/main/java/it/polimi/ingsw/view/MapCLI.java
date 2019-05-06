@@ -2,6 +2,7 @@ package it.polimi.ingsw.view;
 
 
 import it.polimi.ingsw.controller.GameController;
+import it.polimi.ingsw.model.enums.BoardType;
 import it.polimi.ingsw.model.enums.Cardinal;
 import it.polimi.ingsw.model.enums.TokenColor;
 import it.polimi.ingsw.model.gamecomponents.Game;
@@ -32,8 +33,9 @@ public class MapCLI {
     private static final int NUM_SQUARES=12;
     private static final int MAX_NUM_PLAYER=5;
 
+    private Square[][] arena = new Square[ROWS][COLUMNS];
     private GameBoard gameBoard;
-    private Square[][] arena;
+
 
 
     public MapCLI(GameController gameController){
@@ -53,15 +55,15 @@ public class MapCLI {
         //walls and door
         String door = SPACE;
         String wallVertical = "|";
-        String wallStandardSouth = "_";
-        String wallStandardNorth= "¯";
+        String wallStandardSouth = "¯";
+        String wallStandardNorth= "_";
         String []wallNorth = new String[NUM_SQUARES];
         String []wallSouth = new String[NUM_SQUARES];
         String []wallEast = new String[NUM_SQUARES];
         String []wallWest = new String[NUM_SQUARES];
         String spaceSpawnPoint[] = new String[NUM_SQUARES];
         String space = SPACE;
-        String[] spaceAmmoPoint = new String[MAX_NUM_PLAYER];
+        String[] spaceAmmoPoint = new String[100];
 
 
         //first square
@@ -141,10 +143,36 @@ public class MapCLI {
        for (int i = 0; i < ROWS; i++){
            for (int j = 0; j < COLUMNS; j++){
 
-               colorSquare[i][j] = String.valueOf(arena[i][j].getColor());
-
                if(arena[i][j].getColor().equals(TokenColor.NONE)){
                    colorSquare[i][j] = BLACK;
+               }
+
+               if(arena[i][j].getColor().equals(TokenColor.BLUE)){
+                   colorSquare[i][j] = BLUE;
+               }
+
+               if(arena[i][j].getColor().equals(TokenColor.RED)){
+                   colorSquare[i][j] = RED;
+               }
+
+               if(arena[i][j].getColor().equals(TokenColor.GREY)){
+                   colorSquare[i][j] = GREY;
+               }
+
+               if(arena[i][j].getColor().equals(TokenColor.GREEN)){
+                   colorSquare[i][j] = GREEN;
+               }
+
+               if(arena[i][j].getColor().equals(TokenColor.PURPLE)){
+                   colorSquare[i][j] = PURPLE;
+               }
+
+               if(arena[i][j].getColor().equals(TokenColor.YELLOW)){
+                   colorSquare[i][j] = YELLOW;
+               }
+
+               if(arena[i][j].getColor().equals(TokenColor.SKULL)){
+                   colorSquare[i][j] = GREY;
                }
            }
        }
@@ -169,7 +197,7 @@ public class MapCLI {
                if(arena[i][j].getSouth().equals(Cardinal.DOOR)){
                    wallSouth[k] = door;
                }
-
+               
                if(arena[i][j].isSpawn()){
 
                    spaceSpawnPoint[k] = spawnPoint;
@@ -179,6 +207,7 @@ public class MapCLI {
 
                if(!arena[i][j].isSpawn()) {
 
+                   spaceSpawnPoint[k] = SPACE;
                    spaceAmmoPoint[k] = ammo;
                }
 
@@ -320,7 +349,7 @@ public class MapCLI {
 
         //first row
         Printer.print(colorSquare[0][0] + " _ " + wallNorth[0] + SPACE  + wallNorth[0] + " _" + SPACE + colorSquare[0][1] + "  _ " + wallNorth[1] + SPACE  + wallNorth[1] + " _" + SPACE + colorSquare[0][2] + "  _ " + wallNorth[2] + SPACE + wallNorth[2] + " _"   + SPACE + colorSquare[0][3] + "  _ " + wallNorth[3] + SPACE  + wallNorth[3] + " _\n"  + RESET);
-        Printer.print(colorSquare[0][0] + "|" + spacePlayer1[0] + SPACE + spacePlayer1[1] + SPACE + spacePlayer1[2] + SPACE + spacePlayer1[3] + colorSquare[0][0] + "|" + SPACE + colorSquare[0][1] + "|" + spacePlayer2[0] + SPACE + spacePlayer2[1] + SPACE + spacePlayer2[2] + SPACE + spacePlayer2[3] + colorSquare[0][1] + "|"+ SPACE + colorSquare[0][2] + "|" + spacePlayer3[0] + SPACE + spacePlayer3[1] + SPACE + spacePlayer3[2] + SPACE + spacePlayer3[3] + SPACE + colorSquare[0][2] + "|"+ SPACE  + colorSquare[0][3] + "|" + spacePlayer4[0] + SPACE + spacePlayer4[1] + SPACE + spacePlayer4[2] + SPACE + spacePlayer4[3] + colorSquare[0][3] + "|\n" + RESET);
+        Printer.print(colorSquare[0][0] + "|" + spacePlayer1[0] + SPACE + spacePlayer1[1] + SPACE + spacePlayer1[2] + SPACE + spacePlayer1[3] + colorSquare[0][0] + "|" + SPACE + colorSquare[0][1] + "|" + spacePlayer2[0] + SPACE + spacePlayer2[1] + SPACE + spacePlayer2[2] + SPACE + spacePlayer2[3] + colorSquare[0][1] + "|"+ SPACE + colorSquare[0][2] + "|" + spacePlayer3[0] + SPACE + spacePlayer3[1] + SPACE + spacePlayer3[2] + SPACE + spacePlayer3[3] + colorSquare[0][2] + "|"+ SPACE  + colorSquare[0][3] + "|" + spacePlayer4[0] + SPACE + spacePlayer4[1] + SPACE + spacePlayer4[2] + SPACE + spacePlayer4[3] + colorSquare[0][3] + "|\n" + RESET);
         Printer.print(colorSquare[0][0] + wallWest[0] + spacePlayer1[4] + SPACE + space + SPACE + space + SPACE + space + colorSquare[0][0] + wallEast[0] + SPACE + colorSquare[0][1] + wallWest[1] + spacePlayer2[4] + SPACE + space + SPACE + space + SPACE + space + colorSquare[0][1] + wallEast[1] + SPACE + colorSquare[0][2] + wallWest[2] + spacePlayer3[4] + SPACE + space + SPACE + space + SPACE + space + colorSquare[0][2] + wallEast[2] + SPACE  + colorSquare[0][3] + wallWest[3] + spacePlayer4[4] + SPACE + space + SPACE + space + SPACE + space + colorSquare[0][3] + wallEast[3] + "\n" + RESET);
         Printer.print(colorSquare[0][0] + "|" + CYAN + space + SPACE + space + SPACE + spaceAmmoPoint[0] + SPACE + spaceSpawnPoint[0] + colorSquare[0][0] + "|" + SPACE + colorSquare[0][1] + "|" + CYAN +space + SPACE + space + SPACE + spaceAmmoPoint[1] + SPACE + spaceSpawnPoint[1] + colorSquare[0][1] + "|" + SPACE + colorSquare[0][2] + "|" + CYAN +space + SPACE + space + SPACE + spaceAmmoPoint[2] + SPACE + spaceSpawnPoint[2] + colorSquare[0][2] + "|"+ SPACE  + colorSquare[0][3] + "|" + CYAN +space + SPACE + space + SPACE + spaceAmmoPoint[3] + SPACE + spaceSpawnPoint[3] + colorSquare[0][3] + "|\n" + RESET);
         Printer.print(colorSquare[0][0] + " ¯ " + wallSouth[0] + SPACE  + wallSouth[0] + " ¯" + SPACE + colorSquare[0][1] + "  ¯ " + wallSouth[1] + SPACE + wallSouth[1] + " ¯" + SPACE + colorSquare[0][2] + "  ¯ " + wallSouth[2] + SPACE + wallSouth[2] + " ¯" + SPACE + colorSquare[0][3] + "  ¯ " + wallSouth[3] + SPACE  + wallSouth[3] + " ¯\n" + RESET);
@@ -334,11 +363,10 @@ public class MapCLI {
 
         //third row
         Printer.print(colorSquare[2][0] + " _ " + wallNorth[8] + SPACE  + wallNorth[8] + " _" + SPACE + colorSquare[2][1] + "  _ " + wallNorth[9] + SPACE + wallNorth[9] + " _" + SPACE + colorSquare[2][2] + "  _ " + wallNorth[10] + SPACE + wallNorth[10] + " _"   + SPACE + colorSquare[2][3] + "  _ " + wallNorth[11] + SPACE  + wallNorth[11] + " _\n"  + RESET);
-        Printer.print(colorSquare[2][0] + "|" + spacePlayer9[0] + SPACE + spacePlayer9[1] + SPACE + spacePlayer9[2] + SPACE + spacePlayer9[3] + colorSquare[2][0] + "|" + SPACE + colorSquare[2][1] + "|" + spacePlayer10[0] + SPACE + spacePlayer10[1] + SPACE + spacePlayer10[2] + SPACE + spacePlayer10[3] + colorSquare[2][1] + "|"+ SPACE + colorSquare[2][2] + "|" + spacePlayer11[0] + SPACE + spacePlayer11[1] + SPACE + spacePlayer11[2] + SPACE + spacePlayer11[3] + SPACE + colorSquare[2][2] + "|"+ SPACE  + colorSquare[2][3] + "|" + spacePlayer12[0] + SPACE + spacePlayer12[1] + SPACE + spacePlayer12[2] + SPACE + spacePlayer12[3] + colorSquare[2][3] + "|\n" + RESET);
+        Printer.print(colorSquare[2][0] + "|" + spacePlayer9[0] + SPACE + spacePlayer9[1] + SPACE + spacePlayer9[2] + SPACE + spacePlayer9[3] + colorSquare[2][0] + "|" + SPACE + colorSquare[2][1] + "|" + spacePlayer10[0] + SPACE + spacePlayer10[1] + SPACE + spacePlayer10[2] + SPACE + spacePlayer10[3] + colorSquare[2][1] + "|"+ SPACE + colorSquare[2][2] + "|" + spacePlayer11[0] + SPACE + spacePlayer11[1] + SPACE + spacePlayer11[2] + SPACE + spacePlayer11[3] + colorSquare[2][2] + "|"+ SPACE  + colorSquare[2][3] + "|" + spacePlayer12[0] + SPACE + spacePlayer12[1] + SPACE + spacePlayer12[2] + SPACE + spacePlayer12[3] + colorSquare[2][3] + "|\n" + RESET);
         Printer.print(colorSquare[2][0] + wallWest[8] + spacePlayer9[4] + SPACE + space + SPACE + space + SPACE + space + colorSquare[2][0] + wallEast[8] + SPACE + colorSquare[2][1] + wallWest[9] + spacePlayer10[4] + SPACE + space + SPACE + space + SPACE + space + colorSquare[2][1] + wallEast[9] + SPACE + colorSquare[2][2] + wallWest[10] + spacePlayer11[4] + SPACE + space + SPACE + space + SPACE + space + colorSquare[2][2] + wallEast[10] + SPACE  + colorSquare[2][3] + wallWest[11] + spacePlayer12[4] + SPACE + space + SPACE + space + SPACE + space + colorSquare[2][3] + wallEast[11] + "\n" + RESET);
         Printer.print(colorSquare[2][0] + "|" + CYAN + space + SPACE + space + SPACE + spaceAmmoPoint[8] + SPACE + spaceSpawnPoint[8] + colorSquare[2][0] + "|" + SPACE + colorSquare[2][1] + "|" + CYAN +space + SPACE + space + SPACE + spaceAmmoPoint[9] + SPACE + spaceSpawnPoint[9] + colorSquare[2][1] + "|" + SPACE + colorSquare[2][2] + "|" + CYAN +space + SPACE + space + SPACE + spaceAmmoPoint[10] + SPACE + spaceSpawnPoint[10] + colorSquare[2][2] + "|"+ SPACE  + colorSquare[2][3] + "|" + CYAN +space + SPACE + space + SPACE + spaceAmmoPoint[11] + SPACE + spaceSpawnPoint[11] + colorSquare[2][3] + "|\n" + RESET);
         Printer.print(colorSquare[2][0] + " ¯ " + wallSouth[8] + SPACE  + wallSouth[8] + " ¯" + SPACE + colorSquare[2][1] + "  ¯ " + wallSouth[9] + SPACE  + wallSouth[9] + " ¯" + SPACE + colorSquare[2][2] + "  ¯ " + wallSouth[10] + " " + wallSouth[10] + " ¯" + SPACE + colorSquare[2][3] + "  ¯ " + wallSouth[11] + SPACE  + wallSouth[11] + " ¯\n" + RESET);
 
     }
-
 }
