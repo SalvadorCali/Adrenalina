@@ -132,7 +132,6 @@ public class CommandLine implements ViewInterface {
                     Printer.println("Your score is: " + playerController.getScore());
                     break;
                 case "playerboard":
-                    Printer.println("Your damageBoard is:");
                     dmgBoard.printDamageBoard();
                     break;
                 case "ammos":
