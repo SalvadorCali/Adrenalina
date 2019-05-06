@@ -13,7 +13,7 @@ public class DamageMarkEffect extends BasicEffect {
 
     private int redAmmos, blueAmmos, yellowAmmos;
 
-    private Player victim;
+    private Player victim, secondVictim;
 
     private boolean canUse;
 
@@ -32,6 +32,7 @@ public class DamageMarkEffect extends BasicEffect {
     public boolean canUseEffect(ActionInterface actionInterface) {
 
         //victim = actionInterface.getVictim();
+        //secondVictim = actionInterface.getSecondVictim();
 
         canUse = ammoControl(redAmmos, blueAmmos, yellowAmmos, actionInterface);
 
@@ -39,12 +40,14 @@ public class DamageMarkEffect extends BasicEffect {
 
             if (effectName.equals("Cyberblade") || effectName.equals("Sledgehammer"))
                 canUse = actionInterface.sameSquare(victim.getColor());
-            else if (effectName.equals("Lock Rifle") || effectName.equals("T.H.O.R") || effectName.equals("Plasma Gun") || effectName.equals("ZX-2") || effectName.equals("Whisper")) {
-                canUse = actionInterface.isVisible(victim.getColor());
+            else if (effectName.equals("Lock Rifle") || effectName.equals("T.H.O.R") || effectName.equals("Plasma Gun") || effectName.equals("ZX-2") || effectName.equals("Whisper") || effectName.equals("Machine Gun")) {
+                canUse = actionInterface.isVisible(actionInterface.getCurrentPlayer().getColor(),victim.getColor()); //getPlayerInClientInfo
                 if (canUse && effectName.equals("Whisper") && actionInterface.distanceControl(victim.getPosition().getX(), victim.getPosition().getY()) >= 2)
                     canUse = true;
+                else if(canUse && effectName.equals("Machine Gun") && secondVictim!= null)
+                    canUse = actionInterface.isVisible(secondVictim.getColor());
             }else
-                canUse = !actionInterface.isVisible(victim.getColor());
+                canUse = !actionInterface.isVisible(victim.getColor()); //Heatseeker
         }
         return canUse;
     }
@@ -54,6 +57,8 @@ public class DamageMarkEffect extends BasicEffect {
 
         actionInterface.playerDamage(victim.getColor(), damagePower);
         actionInterface.playerMark(victim.getColor(), markPower);
+        if(effectName.equals("Machine Gun"))
+            actionInterface.playerDamage(secondVictim.getColor(), damagePower);
         actionInterface.updateAmmoBox(redAmmos, blueAmmos, yellowAmmos);
 
     }
