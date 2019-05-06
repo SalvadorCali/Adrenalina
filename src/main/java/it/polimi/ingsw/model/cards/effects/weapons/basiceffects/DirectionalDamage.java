@@ -1,7 +1,9 @@
 package it.polimi.ingsw.model.cards.effects.weapons.basiceffects;
 
 import it.polimi.ingsw.model.cards.effects.ActionInterface;
+import it.polimi.ingsw.model.enums.Color;
 import it.polimi.ingsw.model.enums.Direction;
+import it.polimi.ingsw.model.enums.TokenColor;
 import it.polimi.ingsw.model.gamecomponents.Player;
 import it.polimi.ingsw.model.gamecomponents.Position;
 
@@ -22,6 +24,17 @@ public class DirectionalDamage extends BasicEffect {
     private int redAmmos, blueAmmos, yellowAmmos;
 
     private boolean canUse;
+
+    public DirectionalDamage(String effectName, int damagePower, int redAmmos, int blueAmmos, int yellowAmmos){
+
+        this.effectName = effectName;
+        player = new Player(TokenColor.NONE);
+        this.damagePower = damagePower;
+        this.redAmmos = redAmmos;
+        this.blueAmmos = blueAmmos;
+        this.yellowAmmos = yellowAmmos;
+        canUse = true;
+    }
 
     @Override
     public boolean canUseEffect(ActionInterface actionInterface) {
