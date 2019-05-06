@@ -197,6 +197,18 @@ public class MapCLI {
                if(arena[i][j].getSouth().equals(Cardinal.DOOR)){
                    wallSouth[k] = door;
                }
+
+               if(arena[i][j].getEast().equals(Cardinal.ROOM))
+                   wallEast[k] = door;
+
+               if(arena[i][j].getWest().equals(Cardinal.ROOM))
+                   wallWest[k] = door;
+
+               if(arena[i][j].getSouth().equals(Cardinal.ROOM))
+                   wallSouth[k] = door;
+
+               if(arena[i][j].getNorth().equals(Cardinal.ROOM))
+                   wallNorth[k] = door;
                
                if(arena[i][j].isSpawn()){
 
@@ -359,6 +371,7 @@ public class MapCLI {
         Printer.print(colorSquare[1][0] + "|" + spacePlayer5[0] + SPACE + spacePlayer5[1] + SPACE + spacePlayer5[2] + SPACE + spacePlayer5[3] + colorSquare[1][0] + "|" + SPACE + colorSquare[1][1] + "|" + spacePlayer6[0] + SPACE + spacePlayer6[1] + SPACE + spacePlayer6[2] + SPACE + spacePlayer6[3] + colorSquare[1][1] +"|"+ SPACE + colorSquare[1][2] + "|" + spacePlayer7[0] + SPACE + spacePlayer7[1] + SPACE + spacePlayer7[2] + SPACE + spacePlayer7[3] + colorSquare[1][2] +"|"+ SPACE  + colorSquare[1][3] + "|" + spacePlayer8[0] + SPACE + spacePlayer8[1] + SPACE + spacePlayer8[2] + SPACE + spacePlayer8[3] + colorSquare[1][3] + "|\n" + RESET);
         Printer.print(colorSquare[1][0] + wallWest[4] + spacePlayer5[4] + SPACE + space + SPACE + space + SPACE + space + colorSquare[1][0] + wallEast[4] + SPACE + colorSquare[1][1] + wallWest[5] + spacePlayer6[4] + SPACE + space + SPACE + space + SPACE + space + colorSquare[1][1] + wallEast[5] + SPACE + colorSquare[1][2] + wallWest[6] + spacePlayer7[4] + SPACE + space + SPACE + space + SPACE + space + colorSquare[1][2] + wallEast[6] + SPACE  + colorSquare[1][3] + wallWest[7] + spacePlayer8[4] + SPACE + space + SPACE + space + SPACE + space + colorSquare[1][3] +  wallEast[7] + "\n" + RESET);
         Printer.print(colorSquare[1][0] + "|" + CYAN + space + SPACE + space + SPACE + spaceAmmoPoint[4] + SPACE + spaceSpawnPoint[4] + colorSquare[1][0] + "|" + SPACE + colorSquare[1][1] + "|" + CYAN +space + SPACE + space + SPACE + spaceAmmoPoint[5] + SPACE + spaceSpawnPoint[5] + colorSquare[1][1] + "|" + SPACE + colorSquare[1][2] + "|" + CYAN +space + SPACE + space + SPACE + spaceAmmoPoint[6] + SPACE + spaceSpawnPoint[6] + colorSquare[1][3] + "|"+ SPACE  + colorSquare[1][3] + "|" + CYAN +space + SPACE + space + SPACE + spaceAmmoPoint[7] + SPACE + spaceSpawnPoint[7] + colorSquare[1][3] + "|\n" + RESET);
+        Printer.print(colorSquare[1][0] + "|" + CYAN + space + SPACE + space + SPACE + spaceAmmoPoint[4] + SPACE + spaceSpawnPoint[4] + colorSquare[1][0] + "|" + SPACE + colorSquare[1][1] + "|" + CYAN +space + SPACE + space + SPACE + spaceAmmoPoint[5] + SPACE + spaceSpawnPoint[5] + colorSquare[1][1] + "|" + SPACE + colorSquare[1][2] + "|" + CYAN +space + SPACE + space + SPACE + spaceAmmoPoint[6] + SPACE + spaceSpawnPoint[6] + colorSquare[1][2] + "|"+ SPACE  + colorSquare[1][3] + "|" + CYAN +space + SPACE + space + SPACE + spaceAmmoPoint[7] + SPACE + spaceSpawnPoint[7] + colorSquare[1][3] + "|\n" + RESET);
         Printer.print(colorSquare[1][0] + " ¯ " + wallSouth[4] + SPACE  + wallSouth[4] + " ¯" + SPACE + colorSquare[1][1] + "  ¯ " + wallSouth[5] + SPACE + wallSouth[5] + " ¯" + SPACE + colorSquare[1][2] + "  ¯ " + wallSouth[6] + SPACE + wallSouth[6] + " ¯" + SPACE + colorSquare[1][3] + "  ¯ " + wallSouth[7] + " " + wallSouth[7] + " ¯\n" + RESET);
 
         //third row
