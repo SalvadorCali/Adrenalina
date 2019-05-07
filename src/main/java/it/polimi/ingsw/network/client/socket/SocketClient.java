@@ -54,7 +54,16 @@ public class SocketClient implements ClientInterface, Runnable {
                 Message message = (Message) objectInputStream.readObject();
                 readRequest(message);
             } catch (IOException | ClassNotFoundException e) {
-                Printer.err(e);
+                try {
+                    objectInputStream.close();
+                    objectOutputStream.close();
+                    clientSocket.close();
+                    thisThread = null;
+                    Printer.println("Server disconnesso");
+                    //handle disconnection
+                } catch (IOException e1) {
+                    Printer.err(e1);
+                }
             }
         }
     }
@@ -177,6 +186,11 @@ public class SocketClient implements ClientInterface, Runnable {
                 outcome = (Outcome) objectInputStream.readObject();
                 object = objectInputStream.readObject();
                 playerController.setPlayer((Player) object);
+                break;
+            case DISCONNECT:
+                outcome = (Outcome) objectInputStream.readObject();
+                object = (String) objectInputStream.readObject();
+                view.notify(message, outcome, object);
                 break;
             default:
                 break;

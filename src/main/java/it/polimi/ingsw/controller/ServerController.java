@@ -136,6 +136,15 @@ public class ServerController {
             disconnectedUsers.put(username, users.get(username));
             users.get(username).setDisconnected(true);
             users.remove(username);
+            Printer.println(username + " disconnected!");
+            servers.remove(username);
+            servers.forEach((u,s) -> {
+                try {
+                    s.notify(Message.DISCONNECT, Outcome.ALL, username);
+                } catch (IOException e) {
+                    Printer.err(e);
+                }
+            });
         }
     }
 

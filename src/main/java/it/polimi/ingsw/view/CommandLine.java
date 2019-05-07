@@ -389,6 +389,16 @@ public class CommandLine implements ViewInterface {
         }
     }
 
+    public void notifyDisconnection(Outcome outcome, String username){
+        switch (outcome){
+            case ALL:
+                Printer.println(username + " disconnected!");
+                break;
+            default:
+                break;
+        }
+    }
+
     public void notifyColor(Outcome outcome, TokenColor color){
         switch(outcome){
             case WRONG:
@@ -456,6 +466,9 @@ public class CommandLine implements ViewInterface {
                 break;
             case COLOR:
                 notifyColor(outcome, (TokenColor) object);
+                break;
+            case DISCONNECT:
+                notifyDisconnection(outcome, (String) object);
                 break;
             default:
                 break;

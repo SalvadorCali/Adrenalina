@@ -20,9 +20,9 @@ public class Ammo {
 
     public String toString(){
         StringBuilder ammo = new StringBuilder();
-        ammo.append(" _ _ ");
+        ammo.append("\n\033[0;34m _ _ ");
         ammo.append("\n| " + Converter.fromColorToLetter(this.color) + " | ");
-        ammo.append("\n ¯ ¯ ");
+        ammo.append("\n ¯ ¯ \033[0m");
         return ammo.toString();
     }
 }

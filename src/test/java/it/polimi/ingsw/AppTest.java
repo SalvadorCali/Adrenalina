@@ -30,8 +30,9 @@ public class AppTest
     public void test(){
         Ammo ammo = new Ammo(Color.BLUE);
         Ammo ammo2 = new Ammo(Color.RED);
-        Printer.print(ammo);
-        Printer.print(ammo2);
+        StringBuilder s = new StringBuilder();
+        s.append(ammo).append(ammo2);
+        Printer.print(s);
     }
 
 }

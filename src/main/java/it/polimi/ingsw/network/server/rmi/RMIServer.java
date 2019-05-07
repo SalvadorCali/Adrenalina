@@ -60,9 +60,7 @@ public class RMIServer extends UnicastRemoteObject implements RMIServerInterface
 
     @Override
     public void notify(Message message) throws RemoteException {
-        Printer.println("prova5");
         client.notify(message);
-        Printer.println("prova6");
     }
 
     @Override

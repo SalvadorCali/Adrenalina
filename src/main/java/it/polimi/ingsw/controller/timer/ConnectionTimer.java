@@ -26,17 +26,18 @@ public class ConnectionTimer extends Thread implements Serializable {
             try {
                 client.testConnection();
             } catch (RemoteException e) {
-                Printer.err(e);
-            }
-            try {
-                sleep(Config.DISCONNECTION_TIME);
-            } catch (InterruptedException e) {
+                Printer.println("eskereee");
                 try {
                     server.disconnect();
                 } catch (RemoteException e1) {
                     Printer.err(e1);
                 }
                 loop = false;
+            }
+            try {
+                sleep(Config.DISCONNECTION_TIME);
+            } catch (InterruptedException e) {
+                Printer.err(e);
             }
         }
 

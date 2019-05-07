@@ -42,7 +42,16 @@ public class SocketServer implements Runnable, ServerInterface {
                 //int val = objectInputStream.readInt();
                 //handle the message
             } catch (IOException e) {
-                Printer.err(e);
+                try {
+                    objectInputStream.close();
+                    objectOutputStream.close();
+                    socket.close();
+                    thisThread = null;
+                    serverController.disconnect(clientName);
+                    //handle disconnection
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
             }
