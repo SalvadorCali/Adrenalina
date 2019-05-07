@@ -54,10 +54,8 @@ public class AdditionalMove extends SingleAddictionEffect {
     @Override
     public void useEffect(ActionInterface actionInterface) {
 
-        if(effectName.equals("Plasma Gun")) {
-            super.effect.useEffect(actionInterface);
-            actionInterface.move(player.getPosition().getX(), player.getPosition().getY(), actionInterface.getCurrentPlayer());
-        }
+        super.effect.useEffect(actionInterface);
+        actionInterface.move(player.getPosition().getX(), player.getPosition().getY(), actionInterface.getCurrentPlayer());
         actionInterface.updateAmmoBox(redAmmos, blueAmmos, yellowAmmos);
     }
 
