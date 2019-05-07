@@ -130,6 +130,17 @@ public class ActionController implements ActionInterface {
         return game.getBoard().getArena()[x][y].getPlayers().contains(player);
     }
 
+    @Override
+    public Player getVictim() {
+
+        return clientData.getVictim();
+    }
+
+    @Override
+    public Player getSecondVictim() {
+        return clientData.getSecondVictim();
+    }
+
 
 }
 

@@ -50,4 +50,8 @@ public interface ActionInterface {
     Player getCurrentPlayer();
 
     boolean squareControl(int x, int y, Player player);
+
+    Player getVictim();
+
+    Player getSecondVictim();
 }
