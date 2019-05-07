@@ -86,6 +86,7 @@ public class ServerController {
     private void addPlayer(String username, TokenColor color, ServerInterface server){
         servers.put(username, server);
         colors.put(color, username);
+        Printer.println(username + " connected!");
         servers.forEach((u, s) -> {
             try {
                 if(u.equals(username)){
