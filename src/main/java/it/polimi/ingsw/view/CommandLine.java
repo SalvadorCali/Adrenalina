@@ -247,7 +247,7 @@ public class CommandLine implements ViewInterface {
                         TokenColor secondVictim = Converter.fromStringToTokenColor(string.nextToken());
                         //
                     }else{
-                        //
+                        client.shoot(firstVictim);
                     }
                 }
                 break;

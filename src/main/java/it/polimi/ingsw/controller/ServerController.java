@@ -177,6 +177,10 @@ public class ServerController {
         gameController.grab(users.get(username), choice, directions);
     }
 
+    public void shoot(String username, TokenColor color){
+        gameController.shoot(users.get(username), users.get(colors.get(color)));
+    }
+
     public void endTurn(String username){
         for(int i = 0; i< players.size(); i++){
             if(players.get(i).getUsername().equals(username)){

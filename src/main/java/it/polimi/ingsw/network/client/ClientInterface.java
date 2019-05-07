@@ -13,6 +13,7 @@ public interface ClientInterface {
     void disconnect() throws RemoteException;
     void move(Direction...directions) throws IOException;
     void grab(int choice, Direction...directions) throws IOException;
+    void shoot(TokenColor color) throws IOException;
     void endTurn() throws IOException;
     AdrenalineZone getAdrenalineZone() throws RemoteException;
     void testConnection() throws RemoteException;

@@ -19,6 +19,14 @@ public class ActionController implements ActionInterface {
 
     private ClientData clientData;
 
+    public ClientData getClientData() {
+        return clientData;
+    }
+
+    public void setClientData(ClientData clientData) {
+        this.clientData = clientData;
+    }
+
     @Override
     public boolean ammoControl(int redAmmos, int blueAmmos, int yellowAmmos) {
         return game.getCurrentPlayer().ammoControl(redAmmos, blueAmmos, yellowAmmos);

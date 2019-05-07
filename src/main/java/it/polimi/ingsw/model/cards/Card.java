@@ -26,4 +26,10 @@ public abstract class Card {
     public void setColor(Color color) {
         this.color = color;
     }
+
+    public String toString(){
+        StringBuilder card = new StringBuilder();
+        card.append("Name: " + this.name).append("\nColor: " + this.color).append("\nEffect:");
+        return card.toString();
+    }
 }

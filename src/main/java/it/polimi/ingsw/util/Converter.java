@@ -102,4 +102,17 @@ public class Converter {
                 return Cardinal.NONE;
         }
     }
+
+    public static String fromColorToLetter(Color color){
+        switch (color){
+            case BLUE:
+                return "B";
+            case RED:
+                return "R";
+            case YELLOW:
+                return "Y";
+            default:
+                return "N";
+        }
+    }
 }

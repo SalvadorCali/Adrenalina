@@ -49,6 +49,11 @@ public class RMIServer extends UnicastRemoteObject implements RMIServerInterface
     }
 
     @Override
+    public void shoot(TokenColor color){
+        serverController.shoot(clientName, color);
+    }
+
+    @Override
     public void endTurn() throws RemoteException{
         serverController.endTurn(clientName);
     }

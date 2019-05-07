@@ -65,6 +65,9 @@ public class SocketServer implements Runnable, ServerInterface {
             case GRAB:
                 grab();
                 break;
+            case SHOOT:
+                shoot();
+                break;
             case END_TURN:
                 endTurn();
                 break;
@@ -135,6 +138,16 @@ public class SocketServer implements Runnable, ServerInterface {
                 second = (Direction) objectInputStream.readObject();
                 serverController.grab(clientName, choice, first, second);
             }
+        } catch (IOException | ClassNotFoundException e) {
+            Printer.err(e);
+        }
+    }
+
+    public void shoot(){
+        TokenColor color;
+        try {
+            color = (TokenColor) objectInputStream.readObject();
+            serverController.shoot(clientName, color);
         } catch (IOException | ClassNotFoundException e) {
             Printer.err(e);
         }

@@ -6,6 +6,7 @@ import it.polimi.ingsw.model.enums.AdrenalineZone;
 import it.polimi.ingsw.model.enums.Direction;
 import it.polimi.ingsw.model.enums.TokenColor;
 import it.polimi.ingsw.model.gamecomponents.Player;
+import it.polimi.ingsw.model.gamecomponents.Token;
 import it.polimi.ingsw.network.ConnectionInterface;
 import it.polimi.ingsw.network.enums.Message;
 import it.polimi.ingsw.network.server.rmi.RMIServerInterface;
@@ -83,6 +84,11 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
     @Override
     public void grab(int choice, Direction...directions) throws RemoteException {
         server.grab(choice);
+    }
+
+    @Override
+    public void shoot(TokenColor color) throws RemoteException {
+        server.shoot(color);
     }
 
     @Override

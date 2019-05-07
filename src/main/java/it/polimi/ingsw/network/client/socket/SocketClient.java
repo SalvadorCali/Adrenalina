@@ -132,6 +132,14 @@ public class SocketClient implements ClientInterface, Runnable {
     }
 
     @Override
+    public void shoot(TokenColor color) throws IOException {
+        objectOutputStream.writeObject(Message.SHOOT);
+        objectOutputStream.flush();
+        objectOutputStream.writeObject(color);
+        objectOutputStream.flush();
+    }
+
+    @Override
     public void endTurn() throws IOException {
         objectOutputStream.writeObject(Message.END_TURN);
         objectOutputStream.flush();

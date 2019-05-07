@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model.cards.effects;
 
+import it.polimi.ingsw.controller.ClientData;
 import it.polimi.ingsw.model.cards.AmmoCard;
 import it.polimi.ingsw.model.cards.WeaponCard;
 import it.polimi.ingsw.model.enums.Direction;
@@ -53,4 +54,6 @@ public interface ActionInterface {
     Player getVictim();
 
     Player getSecondVictim();
+
+    ClientData getClientData();
 }
