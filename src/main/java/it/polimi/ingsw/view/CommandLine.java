@@ -405,7 +405,8 @@ public class CommandLine implements ViewInterface {
 
     private void notifyNewTurn(){
         Printer.println("It's your turn!");
-        Printer.println("Print information for new turn:");
+        mapCLI.printMap();
+        //Printer.println("Print information for new turn:");
     }
 
     private void notifyEndTurn(){

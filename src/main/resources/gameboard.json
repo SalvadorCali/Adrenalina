@@ -32,8 +32,8 @@
             "color": "blue",
             "north": "none",
             "south": "door",
-            "east": "room",
-            "west": "none"
+            "east": "none",
+            "west": "room"
           },
           {
             "type": "inactive",
