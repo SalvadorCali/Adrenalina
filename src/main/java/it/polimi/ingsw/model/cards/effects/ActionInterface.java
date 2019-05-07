@@ -7,7 +7,6 @@ import it.polimi.ingsw.model.enums.TokenColor;
 import it.polimi.ingsw.model.gamecomponents.Ammo;
 import it.polimi.ingsw.model.gamecomponents.Player;
 
-import java.util.List;
 
 public interface ActionInterface {
 
