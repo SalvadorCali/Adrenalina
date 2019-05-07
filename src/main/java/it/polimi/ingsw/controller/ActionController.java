@@ -3,14 +3,12 @@ import it.polimi.ingsw.model.cards.AmmoCard;
 import it.polimi.ingsw.model.cards.PowerupCard;
 import it.polimi.ingsw.model.cards.WeaponCard;
 import it.polimi.ingsw.model.cards.effects.ActionInterface;
-import it.polimi.ingsw.model.enums.Color;
 import it.polimi.ingsw.model.enums.Direction;
 import it.polimi.ingsw.model.enums.TokenColor;
 import it.polimi.ingsw.model.gamecomponents.Ammo;
 import it.polimi.ingsw.model.gamecomponents.Game;
 import it.polimi.ingsw.model.gamecomponents.Player;
 
-import java.util.List;
 
 public class ActionController implements ActionInterface {
     public ActionController(Game game){
@@ -18,6 +16,8 @@ public class ActionController implements ActionInterface {
     }
 
     private Game game;
+
+    private ClientData clientData;
 
     @Override
     public boolean ammoControl(int redAmmos, int blueAmmos, int yellowAmmos) {
