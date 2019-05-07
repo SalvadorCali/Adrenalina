@@ -31,7 +31,7 @@ public class DamageBoardCLI {
     public DamageBoardCLI(GameController gameController){
 
         damageBoard = gameController.getGame().getKillshotTrack();
-        //currentPlayer = gameController.getGame().getCurrentPlayer().toString();
+        currentPlayer = String.valueOf(gameController.getGame().getCurrentPlayer());
     }
 
 
@@ -39,7 +39,7 @@ public class DamageBoardCLI {
 
         Integer damage[] = new Integer[MAX_DAMAGE];
         String namePlayer;
-        String colorDamage[] = new String[300];
+        String colorDamage[] = new String[MAX_DAMAGE];
         String[] mark = new String[MAX_MARK];
         String colorMark[] = new String[MAX_MARK];
 
@@ -62,8 +62,8 @@ public class DamageBoardCLI {
         //color and assign damage
         for(int i = 0; i < damage.length; i++){
 
-//            colorDamage[i] = damageBoard.get(i).getFirstColor().toString();
             damage[i]= 0;
+            //colorDamage[i] = damageBoard.get(i).getFirstColor().toString();
 
             if(colorDamage[i] == null){
 
