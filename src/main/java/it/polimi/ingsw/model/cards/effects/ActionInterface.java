@@ -27,7 +27,7 @@ public interface ActionInterface {
 
     void addWeapon(WeaponCard weaponCard);
 
-    boolean sameSquare(TokenColor color);
+    boolean sameSquare(Player shooter, Player victim);
 
     boolean isVisibleDifferentSquare(int x, int y);
 

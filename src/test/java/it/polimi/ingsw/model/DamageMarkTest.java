@@ -10,6 +10,8 @@ import it.polimi.ingsw.model.gamecomponents.Player;
 import it.polimi.ingsw.view.MapCLI;
 import org.junit.jupiter.api.Test;
 
+import java.util.Properties;
+
 import static junit.framework.TestCase.assertFalse;
 import static junit.framework.TestCase.assertTrue;
 
@@ -22,7 +24,7 @@ public class DamageMarkTest {
 
 
     @Test
-    public void lockRifleCanUseEffectTest() {
+    void lockRifleCanUseEffectTest() {
 
         playerSetup();
 
@@ -44,6 +46,24 @@ public class DamageMarkTest {
         gameController.getGame().getBoard().move(1,1,currentPlayer);
         assertFalse(lockRifle.canUseEffect(gameController.getActionInterface()));
     }
+
+  /*  @Test
+    void cyberbladeCanUseEffectTest(){
+
+        playerSetup();
+        Effect cyberblade = new DamageMarkEffect("Cyberblade",2,0,1,0,1);
+
+        for(int i = 0; i < 3; i++){
+            for(int j = 0; j < 4; j++){
+                gameController.getGame().getBoard().move(i, j, currentPlayer);
+                if(i == victim.getPosition().getX() && j == victim.getPosition().getY())
+                    assertTrue(cyberblade.canUseEffect(gameController.getActionInterface()));
+                else
+                    assertFalse(cyberblade.canUseEffect(gameController.getActionInterface()));
+            }
+        }
+    }
+    */
 
     void playerSetup(){
 

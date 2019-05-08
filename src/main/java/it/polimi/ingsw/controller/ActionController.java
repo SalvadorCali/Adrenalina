@@ -78,8 +78,8 @@ public class ActionController implements ActionInterface {
     }
 
     @Override
-    public boolean sameSquare(TokenColor color) {
-        return game.sameSquare(color);
+    public boolean sameSquare(Player shooter, Player victim) {
+        return game.sameSquare(shooter, victim);
     }
 
     @Override

@@ -258,7 +258,7 @@ public class Game {
         return getBoard().isVisible(getCurrentPlayer(), victim);
     }
 
-    public boolean sameSquare(TokenColor color){
-        return currentPlayer.getPosition().equals(findPlayer(color).getPosition());
+    public boolean sameSquare(Player shooter, Player victim){
+        return shooter.getPosition().equals(victim.getPosition());
     }
 }

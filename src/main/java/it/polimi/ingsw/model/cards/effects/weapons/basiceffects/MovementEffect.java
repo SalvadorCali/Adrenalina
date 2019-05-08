@@ -19,7 +19,7 @@ public class MovementEffect extends BasicEffect {
 
     private Direction firstMove, secondMove;
 
-    private Player victim;
+    private Player currentPlayer, victim;
 
     private Player player = new Player(TokenColor.NONE);
 
@@ -62,7 +62,7 @@ public class MovementEffect extends BasicEffect {
                     if (effectName.equals("Tractor Beam1"))
                         canUse = actionInterface.isVisible(player.getColor());
                     else
-                        canUse = actionInterface.sameSquare(player.getColor());
+                        canUse = actionInterface.sameSquare(currentPlayer, player);
                 }
             }
 
@@ -75,14 +75,14 @@ public class MovementEffect extends BasicEffect {
                 canUse = actionInterface.isVisible(player.getColor());
                 if (canUse) {
                     if (effectName.equals("Rocket Launcher"))
-                        canUse = actionInterface.sameSquare(player.getColor());
+                        canUse = actionInterface.sameSquare(currentPlayer ,player);
                     if(canUse)
                         oneMovementControl(actionInterface, player);
                 }
             }
 
             if (effectName.equals("Shotgun1")) {
-                canUse = actionInterface.sameSquare(victim.getColor());
+                canUse = actionInterface.sameSquare(currentPlayer, player);
                 if(canUse)
                     oneMovementControl(actionInterface, player);
                 }
