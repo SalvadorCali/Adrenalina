@@ -25,7 +25,7 @@ public class CommandLine implements ViewInterface {
     private BufferedReader userInputStream;
     private GameController game = new GameController();
     private MapCLI mapCLI = new MapCLI(game);
-    private DamageBoardCLI dmgBoard = new DamageBoardCLI(game);
+    //private DamageBoardCLI dmgBoard = new DamageBoardCLI(game);
 
 
     public CommandLine(ClientInterface client){
@@ -132,7 +132,7 @@ public class CommandLine implements ViewInterface {
                     Printer.println("Your score is: " + playerController.getScore());
                     break;
                 case "playerboard":
-                    dmgBoard.printDamageBoard();
+                    //dmgBoard.printDamageBoard();
                     break;
                 case "ammos":
                     Printer.println("Your ammos are:");
