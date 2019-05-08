@@ -22,8 +22,8 @@
             "color": "blue",
             "north": "none",
             "south": "door",
-            "east": "door",
-            "west": "room"
+            "east": "room",
+            "west": "door"
           },
           {
             "type": "spawn",

@@ -10,17 +10,18 @@ import it.polimi.ingsw.model.gamecomponents.Player;
 import it.polimi.ingsw.view.MapCLI;
 import org.junit.jupiter.api.Test;
 
+import static junit.framework.TestCase.assertFalse;
+import static junit.framework.TestCase.assertTrue;
+
 public class DamageMarkTest {
 
     private GameController gameController = new GameController();
-    private MapCLI mapCLI = new MapCLI(gameController);
 
 
     @Test
     public void lockRifleBasicTest() {
 
         ClientData clientData = gameController.getActionInterface().getClientData();
-        mapCLI.printMap();
 
         //currentPlayerSetup
         Player currentPlayer = new Player(TokenColor.GREEN);
@@ -32,12 +33,27 @@ public class DamageMarkTest {
 
         //victimSetup
         Player victim = new Player(TokenColor.BLUE);
-        gameController.getGame().getBoard().generatePlayer(0,1,victim);
+        gameController.getGame().getBoard().generatePlayer(1,0,victim);
         gameController.getGame().getPlayers().add(victim);
         clientData.setVictim(victim);
 
 
         Effect lockRifle = new DamageMarkEffect("Lock Rifle", 2, 1, 0, 2, 0);
-        System.out.println(lockRifle.canUseEffect(gameController.getActionInterface()));
+        assertTrue(lockRifle.canUseEffect(gameController.getActionInterface()));
+
+        gameController.getGame().getBoard().move(0,1,currentPlayer);
+        assertTrue(lockRifle.canUseEffect(gameController.getActionInterface()));
+
+        gameController.getGame().getBoard().move(0,2,currentPlayer);
+        assertFalse(lockRifle.canUseEffect(gameController.getActionInterface()));
+
+        gameController.getGame().getBoard().move(1,0,currentPlayer);
+        assertTrue(lockRifle.canUseEffect(gameController.getActionInterface()));
+
+        gameController.getGame().getBoard().move(2,0,currentPlayer);
+        assertTrue(lockRifle.canUseEffect(gameController.getActionInterface()));
+
+        gameController.getGame().getBoard().move(1,1,currentPlayer);
+        assertFalse(lockRifle.canUseEffect(gameController.getActionInterface()));
     }
 }
