@@ -1,8 +1,9 @@
 package it.polimi.ingsw.view;
 
 import it.polimi.ingsw.controller.GameController;
+import it.polimi.ingsw.model.enums.TokenColor;
 import it.polimi.ingsw.model.gamecomponents.Game;
-import it.polimi.ingsw.model.gamecomponents.PlayerBoard;
+import it.polimi.ingsw.model.gamecomponents.Player;
 import it.polimi.ingsw.model.gamecomponents.Token;
 import it.polimi.ingsw.util.Printer;
 
@@ -24,14 +25,19 @@ public class DamageBoardCLI {
     private final static Integer MAX_MARK = 3;
     private final static String MARK = "M";
 
-    private List<Token> damageBoard;
+    private Token[] damageBoard;
     private String currentPlayer;
+    private List<Token> markBoard;
 
 
-    public DamageBoardCLI(GameController gameController){
+    public DamageBoardCLI(Player player){
 
-        damageBoard = gameController.getGame().getKillshotTrack();
-        currentPlayer = String.valueOf(gameController.getGame().getCurrentPlayer());
+        damageBoard = player.getPlayerBoard().getDamageBoard();
+        currentPlayer = player.getUsername();
+        markBoard = player.getPlayerBoard().getRevengeMarks();
+        //damageBoard = gameController.getGame().getCurrentPlayer().getPlayerBoard().getDamageBoard();
+        //currentPlayer = gameController.getGame().getCurrentPlayer().getUsername();
+        //markBoard = gameController.getGame().getCurrentPlayer().getPlayerBoard().getRevengeMarks();
     }
 
 
@@ -48,7 +54,6 @@ public class DamageBoardCLI {
         for(int i = 0; i < damage.length; i++){
 
             damage[i] = 0;
-            colorDamage[i] = CYAN;
         }
 
         //initialize marks
@@ -63,20 +68,72 @@ public class DamageBoardCLI {
         for(int i = 0; i < damage.length; i++){
 
             damage[i]= 0;
-            //colorDamage[i] = damageBoard.get(i).getFirstColor().toString();
 
-            if(colorDamage[i] == null){
+            if(damageBoard[i].getFirstColor().equals(TokenColor.BLUE))
+                colorDamage[i] = BLUE;
 
-                damage[i] = 0;
+            if(damageBoard[i].getFirstColor().equals(TokenColor.RED))
+                colorDamage[i] = RED;
+
+            if(damageBoard[i].getFirstColor().equals(TokenColor.YELLOW))
+                colorDamage[i] = YELLOW;
+
+            if(damageBoard[i].getFirstColor().equals(TokenColor.GREY))
                 colorDamage[i] = GREY;
+
+            if(damageBoard[i].getFirstColor().equals(TokenColor.PURPLE))
+                colorDamage[i] = PURPLE;
+
+            if(damageBoard[i].getFirstColor().equals(TokenColor.GREEN))
+                colorDamage[i] = GREEN;
+
+            if(damageBoard[i].getFirstColor().equals(TokenColor.SKULL))
+                colorDamage[i] = CYAN;
+
+            if(damageBoard[i].getFirstColor().equals(TokenColor.NONE))
+                colorDamage[i] = CYAN;
+
+            if(colorDamage[i] != CYAN){
+
+                damage[i] = 1;
             }
+
+
         }
 
         for(int i = 0; i< mark.length; i++){
 
-            //colorMark[i];
-            mark[i] = MARK;
+            if(markBoard.get(i).getFirstColor() != TokenColor.NONE){
+
+                mark[i] = MARK;
+
+                if(markBoard.get(i).getFirstColor().equals(TokenColor.BLUE))
+                    colorMark[i] = BLUE;
+
+                if(markBoard.get(i).getFirstColor().equals(TokenColor.RED))
+                    colorMark[i] = RED;
+
+                if(markBoard.get(i).getFirstColor().equals(TokenColor.YELLOW))
+                    colorMark[i] = YELLOW;
+
+                if(markBoard.get(i).getFirstColor().equals(TokenColor.GREY))
+                    colorMark[i] = GREY;
+
+                if(markBoard.get(i).getFirstColor().equals(TokenColor.GREEN))
+                    colorMark[i] = GREEN;
+
+                if(markBoard.get(i).getFirstColor().equals(TokenColor.PURPLE))
+                    colorMark[i] = PURPLE;
+
+                if(markBoard.get(i).getFirstColor().equals(TokenColor.SKULL))
+                    colorMark[i] = CYAN;
+
+                if(markBoard.get(i).getFirstColor().equals(TokenColor.NONE))
+                    colorMark[i] = CYAN;
+
+            }
         }
+
 
         //give name current player
         namePlayer = currentPlayer;
