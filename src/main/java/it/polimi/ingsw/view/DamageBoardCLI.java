@@ -1,8 +1,8 @@
 package it.polimi.ingsw.view;
 
-import it.polimi.ingsw.controller.GameController;
+//import it.polimi.ingsw.controller.GameController;
 import it.polimi.ingsw.model.enums.TokenColor;
-import it.polimi.ingsw.model.gamecomponents.Game;
+//import it.polimi.ingsw.model.gamecomponents.Game;
 import it.polimi.ingsw.model.gamecomponents.Player;
 import it.polimi.ingsw.model.gamecomponents.Token;
 import it.polimi.ingsw.util.Printer;

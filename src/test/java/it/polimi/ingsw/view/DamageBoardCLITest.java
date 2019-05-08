@@ -3,7 +3,6 @@ package it.polimi.ingsw.view;
 import it.polimi.ingsw.model.enums.TokenColor;
 import it.polimi.ingsw.model.gamecomponents.Player;
 import it.polimi.ingsw.model.gamecomponents.PlayerBoard;
-import it.polimi.ingsw.model.gamecomponents.Token;
 import org.junit.jupiter.api.Test;
 
 
