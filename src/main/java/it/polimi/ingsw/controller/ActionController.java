@@ -11,8 +11,11 @@ import it.polimi.ingsw.model.gamecomponents.Player;
 
 
 public class ActionController implements ActionInterface {
+
+
     public ActionController(Game game){
         this.game = game;
+        clientData = new ClientData();
     }
 
     private Game game;
@@ -29,7 +32,7 @@ public class ActionController implements ActionInterface {
 
     @Override
     public boolean ammoControl(int redAmmos, int blueAmmos, int yellowAmmos) {
-        return game.getCurrentPlayer().ammoControl(redAmmos, blueAmmos, yellowAmmos);
+        return clientData.getCurrentPlayer().ammoControl(redAmmos, blueAmmos, yellowAmmos);
     }
 
     @Override

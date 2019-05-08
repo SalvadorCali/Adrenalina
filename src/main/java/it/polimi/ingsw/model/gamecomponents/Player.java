@@ -75,6 +75,18 @@ public class Player implements Serializable {
         return ammoBox;
     }
 
+    public int getBlueAmmo() {
+        return blueAmmo;
+    }
+
+    public int getYellowAmmo(){
+        return yellowAmmo;
+    }
+
+    public int getRedAmmo() {
+        return redAmmo;
+    }
+
     public List<Ammo> getAmmoReserve() {
         return ammoReserve;
     }

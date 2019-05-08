@@ -45,6 +45,10 @@ public class GameController {
         return game;
     }
 
+    public ActionInterface getActionInterface() {
+        return actionInterface;
+    }
+
     //methods
     public void startGame(List<Player> players){
         game.setPlayers(players);
