@@ -33,6 +33,7 @@ public class Player implements Serializable {
         powerups = new ArrayList<>();
         ammoBox = new ArrayList<>();
         ammoReserve = new ArrayList<>();
+        position = new Position(0,0);
         yellowAmmo = 0;
         blueAmmo = 0;
         redAmmo = 0;
@@ -61,6 +62,11 @@ public class Player implements Serializable {
 
     public void setPosition(Position position) {
         this.position = position;
+    }
+
+    public void setPosition(int x, int y) {
+        getPosition().setX(x);
+        getPosition().setY(y);
     }
 
     public PlayerBoard getPlayerBoard() {
@@ -244,4 +250,6 @@ public class Player implements Serializable {
             }
         }
     }
+
+
 }

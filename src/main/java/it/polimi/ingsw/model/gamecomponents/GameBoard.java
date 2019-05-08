@@ -62,9 +62,15 @@ public class GameBoard {
 
     }
 
+    public void generatePlayer(int x, int y, Player player){
+        arena[x][y].move(player);
+        player.setPosition(x, y);
+    }
+
     public void move(int x, int y, Player player){
         arena[player.getPosition().getX()][player.getPosition().getY()].moveAway(player);
         arena[x][y].move(player);
+        player.setPosition(x, y);
     }
 
     public boolean isVisible(Player shooter, Player victim) {
