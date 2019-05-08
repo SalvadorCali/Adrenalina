@@ -259,6 +259,6 @@ public class Game {
     }
 
     public boolean sameSquare(Player shooter, Player victim){
-        return shooter.getPosition().equals(victim.getPosition());
+        return (shooter.getPosition().getX() == (victim.getPosition().getX()) && shooter.getPosition().getY() == victim.getPosition().getY());
     }
 }

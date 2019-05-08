@@ -47,11 +47,14 @@ public class DamageMarkTest {
         assertFalse(lockRifle.canUseEffect(gameController.getActionInterface()));
     }
 
-  /*  @Test
+    @Test
     void cyberbladeCanUseEffectTest(){
 
         playerSetup();
-        Effect cyberblade = new DamageMarkEffect("Cyberblade",2,0,1,0,1);
+        Effect cyberblade = new DamageMarkEffect("Cyberblade",2,0,0,2,0);
+
+        gameController.getGame().getBoard().move(1,0,currentPlayer);
+        cyberblade.canUseEffect(gameController.getActionInterface());
 
         for(int i = 0; i < 3; i++){
             for(int j = 0; j < 4; j++){
@@ -62,8 +65,9 @@ public class DamageMarkTest {
                     assertFalse(cyberblade.canUseEffect(gameController.getActionInterface()));
             }
         }
+
     }
-    */
+
 
     void playerSetup(){
 
