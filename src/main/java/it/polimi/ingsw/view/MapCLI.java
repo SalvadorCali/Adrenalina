@@ -9,6 +9,7 @@ import it.polimi.ingsw.model.gamecomponents.Game;
 import it.polimi.ingsw.model.gamecomponents.GameBoard;
 import it.polimi.ingsw.model.gamecomponents.Player;
 import it.polimi.ingsw.model.gamecomponents.Square;
+import it.polimi.ingsw.util.Converter;
 import it.polimi.ingsw.util.Printer;
 
 import java.util.List;
@@ -37,7 +38,6 @@ public class MapCLI {
     private GameBoard gameBoard;
 
 
-
     public MapCLI(GameController gameController){
 
         gameBoard = gameController.getGame().getBoard();
@@ -64,7 +64,6 @@ public class MapCLI {
         String spaceSpawnPoint[] = new String[NUM_SQUARES];
         String space = SPACE;
         String[] spaceAmmoPoint = new String[20];
-
 
         //first square
         String spacePlayer1[] = new String[MAX_NUM_PLAYER];
@@ -241,7 +240,7 @@ public class MapCLI {
                 if(!arena[0][0].getPlayers().isEmpty()){
                     for(int index = 0; index < genericPlayer.size(); index ++){
 
-                        color = String.valueOf(genericPlayer.get(index).getColor());
+                        color = Converter.fromTokenColorToCLIColor(genericPlayer.get(index).getColor());
                         player = color + "X";
 
                         spacePlayer1[index] = player;
@@ -251,7 +250,7 @@ public class MapCLI {
                 if(!arena[0][1].getPlayers().isEmpty()){
                     for(int index = 0; index < genericPlayer.size(); index ++){
 
-                        color = String.valueOf(genericPlayer.get(index).getColor());
+                        color = Converter.fromTokenColorToCLIColor(genericPlayer.get(index).getColor());
                         player = color + "X";
 
                         spacePlayer2[index] = player;
@@ -261,7 +260,7 @@ public class MapCLI {
                 if(!arena[0][2].getPlayers().isEmpty()){
                     for(int index = 0; index < genericPlayer.size(); index ++){
 
-                        color = String.valueOf(genericPlayer.get(index).getColor());
+                        color = Converter.fromTokenColorToCLIColor(genericPlayer.get(index).getColor());
                         player = color + "X";
 
                         spacePlayer3[index] = player;
@@ -271,7 +270,7 @@ public class MapCLI {
                 if(!arena[0][3].getPlayers().isEmpty()){
                     for(int index = 0; index < genericPlayer.size(); index ++){
 
-                        color = String.valueOf(genericPlayer.get(index).getColor());
+                        color = Converter.fromTokenColorToCLIColor(genericPlayer.get(index).getColor());
                         player = color + "X";
 
                         spacePlayer4[index] = player;
@@ -281,7 +280,7 @@ public class MapCLI {
                 if(!arena[1][0].getPlayers().isEmpty()){
                     for(int index = 0; index < genericPlayer.size(); index ++){
 
-                        color = String.valueOf(genericPlayer.get(index).getColor());
+                        color = Converter.fromTokenColorToCLIColor(genericPlayer.get(index).getColor());
                         player = color + "X";
 
                         spacePlayer5[index] = player;
@@ -291,7 +290,7 @@ public class MapCLI {
                 if(!arena[1][1].getPlayers().isEmpty()){
                     for(int index = 0; index < genericPlayer.size(); index ++){
 
-                        color = String.valueOf(genericPlayer.get(index).getColor());
+                        color = Converter.fromTokenColorToCLIColor(genericPlayer.get(index).getColor());
                         player = color + "X";
 
                         spacePlayer6[index] = player;
@@ -301,7 +300,7 @@ public class MapCLI {
                 if(!arena[1][2].getPlayers().isEmpty()){
                     for(int index = 0; index < genericPlayer.size(); index ++){
 
-                        color = String.valueOf(genericPlayer.get(index).getColor());
+                        color = Converter.fromTokenColorToCLIColor(genericPlayer.get(index).getColor());
                         player = color + "X";
 
                         spacePlayer7[index] = player;
@@ -311,7 +310,7 @@ public class MapCLI {
                 if(!arena[1][3].getPlayers().isEmpty()){
                     for(int index = 0; index < genericPlayer.size(); index ++){
 
-                        color = String.valueOf(genericPlayer.get(index).getColor());
+                        color = Converter.fromTokenColorToCLIColor(genericPlayer.get(index).getColor());
                         player = color + "X";
 
                         spacePlayer8[index] = player;
@@ -321,7 +320,7 @@ public class MapCLI {
                 if(!arena[2][0].getPlayers().isEmpty()){
                     for(int index = 0; index < genericPlayer.size(); index ++){
 
-                        color = String.valueOf(genericPlayer.get(index).getColor());
+                        color = Converter.fromTokenColorToCLIColor(genericPlayer.get(index).getColor());
                         player = color + "X";
 
                         spacePlayer9[index] = player;
@@ -331,7 +330,7 @@ public class MapCLI {
                 if(!arena[2][1].getPlayers().isEmpty()){
                     for(int index = 0; index < genericPlayer.size(); index ++){
 
-                        color = String.valueOf(genericPlayer.get(index).getColor());
+                        color = Converter.fromTokenColorToCLIColor(genericPlayer.get(index).getColor());
                         player = color + "X";
 
                         spacePlayer10[index] = player;
@@ -342,7 +341,7 @@ public class MapCLI {
                 if(!arena[2][2].getPlayers().isEmpty()){
                     for(int index = 0; index < genericPlayer.size(); index ++){
 
-                        color = String.valueOf(genericPlayer.get(index).getColor());
+                        color = Converter.fromTokenColorToCLIColor(genericPlayer.get(index).getColor());
                         player = color + "X";
 
                         spacePlayer11[index] = player;
@@ -353,7 +352,7 @@ public class MapCLI {
                 if(!arena[2][3].getPlayers().isEmpty()){
                     for(int index = 0; index < genericPlayer.size(); index ++){
 
-                        color = String.valueOf(genericPlayer.get(index).getColor());
+                        color = Converter.fromTokenColorToCLIColor(genericPlayer.get(index).getColor());
                         player = color + "X";
 
                         spacePlayer12[index] = player;
