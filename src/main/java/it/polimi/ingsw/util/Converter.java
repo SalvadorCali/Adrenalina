@@ -115,4 +115,37 @@ public class Converter {
                 return "N";
         }
     }
+
+    public static String fromTokenColorToCLIColor(TokenColor tokenColor){
+
+        switch (tokenColor){
+
+            case NONE:
+                return "\033[0;36m";
+
+            case BLUE:
+                return "\033[0;34m";
+
+            case SKULL:
+                return "\033[0;36m";
+
+            case RED:
+                return "\033[0;31m";
+
+            case PURPLE:
+                return "\033[0;35m";
+
+            case GREEN:
+                return "\033[0;32m";
+
+            case YELLOW:
+                return "\033[0;33m";
+
+            case GREY:
+                return "\033[0;37m";
+
+            default:
+                return "\033[0;36m";
+        }
+    }
 }
