@@ -142,15 +142,9 @@ public class GameBoard {
                 move(direction, shooter);
                 secondPosition.setX(shooter.getPosition().getX());
                 secondPosition.setY(shooter.getPosition().getY());
-                //System.out.println("First:"+ direction);
-                //System.out.print(shooter.getPosition().getX());
-                //System.out.println(shooter.getPosition().getY());
                 for (Direction direction1 : Direction.values()) {
                     if (canMove(shooter, direction1)){
                         move(direction1, shooter);
-                        //System.out.println("Second:"+ direction1);
-                        //System.out.print(shooter.getPosition().getX());
-                        //System.out.println(shooter.getPosition().getY());
                         if (shooter.getPosition().getX() == x_2 && shooter.getPosition().getY() == y_2){
                             move(position.getX(), position.getY(), shooter);
                             return 2;
@@ -201,22 +195,21 @@ public class GameBoard {
 
     private boolean throughDoor ( int x, int y, int x_2, int y_2){
 
+
         if (arena[x][y].getNorth().equals(Cardinal.DOOR))
             if (sameRoom(x - 1, y, x_2, y_2))
                 return true;
-
         if (arena[x][y].getSouth().equals(Cardinal.DOOR))
             if (sameRoom(x + 1, y, x_2, y_2))
                 return true;
-
         if (arena[x][y].getEast().equals(Cardinal.DOOR))
             if (sameRoom(x, y + 1, x_2, y_2))
                 return true;
-
-        if (arena[x][y].getWest().equals(Cardinal.DOOR))
-            if (sameRoom(x, y - 1, x_2, y_2)) {
+        if (arena[x][y].getWest().equals(Cardinal.DOOR)) {
+            if (sameRoom(x, y - 1, x_2, y_2))
                 return true;
-            }
+        }
+
 
         return false;
     }

@@ -89,6 +89,57 @@ class GameBoardTest {
     }
 
     @Test
+    void isVisibleTest(){
+
+        GameBoard gameBoard = gameBoards.get(0);
+        Player shooter = new Player(TokenColor.PURPLE);
+        Player victim = new Player(TokenColor.BLUE);
+        gameBoard.generatePlayer(0,0, shooter);
+        gameBoard.generatePlayer(1,0, victim);
+
+        assertTrue(gameBoard.isVisible(shooter, victim));
+
+        gameBoard.move(0,1, shooter);
+        System.out.print(shooter.getPosition().getX());
+        System.out.println(shooter.getPosition().getY());
+        System.out.print(victim.getPosition().getX());
+        System.out.println(victim.getPosition().getY());
+        System.out.println(gameBoard.isVisible(shooter, victim));
+        assertTrue(gameBoard.isVisible(shooter, victim));
+
+        gameBoard.move(0,2, shooter);
+        assertFalse(gameBoard.isVisible(shooter, victim));
+
+        gameBoard.move(0,3, shooter);
+        assertFalse(gameBoard.isVisible(shooter, victim));
+
+        gameBoard.move(1, 0, shooter);
+        assertTrue(gameBoard.isVisible(shooter, victim));
+
+        gameBoard.move(1,1, shooter);
+        assertFalse(gameBoard.isVisible(shooter, victim));
+
+        gameBoard.move(1,2, shooter);
+        assertFalse(gameBoard.isVisible(shooter, victim));
+
+        gameBoard.move(1,3, shooter);
+        assertFalse(gameBoard.isVisible(shooter, victim));
+
+        gameBoard.move(2, 0, shooter);
+        assertTrue(gameBoard.isVisible(shooter, victim));
+
+        gameBoard.move(2,1, shooter);
+        assertFalse(gameBoard.isVisible(shooter, victim));
+
+        gameBoard.move(2,2, shooter);
+        assertFalse(gameBoard.isVisible(shooter, victim));
+
+        gameBoard.move(2,3, shooter);
+        assertFalse(gameBoard.isVisible(shooter, victim));
+
+    }
+
+    @Test
     void isVisibleThroughDoorTest(){
         GameBoard gameBoard = gameBoards.get(0);
         player.setPosition(position);
