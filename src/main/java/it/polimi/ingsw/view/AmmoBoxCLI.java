@@ -9,7 +9,7 @@ import java.util.List;
 
 
 
-public class AmmoReserveCLI {
+public class AmmoBoxCLI {
 
     public static final String SPACE = " ";  // Space
     public static final Integer RESERVE_LENGTH = 9;
@@ -19,11 +19,11 @@ public class AmmoReserveCLI {
     public static final String CYAN = "\033[0;36m";    // CYAN
 
 
-    private List<Ammo> ammoReserve;
+    private List<Ammo> ammoBox;
 
-    public AmmoReserveCLI(Player player){
+    public AmmoBoxCLI(Player player){
         
-        ammoReserve = player.getAmmoReserve();
+        ammoBox = player.getAmmoBox();
     }
 
 
@@ -35,7 +35,7 @@ public class AmmoReserveCLI {
 
         //give color to ammo
         for (int i = 0; i< RESERVE_LENGTH; i++){
-            ammoColor[i] = Converter.fromColorToCLIColor(ammoReserve.get(i).getColor());
+            ammoColor[i] = Converter.fromColorToCLIColor(ammoBox.get(i).getColor());
         }
 
         for(int i = 0; i < RESERVE_LENGTH; i++){
