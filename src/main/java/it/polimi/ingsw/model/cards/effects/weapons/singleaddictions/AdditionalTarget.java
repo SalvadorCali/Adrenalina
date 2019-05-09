@@ -41,7 +41,7 @@ public class AdditionalTarget extends SingleAddictionEffect {
                 canUse = !victim.getColor().equals(additionalVictim.getColor()) && actionInterface.isVisible(additionalVictim.getColor());
             }
             else if(effectName.equals("T.H.O.R.")) {
-                canUse = actionInterface.isVisible(victim.getColor(), additionalVictim.getColor());
+                canUse = actionInterface.isVisible(victim, additionalVictim);
             }
         }
 

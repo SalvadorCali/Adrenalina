@@ -12,8 +12,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Properties;
 
-import static junit.framework.TestCase.assertFalse;
-import static junit.framework.TestCase.assertTrue;
+import static junit.framework.TestCase.*;
 
 public class DamageMarkTest {
 
@@ -63,6 +62,29 @@ public class DamageMarkTest {
                     assertTrue(cyberblade.canUseEffect(gameController.getActionInterface()));
                 else
                     assertFalse(cyberblade.canUseEffect(gameController.getActionInterface()));
+            }
+        }
+
+    }
+
+    @Test
+    void whisperCanUseEffectTest(){
+
+        playerSetup();
+        Effect whisper = new DamageMarkEffect("Whisper",3,1,0,2,0);
+
+        gameController.getGame().getBoard().move(1,2, victim);
+
+        for(int i = 0; i < 3; i++){
+            for(int j = 0; j < 4; j++){
+                gameController.getGame().getBoard().move(i, j, currentPlayer);
+                if((i == 0 && j == 1) || (i == 2 && j == 1)) {
+                    System.out.println(gameController.getGame().getBoard().distance(currentPlayer, victim.getPosition().getX(), victim.getPosition().getY()));
+                    //assertTrue(whisper.canUseEffect(gameController.getActionInterface()));
+                }else {
+                    System.out.println(gameController.getGame().getBoard().distance(currentPlayer, victim.getPosition().getX(), victim.getPosition().getY()));
+                    //assertFalse(whisper.canUseEffect(gameController.getActionInterface()));
+                }
             }
         }
 

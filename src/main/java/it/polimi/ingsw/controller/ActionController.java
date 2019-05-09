@@ -58,8 +58,8 @@ public class ActionController implements ActionInterface {
     }
 
     @Override
-    public boolean isVisible(TokenColor shooter, TokenColor victim) {
-        return game.getBoard().isVisible(game.findPlayer(shooter), game.findPlayer(victim));
+    public boolean isVisible(Player shooter, Player victim) {
+        return game.getBoard().isVisible(shooter, victim);
     }
 
     @Override
@@ -100,7 +100,7 @@ public class ActionController implements ActionInterface {
     @Override
     public int distanceControl(int x, int y){
 
-        return game.getBoard().distance(game.getCurrentPlayer(), x, y);
+        return game.getBoard().distance(clientData.getCurrentPlayer(), x, y);
     }
 
     @Override

@@ -241,12 +241,16 @@ public class Player implements Serializable {
             switch (direction) {
                 case UP:
                     getPosition().setX(getPosition().getX() - 1);
+                    break;
                 case DOWN:
                     getPosition().setX(getPosition().getX() + 1);
+                    break;
                 case RIGHT:
                     getPosition().setY(getPosition().getY() + 1);
+                    break;
                 case LEFT:
                     getPosition().setY(getPosition().getY() - 1);
+                    break;
             }
         }
     }

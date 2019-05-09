@@ -67,7 +67,32 @@ public class GameBoard {
         player.setPosition(x, y);
     }
 
+    private void move(Direction direction, Player shooter) {
+
+        int x, y;
+
+        x = shooter.getPosition().getX();
+        y = shooter.getPosition().getY();
+
+        switch (direction){
+            case UP:
+                x--;
+                break;
+            case DOWN:
+                x++;
+                break;
+            case RIGHT:
+                y++;
+                break;
+            case LEFT:
+                y--;
+                break;
+        }
+        move(x, y, shooter);
+    }
+
     public void move(int x, int y, Player player){
+
         arena[player.getPosition().getX()][player.getPosition().getY()].moveAway(player);
         arena[x][y].move(player);
         player.setPosition(x, y);
@@ -93,35 +118,54 @@ public class GameBoard {
 
     public int distance(Player shooter, int x_2, int y_2) {
 
-        Player player = new Player(TokenColor.NONE);
-        player.setPosition(shooter.getPosition());
+        Position position = new Position(shooter.getPosition().getX(), shooter.getPosition().getY());
+        Position secondPosition = new Position(shooter.getPosition().getX(), shooter.getPosition().getY());
 
-        if (player.getPosition().getX() == x_2 && player.getPosition().getY() == y_2)
+        if (shooter.getPosition().getX() == x_2 && shooter.getPosition().getY() == y_2)
             return 0;
 
         for (Direction direction : Direction.values()) {
-            if (canMove(player, direction)) {
-                player.updatePosition(direction);
-                if (player.getPosition().getX() == x_2 && player.getPosition().getY() == y_2)
+            if (canMove(shooter, direction)) {
+                move(direction, shooter);
+                if (shooter.getPosition().getX() == x_2 && shooter.getPosition().getY() == y_2) {
+                    move(position.getX(), position.getY(), shooter);
                     return 1;
+                }
+                move(position.getX(), position.getY(), shooter);
             }
         }
 
-        player.setPosition(shooter.getPosition());
+
 
         for (Direction direction : Direction.values()) {
-            if (canMove(player, direction)) {
-                player.updatePosition(direction);
+            if (canMove(shooter, direction)) {
+                move(direction, shooter);
+                secondPosition.setX(shooter.getPosition().getX());
+                secondPosition.setY(shooter.getPosition().getY());
+                //System.out.println("First:"+ direction);
+                //System.out.print(shooter.getPosition().getX());
+                //System.out.println(shooter.getPosition().getY());
                 for (Direction direction1 : Direction.values()) {
-                    if (canMove(player, direction1))
-                        player.updatePosition(direction1);
-                    if (player.getPosition().getX() == x_2 && player.getPosition().getY() == y_2)
-                        return 2;
+                    if (canMove(shooter, direction1)){
+                        move(direction1, shooter);
+                        //System.out.println("Second:"+ direction1);
+                        //System.out.print(shooter.getPosition().getX());
+                        //System.out.println(shooter.getPosition().getY());
+                        if (shooter.getPosition().getX() == x_2 && shooter.getPosition().getY() == y_2){
+                            move(position.getX(), position.getY(), shooter);
+                            return 2;
+                        }
+                        move(secondPosition.getX(), secondPosition.getY(), shooter);
+                    }
                 }
+                move(position.getX(), position.getY(), shooter);
             }
         }
+        move(position.getX(), position.getY(), shooter);
         return 3;
     }
+
+
 
     public void roomDamage(int x, int y, int damagePower, int markPower, TokenColor shooterColor){
 

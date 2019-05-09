@@ -19,7 +19,7 @@ public interface ActionInterface {
 
     boolean isVisible(TokenColor victim);
 
-    boolean isVisible(TokenColor shooter, TokenColor victim);
+    boolean isVisible(Player shooter, Player victim);
 
     void addAmmo(Ammo...ammos);
 
