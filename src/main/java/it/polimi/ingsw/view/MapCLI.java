@@ -171,7 +171,7 @@ public class MapCLI {
                }
 
                if(arena[i][j].getColor().equals(TokenColor.SKULL)){
-                   colorSquare[i][j] = GREY;
+                   colorSquare[i][j] = CYAN;
                }
            }
        }
