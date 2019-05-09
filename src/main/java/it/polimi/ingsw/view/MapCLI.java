@@ -223,6 +223,11 @@ public class MapCLI {
                    spaceAmmoPoint[k] = ammo;
                }
 
+               if(colorSquare[i][j] == BLACK){
+
+                   spaceAmmoPoint[k] = SPACE;
+               }
+
                k++;
            }
        }
