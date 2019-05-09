@@ -38,18 +38,25 @@ public class DamageMarkEffect extends BasicEffect {
         canUse = ammoControl(redAmmos, blueAmmos, yellowAmmos, actionInterface);
         //actionInterface.updateFakeAmmoBox(redAmmos,blueAmmos,yellowAmmos);
 
-        if (canUse) {
+        if (canUse){
 
             if (effectName.equals("Cyberblade") || effectName.equals("Sledgehammer"))
                 canUse = actionInterface.sameSquare(currentPlayer , victim);
+
             else if (effectName.equals("Lock Rifle") || effectName.equals("T.H.O.R") || effectName.equals("Plasma Gun") || effectName.equals("ZX-2") || effectName.equals("Whisper") || effectName.equals("Machine Gun")) {
                 canUse = actionInterface.isVisible(currentPlayer, victim);
-                if (canUse && effectName.equals("Whisper") && actionInterface.distanceControl(victim.getPosition().getX(), victim.getPosition().getY()) >= 2)
-                    canUse = true;
-                else if(canUse && effectName.equals("Machine Gun") && secondVictim!= null)
-                    canUse = actionInterface.isVisible(secondVictim.getColor());
-            }else
-                canUse = !actionInterface.isVisible(victim.getColor()); //Heatseeker
+                if (canUse) {
+                    if (effectName.equals("Whisper")) {
+                        if (actionInterface.distanceControl(victim.getPosition().getX(), victim.getPosition().getY()) < 2)
+                            canUse = false;
+                        }
+                        else if (effectName.equals("Machine Gun") && secondVictim != null) {
+                            canUse = actionInterface.isVisible(secondVictim.getColor());
+                        }
+                        else
+                            canUse = !actionInterface.isVisible(victim.getColor()); //Heatseeker
+                }
+            }
         }
         return canUse;
     }

@@ -75,18 +75,41 @@ public class DamageMarkTest {
 
         gameController.getGame().getBoard().move(1,2, victim);
 
-        for(int i = 0; i < 3; i++){
-            for(int j = 0; j < 4; j++){
-                gameController.getGame().getBoard().move(i, j, currentPlayer);
-                if((i == 0 && j == 1) || (i == 2 && j == 1)) {
-                    System.out.println(gameController.getGame().getBoard().distance(currentPlayer, victim.getPosition().getX(), victim.getPosition().getY()));
-                    //assertTrue(whisper.canUseEffect(gameController.getActionInterface()));
-                }else {
-                    System.out.println(gameController.getGame().getBoard().distance(currentPlayer, victim.getPosition().getX(), victim.getPosition().getY()));
-                    //assertFalse(whisper.canUseEffect(gameController.getActionInterface()));
-                }
-            }
-        }
+        gameController.getGame().getBoard().move(0, 0, currentPlayer);
+        assertFalse(whisper.canUseEffect(gameController.getActionInterface()));
+
+        gameController.getGame().getBoard().move(0, 1, currentPlayer);
+        assertTrue(whisper.canUseEffect(gameController.getActionInterface()));
+
+        gameController.getGame().getBoard().move(0, 2, currentPlayer);
+        assertFalse(whisper.canUseEffect(gameController.getActionInterface()));
+
+        gameController.getGame().getBoard().move(0,3, currentPlayer);
+        assertFalse(whisper.canUseEffect(gameController.getActionInterface()));
+
+        gameController.getGame().getBoard().move(1,0, currentPlayer);
+        assertFalse(whisper.canUseEffect(gameController.getActionInterface()));
+
+        gameController.getGame().getBoard().move(1,1, currentPlayer);
+        assertFalse(whisper.canUseEffect(gameController.getActionInterface()));
+
+        gameController.getGame().getBoard().move(1,2, currentPlayer);
+        assertFalse(whisper.canUseEffect(gameController.getActionInterface()));
+
+        gameController.getGame().getBoard().move(1,3, currentPlayer);
+        assertFalse(whisper.canUseEffect(gameController.getActionInterface()));
+
+        gameController.getGame().getBoard().move(2,0, currentPlayer);
+        assertFalse(whisper.canUseEffect(gameController.getActionInterface()));
+
+        gameController.getGame().getBoard().move(2,1, currentPlayer);
+        assertTrue(whisper.canUseEffect(gameController.getActionInterface()));
+
+        gameController.getGame().getBoard().move(2,2, currentPlayer);
+        assertFalse(whisper.canUseEffect(gameController.getActionInterface()));
+
+        gameController.getGame().getBoard().move(2,3, currentPlayer);
+        assertFalse(whisper.canUseEffect(gameController.getActionInterface()));
 
     }
 
