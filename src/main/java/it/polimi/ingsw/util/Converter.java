@@ -148,4 +148,24 @@ public class Converter {
                 return "\033[0;36m";
         }
     }
+
+    public static String fromColorToCLIColor(Color color){
+
+        switch (color){
+            case NONE:
+                return "\033[0;36m";
+
+            case YELLOW:
+                return "\033[0;33m";
+
+            case RED:
+                return "\033[0;31m";
+
+            case BLUE:
+                return "\033[0;34m";
+
+            default:
+                return "\033[0;36m";
+        }
+    }
 }
