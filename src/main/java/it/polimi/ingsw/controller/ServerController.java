@@ -86,6 +86,12 @@ public class ServerController {
     private void addPlayer(String username, TokenColor color, ServerInterface server){
         servers.put(username, server);
         colors.put(color, username);
+        //added
+        Player player = new Player(color);
+        player.setUsername(username);
+        players.add(player);
+        users.put(colors.get(color), player);
+
         Printer.println(username + " connected!");
         servers.forEach((u, s) -> {
             try {
@@ -103,11 +109,7 @@ public class ServerController {
     private void startGame(){
         colors.forEach((c, u) -> {
             try {
-                Player player = new Player(c);
-                player.setUsername(u);
-                players.add(player);
-                users.put(colors.get(c), player);
-                servers.get(u).notify(Message.PLAYER, Outcome.RIGHT, player);
+                servers.get(u).notify(Message.PLAYER, Outcome.RIGHT, users.get(u));
             } catch (IOException e) {
                 Printer.err(e);
             }

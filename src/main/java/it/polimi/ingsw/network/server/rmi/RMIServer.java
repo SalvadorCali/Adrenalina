@@ -30,6 +30,8 @@ public class RMIServer extends UnicastRemoteObject implements RMIServerInterface
     public void login(String username, TokenColor color, ConnectionTimer connectionTimer){
         this.connectionTimer = connectionTimer;
         connectionTimer.setServer(this);
+        connectionTimer.start();
+        clientName = username;
         serverController.login(username, color, this);
     }
 

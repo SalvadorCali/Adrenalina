@@ -28,6 +28,7 @@ public class TurnTimer extends Thread {
                 try {
                     sleep(Config.TURN_TIME);
                     //players.get(i).setMyTurn(false);
+                    //gestire il caso in cui il client si sia disconnesso
                     serverController.endTurn(players.get(i).getUsername());
                     if(i == players.size() - 1){
                         i = -1;

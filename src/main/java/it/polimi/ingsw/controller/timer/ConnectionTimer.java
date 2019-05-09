@@ -9,7 +9,7 @@ import java.io.Serializable;
 import java.rmi.RemoteException;
 
 public class ConnectionTimer extends Thread implements Serializable {
-    private transient ClientInterface client;
+    private ClientInterface client;
     private ServerInterface server;
     public ConnectionTimer(ClientInterface client){
         this.client = client;
@@ -26,7 +26,6 @@ public class ConnectionTimer extends Thread implements Serializable {
             try {
                 client.testConnection();
             } catch (RemoteException e) {
-                Printer.println("eskereee");
                 try {
                     server.disconnect();
                 } catch (RemoteException e1) {
@@ -40,6 +39,5 @@ public class ConnectionTimer extends Thread implements Serializable {
                 Printer.err(e);
             }
         }
-
     }
 }

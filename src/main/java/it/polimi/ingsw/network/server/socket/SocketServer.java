@@ -92,6 +92,7 @@ public class SocketServer implements Runnable, ServerInterface {
             color = (TokenColor) objectInputStream.readObject();
             connectionTimer = (ConnectionTimer) objectInputStream.readObject();
             connectionTimer.setServer(this);
+            connectionTimer.start();
         } catch (IOException | ClassNotFoundException e) {
             Printer.err(e);
         }

@@ -17,7 +17,7 @@ import it.polimi.ingsw.view.ViewInterface;
 import java.io.*;
 import java.net.Socket;
 
-public class SocketClient implements ClientInterface, Runnable {
+public class SocketClient implements ClientInterface, Runnable, Serializable {
     private PlayerController playerController;
     private Thread thisThread;
     private ObjectInputStream objectInputStream;
