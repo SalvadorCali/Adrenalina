@@ -53,11 +53,10 @@ public class DamageMarkEffect extends BasicEffect {
                         else if (effectName.equals("Machine Gun") && secondVictim != null) {
                             canUse = actionInterface.isVisible(currentPlayer, secondVictim);
                         }
-
                 }
 
-            }else if(effectName.equals("Heatseeker")){
-                canUse = !actionInterface.isVisible(currentPlayer, victim); //Heatseeker
+            }else if(effectName.equals("Heatseeker") && actionInterface.isVisible(currentPlayer, victim)){
+                canUse = false; //Heatseeker
             }
 
         }
