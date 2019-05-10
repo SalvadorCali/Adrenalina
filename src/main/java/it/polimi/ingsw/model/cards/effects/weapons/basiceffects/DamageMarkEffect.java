@@ -56,7 +56,7 @@ public class DamageMarkEffect extends BasicEffect {
                 }
 
             }else if(effectName.equals("Heatseeker") && actionInterface.isVisible(currentPlayer, victim)){
-                canUse = false; //Heatseeker
+                canUse = false;
             }
 
         }

@@ -18,8 +18,6 @@ public class DamageMarkTest {
     private Player victim = new Player(TokenColor.BLUE);
     private Player secondVictim = new Player(TokenColor.PURPLE);
 
-
-
     @Test
     void lockRifleCanUseEffectTest() {
 
@@ -167,6 +165,7 @@ public class DamageMarkTest {
         gameController.getGame().getBoard().move(2,3, currentPlayer);
         assertTrue(heatseeker.canUseEffect(gameController.getActionInterface()));
     }
+    
 
     void playerSetup(){
 
