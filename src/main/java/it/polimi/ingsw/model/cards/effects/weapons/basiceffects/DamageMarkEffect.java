@@ -51,7 +51,7 @@ public class DamageMarkEffect extends BasicEffect {
                             canUse = false;
                         }
                         else if (effectName.equals("Machine Gun") && secondVictim != null) {
-                            canUse = actionInterface.isVisible(currentPlayer, secondVictim);
+                            canUse = (!secondVictim.getColor().equals(victim.getColor())) && actionInterface.isVisible(currentPlayer, secondVictim);
                         }
                 }
 
