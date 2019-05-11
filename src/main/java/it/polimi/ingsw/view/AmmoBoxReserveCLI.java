@@ -54,7 +54,7 @@ public class AmmoBoxReserveCLI {
         Printer.println("Your Ammo Box:");
         Printer.println(SPACE + "_________________");
         Printer.println("|" + ammoColor[0] + ammoVal[0] + SPACE + ammoColor[1] + ammoVal[1] + SPACE + ammoColor[2] + ammoVal[2] + SPACE + ammoColor[3] + ammoVal[3] + SPACE + ammoColor[4] + ammoVal[4] + SPACE + ammoColor[5] + ammoVal[5] + SPACE + ammoColor[6] + ammoVal[6] + SPACE + ammoColor[7] + ammoVal[7] + SPACE + ammoColor[8] + ammoVal[8] + GREY + "|" + RESET);
-        Printer.println(SPACE + "‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾");
+        Printer.println(SPACE + "¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯");
     }
 
 
@@ -83,6 +83,6 @@ public class AmmoBoxReserveCLI {
         Printer.println("Your Ammo Reserve:");
         Printer.println(SPACE + "_________________");
         Printer.println("|" + ammoColor[0] + ammoVal[0] + SPACE + ammoColor[1] + ammoVal[1] + SPACE + ammoColor[2] + ammoVal[2] + SPACE + ammoColor[3] + ammoVal[3] + SPACE + ammoColor[4] + ammoVal[4] + SPACE + ammoColor[5] + ammoVal[5] + SPACE + ammoColor[6] + ammoVal[6] + SPACE + ammoColor[7] + ammoVal[7] + SPACE + ammoColor[8] + ammoVal[8] + GREY + "|" + RESET);
-        Printer.println(SPACE + "‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾");
+        Printer.println(SPACE + "¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯");
     }
 }
