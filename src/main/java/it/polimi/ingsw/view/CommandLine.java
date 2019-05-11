@@ -60,15 +60,17 @@ public class CommandLine implements ViewInterface {
                 help();
                 break;
             case "login":
-                login(string);
-                //Printer.println(Config.INVALID_COMMAND);
+                if(!login(string)){
+                    Printer.print(StringCLI.INVALID_COMMAND);
+                }
                 break;
             case "disconnect":
                 disconnect();
                 break;
             case "show":
-                show(string);
-                //Printer.println(Config.INVALID_COMMAND);
+                if(!show(string)){
+                    Printer.print(StringCLI.INVALID_COMMAND);
+                }
                 break;
             case "move":
                 move(string);
@@ -85,7 +87,7 @@ public class CommandLine implements ViewInterface {
                 endTurn();
                 break;
             default:
-                Printer.println(Config.INVALID_COMMAND);
+                Printer.println(StringCLI.INVALID_COMMAND);
                 break;
         }
     }
@@ -102,18 +104,21 @@ public class CommandLine implements ViewInterface {
         Printer.println("end : ends your turn");
     }
 
-    private void login(StringTokenizer input){
+    private boolean login(StringTokenizer input){
+        boolean result = false;
         if(input.hasMoreTokens()){
             String username = input.nextToken();
             if(input.hasMoreTokens()){
                 String color = input.nextToken();
                 try {
                     client.login(username, Converter.fromStringToTokenColor(color));
+                    result = true;
                 } catch (RemoteException e) {
                     Printer.err(e);
                 }
             }
         }
+        return result;
     }
 
     private void disconnect(){
@@ -124,25 +129,26 @@ public class CommandLine implements ViewInterface {
         }
     }
 
-    private void show(StringTokenizer input){
+    private boolean show(StringTokenizer input){
+        boolean result = false;
         if(input.hasMoreTokens()){
             String next = input.nextToken();
             switch (next){
-                case "score":
+                case StringCLI.SCORE:
                     Printer.println("Your score is: " + playerController.getScore());
                     break;
-                case "playerboard":
+                case StringCLI.PLAYERBOARD:
                     //dmgBoard.printDamageBoard();
                     break;
-                case "ammos":
+                case StringCLI.AMMOS:
                     Printer.println("Your ammos are:");
                     Printer.println(playerController.getAmmos());
                     break;
-                case "powerups":
+                case StringCLI.POWERUPS:
                     Printer.println("Your powerups are:");
                     Printer.println(playerController.getPowerups());
                     break;
-                case "weapons":
+                case StringCLI.WEAPONS:
                     Printer.println("Your weapons are:");
                     Printer.println(playerController.getWeapons());
                     break;
@@ -153,7 +159,9 @@ public class CommandLine implements ViewInterface {
                 default:
                     break;
             }
+            result = true;
         }
+        return result;
     }
 
     private void move(StringTokenizer input){
@@ -375,7 +383,7 @@ public class CommandLine implements ViewInterface {
     public void notifyLogin(Outcome outcome, String username){
         switch(outcome){
             case WRONG:
-                Printer.print("Username already used! Please choose another username:");
+                Printer.print(StringCLI.SERVER + " Username already used! Please choose another username:");
                 break;
             case RIGHT:
                 Printer.println(username + " connected!");
@@ -402,7 +410,7 @@ public class CommandLine implements ViewInterface {
     public void notifyColor(Outcome outcome, TokenColor color){
         switch(outcome){
             case WRONG:
-                Printer.println("Color already chosen! Please choose another color:");
+                Printer.print(StringCLI.SERVER + "Invalid color! Please choose another color:");
                 break;
             case RIGHT:
                 Printer.println("Your color is " + Converter.fromTokenColorToString(color));

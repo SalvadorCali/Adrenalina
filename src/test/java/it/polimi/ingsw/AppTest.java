@@ -3,9 +3,12 @@ package it.polimi.ingsw;
 
 import it.polimi.ingsw.model.cards.AmmoCard;
 import it.polimi.ingsw.model.enums.Color;
+import it.polimi.ingsw.model.enums.TokenColor;
 import it.polimi.ingsw.model.gamecomponents.Ammo;
+import it.polimi.ingsw.model.gamecomponents.Player;
 import it.polimi.ingsw.util.Parser;
 import it.polimi.ingsw.util.Printer;
+import it.polimi.ingsw.view.AmmoBoxReserveCLI;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -28,11 +31,22 @@ public class AppTest
 
     @Test
     public void test(){
-        Ammo ammo = new Ammo(Color.BLUE);
-        Ammo ammo2 = new Ammo(Color.RED);
-        StringBuilder s = new StringBuilder();
-        s.append(ammo).append(ammo2);
-        Printer.print(s);
+        Player player = new Player(TokenColor.GREY);
+        player.getAmmoReserve().add(new Ammo(Color.BLUE));
+        player.getAmmoReserve().add(new Ammo(Color.BLUE));
+        player.getAmmoReserve().add(new Ammo(Color.BLUE));
+        player.getAmmoReserve().add(new Ammo(Color.RED));
+        player.getAmmoReserve().add(new Ammo(Color.RED));
+        player.getAmmoReserve().add(new Ammo(Color.RED));
+        player.getAmmoReserve().add(new Ammo(Color.YELLOW));
+        player.getAmmoReserve().add(new Ammo(Color.YELLOW));
+        player.getAmmoReserve().add(new Ammo(Color.YELLOW));
+        player.addAmmo(new Ammo(Color.BLUE), new Ammo(Color.RED), new Ammo(Color.RED));
+        player.getAmmoReserve().forEach(a -> Printer.println(a.getColor()));
+        player.getAmmoBox().forEach(a -> Printer.println(a.getColor()));
+        AmmoBoxReserveCLI ammos = new AmmoBoxReserveCLI(player);
+        //ammos.printAmmoBox();
+        //ammos.printAmmoReserve();
     }
 
 }

@@ -226,6 +226,7 @@ public class Game {
                 do{
                     currentPlayer = nextPlayer(i);
                     Printer.println(currentPlayer.getUsername());
+                    i++;
                 }while(currentPlayer.isDisconnected());
                 currentPlayer.setMyTurn(true);
                 break;

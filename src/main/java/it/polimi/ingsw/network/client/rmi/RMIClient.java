@@ -118,12 +118,14 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
     @Override
     public void notify(Message message, Outcome outcome, Object object) throws RemoteException {
         switch (message){
+            /*
             case PLAYER:
                 if(outcome.equals(Outcome.RIGHT)) {
                     Player player = (Player) object;
                     playerController.setPlayer(player);
                 }
                 break;
+            */
             case LOGIN:
                 if(outcome.equals(Outcome.RIGHT)) {
                     connectionTimer.start();

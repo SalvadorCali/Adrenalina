@@ -38,8 +38,8 @@ public class ServerController {
 
     public void login(String username, TokenColor color, ServerInterface server){
         if(!gameController.isInGame()){
-            boolean newUsername = !servers.containsKey(username); //contains
-            boolean newColor = !colors.containsKey(color); //contains
+            boolean newUsername = !servers.containsKey(username) && !disconnectedUsers.containsKey(username); //contains
+            boolean newColor = !colors.containsKey(color) && !color.equals(TokenColor.NONE); //contains
             if(newUsername && newColor){
                 addPlayer(username, color, server);
                 if(servers.size() == Config.MIN_PLAYERS){
@@ -71,7 +71,7 @@ public class ServerController {
         }else{
             if(disconnectedUsers.containsKey(username)){
                 if(disconnectedUsers.get(username).getColor().equals(color)){
-                    reconnect(username);
+                    reconnect(username, server);
                 }
             }else{
                 try {
@@ -107,6 +107,7 @@ public class ServerController {
     }
 
     private void startGame(){
+        /*
         colors.forEach((c, u) -> {
             try {
                 servers.get(u).notify(Message.PLAYER, Outcome.RIGHT, users.get(u));
@@ -114,6 +115,7 @@ public class ServerController {
                 Printer.err(e);
             }
         });
+        */
         gameController.startGame(players);
         servers.forEach((username, server) -> {
             try {
@@ -147,13 +149,25 @@ public class ServerController {
                     Printer.err(e);
                 }
             });
+            /*
+            Printer.println("Lista utenti:");
+            Printer.print("Server:");
+            servers.forEach((u,s) -> Printer.println(u));
+            Printer.print("Colors:");
+            colors.forEach((t,st) -> Printer.println(st));
+            Printer.print("Users:");
+            users.forEach((us,p) -> Printer.println(us));
+            Printer.print("DiscUsers:");
+            disconnectedUsers.forEach((use,pl) -> Printer.println(use));
+            */
         }
     }
 
-    private void reconnect(String username){
+    private void reconnect(String username, ServerInterface server){
         users.put(username, disconnectedUsers.get(username));
         users.get(username).setDisconnected(false);
         disconnectedUsers.remove(username);
+        servers.put(username, server);
         servers.forEach((u, s) -> {
             try {
                 if(u.equals(username)){
@@ -196,11 +210,17 @@ public class ServerController {
         for(int i = 0; i< players.size(); i++){
             if(players.get(i).getUsername().equals(username)){
                 try {
-                    servers.get(username).notify(Message.END_TURN);
+                    if(servers.containsKey(username)){
+                        servers.get(username).notify(Message.END_TURN);
+                    }
                     if(i== players.size()-1){
-                        servers.get(players.get(0).getUsername()).notify(Message.NEW_TURN);
+                        if(servers.containsKey(players.get(0).getUsername())){
+                            servers.get(players.get(0).getUsername()).notify(Message.NEW_TURN);
+                        }
                     }else{
-                        servers.get(players.get(i+1).getUsername()).notify(Message.NEW_TURN);
+                        if(servers.containsKey(players.get(i+1).getUsername())){
+                            servers.get(players.get(i+1).getUsername()).notify(Message.NEW_TURN);
+                        }
                     }
                 } catch (IOException e) {
                     Printer.err(e);

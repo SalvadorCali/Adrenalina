@@ -92,8 +92,8 @@ public class SocketClient implements ClientInterface, Runnable, Serializable {
             objectOutputStream.flush();
             objectOutputStream.writeObject(color);
             objectOutputStream.flush();
-            objectOutputStream.writeObject(connectionTimer);
-            objectOutputStream.flush();
+            //objectOutputStream.writeObject(connectionTimer);
+            //objectOutputStream.flush();
         } catch (IOException e) {
             Printer.err(e);
         }
@@ -182,11 +182,13 @@ public class SocketClient implements ClientInterface, Runnable, Serializable {
                 object = (TokenColor) objectInputStream.readObject();
                 view.notify(message, outcome, object);
                 break;
+                /*
             case PLAYER:
                 outcome = (Outcome) objectInputStream.readObject();
                 object = objectInputStream.readObject();
                 playerController.setPlayer((Player) object);
                 break;
+                */
             case DISCONNECT:
                 outcome = (Outcome) objectInputStream.readObject();
                 object = (String) objectInputStream.readObject();

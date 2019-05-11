@@ -16,7 +16,4 @@ public class Config {
 
     //game
     public static final int MIN_PLAYERS = 3;
-
-    //others
-    public static final String INVALID_COMMAND = "Invalid Command. Please insert a command.";
 }
