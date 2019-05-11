@@ -168,6 +168,7 @@ public class ServerController {
         users.get(username).setDisconnected(false);
         disconnectedUsers.remove(username);
         servers.put(username, server);
+        Printer.println(username + " connected!");
         servers.forEach((u, s) -> {
             try {
                 if(u.equals(username)){
