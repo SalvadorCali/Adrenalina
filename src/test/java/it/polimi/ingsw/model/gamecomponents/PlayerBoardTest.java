@@ -1,4 +1,4 @@
-package it.polimi.ingsw.model;
+package it.polimi.ingsw.model.gamecomponents;
 
 import it.polimi.ingsw.model.enums.AdrenalineZone;
 import it.polimi.ingsw.model.gamecomponents.PlayerBoard;

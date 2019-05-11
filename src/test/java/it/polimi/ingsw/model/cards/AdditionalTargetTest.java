@@ -1,4 +1,4 @@
-package it.polimi.ingsw.model;
+package it.polimi.ingsw.model.cards;
 
 import it.polimi.ingsw.controller.ClientData;
 import it.polimi.ingsw.controller.GameController;
@@ -37,6 +37,25 @@ public class AdditionalTargetTest {
         assertFalse(lockRifle.canUseEffect(gameController.getActionInterface()));
         assertFalse(lockRifleAddictional.canUseEffect(gameController.getActionInterface()));
 
+
+    }
+
+    @Test
+    void thorFirstAdditionalTest(){
+
+        playerSetup();
+        Effect thor = new DamageMarkEffect("T.H.O.R.", 2, 0, 0, 2, 0);
+        Effect additionalThor = new AdditionalTarget("T.H.O.R.", 1, 0,0,2,0, thor);
+
+        gameController.getGame().getBoard().move(1,2, currentPlayer);
+        gameController.getGame().getBoard().move(1,1, victim);
+        gameController.getGame().getBoard().move(2,0,secondVictim);
+
+        assertTrue(additionalThor.canUseEffect(gameController.getActionInterface()));
+
+        gameController.getGame().getBoard().move(0,0, secondVictim);
+        assertTrue(thor.canUseEffect(gameController.getActionInterface()));
+        assertFalse(additionalThor.canUseEffect(gameController.getActionInterface()));
 
     }
 
