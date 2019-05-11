@@ -1,10 +1,12 @@
 package it.polimi.ingsw.view;
 
+import it.polimi.ingsw.controller.CLIController;
 import it.polimi.ingsw.controller.GameController;
 import it.polimi.ingsw.controller.PlayerController;
 import it.polimi.ingsw.model.enums.AdrenalineZone;
 import it.polimi.ingsw.model.enums.Direction;
 import it.polimi.ingsw.model.enums.TokenColor;
+import it.polimi.ingsw.model.gamecomponents.GameBoard;
 import it.polimi.ingsw.network.client.ClientInterface;
 import it.polimi.ingsw.network.enums.Message;
 import it.polimi.ingsw.network.enums.Outcome;
@@ -21,11 +23,16 @@ import java.util.StringTokenizer;
 
 public class CommandLine implements ViewInterface {
     private ClientInterface client;
+    private String username;
     private PlayerController playerController;
     private BufferedReader userInputStream;
     private GameController game = new GameController();
     private MapCLI mapCLI = new MapCLI(game);
     //private DamageBoardCLI dmgBoard = new DamageBoardCLI(game);
+    private AmmoBoxReserveCLI ammoPrinter;
+    private DamageBoardCLI damageBoardPrinter;
+    private MapCLI gameBoardPrinter;
+
 
 
     public CommandLine(ClientInterface client){
@@ -107,7 +114,7 @@ public class CommandLine implements ViewInterface {
     private boolean login(StringTokenizer input){
         boolean result = false;
         if(input.hasMoreTokens()){
-            String username = input.nextToken();
+            username = input.nextToken();
             if(input.hasMoreTokens()){
                 String color = input.nextToken();
                 try {
@@ -438,6 +445,9 @@ public class CommandLine implements ViewInterface {
                 break;
             case ALL:
                 Printer.println("Game is started!");
+                //ammoPrinter = new AmmoBoxReserveCLI(CLIController.getPlayers().get(username));
+                //damageBoardPrinter = new DamageBoardCLI(CLIController.getPlayers().get(username));
+                //gameBoardPrinter = new MapCLI(CLIController.getGameBoard());
                 break;
             default:
                 break;

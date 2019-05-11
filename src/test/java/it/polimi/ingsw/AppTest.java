@@ -41,12 +41,14 @@ public class AppTest
         player.getAmmoReserve().add(new Ammo(Color.YELLOW));
         player.getAmmoReserve().add(new Ammo(Color.YELLOW));
         player.getAmmoReserve().add(new Ammo(Color.YELLOW));
-        player.addAmmo(new Ammo(Color.BLUE), new Ammo(Color.RED), new Ammo(Color.RED));
+        player.addAmmo(new Ammo(Color.BLUE), new Ammo(Color.RED), new Ammo(Color.YELLOW),
+                new Ammo(Color.BLUE), new Ammo(Color.RED), new Ammo(Color.YELLOW),
+                new Ammo(Color.BLUE), new Ammo(Color.RED), new Ammo(Color.YELLOW));
         player.getAmmoReserve().forEach(a -> Printer.println(a.getColor()));
         player.getAmmoBox().forEach(a -> Printer.println(a.getColor()));
         AmmoBoxReserveCLI ammos = new AmmoBoxReserveCLI(player);
-        //ammos.printAmmoBox();
-        //ammos.printAmmoReserve();
+        ammos.printAmmoBox();
+        ammos.printAmmoReserve();
     }
 
 }

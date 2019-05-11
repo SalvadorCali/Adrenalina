@@ -36,6 +36,7 @@ public class ServerController {
         players = new ArrayList<>();
     }
 
+
     public void login(String username, TokenColor color, ServerInterface server){
         if(!gameController.isInGame()){
             boolean newUsername = !servers.containsKey(username) && !disconnectedUsers.containsKey(username); //contains
@@ -117,6 +118,9 @@ public class ServerController {
         });
         */
         gameController.startGame(players);
+        //togliere commento per inserire cli
+        //CLIController.setPlayers(users);
+        //CLIController.setGameBoard(gameController.getGame().getBoard());
         servers.forEach((username, server) -> {
             try {
                 server.notify(Message.GAME, Outcome.ALL);
