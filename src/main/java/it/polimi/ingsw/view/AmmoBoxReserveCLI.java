@@ -44,7 +44,7 @@ public class AmmoBoxReserveCLI {
 
             ammoVal[i] = AMMO;
 
-            if(ammoColor[i].isEmpty()){
+            if(ammoColor[i].equals(CYAN)){
 
                 ammoVal[i] = SPACE;
             }
@@ -73,7 +73,7 @@ public class AmmoBoxReserveCLI {
 
             ammoVal[i] = AMMO;
 
-            if(ammoColor[i].isEmpty()){
+            if(ammoColor[i].equals(CYAN)){
 
                 ammoVal[i] = SPACE;
             }
