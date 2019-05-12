@@ -2,7 +2,9 @@ package it.polimi.ingsw.model.cards;
 
 import it.polimi.ingsw.model.enums.Color;
 
-public abstract class Card {
+import java.io.Serializable;
+
+public abstract class Card implements Serializable {
     private String name;
     private Color color;
 

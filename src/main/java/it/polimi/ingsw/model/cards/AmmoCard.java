@@ -3,7 +3,9 @@ package it.polimi.ingsw.model.cards;
 import it.polimi.ingsw.model.gamecomponents.Ammo;
 import it.polimi.ingsw.model.gamecomponents.Game;
 
-public class AmmoCard {
+import java.io.Serializable;
+
+public class AmmoCard implements Serializable {
 
     private Ammo firstAmmo;
     private Ammo secondAmmo;

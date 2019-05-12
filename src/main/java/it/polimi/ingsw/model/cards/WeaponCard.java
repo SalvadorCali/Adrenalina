@@ -3,9 +3,10 @@ package it.polimi.ingsw.model.cards;
 import it.polimi.ingsw.model.enums.Color;
 import it.polimi.ingsw.model.cards.effects.Effect;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class WeaponCard extends Card {
+public class WeaponCard extends Card{
 
     private int weaponId;
     private List<Effect> effects;

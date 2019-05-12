@@ -5,10 +5,11 @@ import it.polimi.ingsw.model.cards.effects.ActionInterface;
 import it.polimi.ingsw.model.enums.Cardinal;
 import it.polimi.ingsw.model.enums.TokenColor;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SpawnPoint extends Square {
+public class SpawnPoint extends Square implements Serializable {
     private List<WeaponCard> weapons;
 
     public SpawnPoint(TokenColor color, Cardinal north, Cardinal south, Cardinal west, Cardinal east) {

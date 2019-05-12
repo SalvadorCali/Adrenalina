@@ -5,6 +5,7 @@ import it.polimi.ingsw.controller.timer.ConnectionTimer;
 import it.polimi.ingsw.model.enums.AdrenalineZone;
 import it.polimi.ingsw.model.enums.Direction;
 import it.polimi.ingsw.model.enums.TokenColor;
+import it.polimi.ingsw.model.gamecomponents.GameBoard;
 import it.polimi.ingsw.model.gamecomponents.Player;
 import it.polimi.ingsw.network.client.ClientInterface;
 import it.polimi.ingsw.util.Config;
@@ -39,6 +40,7 @@ public class SocketClient implements ClientInterface, Runnable, Serializable {
 
         view = new CommandLine(this);
         view.start();
+        view.setPlayerController(playerController);
     }
 
     public void start() {
@@ -167,6 +169,8 @@ public class SocketClient implements ClientInterface, Runnable, Serializable {
                 break;
             case GAME:
                 outcome = (Outcome) objectInputStream.readObject();
+                object = objectInputStream.readObject();
+                playerController.setGameBoard((GameBoard) object);
                 view.notify(message, outcome);
                 break;
             case LOGIN:
@@ -182,13 +186,11 @@ public class SocketClient implements ClientInterface, Runnable, Serializable {
                 object = (TokenColor) objectInputStream.readObject();
                 view.notify(message, outcome, object);
                 break;
-                /*
             case PLAYER:
                 outcome = (Outcome) objectInputStream.readObject();
                 object = objectInputStream.readObject();
                 playerController.setPlayer((Player) object);
                 break;
-                */
             case DISCONNECT:
                 outcome = (Outcome) objectInputStream.readObject();
                 object = (String) objectInputStream.readObject();

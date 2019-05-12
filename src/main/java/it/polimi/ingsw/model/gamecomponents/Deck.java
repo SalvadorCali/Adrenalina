@@ -2,11 +2,12 @@ package it.polimi.ingsw.model.gamecomponents;
 
 import it.polimi.ingsw.model.cards.Card;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class Deck {
+public class Deck implements Serializable {
     private List<Card> cards = new ArrayList<>();
 
     //methods

@@ -6,11 +6,12 @@ import it.polimi.ingsw.model.enums.Color;
 import it.polimi.ingsw.model.enums.Direction;
 import it.polimi.ingsw.model.enums.TokenColor;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 
-public abstract class Square {
+public abstract class Square implements Serializable {
     private TokenColor color;
     private Cardinal north;
     private Cardinal south;

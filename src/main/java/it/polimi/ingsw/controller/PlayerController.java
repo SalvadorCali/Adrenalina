@@ -5,6 +5,7 @@ import it.polimi.ingsw.model.cards.WeaponCard;
 import it.polimi.ingsw.model.enums.AdrenalineZone;
 import it.polimi.ingsw.model.enums.TokenColor;
 import it.polimi.ingsw.model.gamecomponents.Ammo;
+import it.polimi.ingsw.model.gamecomponents.GameBoard;
 import it.polimi.ingsw.model.gamecomponents.Player;
 import it.polimi.ingsw.model.gamecomponents.PlayerBoard;
 import it.polimi.ingsw.network.client.ClientInterface;
@@ -14,6 +15,7 @@ import java.util.List;
 public class PlayerController {
     private ClientInterface client;
     private Player player;
+    private GameBoard gameBoard;
 
     public PlayerController(ClientInterface client){
         this.client = client;
@@ -25,6 +27,14 @@ public class PlayerController {
 
     public void setPlayer(Player player){
         this.player = player;
+    }
+
+    public GameBoard getGameBoard() {
+        return gameBoard;
+    }
+
+    public void setGameBoard(GameBoard gameBoard) {
+        this.gameBoard = gameBoard;
     }
 
     public int getScore(){

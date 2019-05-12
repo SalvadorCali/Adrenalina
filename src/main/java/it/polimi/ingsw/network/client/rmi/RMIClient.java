@@ -5,6 +5,7 @@ import it.polimi.ingsw.controller.timer.ConnectionTimer;
 import it.polimi.ingsw.model.enums.AdrenalineZone;
 import it.polimi.ingsw.model.enums.Direction;
 import it.polimi.ingsw.model.enums.TokenColor;
+import it.polimi.ingsw.model.gamecomponents.GameBoard;
 import it.polimi.ingsw.model.gamecomponents.Player;
 import it.polimi.ingsw.model.gamecomponents.Token;
 import it.polimi.ingsw.network.ConnectionInterface;
@@ -53,6 +54,7 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
     public void start() {
         view = new CommandLine(this);
         view.start();
+        view.setPlayerController(playerController);
     }
 
     @Override
@@ -118,14 +120,19 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
     @Override
     public void notify(Message message, Outcome outcome, Object object) throws RemoteException {
         switch (message){
-            /*
             case PLAYER:
                 if(outcome.equals(Outcome.RIGHT)) {
                     Player player = (Player) object;
                     playerController.setPlayer(player);
                 }
                 break;
-            */
+            case GAME:
+                if(outcome.equals(Outcome.ALL)){
+                    GameBoard gameBoard = (GameBoard) object;
+                    playerController.setGameBoard(gameBoard);
+                }
+                view.notify(message, outcome);
+                break;
             case LOGIN:
                 if(outcome.equals(Outcome.RIGHT)) {
                     connectionTimer.start();

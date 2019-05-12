@@ -38,9 +38,9 @@ public class MapCLI {
     private GameBoard gameBoard;
 
 
-    public MapCLI(GameController gameController){
+    public MapCLI(GameBoard gameBoard){
 
-        gameBoard = gameController.getGame().getBoard();
+        this.gameBoard = gameBoard;
     }
 
 

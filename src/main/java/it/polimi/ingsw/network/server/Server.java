@@ -1,5 +1,6 @@
 package it.polimi.ingsw.network.server;
 
+import it.polimi.ingsw.controller.CLIController;
 import it.polimi.ingsw.controller.GameController;
 import it.polimi.ingsw.controller.ServerController;
 import it.polimi.ingsw.network.ConnectionManager;
@@ -15,6 +16,7 @@ import java.util.List;
 public class Server {
     public static void main(String[] args) throws UnknownHostException, SocketException {
         //1st method
+        CLIController.setA("ciaooo");
         List<InetAddress> addresses = Connection.getAddresses();
         Printer.println("[SERVER]Current ip addresses:");
         addresses.forEach(a -> Printer.println("    " + a));

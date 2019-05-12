@@ -2,7 +2,9 @@ package it.polimi.ingsw.model.gamecomponents;
 
 import it.polimi.ingsw.model.enums.*;
 
-public class GameBoard {
+import java.io.Serializable;
+
+public class GameBoard implements Serializable {
     private BoardType type;
     private Square[][] arena;
     private static final int ROWS = 3;

@@ -4,9 +4,10 @@ import it.polimi.ingsw.model.enums.AdrenalineZone;
 import it.polimi.ingsw.model.enums.TokenColor;
 import it.polimi.ingsw.util.Printer;
 
+import java.io.Serializable;
 import java.util.*;
 
-public class PlayerBoard {
+public class PlayerBoard implements Serializable {
     private Token[] damageBoard;
     private static final int MAX_DAMAGE = 12;
     private int maxDamage;

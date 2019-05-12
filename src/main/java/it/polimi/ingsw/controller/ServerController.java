@@ -108,7 +108,7 @@ public class ServerController {
     }
 
     private void startGame(){
-        /*
+        Printer.println("prova");
         colors.forEach((c, u) -> {
             try {
                 servers.get(u).notify(Message.PLAYER, Outcome.RIGHT, users.get(u));
@@ -116,24 +116,23 @@ public class ServerController {
                 Printer.err(e);
             }
         });
-        */
+        Printer.println("prova2");
         gameController.startGame(players);
-        //togliere commento per inserire cli
-        //CLIController.setPlayers(users);
-        //CLIController.setGameBoard(gameController.getGame().getBoard());
         servers.forEach((username, server) -> {
             try {
-                server.notify(Message.GAME, Outcome.ALL);
+                server.notify(Message.GAME, Outcome.ALL, gameController.getGame().getBoard());
             } catch (IOException e) {
                 Printer.err(e);
             }
         });
+        Printer.println("prova3");
         players.get(0).setMyTurn(true);
         try {
             servers.get(players.get(0).getUsername()).notify(Message.NEW_TURN);
         } catch (IOException e) {
             Printer.err(e);
         }
+        Printer.println("prova4");
         TurnTimer timer = new TurnTimer(this, gameController, players);
         timer.start();
         Printer.println("Game iniziato!");

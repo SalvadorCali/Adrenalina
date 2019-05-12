@@ -2,7 +2,9 @@ package it.polimi.ingsw.model.gamecomponents;
 
 import it.polimi.ingsw.model.enums.TokenColor;
 
-public class Score {
+import java.io.Serializable;
+
+public class Score implements Serializable {
     private TokenColor color;
     private int score;
     private boolean max;

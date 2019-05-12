@@ -4,7 +4,9 @@ import it.polimi.ingsw.model.cards.effects.ActionInterface;
 import it.polimi.ingsw.model.enums.Cardinal;
 import it.polimi.ingsw.model.enums.TokenColor;
 
-public class InactivePoint extends Square {
+import java.io.Serializable;
+
+public class InactivePoint extends Square implements Serializable {
     public InactivePoint(TokenColor color, Cardinal north, Cardinal south, Cardinal west, Cardinal east) {
         super(color, north, south, west, east, false);
     }

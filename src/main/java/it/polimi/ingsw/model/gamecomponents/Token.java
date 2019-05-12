@@ -2,7 +2,9 @@ package it.polimi.ingsw.model.gamecomponents;
 
 import it.polimi.ingsw.model.enums.TokenColor;
 
-public class Token {
+import java.io.Serializable;
+
+public class Token implements Serializable {
     private TokenColor firstColor;
     private TokenColor secondColor;
     private boolean overkill;

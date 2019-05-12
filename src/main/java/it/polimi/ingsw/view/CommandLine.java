@@ -7,6 +7,7 @@ import it.polimi.ingsw.model.enums.AdrenalineZone;
 import it.polimi.ingsw.model.enums.Direction;
 import it.polimi.ingsw.model.enums.TokenColor;
 import it.polimi.ingsw.model.gamecomponents.GameBoard;
+import it.polimi.ingsw.model.gamecomponents.Player;
 import it.polimi.ingsw.network.client.ClientInterface;
 import it.polimi.ingsw.network.enums.Message;
 import it.polimi.ingsw.network.enums.Outcome;
@@ -27,8 +28,11 @@ public class CommandLine implements ViewInterface {
     private PlayerController playerController;
     private BufferedReader userInputStream;
     private GameController game = new GameController();
-    private MapCLI mapCLI = new MapCLI(game);
+    //private MapCLI mapCLI = new MapCLI(game);
     //private DamageBoardCLI dmgBoard = new DamageBoardCLI(game);
+    private CLIPrinter cliPrinter;
+    private GameBoard gameBoard;
+    private Player player;
     private AmmoBoxReserveCLI ammoPrinter;
     private DamageBoardCLI damageBoardPrinter;
     private MapCLI gameBoardPrinter;
@@ -145,11 +149,11 @@ public class CommandLine implements ViewInterface {
                     Printer.println("Your score is: " + playerController.getScore());
                     break;
                 case StringCLI.PLAYERBOARD:
-                    //dmgBoard.printDamageBoard();
+                    damageBoardPrinter.printDamageBoard();
                     break;
                 case StringCLI.AMMOS:
                     Printer.println("Your ammos are:");
-                    Printer.println(playerController.getAmmos());
+                    ammoPrinter.printAmmoBox();
                     break;
                 case StringCLI.POWERUPS:
                     Printer.println("Your powerups are:");
@@ -161,7 +165,7 @@ public class CommandLine implements ViewInterface {
                     break;
                 case "map":
                     Printer.println("The Game's Board:");
-                    mapCLI.printMap();
+                    gameBoardPrinter.printMap();
                     break;
                 default:
                     break;
@@ -430,7 +434,7 @@ public class CommandLine implements ViewInterface {
 
     private void notifyNewTurn(){
         Printer.println("It's your turn!");
-        mapCLI.printMap();
+        gameBoardPrinter.printMap();
         //Printer.println("Print information for new turn:");
     }
 
@@ -444,10 +448,15 @@ public class CommandLine implements ViewInterface {
                 Printer.println("Game is already begun!");
                 break;
             case ALL:
+
+                Printer.println(playerController.getGameBoard().getType());
+
+                Printer.println(playerController.getPlayer().getColor());
+
+                gameBoardPrinter = new MapCLI(playerController.getGameBoard());
+                ammoPrinter = new AmmoBoxReserveCLI(playerController.getPlayer());
+                //damageBoardPrinter = new DamageBoardCLI(playerController.getPlayer());
                 Printer.println("Game is started!");
-                //ammoPrinter = new AmmoBoxReserveCLI(CLIController.getPlayers().get(username));
-                //damageBoardPrinter = new DamageBoardCLI(CLIController.getPlayers().get(username));
-                //gameBoardPrinter = new MapCLI(CLIController.getGameBoard());
                 break;
             default:
                 break;
