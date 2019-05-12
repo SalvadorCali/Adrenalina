@@ -1,5 +1,6 @@
 package it.polimi.ingsw.view;
 
+import it.polimi.ingsw.model.enums.Color;
 import it.polimi.ingsw.model.gamecomponents.Ammo;
 import it.polimi.ingsw.model.gamecomponents.Player;
 import it.polimi.ingsw.util.Converter;
@@ -17,6 +18,9 @@ public class AmmoBoxReserveCLI {
     public static final String RESET = "\033[0m";  // Text Reset
     public static final String GREY = "\033[0;37m";   // WHITE
     public static final String CYAN = "\033[0;36m";    // CYAN
+    public static final String BLUE = "\033[0;34m";    // BLUE
+    public static final String YELLOW = "\033[0;33m";  // YELLOW
+    public static final String RED = "\033[0;31m";     // RED
 
 
     private List<Ammo> ammoBox;
@@ -35,14 +39,39 @@ public class AmmoBoxReserveCLI {
         String ammoVal[] = new String[RESERVE_LENGTH];
 
 
+        for(int i = 0; i < RESERVE_LENGTH; i++){
+
+            ammoColor[i] = CYAN;
+            ammoVal[i] = AMMO;
+        }
+
         //give color to ammo
-        for (int i = 0; i< RESERVE_LENGTH; i++){
-            ammoColor[i] = Converter.fromColorToCLIColor(ammoBox.get(i).getColor());
+        for (int i = 0; i < ammoBox.size(); i++){
+
+            if(ammoBox.get(i).getColor().equals(Color.BLUE)){
+
+                ammoColor[i] = BLUE;
+            }
+
+            if(ammoBox.get(i).getColor().equals(Color.RED)){
+
+                ammoColor[i] = RED;
+            }
+
+            if(ammoBox.get(i).getColor().equals(Color.YELLOW)){
+
+                ammoColor[i] = YELLOW;
+            }
+
+            if(ammoBox.get(i).getColor().equals(Color.NONE)){
+
+                ammoColor[i] = CYAN;
+            }
+
         }
 
         for(int i = 0; i < RESERVE_LENGTH; i++){
 
-            ammoVal[i] = AMMO;
 
             if(ammoColor[i].equals(CYAN)){
 
@@ -63,15 +92,18 @@ public class AmmoBoxReserveCLI {
         String ammoColor[] = new String[RESERVE_LENGTH];
         String ammoVal[] = new String[RESERVE_LENGTH];
 
+        for(int i = 0; i < RESERVE_LENGTH; i++){
+
+            ammoColor[i] = CYAN;
+            ammoVal[i] = AMMO;
+        }
 
         //give color to ammo
-        for (int i = 0; i< RESERVE_LENGTH; i++){
+        for (int i = 0; i< ammoReserve.size(); i++){
             ammoColor[i] = Converter.fromColorToCLIColor(ammoReserve.get(i).getColor());
         }
 
         for(int i = 0; i < RESERVE_LENGTH; i++){
-
-            ammoVal[i] = AMMO;
 
             if(ammoColor[i].equals(CYAN)){
 
