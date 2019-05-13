@@ -36,6 +36,26 @@ public class MovementEffectTest {
         assertTrue(tractorBeamMod1.canUseEffect(gameController.getActionInterface()));
     }
 
+    @Test
+    void tractorBeamMod2Test(){
+        playerSetup();
+        Effect tractorBeamMod2 = new MovementEffect("Tractor Beam2", 1, 0,0,2,0);
+
+        clientData.setFirstMove(Direction.UP);
+        assertFalse(tractorBeamMod2.canUseEffect(gameController.getActionInterface()));
+        clientData.setSecondMove(Direction.RIGHT);
+        assertFalse(tractorBeamMod2.canUseEffect(gameController.getActionInterface()));
+        gameController.getActionInterface().move(0,1, victim);
+        clientData.setFirstMove(null);
+        clientData.setSecondMove(null);
+        assertFalse(tractorBeamMod2.canUseEffect(gameController.getActionInterface()));
+        clientData.setFirstMove(Direction.LEFT);
+        assertTrue(tractorBeamMod2.canUseEffect(gameController.getActionInterface()));
+        gameController.getActionInterface().move(0,2, victim);
+        clientData.setSecondMove(Direction.LEFT);
+        assertTrue(tractorBeamMod2.canUseEffect(gameController.getActionInterface()));
+    }
+
 
 
 
