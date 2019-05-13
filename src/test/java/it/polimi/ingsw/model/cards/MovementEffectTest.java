@@ -103,6 +103,20 @@ public class MovementEffectTest {
         assertFalse(shotgun1.canUseEffect(gameController.getActionInterface()));
     }
 
+    @Test
+    void shotgunMod2Test(){
+
+        playerSetup();
+        Effect shotgun2 = new MovementEffect("Shotgun2", 2,0,0,2,0 );
+
+        gameController.getActionInterface().move(0,1, victim);
+        assertTrue(shotgun2.canUseEffect(gameController.getActionInterface()));
+        gameController.getActionInterface().move(1,0, victim);
+        assertTrue(shotgun2.canUseEffect(gameController.getActionInterface()));
+        gameController.getActionInterface().move(0,0, victim);
+        assertFalse(shotgun2.canUseEffect(gameController.getActionInterface()));
+    }
+
 
 
 
