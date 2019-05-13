@@ -56,6 +56,21 @@ public class MovementEffectTest {
         assertTrue(tractorBeamMod2.canUseEffect(gameController.getActionInterface()));
     }
 
+    @Test
+    void powerGloveMod1Test(){
+
+        playerSetup();
+        Effect powerGloveMod1 = new MovementEffect("Power Glove", 1, 2,0,2,0);
+
+        gameController.getActionInterface().move(0,1, victim);
+        assertTrue(powerGloveMod1.canUseEffect(gameController.getActionInterface()));
+        gameController.getActionInterface().move(1,0, victim);
+        assertTrue(powerGloveMod1.canUseEffect(gameController.getActionInterface()));
+        gameController.getActionInterface().move(1,1, victim);
+        assertFalse(powerGloveMod1.canUseEffect(gameController.getActionInterface()));
+    }
+
+
 
 
 
