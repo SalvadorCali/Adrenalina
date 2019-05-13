@@ -70,6 +70,39 @@ public class MovementEffectTest {
         assertFalse(powerGloveMod1.canUseEffect(gameController.getActionInterface()));
     }
 
+    @Test
+    void rocketLauncherTest(){
+
+        playerSetup();
+        Effect rocketLauncher = new MovementEffect("Rocket Launcher", 2,0,0,2,0 );
+
+        gameController.getActionInterface().move(0,1, victim);
+        assertTrue(rocketLauncher.canUseEffect(gameController.getActionInterface()));
+
+        gameController.getActionInterface().move(1,0, victim);
+        assertTrue(rocketLauncher.canUseEffect(gameController.getActionInterface()));
+
+        gameController.getActionInterface().move(0,0, victim);
+        assertFalse(rocketLauncher.canUseEffect(gameController.getActionInterface()));
+
+    }
+
+    @Test
+    void shotgunMod1Test(){
+
+        playerSetup();
+        Effect shotgun1 = new MovementEffect("Shotgun1", 3,0,0,2,0 );
+
+        gameController.getActionInterface().move(0,0, victim);
+        assertTrue(shotgun1.canUseEffect(gameController.getActionInterface()));
+        clientData.setFirstMove(Direction.DOWN);
+        assertTrue(shotgun1.canUseEffect(gameController.getActionInterface()));
+        clientData.setSecondMove(Direction.DOWN);
+        assertFalse(shotgun1.canUseEffect(gameController.getActionInterface()));
+        gameController.getActionInterface().move(0,1, victim);
+        assertFalse(shotgun1.canUseEffect(gameController.getActionInterface()));
+    }
+
 
 
 

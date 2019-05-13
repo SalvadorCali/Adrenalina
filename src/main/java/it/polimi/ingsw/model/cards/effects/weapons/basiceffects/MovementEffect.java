@@ -75,7 +75,7 @@ public class MovementEffect extends BasicEffect {
                 canUse = actionInterface.isVisible(currentPlayer, player);
                 if (canUse) {
                     if (effectName.equals("Rocket Launcher"))
-                        canUse = actionInterface.sameSquare(currentPlayer ,player);
+                        canUse = !actionInterface.sameSquare(currentPlayer ,player);
                     if(canUse)
                         oneMovementControl(actionInterface, player);
                 }
