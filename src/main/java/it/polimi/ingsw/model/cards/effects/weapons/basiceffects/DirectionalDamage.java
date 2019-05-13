@@ -45,12 +45,12 @@ public class DirectionalDamage extends BasicEffect {
         canUse = ammoControl(redAmmos, blueAmmos, yellowAmmos, actionInterface);
 
         if(canUse) {
-                canUse = actionInterface.canMove(player.getColor(),direction);
+                canUse = actionInterface.canMove(player,direction);
                 player.updatePosition(direction);
                 firstSquare = player.getPosition();
                 if(canUse && effectName.equals("Flamethrower1"))
                     canUse = actionInterface.squareControl(player.getPosition().getX(), player.getPosition().getY(), victim);
-                if(canUse && actionInterface.canMove(player.getColor(), direction)){
+                if(canUse && actionInterface.canMove(player, direction)){
                     player.updatePosition(direction);
                     if(effectName.equals("Flamethrower1") && secondVictim != null)
                         canUse = actionInterface.squareControl(player.getPosition().getX(), player.getPosition().getY(), secondVictim);

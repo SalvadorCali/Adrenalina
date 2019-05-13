@@ -36,31 +36,31 @@ public class MovementEffect extends BasicEffect {
     }
 
 
-    //victim = actionInterface.getVictim();
-    //firstMove = actionInterface.getMove(1);
-    //secondMove = actionInterface.getMove(2);
-
-
     @Override
     public boolean canUseEffect(ActionInterface actionInterface) {
+
+
+        victim = actionInterface.getVictim();
+        currentPlayer = actionInterface.getClientData().getCurrentPlayer();
+        firstMove = actionInterface.getFirstMove();
+        secondMove = actionInterface.getSecondMove();
 
         canUse = ammoControl(redAmmos, blueAmmos, yellowAmmos, actionInterface);
 
         if(canUse) {
-
-            player.setPosition(victim.getPosition());
-
+            actionInterface.generatePlayer(victim, player);
             if (effectName.equals("Tractor Beam1")  || effectName.equals("Tractor Beam2")) {
                 if (firstMove != null && secondMove != null) {
-                    canUse = actionInterface.canMove(victim.getColor(), firstMove, secondMove);
-                    player.updatePosition(firstMove, secondMove);
+                    canUse = actionInterface.canMove(player, firstMove, secondMove);
+                    actionInterface.move(firstMove, player);
+                    actionInterface.move(secondMove, player);
                 } else if (firstMove != null && secondMove == null) {
-                    canUse = actionInterface.canMove(victim.getColor(), firstMove);
-                    player.updatePosition(firstMove);
+                    canUse = actionInterface.canMove(player, firstMove);
+                    actionInterface.move(firstMove, player);
                 }
                 if(canUse) {
                     if (effectName.equals("Tractor Beam1"))
-                        canUse = actionInterface.isVisible(player.getColor());
+                        canUse = actionInterface.isVisible(currentPlayer, player);
                     else
                         canUse = actionInterface.sameSquare(currentPlayer, player);
                 }
@@ -72,7 +72,7 @@ public class MovementEffect extends BasicEffect {
             }
 
             if (effectName.equals("Grenade Launcher") || effectName.equals("Rocket Launcher")) {
-                canUse = actionInterface.isVisible(player.getColor());
+                canUse = actionInterface.isVisible(currentPlayer, player);
                 if (canUse) {
                     if (effectName.equals("Rocket Launcher"))
                         canUse = actionInterface.sameSquare(currentPlayer ,player);
@@ -91,7 +91,7 @@ public class MovementEffect extends BasicEffect {
                 canUse = actionInterface.distanceControl(player.getPosition().getX(), player.getPosition().getY()) == 1;
             }
         }
-
+        actionInterface.removePlayer(player);
         return canUse;
     }
 
@@ -108,7 +108,7 @@ public class MovementEffect extends BasicEffect {
     private void oneMovementControl(ActionInterface actionInterface, Player player){
 
         if(firstMove != null && secondMove == null)
-            canUse = actionInterface.canMove(player.getColor(),firstMove);
+            canUse = actionInterface.canMove(player,firstMove);
         else if (firstMove!= null && secondMove!= null){
             canUse = false;
         }

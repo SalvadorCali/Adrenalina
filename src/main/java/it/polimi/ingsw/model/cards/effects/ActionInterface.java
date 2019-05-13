@@ -33,7 +33,7 @@ public interface ActionInterface {
 
     void updateAmmoBox(int redAmmos, int blueAmmos, int redAmmos1);
 
-    boolean canMove(TokenColor victim, Direction... directions);
+    boolean canMove(Player victim, Direction... directions);
 
     int distanceControl(int x, int y);
 
@@ -56,4 +56,14 @@ public interface ActionInterface {
     Player getSecondVictim();
 
     ClientData getClientData();
+
+    void generatePlayer(Player victim, Player player);
+
+    void move(Direction direction, Player player);
+
+    Direction getFirstMove();
+
+    Direction getSecondMove();
+
+    void removePlayer(Player player);
 }

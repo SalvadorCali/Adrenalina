@@ -26,6 +26,31 @@ public class ActionController implements ActionInterface {
         return clientData;
     }
 
+    @Override
+    public void generatePlayer(Player victim , Player player) {
+        game.getBoard().generatePlayer(victim.getPosition().getX(), victim.getPosition().getY(), player);
+    }
+
+    @Override
+    public void move(Direction direction, Player player) {
+        game.getBoard().move(direction, player);
+    }
+
+    @Override
+    public Direction getFirstMove() {
+        return clientData.getFirstMove();
+    }
+
+    @Override
+    public Direction getSecondMove() {
+        return clientData.getSecondMove();
+    }
+
+    @Override
+    public void removePlayer(Player player) {
+        game.getBoard().getArena()[player.getPosition().getX()][player.getPosition().getY()].getPlayers().remove(player);
+    }
+
     public void setClientData(ClientData clientData) {
         this.clientData = clientData;
     }
@@ -93,8 +118,8 @@ public class ActionController implements ActionInterface {
     }
 
     @Override
-    public boolean canMove(TokenColor victim, Direction... directions) {
-        return game.getBoard().canMove(game.findPlayer(victim), directions);
+    public boolean canMove(Player victim, Direction... directions) {
+        return game.getBoard().canMove(victim, directions);
     }
 
     @Override

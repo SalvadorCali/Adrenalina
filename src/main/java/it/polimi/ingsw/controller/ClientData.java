@@ -1,10 +1,13 @@
 package it.polimi.ingsw.controller;
 
+import it.polimi.ingsw.model.enums.Direction;
 import it.polimi.ingsw.model.gamecomponents.Player;
 
 public class ClientData {
 
     private Player victim, secondVictim, currentPlayer;
+
+    private Direction firstMove, secondMove;
 
 
     public Player getVictim() {
@@ -31,4 +34,19 @@ public class ClientData {
         this.currentPlayer = currentPlayer;
     }
 
+    public Direction getFirstMove() {
+        return firstMove;
+    }
+
+    public Direction getSecondMove() {
+        return secondMove;
+    }
+
+    public void setFirstMove(Direction direction){
+        this.firstMove = direction;
+    }
+
+    public void setSecondMove(Direction direction){
+        this.secondMove = direction;
+    }
 }

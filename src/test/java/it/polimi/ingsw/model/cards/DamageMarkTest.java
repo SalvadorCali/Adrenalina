@@ -8,7 +8,6 @@ import it.polimi.ingsw.model.enums.Color;
 import it.polimi.ingsw.model.enums.TokenColor;
 import it.polimi.ingsw.model.gamecomponents.Player;
 import org.junit.jupiter.api.Test;
-
 import static junit.framework.TestCase.*;
 
 public class DamageMarkTest {

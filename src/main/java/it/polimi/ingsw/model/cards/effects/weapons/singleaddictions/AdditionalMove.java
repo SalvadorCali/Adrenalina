@@ -61,10 +61,10 @@ public class AdditionalMove extends SingleAddictionEffect {
 
     private void movementControl(ActionInterface actionInterface) {
         if (firstMove != null && secondMove != null){
-            canUse = actionInterface.canMove(player.getColor(), firstMove, secondMove);
+            canUse = actionInterface.canMove(player, firstMove, secondMove);
             player.updatePosition(firstMove, secondMove);
         } else if (firstMove != null && secondMove == null) {
-            canUse = actionInterface.canMove(player.getColor(), firstMove);
+            canUse = actionInterface.canMove(player, firstMove);
             player.updatePosition(firstMove);
         }
 
@@ -73,7 +73,7 @@ public class AdditionalMove extends SingleAddictionEffect {
     private void oneMovementControl(ActionInterface actionInterface){
 
         if(firstMove != null && secondMove == null)
-            canUse = actionInterface.canMove(player.getColor(),firstMove);
+            canUse = actionInterface.canMove(player,firstMove);
         else if (firstMove!= null && secondMove!= null){
             canUse = false;
         }

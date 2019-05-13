@@ -32,6 +32,7 @@ public class GameBoard implements Serializable {
     }
 
     public boolean canMove(Player player, Direction... directions){
+
         boolean moved = true;
         int x = player.getPosition().getX();
         int y = player.getPosition().getY();
@@ -69,7 +70,7 @@ public class GameBoard implements Serializable {
         player.setPosition(x, y);
     }
 
-    private void move(Direction direction, Player shooter) {
+    public void move(Direction direction, Player shooter) {
 
         int x, y;
 
