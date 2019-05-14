@@ -11,7 +11,7 @@ public class DirectionalDamage extends BasicEffect {
 
     private String effectName;
 
-    private Player victim, secondVictim, player;
+    private Player currentPlayer, victim, secondVictim, player;
 
     private Direction direction;
 
@@ -40,25 +40,32 @@ public class DirectionalDamage extends BasicEffect {
     public boolean canUseEffect(ActionInterface actionInterface) {
 
 
-        player.setPosition(actionInterface.getCurrentPlayer().getPosition());
+        currentPlayer = actionInterface.getClientData().getCurrentPlayer();
+        victim = actionInterface.getVictim();
+        secondVictim = actionInterface.getSecondVictim();
+        direction = actionInterface.getFirstMove();
 
         canUse = ammoControl(redAmmos, blueAmmos, yellowAmmos, actionInterface);
 
         if(canUse) {
-                canUse = actionInterface.canMove(player,direction);
-                player.updatePosition(direction);
-                firstSquare = player.getPosition();
-                if(canUse && effectName.equals("Flamethrower1"))
-                    canUse = actionInterface.squareControl(player.getPosition().getX(), player.getPosition().getY(), victim);
-                if(canUse && actionInterface.canMove(player, direction)){
-                    player.updatePosition(direction);
-                    if(effectName.equals("Flamethrower1") && secondVictim != null)
-                        canUse = actionInterface.squareControl(player.getPosition().getX(), player.getPosition().getY(), secondVictim);
-                    else
-                        squares = 2;
+            actionInterface.generatePlayer(currentPlayer, player);
+            canUse = actionInterface.canMove(player,direction);
+            actionInterface.move(direction, player);
+            firstSquare = player.getPosition();
+            if(canUse && (effectName.equals("Flamethrower1") || (effectName.equals("Power Glove2")))) {
+                canUse = actionInterface.squareControl(player.getPosition().getX(), player.getPosition().getY(), victim);
+            }
+            if (canUse && actionInterface.canMove(player, direction)) {
+                actionInterface.move(direction, player);
+                if ((effectName.equals("Flamethrower1") || effectName.equals("Power Glove2")) && secondVictim != null) {
+                    canUse = actionInterface.squareControl(player.getPosition().getX(), player.getPosition().getY(), secondVictim);
+                }else{
+                    squares = 2;
                 }
-        }
+            }
 
+        }
+        actionInterface.removePlayer(player);
         return canUse;
     }
 
@@ -66,14 +73,18 @@ public class DirectionalDamage extends BasicEffect {
     @Override
     public void useEffect(ActionInterface actionInterface) {
 
-        if(effectName.equals("Flamethrower1")) {
+        if(effectName.equals("Flamethrower1") || effectName.equals("Power Glove2")) {
             actionInterface.playerDamage(victim.getColor(), damagePower);
-            actionInterface.playerDamage(secondVictim.getColor(), damagePower);
+            if(effectName.equals("Power Glove2"))
+                actionInterface.move(firstSquare.getX(), firstSquare.getY(), currentPlayer);
+            if(secondVictim != null)
+                actionInterface.playerDamage(secondVictim.getColor(), damagePower);
+            if(effectName.equals("Power Glove2"))
+                actionInterface.move(player.getPosition().getX(), player.getPosition().getY(), currentPlayer);
         }else {
             actionInterface.squareDamage(firstSquare.getX(), firstSquare.getY(), damagePower, 0);
             if (squares == 2)
                 actionInterface.squareDamage(player.getPosition().getX(), player.getPosition().getY(), 1, 0);
         }
-
     }
 }
