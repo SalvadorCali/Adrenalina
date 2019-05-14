@@ -455,7 +455,7 @@ public class CommandLine implements ViewInterface {
 
                 gameBoardPrinter = new MapCLI(playerController.getGameBoard());
                 ammoPrinter = new AmmoBoxReserveCLI(playerController.getPlayer());
-                //damageBoardPrinter = new DamageBoardCLI(playerController.getPlayer());
+                damageBoardPrinter = new DamageBoardCLI(playerController.getPlayer());
                 Printer.println("Game is started!");
                 break;
             default:

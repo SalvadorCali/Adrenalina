@@ -38,6 +38,7 @@ public class Player implements Serializable {
         blueAmmo = 0;
         redAmmo = 0;
         actionNumber = 0;
+        playerBoard = new PlayerBoard();
     }
 
     public TokenColor getColor() {
