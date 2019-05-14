@@ -1,6 +1,7 @@
 package it.polimi.ingsw.model.gamecomponents;
 
 import it.polimi.ingsw.model.cards.AmmoCard;
+import it.polimi.ingsw.model.cards.Card;
 import it.polimi.ingsw.model.cards.effects.ActionInterface;
 import it.polimi.ingsw.model.enums.Direction;
 import it.polimi.ingsw.model.enums.TokenColor;
@@ -261,5 +262,10 @@ public class Game {
 
     public boolean sameSquare(Player shooter, Player victim){
         return (shooter.getPosition().getX() == (victim.getPosition().getX()) && shooter.getPosition().getY() == victim.getPosition().getY());
+    }
+
+    public Card drawPowerup(){
+        powerups.shuffle();
+        return powerups.draw();
     }
 }

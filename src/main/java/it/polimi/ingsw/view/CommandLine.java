@@ -78,6 +78,9 @@ public class CommandLine implements ViewInterface {
             case "disconnect":
                 disconnect();
                 break;
+            case "choose":
+                choose(string);
+                break;
             case "show":
                 if(!show(string)){
                     Printer.print(StringCLI.INVALID_COMMAND);
@@ -138,6 +141,10 @@ public class CommandLine implements ViewInterface {
         } catch (RemoteException e) {
             Printer.err(e);
         }
+    }
+
+    private boolean choose(StringTokenizer input){
+        return true;
     }
 
     private boolean show(StringTokenizer input){

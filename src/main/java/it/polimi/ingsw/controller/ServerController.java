@@ -1,6 +1,7 @@
 package it.polimi.ingsw.controller;
 
 import it.polimi.ingsw.controller.timer.TurnTimer;
+import it.polimi.ingsw.model.cards.Card;
 import it.polimi.ingsw.model.enums.Direction;
 import it.polimi.ingsw.model.enums.TokenColor;
 import it.polimi.ingsw.model.gamecomponents.Player;
@@ -108,7 +109,6 @@ public class ServerController {
     }
 
     private void startGame(){
-        Printer.println("prova");
         colors.forEach((c, u) -> {
             try {
                 servers.get(u).notify(Message.PLAYER, Outcome.RIGHT, users.get(u));
@@ -116,7 +116,6 @@ public class ServerController {
                 Printer.err(e);
             }
         });
-        Printer.println("prova2");
         gameController.startGame(players);
         servers.forEach((username, server) -> {
             try {
@@ -125,17 +124,29 @@ public class ServerController {
                 Printer.err(e);
             }
         });
-        Printer.println("prova3");
         players.get(0).setMyTurn(true);
         try {
             servers.get(players.get(0).getUsername()).notify(Message.NEW_TURN);
         } catch (IOException e) {
             Printer.err(e);
         }
-        Printer.println("prova4");
         TurnTimer timer = new TurnTimer(this, gameController, players);
         timer.start();
         Printer.println("Game iniziato!");
+    }
+
+    public void spawnLocation(){
+        List<Card> powerups = new ArrayList<>();
+        servers.forEach((username, server) -> {
+            powerups.add(gameController.drawPowerup());
+            powerups.add(gameController.drawPowerup());
+            try {
+                server.notify(Message.SPAWN, Outcome.RIGHT, powerups);
+            } catch (IOException e) {
+                Printer.err(e);
+            }
+            powerups.clear();
+        });
     }
 
     public void disconnect(String username){

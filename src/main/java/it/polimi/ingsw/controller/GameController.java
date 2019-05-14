@@ -1,6 +1,7 @@
 package it.polimi.ingsw.controller;
 
 import it.polimi.ingsw.model.cards.AmmoCard;
+import it.polimi.ingsw.model.cards.Card;
 import it.polimi.ingsw.model.cards.PowerupCard;
 import it.polimi.ingsw.model.cards.WeaponCard;
 import it.polimi.ingsw.model.cards.effects.ActionInterface;
@@ -108,5 +109,9 @@ public class GameController {
 
     public void endTurn(Player player){
         game.endTurn(player);
+    }
+
+    public Card drawPowerup(){
+        return game.drawPowerup();
     }
 }
