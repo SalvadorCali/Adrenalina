@@ -1,11 +1,13 @@
 package it.polimi.ingsw.model.gamecomponents;
 
 import it.polimi.ingsw.model.cards.AmmoCard;
+import it.polimi.ingsw.model.cards.WeaponCard;
 import it.polimi.ingsw.model.cards.effects.ActionInterface;
 import it.polimi.ingsw.model.enums.Cardinal;
 import it.polimi.ingsw.model.enums.TokenColor;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class AmmoPoint extends Square implements Serializable {
     private AmmoCard ammoCard;
@@ -16,6 +18,11 @@ public class AmmoPoint extends Square implements Serializable {
     //getters and setters
     public AmmoCard getAmmoCard() {
         return ammoCard;
+    }
+
+    @Override
+    public List<WeaponCard> getWeapons() {
+        return null;
     }
 
     public void setAmmoCard(AmmoCard ammoCard) {

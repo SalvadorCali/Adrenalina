@@ -1,5 +1,7 @@
 package it.polimi.ingsw.model.gamecomponents;
 
+import it.polimi.ingsw.model.cards.AmmoCard;
+import it.polimi.ingsw.model.cards.WeaponCard;
 import it.polimi.ingsw.model.cards.effects.ActionInterface;
 import it.polimi.ingsw.model.enums.Cardinal;
 import it.polimi.ingsw.model.enums.Color;
@@ -121,6 +123,8 @@ public abstract class Square implements Serializable {
     }
     public abstract void grab(ActionInterface actionInterface, int choice);
     public abstract void fill(ActionInterface actionInterface);
+    public abstract AmmoCard getAmmoCard();
+    public abstract List<WeaponCard> getWeapons();
 
 
 }
