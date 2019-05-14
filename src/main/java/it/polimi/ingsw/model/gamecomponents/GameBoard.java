@@ -223,6 +223,7 @@ public class GameBoard implements Serializable {
             for(int j=0; j<4; j++){
                 if(arena[i][j].isSpawn() && arena[i][j].getColor().equals(tokenColor)){
                     arena[i][j].addPlayer(player);
+                    player.setPosition(new Position(i,j));
                     break;
                 }
             }

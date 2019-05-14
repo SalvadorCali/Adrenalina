@@ -5,6 +5,7 @@ import it.polimi.ingsw.model.cards.Card;
 import it.polimi.ingsw.model.cards.PowerupCard;
 import it.polimi.ingsw.model.cards.WeaponCard;
 import it.polimi.ingsw.model.cards.effects.ActionInterface;
+import it.polimi.ingsw.model.enums.Color;
 import it.polimi.ingsw.model.enums.Direction;
 import it.polimi.ingsw.model.enums.TokenColor;
 import it.polimi.ingsw.model.gamecomponents.Deck;
@@ -113,5 +114,9 @@ public class GameController {
 
     public Card drawPowerup(){
         return game.drawPowerup();
+    }
+
+    public void setPlayer(Player player, Color color){
+        game.getBoard().setPlayer(player, color);
     }
 }

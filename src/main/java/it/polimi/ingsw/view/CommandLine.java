@@ -3,6 +3,7 @@ package it.polimi.ingsw.view;
 import it.polimi.ingsw.controller.CLIController;
 import it.polimi.ingsw.controller.GameController;
 import it.polimi.ingsw.controller.PlayerController;
+import it.polimi.ingsw.model.cards.Card;
 import it.polimi.ingsw.model.enums.AdrenalineZone;
 import it.polimi.ingsw.model.enums.Direction;
 import it.polimi.ingsw.model.enums.TokenColor;
@@ -20,6 +21,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.rmi.RemoteException;
+import java.util.List;
 import java.util.StringTokenizer;
 
 public class CommandLine implements ViewInterface {
@@ -79,7 +81,9 @@ public class CommandLine implements ViewInterface {
                 disconnect();
                 break;
             case "choose":
-                choose(string);
+                if(!choose(string)){
+                    Printer.print(StringCLI.INVALID_COMMAND);
+                }
                 break;
             case "show":
                 if(!show(string)){
@@ -144,7 +148,22 @@ public class CommandLine implements ViewInterface {
     }
 
     private boolean choose(StringTokenizer input){
-        return true;
+        boolean result = false;
+        if(input.hasMoreTokens()){
+            int choice = Integer.parseInt(input.nextToken());
+            try {
+                if(choice == 1){
+                    //playerController.addPowerup();
+                    client.choose(2);
+                }else{
+                    client.choose(1);
+                }
+            } catch (IOException e) {
+                Printer.err(e);
+            }
+            result = true;
+        }
+        return result;
     }
 
     private boolean show(StringTokenizer input){
@@ -415,6 +434,13 @@ public class CommandLine implements ViewInterface {
         }
     }
 
+    public void notifySpawnLocation(List<Card> powerups){
+        Printer.println("[SERVER]Your powerups:");
+        powerups.forEach(Printer::println);
+        Printer.println("[SERVER]Please, insert the following command ->");
+        Printer.print("choose <choosen_powerup> : ");
+    }
+
     public void notifyDisconnection(Outcome outcome, String username){
         switch (outcome){
             case ALL:
@@ -442,6 +468,8 @@ public class CommandLine implements ViewInterface {
     private void notifyNewTurn(){
         Printer.println("It's your turn!");
         gameBoardPrinter.printMap();
+        Printer.println(playerController.getGameBoard());
+        Printer.println(gameBoardPrinter.getGameBoard());
         //Printer.println("Print information for new turn:");
     }
 
@@ -455,11 +483,6 @@ public class CommandLine implements ViewInterface {
                 Printer.println("Game is already begun!");
                 break;
             case ALL:
-
-                Printer.println(playerController.getGameBoard().getType());
-
-                Printer.println(playerController.getPlayer().getColor());
-
                 gameBoardPrinter = new MapCLI(playerController.getGameBoard());
                 ammoPrinter = new AmmoBoxReserveCLI(playerController.getPlayer());
                 damageBoardPrinter = new DamageBoardCLI(playerController.getPlayer());
@@ -503,6 +526,9 @@ public class CommandLine implements ViewInterface {
                 break;
             case DISCONNECT:
                 notifyDisconnection(outcome, (String) object);
+                break;
+            case SPAWN:
+                notifySpawnLocation((List<Card>) object);
                 break;
             default:
                 break;

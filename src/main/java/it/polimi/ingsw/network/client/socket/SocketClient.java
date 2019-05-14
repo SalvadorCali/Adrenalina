@@ -2,6 +2,7 @@ package it.polimi.ingsw.network.client.socket;
 
 import it.polimi.ingsw.controller.PlayerController;
 import it.polimi.ingsw.controller.timer.ConnectionTimer;
+import it.polimi.ingsw.model.cards.Card;
 import it.polimi.ingsw.model.enums.AdrenalineZone;
 import it.polimi.ingsw.model.enums.Direction;
 import it.polimi.ingsw.model.enums.TokenColor;
@@ -17,6 +18,7 @@ import it.polimi.ingsw.view.ViewInterface;
 
 import java.io.*;
 import java.net.Socket;
+import java.util.List;
 
 public class SocketClient implements ClientInterface, Runnable, Serializable {
     private PlayerController playerController;
@@ -115,6 +117,14 @@ public class SocketClient implements ClientInterface, Runnable, Serializable {
     }
 
     @Override
+    public void choose(int choice) throws IOException {
+        objectOutputStream.writeObject(Message.SPAWN);
+        objectOutputStream.flush();
+        objectOutputStream.writeInt(choice);
+        objectOutputStream.flush();
+    }
+
+    @Override
     public void move(Direction... directions) throws IOException {
         objectOutputStream.writeObject(Message.MOVE);
         objectOutputStream.flush();
@@ -194,6 +204,11 @@ public class SocketClient implements ClientInterface, Runnable, Serializable {
             case DISCONNECT:
                 outcome = (Outcome) objectInputStream.readObject();
                 object = (String) objectInputStream.readObject();
+                view.notify(message, outcome, object);
+                break;
+            case SPAWN:
+                outcome = (Outcome) objectInputStream.readObject();
+                object = (List<Card>) objectInputStream.readObject();
                 view.notify(message, outcome, object);
                 break;
             default:

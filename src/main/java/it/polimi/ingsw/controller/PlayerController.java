@@ -60,4 +60,8 @@ public class PlayerController {
     public AdrenalineZone getAdrenalineZone(){
         return player.getPlayerBoard().getAdrenalineZone();
     }
+
+    public void addPowerup(PowerupCard powerup){
+        player.addPowerup(powerup);
+    }
 }

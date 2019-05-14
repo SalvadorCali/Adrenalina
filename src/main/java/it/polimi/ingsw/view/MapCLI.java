@@ -36,6 +36,9 @@ public class MapCLI {
 
     private Square[][] arena = new Square[ROWS][COLUMNS];
     private GameBoard gameBoard;
+    public GameBoard getGameBoard(){
+        return gameBoard;
+    }
 
 
     public MapCLI(GameBoard gameBoard){

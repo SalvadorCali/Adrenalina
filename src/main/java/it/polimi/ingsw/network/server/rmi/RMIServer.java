@@ -41,6 +41,11 @@ public class RMIServer extends UnicastRemoteObject implements RMIServerInterface
     }
 
     @Override
+    public void choose(int choice){
+        serverController.choose(clientName, choice);
+    }
+
+    @Override
     public void move(Direction... directions) throws RemoteException {
         serverController.move(clientName, directions);
     }

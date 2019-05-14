@@ -66,6 +66,9 @@ public class SocketServer implements Runnable, ServerInterface {
             case DISCONNECT:
                 disconnect();
                 break;
+            case SPAWN:
+                choose();
+                break;
             case USERNAME:
                 break;
             case MOVE:
@@ -105,6 +108,15 @@ public class SocketServer implements Runnable, ServerInterface {
             objectInputStream.close();
             objectOutputStream.close();
             socket.close();
+        } catch (IOException e) {
+            Printer.err(e);
+        }
+    }
+
+    public void choose(){
+        try {
+            int choice = objectInputStream.readInt();
+            serverController.choose(clientName, choice);
         } catch (IOException e) {
             Printer.err(e);
         }

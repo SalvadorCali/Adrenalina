@@ -10,6 +10,7 @@ import it.polimi.ingsw.network.server.ServerInterface;
 import it.polimi.ingsw.util.Config;
 import it.polimi.ingsw.util.Printer;
 import it.polimi.ingsw.network.enums.Outcome;
+import it.polimi.ingsw.view.MapCLI;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -21,11 +22,13 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 public class ServerController {
+    private int spawnedPlayers;
     private GameController gameController;
     private Map<String, ServerInterface> servers;
     private Map<TokenColor, String> colors;
     private Map<String, Player> users;
     private Map<String, Player> disconnectedUsers;
+    private Map<String, List<Card>> powerupsSpawn;
     private List<Player> players;
 
     public ServerController(){
@@ -33,8 +36,10 @@ public class ServerController {
         servers = new HashMap<>();
         colors = new HashMap<>();
         users = new HashMap<>();
+        powerupsSpawn = new HashMap<>();
         disconnectedUsers = new HashMap<>();
         players = new ArrayList<>();
+        spawnedPlayers = 0;
     }
 
 
@@ -46,7 +51,7 @@ public class ServerController {
                 addPlayer(username, color, server);
                 if(servers.size() == Config.MIN_PLAYERS){
                     ScheduledExecutorService createGame = Executors.newSingleThreadScheduledExecutor();
-                    Runnable createGameTask = this::startGame;
+                    Runnable createGameTask = this::spawnLocation;
                     createGame.schedule(createGameTask, Config.START_TIME, TimeUnit.MILLISECONDS);
                 }
             }else if(newUsername || newColor){
@@ -109,6 +114,18 @@ public class ServerController {
     }
 
     private void startGame(){
+        players.get(0).setMyTurn(true);
+        try {
+            servers.get(players.get(0).getUsername()).notify(Message.NEW_TURN);
+        } catch (IOException e) {
+            Printer.err(e);
+        }
+        TurnTimer timer = new TurnTimer(this, gameController, players);
+        timer.start();
+        Printer.println("Game iniziato!");
+    }
+
+    public void spawnLocation(){
         colors.forEach((c, u) -> {
             try {
                 servers.get(u).notify(Message.PLAYER, Outcome.RIGHT, users.get(u));
@@ -124,20 +141,8 @@ public class ServerController {
                 Printer.err(e);
             }
         });
-        players.get(0).setMyTurn(true);
-        try {
-            servers.get(players.get(0).getUsername()).notify(Message.NEW_TURN);
-        } catch (IOException e) {
-            Printer.err(e);
-        }
-        TurnTimer timer = new TurnTimer(this, gameController, players);
-        timer.start();
-        Printer.println("Game iniziato!");
-    }
-
-    public void spawnLocation(){
-        List<Card> powerups = new ArrayList<>();
         servers.forEach((username, server) -> {
+            List<Card> powerups = new ArrayList<>();
             powerups.add(gameController.drawPowerup());
             powerups.add(gameController.drawPowerup());
             try {
@@ -145,8 +150,26 @@ public class ServerController {
             } catch (IOException e) {
                 Printer.err(e);
             }
-            powerups.clear();
+            powerupsSpawn.put(username, powerups);
         });
+    }
+
+    public void choose(String username, int choice){
+        gameController.setPlayer(users.get(username), powerupsSpawn.get(username).get(choice - 1).getColor());
+        spawnedPlayers++;
+        /*
+        try {
+            servers.get(username).notify(Message.SPAWN, Outcome.RIGHT);
+        } catch (IOException e) {
+            Printer.err(e);
+        }
+        */
+        if(spawnedPlayers == servers.size()){
+            MapCLI map = new MapCLI(gameController.getGame().getBoard());
+            map.printMap();
+            Printer.println(gameController.getGame().getBoard());
+            startGame();
+        }
     }
 
     public void disconnect(String username){
@@ -163,17 +186,6 @@ public class ServerController {
                     Printer.err(e);
                 }
             });
-            /*
-            Printer.println("Lista utenti:");
-            Printer.print("Server:");
-            servers.forEach((u,s) -> Printer.println(u));
-            Printer.print("Colors:");
-            colors.forEach((t,st) -> Printer.println(st));
-            Printer.print("Users:");
-            users.forEach((us,p) -> Printer.println(us));
-            Printer.print("DiscUsers:");
-            disconnectedUsers.forEach((use,pl) -> Printer.println(use));
-            */
         }
     }
 

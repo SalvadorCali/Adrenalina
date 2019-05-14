@@ -79,6 +79,15 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
     }
 
     @Override
+    public void choose(int choice){
+        try {
+            server.choose(choice);
+        } catch (RemoteException e) {
+            Printer.err(e);
+        }
+    }
+
+    @Override
     public void move(Direction... directions) throws RemoteException {
         server.move(directions);
     }
