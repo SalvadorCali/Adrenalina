@@ -117,18 +117,6 @@ public class MovementEffectTest {
         assertFalse(shotgun2.canUseEffect(gameController.getActionInterface()));
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
     void playerSetup(){
 
         //currentPlayerSetup

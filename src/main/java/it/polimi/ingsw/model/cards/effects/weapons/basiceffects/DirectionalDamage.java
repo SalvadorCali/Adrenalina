@@ -39,7 +39,6 @@ public class DirectionalDamage extends BasicEffect {
     @Override
     public boolean canUseEffect(ActionInterface actionInterface) {
 
-
         currentPlayer = actionInterface.getClientData().getCurrentPlayer();
         victim = actionInterface.getVictim();
         secondVictim = actionInterface.getSecondVictim();
@@ -50,17 +49,19 @@ public class DirectionalDamage extends BasicEffect {
         if(canUse) {
             actionInterface.generatePlayer(currentPlayer, player);
             canUse = actionInterface.canMove(player,direction);
-            actionInterface.move(direction, player);
-            firstSquare = player.getPosition();
-            if(canUse && (effectName.equals("Flamethrower1") || (effectName.equals("Power Glove2")))) {
-                canUse = actionInterface.squareControl(player.getPosition().getX(), player.getPosition().getY(), victim);
-            }
-            if (canUse && actionInterface.canMove(player, direction)) {
+            if(canUse) {
                 actionInterface.move(direction, player);
-                if ((effectName.equals("Flamethrower1") || effectName.equals("Power Glove2")) && secondVictim != null) {
-                    canUse = actionInterface.squareControl(player.getPosition().getX(), player.getPosition().getY(), secondVictim);
-                }else{
-                    squares = 2;
+                firstSquare = new Position(player.getPosition().getX(), player.getPosition().getY());
+                if (canUse && (effectName.equals("Flamethrower1") || (effectName.equals("Power Glove2")))) {
+                    canUse = actionInterface.squareControl(player.getPosition().getX(), player.getPosition().getY(), victim);
+                }
+                if (canUse && actionInterface.canMove(player, direction)) {
+                    actionInterface.move(direction, player);
+                    if ((effectName.equals("Flamethrower1") || effectName.equals("Power Glove2")) && secondVictim != null) {
+                        canUse = actionInterface.squareControl(player.getPosition().getX(), player.getPosition().getY(), secondVictim);
+                    } else {
+                        squares = 2;
+                    }
                 }
             }
 
@@ -68,7 +69,6 @@ public class DirectionalDamage extends BasicEffect {
         actionInterface.removePlayer(player);
         return canUse;
     }
-
 
     @Override
     public void useEffect(ActionInterface actionInterface) {
