@@ -8,6 +8,7 @@ import it.polimi.ingsw.model.enums.TokenColor;
 import it.polimi.ingsw.model.gamecomponents.Ammo;
 import it.polimi.ingsw.model.gamecomponents.Game;
 import it.polimi.ingsw.model.gamecomponents.Player;
+import it.polimi.ingsw.model.gamecomponents.Position;
 
 
 public class ActionController implements ActionInterface {
@@ -49,6 +50,11 @@ public class ActionController implements ActionInterface {
     @Override
     public void removePlayer(Player player) {
         game.getBoard().getArena()[player.getPosition().getX()][player.getPosition().getY()].getPlayers().remove(player);
+    }
+
+    @Override
+    public Position getSquare() {
+        return clientData.getSquare();
     }
 
     public void setClientData(ClientData clientData) {
@@ -109,7 +115,7 @@ public class ActionController implements ActionInterface {
 
     @Override
     public boolean isVisibleDifferentSquare(int x, int y){
-        return game.getBoard().isVisibleDifferentSquare(game.getCurrentPlayer(), x, y);
+        return game.getBoard().isVisibleDifferentSquare(clientData.getCurrentPlayer(), x, y);
     }
 
     @Override

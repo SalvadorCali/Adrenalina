@@ -7,6 +7,7 @@ import it.polimi.ingsw.model.enums.Direction;
 import it.polimi.ingsw.model.enums.TokenColor;
 import it.polimi.ingsw.model.gamecomponents.Ammo;
 import it.polimi.ingsw.model.gamecomponents.Player;
+import it.polimi.ingsw.model.gamecomponents.Position;
 
 
 public interface ActionInterface {
@@ -66,4 +67,6 @@ public interface ActionInterface {
     Direction getSecondMove();
 
     void removePlayer(Player player);
+
+    Position getSquare();
 }
