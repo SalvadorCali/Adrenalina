@@ -40,6 +40,10 @@ public class MapCLI {
         return gameBoard;
     }
 
+    public void setGameBoard(GameBoard gameBoard){
+        this.gameBoard = gameBoard;
+    }
+
 
     public MapCLI(GameBoard gameBoard){
 

@@ -181,6 +181,7 @@ public class SocketServer implements Runnable, ServerInterface {
 
     @Override
     public void notify(Message message) throws IOException {
+        objectOutputStream.reset();
         objectOutputStream.writeObject(Message.NOTIFY);
         objectOutputStream.flush();
         objectOutputStream.writeObject(message);
@@ -189,6 +190,7 @@ public class SocketServer implements Runnable, ServerInterface {
 
     @Override
     public void notify(Message message, Outcome outcome) throws IOException {
+        objectOutputStream.reset();
         objectOutputStream.writeObject(Message.NOTIFY);
         objectOutputStream.flush();
         objectOutputStream.writeObject(message);
@@ -199,6 +201,7 @@ public class SocketServer implements Runnable, ServerInterface {
 
     @Override
     public void notify(Message message, Outcome outcome, Object object) throws IOException {
+        objectOutputStream.reset();
         objectOutputStream.writeObject(Message.NOTIFY);
         objectOutputStream.flush();
         objectOutputStream.writeObject(message);

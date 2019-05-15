@@ -5,6 +5,7 @@ import it.polimi.ingsw.model.cards.WeaponCard;
 import it.polimi.ingsw.model.enums.Color;
 import it.polimi.ingsw.model.enums.Direction;
 import it.polimi.ingsw.model.enums.TokenColor;
+import it.polimi.ingsw.util.Config;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -26,6 +27,8 @@ public class Player implements Serializable {
     private boolean myTurn;
     private String username;
     private boolean disconnected;
+    private boolean spawned;
+    private static final long serialVersionUID = 1L;
 
     public Player(TokenColor color){
         this.color = color;
@@ -39,6 +42,14 @@ public class Player implements Serializable {
         redAmmo = 0;
         actionNumber = 0;
         playerBoard = new PlayerBoard();
+    }
+
+    public boolean isSpawned() {
+        return spawned;
+    }
+
+    public void setSpawned(boolean spawned) {
+        this.spawned = spawned;
     }
 
     public TokenColor getColor() {
@@ -256,5 +267,16 @@ public class Player implements Serializable {
         }
     }
 
+    public void increaseActionNumber(){
+        actionNumber++;
+    }
+
+    public void resetActionNumber(){
+        actionNumber = 0;
+    }
+
+    public boolean canUseAction(){
+        return actionNumber < Config.MAX_ACTIONS;
+    }
 
 }

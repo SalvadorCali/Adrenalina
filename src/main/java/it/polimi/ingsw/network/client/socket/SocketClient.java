@@ -14,11 +14,13 @@ import it.polimi.ingsw.util.Printer;
 import it.polimi.ingsw.view.CommandLine;
 import it.polimi.ingsw.network.enums.Message;
 import it.polimi.ingsw.network.enums.Outcome;
+import it.polimi.ingsw.view.MapCLI;
 import it.polimi.ingsw.view.ViewInterface;
 
 import java.io.*;
 import java.net.Socket;
 import java.util.List;
+import java.util.Map;
 
 public class SocketClient implements ClientInterface, Runnable, Serializable {
     private PlayerController playerController;
@@ -172,6 +174,9 @@ public class SocketClient implements ClientInterface, Runnable, Serializable {
         Object object;
         switch(message){
             case NEW_TURN:
+                outcome = (Outcome) objectInputStream.readObject();
+                GameBoard gameBoard = (GameBoard) objectInputStream.readObject();
+                playerController.setGameBoard(gameBoard);
                 view.notify(message);
                 break;
             case END_TURN:

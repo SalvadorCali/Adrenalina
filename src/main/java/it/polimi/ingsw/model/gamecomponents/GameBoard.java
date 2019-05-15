@@ -9,6 +9,7 @@ public class GameBoard implements Serializable {
     private Square[][] arena;
     private static final int ROWS = 3;
     private static final int COLUMNS = 4;
+    private static final long serialVersionUID = 1L;
 
     public GameBoard(BoardType type, Square[][] arena){
         this.type = type;

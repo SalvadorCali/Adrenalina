@@ -20,8 +20,10 @@ public class Game {
     private Deck powerups;
     private List<AmmoCard> ammos;
     private boolean finalFrenzy;
-    private boolean inGame;
+    private boolean gamePhase;
     private boolean colorSelection;
+    private boolean loginPhase;
+    private boolean spawnLocationPhase;
     private Map<TokenColor, Integer> scoreList;
 
     public Game(GameBoard board, Deck weapons, Deck powerups, List<AmmoCard> ammos){
@@ -34,17 +36,33 @@ public class Game {
         this.weapons = weapons;
         this.powerups = powerups;
         this.ammos = ammos;
-        inGame = false;
+        gamePhase = false;
         finalFrenzy = false;
     }
 
     //getters and setters
-    public boolean isInGame() {
-        return inGame;
+    public boolean isGamePhase() {
+        return gamePhase;
     }
 
-    public void setInGame(boolean inGame) {
-        this.inGame = inGame;
+    public void setGamePhase(boolean gamePhase) {
+        this.gamePhase = gamePhase;
+    }
+
+    public boolean isLoginPhase() {
+        return loginPhase;
+    }
+
+    public void setLoginPhase(boolean loginPhase) {
+        this.loginPhase = loginPhase;
+    }
+
+    public boolean isSpawnLocationPhase() {
+        return spawnLocationPhase;
+    }
+
+    public void setSpawnLocationPhase(boolean spawnLocationPhase) {
+        this.spawnLocationPhase = spawnLocationPhase;
     }
 
     public boolean isColorSelection() {
@@ -161,7 +179,7 @@ public class Game {
     public void addPlayer(Player player){
         players.add(player);
         if(players.size()==5){
-            inGame = true;
+            gamePhase = true;
         }
     }
 

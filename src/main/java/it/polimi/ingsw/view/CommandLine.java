@@ -435,8 +435,12 @@ public class CommandLine implements ViewInterface {
     }
 
     public void notifySpawnLocation(List<Card> powerups){
-        Printer.println("[SERVER]Your powerups:");
-        powerups.forEach(Printer::println);
+        Printer.println("");
+        Printer.println("[SERVER]Please, choose one of these powerups:");
+        powerups.forEach(p -> {
+            Printer.println(p);
+            Printer.println("");
+        });
         Printer.println("[SERVER]Please, insert the following command ->");
         Printer.print("choose <choosen_powerup> : ");
     }
@@ -467,10 +471,8 @@ public class CommandLine implements ViewInterface {
 
     private void notifyNewTurn(){
         Printer.println("It's your turn!");
+        gameBoardPrinter.setGameBoard(playerController.getGameBoard());
         gameBoardPrinter.printMap();
-        Printer.println(playerController.getGameBoard());
-        Printer.println(gameBoardPrinter.getGameBoard());
-        //Printer.println("Print information for new turn:");
     }
 
     private void notifyEndTurn(){

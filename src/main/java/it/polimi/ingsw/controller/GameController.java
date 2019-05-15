@@ -2,8 +2,6 @@ package it.polimi.ingsw.controller;
 
 import it.polimi.ingsw.model.cards.AmmoCard;
 import it.polimi.ingsw.model.cards.Card;
-import it.polimi.ingsw.model.cards.PowerupCard;
-import it.polimi.ingsw.model.cards.WeaponCard;
 import it.polimi.ingsw.model.cards.effects.ActionInterface;
 import it.polimi.ingsw.model.enums.Color;
 import it.polimi.ingsw.model.enums.Direction;
@@ -54,18 +52,26 @@ public class GameController {
     //methods
     public void startGame(List<Player> players){
         game.setPlayers(players);
-        game.setInGame(true);
+        //game.setGamePhase(true);
         game.createKillshotTrack(8);
         game.fillSquares(actionInterface);
         game.createScoreList();
     }
 
-    public void setInGame(boolean inGame){
-        game.setInGame(inGame);
+    public void setGamePhase(boolean gamePhase){
+        game.setGamePhase(gamePhase);
     }
 
-    public boolean isInGame(){
-        return game.isInGame();
+    public boolean isGamePhase(){
+        return game.isGamePhase();
+    }
+
+    public void setSpawnLocationPhase(boolean spawnLocationPhase){
+        game.setSpawnLocationPhase(spawnLocationPhase);
+    }
+
+    public boolean isSpawnLocationPhase(){
+        return game.isSpawnLocationPhase();
     }
 
     public void setColorSelection(boolean colorSelection){
@@ -89,26 +95,38 @@ public class GameController {
     }
 
     public void move(Player player, Direction...directions){
-        //game.getBoard().move();
+        if(player.canUseAction()){
+            //game.getBoard().move();
+            player.increaseActionNumber();
+        }
     }
 
     public void grab(Player player, int choice, Direction...directions){
-        if(directions.length > 0){
-            if(canMove(player, directions)){
-                move(player, directions);
+        if(player.canUseAction()){
+            if(directions.length > 0){
+                if(canMove(player, directions)){
+                    move(player, directions);
+                }
             }
+            int x = player.getPosition().getX();
+            int y = player.getPosition().getY();
+            game.getBoard().getArena()[x][y].grab(actionInterface, choice);
+            player.increaseActionNumber();
         }
-        int x = player.getPosition().getX();
-        int y = player.getPosition().getY();
-        game.getBoard().getArena()[x][y].grab(actionInterface, choice);
+
     }
 
     public void shoot(Player player, Player victim){
-        actionInterface.getClientData().setVictim(victim);
-        //player.getWeapons()...
+        if(player.canUseAction()){
+            actionInterface.getClientData().setVictim(victim);
+            //player.getWeapons()...
+            player.increaseActionNumber();
+        }
+
     }
 
     public void endTurn(Player player){
+        player.resetActionNumber();
         game.endTurn(player);
     }
 

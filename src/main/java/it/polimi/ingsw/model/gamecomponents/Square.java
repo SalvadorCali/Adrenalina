@@ -21,6 +21,7 @@ public abstract class Square implements Serializable {
     private Cardinal east;
     private List<Player> players;
     private boolean spawn;
+    private static final long serialVersionUID = 1L;
 
     public Square(TokenColor color, Cardinal north, Cardinal south, Cardinal west, Cardinal east, boolean spawn){
         this.color = color;

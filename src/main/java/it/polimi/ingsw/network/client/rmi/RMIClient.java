@@ -15,6 +15,7 @@ import it.polimi.ingsw.util.Config;
 import it.polimi.ingsw.util.Printer;
 import it.polimi.ingsw.view.CommandLine;
 import it.polimi.ingsw.network.enums.Outcome;
+import it.polimi.ingsw.view.MapCLI;
 import it.polimi.ingsw.view.ViewInterface;
 
 import java.io.*;
@@ -110,9 +111,6 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
     @Override
     public void notify(Message message) throws RemoteException{
         switch (message){
-            case NEW_TURN:
-                view.notify(message);
-                break;
             case END_TURN:
                 view.notify(message);
                 break;
@@ -148,6 +146,12 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
                 }
                 view.notify(message, outcome, object);
                 break;
+            case NEW_TURN:
+                if(outcome.equals(Outcome.RIGHT)){
+                    GameBoard gameBoard = (GameBoard) object;
+                    playerController.setGameBoard(gameBoard);
+                }
+                view.notify(message);
             default:
                 view.notify(message, outcome, object);
                 break;

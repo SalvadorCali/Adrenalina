@@ -1,5 +1,6 @@
 package it.polimi.ingsw.controller;
 
+import it.polimi.ingsw.controller.timer.SpawnLocationTimer;
 import it.polimi.ingsw.controller.timer.TurnTimer;
 import it.polimi.ingsw.model.cards.Card;
 import it.polimi.ingsw.model.enums.Direction;
@@ -44,7 +45,7 @@ public class ServerController {
 
 
     public void login(String username, TokenColor color, ServerInterface server){
-        if(!gameController.isInGame()){
+        if(!gameController.isGamePhase()){
             boolean newUsername = !servers.containsKey(username) && !disconnectedUsers.containsKey(username); //contains
             boolean newColor = !colors.containsKey(color) && !color.equals(TokenColor.NONE); //contains
             if(newUsername && newColor){
@@ -114,18 +115,21 @@ public class ServerController {
     }
 
     private void startGame(){
+        gameController.setSpawnLocationPhase(false);
+        gameController.setGamePhase(true);
         players.get(0).setMyTurn(true);
         try {
-            servers.get(players.get(0).getUsername()).notify(Message.NEW_TURN);
+            servers.get(players.get(0).getUsername()).notify(Message.NEW_TURN, Outcome.RIGHT, gameController.getGame().getBoard());
         } catch (IOException e) {
             Printer.err(e);
         }
-        TurnTimer timer = new TurnTimer(this, gameController, players);
+        TurnTimer timer = new TurnTimer(this, players, players.get(0));
         timer.start();
         Printer.println("Game iniziato!");
     }
 
     public void spawnLocation(){
+        gameController.setSpawnLocationPhase(true);
         colors.forEach((c, u) -> {
             try {
                 servers.get(u).notify(Message.PLAYER, Outcome.RIGHT, users.get(u));
@@ -152,24 +156,30 @@ public class ServerController {
             }
             powerupsSpawn.put(username, powerups);
         });
+        SpawnLocationTimer spawnLocationTimer = new SpawnLocationTimer(this, gameController);
+        spawnLocationTimer.start();
     }
 
     public void choose(String username, int choice){
+        users.get(username).setSpawned(true);
         gameController.setPlayer(users.get(username), powerupsSpawn.get(username).get(choice - 1).getColor());
         spawnedPlayers++;
-        /*
-        try {
-            servers.get(username).notify(Message.SPAWN, Outcome.RIGHT);
-        } catch (IOException e) {
-            Printer.err(e);
-        }
-        */
         if(spawnedPlayers == servers.size()){
-            MapCLI map = new MapCLI(gameController.getGame().getBoard());
-            map.printMap();
-            Printer.println(gameController.getGame().getBoard());
             startGame();
         }
+    }
+
+    public void randomChoice(){
+        users.forEach((u,p) -> {
+            if(!p.isSpawned()){
+                p.setSpawned(true);
+                gameController.setPlayer(p, powerupsSpawn.get(u).get(0).getColor());
+                spawnedPlayers++;
+                if(spawnedPlayers == servers.size()){
+                    startGame();
+                }
+            }
+        });
     }
 
     public void disconnect(String username){
@@ -242,11 +252,15 @@ public class ServerController {
                     }
                     if(i== players.size()-1){
                         if(servers.containsKey(players.get(0).getUsername())){
-                            servers.get(players.get(0).getUsername()).notify(Message.NEW_TURN);
+                            servers.get(players.get(0).getUsername()).notify(Message.NEW_TURN, Outcome.RIGHT, gameController.getGame().getBoard());
+                            TurnTimer timer = new TurnTimer(this, players, players.get(0));
+                            timer.start();
                         }
                     }else{
                         if(servers.containsKey(players.get(i+1).getUsername())){
-                            servers.get(players.get(i+1).getUsername()).notify(Message.NEW_TURN);
+                            servers.get(players.get(i+1).getUsername()).notify(Message.NEW_TURN, Outcome.RIGHT, gameController.getGame().getBoard());
+                            TurnTimer timer = new TurnTimer(this, players, players.get(i+1));
+                            timer.start();
                         }
                     }
                 } catch (IOException e) {
