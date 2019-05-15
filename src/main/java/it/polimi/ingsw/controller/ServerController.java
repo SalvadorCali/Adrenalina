@@ -219,24 +219,36 @@ public class ServerController {
     }
 
     public void move(String username, Direction...directions){
-        if(gameController.canMove(users.get(username), directions)){
+        if(gameController.canMove(users.get(username), directions) && users.get(username).canUseAction()){
             gameController.move(users.get(username), directions);
             try {
-                servers.get(username).notify(Message.MOVE, Outcome.RIGHT, username);
+                servers.get(username).notify(Message.MOVE, Outcome.RIGHT, gameController.getGame().getBoard());
             } catch (IOException e) {
                 Printer.err(e);
             }
         }else{
             try {
-                servers.get(username).notify(Message.MOVE, Outcome.WRONG, username);
+                servers.get(username).notify(Message.MOVE, Outcome.WRONG, gameController.getGame().getBoard());
             } catch (IOException e) {
                 Printer.err(e);
             }
         }
     }
-
+    //da gestire
     public void grab(String username, int choice, Direction...directions){
-        gameController.grab(users.get(username), choice, directions);
+        if(gameController.grab(users.get(username), choice, directions)){
+            try{
+                servers.get(username).notify(Message.GRAB, Outcome.RIGHT, username);
+            }catch (IOException e){
+                Printer.err(e);
+            }
+        }else{
+            try{
+                servers.get(username).notify(Message.GRAB, Outcome.WRONG, username);
+            }catch (IOException e){
+                Printer.err(e);
+            }
+        }
     }
 
     public void shoot(String username, TokenColor color){

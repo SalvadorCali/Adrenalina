@@ -495,6 +495,16 @@ public class CommandLine implements ViewInterface {
         }
     }
 
+    private void notifyMovement(Outcome outcome){
+        if(outcome.equals(Outcome.RIGHT)){
+            Printer.println("[SERVER]Moved!");
+        }else{
+            Printer.println("[SERVER]Not moved!");
+        }
+        gameBoardPrinter.setGameBoard(playerController.getGameBoard());
+        gameBoardPrinter.printMap();
+    }
+
     public void notify(Message message){
         switch (message){
             case NEW_TURN:
@@ -512,6 +522,9 @@ public class CommandLine implements ViewInterface {
         switch (message){
             case GAME:
                 notifyGame(outcome);
+                break;
+            case MOVE:
+                notifyMovement(outcome);
                 break;
             default:
                 break;
