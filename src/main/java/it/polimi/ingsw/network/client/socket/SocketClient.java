@@ -216,6 +216,11 @@ public class SocketClient implements ClientInterface, Runnable, Serializable {
                 object = (List<Card>) objectInputStream.readObject();
                 view.notify(message, outcome, object);
                 break;
+            case MOVE:
+                outcome = (Outcome) objectInputStream.readObject();
+                object = (GameBoard) objectInputStream.readObject();
+                playerController.setGameBoard((GameBoard) object);
+                view.notify(message, outcome);
             default:
                 break;
         }

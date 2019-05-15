@@ -96,12 +96,14 @@ public class GameController {
 
     public void move(Player player, Direction...directions){
         if(player.canUseAction()){
-            //game.getBoard().move();
+            for(Direction direction : directions){
+                game.getBoard().move(direction, player);
+            }
             player.increaseActionNumber();
         }
     }
 
-    public void grab(Player player, int choice, Direction...directions){
+    public boolean grab(Player player, int choice, Direction...directions){
         if(player.canUseAction()){
             if(directions.length > 0){
                 if(canMove(player, directions)){
@@ -112,6 +114,9 @@ public class GameController {
             int y = player.getPosition().getY();
             game.getBoard().getArena()[x][y].grab(actionInterface, choice);
             player.increaseActionNumber();
+            return true;
+        }else{
+            return false;
         }
 
     }

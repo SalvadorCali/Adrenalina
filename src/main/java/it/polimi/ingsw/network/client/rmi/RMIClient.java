@@ -152,6 +152,11 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
                     playerController.setGameBoard(gameBoard);
                 }
                 view.notify(message);
+            case MOVE:
+                GameBoard gameBoard = (GameBoard) object;
+                playerController.setGameBoard(gameBoard);
+                view.notify(message, outcome);
+                break;
             default:
                 view.notify(message, outcome, object);
                 break;
