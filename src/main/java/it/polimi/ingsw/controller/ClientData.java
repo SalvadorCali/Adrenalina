@@ -6,7 +6,7 @@ import it.polimi.ingsw.model.gamecomponents.Position;
 
 public class ClientData {
 
-    private Player victim, secondVictim, currentPlayer;
+    private Player victim, secondVictim, thirdVictim, currentPlayer;
 
     private Direction firstMove, secondMove;
 
@@ -61,5 +61,9 @@ public class ClientData {
 
         this.square.setX(x);
         this.square.setY(y);
+    }
+
+    public Player getThirdVictim() {
+        return thirdVictim;
     }
 }

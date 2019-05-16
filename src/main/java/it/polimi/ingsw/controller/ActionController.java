@@ -57,6 +57,11 @@ public class ActionController implements ActionInterface {
         return clientData.getSquare();
     }
 
+    @Override
+    public Player getThirdVictim() {
+        return clientData.getThirdVictim();
+    }
+
     public void setClientData(ClientData clientData) {
         this.clientData = clientData;
     }

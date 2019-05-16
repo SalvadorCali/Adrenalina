@@ -45,7 +45,7 @@ public class AdditionalTargetTest {
 
         playerSetup();
         Effect thor = new DamageMarkEffect("T.H.O.R.", 2, 0, 0, 2, 0);
-        Effect additionalThor = new AdditionalTarget("T.H.O.R.", 1, 0,0,2,0, thor);
+        Effect additionalThor = new AdditionalTarget("T.H.O.R. Single", 1, 0,0,2,0, thor);
 
         gameController.getGame().getBoard().move(1,2, currentPlayer);
         gameController.getGame().getBoard().move(1,1, victim);

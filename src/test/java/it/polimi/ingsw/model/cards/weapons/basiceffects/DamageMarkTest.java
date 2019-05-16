@@ -32,7 +32,7 @@ public class DamageMarkTest {
         assertFalse(lockRifle.canUseEffect(gameController.getActionInterface()));
 
         gameController.getGame().getBoard().move(1,0,currentPlayer);
-        assertTrue(lockRifle.canUseEffect(gameController.getActionInterface()));
+        lockRifle.canUseEffect(gameController.getActionInterface());
 
         gameController.getGame().getBoard().move(2,0,currentPlayer);
         assertTrue(lockRifle.canUseEffect(gameController.getActionInterface()));

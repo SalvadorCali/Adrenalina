@@ -69,4 +69,6 @@ public interface ActionInterface {
     void removePlayer(Player player);
 
     Position getSquare();
+
+    Player getThirdVictim();
 }

@@ -54,7 +54,7 @@ public class MovementEffect extends BasicEffect {
                     canUse = actionInterface.canMove(player, firstMove, secondMove);
                     actionInterface.move(firstMove, player);
                     actionInterface.move(secondMove, player);
-                } else if (firstMove != null && secondMove == null) {
+                }else if (firstMove != null && secondMove == null) {
                     canUse = actionInterface.canMove(player, firstMove);
                     actionInterface.move(firstMove, player);
                 }

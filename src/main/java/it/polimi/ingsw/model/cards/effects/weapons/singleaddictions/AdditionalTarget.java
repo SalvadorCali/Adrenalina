@@ -12,7 +12,7 @@ public class AdditionalTarget extends SingleAddictionEffect {
 
     private int markPower;
 
-    private Player currentPlayer, victim, additionalVictim;
+    private Player currentPlayer, victim, additionalVictim, thirdVictim;
 
     private int redAmmos, blueAmmos, yellowAmmos;
 
@@ -35,18 +35,21 @@ public class AdditionalTarget extends SingleAddictionEffect {
         currentPlayer = actionInterface.getClientData().getCurrentPlayer();
         victim = actionInterface.getVictim();
         additionalVictim = actionInterface.getSecondVictim();
+        thirdVictim = actionInterface.getThirdVictim();
 
 
         canUse = super.effect.canUseEffect(actionInterface) && actionInterface.ammoControl(redAmmos, blueAmmos, yellowAmmos) ;
         if(canUse) {
             if (effectName.equals("Lock Rifle")){
                 canUse = actionInterface.isVisible(currentPlayer, additionalVictim);
-            }
-            else if(effectName.equals("T.H.O.R.")) {
+            }else if(effectName.equals("T.H.O.R. Single")) {
                 canUse = actionInterface.isVisible(victim, additionalVictim);
+            }else if(effectName.equals("Machine Gun Double")){
+                canUse = actionInterface.isVisible(currentPlayer, thirdVictim);
+            }else if(effectName.equals("T.H.O.R. Double")){
+                canUse = actionInterface.isVisible(additionalVictim, thirdVictim);
             }
         }
-
         return canUse;
     }
 
@@ -54,8 +57,15 @@ public class AdditionalTarget extends SingleAddictionEffect {
     public void useEffect(ActionInterface actionInterface) {
 
         super.effect.useEffect(actionInterface);
-        actionInterface.playerDamage(additionalVictim.getColor(), damagePower);
-        actionInterface.playerMark(additionalVictim.getColor(), markPower);
+        if(effectName.equals("Plasma Gun Double")){
+            actionInterface.playerDamage(victim.getColor(), damagePower);
+        }
+        if(effectName.equals("Machine Gun Double") || effectName.equals("T.H.O.R. Double")){
+            actionInterface.playerDamage(thirdVictim.getColor(), damagePower);
+        }else{
+            actionInterface.playerDamage(additionalVictim.getColor(), damagePower);
+            actionInterface.playerMark(additionalVictim.getColor(), markPower);
+        }
         actionInterface.updateAmmoBox(redAmmos, blueAmmos, yellowAmmos);
     }
 }
