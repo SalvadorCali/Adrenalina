@@ -20,6 +20,7 @@ public abstract class Square implements Serializable {
     private Cardinal west;
     private Cardinal east;
     private List<Player> players;
+    private boolean empty;
     private boolean spawn;
     private static final long serialVersionUID = 1L;
 
@@ -31,6 +32,7 @@ public abstract class Square implements Serializable {
         this.east = east;
         this.spawn = spawn;
         players = new ArrayList<>();
+        this.empty = false;
     }
 
 
@@ -82,6 +84,14 @@ public abstract class Square implements Serializable {
         this.spawn = spawn;
     }
 
+    public boolean isEmpty() {
+        return empty;
+    }
+
+    public void setEmpty(boolean empty) {
+        this.empty = empty;
+    }
+
     public List<Player> getPlayers(){
         return players;
     }
@@ -122,6 +132,7 @@ public abstract class Square implements Serializable {
     public void addPlayer(Player player){
         players.add(player);
     }
+    public abstract boolean canGrab(int choice);
     public abstract void grab(ActionInterface actionInterface, int choice);
     public abstract void fill(ActionInterface actionInterface);
     public abstract AmmoCard getAmmoCard();

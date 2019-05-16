@@ -12,6 +12,7 @@ public interface ClientInterface {
     void login(String username, TokenColor color) throws RemoteException;
     void disconnect() throws RemoteException;
     void choose(int choice) throws IOException;
+    void showSquare() throws IOException;
     void move(Direction...directions) throws IOException;
     void grab(int choice, Direction...directions) throws IOException;
     void shoot(TokenColor color) throws IOException;

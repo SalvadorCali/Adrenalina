@@ -103,22 +103,37 @@ public class GameController {
         }
     }
 
+    public SquareData showSquare(Player player){
+        int x = player.getPosition().getX();
+        int y = player.getPosition().getY();
+        SquareData squareData = new SquareData();
+        squareData.setAmmoCard(game.getBoard().getArena()[x][y].getAmmoCard());
+        squareData.setWeapons(game.getBoard().getArena()[x][y].getWeapons());
+        return squareData;
+    }
+
     public boolean grab(Player player, int choice, Direction...directions){
         if(player.canUseAction()){
             if(directions.length > 0){
                 if(canMove(player, directions)){
                     move(player, directions);
                 }
+                else{
+                    return false;
+                }
             }
             int x = player.getPosition().getX();
             int y = player.getPosition().getY();
-            game.getBoard().getArena()[x][y].grab(actionInterface, choice);
-            player.increaseActionNumber();
-            return true;
+            if(game.getBoard().getArena()[x][y].canGrab(choice)){
+                game.getBoard().getArena()[x][y].grab(actionInterface, choice);
+                player.increaseActionNumber();
+                return true;
+            }else{
+                return false;
+            }
         }else{
             return false;
         }
-
     }
 
     public void shoot(Player player, Player victim){

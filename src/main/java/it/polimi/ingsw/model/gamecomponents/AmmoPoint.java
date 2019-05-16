@@ -31,13 +31,20 @@ public class AmmoPoint extends Square implements Serializable {
 
     //methods
     @Override
+    public boolean canGrab(int choice){
+        return choice == 0 && !isEmpty();
+    }
+
+    @Override
     public void grab(ActionInterface actionInterface, int choice) {
         if(ammoCard.isPowerup()){
             actionInterface.addAmmo(ammoCard.getFirstAmmo(), ammoCard.getSecondAmmo());
             actionInterface.addPowerup();
+            setEmpty(true);
         }
         else{
             actionInterface.addAmmo(ammoCard.getFirstAmmo(), ammoCard.getSecondAmmo(), ammoCard.getThirdAmmo());
+            setEmpty(true);
         }
     }
     @Override

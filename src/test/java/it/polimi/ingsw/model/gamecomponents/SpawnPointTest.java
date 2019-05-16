@@ -28,11 +28,12 @@ public class SpawnPointTest {
         weapons.add((WeaponCard)weaponCards.get(0));
         weapons.add((WeaponCard)weaponCards.get(1));
         weapons.add((WeaponCard)weaponCards.get(2));
+        WeaponCard weaponCard = weapons.get(1);
         SpawnPoint square = new SpawnPoint(TokenColor.BLUE, Cardinal.NONE, Cardinal.NONE, Cardinal.NONE, Cardinal.NONE);
         square.setWeapons(weapons);
         square.grab(actionInterface, 2);
 
-        assertEquals(weapons.get(2), player.getWeapons().get(0));
+        assertEquals(weaponCard, player.getWeapons().get(0));
     }
 
     @Test

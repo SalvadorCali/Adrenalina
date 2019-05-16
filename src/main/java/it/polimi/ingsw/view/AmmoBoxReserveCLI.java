@@ -26,6 +26,11 @@ public class AmmoBoxReserveCLI {
     private List<Ammo> ammoBox;
     private List<Ammo> ammoReserve;
 
+    public void setPlayer(Player player){
+        ammoBox = player.getAmmoBox();
+        ammoReserve = player.getAmmoReserve();
+    }
+
     public AmmoBoxReserveCLI(Player player){
         
         ammoBox = player.getAmmoBox();

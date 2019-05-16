@@ -89,6 +89,15 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
     }
 
     @Override
+    public void showSquare(){
+        try {
+            server.showSquare();
+        } catch (RemoteException e) {
+            Printer.err(e);
+        }
+    }
+
+    @Override
     public void move(Direction... directions) throws RemoteException {
         server.move(directions);
     }
@@ -155,6 +164,11 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
             case MOVE:
                 GameBoard gameBoard = (GameBoard) object;
                 playerController.setGameBoard(gameBoard);
+                view.notify(message, outcome);
+                break;
+            case GRAB:
+                Player player = (Player) object;
+                playerController.setPlayer(player);
                 view.notify(message, outcome);
                 break;
             default:

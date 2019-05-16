@@ -69,6 +69,9 @@ public class SocketServer implements Runnable, ServerInterface {
             case SPAWN:
                 choose();
                 break;
+            case SQUARE:
+                showSquare();
+                break;
             case USERNAME:
                 break;
             case MOVE:
@@ -120,6 +123,10 @@ public class SocketServer implements Runnable, ServerInterface {
         } catch (IOException e) {
             Printer.err(e);
         }
+    }
+
+    public void showSquare(){
+        serverController.showSquare(clientName);
     }
 
     public void move(){

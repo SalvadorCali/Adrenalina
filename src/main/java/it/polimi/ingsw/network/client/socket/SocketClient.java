@@ -1,6 +1,7 @@
 package it.polimi.ingsw.network.client.socket;
 
 import it.polimi.ingsw.controller.PlayerController;
+import it.polimi.ingsw.controller.SquareData;
 import it.polimi.ingsw.controller.timer.ConnectionTimer;
 import it.polimi.ingsw.model.cards.Card;
 import it.polimi.ingsw.model.enums.AdrenalineZone;
@@ -127,6 +128,12 @@ public class SocketClient implements ClientInterface, Runnable, Serializable {
     }
 
     @Override
+    public void showSquare() throws IOException{
+        objectOutputStream.writeObject(Message.SQUARE);
+        objectOutputStream.flush();
+    }
+
+    @Override
     public void move(Direction... directions) throws IOException {
         objectOutputStream.writeObject(Message.MOVE);
         objectOutputStream.flush();
@@ -221,6 +228,15 @@ public class SocketClient implements ClientInterface, Runnable, Serializable {
                 object = (GameBoard) objectInputStream.readObject();
                 playerController.setGameBoard((GameBoard) object);
                 view.notify(message, outcome);
+            case GRAB:
+                outcome = (Outcome) objectInputStream.readObject();
+                object = (Player) objectInputStream.readObject();
+                playerController.setPlayer((Player) object);
+                view.notify(message, outcome);
+            case SQUARE:
+                outcome = (Outcome) objectInputStream.readObject();
+                object = (SquareData) objectInputStream.readObject();
+                view.notify(message, outcome, object);
             default:
                 break;
         }

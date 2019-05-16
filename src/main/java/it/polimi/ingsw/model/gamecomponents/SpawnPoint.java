@@ -5,6 +5,7 @@ import it.polimi.ingsw.model.cards.WeaponCard;
 import it.polimi.ingsw.model.cards.effects.ActionInterface;
 import it.polimi.ingsw.model.enums.Cardinal;
 import it.polimi.ingsw.model.enums.TokenColor;
+import it.polimi.ingsw.util.Printer;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -30,16 +31,30 @@ public class SpawnPoint extends Square implements Serializable {
 
     //methods
     @Override
-    public void grab(ActionInterface actionInterface, int choice) {
-        actionInterface.addWeapon(weapons.get(choice));
+    public boolean canGrab(int choice){
+        return choice >= 1 && choice <= 3 && !isEmpty();
     }
+
+    @Override
+    public void grab(ActionInterface actionInterface, int choice) {
+        actionInterface.addWeapon(weapons.get(choice - 1));
+        weapons.remove(choice-1);
+        setEmpty(true);
+    }
+
     @Override
     public void fill(ActionInterface actionInterface){
+        int size = weapons.size();
+        for(int i=0; i<(3 - size); i++){
+            weapons.add(actionInterface.getWeapon());
+        }
+        /*
         List<WeaponCard> newWeapons = new ArrayList<>();
         newWeapons.add(actionInterface.getWeapon());
         newWeapons.add(actionInterface.getWeapon());
         newWeapons.add(actionInterface.getWeapon());
         setWeapons(newWeapons);
+        */
     }
 
     @Override

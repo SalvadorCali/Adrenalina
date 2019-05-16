@@ -182,6 +182,14 @@ public class ServerController {
         });
     }
 
+    public void showSquare(String username){
+        try {
+            servers.get(username).notify(Message.SQUARE, Outcome.RIGHT, gameController.showSquare(users.get(username)));
+        } catch (IOException e) {
+            Printer.err(e);
+        }
+    }
+
     public void disconnect(String username){
         if(users.containsKey(username)){
             disconnectedUsers.put(username, users.get(username));
@@ -238,13 +246,13 @@ public class ServerController {
     public void grab(String username, int choice, Direction...directions){
         if(gameController.grab(users.get(username), choice, directions)){
             try{
-                servers.get(username).notify(Message.GRAB, Outcome.RIGHT, username);
+                servers.get(username).notify(Message.GRAB, Outcome.RIGHT, users.get(username));
             }catch (IOException e){
                 Printer.err(e);
             }
         }else{
             try{
-                servers.get(username).notify(Message.GRAB, Outcome.WRONG, username);
+                servers.get(username).notify(Message.GRAB, Outcome.WRONG, users.get(username));
             }catch (IOException e){
                 Printer.err(e);
             }

@@ -3,6 +3,7 @@ package it.polimi.ingsw.view;
 import it.polimi.ingsw.controller.CLIController;
 import it.polimi.ingsw.controller.GameController;
 import it.polimi.ingsw.controller.PlayerController;
+import it.polimi.ingsw.controller.SquareData;
 import it.polimi.ingsw.model.cards.Card;
 import it.polimi.ingsw.model.enums.AdrenalineZone;
 import it.polimi.ingsw.model.enums.Direction;
@@ -91,12 +92,14 @@ public class CommandLine implements ViewInterface {
                 }
                 break;
             case "move":
-                move(string);
-                //Printer.println(Config.INVALID_COMMAND);
+                if(!move(string)){
+                    Printer.print(StringCLI.INVALID_COMMAND);
+                }
                 break;
             case "grab":
-                grab(string);
-                //Printer.println(Config.INVALID_COMMAND);
+                if(!grab(string)){
+                    Printer.print(StringCLI.INVALID_COMMAND);
+                }
                 break;
             case "shoot":
                 shoot(string);
@@ -189,6 +192,13 @@ public class CommandLine implements ViewInterface {
                     Printer.println("Your weapons are:");
                     Printer.println(playerController.getWeapons());
                     break;
+                case "square":
+                    try {
+                        client.showSquare();
+                    } catch (IOException e) {
+                        Printer.err(e);
+                    }
+                    break;
                 case "map":
                     Printer.println("The Game's Board:");
                     gameBoardPrinter.printMap();
@@ -201,7 +211,8 @@ public class CommandLine implements ViewInterface {
         return result;
     }
 
-    private void move(StringTokenizer input){
+    private boolean move(StringTokenizer input){
+        boolean result = false;
         Direction first, second, third;
         if(input.hasMoreTokens()){
             first = Converter.fromStringToDirection(input.nextToken());
@@ -211,12 +222,16 @@ public class CommandLine implements ViewInterface {
                     third = Converter.fromStringToDirection(input.nextToken());
                     try {
                         client.move(first, second, third);
+                        result = true;
+                        return result;
                     } catch (IOException e) {
                         Printer.err(e);
                     }
                 }else{
                     try {
                         client.move(first, second);
+                        result = true;
+                        return result;
                     } catch (IOException e) {
                         Printer.err(e);
                     }
@@ -224,14 +239,20 @@ public class CommandLine implements ViewInterface {
             }else{
                 try {
                     client.move(first);
+                    result = true;
+                    return result;
                 } catch (IOException e) {
                     Printer.err(e);
                 }
             }
+        }else{
+            return result;
         }
+        return result;
     }
 
-    private void grab(StringTokenizer input) throws RemoteException {
+    private boolean grab(StringTokenizer input) throws RemoteException {
+        boolean result = false;
         if(input.hasMoreTokens()) {
             String next = input.nextToken();
             int choice = Integer.parseInt(next);
@@ -241,12 +262,16 @@ public class CommandLine implements ViewInterface {
                     if (input.hasMoreTokens()) {
                         try {
                             client.grab(choice, firstD, Converter.fromStringToDirection(input.nextToken()));
+                            result = true;
+                            return result;
                         } catch (IOException e) {
                             Printer.err(e);
                         }
                     } else {
                         try {
                             client.grab(choice, firstD);
+                            result = true;
+                            return result;
                         } catch (IOException e) {
                             Printer.err(e);
                         }
@@ -254,6 +279,8 @@ public class CommandLine implements ViewInterface {
                 } else {
                     try {
                         client.grab(choice, firstD);
+                        result = true;
+                        return result;
                     } catch (IOException e) {
                         Printer.err(e);
                     }
@@ -261,11 +288,14 @@ public class CommandLine implements ViewInterface {
             } else {
                 try {
                     client.grab(0);
+                    result = true;
+                    return result;
                 } catch (IOException e) {
                     Printer.err(e);
                 }
             }
         }
+        return result;
     }
 
     private void shoot(StringTokenizer input){
@@ -505,6 +535,25 @@ public class CommandLine implements ViewInterface {
         gameBoardPrinter.printMap();
     }
 
+    private void notifyGrab(Outcome outcome){
+        if(outcome.equals(Outcome.RIGHT)){
+            Printer.println("[SERVER]Grabbed!");
+        }else{
+            Printer.println("[SERVER]Not grabbed!");
+        }
+        ammoPrinter.setPlayer(playerController.getPlayer());
+        ammoPrinter.printAmmoBox();
+        ammoPrinter.printAmmoReserve();
+        playerController.getPlayer().getWeapons().forEach(Printer::println);
+        playerController.getPlayer().getPowerups().forEach(Printer::println);
+    }
+
+    private void notifyShowSquare(SquareData squareData){
+        Printer.println("Dati:");
+        Printer.println(squareData.getAmmoCard());
+        squareData.getWeapons().forEach(Printer::println);
+    }
+
     public void notify(Message message){
         switch (message){
             case NEW_TURN:
@@ -526,6 +575,9 @@ public class CommandLine implements ViewInterface {
             case MOVE:
                 notifyMovement(outcome);
                 break;
+            case GRAB:
+                notifyGrab(outcome);
+                break;
             default:
                 break;
         }
@@ -544,6 +596,9 @@ public class CommandLine implements ViewInterface {
                 break;
             case SPAWN:
                 notifySpawnLocation((List<Card>) object);
+                break;
+            case SQUARE:
+                notifyShowSquare((SquareData) object);
                 break;
             default:
                 break;
