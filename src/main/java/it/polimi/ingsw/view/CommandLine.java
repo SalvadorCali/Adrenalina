@@ -549,9 +549,20 @@ public class CommandLine implements ViewInterface {
     }
 
     private void notifyShowSquare(SquareData squareData){
-        Printer.println("Dati:");
-        Printer.println(squareData.getAmmoCard());
-        squareData.getWeapons().forEach(Printer::println);
+        if(squareData.getAmmoCard() != null){
+            Printer.println("Ammos:");
+            Printer.print(squareData.getAmmoCard().getFirstAmmo().getColor() + ", " +
+                    squareData.getAmmoCard().getSecondAmmo().getColor() + ", ");
+            if(squareData.getAmmoCard().isPowerup()){
+                //Printer.println(squareData.getAmmoCard().);
+            }else{
+                Printer.println(squareData.getAmmoCard().getThirdAmmo().getColor());
+            }
+        }
+        if(squareData.getWeapons() != null){
+            Printer.println("Weapons:");
+            squareData.getWeapons().forEach(Printer::println);
+        }
     }
 
     public void notify(Message message){

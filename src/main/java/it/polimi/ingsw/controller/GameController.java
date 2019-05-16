@@ -111,6 +111,7 @@ public class GameController {
         squareData.setWeapons(game.getBoard().getArena()[x][y].getWeapons());
         return squareData;
     }
+    
 
     public boolean grab(Player player, int choice, Direction...directions){
         if(player.canUseAction()){

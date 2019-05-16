@@ -3,9 +3,10 @@ package it.polimi.ingsw.controller;
 import it.polimi.ingsw.model.cards.AmmoCard;
 import it.polimi.ingsw.model.cards.WeaponCard;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class SquareData {
+public class SquareData implements Serializable {
     private AmmoCard ammoCard;
     private List<WeaponCard> weapons;
     public SquareData(){

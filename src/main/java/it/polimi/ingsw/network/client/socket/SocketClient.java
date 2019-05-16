@@ -228,15 +228,18 @@ public class SocketClient implements ClientInterface, Runnable, Serializable {
                 object = (GameBoard) objectInputStream.readObject();
                 playerController.setGameBoard((GameBoard) object);
                 view.notify(message, outcome);
+                break;
             case GRAB:
                 outcome = (Outcome) objectInputStream.readObject();
                 object = (Player) objectInputStream.readObject();
                 playerController.setPlayer((Player) object);
                 view.notify(message, outcome);
+                break;
             case SQUARE:
                 outcome = (Outcome) objectInputStream.readObject();
                 object = (SquareData) objectInputStream.readObject();
                 view.notify(message, outcome, object);
+                break;
             default:
                 break;
         }
