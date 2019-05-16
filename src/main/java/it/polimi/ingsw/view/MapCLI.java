@@ -239,136 +239,118 @@ public class MapCLI {
        }
 
         //put players on the CLI
-        for(int i = 0; i < ROWS; i++){
-            for (int j = 0; j < COLUMNS; j++){
 
-                genericPlayer = arena[i][j].getPlayers();
+        if(!arena[0][0].getPlayers().isEmpty()){
+            for(int index = 0; index < arena[0][0].getPlayers().size(); index ++){
 
-                if(!arena[0][0].getPlayers().isEmpty()){
-                    for(int index = 0; index < genericPlayer.size(); index ++){
-
-                        color = Converter.fromTokenColorToCLIColor(genericPlayer.get(index).getColor());
-                        player = color + "X";
-
-                        spacePlayer1[index] = player;
-                    }
-                }
-
-                if(!arena[0][1].getPlayers().isEmpty()){
-                    for(int index = 0; index < genericPlayer.size(); index ++){
-
-                        color = Converter.fromTokenColorToCLIColor(genericPlayer.get(index).getColor());
-                        player = color + "X";
-
-                        spacePlayer2[index] = player;
-                    }
-                }
-
-                if(!arena[0][2].getPlayers().isEmpty()){
-                    for(int index = 0; index < genericPlayer.size(); index ++){
-
-                        color = Converter.fromTokenColorToCLIColor(genericPlayer.get(index).getColor());
-                        player = color + "X";
-
-                        spacePlayer3[index] = player;
-                    }
-                }
-
-                if(!arena[0][3].getPlayers().isEmpty()){
-                    for(int index = 0; index < genericPlayer.size(); index ++){
-
-                        color = Converter.fromTokenColorToCLIColor(genericPlayer.get(index).getColor());
-                        player = color + "X";
-
-                        spacePlayer4[index] = player;
-                    }
-                }
-
-                if(!arena[1][0].getPlayers().isEmpty()){
-                    for(int index = 0; index < genericPlayer.size(); index ++){
-
-                        color = Converter.fromTokenColorToCLIColor(genericPlayer.get(index).getColor());
-                        player = color + "X";
-
-                        spacePlayer5[index] = player;
-                    }
-                }
-
-                if(!arena[1][1].getPlayers().isEmpty()){
-                    for(int index = 0; index < genericPlayer.size(); index ++){
-
-                        color = Converter.fromTokenColorToCLIColor(genericPlayer.get(index).getColor());
-                        player = color + "X";
-
-                        spacePlayer6[index] = player;
-                    }
-                }
-
-                if(!arena[1][2].getPlayers().isEmpty()){
-                    for(int index = 0; index < genericPlayer.size(); index ++){
-
-                        color = Converter.fromTokenColorToCLIColor(genericPlayer.get(index).getColor());
-                        player = color + "X";
-
-                        spacePlayer7[index] = player;
-                    }
-                }
-
-                if(!arena[1][3].getPlayers().isEmpty()){
-                    for(int index = 0; index < genericPlayer.size(); index ++){
-
-                        color = Converter.fromTokenColorToCLIColor(genericPlayer.get(index).getColor());
-                        player = color + "X";
-
-                        spacePlayer8[index] = player;
-                    }
-                }
-
-                if(!arena[2][0].getPlayers().isEmpty()){
-                    for(int index = 0; index < genericPlayer.size(); index ++){
-
-                        color = Converter.fromTokenColorToCLIColor(genericPlayer.get(index).getColor());
-                        player = color + "X";
-
-                        spacePlayer9[index] = player;
-                    }
-                }
-
-                if(!arena[2][1].getPlayers().isEmpty()){
-                    for(int index = 0; index < genericPlayer.size(); index ++){
-
-                        color = Converter.fromTokenColorToCLIColor(genericPlayer.get(index).getColor());
-                        player = color + "X";
-
-                        spacePlayer10[index] = player;
-                    }
-                }
-
-
-                if(!arena[2][2].getPlayers().isEmpty()){
-                    for(int index = 0; index < genericPlayer.size(); index ++){
-
-                        color = Converter.fromTokenColorToCLIColor(genericPlayer.get(index).getColor());
-                        player = color + "X";
-
-                        spacePlayer11[index] = player;
-                    }
-                }
-
-
-                if(!arena[2][3].getPlayers().isEmpty()){
-                    for(int index = 0; index < genericPlayer.size(); index ++){
-
-                        color = Converter.fromTokenColorToCLIColor(genericPlayer.get(index).getColor());
-                        player = color + "X";
-
-                        spacePlayer12[index] = player;
-                    }
-                }
+                color = Converter.fromTokenColorToCLIColor(arena[0][0].getPlayers().get(index).getColor());
+                 player = color + "X";
+                 spacePlayer1[index] = player;
             }
-
         }
 
+        if(!arena[0][1].getPlayers().isEmpty()){
+            for(int index = 0; index < arena[0][1].getPlayers().size(); index ++){
+
+                color = Converter.fromTokenColorToCLIColor(arena[0][1].getPlayers().get(index).getColor());
+                player = color + "X";
+                spacePlayer2[index] = player;
+            }
+        }
+
+        if(!arena[0][2].getPlayers().isEmpty()){
+            for(int index = 0; index < arena[0][2].getPlayers().size(); index ++){
+
+                color = Converter.fromTokenColorToCLIColor(arena[0][2].getPlayers().get(index).getColor());
+                player = color + "X";
+                spacePlayer3[index] = player;
+            }
+        }
+
+        if(!arena[0][3].getPlayers().isEmpty()){
+            for(int index = 0; index < arena[0][3].getPlayers().size(); index ++){
+
+                color = Converter.fromTokenColorToCLIColor(arena[0][3].getPlayers().get(index).getColor());
+                player = color + "X";
+                spacePlayer4[index] = player;
+            }
+        }
+
+        if(!arena[1][0].getPlayers().isEmpty()){
+            for(int index = 0; index < arena[1][0].getPlayers().size(); index ++){
+
+                color = Converter.fromTokenColorToCLIColor(arena[1][0].getPlayers().get(index).getColor());
+                player = color + "X";
+                spacePlayer5[index] = player;
+            }
+        }
+
+        if(!arena[1][1].getPlayers().isEmpty()){
+            for(int index = 0; index < arena[1][1].getPlayers().size(); index ++){
+
+                color = Converter.fromTokenColorToCLIColor(arena[1][1].getPlayers().get(index).getColor());
+                player = color + "X";
+                spacePlayer6[index] = player;
+            }
+        }
+
+        if(!arena[1][2].getPlayers().isEmpty()){
+            for(int index = 0; index < arena[1][2].getPlayers().size(); index ++){
+
+                color = Converter.fromTokenColorToCLIColor(arena[1][2].getPlayers().get(index).getColor());
+                player = color + "X";
+                spacePlayer7[index] = player;
+            }
+        }
+
+        if(!arena[1][3].getPlayers().isEmpty()){
+            for(int index = 0; index < arena[1][3].getPlayers().size(); index ++){
+
+                color = Converter.fromTokenColorToCLIColor(arena[1][3].getPlayers().get(index).getColor());
+                player = color + "X";
+                spacePlayer8[index] = player;
+            }
+        }
+
+        if(!arena[2][0].getPlayers().isEmpty()){
+            for(int index = 0; index < arena[2][0].getPlayers().size(); index ++){
+
+                color = Converter.fromTokenColorToCLIColor(arena[2][0].getPlayers().get(index).getColor());
+                player = color + "X";
+                spacePlayer9[index] = player;
+            }
+        }
+
+        if(!arena[2][1].getPlayers().isEmpty()){
+            for(int index = 0; index < arena[2][1].getPlayers().size(); index ++){
+
+                color = Converter.fromTokenColorToCLIColor(arena[2][1].getPlayers().get(index).getColor());
+                player = color + "X";
+                spacePlayer10[index] = player;
+            }
+        }
+
+
+        if(!arena[2][2].getPlayers().isEmpty()){
+            for(int index = 0; index < arena[2][2].getPlayers().size(); index ++){
+
+                color = Converter.fromTokenColorToCLIColor(arena[2][2].getPlayers().get(index).getColor());
+                player = color + "X";
+                spacePlayer11[index] = player;
+            }
+        }
+
+
+        if(!arena[2][3].getPlayers().isEmpty()){
+            for(int index = 0; index < arena[2][3].getPlayers().size(); index ++){
+
+                color = Converter.fromTokenColorToCLIColor(arena[2][3].getPlayers().get(index).getColor());
+                player = color + "X";
+                spacePlayer12[index] = player;
+            }
+        }
+
+        
 
         //first row
         Printer.print(colorSquare[0][0] + " ___" + wallNorth[0] + "___" + SPACE + colorSquare[0][1] + "  ___" + wallNorth[1] + "___" + SPACE + colorSquare[0][2] + "  ___" + wallNorth[2] + "___"   + SPACE + colorSquare[0][3] + "  ___" + wallNorth[3] + "___\n"  + RESET);
