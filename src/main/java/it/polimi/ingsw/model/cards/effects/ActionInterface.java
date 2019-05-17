@@ -71,4 +71,6 @@ public interface ActionInterface {
     Position getSquare();
 
     Player getThirdVictim();
+
+    boolean noOutOfBounds(Player player, Direction direction);
 }

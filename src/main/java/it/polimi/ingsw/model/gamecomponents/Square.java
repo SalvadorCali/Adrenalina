@@ -139,4 +139,19 @@ public abstract class Square implements Serializable {
     public abstract List<WeaponCard> getWeapons();
 
 
+    public boolean noOutofBounds(Direction direction) {
+
+        switch (direction) {
+            case UP:
+                return !getNorth().equals(Cardinal.NONE);
+            case DOWN:
+                return !getSouth().equals(Cardinal.NONE);
+            case RIGHT:
+                return !getEast().equals(Cardinal.NONE);
+            case LEFT:
+                return !getWest().equals(Cardinal.NONE);
+            default:
+                return false;
+        }
+    }
 }

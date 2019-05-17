@@ -62,6 +62,11 @@ public class ActionController implements ActionInterface {
         return clientData.getThirdVictim();
     }
 
+    @Override
+    public boolean noOutOfBounds(Player player, Direction direction) {
+        return game.getBoard().noOutofBounds(player, direction);
+    }
+
     public void setClientData(ClientData clientData) {
         this.clientData = clientData;
     }

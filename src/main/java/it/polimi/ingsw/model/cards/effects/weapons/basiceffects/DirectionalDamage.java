@@ -1,7 +1,6 @@
 package it.polimi.ingsw.model.cards.effects.weapons.basiceffects;
 
 import it.polimi.ingsw.model.cards.effects.ActionInterface;
-import it.polimi.ingsw.model.enums.Color;
 import it.polimi.ingsw.model.enums.Direction;
 import it.polimi.ingsw.model.enums.TokenColor;
 import it.polimi.ingsw.model.gamecomponents.Player;
@@ -48,23 +47,32 @@ public class DirectionalDamage extends BasicEffect {
 
         if(canUse) {
             actionInterface.generatePlayer(currentPlayer, player);
-            canUse = actionInterface.canMove(player,direction);
+            if(!effectName.equals("Railgun1") && !effectName.equals("Railgun2"))
+                canUse = actionInterface.canMove(player, direction);
+            else{
+                canUse = actionInterface.noOutOfBounds(player,direction);
+            }
             if(canUse) {
                 actionInterface.move(direction, player);
                 firstSquare = new Position(player.getPosition().getX(), player.getPosition().getY());
-                if (canUse && (effectName.equals("Flamethrower1") || (effectName.equals("Power Glove2")))) {
+                if ((!effectName.equals("Flamethrower2"))){
                     canUse = actionInterface.squareControl(player.getPosition().getX(), player.getPosition().getY(), victim);
                 }
-                if (canUse && actionInterface.canMove(player, direction)) {
-                    actionInterface.move(direction, player);
-                    if ((effectName.equals("Flamethrower1") || effectName.equals("Power Glove2")) && secondVictim != null) {
+                if (canUse) {
+                    if((!effectName.equals("Railgun1")) && !effectName.equals("Railgun2")){
+                        if(actionInterface.canMove(player, direction))
+                            actionInterface.move(direction, player);
+                    }else if(effectName.equals("Railgun2")){
+                        if(actionInterface.noOutOfBounds(player, direction))
+                            actionInterface.move(direction, player);
+                    }
+                    if (!effectName.equals("Flamethrower2") && secondVictim != null) {
                         canUse = actionInterface.squareControl(player.getPosition().getX(), player.getPosition().getY(), secondVictim);
                     } else {
                         squares = 2;
                     }
                 }
             }
-
         }
         actionInterface.removePlayer(player);
         return canUse;
@@ -73,10 +81,8 @@ public class DirectionalDamage extends BasicEffect {
     @Override
     public void useEffect(ActionInterface actionInterface) {
 
-        if(effectName.equals("Flamethrower1") || effectName.equals("Power Glove2")) {
+        if(!effectName.equals("Flamethrower2")) {
             actionInterface.playerDamage(victim.getColor(), damagePower);
-            if(effectName.equals("Power Glove2"))
-                actionInterface.move(firstSquare.getX(), firstSquare.getY(), currentPlayer);
             if(secondVictim != null)
                 actionInterface.playerDamage(secondVictim.getColor(), damagePower);
             if(effectName.equals("Power Glove2"))

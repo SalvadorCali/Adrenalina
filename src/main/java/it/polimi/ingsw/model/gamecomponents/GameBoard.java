@@ -245,6 +245,8 @@ public class GameBoard implements Serializable {
     }
 
 
+    public boolean noOutofBounds(Player player, Direction direction) {
 
-
+        return arena[player.getPosition().getX()][player.getPosition().getY()].noOutofBounds(direction);
+    }
 }
