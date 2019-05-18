@@ -1,5 +1,6 @@
 package it.polimi.ingsw.network.server.rmi;
 
+import it.polimi.ingsw.controller.PowerupData;
 import it.polimi.ingsw.controller.timer.ConnectionTimer;
 import it.polimi.ingsw.model.enums.Direction;
 import it.polimi.ingsw.model.enums.TokenColor;
@@ -18,5 +19,6 @@ public interface RMIServerInterface extends ServerInterface, Remote {
     void shoot(TokenColor color) throws RemoteException;
     void powerup(String powerup, int x, int y) throws RemoteException;
     void powerup(String powerup, Direction direction, int value) throws RemoteException;
+    void powerupAmmos(PowerupData...powerups) throws RemoteException;
     void endTurn() throws RemoteException;
 }

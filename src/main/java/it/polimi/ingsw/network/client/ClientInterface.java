@@ -1,5 +1,6 @@
 package it.polimi.ingsw.network.client;
 
+import it.polimi.ingsw.controller.PowerupData;
 import it.polimi.ingsw.model.enums.AdrenalineZone;
 import it.polimi.ingsw.model.enums.Direction;
 import it.polimi.ingsw.model.enums.TokenColor;
@@ -18,6 +19,7 @@ public interface ClientInterface {
     void shoot(TokenColor color) throws IOException;
     void powerup(String powerup, int x, int y) throws IOException;
     void powerup(String powerup, Direction direction, int value) throws IOException;
+    void powerupAmmos(PowerupData...powerups) throws IOException;
     void endTurn() throws IOException;
     AdrenalineZone getAdrenalineZone() throws RemoteException;
     void testConnection() throws RemoteException;

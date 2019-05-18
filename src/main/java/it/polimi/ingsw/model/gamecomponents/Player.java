@@ -15,11 +15,15 @@ public class Player implements Serializable {
     private TokenColor color;
     private int score;
     private List<WeaponCard> weapons;
+    private List<WeaponCard> unloadedWeapons;
     private List<PowerupCard> powerups;
     private List<Ammo> ammoBox;
     private int yellowAmmo;
     private int blueAmmo;
     private int redAmmo;
+    private int powerupYellowAmmo;
+    private int powerupBlueAmmo;
+    private int powerupRedAmmo;
     private List<Ammo> ammoReserve;
     private PlayerBoard playerBoard;
     private Position position;
@@ -33,6 +37,7 @@ public class Player implements Serializable {
     public Player(TokenColor color){
         this.color = color;
         weapons = new ArrayList<>();
+        unloadedWeapons = new ArrayList<>();
         powerups = new ArrayList<>();
         ammoBox = new ArrayList<>();
         ammoReserve = new ArrayList<>();
@@ -105,6 +110,18 @@ public class Player implements Serializable {
         return redAmmo;
     }
 
+    public int getPowerupYellowAmmo() {
+        return powerupYellowAmmo;
+    }
+
+    public int getPowerupBlueAmmo() {
+        return powerupBlueAmmo;
+    }
+
+    public int getPowerupRedAmmo() {
+        return powerupRedAmmo;
+    }
+
     public List<Ammo> getAmmoReserve() {
         return ammoReserve;
     }
@@ -162,6 +179,10 @@ public class Player implements Serializable {
     }
 
     //methods
+    public boolean canUsePowerupAmmos(){
+        return (powerupBlueAmmo + powerupRedAmmo + powerupYellowAmmo) > 0;
+    }
+
     public void addWeapon(WeaponCard weapon){
         weapons.add(weapon);
     }
@@ -189,6 +210,28 @@ public class Player implements Serializable {
                 return (yellowAmmo < 3);
             default:
                 return false;
+        }
+    }
+
+    public void resetPowerupAmmos(){
+        powerupBlueAmmo = 0;
+        powerupRedAmmo = 0;
+        powerupYellowAmmo = 0;
+    }
+
+    public void increasePowerupAmmoNumber(Color color){
+        switch (color){
+            case BLUE:
+                powerupBlueAmmo++;
+                break;
+            case RED:
+                powerupRedAmmo++;
+                break;
+            case YELLOW:
+                powerupYellowAmmo++;
+                break;
+            default:
+                break;
         }
     }
 
@@ -277,6 +320,20 @@ public class Player implements Serializable {
 
     public boolean canUseAction(){
         return actionNumber < Config.MAX_ACTIONS;
+    }
+
+    public void canReload(String...weaponNames){
+        //
+    }
+
+    public void reload(String...weaponNames){
+        for(String weaponName : weaponNames){
+            for(WeaponCard weapon : unloadedWeapons){
+                if(weapon.getName().equals(weaponName)){
+                    //
+                }
+            }
+        }
     }
 
 }

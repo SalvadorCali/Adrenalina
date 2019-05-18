@@ -1,11 +1,9 @@
 package it.polimi.ingsw.view;
 
-import it.polimi.ingsw.controller.CLIController;
-import it.polimi.ingsw.controller.GameController;
-import it.polimi.ingsw.controller.PlayerController;
-import it.polimi.ingsw.controller.SquareData;
+import it.polimi.ingsw.controller.*;
 import it.polimi.ingsw.model.cards.Card;
 import it.polimi.ingsw.model.enums.AdrenalineZone;
+import it.polimi.ingsw.model.enums.Color;
 import it.polimi.ingsw.model.enums.Direction;
 import it.polimi.ingsw.model.enums.TokenColor;
 import it.polimi.ingsw.model.gamecomponents.GameBoard;
@@ -266,6 +264,7 @@ public class CommandLine implements ViewInterface {
                 if (!client.getAdrenalineZone().equals(AdrenalineZone.DEFAULT)) {
                     if (input.hasMoreTokens()) {
                         try {
+                            Printer.println("If you want to use powerup: <first_powerup_name> <first_color> <second_powerup_name> <second_color>");
                             client.grab(choice, firstD, Converter.fromStringToDirection(input.nextToken()));
                             result = true;
                             return result;
@@ -308,7 +307,12 @@ public class CommandLine implements ViewInterface {
         if(input.hasMoreTokens()){
             weapon = input.nextToken();
             try {
-                weaponEffect(weapon);
+                if(input.hasMoreTokens() && playerController.getAdrenalineZone().equals(AdrenalineZone.SECOND)){
+                    Direction direction = Converter.fromStringToDirection(input.nextToken());
+                    weaponEffect(weapon);
+                }else{
+                    weaponEffect(weapon);
+                }
             } catch (IOException e) {
                 Printer.err(e);
             }
@@ -491,6 +495,26 @@ public class CommandLine implements ViewInterface {
         }
     }
 
+    public void handlePowerup() throws IOException {
+        Printer.println("Please, insert powerups: <first_powerup_name> <first_color> <second_powerup_name> <second_color>:");
+        StringTokenizer string = new StringTokenizer(userInputStream.readLine());
+        if(string.hasMoreTokens()){
+            String firstPowerup = string.nextToken();
+            if(string.hasMoreTokens()){
+                Color firstColor = Converter.fromStringToColor(string.nextToken());
+                if(string.hasMoreTokens()){
+                    String secondPowerup = string.nextToken();
+                    if(string.hasMoreTokens()){
+                        Color secondColor = Converter.fromStringToColor(string.nextToken());
+                        client.powerupAmmos(new PowerupData(firstPowerup, firstColor), new PowerupData(secondPowerup, secondColor));
+                    }
+                }else{
+                    client.powerupAmmos(new PowerupData(firstPowerup, firstColor));
+                }
+            }
+        }
+    }
+
     private void endTurn(){
         try {
             client.endTurn();
@@ -587,6 +611,16 @@ public class CommandLine implements ViewInterface {
         gameBoardPrinter.printMap();
     }
 
+    private void notifyPowerup(Outcome outcome){
+        if(outcome.equals(Outcome.RIGHT)){
+            Printer.println("[SERVER]Powerup used!");
+        }else{
+            Printer.println("[SERVER]Powerup not used!");
+        }
+        gameBoardPrinter.setGameBoard(playerController.getGameBoard());
+        gameBoardPrinter.printMap();
+    }
+
     private void notifyGrab(Outcome outcome){
         if(outcome.equals(Outcome.RIGHT)){
             Printer.println("[SERVER]Grabbed!");
@@ -640,6 +674,9 @@ public class CommandLine implements ViewInterface {
                 break;
             case GRAB:
                 notifyGrab(outcome);
+                break;
+            case POWERUP:
+                notifyPowerup(outcome);
                 break;
             default:
                 break;

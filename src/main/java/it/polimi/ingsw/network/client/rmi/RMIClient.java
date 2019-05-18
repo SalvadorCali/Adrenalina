@@ -1,6 +1,7 @@
 package it.polimi.ingsw.network.client.rmi;
 
 import it.polimi.ingsw.controller.PlayerController;
+import it.polimi.ingsw.controller.PowerupData;
 import it.polimi.ingsw.controller.timer.ConnectionTimer;
 import it.polimi.ingsw.model.enums.AdrenalineZone;
 import it.polimi.ingsw.model.enums.Direction;
@@ -123,6 +124,11 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
     }
 
     @Override
+    public void powerupAmmos(PowerupData...powerups) throws RemoteException{
+        server.powerupAmmos(powerups);
+    }
+
+    @Override
     public void endTurn() throws RemoteException{
         server.endTurn();
     }
@@ -174,6 +180,11 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
             case MOVE:
                 GameBoard gameBoard = (GameBoard) object;
                 playerController.setGameBoard(gameBoard);
+                view.notify(message, outcome);
+                break;
+            case POWERUP:
+                GameBoard gb = (GameBoard) object;
+                playerController.setGameBoard(gb);
                 view.notify(message, outcome);
                 break;
             case GRAB:

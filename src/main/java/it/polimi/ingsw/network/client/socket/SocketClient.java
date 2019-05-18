@@ -1,6 +1,7 @@
 package it.polimi.ingsw.network.client.socket;
 
 import it.polimi.ingsw.controller.PlayerController;
+import it.polimi.ingsw.controller.PowerupData;
 import it.polimi.ingsw.controller.SquareData;
 import it.polimi.ingsw.controller.timer.ConnectionTimer;
 import it.polimi.ingsw.model.cards.Card;
@@ -194,6 +195,18 @@ public class SocketClient implements ClientInterface, Runnable, Serializable {
     }
 
     @Override
+    public void powerupAmmos(PowerupData...powerups) throws IOException{
+        objectOutputStream.writeObject(Message.POWERUP_AMMOS);
+        objectOutputStream.flush();
+        objectOutputStream.writeInt(powerups.length);
+        objectOutputStream.flush();
+        for(PowerupData powerup : powerups){
+            objectOutputStream.writeObject(powerup);
+            objectOutputStream.flush();
+        }
+    }
+
+    @Override
     public void endTurn() throws IOException {
         objectOutputStream.writeObject(Message.END_TURN);
         objectOutputStream.flush();
@@ -248,6 +261,12 @@ public class SocketClient implements ClientInterface, Runnable, Serializable {
                 view.notify(message, outcome, object);
                 break;
             case MOVE:
+                outcome = (Outcome) objectInputStream.readObject();
+                object = (GameBoard) objectInputStream.readObject();
+                playerController.setGameBoard((GameBoard) object);
+                view.notify(message, outcome);
+                break;
+            case POWERUP:
                 outcome = (Outcome) objectInputStream.readObject();
                 object = (GameBoard) objectInputStream.readObject();
                 playerController.setGameBoard((GameBoard) object);
