@@ -314,6 +314,16 @@ public class ServerController {
         }
     }
 
+    public void powerupAmmos(String username, PowerupData ...powerups){
+        for(PowerupData powerup : powerups){
+            users.get(username).increasePowerupAmmoNumber(powerup.getColor());
+        }
+    }
+
+    public void resetPowerupAmmos(String username){
+        users.get(username).resetPowerupAmmos();
+    }
+
     public void endTurn(String username){
         for(int i = 0; i< players.size(); i++){
             if(players.get(i).getUsername().equals(username)){

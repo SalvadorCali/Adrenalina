@@ -1,5 +1,6 @@
 package it.polimi.ingsw.network.server.rmi;
 
+import it.polimi.ingsw.controller.PowerupData;
 import it.polimi.ingsw.controller.ServerController;
 import it.polimi.ingsw.controller.timer.ConnectionTimer;
 import it.polimi.ingsw.model.enums.Direction;
@@ -73,6 +74,11 @@ public class RMIServer extends UnicastRemoteObject implements RMIServerInterface
     @Override
     public void powerup(String powerup, Direction direction, int value){
         serverController.powerup(clientName, powerup, direction, value);
+    }
+
+    @Override
+    public void powerupAmmos(PowerupData...powerups){
+        serverController.powerupAmmos(clientName, powerups);
     }
 
     @Override

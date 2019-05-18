@@ -1,5 +1,6 @@
 package it.polimi.ingsw.network.server.socket;
 
+import it.polimi.ingsw.controller.PowerupData;
 import it.polimi.ingsw.controller.ServerController;
 import it.polimi.ingsw.controller.timer.ConnectionTimer;
 import it.polimi.ingsw.model.enums.Direction;
@@ -85,6 +86,9 @@ public class SocketServer implements Runnable, ServerInterface {
                 break;
             case POWERUP:
                 powerup();
+                break;
+            case POWERUP_AMMOS:
+                powerupAmmos();
                 break;
             case END_TURN:
                 endTurn();
@@ -210,6 +214,24 @@ public class SocketServer implements Runnable, ServerInterface {
         } catch (IOException e) {
             Printer.err(e);
         }
+    }
+
+    public void powerupAmmos() {
+        PowerupData first, second;
+        try {
+            int powerupsSize = objectInputStream.readInt();
+            if (powerupsSize == 1) {
+                first = (PowerupData) objectInputStream.readObject();
+                serverController.powerupAmmos(clientName, first);
+            } else if (powerupsSize == 2) {
+                first = (PowerupData) objectInputStream.readObject();
+                second = (PowerupData) objectInputStream.readObject();
+                serverController.powerupAmmos(clientName, first, second);
+            }
+        } catch (IOException | ClassNotFoundException e) {
+            Printer.err(e);
+        }
+
     }
 
     public void endTurn(){
