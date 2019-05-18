@@ -43,7 +43,6 @@ public class DamageMarkEffect extends BasicEffect {
                 canUse = actionInterface.sameSquare(currentPlayer, victim);
             else if (effectName.equals("Lock Rifle") || effectName.equals("T.H.O.R.") || effectName.equals("Plasma Gun") || effectName.equals("ZX-21") || effectName.equals("Whisper") || effectName.equals("Machine Gun")) {
                 canUse = actionInterface.isVisible(currentPlayer, victim);
-                System.out.println(canUse);
                 if (canUse) {
                     if (effectName.equals("Whisper")) {
                         if (actionInterface.distanceControl(victim.getPosition().getX(), victim.getPosition().getY()) < 2)
@@ -57,7 +56,11 @@ public class DamageMarkEffect extends BasicEffect {
             } else if (effectName.equals("ZX-22")) {
                 canUse = actionInterface.isVisible(currentPlayer, victim) && actionInterface.isVisible(currentPlayer, secondVictim) && actionInterface.isVisible(currentPlayer, thirdVictim);
             }
+            if(!canUse) {
+                //actionInterface.resetPosition(currentPlayer);
+            }
         }
+
         return canUse;
     }
 

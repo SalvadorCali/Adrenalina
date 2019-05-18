@@ -16,7 +16,7 @@ public class AdditionalTarget extends SingleAddictionEffect {
 
     private int redAmmos, blueAmmos, yellowAmmos;
 
-    private boolean canUse;
+    private boolean canUse, basicFirst;
 
     public AdditionalTarget(String effectName, int damagePower, int markPower, int redAmmos, int blueAmmos, int yellowAmmos, Effect effect){
 
@@ -26,6 +26,7 @@ public class AdditionalTarget extends SingleAddictionEffect {
         this.redAmmos = redAmmos;
         this.blueAmmos = blueAmmos;
         this.yellowAmmos = yellowAmmos;
+        this.basicFirst = true;
         super.effect = effect;
     }
 
@@ -38,17 +39,24 @@ public class AdditionalTarget extends SingleAddictionEffect {
         thirdVictim = actionInterface.getThirdVictim();
 
 
-        canUse = super.effect.canUseEffect(actionInterface) && actionInterface.ammoControl(redAmmos, blueAmmos, yellowAmmos) ;
-        if(canUse) {
-            if (effectName.equals("Lock Rifle")){
-                canUse = actionInterface.isVisible(currentPlayer, additionalVictim);
-            }else if(effectName.equals("T.H.O.R. Single")) {
-                canUse = actionInterface.isVisible(victim, additionalVictim);
-            }else if(effectName.equals("Machine Gun Double")){
-                canUse = actionInterface.isVisible(currentPlayer, thirdVictim);
-            }else if(effectName.equals("T.H.O.R. Double")){
-                canUse = actionInterface.isVisible(additionalVictim, thirdVictim);
+        if(basicFirst) {
+            canUse = super.effect.canUseEffect(actionInterface) && actionInterface.ammoControl(redAmmos, blueAmmos, yellowAmmos);
+            if (canUse) {
+                if (effectName.equals("Lock Rifle")) {
+                    canUse = actionInterface.isVisible(currentPlayer, additionalVictim);
+                } else if (effectName.equals("T.H.O.R. Single")) {
+                    canUse = actionInterface.isVisible(victim, additionalVictim);
+                } else if (effectName.equals("Machine Gun Double")) {
+                    canUse = actionInterface.isVisible(currentPlayer, thirdVictim);
+                } else if (effectName.equals("T.H.O.R. Double")) {
+                    canUse = actionInterface.isVisible(additionalVictim, thirdVictim);
+                } else {
+                    canUse = actionInterface.sameSquare(currentPlayer, additionalVictim);
+                }
             }
+        }else {
+            System.out.println("oooo");
+            canUse = actionInterface.ammoControl(redAmmos, blueAmmos, yellowAmmos) && actionInterface.sameSquare(currentPlayer,additionalVictim) && super.effect.canUseEffect(actionInterface) ;
         }
         return canUse;
     }

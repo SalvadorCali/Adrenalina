@@ -2,6 +2,7 @@ package it.polimi.ingsw.model.cards.effects.weapons.singleaddictions;
 
 import it.polimi.ingsw.model.cards.effects.ActionInterface;
 import it.polimi.ingsw.model.enums.Direction;
+import it.polimi.ingsw.model.enums.TokenColor;
 import it.polimi.ingsw.model.gamecomponents.Player;
 
 public class AdditionalMove extends SingleAddictionEffect {
@@ -16,7 +17,9 @@ public class AdditionalMove extends SingleAddictionEffect {
 
     private boolean canUse;
 
-    private Player player;
+    private Player player = new Player(TokenColor.NONE);
+
+    private Player currentPlayer;
 
     private boolean basicFirst;
 
@@ -27,7 +30,7 @@ public class AdditionalMove extends SingleAddictionEffect {
     @Override
     public boolean canUseEffect(ActionInterface actionInterface) {
 
-        player.setPosition(actionInterface.getCurrentPlayer().getPosition());
+        actionInterface.generatePlayer(player, currentPlayer);
 
             if(basicFirst) {
                 canUse = super.effect.canUseEffect(actionInterface) && actionInterface.ammoControl(redAmmos, blueAmmos, yellowAmmos);
@@ -37,13 +40,14 @@ public class AdditionalMove extends SingleAddictionEffect {
                     else
                         oneMovementControl(actionInterface);
                 }
+                actionInterface.removePlayer(player);
             }else{
                 if(effectName.equals("Plasma Gun") || effectName.equals("Rocket Launcher"))
                     movementControl(actionInterface);
                 else
                     oneMovementControl(actionInterface);
                 if(canUse){
-                    //actionInterface.updateFakePlayerPosition(player);
+                    actionInterface.move(player.getPosition().getX(), player.getPosition().getY(), currentPlayer);
                     canUse = actionInterface.ammoControl(redAmmos, blueAmmos, yellowAmmos) && super.effect.canUseEffect(actionInterface);
                 }
             }
@@ -60,14 +64,14 @@ public class AdditionalMove extends SingleAddictionEffect {
     }
 
     private void movementControl(ActionInterface actionInterface) {
-        if (firstMove != null && secondMove != null){
-            canUse = actionInterface.canMove(player, firstMove, secondMove);
-            player.updatePosition(firstMove, secondMove);
-        } else if (firstMove != null && secondMove == null) {
+        if (firstMove != null) {
             canUse = actionInterface.canMove(player, firstMove);
-            player.updatePosition(firstMove);
+            actionInterface.move(firstMove, player);
+            if (secondMove != null) {
+                canUse = actionInterface.canMove(player, secondMove);
+                actionInterface.move(secondMove, player);
+            }
         }
-
     }
 
     private void oneMovementControl(ActionInterface actionInterface){
