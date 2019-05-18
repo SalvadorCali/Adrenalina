@@ -38,15 +38,11 @@ public class DirectionalDamage extends BasicEffect {
     @Override
     public boolean canUseEffect(ActionInterface actionInterface) {
 
-        currentPlayer = actionInterface.getClientData().getCurrentPlayer();
-        victim = actionInterface.getVictim();
-        secondVictim = actionInterface.getSecondVictim();
-        direction = actionInterface.getFirstMove();
-
+        setData(actionInterface);
         canUse = ammoControl(redAmmos, blueAmmos, yellowAmmos, actionInterface);
+        actionInterface.generatePlayer(currentPlayer, player);
 
         if(canUse) {
-            actionInterface.generatePlayer(currentPlayer, player);
             if(!effectName.equals("Railgun1") && !effectName.equals("Railgun2"))
                 canUse = actionInterface.canMove(player, direction);
             else{
@@ -62,8 +58,7 @@ public class DirectionalDamage extends BasicEffect {
                     if((!effectName.equals("Railgun1")) && !effectName.equals("Railgun2")){
                         if(actionInterface.canMove(player, direction))
                             actionInterface.move(direction, player);
-                    }else if(effectName.equals("Railgun2")){
-                        if(actionInterface.noOutOfBounds(player, direction))
+                    }else if(effectName.equals("Railgun2") && actionInterface.noOutOfBounds(player, direction)){
                             actionInterface.move(direction, player);
                     }
                     if (!effectName.equals("Flamethrower2") && secondVictim != null) {
@@ -92,5 +87,12 @@ public class DirectionalDamage extends BasicEffect {
             if (squares == 2)
                 actionInterface.squareDamage(player.getPosition().getX(), player.getPosition().getY(), 1, 0);
         }
+    }
+
+    private void setData(ActionInterface actionInterface){
+        currentPlayer = actionInterface.getClientData().getCurrentPlayer();
+        victim = actionInterface.getVictim();
+        secondVictim = actionInterface.getSecondVictim();
+        direction = actionInterface.getFirstMove();
     }
 }
