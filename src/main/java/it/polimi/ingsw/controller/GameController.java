@@ -2,6 +2,7 @@ package it.polimi.ingsw.controller;
 
 import it.polimi.ingsw.model.cards.AmmoCard;
 import it.polimi.ingsw.model.cards.Card;
+import it.polimi.ingsw.model.cards.PowerupCard;
 import it.polimi.ingsw.model.cards.effects.ActionInterface;
 import it.polimi.ingsw.model.enums.Color;
 import it.polimi.ingsw.model.enums.Direction;
@@ -10,6 +11,7 @@ import it.polimi.ingsw.model.gamecomponents.Deck;
 import it.polimi.ingsw.model.gamecomponents.Game;
 import it.polimi.ingsw.model.gamecomponents.GameBoard;
 import it.polimi.ingsw.model.gamecomponents.Player;
+import it.polimi.ingsw.util.Converter;
 import it.polimi.ingsw.util.Parser;
 
 import java.util.ArrayList;
@@ -90,6 +92,10 @@ public class GameController {
         return game.getBoard().canMove(player, directions);
     }
 
+    public boolean canMove(int x, int y){
+        return game.getBoard().canMove(x,y);
+    }
+
     public ArrayList<TokenColor> getPlayerColors() {
         return game.getPlayerColors();
     }
@@ -101,6 +107,10 @@ public class GameController {
             }
             player.increaseActionNumber();
         }
+    }
+
+    public void move(Player player, int x, int y){
+        game.getBoard().move(x, y, player);
     }
 
     public SquareData showSquare(Player player){
@@ -149,6 +159,17 @@ public class GameController {
     public void endTurn(Player player){
         player.resetActionNumber();
         game.endTurn(player);
+    }
+
+    public boolean havePowerup(Player player, String powerup){
+        String powerupName = Converter.powerupName(powerup);
+        List<PowerupCard> powerupCards = player.getPowerups();
+        for(int i=0; i<powerupCards.size(); i++){
+            if(powerupCards.get(i).getName().equals(powerupName)){
+                return true;
+            }
+        }
+        return false;
     }
 
     public Card drawPowerup(){

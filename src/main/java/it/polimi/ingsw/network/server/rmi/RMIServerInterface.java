@@ -16,5 +16,7 @@ public interface RMIServerInterface extends ServerInterface, Remote {
     void move(Direction...directions) throws RemoteException;
     void grab(int choice, Direction...directions) throws RemoteException;
     void shoot(TokenColor color) throws RemoteException;
+    void powerup(String powerup, int x, int y) throws RemoteException;
+    void powerup(String powerup, Direction direction, int value) throws RemoteException;
     void endTurn() throws RemoteException;
 }

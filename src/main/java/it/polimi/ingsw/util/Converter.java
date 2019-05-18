@@ -168,4 +168,19 @@ public class Converter {
                 return "\033[0;36m";
         }
     }
+
+    public static String powerupName(String powerup){
+        switch (powerup){
+            case "targetingscope":
+                return "TARGETING SCOPE";
+            case "newton":
+                return "NEWTON";
+            case "tagbackgrenade":
+                return "TAGBACK GRENADE";
+            case "teleporter":
+                return "TELEPORTER";
+            default:
+                return null;
+        }
+    }
 }

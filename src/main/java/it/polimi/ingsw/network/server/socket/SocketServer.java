@@ -83,6 +83,9 @@ public class SocketServer implements Runnable, ServerInterface {
             case SHOOT:
                 shoot();
                 break;
+            case POWERUP:
+                powerup();
+                break;
             case END_TURN:
                 endTurn();
                 break;
@@ -178,6 +181,33 @@ public class SocketServer implements Runnable, ServerInterface {
             color = (TokenColor) objectInputStream.readObject();
             serverController.shoot(clientName, color);
         } catch (IOException | ClassNotFoundException e) {
+            Printer.err(e);
+        }
+    }
+
+    public void powerup(){
+        String powerup;
+        try {
+            powerup = objectInputStream.readUTF();
+            switch (powerup){
+                case "newton":
+                    try {
+                        Direction direction = (Direction) objectInputStream.readObject();
+                        int value = objectInputStream.readInt();
+                        serverController.powerup(clientName, powerup, direction, value);
+                    } catch (ClassNotFoundException e) {
+                        Printer.err(e);
+                    }
+                    break;
+                case "teleporter":
+                    int x = objectInputStream.readInt();
+                    int y = objectInputStream.readInt();
+                    serverController.powerup(clientName, powerup, x, y);
+                    break;
+                default:
+                    break;
+            }
+        } catch (IOException e) {
             Printer.err(e);
         }
     }

@@ -113,6 +113,16 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
     }
 
     @Override
+    public void powerup(String powerup, int x, int y) throws RemoteException{
+        server.powerup(powerup, x, y);
+    }
+
+    @Override
+    public void powerup(String powerup, Direction direction, int value) throws RemoteException{
+        server.powerup(powerup, direction, value);
+    }
+
+    @Override
     public void endTurn() throws RemoteException{
         server.endTurn();
     }

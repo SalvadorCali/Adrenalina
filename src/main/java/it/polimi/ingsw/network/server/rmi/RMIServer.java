@@ -66,6 +66,16 @@ public class RMIServer extends UnicastRemoteObject implements RMIServerInterface
     }
 
     @Override
+    public void powerup(String powerup, int x, int y){
+        serverController.powerup(clientName, powerup, x, y);
+    }
+
+    @Override
+    public void powerup(String powerup, Direction direction, int value){
+        serverController.powerup(clientName, powerup, direction, value);
+    }
+
+    @Override
     public void endTurn() throws RemoteException{
         serverController.endTurn(clientName);
     }

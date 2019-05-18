@@ -104,6 +104,11 @@ public class CommandLine implements ViewInterface {
             case "shoot":
                 shoot(string);
                 break;
+            case "powerup":
+                if(!powerup(string)){
+                    Printer.print(StringCLI.INVALID_COMMAND);
+                }
+                break;
             case "end":
                 endTurn();
                 break;
@@ -433,6 +438,53 @@ public class CommandLine implements ViewInterface {
                 Printer.println("In pulverize mode: <2> <victim>");
                 Printer.println("In pulverize mode: <2> <victim> <direction>");
                 Printer.println("In pulverize mode: <2> <victim> <direction> <direction>");
+                break;
+            default:
+                break;
+        }
+    }
+
+    private boolean powerup(StringTokenizer input){
+        if(input.hasMoreTokens()){
+            String powerup = input.nextToken();
+            try {
+                powerupEffect(powerup);
+            } catch (IOException e) {
+                Printer.err(e);
+            }
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    private void powerupEffect(String powerup) throws IOException {
+        StringTokenizer string;
+        switch(powerup){
+            case "newton":
+                Printer.println("Choose a direction and a movement: <direction> <1 or 2>");
+                string = new StringTokenizer(userInputStream.readLine());
+                int value;
+                Direction direction;
+                if(string.hasMoreTokens()){
+                    direction = Converter.fromStringToDirection(string.nextToken());
+                    if(string.hasMoreTokens()){
+                        value = Integer.parseInt(string.nextToken());
+                        client.powerup(powerup, direction, value);
+                    }
+                }
+                break;
+            case "teleporter":
+                Printer.println("Choose a square: <square_x> <square_y>");
+                string = new StringTokenizer(userInputStream.readLine());
+                int x, y;
+                if(string.hasMoreTokens()){
+                    x = Integer.parseInt(string.nextToken());
+                    if(string.hasMoreTokens()){
+                        y = Integer.parseInt(string.nextToken());
+                        client.powerup(powerup, x, y);
+                    }
+                }
                 break;
             default:
                 break;

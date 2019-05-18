@@ -170,6 +170,30 @@ public class SocketClient implements ClientInterface, Runnable, Serializable {
     }
 
     @Override
+    public void powerup(String powerup, int x, int y) throws IOException{
+        objectOutputStream.writeObject(Message.POWERUP);
+        objectOutputStream.flush();
+        objectOutputStream.writeUTF(powerup);
+        objectOutputStream.flush();
+        objectOutputStream.writeInt(x);
+        objectOutputStream.flush();
+        objectOutputStream.writeInt(y);
+        objectOutputStream.flush();
+    }
+
+    @Override
+    public void powerup(String powerup, Direction direction, int value) throws IOException{
+        objectOutputStream.writeObject(Message.POWERUP);
+        objectOutputStream.flush();
+        objectOutputStream.writeUTF(powerup);
+        objectOutputStream.flush();
+        objectOutputStream.writeObject(direction);
+        objectOutputStream.flush();
+        objectOutputStream.writeInt(value);
+        objectOutputStream.flush();
+    }
+
+    @Override
     public void endTurn() throws IOException {
         objectOutputStream.writeObject(Message.END_TURN);
         objectOutputStream.flush();

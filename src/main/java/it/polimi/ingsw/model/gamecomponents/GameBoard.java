@@ -32,6 +32,10 @@ public class GameBoard implements Serializable {
         this.arena = arena;
     }
 
+    public boolean canMove(int x, int y){
+        return !arena[x][y].getColor().equals(TokenColor.NONE);
+    }
+
     public boolean canMove(Player player, Direction... directions){
 
         boolean moved = true;

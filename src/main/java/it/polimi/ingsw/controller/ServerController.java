@@ -263,6 +263,57 @@ public class ServerController {
         gameController.shoot(users.get(username), users.get(colors.get(color)));
     }
 
+    public void powerup(String username, String powerup, int x, int y){
+        if(gameController.canMove(x,y)){
+            gameController.move(users.get(username), x, y);
+            try {
+                servers.get(username).notify(Message.POWERUP, Outcome.RIGHT, gameController.getGame().getBoard());
+            } catch (IOException e) {
+                Printer.err(e);
+            }
+        }else{
+            try {
+                servers.get(username).notify(Message.POWERUP, Outcome.WRONG, gameController.getGame().getBoard());
+            } catch (IOException e) {
+                Printer.err(e);
+            }
+        }
+    }
+
+    public void powerup(String username, String powerup, Direction direction, int value){
+        if(value == 1){
+            if(gameController.canMove(users.get(username), direction)){
+                gameController.move(users.get(username), direction);
+                try {
+                    servers.get(username).notify(Message.POWERUP, Outcome.RIGHT, gameController.getGame().getBoard());
+                } catch (IOException e) {
+                    Printer.err(e);
+                }
+            }else{
+                try {
+                    servers.get(username).notify(Message.POWERUP, Outcome.WRONG, gameController.getGame().getBoard());
+                } catch (IOException e) {
+                    Printer.err(e);
+                }
+            }
+        }else if(value == 2){
+            if(gameController.canMove(users.get(username), direction, direction)){
+                gameController.move(users.get(username), direction, direction);
+                try {
+                    servers.get(username).notify(Message.POWERUP, Outcome.RIGHT, gameController.getGame().getBoard());
+                } catch (IOException e) {
+                    Printer.err(e);
+                }
+            }else{
+                try {
+                    servers.get(username).notify(Message.POWERUP, Outcome.WRONG, gameController.getGame().getBoard());
+                } catch (IOException e) {
+                    Printer.err(e);
+                }
+            }
+        }
+    }
+
     public void endTurn(String username){
         for(int i = 0; i< players.size(); i++){
             if(players.get(i).getUsername().equals(username)){
