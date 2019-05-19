@@ -15,7 +15,7 @@ public class DamageMarkEffect extends BasicEffect {
 
     private Player currentPlayer, victim, secondVictim, thirdVictim;
 
-    private boolean canUse ;
+    private boolean canUse;
 
     public DamageMarkEffect(String effectName, int damagePower, int markPower, int redAmmos, int blueAmmos, int yellowAmmos) {
 
@@ -34,7 +34,7 @@ public class DamageMarkEffect extends BasicEffect {
         setData(actionInterface);
         canUse = actionInterface.ammoControl(redAmmos, blueAmmos, yellowAmmos);
         if (canUse) {
-            if (effectName.equals("Cyberblade") || effectName.equals("Sledgehammer"))
+            if (effectName.equals("Cyberblade") || effectName.equals("Sledgehammer1"))
                 canUse = actionInterface.sameSquare(currentPlayer, victim);
             else if (effectName.equals("Lock Rifle") || effectName.equals("T.H.O.R.") || effectName.equals("Plasma Gun") || effectName.equals("ZX-21") || effectName.equals("Whisper") || effectName.equals("Machine Gun"))
                 visibilityCheck(actionInterface);
@@ -42,9 +42,6 @@ public class DamageMarkEffect extends BasicEffect {
                 canUse = false;
             }else if (effectName.equals("ZX-22"))
                 canUse = actionInterface.isVisible(currentPlayer, victim) && actionInterface.isVisible(currentPlayer, secondVictim) && actionInterface.isVisible(currentPlayer, thirdVictim);
-            if(!canUse) {
-                //actionInterface.resetPosition(currentPlayer);
-            }
         }
         return canUse;
     }

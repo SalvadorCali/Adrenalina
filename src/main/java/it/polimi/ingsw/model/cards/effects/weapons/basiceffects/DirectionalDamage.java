@@ -2,7 +2,6 @@ package it.polimi.ingsw.model.cards.effects.weapons.basiceffects;
 
 import it.polimi.ingsw.model.cards.effects.ActionInterface;
 import it.polimi.ingsw.model.enums.Direction;
-import it.polimi.ingsw.model.enums.TokenColor;
 import it.polimi.ingsw.model.gamecomponents.Player;
 import it.polimi.ingsw.model.gamecomponents.Position;
 
@@ -27,14 +26,13 @@ public class DirectionalDamage extends BasicEffect {
     public DirectionalDamage(String effectName, int damagePower, int redAmmos, int blueAmmos, int yellowAmmos){
 
         this.effectName = effectName;
-        player = new Player(TokenColor.NONE);
         this.damagePower = damagePower;
         this.redAmmos = redAmmos;
         this.blueAmmos = blueAmmos;
         this.yellowAmmos = yellowAmmos;
         canUse = true;
     }
-
+    
     @Override
     public boolean canUseEffect(ActionInterface actionInterface) {
 
@@ -43,36 +41,22 @@ public class DirectionalDamage extends BasicEffect {
         actionInterface.generatePlayer(currentPlayer, player);
 
         if(canUse) {
-            if(!effectName.equals("Railgun1") && !effectName.equals("Railgun2"))
-                canUse = actionInterface.canMove(player, direction);
-            else{
-                canUse = actionInterface.noOutOfBounds(player,direction);
-            }
+            firstMoveControl(actionInterface);
             if(canUse) {
                 actionInterface.move(direction, player);
-                firstSquare = new Position(player.getPosition().getX(), player.getPosition().getY());
-                if ((!effectName.equals("Flamethrower2"))){
-                    canUse = actionInterface.squareControl(player.getPosition().getX(), player.getPosition().getY(), victim);
-                }
+                victimControl(actionInterface);
                 if (canUse) {
-                    if((!effectName.equals("Railgun1")) && !effectName.equals("Railgun2")){
-                        if(actionInterface.canMove(player, direction))
-                            actionInterface.move(direction, player);
-                    }else if(effectName.equals("Railgun2") && actionInterface.noOutOfBounds(player, direction)){
-                            actionInterface.move(direction, player);
-                    }
-                    if (!effectName.equals("Flamethrower2") && secondVictim != null) {
+                    secondMoveControl(actionInterface);
+                    if (!effectName.equals("Flamethrower2") && secondVictim != null)
                         canUse = actionInterface.squareControl(player.getPosition().getX(), player.getPosition().getY(), secondVictim);
-                    } else {
+                    else
                         squares = 2;
-                    }
                 }
             }
         }
         actionInterface.removePlayer(player);
         return canUse;
     }
-
     @Override
     public void useEffect(ActionInterface actionInterface) {
 
@@ -91,8 +75,34 @@ public class DirectionalDamage extends BasicEffect {
 
     private void setData(ActionInterface actionInterface){
         currentPlayer = actionInterface.getClientData().getCurrentPlayer();
+        player = actionInterface.getFakePlayer();
         victim = actionInterface.getVictim();
         secondVictim = actionInterface.getSecondVictim();
         direction = actionInterface.getFirstMove();
+    }
+
+    private void victimControl(ActionInterface actionInterface){
+
+        firstSquare = new Position(player.getPosition().getX(), player.getPosition().getY());
+        if ((!effectName.equals("Flamethrower2")))
+            canUse = actionInterface.squareControl(player.getPosition().getX(), player.getPosition().getY(), victim);
+    }
+
+    private void firstMoveControl(ActionInterface actionInterface){
+
+        if(!effectName.equals("Railgun1") && !effectName.equals("Railgun2"))
+            canUse = actionInterface.canMove(player, direction);
+        else
+            canUse = actionInterface.noOutOfBounds(player,direction);
+    }
+
+    private void secondMoveControl(ActionInterface actionInterface){
+
+        if((!effectName.equals("Railgun1")) && !effectName.equals("Railgun2")){
+            if(actionInterface.canMove(player, direction))
+                actionInterface.move(direction, player);
+        }else if(effectName.equals("Railgun2") && actionInterface.noOutOfBounds(player, direction)){
+            actionInterface.move(direction, player);
+        }
     }
 }

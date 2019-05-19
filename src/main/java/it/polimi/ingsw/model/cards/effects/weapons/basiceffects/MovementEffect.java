@@ -63,7 +63,7 @@ public class MovementEffect extends BasicEffect {
     @Override
     public void useEffect(ActionInterface actionInterface) {
 
-        if(!effectName.equals("Power Glove"))
+        if(!effectName.equals("Power Glove1"))
             actionInterface.move(player.getPosition().getX(), player.getPosition().getY(), victim);
         else
             actionInterface.move(player.getPosition().getX(), player.getPosition().getY(), actionInterface.getCurrentPlayer());
