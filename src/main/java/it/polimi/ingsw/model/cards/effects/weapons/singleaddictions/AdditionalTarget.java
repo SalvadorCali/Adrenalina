@@ -33,12 +33,7 @@ public class AdditionalTarget extends SingleAddictionEffect {
     @Override
     public boolean canUseEffect(ActionInterface actionInterface) {
 
-        currentPlayer = actionInterface.getClientData().getCurrentPlayer();
-        victim = actionInterface.getVictim();
-        additionalVictim = actionInterface.getSecondVictim();
-        thirdVictim = actionInterface.getThirdVictim();
-
-
+        setData(actionInterface);
         if(basicFirst) {
             canUse = super.effect.canUseEffect(actionInterface) && actionInterface.ammoControl(redAmmos, blueAmmos, yellowAmmos);
             if (canUse) {
@@ -55,7 +50,6 @@ public class AdditionalTarget extends SingleAddictionEffect {
                 }
             }
         }else {
-            System.out.println("oooo");
             canUse = actionInterface.ammoControl(redAmmos, blueAmmos, yellowAmmos) && actionInterface.sameSquare(currentPlayer,additionalVictim) && super.effect.canUseEffect(actionInterface) ;
         }
         return canUse;
@@ -75,5 +69,14 @@ public class AdditionalTarget extends SingleAddictionEffect {
             actionInterface.playerMark(additionalVictim.getColor(), markPower);
         }
         actionInterface.updateAmmoBox(redAmmos, blueAmmos, yellowAmmos);
+    }
+
+    private void setData(ActionInterface actionInterface){
+
+        this.basicFirst = actionInterface.basicFirst();
+        currentPlayer = actionInterface.getClientData().getCurrentPlayer();
+        victim = actionInterface.getVictim();
+        additionalVictim = actionInterface.getSecondVictim();
+        thirdVictim = actionInterface.getThirdVictim();
     }
 }

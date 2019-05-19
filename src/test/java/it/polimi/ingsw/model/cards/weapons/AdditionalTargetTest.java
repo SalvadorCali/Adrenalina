@@ -8,6 +8,7 @@ import it.polimi.ingsw.model.cards.effects.weapons.singleaddictions.AdditionalTa
 import it.polimi.ingsw.model.enums.Color;
 import it.polimi.ingsw.model.enums.TokenColor;
 import it.polimi.ingsw.model.gamecomponents.Player;
+import it.polimi.ingsw.view.MapCLI;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -27,17 +28,18 @@ public class AdditionalTargetTest {
         Effect lockRifle = new DamageMarkEffect("Lock Rifle", 2, 1, 0, 2, 0);
         Effect lockRifleAddictional = new AdditionalTarget("Lock Rifle", 0, 1,0,2,0, lockRifle);
 
+        MapCLI mapCLI = new MapCLI(gameController.getGame().getBoard());
         assertTrue(lockRifleAddictional.canUseEffect(gameController.getActionInterface()));
 
         gameController.getGame().getBoard().move(2,0, currentPlayer);
+        mapCLI.printMap();
         assertTrue(lockRifle.canUseEffect(gameController.getActionInterface()));
         assertFalse(lockRifleAddictional.canUseEffect(gameController.getActionInterface()));
 
         gameController.getGame().getBoard().move(0,2, currentPlayer);
+        mapCLI.printMap();
         assertFalse(lockRifle.canUseEffect(gameController.getActionInterface()));
         assertFalse(lockRifleAddictional.canUseEffect(gameController.getActionInterface()));
-
-
     }
 
     @Test
@@ -57,11 +59,14 @@ public class AdditionalTargetTest {
         assertTrue(thor.canUseEffect(gameController.getActionInterface()));
         assertFalse(additionalThor.canUseEffect(gameController.getActionInterface()));
 
+
+
     }
 
     void playerSetup(){
 
         ClientData clientData = gameController.getActionInterface().getClientData();
+
 
         //currentPlayerSetup
         gameController.getGame().getBoard().generatePlayer(0,0,currentPlayer);

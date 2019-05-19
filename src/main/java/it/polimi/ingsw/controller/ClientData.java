@@ -82,7 +82,15 @@ public class ClientData {
         return basicFirst;
     }
 
+    public void setBasicFirst(boolean basicFirst){
+        this.basicFirst = basicFirst;
+    }
+
     public Player getFakeVictim() {
         return fakeVictim;
+    }
+
+    public void setThirdVictim(Player thirdVictim) {
+        this.thirdVictim = thirdVictim;
     }
 }
