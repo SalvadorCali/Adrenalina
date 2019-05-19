@@ -82,6 +82,11 @@ public class RMIServer extends UnicastRemoteObject implements RMIServerInterface
     }
 
     @Override
+    public void reload(int...weapons){
+        serverController.reload(clientName, weapons);
+    }
+
+    @Override
     public void endTurn() throws RemoteException{
         serverController.endTurn(clientName);
     }

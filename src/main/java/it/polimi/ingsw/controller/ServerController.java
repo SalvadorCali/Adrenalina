@@ -324,6 +324,10 @@ public class ServerController {
         users.get(username).resetPowerupAmmos();
     }
 
+    public void reload(String username, int...weapons){
+        //
+    }
+
     public void endTurn(String username){
         for(int i = 0; i< players.size(); i++){
             if(players.get(i).getUsername().equals(username)){

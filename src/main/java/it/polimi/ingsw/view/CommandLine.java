@@ -65,7 +65,7 @@ public class CommandLine implements ViewInterface {
         this.playerController = playerController;
     }
 
-    private void readInput(String message) throws RemoteException {
+    private void readInput(String message) throws IOException {
         StringTokenizer string = new StringTokenizer(message);
         switch(string.nextToken()){
             case "help":
@@ -104,6 +104,11 @@ public class CommandLine implements ViewInterface {
                 break;
             case "powerup":
                 if(!powerup(string)){
+                    Printer.print(StringCLI.INVALID_COMMAND);
+                }
+                break;
+            case "reload":
+                if(!reload(string)){
                     Printer.print(StringCLI.INVALID_COMMAND);
                 }
                 break;
@@ -253,9 +258,55 @@ public class CommandLine implements ViewInterface {
         }
         return result;
     }
+    /*
+    private boolean moveFinalFrenzy(StringTokenizer input) throws IOException {
+        Direction first, second, third, fourth;
+        if(input.hasMoreTokens()){
+            first = Converter.fromStringToDirection(input.nextToken());
+            if(input.hasMoreTokens()){
+                second = Converter.fromStringToDirection(input.nextToken());
+                if(input.hasMoreTokens()){
+                    third = Converter.fromStringToDirection(input.nextToken());
+                    if(input.hasMoreTokens()){
+                        fourth = Converter.fromStringToDirection(input.nextToken());
+                        client.move(first, second, third, fourth);
+                        return true;
+                    }else{
+                        client.move(first, second, third);
+                        return true;
+                    }
+                }else{
+                    client.move(first, second);
+                    return true;
+                }
+            }else{
+                client.move(first);
+                return true;
+            }
+        }
+        return false;
+    }
+    */
+    private boolean moveFinalFrenzy(StringTokenizer input) throws IOException {
+        if(input.countTokens() == 1){
+            client.move(Converter.fromStringToDirection(input.nextToken()));
+            return true;
+        }else if(input.countTokens() == 2){
+            client.move(Converter.fromStringToDirection(input.nextToken()), Converter.fromStringToDirection(input.nextToken()));
+            return true;
+        }else if(input.countTokens() == 3){
+            client.move(Converter.fromStringToDirection(input.nextToken()), Converter.fromStringToDirection(input.nextToken()),
+                    Converter.fromStringToDirection(input.nextToken()));
+            return true;
+        }else if(input.countTokens() == 4){
+            client.move(Converter.fromStringToDirection(input.nextToken()), Converter.fromStringToDirection(input.nextToken()),
+                    Converter.fromStringToDirection(input.nextToken()), Converter.fromStringToDirection(input.nextToken()));
+            return true;
+        }
+        return false;
+    }
 
     private boolean grab(StringTokenizer input) throws RemoteException {
-        boolean result = false;
         if(input.hasMoreTokens()) {
             String next = input.nextToken();
             int choice = Integer.parseInt(next);
@@ -264,27 +315,27 @@ public class CommandLine implements ViewInterface {
                 if (!client.getAdrenalineZone().equals(AdrenalineZone.DEFAULT)) {
                     if (input.hasMoreTokens()) {
                         try {
-                            Printer.println("If you want to use powerup: <first_powerup_name> <first_color> <second_powerup_name> <second_color>");
-                            client.grab(choice, firstD, Converter.fromStringToDirection(input.nextToken()));
-                            result = true;
-                            return result;
+                            Direction secondD = Converter.fromStringToDirection(input.nextToken());
+                            handlePowerup();
+                            client.grab(choice, firstD, secondD);
+                            return true;
                         } catch (IOException e) {
                             Printer.err(e);
                         }
                     } else {
                         try {
+                            handlePowerup();
                             client.grab(choice, firstD);
-                            result = true;
-                            return result;
+                            return true;
                         } catch (IOException e) {
                             Printer.err(e);
                         }
                     }
                 } else {
                     try {
+                        handlePowerup();
                         client.grab(choice, firstD);
-                        result = true;
-                        return result;
+                        return true;
                     } catch (IOException e) {
                         Printer.err(e);
                     }
@@ -292,14 +343,33 @@ public class CommandLine implements ViewInterface {
             } else {
                 try {
                     client.grab(0);
-                    result = true;
-                    return result;
+                    return true;
                 } catch (IOException e) {
                     Printer.err(e);
                 }
             }
         }
-        return result;
+        return false;
+    }
+
+    private boolean grabFinalFrenzy(StringTokenizer input) throws IOException {
+        handlePowerup();
+        if(input.countTokens() == 1){
+            client.grab(Integer.parseInt(input.nextToken()));
+            return true;
+        }else if(input.countTokens() == 2){
+            client.grab(Integer.parseInt(input.nextToken()), Converter.fromStringToDirection(input.nextToken()));
+            return true;
+        }else if(input.countTokens() == 3){
+            client.grab(Integer.parseInt(input.nextToken()), Converter.fromStringToDirection(input.nextToken()),
+                    Converter.fromStringToDirection(input.nextToken()));
+            return true;
+        }else if(input.countTokens() == 4){
+            client.grab(Integer.parseInt(input.nextToken()), Converter.fromStringToDirection(input.nextToken()),
+                    Converter.fromStringToDirection(input.nextToken()), Converter.fromStringToDirection(input.nextToken()));
+            return true;
+        }
+        return false;
     }
 
     private void shoot(StringTokenizer input){
@@ -309,7 +379,7 @@ public class CommandLine implements ViewInterface {
             try {
                 if(input.hasMoreTokens() && playerController.getAdrenalineZone().equals(AdrenalineZone.SECOND)){
                     Direction direction = Converter.fromStringToDirection(input.nextToken());
-                    weaponEffect(weapon);
+                    weaponEffect(weapon, direction);
                 }else{
                     weaponEffect(weapon);
                 }
@@ -319,7 +389,22 @@ public class CommandLine implements ViewInterface {
         }
     }
 
-    private void weaponEffect(String weapon) throws IOException {
+    private boolean shootFinalFrenzy(StringTokenizer input) throws IOException {
+        if(input.countTokens() == 1){
+            weaponEffect(input.nextToken());
+            return true;
+        }else if(input.countTokens() == 2){
+            weaponEffect(input.nextToken(), Converter.fromStringToDirection(input.nextToken()));
+            return true;
+        }else if(input.countTokens() == 3){
+            weaponEffect(input.nextToken(), Converter.fromStringToDirection(input.nextToken()),
+                    Converter.fromStringToDirection(input.nextToken()));
+            return true;
+        }
+        return false;
+    }
+
+    private void weaponEffect(String weapon, Direction...directions) throws IOException {
         StringTokenizer string;
         switch(weapon){
             case "lockrifle":
@@ -496,11 +581,11 @@ public class CommandLine implements ViewInterface {
     }
 
     public void handlePowerup() throws IOException {
-        Printer.println("Please, insert powerups: <first_powerup_name> <first_color> <second_powerup_name> <second_color>:");
+        Printer.println("Please, insert powerups or write <no>: <first_powerup_name> <first_color> <second_powerup_name> <second_color>:");
         StringTokenizer string = new StringTokenizer(userInputStream.readLine());
         if(string.hasMoreTokens()){
             String firstPowerup = string.nextToken();
-            if(string.hasMoreTokens()){
+            if(string.hasMoreTokens() && !firstPowerup.equals("no")){
                 Color firstColor = Converter.fromStringToColor(string.nextToken());
                 if(string.hasMoreTokens()){
                     String secondPowerup = string.nextToken();
@@ -513,6 +598,17 @@ public class CommandLine implements ViewInterface {
                 }
             }
         }
+    }
+
+    private boolean reload(StringTokenizer input) throws IOException {
+        if(input.countTokens() == 1){
+            client.reload(Integer.parseInt(input.nextToken()));
+            return true;
+        }else if(input.countTokens() == 2){
+            client.reload(Integer.parseInt(input.nextToken()), Integer.parseInt(input.nextToken()));
+            return true;
+        }
+        return false;
     }
 
     private void endTurn(){

@@ -129,6 +129,11 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
     }
 
     @Override
+    public void reload(int...weapons) throws RemoteException{
+        server.reload(weapons);
+    }
+
+    @Override
     public void endTurn() throws RemoteException{
         server.endTurn();
     }

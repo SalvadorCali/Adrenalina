@@ -20,6 +20,7 @@ public interface ClientInterface {
     void powerup(String powerup, int x, int y) throws IOException;
     void powerup(String powerup, Direction direction, int value) throws IOException;
     void powerupAmmos(PowerupData...powerups) throws IOException;
+    void reload(int...weapons) throws IOException;
     void endTurn() throws IOException;
     AdrenalineZone getAdrenalineZone() throws RemoteException;
     void testConnection() throws RemoteException;

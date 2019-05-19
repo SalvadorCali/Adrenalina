@@ -90,6 +90,9 @@ public class SocketServer implements Runnable, ServerInterface {
             case POWERUP_AMMOS:
                 powerupAmmos();
                 break;
+            case RELOAD:
+                reload();
+                break;
             case END_TURN:
                 endTurn();
                 break;
@@ -232,6 +235,22 @@ public class SocketServer implements Runnable, ServerInterface {
             Printer.err(e);
         }
 
+    }
+
+    public void reload(){
+        try {
+            int weaponsSize = objectInputStream.readInt();
+            if(weaponsSize == 1){
+                int first = objectInputStream.readInt();
+                serverController.reload(clientName, first);
+            }else{
+                int first = objectInputStream.readInt();
+                int second = objectInputStream.readInt();
+                serverController.reload(clientName, first, second);
+            }
+        } catch (IOException e) {
+            Printer.err(e);
+        }
     }
 
     public void endTurn(){
