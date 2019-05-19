@@ -9,11 +9,15 @@ public class ClientData {
 
     private Player victim, secondVictim, thirdVictim, currentPlayer;
 
-    private Player fakePlayer = new Player(TokenColor.NONE);
+    private Player fakePlayer = new Player(TokenColor.BLUE);
+
+    private Player fakeVictim = new Player(TokenColor.YELLOW);
 
     private Direction firstMove, secondMove;
 
     private Position square = new Position(0, 0);
+
+    private boolean basicFirst;
 
 
     public Player getVictim() {
@@ -72,5 +76,13 @@ public class ClientData {
 
     public Player getFakePlayer() {
         return fakePlayer;
+    }
+
+    public boolean basicFirst() {
+        return basicFirst;
+    }
+
+    public Player getFakeVictim() {
+        return fakeVictim;
     }
 }

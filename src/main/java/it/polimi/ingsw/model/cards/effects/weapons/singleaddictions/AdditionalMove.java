@@ -17,7 +17,7 @@ public class AdditionalMove extends SingleAddictionEffect {
 
     private boolean canUse;
 
-    private Player player = new Player(TokenColor.NONE);
+    private Player player;
 
     private Player currentPlayer;
 
@@ -26,32 +26,43 @@ public class AdditionalMove extends SingleAddictionEffect {
     private Direction firstMove, secondMove;
 
 
+    public AdditionalMove(String effectName, int damagePower, int markPower, int redAmmos, int blueAmmos, int yellowAmmos){
+
+        this.effectName = effectName;
+        this.damagePower = damagePower;
+        this.markPower = markPower;
+        this.redAmmos = redAmmos;
+        this.blueAmmos = blueAmmos;
+        this.yellowAmmos = yellowAmmos;
+        this.canUse = true;
+    }
+
+
 
     @Override
     public boolean canUseEffect(ActionInterface actionInterface) {
 
+        setData(actionInterface);
         actionInterface.generatePlayer(player, currentPlayer);
 
             if(basicFirst) {
                 canUse = super.effect.canUseEffect(actionInterface) && actionInterface.ammoControl(redAmmos, blueAmmos, yellowAmmos);
-                if (canUse) {
+                if (canUse){
                     if(effectName.equals("Plasma Gun") || effectName.equals("Rocket Launcher"))
                         movementControl(actionInterface);
                     else
                         oneMovementControl(actionInterface);
                 }
-                actionInterface.removePlayer(player);
             }else{
                 if(effectName.equals("Plasma Gun") || effectName.equals("Rocket Launcher"))
                     movementControl(actionInterface);
                 else
                     oneMovementControl(actionInterface);
                 if(canUse){
-                    actionInterface.move(player.getPosition().getX(), player.getPosition().getY(), currentPlayer);
                     canUse = actionInterface.ammoControl(redAmmos, blueAmmos, yellowAmmos) && super.effect.canUseEffect(actionInterface);
                 }
             }
-
+        actionInterface.removePlayer(player);
         return canUse;
     }
 
@@ -59,8 +70,16 @@ public class AdditionalMove extends SingleAddictionEffect {
     public void useEffect(ActionInterface actionInterface) {
 
         super.effect.useEffect(actionInterface);
-        actionInterface.move(player.getPosition().getX(), player.getPosition().getY(), actionInterface.getCurrentPlayer());
+        actionInterface.move(player.getPosition().getX(), player.getPosition().getY(), currentPlayer);
         actionInterface.updateAmmoBox(redAmmos, blueAmmos, yellowAmmos);
+    }
+
+    private void setData(ActionInterface actionInterface){
+        currentPlayer = actionInterface.getClientData().getCurrentPlayer();
+        basicFirst = actionInterface.basicFirst();
+        player = actionInterface.getFakePlayer();
+        firstMove = actionInterface.getFirstMove();
+        secondMove = actionInterface.getSecondMove();
     }
 
     private void movementControl(ActionInterface actionInterface) {
@@ -76,9 +95,11 @@ public class AdditionalMove extends SingleAddictionEffect {
 
     private void oneMovementControl(ActionInterface actionInterface){
 
-        if(firstMove != null && secondMove == null)
-            canUse = actionInterface.canMove(player,firstMove);
-        else if (firstMove!= null && secondMove!= null){
+        if(firstMove != null && secondMove == null) {
+            canUse = actionInterface.canMove(player, firstMove);
+            actionInterface.move(firstMove, player);
+        }
+        else if (firstMove!= null){
             canUse = false;
         }
     }

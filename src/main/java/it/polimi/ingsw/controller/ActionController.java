@@ -72,6 +72,11 @@ public class ActionController implements ActionInterface {
         return clientData.getFakePlayer();
     }
 
+    @Override
+    public boolean basicFirst() {
+        return clientData.basicFirst();
+    }
+
     public void setClientData(ClientData clientData) {
         this.clientData = clientData;
     }

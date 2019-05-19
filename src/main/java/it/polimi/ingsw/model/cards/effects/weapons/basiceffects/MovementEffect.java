@@ -66,7 +66,7 @@ public class MovementEffect extends BasicEffect {
         if(!effectName.equals("Power Glove1"))
             actionInterface.move(player.getPosition().getX(), player.getPosition().getY(), victim);
         else
-            actionInterface.move(player.getPosition().getX(), player.getPosition().getY(), actionInterface.getCurrentPlayer());
+            actionInterface.move(player.getPosition().getX(), player.getPosition().getY(), currentPlayer);
         actionInterface.playerDamage(victim.getColor(), damagePower);
     }
 
@@ -82,8 +82,11 @@ public class MovementEffect extends BasicEffect {
     private void setData(ActionInterface actionInterface){
 
         victim = actionInterface.getVictim();
-        currentPlayer = actionInterface.getClientData().getCurrentPlayer();
-        player = actionInterface.getFakePlayer();
+        if(actionInterface.basicFirst())
+            currentPlayer = actionInterface.getClientData().getCurrentPlayer();
+        else
+            currentPlayer = actionInterface.getClientData().getFakePlayer();
+        player = actionInterface.getClientData().getFakeVictim();
         firstMove = actionInterface.getFirstMove();
         secondMove = actionInterface.getSecondMove();
     }

@@ -74,7 +74,10 @@ public class DamageMarkEffect extends BasicEffect {
 
     private void setData(ActionInterface actionInterface){
 
-        currentPlayer = actionInterface.getClientData().getCurrentPlayer();
+        if(actionInterface.basicFirst())
+            currentPlayer = actionInterface.getClientData().getCurrentPlayer();
+        else
+            currentPlayer = actionInterface.getClientData().getFakePlayer();
         victim = actionInterface.getVictim();
         secondVictim = actionInterface.getSecondVictim();
         thirdVictim = actionInterface.getThirdVictim();

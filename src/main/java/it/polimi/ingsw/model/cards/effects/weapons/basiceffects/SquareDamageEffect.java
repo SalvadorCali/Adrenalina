@@ -1,7 +1,6 @@
 package it.polimi.ingsw.model.cards.effects.weapons.basiceffects;
 
 import it.polimi.ingsw.model.cards.effects.ActionInterface;
-import it.polimi.ingsw.model.cards.effects.weapons.basiceffects.BasicEffect;
 import it.polimi.ingsw.model.gamecomponents.Player;
 import it.polimi.ingsw.model.gamecomponents.Position;
 
@@ -35,22 +34,16 @@ public class SquareDamageEffect extends BasicEffect {
     @Override
     public boolean canUseEffect(ActionInterface actionInterface) {
 
-        victim = actionInterface.getVictim();
-        Position square = actionInterface.getSquare();
-
-
+        setData(actionInterface);
         //canUse = actionInterface.ammoControl(redAmmos, yellowAmmos, blueAmmos); // Electroscythe
-
         if(canUse) {
-            if (effectName.equals("Furnace1") || effectName.equals("Hellion")) {
+            if (effectName.equals("Furnace1") || effectName.equals("Hellion"))
                 canUse = actionInterface.isVisibleDifferentSquare(square.getX(), square.getY());
-            }else if (effectName.equals("Furnace2") && (actionInterface.distanceControl(square.getX(), square.getY()) != 1)) {
+            else if (effectName.equals("Furnace2") && (actionInterface.distanceControl(square.getX(), square.getY()) != 1))
                     canUse = false;
-            }
         }
         return canUse;
     }
-
     @Override
     public void useEffect(ActionInterface actionInterface) {
 
@@ -64,6 +57,11 @@ public class SquareDamageEffect extends BasicEffect {
             actionInterface.squareDamage(square.getX(), square.getY(), damagePower, markPower);
         }
         actionInterface.updateAmmoBox(redAmmos, blueAmmos, yellowAmmos);
+    }
+
+    private void setData(ActionInterface actionInterface){
+        victim = actionInterface.getVictim();
+        square = actionInterface.getSquare();
     }
 
 

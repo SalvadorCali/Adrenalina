@@ -75,4 +75,6 @@ public interface ActionInterface {
     boolean noOutOfBounds(Player player, Direction direction);
 
     Player getFakePlayer();
+
+    boolean basicFirst();
 }

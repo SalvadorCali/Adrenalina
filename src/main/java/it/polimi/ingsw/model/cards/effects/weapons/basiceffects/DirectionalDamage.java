@@ -32,7 +32,7 @@ public class DirectionalDamage extends BasicEffect {
         this.yellowAmmos = yellowAmmos;
         canUse = true;
     }
-    
+
     @Override
     public boolean canUseEffect(ActionInterface actionInterface) {
 
