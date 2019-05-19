@@ -31,39 +31,23 @@ public class DamageMarkEffect extends BasicEffect {
     @Override
     public boolean canUseEffect(ActionInterface actionInterface) {
 
-        currentPlayer = actionInterface.getClientData().getCurrentPlayer();
-        victim = actionInterface.getVictim();
-        secondVictim = actionInterface.getSecondVictim();
-        thirdVictim = actionInterface.getThirdVictim();
-
+        setData(actionInterface);
         canUse = actionInterface.ammoControl(redAmmos, blueAmmos, yellowAmmos);
-
         if (canUse) {
             if (effectName.equals("Cyberblade") || effectName.equals("Sledgehammer"))
                 canUse = actionInterface.sameSquare(currentPlayer, victim);
-            else if (effectName.equals("Lock Rifle") || effectName.equals("T.H.O.R.") || effectName.equals("Plasma Gun") || effectName.equals("ZX-21") || effectName.equals("Whisper") || effectName.equals("Machine Gun")) {
-                canUse = actionInterface.isVisible(currentPlayer, victim);
-                if (canUse) {
-                    if (effectName.equals("Whisper")) {
-                        if (actionInterface.distanceControl(victim.getPosition().getX(), victim.getPosition().getY()) < 2)
-                            canUse = false;
-                    } else if (effectName.equals("Machine Gun") && secondVictim != null) {
-                        canUse = (!secondVictim.getColor().equals(victim.getColor())) && actionInterface.isVisible(currentPlayer, secondVictim);
-                    }
-                }
-            } else if (effectName.equals("Heatseeker") && actionInterface.isVisible(currentPlayer, victim)) {
+            else if (effectName.equals("Lock Rifle") || effectName.equals("T.H.O.R.") || effectName.equals("Plasma Gun") || effectName.equals("ZX-21") || effectName.equals("Whisper") || effectName.equals("Machine Gun"))
+                visibilityCheck(actionInterface);
+            else if (effectName.equals("Heatseeker") && actionInterface.isVisible(currentPlayer, victim)) {
                 canUse = false;
-            } else if (effectName.equals("ZX-22")) {
+            }else if (effectName.equals("ZX-22"))
                 canUse = actionInterface.isVisible(currentPlayer, victim) && actionInterface.isVisible(currentPlayer, secondVictim) && actionInterface.isVisible(currentPlayer, thirdVictim);
-            }
             if(!canUse) {
                 //actionInterface.resetPosition(currentPlayer);
             }
         }
-
         return canUse;
     }
-
     @Override
     public void useEffect(ActionInterface actionInterface) {
 
@@ -76,5 +60,26 @@ public class DamageMarkEffect extends BasicEffect {
             actionInterface.playerMark(thirdVictim.getColor(), markPower);
         }
         actionInterface.updateAmmoBox(redAmmos, blueAmmos, yellowAmmos);
+    }
+
+    private void visibilityCheck(ActionInterface actionInterface) {
+
+        canUse = actionInterface.isVisible(currentPlayer, victim);
+        if (canUse) {
+            if (effectName.equals("Whisper")) {
+                if (actionInterface.distanceControl(victim.getPosition().getX(), victim.getPosition().getY()) < 2)
+                    canUse = false;
+            } else if (effectName.equals("Machine Gun") && secondVictim != null) {
+                canUse = (!secondVictim.getColor().equals(victim.getColor())) && actionInterface.isVisible(currentPlayer, secondVictim);
+            }
+        }
+    }
+
+    private void setData(ActionInterface actionInterface){
+
+        currentPlayer = actionInterface.getClientData().getCurrentPlayer();
+        victim = actionInterface.getVictim();
+        secondVictim = actionInterface.getSecondVictim();
+        thirdVictim = actionInterface.getThirdVictim();
     }
 }

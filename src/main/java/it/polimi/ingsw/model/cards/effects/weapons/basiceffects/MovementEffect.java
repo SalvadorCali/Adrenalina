@@ -43,17 +43,17 @@ public class MovementEffect extends BasicEffect {
         canUse = ammoControl(redAmmos, blueAmmos, yellowAmmos, actionInterface);
         if(canUse) {
             actionInterface.generatePlayer(victim, player);
-            if (effectName.equals("Tractor Beam1")  || effectName.equals("Tractor Beam2")) {
+            if(effectName.equals("Tractor Beam1")  || effectName.equals("Tractor Beam2")) {
                 tractorBeam(actionInterface);
             }
-            if(effectName.equals("Power Glove") && actionInterface.distanceControl(player.getPosition().getX(), player.getPosition().getY()) != 1)
+            if(effectName.equals("Power Glove1") && actionInterface.distanceControl(player.getPosition().getX(), player.getPosition().getY()) != 1)
                 canUse = false;
-            if (effectName.equals("Grenade Launcher") || effectName.equals("Rocket Launcher")) {
+            if(effectName.equals("Grenade Launcher") || effectName.equals("Rocket Launcher")) {
                 launchers(actionInterface);
             }
-            if (effectName.equals("Shotgun1"))
+            if(effectName.equals("Shotgun1"))
                 shotgun1(actionInterface);
-            if (effectName.equals("Shotgun2")) {
+            if(effectName.equals("Shotgun2")) {
                 canUse = actionInterface.distanceControl(player.getPosition().getX(), player.getPosition().getY()) == 1;
             }
         }
@@ -74,7 +74,7 @@ public class MovementEffect extends BasicEffect {
 
         if(firstMove != null && secondMove == null)
             canUse = actionInterface.canMove(player,firstMove);
-        else if (firstMove!= null && secondMove!= null){
+        else if (firstMove!= null){
             canUse = false;
         }
     }

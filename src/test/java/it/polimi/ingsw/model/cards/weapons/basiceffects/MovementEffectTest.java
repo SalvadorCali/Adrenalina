@@ -14,7 +14,7 @@ import static junit.framework.TestCase.*;
 public class MovementEffectTest {
 
     private GameController gameController = new GameController();
-    ClientData clientData = gameController.getActionInterface().getClientData();
+    private ClientData clientData = gameController.getActionInterface().getClientData();
     private Player currentPlayer = new Player(TokenColor.GREEN);
     private Player victim = new Player(TokenColor.BLUE);
     private Player secondVictim = new Player(TokenColor.PURPLE);
@@ -60,7 +60,7 @@ public class MovementEffectTest {
     void powerGloveMod1Test(){
 
         playerSetup();
-        Effect powerGloveMod1 = new MovementEffect("Power Glove", 1, 2,0,2,0);
+        Effect powerGloveMod1 = new MovementEffect("Power Glove1", 1, 2,0,2,0);
 
         gameController.getActionInterface().move(0,1, victim);
         assertTrue(powerGloveMod1.canUseEffect(gameController.getActionInterface()));
@@ -137,5 +137,4 @@ public class MovementEffectTest {
         clientData.setSecondVictim(secondVictim);
 
     }
-
 }
