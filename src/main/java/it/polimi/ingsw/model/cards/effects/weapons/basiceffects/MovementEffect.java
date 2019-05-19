@@ -2,7 +2,6 @@ package it.polimi.ingsw.model.cards.effects.weapons.basiceffects;
 
 import it.polimi.ingsw.model.cards.effects.ActionInterface;
 import it.polimi.ingsw.model.enums.Direction;
-import it.polimi.ingsw.model.enums.TokenColor;
 import it.polimi.ingsw.model.gamecomponents.Player;
 
 public class MovementEffect extends BasicEffect {
@@ -21,7 +20,8 @@ public class MovementEffect extends BasicEffect {
 
     private Player currentPlayer, victim;
 
-    private Player player = new Player(TokenColor.NONE);
+    private Player player;
+
 
     public MovementEffect(String effectName, int damagePower, int markPower, int redAmmos, int blueAmmos, int yellowAmmos ){
 
@@ -35,58 +35,24 @@ public class MovementEffect extends BasicEffect {
 
     }
 
-
     @Override
     public boolean canUseEffect(ActionInterface actionInterface) {
 
-
-        victim = actionInterface.getVictim();
-        currentPlayer = actionInterface.getClientData().getCurrentPlayer();
-        firstMove = actionInterface.getFirstMove();
-        secondMove = actionInterface.getSecondMove();
+        setData(actionInterface);
 
         canUse = ammoControl(redAmmos, blueAmmos, yellowAmmos, actionInterface);
-
         if(canUse) {
             actionInterface.generatePlayer(victim, player);
             if (effectName.equals("Tractor Beam1")  || effectName.equals("Tractor Beam2")) {
-                if (firstMove != null && secondMove != null) {
-                    canUse = actionInterface.canMove(player, firstMove, secondMove);
-                    actionInterface.move(firstMove, player);
-                    actionInterface.move(secondMove, player);
-                }else if (firstMove != null && secondMove == null) {
-                    canUse = actionInterface.canMove(player, firstMove);
-                    actionInterface.move(firstMove, player);
-                }
-                if(canUse) {
-                    if (effectName.equals("Tractor Beam1"))
-                        canUse = actionInterface.isVisible(currentPlayer, player);
-                    else
-                        canUse = actionInterface.sameSquare(currentPlayer, player);
-                }
+                tractorBeam(actionInterface);
             }
-
-            if(effectName.equals("Power Glove")) {
-                if(actionInterface.distanceControl(player.getPosition().getX(), player.getPosition().getY()) != 1)
-                    canUse = false;
-            }
-
+            if(effectName.equals("Power Glove") && actionInterface.distanceControl(player.getPosition().getX(), player.getPosition().getY()) != 1)
+                canUse = false;
             if (effectName.equals("Grenade Launcher") || effectName.equals("Rocket Launcher")) {
-                canUse = actionInterface.isVisible(currentPlayer, player);
-                if (canUse) {
-                    if (effectName.equals("Rocket Launcher"))
-                        canUse = !actionInterface.sameSquare(currentPlayer ,player);
-                    if(canUse)
-                        oneMovementControl(actionInterface, player);
-                }
+                launchers(actionInterface);
             }
-
-            if (effectName.equals("Shotgun1")) {
-                canUse = actionInterface.sameSquare(currentPlayer, player);
-                if(canUse)
-                    oneMovementControl(actionInterface, player);
-                }
-
+            if (effectName.equals("Shotgun1"))
+                shotgun1(actionInterface);
             if (effectName.equals("Shotgun2")) {
                 canUse = actionInterface.distanceControl(player.getPosition().getX(), player.getPosition().getY()) == 1;
             }
@@ -94,7 +60,6 @@ public class MovementEffect extends BasicEffect {
         actionInterface.removePlayer(player);
         return canUse;
     }
-
     @Override
     public void useEffect(ActionInterface actionInterface) {
 
@@ -112,5 +77,50 @@ public class MovementEffect extends BasicEffect {
         else if (firstMove!= null && secondMove!= null){
             canUse = false;
         }
+    }
+
+    private void setData(ActionInterface actionInterface){
+
+        victim = actionInterface.getVictim();
+        currentPlayer = actionInterface.getClientData().getCurrentPlayer();
+        player = actionInterface.getFakePlayer();
+        firstMove = actionInterface.getFirstMove();
+        secondMove = actionInterface.getSecondMove();
+    }
+
+    private void tractorBeam(ActionInterface actionInterface){
+
+        if (firstMove != null && secondMove != null) {
+            canUse = actionInterface.canMove(player, firstMove, secondMove);
+            actionInterface.move(firstMove, player);
+            actionInterface.move(secondMove, player);
+        }else if (firstMove != null) {
+            canUse = actionInterface.canMove(player, firstMove);
+            actionInterface.move(firstMove, player);
+        }
+        if(canUse) {
+            if (effectName.equals("Tractor Beam1"))
+                canUse = actionInterface.isVisible(currentPlayer, player);
+            else
+                canUse = actionInterface.sameSquare(currentPlayer, player);
+        }
+    }
+
+    private void launchers (ActionInterface actionInterface) {
+
+        canUse = actionInterface.isVisible(currentPlayer, player);
+        if (canUse) {
+            if (effectName.equals("Rocket Launcher"))
+                canUse = !actionInterface.sameSquare(currentPlayer ,player);
+            if(canUse)
+                oneMovementControl(actionInterface, player);
+        }
+    }
+
+    private void shotgun1 (ActionInterface actionInterface){
+
+        canUse = actionInterface.sameSquare(currentPlayer, player);
+        if(canUse)
+            oneMovementControl(actionInterface, player);
     }
 }

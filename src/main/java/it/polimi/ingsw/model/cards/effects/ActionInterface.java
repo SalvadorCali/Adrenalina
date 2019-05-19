@@ -73,4 +73,6 @@ public interface ActionInterface {
     Player getThirdVictim();
 
     boolean noOutOfBounds(Player player, Direction direction);
+
+    Player getFakePlayer();
 }

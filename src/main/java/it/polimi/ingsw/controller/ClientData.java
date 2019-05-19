@@ -1,12 +1,15 @@
 package it.polimi.ingsw.controller;
 
 import it.polimi.ingsw.model.enums.Direction;
+import it.polimi.ingsw.model.enums.TokenColor;
 import it.polimi.ingsw.model.gamecomponents.Player;
 import it.polimi.ingsw.model.gamecomponents.Position;
 
 public class ClientData {
 
     private Player victim, secondVictim, thirdVictim, currentPlayer;
+
+    private Player fakePlayer = new Player(TokenColor.NONE);
 
     private Direction firstMove, secondMove;
 
@@ -65,5 +68,9 @@ public class ClientData {
 
     public Player getThirdVictim() {
         return thirdVictim;
+    }
+
+    public Player getFakePlayer() {
+        return fakePlayer;
     }
 }

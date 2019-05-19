@@ -67,6 +67,11 @@ public class ActionController implements ActionInterface {
         return game.getBoard().noOutofBounds(player, direction);
     }
 
+    @Override
+    public Player getFakePlayer() {
+        return clientData.getFakePlayer();
+    }
+
     public void setClientData(ClientData clientData) {
         this.clientData = clientData;
     }
