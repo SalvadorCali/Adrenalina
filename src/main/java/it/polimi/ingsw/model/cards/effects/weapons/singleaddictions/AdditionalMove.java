@@ -1,9 +1,11 @@
 package it.polimi.ingsw.model.cards.effects.weapons.singleaddictions;
 
 import it.polimi.ingsw.model.cards.effects.ActionInterface;
+import it.polimi.ingsw.model.cards.effects.Effect;
 import it.polimi.ingsw.model.enums.Direction;
 import it.polimi.ingsw.model.enums.TokenColor;
 import it.polimi.ingsw.model.gamecomponents.Player;
+import it.polimi.ingsw.view.MapCLI;
 
 public class AdditionalMove extends SingleAddictionEffect {
 
@@ -26,7 +28,7 @@ public class AdditionalMove extends SingleAddictionEffect {
     private Direction firstMove, secondMove;
 
 
-    public AdditionalMove(String effectName, int damagePower, int markPower, int redAmmos, int blueAmmos, int yellowAmmos){
+    public AdditionalMove(String effectName, int damagePower, int markPower, int redAmmos, int blueAmmos, int yellowAmmos, Effect effect){
 
         this.effectName = effectName;
         this.damagePower = damagePower;
@@ -35,6 +37,7 @@ public class AdditionalMove extends SingleAddictionEffect {
         this.blueAmmos = blueAmmos;
         this.yellowAmmos = yellowAmmos;
         this.canUse = true;
+        super.effect = effect;
     }
 
 
@@ -62,6 +65,8 @@ public class AdditionalMove extends SingleAddictionEffect {
                     canUse = actionInterface.ammoControl(redAmmos, blueAmmos, yellowAmmos) && super.effect.canUseEffect(actionInterface);
                 }
             }
+        System.out.print(player.getPosition().getX());
+        System.out.println(player.getPosition().getY());
         actionInterface.removePlayer(player);
         return canUse;
     }
@@ -85,10 +90,12 @@ public class AdditionalMove extends SingleAddictionEffect {
     private void movementControl(ActionInterface actionInterface) {
         if (firstMove != null) {
             canUse = actionInterface.canMove(player, firstMove);
-            actionInterface.move(firstMove, player);
+            if(canUse)
+                actionInterface.move(firstMove, player);
             if (secondMove != null) {
                 canUse = actionInterface.canMove(player, secondMove);
-                actionInterface.move(secondMove, player);
+                if(canUse)
+                    actionInterface.move(secondMove, player);
             }
         }
     }
