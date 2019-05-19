@@ -86,6 +86,7 @@ public class MovementEffect extends BasicEffect {
             currentPlayer = actionInterface.getClientData().getCurrentPlayer();
         else
             currentPlayer = actionInterface.getClientData().getFakePlayer();
+
         player = actionInterface.getClientData().getFakeVictim();
         firstMove = actionInterface.getFirstMove();
         secondMove = actionInterface.getSecondMove();

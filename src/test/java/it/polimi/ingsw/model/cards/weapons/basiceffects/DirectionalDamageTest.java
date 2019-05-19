@@ -9,6 +9,7 @@ import it.polimi.ingsw.model.enums.Color;
 import it.polimi.ingsw.model.enums.Direction;
 import it.polimi.ingsw.model.enums.TokenColor;
 import it.polimi.ingsw.model.gamecomponents.Player;
+import it.polimi.ingsw.view.MapCLI;
 import org.junit.jupiter.api.Test;
 import static junit.framework.TestCase.*;
 
@@ -31,6 +32,8 @@ public class DirectionalDamageTest {
         gameController.getGame().getBoard().move(0,1, currentPlayer);
         gameController.getGame().getBoard().move(1,1, victim);
         gameController.getGame().getBoard().move(2,1, secondVictim);
+        MapCLI mapCLI = new MapCLI(gameController.getGame().getBoard());
+        mapCLI.printMap();
         assertTrue(flameThrower1.canUseEffect(gameController.getActionInterface()));
         clientData.setSecondVictim(null);
         assertTrue(flameThrower1.canUseEffect(gameController.getActionInterface()));

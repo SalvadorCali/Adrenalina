@@ -9,15 +9,15 @@ public class ClientData {
 
     private Player victim, secondVictim, thirdVictim, currentPlayer;
 
-    private Player fakePlayer = new Player(TokenColor.BLUE);
+    private Player fakePlayer = new Player(TokenColor.NONE);
 
-    private Player fakeVictim = new Player(TokenColor.YELLOW);
+    private Player fakeVictim = new Player(TokenColor.NONE);
 
     private Direction firstMove, secondMove;
 
     private Position square = new Position(0, 0);
 
-    private boolean basicFirst;
+    private boolean basicFirst = true;
 
 
     public Player getVictim() {
