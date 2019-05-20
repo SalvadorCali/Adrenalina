@@ -78,7 +78,7 @@ public class AdditionalMoveTest {
         gameController.getGame().getBoard().move(0,0,victim);
         mapCLI.printMap();
         assertFalse(rocketLauncherAdd.canUseEffect(gameController.getActionInterface()));
-        
+
     }
 
     void playerSetup(){

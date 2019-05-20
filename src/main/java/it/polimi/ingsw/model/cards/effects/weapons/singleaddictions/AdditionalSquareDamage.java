@@ -35,6 +35,7 @@ public class AdditionalSquareDamage extends SingleAddictionEffect{
 
         setData(actionInterface);
 
+
         if(basicFirst){
             canUse = super.effect.canUseEffect(actionInterface) && actionInterface.ammoControl(redAmmos, blueAmmos, yellowAmmos);
             if(canUse)
@@ -53,14 +54,18 @@ public class AdditionalSquareDamage extends SingleAddictionEffect{
 
         super.effect.useEffect(actionInterface);
         actionInterface.squareDamage(x, y, damagePower, 0);
-        if(effectName.equals("Rocket Launcher"))
+        if(effectName.equals("Rocket Launcher") && (actionInterface.getVictim().getPosition().getX()!= x || actionInterface.getVictim().getPosition().getY()!=y))
             actionInterface.playerDamage(actionInterface.getVictim().getColor(), damagePower);
         actionInterface.updateAmmoBox(redAmmos, blueAmmos, yellowAmmos);
     }
 
     private void setData(ActionInterface actionInterface){
-        this.x = actionInterface.getClientData().getSquare().getX();
-        this.y = actionInterface.getClientData().getSquare().getY();
+        if(effectName.equals("Rocket Launcher")){
+            actionInterface.getClientData().setSquare(actionInterface.getClientData().getVictim().getPosition().getX(), actionInterface.getClientData().getVictim().getPosition().getY());
+        }else {
+            this.x = actionInterface.getClientData().getSquare().getX();
+            this.y = actionInterface.getClientData().getSquare().getY();
+        }
         this.basicFirst = actionInterface.basicFirst();
     }
 }
