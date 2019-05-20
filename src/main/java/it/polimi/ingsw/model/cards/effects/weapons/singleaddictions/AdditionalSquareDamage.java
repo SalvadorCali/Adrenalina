@@ -40,7 +40,7 @@ public class AdditionalSquareDamage extends SingleAddictionEffect{
             if(canUse)
                 canUse = actionInterface.isVisibleDifferentSquare(x, y);
         }else{
-            canUse = actionInterface.ammoControl(redAmmos, blueAmmos, yellowAmmos) && (actionInterface.isVisibleDifferentSquare(x, y) || (x == actionInterface.getCurrentPlayer().getPosition().getX() && y == actionInterface.getCurrentPlayer().getPosition().getY()));
+            canUse = actionInterface.ammoControl(redAmmos, blueAmmos, yellowAmmos) && (actionInterface.isVisibleDifferentSquare(x, y) || (x == actionInterface.getClientData().getCurrentPlayer().getPosition().getX() && y == actionInterface.getClientData().getCurrentPlayer().getPosition().getY()));
                 if(canUse)
                     canUse = super.effect.canUseEffect(actionInterface);
         }
@@ -61,5 +61,6 @@ public class AdditionalSquareDamage extends SingleAddictionEffect{
     private void setData(ActionInterface actionInterface){
         this.x = actionInterface.getClientData().getSquare().getX();
         this.y = actionInterface.getClientData().getSquare().getY();
+        this.basicFirst = actionInterface.basicFirst();
     }
 }
