@@ -13,7 +13,7 @@ public class ClientData {
 
     private Player fakeVictim = new Player(TokenColor.NONE);
 
-    private Direction firstMove, secondMove;
+    private Direction firstMove, secondMove, thirdMove, fourthMove;
 
     private Position square = new Position(0, 0);
 
@@ -52,12 +52,24 @@ public class ClientData {
         return secondMove;
     }
 
+    public Direction getThirdMove(){return thirdMove;}
+
+    public Direction getFourthMove() {return fourthMove;}
+
     public void setFirstMove(Direction direction){
         this.firstMove = direction;
     }
 
     public void setSecondMove(Direction direction){
         this.secondMove = direction;
+    }
+
+    public void setThirdMove(Direction direction){
+        this.thirdMove = direction;
+    }
+
+    public void setFourthMove(Direction direction){
+        this.fourthMove = direction;
     }
 
     public Position getSquare() {

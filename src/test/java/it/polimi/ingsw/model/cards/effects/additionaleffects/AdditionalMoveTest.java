@@ -4,6 +4,7 @@ import it.polimi.ingsw.controller.ClientData;
 import it.polimi.ingsw.controller.GameController;
 import it.polimi.ingsw.model.cards.effects.Effect;
 import it.polimi.ingsw.model.cards.effects.weapons.basiceffects.DamageMarkEffect;
+import it.polimi.ingsw.model.cards.effects.weapons.basiceffects.MovementEffect;
 import it.polimi.ingsw.model.cards.effects.weapons.singleaddictions.AdditionalMove;
 import it.polimi.ingsw.model.enums.Color;
 import it.polimi.ingsw.model.enums.Direction;
@@ -23,7 +24,7 @@ public class AdditionalMoveTest {
     private MapCLI mapCLI = new MapCLI(gameController.getGame().getBoard());
 
     @Test
-    void plasmaGunAddictionalMoveTest(){
+    void plasmaGunAdditionalMoveTest(){
 
         playerSetup();
         Effect plasmaGun = new DamageMarkEffect("Plasma Gun", 0,0,0,2,0);
@@ -53,6 +54,31 @@ public class AdditionalMoveTest {
 
 
 
+    }
+
+    @Test
+    void rocketLauncherAdditionalMoveTest(){
+        playerSetup();
+        Effect rocketLauncher = new MovementEffect("Rocket Launcher", 0,0,0,2,0);
+        Effect rocketLauncherAdd = new AdditionalMove("Rocket Launcher", 0,0,0,2,0, rocketLauncher);
+
+        gameController.getActionInterface().getClientData().setBasicFirst(true);
+        gameController.getActionInterface().getClientData().setFirstMove(Direction.DOWN);
+        gameController.getActionInterface().getClientData().setThirdMove(Direction.RIGHT);
+        gameController.getActionInterface().getClientData().setFourthMove(Direction.DOWN);
+        assertTrue(rocketLauncherAdd.canUseEffect(gameController.getActionInterface()));
+
+        gameController.getActionInterface().getClientData().setBasicFirst(false);
+        gameController.getGame().getBoard().move(1,1,currentPlayer);
+        gameController.getActionInterface().getClientData().setThirdMove(Direction.UP);
+        gameController.getActionInterface().getClientData().setFourthMove(Direction.LEFT);
+        gameController.getActionInterface().getClientData().setFirstMove(Direction.DOWN);
+        assertTrue(rocketLauncherAdd.canUseEffect(gameController.getActionInterface()));
+
+        gameController.getGame().getBoard().move(0,0,victim);
+        mapCLI.printMap();
+        assertFalse(rocketLauncherAdd.canUseEffect(gameController.getActionInterface()));
+        
     }
 
     void playerSetup(){

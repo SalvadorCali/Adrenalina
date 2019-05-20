@@ -66,6 +66,10 @@ public interface ActionInterface {
 
     Direction getSecondMove();
 
+    Direction getThirdMove();
+
+    Direction getFourthMove();
+
     void removePlayer(Player player);
 
     Position getSquare();
@@ -77,4 +81,6 @@ public interface ActionInterface {
     Player getFakePlayer();
 
     boolean basicFirst();
+
+
 }

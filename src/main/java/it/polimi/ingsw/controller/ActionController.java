@@ -48,6 +48,16 @@ public class ActionController implements ActionInterface {
     }
 
     @Override
+    public Direction getThirdMove(){
+        return clientData.getThirdMove();
+    }
+
+    @Override
+    public Direction getFourthMove(){
+        return clientData.getFourthMove();
+    }
+
+    @Override
     public void removePlayer(Player player) {
         game.getBoard().getArena()[player.getPosition().getX()][player.getPosition().getY()].getPlayers().remove(player);
     }
