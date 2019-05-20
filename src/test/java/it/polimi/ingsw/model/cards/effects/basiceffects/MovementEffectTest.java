@@ -1,4 +1,4 @@
-package it.polimi.ingsw.model.cards.weapons.basiceffects;
+package it.polimi.ingsw.model.cards.effects.basiceffects;
 
 import it.polimi.ingsw.controller.ClientData;
 import it.polimi.ingsw.controller.GameController;

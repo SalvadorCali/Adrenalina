@@ -1,10 +1,9 @@
-package it.polimi.ingsw.model.cards.weapons.basiceffects;
+package it.polimi.ingsw.model.cards.effects.basiceffects;
 
 import it.polimi.ingsw.controller.ClientData;
 import it.polimi.ingsw.controller.GameController;
 import it.polimi.ingsw.model.cards.effects.Effect;
 import it.polimi.ingsw.model.cards.effects.weapons.basiceffects.DirectionalDamage;
-import it.polimi.ingsw.model.cards.effects.weapons.basiceffects.MovementEffect;
 import it.polimi.ingsw.model.enums.Color;
 import it.polimi.ingsw.model.enums.Direction;
 import it.polimi.ingsw.model.enums.TokenColor;

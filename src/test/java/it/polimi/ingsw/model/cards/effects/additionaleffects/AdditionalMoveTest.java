@@ -1,19 +1,19 @@
-package it.polimi.ingsw.model.cards.weapons.basiceffects;
+package it.polimi.ingsw.model.cards.effects.additionaleffects;
 
 import it.polimi.ingsw.controller.ClientData;
 import it.polimi.ingsw.controller.GameController;
-import it.polimi.ingsw.model.cards.effects.ActionInterface;
 import it.polimi.ingsw.model.cards.effects.Effect;
 import it.polimi.ingsw.model.cards.effects.weapons.basiceffects.DamageMarkEffect;
-import it.polimi.ingsw.model.cards.effects.weapons.singleaddictions.AdditionalTarget;
+import it.polimi.ingsw.model.cards.effects.weapons.singleaddictions.AdditionalMove;
 import it.polimi.ingsw.model.enums.Color;
+import it.polimi.ingsw.model.enums.Direction;
 import it.polimi.ingsw.model.enums.TokenColor;
 import it.polimi.ingsw.model.gamecomponents.Player;
 import it.polimi.ingsw.view.MapCLI;
 import org.junit.jupiter.api.Test;
 import static junit.framework.TestCase.*;
 
-public class AdditionalTargetTest {
+public class AdditionalMoveTest {
 
     private GameController gameController = new GameController();
     private Player currentPlayer = new Player(TokenColor.GREEN);
@@ -23,37 +23,34 @@ public class AdditionalTargetTest {
     private MapCLI mapCLI = new MapCLI(gameController.getGame().getBoard());
 
     @Test
-    void machineGunDoubleTest(){
+    void plasmaGunAddictionalMoveTest(){
+
         playerSetup();
-        Effect machineGun = new DamageMarkEffect("Machine Gun", 2, 1, 0, 2, 0);
-        Effect machineGunDouble = new AdditionalTarget("Machine Gun Double", 0, 0, 0,2,0, machineGun);
-
+        Effect plasmaGun = new DamageMarkEffect("Plasma Gun", 0,0,0,2,0);
+        Effect plasmaGunAdd = new AdditionalMove("Plasma Gun", 0,0,0,2,0, plasmaGun);
+        gameController.getGame().getBoard().move(1,1, victim);
+        gameController.getActionInterface().getClientData().setBasicFirst(false);
+        gameController.getActionInterface().getClientData().setFirstMove(Direction.RIGHT);
+        gameController.getActionInterface().getClientData().setSecondMove(null);
+        assertTrue(plasmaGunAdd.canUseEffect(gameController.getActionInterface()));
         mapCLI.printMap();
-        assertTrue(machineGunDouble.canUseEffect(gameController.getActionInterface()));
 
-        gameController.getGame().getBoard().move(1,1,thirdVictim);
-        assertFalse(machineGunDouble.canUseEffect(gameController.getActionInterface()));
-    }
-
-    @Test
-    void thorAdditionalTest(){
-        playerSetup();
-        Effect thor = new DamageMarkEffect("T.H.O.R.", 2, 1, 0, 2, 0);
-        Effect thorSingle = new AdditionalTarget("T.H.O.R. Single", 0, 0, 0,2,0, thor);
-        Effect thorDouble = new AdditionalTarget("T.H.O.R. Double",0,0,0,2,0, thorSingle);
-        gameController.getGame().getBoard().move(0,1,victim);
-        gameController.getGame().getBoard().move(0,2, secondVictim);
-        gameController.getGame().getBoard().move(1,2,thirdVictim);
-
-        assertTrue(thorSingle.canUseEffect(gameController.getActionInterface()));
-        assertTrue(thorDouble.canUseEffect(gameController.getActionInterface()));
-
-        gameController.getGame().getBoard().move(1,0, thirdVictim);
+        gameController.getActionInterface().getClientData().setSecondMove(Direction.RIGHT);
+        assertTrue(plasmaGunAdd.canUseEffect(gameController.getActionInterface()));
         mapCLI.printMap();
-        assertTrue(thorSingle.canUseEffect(gameController.getActionInterface()));
-        assertFalse(thorDouble.canUseEffect(gameController.getActionInterface()));
 
+        gameController.getGame().getBoard().move(0,1, victim);
+        gameController.getActionInterface().getClientData().setFirstMove(Direction.DOWN);
+        gameController.getActionInterface().getClientData().setSecondMove(Direction.DOWN);
+        assertFalse(plasmaGunAdd.canUseEffect(gameController.getActionInterface()));
         mapCLI.printMap();
+
+
+        gameController.getActionInterface().getClientData().setBasicFirst(true);
+        assertTrue(plasmaGunAdd.canUseEffect(gameController.getActionInterface()));
+        mapCLI.printMap();
+
+
 
 
     }

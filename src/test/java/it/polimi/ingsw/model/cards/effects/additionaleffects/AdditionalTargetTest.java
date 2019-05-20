@@ -1,4 +1,4 @@
-package it.polimi.ingsw.model.cards.weapons;
+package it.polimi.ingsw.model.cards.effects.additionaleffects;
 
 import it.polimi.ingsw.controller.ClientData;
 import it.polimi.ingsw.controller.GameController;
@@ -10,7 +10,6 @@ import it.polimi.ingsw.model.enums.TokenColor;
 import it.polimi.ingsw.model.gamecomponents.Player;
 import it.polimi.ingsw.view.MapCLI;
 import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -20,6 +19,8 @@ public class AdditionalTargetTest {
     private Player currentPlayer = new Player(TokenColor.GREEN);
     private Player victim = new Player(TokenColor.BLUE);
     private Player secondVictim = new Player(TokenColor.PURPLE);
+    private Player thirdVictim = new Player(TokenColor.YELLOW);
+    private MapCLI mapCLI = new MapCLI(gameController.getGame().getBoard());
 
     @Test
     void lockRifleAdditionalTest(){
@@ -63,10 +64,45 @@ public class AdditionalTargetTest {
 
     }
 
+    @Test
+    void machineGunDoubleTest(){
+        playerSetup();
+        Effect machineGun = new DamageMarkEffect("Machine Gun", 2, 1, 0, 2, 0);
+        Effect machineGunDouble = new AdditionalTarget("Machine Gun Double", 0, 0, 0,2,0, machineGun);
+
+        mapCLI.printMap();
+        assertTrue(machineGunDouble.canUseEffect(gameController.getActionInterface()));
+
+        gameController.getGame().getBoard().move(1,1,thirdVictim);
+        assertFalse(machineGunDouble.canUseEffect(gameController.getActionInterface()));
+    }
+
+    @Test
+    void thorAdditionalTest(){
+        playerSetup();
+        Effect thor = new DamageMarkEffect("T.H.O.R.", 2, 1, 0, 2, 0);
+        Effect thorSingle = new AdditionalTarget("T.H.O.R. Single", 0, 0, 0,2,0, thor);
+        Effect thorDouble = new AdditionalTarget("T.H.O.R. Double",0,0,0,2,0, thorSingle);
+        gameController.getGame().getBoard().move(0,1,victim);
+        gameController.getGame().getBoard().move(0,2, secondVictim);
+        gameController.getGame().getBoard().move(1,2,thirdVictim);
+
+        assertTrue(thorSingle.canUseEffect(gameController.getActionInterface()));
+        assertTrue(thorDouble.canUseEffect(gameController.getActionInterface()));
+
+        gameController.getGame().getBoard().move(1,0, thirdVictim);
+        mapCLI.printMap();
+        assertTrue(thorSingle.canUseEffect(gameController.getActionInterface()));
+        assertFalse(thorDouble.canUseEffect(gameController.getActionInterface()));
+
+        mapCLI.printMap();
+
+
+    }
+
     void playerSetup(){
 
         ClientData clientData = gameController.getActionInterface().getClientData();
-
 
         //currentPlayerSetup
         gameController.getGame().getBoard().generatePlayer(0,0,currentPlayer);
@@ -85,5 +121,9 @@ public class AdditionalTargetTest {
         gameController.getGame().getPlayers().add(secondVictim);
         clientData.setSecondVictim(secondVictim);
 
+        //thirdVictimSetup
+        gameController.getGame().getBoard().generatePlayer(0,1,thirdVictim);
+        gameController.getGame().getPlayers().add(thirdVictim);
+        clientData.setThirdVictim(thirdVictim);
     }
 }
