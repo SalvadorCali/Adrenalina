@@ -4,8 +4,10 @@ import it.polimi.ingsw.model.enums.Direction;
 import it.polimi.ingsw.model.enums.TokenColor;
 import it.polimi.ingsw.model.gamecomponents.*;
 import it.polimi.ingsw.util.Parser;
+import it.polimi.ingsw.view.MapCLI;
 import org.junit.jupiter.api.Test;
 import java.util.List;
+import java.util.logging.Logger;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -162,5 +164,19 @@ class GameBoardTest {
         player.setPosition(new Position(0,0));
         victim.setPosition(new Position(2, 3));
         assertFalse(gameBoard.isVisible(player, victim));
+    }
+
+    @Test
+    void removePlayerTest(){
+        Parser.createGameBoards();
+        GameBoard gameBoard = gameBoards.get(0);
+        MapCLI mapCLI = new MapCLI(gameBoard);
+        Player player = new Player(TokenColor.BLUE);
+        gameBoard.generatePlayer(0,0,player);
+        mapCLI.printMap();
+        gameBoard.getArena()[player.getPosition().getX()][player.getPosition().getY()].getPlayers().remove(player);
+        gameBoard.generatePlayer(0,0, player);
+        gameBoard.move(Direction.RIGHT, player);
+        mapCLI.printMap();
     }
 }

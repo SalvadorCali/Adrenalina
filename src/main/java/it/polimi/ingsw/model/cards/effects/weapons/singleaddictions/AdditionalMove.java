@@ -46,27 +46,25 @@ public class AdditionalMove extends SingleAddictionEffect {
     public boolean canUseEffect(ActionInterface actionInterface) {
 
         setData(actionInterface);
-        actionInterface.generatePlayer(player, currentPlayer);
+        actionInterface.generatePlayer(currentPlayer, player);
 
-            if(basicFirst) {
-                canUse = super.effect.canUseEffect(actionInterface) && actionInterface.ammoControl(redAmmos, blueAmmos, yellowAmmos);
-                if (canUse){
-                    if(effectName.equals("Plasma Gun") || effectName.equals("Rocket Launcher"))
-                        movementControl(actionInterface);
-                    else
-                        oneMovementControl(actionInterface);
-                }
-            }else{
+        if(basicFirst) {
+            canUse = super.effect.canUseEffect(actionInterface) && actionInterface.ammoControl(redAmmos, blueAmmos, yellowAmmos);
+            if (canUse){
                 if(effectName.equals("Plasma Gun") || effectName.equals("Rocket Launcher"))
                     movementControl(actionInterface);
                 else
                     oneMovementControl(actionInterface);
-                if(canUse){
-                    canUse = actionInterface.ammoControl(redAmmos, blueAmmos, yellowAmmos) && super.effect.canUseEffect(actionInterface);
-                }
             }
-        System.out.print(player.getPosition().getX());
-        System.out.println(player.getPosition().getY());
+        }else{
+            if(effectName.equals("Plasma Gun") || effectName.equals("Rocket Launcher"))
+                movementControl(actionInterface);
+            else
+                oneMovementControl(actionInterface);
+            if(canUse){
+                canUse = actionInterface.ammoControl(redAmmos, blueAmmos, yellowAmmos) && super.effect.canUseEffect(actionInterface);
+            }
+        }
         actionInterface.removePlayer(player);
         return canUse;
     }
@@ -97,6 +95,8 @@ public class AdditionalMove extends SingleAddictionEffect {
                 if(canUse)
                     actionInterface.move(secondMove, player);
             }
+            System.out.print(player.getPosition().getX());
+            System.out.println(player.getPosition().getY());
         }
     }
 

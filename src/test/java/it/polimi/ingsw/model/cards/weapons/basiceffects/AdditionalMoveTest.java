@@ -31,25 +31,27 @@ public class AdditionalMoveTest {
         Effect plasmaGun = new DamageMarkEffect("Plasma Gun", 0,0,0,2,0);
         Effect plasmaGunAdd = new AdditionalMove("Plasma Gun", 0,0,0,2,0, plasmaGun);
         gameController.getGame().getBoard().move(1,1, victim);
-        mapCLI.printMap();
         gameController.getActionInterface().getClientData().setBasicFirst(false);
         gameController.getActionInterface().getClientData().setFirstMove(Direction.RIGHT);
         gameController.getActionInterface().getClientData().setSecondMove(null);
         assertTrue(plasmaGunAdd.canUseEffect(gameController.getActionInterface()));
         mapCLI.printMap();
-        gameController.getActionInterface().getClientData().getFakePlayer().setPosition(0,0);
 
-        gameController.getActionInterface().getClientData().setSecondMove(Direction.DOWN);
+        gameController.getActionInterface().getClientData().setSecondMove(Direction.RIGHT);
         assertTrue(plasmaGunAdd.canUseEffect(gameController.getActionInterface()));
-        gameController.getActionInterface().getClientData().getFakePlayer().setPosition(0,0);
+        mapCLI.printMap();
 
+        gameController.getGame().getBoard().move(0,1, victim);
         gameController.getActionInterface().getClientData().setFirstMove(Direction.DOWN);
         gameController.getActionInterface().getClientData().setSecondMove(Direction.DOWN);
         assertFalse(plasmaGunAdd.canUseEffect(gameController.getActionInterface()));
+        mapCLI.printMap();
+
 
         gameController.getActionInterface().getClientData().setBasicFirst(true);
-        gameController.getActionInterface().getClientData().getFakePlayer().setPosition(0,0);
-        gameController.getGame().getBoard().move(0,1, victim);
+        assertTrue(plasmaGunAdd.canUseEffect(gameController.getActionInterface()));
+        mapCLI.printMap();
+
 
 
 
