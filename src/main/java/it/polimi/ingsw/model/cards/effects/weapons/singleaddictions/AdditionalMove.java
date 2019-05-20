@@ -95,8 +95,6 @@ public class AdditionalMove extends SingleAddictionEffect {
                 if(canUse)
                     actionInterface.move(secondMove, player);
             }
-            System.out.print(player.getPosition().getX());
-            System.out.println(player.getPosition().getY());
         }
     }
 

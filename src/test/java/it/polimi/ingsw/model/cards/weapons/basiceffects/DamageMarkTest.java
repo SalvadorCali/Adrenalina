@@ -16,6 +16,7 @@ public class DamageMarkTest {
     private Player currentPlayer = new Player(TokenColor.GREEN);
     private Player victim = new Player(TokenColor.BLUE);
     private Player secondVictim = new Player(TokenColor.PURPLE);
+    private Player thirdVictim = new Player(TokenColor.YELLOW);
 
     @Test
     void lockRifleCanUseEffectTest() {
@@ -164,6 +165,27 @@ public class DamageMarkTest {
         gameController.getGame().getBoard().move(2,3, currentPlayer);
         assertTrue(heatseeker.canUseEffect(gameController.getActionInterface()));
     }
+
+    @Test
+    void zx2SecondMode(){
+
+        playerSetup();
+        Effect zx22 = new DamageMarkEffect("ZX-22",0,0,0,2,0);
+        assertTrue(zx22.canUseEffect(gameController.getActionInterface()));
+
+        gameController.getGame().getBoard().move(1,1, victim);
+        assertFalse(zx22.canUseEffect(gameController.getActionInterface()));
+
+        gameController.getGame().getBoard().move(0,1, victim);
+        gameController.getGame().getBoard().move(1,1, secondVictim);
+        assertFalse(zx22.canUseEffect(gameController.getActionInterface()));
+
+        gameController.getGame().getBoard().move(0,1, victim);
+        gameController.getGame().getBoard().move(0,0, secondVictim);
+        gameController.getGame().getBoard().move(2,2, thirdVictim);
+        assertFalse(zx22.canUseEffect(gameController.getActionInterface()));
+
+    }
     
 
     void playerSetup(){
@@ -186,6 +208,11 @@ public class DamageMarkTest {
         gameController.getGame().getBoard().generatePlayer(0,1,secondVictim);
         gameController.getGame().getPlayers().add(secondVictim);
         clientData.setSecondVictim(secondVictim);
+
+        //thirdVictimSetup
+        gameController.getGame().getBoard().generatePlayer(0,0, thirdVictim);
+        gameController.getGame().getPlayers().add(thirdVictim);
+        clientData.setThirdVictim(thirdVictim);
 
     }
 }

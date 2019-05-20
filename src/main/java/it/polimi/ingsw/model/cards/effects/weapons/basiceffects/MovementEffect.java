@@ -72,9 +72,11 @@ public class MovementEffect extends BasicEffect {
 
     private void oneMovementControl(ActionInterface actionInterface, Player player){
 
-        if(firstMove != null && secondMove == null)
-            canUse = actionInterface.canMove(player,firstMove);
-        else if (firstMove!= null){
+        if(firstMove != null && secondMove == null) {
+            canUse = actionInterface.canMove(player, firstMove);
+            if(canUse)
+                actionInterface.move(firstMove, player);
+        }else if (firstMove!= null){
             canUse = false;
         }
     }

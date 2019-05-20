@@ -20,7 +20,7 @@ public class AdditionalSquareDamage extends SingleAddictionEffect{
     @Override
     public boolean canUseEffect(ActionInterface actionInterface) {
 
-        if(basicFirst){ //Grenade Launcher RocketLauncher second
+        if(basicFirst){
             canUse = super.effect.canUseEffect(actionInterface) && actionInterface.ammoControl(redAmmos, blueAmmos, yellowAmmos);
             if(canUse)
                 canUse = actionInterface.isVisibleDifferentSquare(x, y);// || actionInterface.sameSquare(actionInterface.getCurrentPlayer().getColor()); //actionInterface.getPlayerPos()

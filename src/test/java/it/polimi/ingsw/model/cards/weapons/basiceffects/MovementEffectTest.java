@@ -8,6 +8,7 @@ import it.polimi.ingsw.model.enums.Color;
 import it.polimi.ingsw.model.enums.Direction;
 import it.polimi.ingsw.model.enums.TokenColor;
 import it.polimi.ingsw.model.gamecomponents.Player;
+import it.polimi.ingsw.view.MapCLI;
 import org.junit.jupiter.api.Test;
 import static junit.framework.TestCase.*;
 
@@ -85,6 +86,28 @@ public class MovementEffectTest {
         gameController.getActionInterface().move(0,0, victim);
         assertFalse(rocketLauncher.canUseEffect(gameController.getActionInterface()));
 
+    }
+
+    @Test
+    void grenadeLauncherTest(){
+        playerSetup();
+        Effect grenadeLauncher = new MovementEffect("Grenade Launcher", 2,0,0,2,0 );
+        MapCLI mapCLI = new MapCLI(gameController.getGame().getBoard());
+        clientData.setFirstMove(Direction.DOWN);
+        clientData.setSecondMove(null);
+        gameController.getGame().getBoard().move(1,0, victim);
+        assertTrue(grenadeLauncher.canUseEffect(gameController.getActionInterface()));
+
+        clientData.setSecondMove(Direction.DOWN);
+        assertFalse(grenadeLauncher.canUseEffect(gameController.getActionInterface()));
+
+        clientData.setFirstMove(Direction.LEFT);
+        clientData.setSecondMove(null);
+        assertFalse(grenadeLauncher.canUseEffect(gameController.getActionInterface()));
+
+        gameController.getGame().getBoard().move(2,0, victim);
+        clientData.setFirstMove(Direction.UP);
+        assertFalse(grenadeLauncher.canUseEffect(gameController.getActionInterface()));
     }
 
     @Test
