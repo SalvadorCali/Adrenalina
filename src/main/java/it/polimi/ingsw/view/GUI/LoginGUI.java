@@ -1,11 +1,8 @@
 package it.polimi.ingsw.view.GUI;
 
-import it.polimi.ingsw.network.ConnectionInterface;
 import it.polimi.ingsw.network.client.ClientInterface;
 import it.polimi.ingsw.network.client.rmi.RMIClient;
 import it.polimi.ingsw.network.client.socket.SocketClient;
-import it.polimi.ingsw.network.server.rmi.RMIServerInterface;
-import it.polimi.ingsw.util.Config;
 import it.polimi.ingsw.util.Converter;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -18,16 +15,9 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.net.Socket;
 import java.net.URL;
 import java.rmi.NotBoundException;
-import java.rmi.registry.LocateRegistry;
-import java.rmi.registry.Registry;
 import java.util.ResourceBundle;
-
-import static java.lang.Thread.sleep;
 
 
 public class LoginGUI extends Application implements Initializable {
@@ -61,11 +51,7 @@ public class LoginGUI extends Application implements Initializable {
     private String colorPlayer;
     boolean isRunning = true;
     private ClientInterface client;
-    private Socket socket;
-    private RMIServerInterface serverRMI;
-    private ObjectInputStream objectInputStream;
-    private ObjectOutputStream objectOutputStream;
-    private ChoosePowerup choosePowerup = new ChoosePowerup();
+    private ChoosePowerup choosePowerup;
 
     public synchronized void start(Stage primaryStage) throws Exception {
 
@@ -197,6 +183,10 @@ public class LoginGUI extends Application implements Initializable {
         statusConnectionLabel.setText("Online");
         //implement launch choosePowerup
 
+    }
+
+    public static void main(String[] args) {
+        Application.launch(args);
     }
 }
 
