@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="462.0" prefWidth="478.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.GUI.LoginGUI">
+   <children>
+      <Pane prefHeight="470.0" prefWidth="600.0">
+         <children>
+            <ImageView fx:id="loginBackground" fitHeight="478.0" fitWidth="600.0" layoutY="-1.0">
+               <image>
+                  <Image url="@LoginBackground.jpg" />
+               </image>
+            </ImageView>
+            <TextField fx:id="nicknameField" layoutX="217.0" layoutY="158.0" opacity="0.8" promptText="Nickname" />
+            <TextField fx:id="addressField" layoutX="217.0" layoutY="208.0" opacity="0.8" promptText="Address" />
+            <RadioButton fx:id="socketButton" layoutX="64.0" layoutY="171.0" mnemonicParsing="false" text="Socket" textFill="WHITE">
+               <toggleGroup>
+                  <ToggleGroup fx:id="connection" />
+               </toggleGroup></RadioButton>
+            <RadioButton fx:id="rmiButton" layoutX="64.0" layoutY="213.0" mnemonicParsing="false" text="Rmi" textFill="WHITE" toggleGroup="$connection" />
+            <TextField fx:id="colorField" layoutX="217.0" layoutY="257.0" opacity="0.8" promptText="Color" />
+            <Button fx:id="loginButton" layoutX="274.0" layoutY="368.0" mnemonicParsing="false" text="Login" />
+            <Label fx:id="statusConnectionLabel" layoutX="145.0" layoutY="373.0" text="Offline" textFill="WHITE" />
+            <Label layoutX="169.0" layoutY="14.0" text="Adrenaline" textFill="#33a192">
+               <font>
+                  <Font name="Alien League Regular" size="68.0" />
+               </font>
+            </Label>
+            <Label fx:id="statusConnectionLabel1" layoutX="14.0" layoutY="373.0" text="Connection Status:" textFill="WHITE" />
+            <Label layoutX="14.0" layoutY="412.0" text="Connection Error:" textFill="WHITE" />
+            <Label fx:id="connectionErrorLabel" layoutX="133.0" layoutY="412.0" text="None" textFill="WHITE" />
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

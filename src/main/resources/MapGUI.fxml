@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="712.0" prefWidth="1189.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.GUI.MapGUI">
+   <children>
+      <ImageView fx:id="mapImage" fitHeight="710.0" fitWidth="952.0" preserveRatio="true">
+         <image>
+            <Image url="@boardImg/map2.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="weaponRed1" fitHeight="96.0" fitWidth="148.0" layoutX="-10.0" layoutY="252.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="weaponRed2" fitHeight="96.0" fitWidth="148.0" layoutX="-10.0" layoutY="355.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="weaponRed3" fitHeight="96.0" fitWidth="148.0" layoutX="-10.0" layoutY="460.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="weaponYellow1" fitHeight="96.0" fitWidth="148.0" layoutX="803.0" layoutY="395.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="weaponYellow2" fitHeight="96.0" fitWidth="148.0" layoutX="803.0" layoutY="498.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="weaponYellow3" fitHeight="96.0" fitWidth="148.0" layoutX="803.0" layoutY="602.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="weaponBlue1" fitHeight="143.0" fitWidth="98.0" layoutX="696.0" layoutY="-10.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="weaponBlue2" fitHeight="143.0" fitWidth="98.0" layoutX="595.0" layoutY="-10.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="weaponBlue3" fitHeight="143.0" fitWidth="98.0" layoutX="489.0" layoutY="-10.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="deckPowerup" fitHeight="96.0" fitWidth="70.0" layoutX="839.0" layoutY="34.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@boardElem/AD_powerups_IT_02.png" />
+         </image></ImageView>
+      <ImageView fx:id="deckWeapon" fitHeight="156.0" fitWidth="98.0" layoutX="811.0" layoutY="184.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@boardElem/AD_weapons_IT_02.png" />
+         </image></ImageView>
+      <ImageView fx:id="deckAmmo" fitHeight="71.0" fitWidth="70.0" layoutX="29.0" layoutY="615.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@boardElem/AD_ammo_04.png" />
+         </image></ImageView>
+      <HBox fx:id="hboxDeath" layoutX="64.0" layoutY="28.0" prefHeight="63.0" prefWidth="323.0" />
+      <GridPane fx:id="gridBoard" layoutX="150.0" layoutY="146.0" prefHeight="488.0" prefWidth="641.0">
+        <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="157.0" minWidth="10.0" prefWidth="152.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="213.0" minWidth="10.0" prefWidth="169.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="195.0" minWidth="10.0" prefWidth="164.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="154.0" minWidth="10.0" prefWidth="154.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <GridPane fx:id="grid00" hgap="5.0" prefHeight="108.0" prefWidth="100.0" vgap="5.0" GridPane.hgrow="NEVER" GridPane.vgrow="NEVER">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <GridPane.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </GridPane.margin>
+               <padding>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </padding>
+            </GridPane>
+            <GridPane fx:id="grid10" hgap="5.0" layoutX="10.0" layoutY="10.0" prefHeight="108.0" prefWidth="100.0" vgap="5.0" GridPane.columnIndex="1">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <GridPane.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </GridPane.margin>
+               <padding>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </padding>
+            </GridPane>
+            <GridPane fx:id="grid20" hgap="5.0" layoutX="163.0" layoutY="10.0" prefHeight="108.0" prefWidth="100.0" vgap="5.0" GridPane.columnIndex="2">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <GridPane.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </GridPane.margin>
+               <padding>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </padding>
+            </GridPane>
+            <GridPane fx:id="grid30" hgap="5.0" layoutX="10.0" layoutY="10.0" prefHeight="108.0" prefWidth="100.0" vgap="5.0" GridPane.columnIndex="3">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <GridPane.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </GridPane.margin>
+               <padding>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </padding>
+            </GridPane>
+            <GridPane fx:id="grid01" hgap="5.0" layoutX="333.0" layoutY="10.0" prefHeight="108.0" prefWidth="100.0" vgap="5.0" GridPane.rowIndex="1">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <padding>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </padding>
+               <GridPane.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </GridPane.margin>
+            </GridPane>
+            <GridPane fx:id="grid11" hgap="5.0" layoutX="10.0" layoutY="173.0" prefHeight="108.0" prefWidth="100.0" vgap="5.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <GridPane.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </GridPane.margin>
+               <padding>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </padding>
+            </GridPane>
+            <GridPane fx:id="grid02" hgap="5.0" layoutX="10.0" layoutY="173.0" prefHeight="108.0" prefWidth="100.0" vgap="5.0" GridPane.rowIndex="2">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <GridPane.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </GridPane.margin>
+               <padding>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </padding>
+            </GridPane>
+            <GridPane fx:id="grid12" hgap="5.0" layoutX="10.0" layoutY="336.0" prefHeight="108.0" prefWidth="100.0" vgap="5.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <GridPane.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </GridPane.margin>
+               <padding>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </padding>
+            </GridPane>
+            <GridPane fx:id="grid21" hgap="5.0" layoutX="333.0" layoutY="10.0" prefHeight="108.0" prefWidth="100.0" vgap="5.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <GridPane.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </GridPane.margin>
+               <padding>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </padding>
+            </GridPane>
+            <GridPane fx:id="grid22" hgap="5.0" layoutX="497.0" layoutY="10.0" prefHeight="108.0" prefWidth="100.0" vgap="5.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <GridPane.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </GridPane.margin>
+               <padding>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </padding>
+            </GridPane>
+            <GridPane fx:id="grid32" hgap="5.0" layoutX="10.0" layoutY="10.0" prefHeight="108.0" prefWidth="100.0" vgap="5.0" GridPane.columnIndex="3" GridPane.rowIndex="2">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <padding>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </padding>
+               <GridPane.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </GridPane.margin>
+            </GridPane>
+            <GridPane fx:id="grid31" hgap="5.0" layoutX="10.0" layoutY="10.0" prefHeight="108.0" prefWidth="100.0" vgap="5.0" GridPane.columnIndex="3" GridPane.rowIndex="1">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <GridPane.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </GridPane.margin>
+               <padding>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </padding>
+            </GridPane>
+         </children>
+      </GridPane>
+      <ImageView fx:id="bannerShoot" fitHeight="64.0" fitWidth="200.0" layoutX="963.0" layoutY="14.0">
+         <image>
+            <Image url="@boardElem/banner.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="bannerGrab" fitHeight="64.0" fitWidth="200.0" layoutX="963.0" layoutY="101.0">
+         <image>
+            <Image url="@boardElem/banner.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="bannerEndTurn" fitHeight="64.0" fitWidth="200.0" layoutX="964.0" layoutY="619.0">
+         <image>
+            <Image url="@boardElem/banner.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="upArrow" fitHeight="39.0" fitWidth="45.0" layoutX="1041.0" layoutY="471.0">
+         <image>
+            <Image url="@boardElem/arrow.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="rightArrow" fitHeight="39.0" fitWidth="45.0" layoutX="1083.0" layoutY="513.0" rotate="90.0">
+         <image>
+            <Image url="@boardElem/arrow.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="downArrow" fitHeight="39.0" fitWidth="45.0" layoutX="1041.0" layoutY="555.0" rotate="180.0">
+         <image>
+            <Image url="@boardElem/arrow.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="leftArrow" fitHeight="39.0" fitWidth="45.0" layoutX="999.0" layoutY="513.0" rotate="270.0">
+         <image>
+            <Image url="@boardElem/arrow.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="bannerShowWeapon" fitHeight="64.0" fitWidth="200.0" layoutX="963.0" layoutY="276.0" mouseTransparent="true">
+         <image>
+            <Image url="@boardElem/banner.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="1029.0" layoutY="31.0" mouseTransparent="true" text="Shoot" textFill="WHITE">
+         <font>
+            <Font name="Alien League Regular" size="30.0" />
+         </font>
+      </Label>
+      <Label layoutX="1035.0" layoutY="118.0" mouseTransparent="true" text="Grab" textFill="WHITE">
+         <font>
+            <Font name="Alien League Regular" size="30.0" />
+         </font>
+      </Label>
+      <Label layoutX="1010.0" layoutY="636.0" mouseTransparent="true" text="End Turn" textFill="WHITE">
+         <font>
+            <Font name="Alien League Regular" size="30.0" />
+         </font>
+      </Label>
+      <ImageView fx:id="bannerShowDamage1" fitHeight="64.0" fitWidth="200.0" layoutX="964.0" layoutY="188.0">
+         <image>
+            <Image url="@boardElem/banner.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="980.0" layoutY="293.0" text="Show Weapon" textFill="WHITE">
+         <font>
+            <Font name="Alien League Regular" size="30.0" />
+         </font>
+      </Label>
+      <Label layoutX="980.0" layoutY="205.0" mouseTransparent="true" text="Show Damage" textFill="WHITE">
+         <font>
+            <Font name="Alien League Regular" size="30.0" />
+         </font>
+      </Label>
+      <Label layoutX="978.0" layoutY="388.0" text="Turn:" textFill="WHITE">
+         <font>
+            <Font name="Alien League Regular" size="30.0" />
+         </font>
+      </Label>
+      <Label fx:id="playerTurnLabel" layoutX="1069.0" layoutY="388.0" text="Gianni" textFill="WHITE">
+         <font>
+            <Font name="Alien League Regular" size="30.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
