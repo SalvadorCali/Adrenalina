@@ -21,7 +21,6 @@ public class GameController {
 
     public int timerTurn;
     public int numPlayers;
-
     Deck weapons;
     Deck powerups;
     List<AmmoCard> ammoCards;
@@ -145,6 +144,25 @@ public class GameController {
         }else{
             return false;
         }
+    }
+
+    public void shoot(Player shooter, String weaponName, Player...victims){
+        shooter.getWeapons().forEach(w -> {
+            if(w.getName().equals(weaponName)){
+                if(victims.length == 1){
+                    actionInterface.getClientData().setVictim(victims[0]);
+                    if(w.getEffects().get(0).canUseEffect(actionInterface)){
+                        w.getEffects().get(0).useEffect(actionInterface);
+                    }
+                }else{
+                    actionInterface.getClientData().setVictim(victims[0]);
+                    actionInterface.getClientData().setSecondVictim(victims[1]);
+                    if(w.getEffects().get(1).canUseEffect(actionInterface)){
+                        w.getEffects().get(1).useEffect(actionInterface);
+                    }
+                }
+            }
+        });
     }
 
     public void shoot(Player player, Player victim){

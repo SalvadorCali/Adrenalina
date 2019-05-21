@@ -408,15 +408,16 @@ public class CommandLine implements ViewInterface {
         StringTokenizer string;
         switch(weapon){
             case "lockrifle":
-                Printer.println("Please choose your victims: <victim1> <victim2>");
+                Printer.println("Basic effect: <victim>");
+                Printer.println("With second lock: <first_victim> <second_victim>");
                 string = new StringTokenizer(userInputStream.readLine());
                 if(string.hasMoreTokens()){
                     TokenColor firstVictim = Converter.fromStringToTokenColor(string.nextToken());
                     if(string.hasMoreTokens()){
                         TokenColor secondVictim = Converter.fromStringToTokenColor(string.nextToken());
-                        //
+                        client.shoot(weapon, firstVictim, secondVictim);
                     }else{
-                        client.shoot(firstVictim);
+                        client.shoot(weapon, firstVictim);
                     }
                 }
                 break;

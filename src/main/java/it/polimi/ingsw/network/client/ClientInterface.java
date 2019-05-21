@@ -16,7 +16,7 @@ public interface ClientInterface {
     void showSquare() throws IOException;
     void move(Direction...directions) throws IOException;
     void grab(int choice, Direction...directions) throws IOException;
-    void shoot(TokenColor color) throws IOException;
+    void shoot(String weaponName, TokenColor...colors) throws IOException;
     void powerup(String powerup, int x, int y) throws IOException;
     void powerup(String powerup, Direction direction, int value) throws IOException;
     void powerupAmmos(PowerupData...powerups) throws IOException;

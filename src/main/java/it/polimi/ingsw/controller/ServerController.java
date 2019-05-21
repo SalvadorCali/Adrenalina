@@ -259,8 +259,22 @@ public class ServerController {
         }
     }
 
-    public void shoot(String username, TokenColor color){
-        gameController.shoot(users.get(username), users.get(colors.get(color)));
+    public Player[] getVictims(TokenColor...colors){
+        Player[] victims = new Player[colors.length];
+        for(int i=0; i<colors.length; i++){
+            victims[i] = users.get(this.colors.get(colors[i]));
+        }
+        return victims;
+    }
+
+    public void shoot(String username, String weaponName, TokenColor...colors){
+        switch (weaponName){
+            case "lockrifle":
+                gameController.shoot(users.get(username), weaponName, getVictims(colors));
+                break;
+            default:
+                break;
+        }
     }
 
     public void powerup(String username, String powerup, int x, int y){

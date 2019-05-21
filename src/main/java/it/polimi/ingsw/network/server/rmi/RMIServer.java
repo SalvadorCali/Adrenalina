@@ -62,8 +62,8 @@ public class RMIServer extends UnicastRemoteObject implements RMIServerInterface
     }
 
     @Override
-    public void shoot(TokenColor color){
-        serverController.shoot(clientName, color);
+    public void shoot(String weaponName, TokenColor...colors){
+        serverController.shoot(clientName, weaponName, colors);
     }
 
     @Override

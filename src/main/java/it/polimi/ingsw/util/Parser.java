@@ -31,6 +31,7 @@ public class Parser {
         Deck weapons = new Deck();
         String cardName;
         Color cardColor;
+        int grabBlueAmmos, grabRedAmmos, grabYellowAmmos, reloadBlueAmmos, reloadRedAmmos, reloadYellowAmmos;
         for(int i=0; i < 21; i++){
             InputStream input = Parser.class.getClassLoader().getResourceAsStream("cardconfig.json");
             Object reader = null;
@@ -50,8 +51,27 @@ public class Parser {
 
             cardName = (String) thirdObject.get("name");
             cardColor = fromStringToColor((String) thirdObject.get("colour"));
-            Card card = new WeaponCard(cardName, cardColor);
+            JSONArray grabAmmos = (JSONArray) thirdObject.get("grabAmmos");
+            JSONObject grabAmmosObject = (JSONObject) grabAmmos.get(0);
+            //JSONObject grabAmmos = (JSONObject) thirdObject.get("grabAmmos");
+            grabBlueAmmos = (int)(long) grabAmmosObject.get("blue");
+            grabRedAmmos = (int)(long) grabAmmosObject.get("red");
+            grabYellowAmmos = (int)(long) grabAmmosObject.get("yellow");
+            JSONArray reloadAmmos = (JSONArray) thirdObject.get("reloadAmmos");
+            JSONObject reloadAmmosObject = (JSONObject) reloadAmmos.get(0);
+            //JSONObject reloadAmmos = (JSONObject) thirdObject.get("reloadAmmos");
+            reloadBlueAmmos = (int)(long) reloadAmmosObject.get("blue");
+            reloadRedAmmos = (int)(long) reloadAmmosObject.get("red");
+            reloadYellowAmmos = (int)(long) reloadAmmosObject.get("yellow");
+            Card card = new WeaponCard(cardName, cardColor, grabRedAmmos, grabBlueAmmos, grabYellowAmmos, reloadRedAmmos, reloadBlueAmmos, reloadYellowAmmos);
             weapons.addCard(card);
+            Printer.println(cardName);
+            Printer.println(grabBlueAmmos);
+            Printer.println(grabRedAmmos);
+            Printer.println(grabYellowAmmos);
+            Printer.println(reloadBlueAmmos);
+            Printer.println(reloadRedAmmos);
+            Printer.println(reloadYellowAmmos);
         }
         weapons.shuffle();
         return weapons;

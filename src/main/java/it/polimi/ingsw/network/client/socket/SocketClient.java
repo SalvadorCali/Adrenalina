@@ -174,11 +174,17 @@ public class SocketClient implements ClientInterface, Runnable, Serializable {
     }
 
     @Override
-    public void shoot(TokenColor color) throws IOException {
+    public void shoot(String weaponName, TokenColor...colors) throws IOException {
         objectOutputStream.writeObject(Message.SHOOT);
         objectOutputStream.flush();
-        objectOutputStream.writeObject(color);
+        objectOutputStream.writeUTF(weaponName);
         objectOutputStream.flush();
+        objectOutputStream.writeInt(colors.length);
+        objectOutputStream.flush();
+        for(TokenColor color : colors){
+            objectOutputStream.writeObject(color);
+            objectOutputStream.flush();
+        }
     }
 
     @Override

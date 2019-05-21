@@ -48,4 +48,9 @@ public class AppTest
         map.printMap();
     }
 
+    @Test
+    public void test2(){
+        Parser.createWeapons();
+    }
+
 }

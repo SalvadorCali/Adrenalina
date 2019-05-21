@@ -5,6 +5,7 @@ import it.polimi.ingsw.controller.ServerController;
 import it.polimi.ingsw.controller.timer.ConnectionTimer;
 import it.polimi.ingsw.model.enums.Direction;
 import it.polimi.ingsw.model.enums.TokenColor;
+import it.polimi.ingsw.model.gamecomponents.Token;
 import it.polimi.ingsw.network.server.ServerInterface;
 import it.polimi.ingsw.util.Printer;
 import it.polimi.ingsw.network.enums.Message;
@@ -183,12 +184,28 @@ public class SocketServer implements Runnable, ServerInterface {
     }
 
     public void shoot(){
-        TokenColor color;
         try {
-            color = (TokenColor) objectInputStream.readObject();
-            serverController.shoot(clientName, color);
-        } catch (IOException | ClassNotFoundException e) {
+            String weaponName = objectInputStream.readUTF();
+            switch (weaponName){
+                case "lockrifle":
+                    TokenColor victim1, victim2;
+                    int victimSize = objectInputStream.readInt();
+                    if(victimSize == 1){
+                        victim1 = (TokenColor) objectInputStream.readObject();
+                        serverController.shoot(clientName, weaponName, victim1);
+                    }else{
+                        victim1 = (TokenColor) objectInputStream.readObject();
+                        victim2 = (TokenColor) objectInputStream.readObject();
+                        serverController.shoot(clientName, weaponName, victim1, victim2);
+                    }
+                    break;
+                default:
+                    break;
+            }
+        } catch (IOException e) {
             Printer.err(e);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
         }
     }
 
