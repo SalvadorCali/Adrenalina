@@ -49,6 +49,17 @@ public class SocketClient implements ClientInterface, Runnable, Serializable {
         view.setPlayerController(playerController);
     }
 
+    public SocketClient(String host) throws IOException {
+        playerController = new PlayerController(this);
+        clientSocket = new Socket(host, Config.SOCKET_PORT);
+
+        objectOutputStream = new ObjectOutputStream(clientSocket.getOutputStream());
+        objectInputStream = new ObjectInputStream(clientSocket.getInputStream());
+
+        thisThread = new Thread(this);
+        thisThread.start();
+    }
+
     public void start() {
         thisThread = new Thread(this);
         thisThread.start();

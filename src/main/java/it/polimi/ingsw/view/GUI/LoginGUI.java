@@ -97,8 +97,8 @@ public class LoginGUI extends Application implements Initializable {
     public synchronized void connectToRMI(String name, String host, String color){
 
         try{
-            client = new RMIClient();
-            client.start();
+            client = new RMIClient(host);
+            //client.start();
             client.login(name, Converter.fromStringToTokenColor(color));
 
 
@@ -114,8 +114,8 @@ public class LoginGUI extends Application implements Initializable {
         System.out.println(name + host + color);
 
         try {
-            client = new SocketClient();
-            client.start();
+            client = new SocketClient(host);
+            //client.start();
             client.login(name, Converter.fromStringToTokenColor(color));
 
 

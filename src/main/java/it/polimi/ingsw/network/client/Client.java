@@ -4,6 +4,8 @@ import it.polimi.ingsw.network.client.rmi.RMIClient;
 import it.polimi.ingsw.network.client.socket.SocketClient;
 import it.polimi.ingsw.util.Connection;
 import it.polimi.ingsw.util.Printer;
+import it.polimi.ingsw.view.GUI.LoginGUI;
+import javafx.application.Application;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -42,39 +44,57 @@ public class Client {
                 System.setProperty("java.rmi.server.hostname", addresses.get(0).toString().substring(1));
             }
         }
-        Printer.print("[CLIENT]Choose 'rmi' or 'socket':");
 
-        String choice = "default";
-        while(!(choice.equalsIgnoreCase("rmi") || choice.equalsIgnoreCase("socket"))) {
+        String graphicInterface = "default";
+        while(!(graphicInterface.equalsIgnoreCase("cli") || graphicInterface.equalsIgnoreCase("gui"))) {
             try {
-                choice = userInputStream.readLine();
+                Printer.print("[CLIENT]Choose 'cli' or 'gui':");
+                graphicInterface = userInputStream.readLine();
             } catch (IOException e) {
                 Printer.err(e);
             }
         }
 
-        ClientInterface client = null;
-
-        if(choice.equals("rmi")){
-            try {
-                client = new RMIClient();
-            } catch (IOException | NotBoundException e) {
-                Printer.err(e);
-            }
+        if(graphicInterface.equals("gui")){
+            Application.launch(LoginGUI.class, args);
         }else{
-            try {
-                client = new SocketClient();
-            } catch (IOException e) {
-                Printer.err(e);
+            String choice = "default";
+            while(!(choice.equalsIgnoreCase("rmi") || choice.equalsIgnoreCase("socket"))) {
+                try {
+                    Printer.print("[CLIENT]Choose 'rmi' or 'socket':");
+                    choice = userInputStream.readLine();
+                } catch (IOException e) {
+                    Printer.err(e);
+                }
+            }
+
+            ClientInterface client = null;
+
+            if(choice.equals("rmi")){
+                try {
+                    client = new RMIClient();
+                } catch (IOException | NotBoundException e) {
+                    Printer.err(e);
+                }
+            }else{
+                try {
+                    client = new SocketClient();
+                } catch (IOException e) {
+                    Printer.err(e);
+                }
+            }
+
+            if(Objects.nonNull(client)){
+                try {
+                    client.start();
+                } catch (RemoteException e) {
+                    Printer.err(e);
+                }
             }
         }
 
-        if(Objects.nonNull(client)){
-            try {
-                client.start();
-            } catch (RemoteException e) {
-                Printer.err(e);
-            }
-        }
+
+
+
     }
 }

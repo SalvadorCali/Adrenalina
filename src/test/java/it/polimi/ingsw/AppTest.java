@@ -10,7 +10,9 @@ import it.polimi.ingsw.model.gamecomponents.Player;
 import it.polimi.ingsw.util.Parser;
 import it.polimi.ingsw.util.Printer;
 import it.polimi.ingsw.view.AmmoBoxReserveCLI;
+import it.polimi.ingsw.view.GUI.LoginGUI;
 import it.polimi.ingsw.view.MapCLI;
+import javafx.application.Application;
 import org.junit.jupiter.api.Test;
 
 import java.io.BufferedReader;

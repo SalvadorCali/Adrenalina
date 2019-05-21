@@ -52,6 +52,15 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
         server = connection.enrol(this);
         //server = connection.enrol((RMIClientInterface) UnicastRemoteObject.exportObject(this, Config.RMI_FREE_PORT));
     }
+
+    public RMIClient(String host) throws RemoteException, NotBoundException {
+        super(Config.RMI_FREE_PORT);
+        playerController = new PlayerController(this);
+        Registry registry = LocateRegistry.getRegistry(host, Config.RMI_FREE_PORT);
+        ConnectionInterface connection = (ConnectionInterface) registry.lookup("server");
+        server = connection.enrol(this);
+    }
+
     @Override
     public void start() {
         view = new CommandLine(this);
