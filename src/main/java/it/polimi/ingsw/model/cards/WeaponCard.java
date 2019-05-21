@@ -1,6 +1,7 @@
 package it.polimi.ingsw.model.cards;
 
 import it.polimi.ingsw.model.cards.effects.weapons.basiceffects.DamageMarkEffect;
+import it.polimi.ingsw.model.cards.effects.weapons.basiceffects.MovementEffect;
 import it.polimi.ingsw.model.cards.effects.weapons.basiceffects.SquareDamageEffect;
 import it.polimi.ingsw.model.cards.effects.weapons.singleaddictions.AdditionalSquareDamage;
 import it.polimi.ingsw.model.cards.effects.weapons.singleaddictions.AdditionalTarget;
@@ -32,6 +33,7 @@ public class WeaponCard extends Card{
         this.reloadYellowAmmos = reloadYellowAmmos;
     }
 
+
     private void setEffects(String name){
 
         switch (name){
@@ -48,7 +50,15 @@ public class WeaponCard extends Card{
                 Effect machineGunAdd = new AdditionalTarget("Machine Gun", 1,0,0,0,1, machineGun);
                 Effect machineGunAdd2 = new AdditionalTarget("Machine Gun Double", 1,0,0,1,0, machineGunAdd);
                 break;
+            case("TRACTOR BEAM"):
+                Effect tractorBeam1 = new MovementEffect("Tractor Beam1",1,0,0,0,0);
+                Effect tractorBeam2 = new MovementEffect("Tractor Beam2", 3,0,1,0,1);
+                break;
         }
 
+    }
+
+    public List<Effect> getEffects() {
+        return effects;
     }
 }
