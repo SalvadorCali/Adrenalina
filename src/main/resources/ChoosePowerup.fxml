@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="386.0" prefWidth="490.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.GUI.ChoosePowerup">
+   <children>
+      <ImageView fx:id="powerupImg1" fitHeight="200.0" fitWidth="128.0" layoutX="75.0" layoutY="134.0">
+         <image>
+            <Image url="@powerup/AD_powerups_IT_023.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="powerupImg2" fitHeight="200.0" fitWidth="128.0" layoutX="287.0" layoutY="134.0">
+         <image>
+            <Image url="@powerup/AD_powerups_IT_022.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="139.0" layoutY="30.0" text="Choose Powerup" textFill="WHITE">
+         <font>
+            <Font name="Alien League Regular" size="32.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
