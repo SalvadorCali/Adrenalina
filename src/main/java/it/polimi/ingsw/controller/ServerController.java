@@ -118,6 +118,7 @@ public class ServerController {
         gameController.setSpawnLocationPhase(false);
         gameController.setGamePhase(true);
         players.get(0).setMyTurn(true);
+        gameController.getGame().setCurrentPlayer(players.get(0));
         try {
             servers.get(players.get(0).getUsername()).notify(Message.NEW_TURN, Outcome.RIGHT, gameController.getGame().getBoard());
         } catch (IOException e) {
@@ -260,11 +261,14 @@ public class ServerController {
     }
 
     public Player[] getVictims(TokenColor...colors){
+        Printer.println("ciaooo");
         Player[] victims = new Player[colors.length];
         for(int i=0; i<colors.length; i++){
             victims[i] = users.get(this.colors.get(colors[i]));
         }
+        Printer.println(victims[0].getColor());
         return victims;
+
     }
 
     public void shoot(String username, String weaponName, TokenColor...colors){

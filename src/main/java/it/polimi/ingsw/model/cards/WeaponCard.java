@@ -33,6 +33,7 @@ public class WeaponCard extends Card{
         this.reloadRedAmmos = reloadRedAmmos;
         this.reloadBlueAmmos = reloadBlueAmmos;
         this.reloadYellowAmmos = reloadYellowAmmos;
+        setEffects(name);
     }
 
     public WeaponCard(String name, Color color){

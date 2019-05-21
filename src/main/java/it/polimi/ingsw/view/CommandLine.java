@@ -342,7 +342,7 @@ public class CommandLine implements ViewInterface {
                 }
             } else {
                 try {
-                    client.grab(0);
+                    client.grab(choice);
                     return true;
                 } catch (IOException e) {
                     Printer.err(e);

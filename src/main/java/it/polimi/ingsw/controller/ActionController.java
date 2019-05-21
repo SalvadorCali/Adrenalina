@@ -9,6 +9,7 @@ import it.polimi.ingsw.model.gamecomponents.Ammo;
 import it.polimi.ingsw.model.gamecomponents.Game;
 import it.polimi.ingsw.model.gamecomponents.Player;
 import it.polimi.ingsw.model.gamecomponents.Position;
+import it.polimi.ingsw.util.Printer;
 
 
 public class ActionController implements ActionInterface {
@@ -135,6 +136,12 @@ public class ActionController implements ActionInterface {
 
     @Override
     public void addWeapon(WeaponCard weaponCard){
+        if(game.getCurrentPlayer() == null){
+            Printer.println("aaaaaaaa");
+        }
+        if(weaponCard == null){
+            Printer.println("bbbbbb");
+        }
         game.getCurrentPlayer().addWeapon(weaponCard);
     }
 

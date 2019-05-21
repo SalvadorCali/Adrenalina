@@ -13,6 +13,7 @@ import it.polimi.ingsw.model.gamecomponents.GameBoard;
 import it.polimi.ingsw.model.gamecomponents.Player;
 import it.polimi.ingsw.util.Converter;
 import it.polimi.ingsw.util.Parser;
+import it.polimi.ingsw.util.Printer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -124,6 +125,7 @@ public class GameController {
 
     public boolean grab(Player player, int choice, Direction...directions){
         if(player.canUseAction()){
+            Printer.println("ccccj");
             if(directions.length > 0){
                 if(canMove(player, directions)){
                     move(player, directions);
@@ -134,7 +136,11 @@ public class GameController {
             }
             int x = player.getPosition().getX();
             int y = player.getPosition().getY();
+            Printer.println("porva");
+            game.getBoard().getArena()[x][y].getWeapons().forEach(w-> Printer.println(w.getName()));
+            Printer.println("porva2");
             if(game.getBoard().getArena()[x][y].canGrab(choice)){
+                Printer.println("dentro if");
                 game.getBoard().getArena()[x][y].grab(actionInterface, choice);
                 player.increaseActionNumber();
                 return true;
@@ -142,17 +148,23 @@ public class GameController {
                 return false;
             }
         }else{
+            Printer.println("cccc");
             return false;
         }
     }
 
     public void shoot(Player shooter, String weaponName, Player...victims){
+        Printer.println("eskereeeeee");
         shooter.getWeapons().forEach(w -> {
-            if(w.getName().equals(weaponName)){
+            if(w.getName().equals("LOCK RIFLE")){
                 if(victims.length == 1){
                     actionInterface.getClientData().setVictim(victims[0]);
                     if(w.getEffects().get(0).canUseEffect(actionInterface)){
+                        Printer.println("pipippipipippipipi");
                         w.getEffects().get(0).useEffect(actionInterface);
+                        Printer.println("popopopopoppop");
+                    }else{
+                        Printer.println("piiiiiiitt");
                     }
                 }else{
                     actionInterface.getClientData().setVictim(victims[0]);
@@ -163,6 +175,7 @@ public class GameController {
                 }
             }
         });
+        Printer.println("eskereeeeee2");
     }
 
     public void shoot(Player player, Player victim){
