@@ -67,6 +67,45 @@ public class DirectionalDamageTest {
 
     }
 
+    @Test
+    void railgunMod1Test(){
+        playerSetup();
+        Effect railgun1 = new DirectionalDamage("Railgun1",1, 0,2,0);
+        MapCLI mapCLI = new MapCLI(gameController.getGame().getBoard());
+        gameController.getGame().getBoard().move(2,2, currentPlayer);
+        gameController.getGame().getBoard().move(1,2,victim);
+        gameController.getGame().getBoard().move(0,2,secondVictim);
+        gameController.getActionInterface().getClientData().setFirstMove(Direction.UP);
+        assertTrue(railgun1.canUseEffect(gameController.getActionInterface()));
+        gameController.getGame().getBoard().move(2,1, victim);
+        assertFalse(railgun1.canUseEffect(gameController.getActionInterface()));
+        gameController.getGame().getBoard().move(2,2, victim);
+        gameController.getActionInterface().getClientData().setFirstMove(null);
+        assertTrue(railgun1.canUseEffect(gameController.getActionInterface()));
+        gameController.getGame().getBoard().move(0,3,victim);
+        gameController.getGame().getBoard().move(0,2,currentPlayer);
+        gameController.getActionInterface().getClientData().setFirstMove(Direction.RIGHT);
+        assertFalse(railgun1.canUseEffect(gameController.getActionInterface()));
+    }
+
+    @Test
+    void railgunMod2Test(){
+        playerSetup();
+        Effect railgun2 = new DirectionalDamage("Railgun2",1, 0,2,0);
+        MapCLI mapCLI = new MapCLI(gameController.getGame().getBoard());
+        gameController.getGame().getBoard().move(2,2, currentPlayer);
+        gameController.getGame().getBoard().move(1,2,victim);
+        gameController.getGame().getBoard().move(0,2,secondVictim);
+        gameController.getActionInterface().getClientData().setFirstMove(Direction.UP);
+        assertTrue(railgun2.canUseEffect(gameController.getActionInterface()));
+        gameController.getGame().getBoard().move(0,1,secondVictim);
+        assertFalse(railgun2.canUseEffect(gameController.getActionInterface()));
+        gameController.getGame().getBoard().move(2,2,victim);
+        gameController.getGame().getBoard().move(1,2,secondVictim);
+        //assertTrue(railgun2.canUseEffect(gameController.getActionInterface()));
+
+    }
+
 
     void playerSetup(){
 

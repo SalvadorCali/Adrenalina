@@ -141,6 +141,9 @@ public abstract class Square implements Serializable {
 
     public boolean noOutofBounds(Direction direction) {
 
+        if(direction == null)
+            return true;
+
         switch (direction) {
             case UP:
                 return !getNorth().equals(Cardinal.NONE);
