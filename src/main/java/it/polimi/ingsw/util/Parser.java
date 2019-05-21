@@ -65,13 +65,6 @@ public class Parser {
             reloadYellowAmmos = (int)(long) reloadAmmosObject.get("yellow");
             Card card = new WeaponCard(cardName, cardColor, grabRedAmmos, grabBlueAmmos, grabYellowAmmos, reloadRedAmmos, reloadBlueAmmos, reloadYellowAmmos);
             weapons.addCard(card);
-            Printer.println(cardName);
-            Printer.println(grabBlueAmmos);
-            Printer.println(grabRedAmmos);
-            Printer.println(grabYellowAmmos);
-            Printer.println(reloadBlueAmmos);
-            Printer.println(reloadRedAmmos);
-            Printer.println(reloadYellowAmmos);
         }
         weapons.shuffle();
         return weapons;
