@@ -64,9 +64,6 @@ public class MapGUI extends Application implements Initializable {
     private HBox hboxDeath;
 
     @FXML
-    private GridPane gridBoard;
-
-    @FXML
     private GridPane grid00;
 
     @FXML
@@ -76,7 +73,7 @@ public class MapGUI extends Application implements Initializable {
     private GridPane grid20;
 
     @FXML
-    private GridPane grid30;
+    private GridPane grid03;
 
     @FXML
     private GridPane grid01;
@@ -97,10 +94,10 @@ public class MapGUI extends Application implements Initializable {
     private GridPane grid22;
 
     @FXML
-    private GridPane grid32;
+    private GridPane grid13;
 
     @FXML
-    private GridPane grid31;
+    private GridPane grid23;
 
     @FXML
     private ImageView bannerShoot;
@@ -184,7 +181,7 @@ public class MapGUI extends Application implements Initializable {
         if(!arena[0][0].getPlayers().isEmpty()){
             for(int index = 0; index < arena[0][0].getPlayers().size(); index ++){
 
-              
+                
             }
         }
     }
