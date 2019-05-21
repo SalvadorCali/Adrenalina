@@ -253,7 +253,7 @@ public class Player implements Serializable {
 
     public boolean ammoControl(int redAmmos, int blueAmmos, int yellowAmmos){
 
-        return (redAmmos >= redAmmo && blueAmmos >= blueAmmo && yellowAmmos >= yellowAmmo);
+        return (redAmmos <= redAmmo && blueAmmos <= blueAmmo && yellowAmmos <= yellowAmmo);
     }
 
     public void updateAmmoBox(int redAmmos, int blueAmmos, int yellowAmmos) {

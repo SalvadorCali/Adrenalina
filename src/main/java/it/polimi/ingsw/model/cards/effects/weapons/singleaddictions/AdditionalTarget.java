@@ -74,7 +74,10 @@ public class AdditionalTarget extends SingleAddictionEffect {
     private void setData(ActionInterface actionInterface){
 
         this.basicFirst = actionInterface.basicFirst();
-        currentPlayer = actionInterface.getClientData().getCurrentPlayer();
+        if(effectName.equals("Cyberblade Double"))
+            currentPlayer = actionInterface.getClientData().getFakePlayer();
+        else
+            currentPlayer = actionInterface.getClientData().getCurrentPlayer();
         victim = actionInterface.getVictim();
         additionalVictim = actionInterface.getSecondVictim();
         thirdVictim = actionInterface.getThirdVictim();

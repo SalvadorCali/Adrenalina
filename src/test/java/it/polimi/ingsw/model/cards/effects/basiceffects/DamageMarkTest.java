@@ -6,6 +6,7 @@ import it.polimi.ingsw.model.cards.effects.Effect;
 import it.polimi.ingsw.model.cards.effects.weapons.basiceffects.DamageMarkEffect;
 import it.polimi.ingsw.model.enums.Color;
 import it.polimi.ingsw.model.enums.TokenColor;
+import it.polimi.ingsw.model.gamecomponents.Ammo;
 import it.polimi.ingsw.model.gamecomponents.Player;
 import org.junit.jupiter.api.Test;
 import static junit.framework.TestCase.*;
@@ -23,7 +24,7 @@ public class DamageMarkTest {
 
         playerSetup();
 
-        Effect lockRifle = new DamageMarkEffect("Lock Rifle", 2, 1, 0, 2, 0);
+        Effect lockRifle = new DamageMarkEffect("Lock Rifle", 2, 1, 0, 1, 0);
         assertTrue(lockRifle.canUseEffect(gameController.getActionInterface()));
 
         gameController.getGame().getBoard().move(0,1,currentPlayer);
@@ -196,8 +197,7 @@ public class DamageMarkTest {
         gameController.getGame().getBoard().generatePlayer(0,0,currentPlayer);
         gameController.getGame().getPlayers().add(currentPlayer);
         clientData.setCurrentPlayer(currentPlayer);
-        currentPlayer.increaseAmmoNumber(Color.BLUE);
-        currentPlayer.increaseAmmoNumber(Color.BLUE);
+        currentPlayer.addAmmo(new Ammo(Color.BLUE), new Ammo(Color.BLUE));
 
         //victimSetup
         gameController.getGame().getBoard().generatePlayer(1,0,victim);
