@@ -101,8 +101,6 @@ public class LoginGUI extends Application implements Initializable {
             client.start();
             client.login(name, Converter.fromStringToTokenColor(color));
 
-            Registry registry = LocateRegistry.getRegistry(host, Config.RMI_FREE_PORT);
-            ConnectionInterface connection = (ConnectionInterface) registry.lookup("server");
 
         } catch (NotBoundException e) {
             e.printStackTrace();
