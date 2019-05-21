@@ -33,7 +33,9 @@ public class WeaponCard extends Card{
         this.reloadYellowAmmos = reloadYellowAmmos;
     }
 
-
+    public WeaponCard(String name, Color color){
+        super(name,color);
+    }
     private void setEffects(String name){
 
         switch (name){
@@ -53,6 +55,17 @@ public class WeaponCard extends Card{
             case("TRACTOR BEAM"):
                 Effect tractorBeam1 = new MovementEffect("Tractor Beam1",1,0,0,0,0);
                 Effect tractorBeam2 = new MovementEffect("Tractor Beam2", 3,0,1,0,1);
+                break;
+            case ("T.H.O.R"):
+                Effect thor = new DamageMarkEffect("T.H.O.R.",2,0,0,0,0);
+                Effect thorAdd = new AdditionalTarget("T.H.O.R. Single",1,0,0,1,0, thor);
+                Effect thorAdd2 = new AdditionalTarget("T.H.O.R. Double",2,0,0,1,0, thorAdd);
+                break;
+            case ("VORTEX CANNON"):
+                break;
+            case ("FURNACE"):
+                Effect furnace1 = new SquareDamageEffect("Furnace1", 1,0, 0,0,0);
+                Effect furnace2 = new SquareDamageEffect("Furnace2", 1,1,0,0,0);
                 break;
         }
 
