@@ -204,6 +204,8 @@ public class Converter {
                 return "TRACTORBEAM";
             case "shotgun":
                 return "SHOTGUN";
+            case "plasmagun":
+                return "PLASMAGUN";
             default:
                 return null;
         }

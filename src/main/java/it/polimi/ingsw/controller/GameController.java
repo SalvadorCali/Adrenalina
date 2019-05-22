@@ -172,53 +172,6 @@ public class GameController {
             }
         }
         return false;
-
-/*
-        shooter.getWeapons().forEach(w -> {
-            if(w.getName().equals("LOCK RIFLE")) {
-                actionInterface.getClientData().setCurrentPlayer(shooter);
-                if (victims.length == 1) {
-                    actionInterface.getClientData().setVictim(victims[0]);
-                    if (w.getEffects().get(0).canUseEffect(actionInterface)) {
-                        Printer.println("LOCK RIFLE USED");
-                        w.getEffects().get(0).useEffect(actionInterface);
-                    } else {
-                        Printer.println("LOCK RIFLE NOT USED");
-                    }
-                } else {
-                    actionInterface.getClientData().setVictim(victims[0]);
-                    actionInterface.getClientData().setSecondVictim(victims[1]);
-                    if (w.getEffects().get(1).canUseEffect(actionInterface))
-                        w.getEffects().get(1).useEffect(actionInterface);
-
-                }
-            } else if(w.getName().equals("ELECTROSCYTHE")){
-                actionInterface.getClientData().setCurrentPlayer(shooter);
-                if(mod == 1){
-                    if(w.getEffects().get(0).canUseEffect(actionInterface)){
-                        Printer.println("ELECTROSCYTHE1 USED");
-                        w.getEffects().get(1).useEffect(actionInterface);
-                    }else{
-                        Printer.println("ELECTROSCYTHE1 NOT USED");
-                    }
-                }else{
-                    if(w.getEffects().get(1).canUseEffect(actionInterface)){
-                        Printer.println("ELECTROSCYTHE2 USED");
-                        w.getEffects().get(1).useEffect(actionInterface);
-                    }else{
-                        Printer.println("ELECTROSCYTHE2 NOT USED");
-                    }
-                }
-            }else if(w.getName().equals("MACHINE GUN")){
-
-
-
-
-            }
-        });
-        Printer.println("eskereeeeee2");
-
- */
     }
 
     private void setData(Player shooter, Player...victims) {
@@ -239,22 +192,29 @@ public class GameController {
                 getActionInterface().getClientData().setVictim(victims[0]);
                 getActionInterface().getClientData().setSecondVictim(victims[1]);
                 getActionInterface().getClientData().setThirdVictim(victims[2]);
+                break;
+            default:
+                break;
         }
     }
 
-    public void shoot(Player shooter, String weaponName, int mod, Player victim, int x, int y){
+    public boolean shoot(Player shooter, String weaponName, int mod, Player victim, int x, int y){
         final String weaponNameUpp;
         weaponNameUpp = Converter.weaponName(weaponName);
-        shooter.getWeapons().forEach(w -> {
+        for (WeaponCard w : shooter.getWeapons()) {
             if (w.getName().equals(weaponNameUpp)) {
                 setData(shooter, victim, x, y);
                 if (w.getEffects().get(mod).canUseEffect(actionInterface)) {
                     Printer.println(weaponNameUpp + "USED");
                     w.getEffects().get(mod).useEffect(actionInterface);
-                }else
+                    return true;
+                } else {
                     Printer.println(weaponNameUpp + "NOT USED");
+                    return false;
+                }
             }
-        });
+        }
+        return false;
 
     }
 
@@ -268,19 +228,23 @@ public class GameController {
         actionInterface.getClientData().setSquare(x, y);
     }
 
-    public void shoot(Player shooter, String weaponName, int mod, Player victim, Direction...directions) {
+    public boolean shoot(Player shooter, String weaponName, int mod, Player victim, Direction...directions) {
         final String weaponNameUpp;
         weaponNameUpp = Converter.weaponName(weaponName);
-        shooter.getWeapons().forEach(w -> {
+        for (WeaponCard w : shooter.getWeapons()) {
             if (w.getName().equals(weaponNameUpp)) {
                 setData(shooter, victim, directions);
                 if (w.getEffects().get(mod).canUseEffect(actionInterface)) {
                     Printer.println(weaponNameUpp + "USED");
                     w.getEffects().get(mod).useEffect(actionInterface);
-                } else
+                    return true;
+                } else {
                     Printer.println(weaponNameUpp + "NOT USED");
+                    return false;
+                }
             }
-        });
+        }
+        return false;
     }
 
     private void setData(Player shooter, Player victim, Direction... directions) {
@@ -290,6 +254,9 @@ public class GameController {
         if(directions.length > 1)
             actionInterface.getClientData().setSecondMove(directions[1]);
     }
+
+
+
 
 
     public void shoot(Player player, Player victim){
