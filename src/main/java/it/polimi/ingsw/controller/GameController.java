@@ -3,6 +3,7 @@ package it.polimi.ingsw.controller;
 import it.polimi.ingsw.model.cards.AmmoCard;
 import it.polimi.ingsw.model.cards.Card;
 import it.polimi.ingsw.model.cards.PowerupCard;
+import it.polimi.ingsw.model.cards.WeaponCard;
 import it.polimi.ingsw.model.cards.effects.ActionInterface;
 import it.polimi.ingsw.model.enums.Color;
 import it.polimi.ingsw.model.enums.Direction;
@@ -154,19 +155,23 @@ public class GameController {
         }
     }
 
-    public void shoot(Player shooter, String weaponName, int mod, Player...victims){
+    public boolean shoot(Player shooter, String weaponName, int mod, Player...victims){
         final String weaponNameUpp;
         weaponNameUpp = Converter.weaponName(weaponName);
-        shooter.getWeapons().forEach(w -> {
+        for (WeaponCard w : shooter.getWeapons()) {
             if (w.getName().equals(weaponNameUpp)) {
                 setData(shooter, victims);
                 if (w.getEffects().get(mod).canUseEffect(actionInterface)) {
                     Printer.println(weaponNameUpp + "USED");
                     w.getEffects().get(mod).useEffect(actionInterface);
-                }else
+                    return true;
+                } else {
                     Printer.println(weaponNameUpp + "NOT USED");
+                    return false;
+                }
             }
-        });
+        }
+        return false;
 
 /*
         shooter.getWeapons().forEach(w -> {

@@ -211,6 +211,11 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
                 playerController.setPlayer(player);
                 view.notify(message, outcome);
                 break;
+            case SHOOT:
+                Player player2 = (Player) object;
+                playerController.setPlayer(player2);
+                view.notify(message, outcome);
+                break;
             default:
                 view.notify(message, outcome, object);
                 break;

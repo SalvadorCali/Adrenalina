@@ -319,6 +319,12 @@ public class SocketClient implements ClientInterface, Runnable, Serializable {
                 object = (SquareData) objectInputStream.readObject();
                 view.notify(message, outcome, object);
                 break;
+            case SHOOT:
+                outcome = (Outcome) objectInputStream.readObject();
+                object = (Player) objectInputStream.readObject();
+                playerController.setPlayer((Player) object);
+                view.notify(message, outcome);
+                break;
             default:
                 break;
         }

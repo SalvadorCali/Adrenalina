@@ -40,6 +40,11 @@ public class DamageBoardCLI {
         //markBoard = gameController.getGame().getCurrentPlayer().getPlayerBoard().getRevengeMarks();
     }
 
+    public void setPlayer(Player player){
+        damageBoard = player.getPlayerBoard().getDamageBoard();
+        markBoard = player.getPlayerBoard().getRevengeMarks();
+    }
+
 
     public void printDamageBoard() {
 

@@ -274,7 +274,29 @@ public class ServerController {
     public void shoot(String username, String weaponName, int effectNumber, TokenColor...colors){
         switch (weaponName){
             case "lockrifle":
-                gameController.shoot(users.get(username), weaponName, effectNumber-1, getVictims(colors));
+                if(gameController.shoot(users.get(username), weaponName, effectNumber-1, getVictims(colors))){
+                    try {
+                        servers.get(username).notify(Message.SHOOT, Outcome.RIGHT, users.get(username));
+                    } catch (IOException e) {
+                        Printer.err(e);
+                    }
+                    for(TokenColor color : colors){
+                        try {
+                            servers.get(this.colors.get(color)).notify(Message.SHOOT, Outcome.ALL, users.get(this.colors.get(color)));
+                        } catch (IOException e) {
+                            Printer.err(e);
+                        }
+                    }
+                }else{
+                    Printer.println("lockriiiii");
+                    try {
+                        Printer.println("lockriiiiiooo");
+                        servers.get(username).notify(Message.SHOOT, Outcome.WRONG, users.get(username));
+                        Printer.println("lockriiiiill");
+                    } catch (IOException e) {
+                        Printer.err(e);
+                    }
+                }
                 break;
             default:
                 break;

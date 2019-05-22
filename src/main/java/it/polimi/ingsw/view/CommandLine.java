@@ -735,6 +735,26 @@ public class CommandLine implements ViewInterface {
         playerController.getPlayer().getPowerups().forEach(Printer::println);
     }
 
+    private void notifyShoot(Outcome outcome){
+        switch(outcome){
+            case RIGHT:
+                Printer.println("[SERVER]Shoot!");
+                break;
+            case ALL:
+                Printer.println("[SERVER]Shot!");
+                Printer.println(playerController.getPlayer().getUsername());
+                damageBoardPrinter.setPlayer(playerController.getPlayer());
+                damageBoardPrinter.printDamageBoard();
+                break;
+            case WRONG:
+                Printer.println("[SERVER]Not shoot!");
+                break;
+            default:
+                Printer.println("[SERVER]Not shoot!");
+                break;
+        }
+    }
+
     private void notifyShowSquare(SquareData squareData){
         if(squareData.getAmmoCard() != null){
             Printer.println("Ammos:");
@@ -775,6 +795,9 @@ public class CommandLine implements ViewInterface {
                 break;
             case GRAB:
                 notifyGrab(outcome);
+                break;
+            case SHOOT:
+                notifyShoot(outcome);
                 break;
             case POWERUP:
                 notifyPowerup(outcome);
