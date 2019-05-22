@@ -214,8 +214,78 @@ public class GameController {
         Printer.println("eskereeeeee2");
 
  */
+    }
+
+    private void setData(Player shooter, Player...victims) {
+
+        getActionInterface().getClientData().setCurrentPlayer(shooter);
+
+        switch (victims.length){
+            case 1:
+                getActionInterface().getClientData().setVictim(victims[0]);
+                getActionInterface().getClientData().setSecondVictim(null);
+                getActionInterface().getClientData().setThirdVictim(null);
+                break;
+            case 2:
+                getActionInterface().getClientData().setVictim(victims[0]);
+                getActionInterface().getClientData().setSecondVictim(victims[1]);
+                getActionInterface().getClientData().setThirdVictim(null);
+            case 3:
+                getActionInterface().getClientData().setVictim(victims[0]);
+                getActionInterface().getClientData().setSecondVictim(victims[1]);
+                getActionInterface().getClientData().setThirdVictim(victims[2]);
+        }
+    }
+
+    public void shoot(Player shooter, String weaponName, int mod, Player victim, int x, int y){
+        final String weaponNameUpp;
+        weaponNameUpp = Converter.weaponName(weaponName);
+        shooter.getWeapons().forEach(w -> {
+            if (w.getName().equals(weaponNameUpp)) {
+                setData(shooter, victim, x, y);
+                if (w.getEffects().get(mod).canUseEffect(actionInterface)) {
+                    Printer.println(weaponNameUpp + "USED");
+                    w.getEffects().get(mod).useEffect(actionInterface);
+                }else
+                    Printer.println(weaponNameUpp + "NOT USED");
+            }
+        });
 
     }
+
+    private void setData(Player shooter, Player victim, int x, int y) {
+
+        actionInterface.getClientData().setCurrentPlayer(shooter);
+        if(victim!=null)
+            actionInterface.getClientData().setVictim(victim);
+        else
+            actionInterface.getClientData().setVictim(null);
+        actionInterface.getClientData().setSquare(x, y);
+    }
+
+    public void shoot(Player shooter, String weaponName, int mod, Player victim, Direction...directions) {
+        final String weaponNameUpp;
+        weaponNameUpp = Converter.weaponName(weaponName);
+        shooter.getWeapons().forEach(w -> {
+            if (w.getName().equals(weaponNameUpp)) {
+                setData(shooter, victim, directions);
+                if (w.getEffects().get(mod).canUseEffect(actionInterface)) {
+                    Printer.println(weaponNameUpp + "USED");
+                    w.getEffects().get(mod).useEffect(actionInterface);
+                } else
+                    Printer.println(weaponNameUpp + "NOT USED");
+            }
+        });
+    }
+
+    private void setData(Player shooter, Player victim, Direction... directions) {
+        actionInterface.getClientData().setCurrentPlayer(shooter);
+        actionInterface.getClientData().setVictim(victim);
+        actionInterface.getClientData().setFirstMove(directions[0]);
+        if(directions.length > 1)
+            actionInterface.getClientData().setSecondMove(directions[1]);
+    }
+
 
     public void shoot(Player player, Player victim){
         if(player.canUseAction()){
@@ -250,24 +320,5 @@ public class GameController {
         game.getBoard().setPlayer(player, color);
     }
 
-    private void setData(Player shooter, Player...victims) {
 
-        getActionInterface().getClientData().setCurrentPlayer(shooter);
-
-        switch (victims.length){
-            case 1:
-                getActionInterface().getClientData().setVictim(victims[0]);
-                getActionInterface().getClientData().setSecondVictim(null);
-                getActionInterface().getClientData().setThirdVictim(null);
-                break;
-            case 2:
-                getActionInterface().getClientData().setVictim(victims[0]);
-                getActionInterface().getClientData().setSecondVictim(victims[1]);
-                getActionInterface().getClientData().setThirdVictim(null);
-            case 3:
-                getActionInterface().getClientData().setVictim(victims[0]);
-                getActionInterface().getClientData().setSecondVictim(victims[1]);
-                getActionInterface().getClientData().setThirdVictim(victims[2]);
-        }
-    }
 }

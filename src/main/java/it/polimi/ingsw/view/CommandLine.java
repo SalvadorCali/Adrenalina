@@ -433,7 +433,7 @@ public class CommandLine implements ViewInterface {
                 Printer.println("With chain reaction: <2>");
                 Printer.println("With high voltage: <2>");
                 break;
-            case "plasma gun":
+            case "plasmagun":
                 Printer.println("Basic effect: <1> <victim>");
                 Printer.println("With phase glide: <2> <victim> <direction> <direction>");
                 Printer.println("With phase glide: <2> <victim> <direction>");
@@ -461,7 +461,7 @@ public class CommandLine implements ViewInterface {
                 Printer.println("Basic mode: <victim> <directions...>");
                 Printer.println("In reaper mode: <victim>");
                 break;
-            case "vortex cannon":
+            case "vortexcannon":
                 Printer.println("Basic effect: <1> <squareX> <squareY> <victim>");
                 Printer.println("With black hole: <2> <squareX> <squareY> <victim> <victim>");
                 Printer.println("With black hole: <2> <squareX> <squareY> <victim> <victim> <victim>");
@@ -481,13 +481,13 @@ public class CommandLine implements ViewInterface {
                 Printer.println("Basic mode: <direction> <victim1> <victim2>");
                 Printer.println("In barbecue mode: <direction>");
                 break;
-            case "grenade launcher":
+            case "grenadelauncher":
                 Printer.println("Basic effect: <1> <victim>");
                 Printer.println("Basic effect: <1> <victim> <direction>");
                 Printer.println("With extra grenade: <2> <victim> <direction> <squareX> <squareY>");
                 Printer.println("With extra grenade: <2> <squareX> <squareY> <victim> <direction>");
                 break;
-            case "rocket launcher":
+            case "rocketlauncher":
                 break;
             case "railgun":
                 Printer.println("Basic mode: <1> <direction> <victim>");
@@ -511,7 +511,7 @@ public class CommandLine implements ViewInterface {
                 Printer.println("Basic mode: <1> <victim> <direction>");
                 Printer.println("In long barrel mode: <2> <victim>");
                 break;
-            case "power glove":
+            case "powerglove":
                 Printer.println("Basic mode: <1> <victim>");
                 Printer.println("In rocket fist mode: <2> <direction>");
                 Printer.println("In rocket fist mode: <2> <direction> <victim>");

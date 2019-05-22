@@ -190,10 +190,20 @@ public class Converter {
                 return "LOCK RIFLE";
             case "electroschythe":
                 return "ELECTROSCHYTHE";
-            case "tagbackgrenade":
-                return "TAGBACK GRENADE";
-            case "teleporter":
-                return "TELEPORTER";
+            case "furnace":
+                return "FURNACE";
+            case "heatseeker":
+                return "HEATSEEKER";
+            case "whisper":
+                return "WHISPER";
+            case "hellion":
+                return "HELLION";
+            case "zx-2":
+                return "ZX-2";
+            case "tractorbeam":
+                return "TRACTORBEAM";
+            case "shotgun":
+                return "SHOTGUN";
             default:
                 return null;
         }

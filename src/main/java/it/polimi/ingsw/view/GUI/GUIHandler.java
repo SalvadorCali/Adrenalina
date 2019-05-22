@@ -350,7 +350,7 @@ public class GUIHandler extends Application implements Initializable, ViewInterf
 
         Platform.runLater(() -> {
             try {
-                choosePowerup.launchChoosePowerup(powerup);
+                //choosePowerup.launchChoosePowerup(powerup);
             } catch (Exception e) {
                 e.printStackTrace();
             }
