@@ -189,23 +189,22 @@ public class SocketServer implements Runnable, ServerInterface {
             switch (weaponName){
                 case "lockrifle":
                     TokenColor victim1, victim2;
+                    int effectNumber = objectInputStream.readInt();
                     int victimSize = objectInputStream.readInt();
                     if(victimSize == 1){
                         victim1 = (TokenColor) objectInputStream.readObject();
-                        serverController.shoot(clientName, weaponName, victim1);
+                        serverController.shoot(clientName, weaponName, effectNumber, victim1);
                     }else{
                         victim1 = (TokenColor) objectInputStream.readObject();
                         victim2 = (TokenColor) objectInputStream.readObject();
-                        serverController.shoot(clientName, weaponName, victim1, victim2);
+                        serverController.shoot(clientName, weaponName, effectNumber, victim1, victim2);
                     }
                     break;
                 default:
                     break;
             }
-        } catch (IOException e) {
+        } catch (IOException | ClassNotFoundException e) {
             Printer.err(e);
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
         }
     }
 

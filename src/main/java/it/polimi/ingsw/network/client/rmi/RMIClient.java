@@ -123,8 +123,8 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
     }
 
     @Override
-    public void shoot(String weaponName, TokenColor...colors) throws RemoteException {
-        server.shoot(weaponName, colors);
+    public void shoot(String weaponName, int effectNumber, TokenColor...colors) throws RemoteException {
+        server.shoot(weaponName, effectNumber, colors);
     }
 
     @Override

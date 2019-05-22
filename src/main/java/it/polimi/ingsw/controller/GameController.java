@@ -155,7 +155,6 @@ public class GameController {
     }
 
     public void shoot(Player shooter, String weaponName, int mod, Player...victims){
-
         final String weaponNameUpp;
         weaponNameUpp = Converter.weaponName(weaponName);
         shooter.getWeapons().forEach(w -> {

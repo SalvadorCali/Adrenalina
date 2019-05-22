@@ -100,7 +100,9 @@ public class CommandLine implements ViewInterface {
                 }
                 break;
             case "shoot":
-                shoot(string);
+                if(!shoot(string)){
+                    Printer.print(StringCLI.INVALID_COMMAND);
+                }
                 break;
             case "powerup":
                 if(!powerup(string)){
@@ -372,21 +374,22 @@ public class CommandLine implements ViewInterface {
         return false;
     }
 
-    private void shoot(StringTokenizer input){
+    private boolean shoot(StringTokenizer input){
         String weapon;
         if(input.hasMoreTokens()){
             weapon = input.nextToken();
             try {
                 if(input.hasMoreTokens() && playerController.getAdrenalineZone().equals(AdrenalineZone.SECOND)){
                     Direction direction = Converter.fromStringToDirection(input.nextToken());
-                    weaponEffect(weapon, direction);
+                    return weaponEffect(weapon, direction);
                 }else{
-                    weaponEffect(weapon);
+                    return weaponEffect(weapon);
                 }
             } catch (IOException e) {
                 Printer.err(e);
             }
         }
+        return false;
     }
 
     private boolean shootFinalFrenzy(StringTokenizer input) throws IOException {
@@ -404,23 +407,23 @@ public class CommandLine implements ViewInterface {
         return false;
     }
 
-    private void weaponEffect(String weapon, Direction...directions) throws IOException {
+    private boolean weaponEffect(String weapon, Direction...directions) throws IOException {
         StringTokenizer string;
         switch(weapon){
             case "lockrifle":
                 Printer.println("Basic effect: <victim>");
                 Printer.println("With second lock: <first_victim> <second_victim>");
                 string = new StringTokenizer(userInputStream.readLine());
-                if(string.hasMoreTokens()){
-                    TokenColor firstVictim = Converter.fromStringToTokenColor(string.nextToken());
-                    if(string.hasMoreTokens()){
-                        TokenColor secondVictim = Converter.fromStringToTokenColor(string.nextToken());
-                        client.shoot(weapon, firstVictim, secondVictim);
-                    }else{
-                        client.shoot(weapon, firstVictim);
-                    }
+                if(string.countTokens() == 1){
+                    client.shoot(weapon, 1, Converter.fromStringToTokenColor(string.nextToken()));
+                    return true;
+                }else if(string.countTokens() == 2){
+                    client.shoot(weapon, 2, Converter.fromStringToTokenColor(string.nextToken()),
+                            Converter.fromStringToTokenColor(string.nextToken()));
+                    return true;
+                }else{
+                    return false;
                 }
-                break;
             case "machinegun":
                 Printer.println("Basic effect: <1> <victim>");
                 Printer.println("Basic effect: <1> <victim> <victim>");
@@ -532,6 +535,7 @@ public class CommandLine implements ViewInterface {
             default:
                 break;
         }
+        return false;
     }
 
     private boolean powerup(StringTokenizer input){

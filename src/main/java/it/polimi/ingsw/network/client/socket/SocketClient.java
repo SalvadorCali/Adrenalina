@@ -179,10 +179,12 @@ public class SocketClient implements ClientInterface, Runnable, Serializable {
     }
 
     @Override
-    public void shoot(String weaponName, TokenColor...colors) throws IOException {
+    public void shoot(String weaponName, int effectNumber, TokenColor...colors) throws IOException {
         objectOutputStream.writeObject(Message.SHOOT);
         objectOutputStream.flush();
         objectOutputStream.writeUTF(weaponName);
+        objectOutputStream.flush();
+        objectOutputStream.writeInt(effectNumber);
         objectOutputStream.flush();
         objectOutputStream.writeInt(colors.length);
         objectOutputStream.flush();
