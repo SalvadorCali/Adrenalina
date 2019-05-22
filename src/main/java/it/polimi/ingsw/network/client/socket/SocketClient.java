@@ -60,6 +60,11 @@ public class SocketClient implements ClientInterface, Runnable, Serializable {
         thisThread.start();
     }
 
+    @Override
+    public void setView(ViewInterface view){
+        this.view = view;
+    }
+    
     public void start() {
         thisThread = new Thread(this);
         thisThread.start();

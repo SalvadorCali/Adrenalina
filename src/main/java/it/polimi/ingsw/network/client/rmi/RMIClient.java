@@ -62,6 +62,11 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
     }
 
     @Override
+    public void setView(ViewInterface view){
+        this.view = view;
+    }
+
+    @Override
     public void start() {
         view = new CommandLine(this);
         view.start();

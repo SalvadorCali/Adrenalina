@@ -4,6 +4,7 @@ import it.polimi.ingsw.controller.PowerupData;
 import it.polimi.ingsw.model.enums.AdrenalineZone;
 import it.polimi.ingsw.model.enums.Direction;
 import it.polimi.ingsw.model.enums.TokenColor;
+import it.polimi.ingsw.view.ViewInterface;
 
 import java.io.IOException;
 import java.rmi.RemoteException;
@@ -11,6 +12,7 @@ import java.rmi.RemoteException;
 public interface ClientInterface {
     void start() throws RemoteException;
     void login(String username, TokenColor color) throws RemoteException;
+    void setView(ViewInterface view) throws RemoteException;
     void disconnect() throws RemoteException;
     void choose(int choice) throws IOException;
     void showSquare() throws IOException;
