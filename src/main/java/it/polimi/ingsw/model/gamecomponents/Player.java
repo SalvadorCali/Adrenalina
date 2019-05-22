@@ -9,6 +9,7 @@ import it.polimi.ingsw.util.Config;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Player implements Serializable {
@@ -198,6 +199,10 @@ public class Player implements Serializable {
                 increaseAmmoNumber(ammo.getColor());
             }
         }
+    }
+
+    public void addAmmoToReserve(Ammo...ammos){
+        ammoReserve.addAll(Arrays.asList(ammos));
     }
 
     public boolean canAddAmmo(Color color){

@@ -3,6 +3,7 @@ package it.polimi.ingsw.model.gamecomponents;
 import it.polimi.ingsw.model.cards.AmmoCard;
 import it.polimi.ingsw.model.cards.Card;
 import it.polimi.ingsw.model.cards.effects.ActionInterface;
+import it.polimi.ingsw.model.enums.Color;
 import it.polimi.ingsw.model.enums.Direction;
 import it.polimi.ingsw.model.enums.TokenColor;
 import it.polimi.ingsw.util.Printer;
@@ -193,6 +194,14 @@ public class Game {
                     }
                 }
             }
+        }
+    }
+
+    public void giveAmmos(){
+        for(Player player : players){
+            player.addAmmo(new Ammo(Color.BLUE), new Ammo(Color.RED), new Ammo(Color.YELLOW));
+            player.addAmmoToReserve(new Ammo(Color.BLUE), new Ammo(Color.RED), new Ammo(Color.YELLOW),
+                    new Ammo(Color.BLUE), new Ammo(Color.RED), new Ammo(Color.YELLOW));
         }
     }
 

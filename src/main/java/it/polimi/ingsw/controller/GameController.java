@@ -55,6 +55,7 @@ public class GameController {
     public void startGame(List<Player> players){
         game.setPlayers(players);
         //game.setGamePhase(true);
+        game.giveAmmos();
         game.createKillshotTrack(8);
         game.fillSquares(actionInterface);
         game.createScoreList();

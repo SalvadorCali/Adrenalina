@@ -1,6 +1,8 @@
 package it.polimi.ingsw.model.cards.effects;
 
-public abstract class Effect {
+import java.io.Serializable;
+
+public abstract class Effect implements Serializable {
 
     public abstract boolean canUseEffect(ActionInterface actionInterface);
 
