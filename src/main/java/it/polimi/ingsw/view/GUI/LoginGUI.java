@@ -1,6 +1,7 @@
 package it.polimi.ingsw.view.GUI;
 
 import it.polimi.ingsw.controller.PlayerController;
+import it.polimi.ingsw.model.cards.Card;
 import it.polimi.ingsw.model.enums.TokenColor;
 import it.polimi.ingsw.network.client.ClientInterface;
 import it.polimi.ingsw.network.client.rmi.RMIClient;
@@ -22,6 +23,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.rmi.NotBoundException;
+import java.util.List;
 import java.util.ResourceBundle;
 
 
@@ -59,7 +61,7 @@ public class LoginGUI extends Application implements Initializable, ViewInterfac
     private ChoosePowerup choosePowerup;
     private GUIHandler guiHandler = new GUIHandler();
     private boolean connected = false;
-
+    private boolean matchStarted = true;
 
     public synchronized void start(Stage primaryStage) throws Exception {
 
@@ -213,6 +215,7 @@ public class LoginGUI extends Application implements Initializable, ViewInterfac
 
     }
 
+
     @Override
     public void notify(Message message, Outcome outcome, Object object) {
         Platform.runLater(() ->{
@@ -231,6 +234,7 @@ public class LoginGUI extends Application implements Initializable, ViewInterfac
         }
         });
     }
+
 
     private void notifyColor(Outcome outcome, TokenColor object) {
         Platform.runLater(() ->{
@@ -267,20 +271,19 @@ public class LoginGUI extends Application implements Initializable, ViewInterfac
                     connectionErrorLabel.setText("Username already used");
 
                 case RIGHT: {
-                    statusConnectionLabel.setText("Online");
+                    statusConnectionLabel.setText("Connected, waiting for other players");
                     try {
                         connected = true;
-                        guiHandler.launchMainBoard();
-
+                        launchBoard();
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
                 case ALL: {
-                    statusConnectionLabel.setText("Online");
+                    statusConnectionLabel.setText("Connected, waiting for other players");
                     try {
                         connected = true;
-                        guiHandler.launchMainBoard();
+                        launchBoard();
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -289,6 +292,16 @@ public class LoginGUI extends Application implements Initializable, ViewInterfac
         });
     }
 
-
+    public void launchBoard() throws Exception {
+        Platform.runLater(() ->{
+        if(matchStarted) {
+            try {
+                guiHandler.launchMainBoard();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        });
+    }
 }
 
