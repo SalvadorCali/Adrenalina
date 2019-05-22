@@ -421,7 +421,7 @@ public class CommandLine implements ViewInterface {
                     }
                 }
                 break;
-            case "machine gun":
+            case "machinegun":
                 Printer.println("Basic effect: <1> <victim>");
                 Printer.println("Basic effect: <1> <victim> <victim>");
                 Printer.println("With focus shot: <2> <victim>");

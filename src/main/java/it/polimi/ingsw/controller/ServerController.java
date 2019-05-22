@@ -274,7 +274,7 @@ public class ServerController {
     public void shoot(String username, String weaponName, TokenColor...colors){
         switch (weaponName){
             case "lockrifle":
-                gameController.shoot(users.get(username), weaponName, getVictims(colors));
+                gameController.shoot(users.get(username), weaponName, 1, getVictims(colors));
                 break;
             default:
                 break;

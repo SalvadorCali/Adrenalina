@@ -183,4 +183,19 @@ public class Converter {
                 return null;
         }
     }
+
+    public static String weaponName(String weapon){
+        switch (weapon){
+            case "lockrifle":
+                return "LOCK RIFLE";
+            case "electroschythe":
+                return "ELECTROSCHYTHE";
+            case "tagbackgrenade":
+                return "TAGBACK GRENADE";
+            case "teleporter":
+                return "TELEPORTER";
+            default:
+                return null;
+        }
+    }
 }

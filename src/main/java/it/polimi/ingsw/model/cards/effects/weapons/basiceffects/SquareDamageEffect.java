@@ -35,7 +35,8 @@ public class SquareDamageEffect extends BasicEffect {
     public boolean canUseEffect(ActionInterface actionInterface) {
 
         setData(actionInterface);
-        //canUse = actionInterface.ammoControl(redAmmos, yellowAmmos, blueAmmos); // Electroscythe
+        canUse = actionInterface.ammoControl(redAmmos, yellowAmmos, blueAmmos); // Electroscythe
+
         if(canUse) {
             if (effectName.equals("Furnace1") || effectName.equals("Hellion"))
                 canUse = actionInterface.isVisibleDifferentSquare(square.getX(), square.getY());
