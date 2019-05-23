@@ -10,12 +10,12 @@
    <children>
       <ImageView fx:id="powerupImg1" fitHeight="200.0" fitWidth="128.0" layoutX="75.0" layoutY="134.0">
          <image>
-            <Image url="@powerup/AD_powerups_IT_023.png" />
+            <Image url="@powerup/R/TAGBACK GRENADE.png" />
          </image>
       </ImageView>
       <ImageView fx:id="powerupImg2" fitHeight="200.0" fitWidth="128.0" layoutX="287.0" layoutY="134.0">
          <image>
-            <Image url="@powerup/AD_powerups_IT_022.png" />
+            <Image url="@powerup/B/TAGBACK GRENADE.png" />
          </image>
       </ImageView>
       <Label layoutX="139.0" layoutY="30.0" text="Choose Powerup" textFill="WHITE">

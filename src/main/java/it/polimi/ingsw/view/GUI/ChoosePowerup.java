@@ -1,7 +1,10 @@
 package it.polimi.ingsw.view.GUI;
 
 import it.polimi.ingsw.model.cards.Card;
+import it.polimi.ingsw.model.enums.Color;
+import it.polimi.ingsw.util.Converter;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -39,7 +42,15 @@ public class ChoosePowerup extends Application implements Initializable {
 
         start(new Stage());
 
-        //powerupImg1.setImage();
+        Platform.runLater(() -> {
+            for (int i = 0; i < powerup.size(); i++) {
+
+                String color = Converter.fromColorToLetter(powerup.get(i).getColor());
+                String string = powerup.get(i).getName();
+
+                //powerupImg1.setImage();
+            }
+        });
     }
 
 
