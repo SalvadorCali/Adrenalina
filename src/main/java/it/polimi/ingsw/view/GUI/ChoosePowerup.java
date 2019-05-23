@@ -11,6 +11,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
@@ -46,9 +47,10 @@ public class ChoosePowerup extends Application implements Initializable {
             for (int i = 0; i < powerup.size(); i++) {
 
                 String color = Converter.fromColorToLetter(powerup.get(i).getColor());
-                String string = powerup.get(i).getName();
+                String name = powerup.get(i).getName();
 
-                //powerupImg1.setImage();
+                Image image = new Image("powerup/" + color + "/" + name + ".png");
+                powerupImg1.setImage(image);
             }
         });
     }
