@@ -2,6 +2,7 @@ package it.polimi.ingsw.view.GUI;
 
 import it.polimi.ingsw.model.cards.Card;
 import javafx.application.Application;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -22,9 +23,6 @@ public class ChoosePowerup extends Application implements Initializable {
     @FXML
     private ImageView powerupImg2;
 
-    private LoginGUI loginGUI;
-    private boolean closing = false;
-
     @Override
     public void start(Stage powerupStage) throws Exception {
 
@@ -35,9 +33,6 @@ public class ChoosePowerup extends Application implements Initializable {
         powerupStage.setTitle("Choose Powerup");
         powerupStage.show();
 
-        if(closing){
-         powerupStage.close();
-        }
     }
 
     public void launchChoosePowerup(List<Card> powerup) throws Exception {
@@ -53,9 +48,9 @@ public class ChoosePowerup extends Application implements Initializable {
         powerupImg1.setOnMouseClicked(e -> {
 
             try {
-                closing = true;
                 GUIHandler guiHandler = new GUIHandler();
                 guiHandler.launchMainBoard();
+                handleCloseAction1();
             } catch (Exception e1) {
                 e1.printStackTrace();
             }
@@ -63,12 +58,22 @@ public class ChoosePowerup extends Application implements Initializable {
 
         powerupImg2.setOnMouseClicked(e -> {
             try {
-                closing = true;
                 GUIHandler guiHandler = new GUIHandler();
                 guiHandler.launchMainBoard();
+                handleCloseAction2();
             } catch (Exception e1) {
                 e1.printStackTrace();
             }
         });
+    }
+
+    public void handleCloseAction1() {
+        Stage stage = (Stage) powerupImg1.getScene().getWindow();
+        stage.close();
+    }
+
+    public void handleCloseAction2() {
+        Stage stage = (Stage) powerupImg2.getScene().getWindow();
+        stage.close();
     }
 }
