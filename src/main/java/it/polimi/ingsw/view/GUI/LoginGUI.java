@@ -58,7 +58,7 @@ public class LoginGUI extends Application implements Initializable, ViewInterfac
     private String colorPlayer;
     boolean isRunning = true;
     private ClientInterface client;
-    private ChoosePowerup choosePowerup;
+    private ChoosePowerup choosePowerup = new ChoosePowerup();
     private GUIHandler guiHandler = new GUIHandler();
     private boolean connected = false;
     private boolean matchStarted = true;
@@ -229,10 +229,23 @@ public class LoginGUI extends Application implements Initializable, ViewInterfac
                 case DISCONNECT:
                     notifyDisconnection(outcome, (String) object);
                     break;
+                case SPAWN:
+                    notifySpawnLocation((List<Card>) object);
+                    break;
                 default:
                     break;
         }
         });
+    }
+
+    private void notifySpawnLocation(List<Card> object) {
+
+        try {
+            choosePowerup.launchChoosePowerup(object);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -272,22 +285,8 @@ public class LoginGUI extends Application implements Initializable, ViewInterfac
 
                 case RIGHT: {
                     statusConnectionLabel.setText("Connected, waiting for other players");
-                    try {
-                        connected = true;
-                        launchBoard();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
                 }
-                case ALL: {
-                    statusConnectionLabel.setText("Connected, waiting for other players");
-                    try {
-                        connected = true;
-                        launchBoard();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
+
             }
         });
     }
