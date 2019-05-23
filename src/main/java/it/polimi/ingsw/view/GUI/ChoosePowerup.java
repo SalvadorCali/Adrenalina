@@ -4,14 +4,17 @@ import it.polimi.ingsw.model.cards.Card;
 import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
+import java.net.URL;
 import java.util.List;
+import java.util.ResourceBundle;
 
-public class ChoosePowerup extends Application {
+public class ChoosePowerup extends Application implements Initializable {
 
     @FXML
     private ImageView powerupImg1;
@@ -44,13 +47,15 @@ public class ChoosePowerup extends Application {
         //powerupImg1.setImage();
     }
 
-    public void selectPowerup(){
 
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
         powerupImg1.setOnMouseClicked(e -> {
 
             try {
                 closing = true;
-                loginGUI.launchBoard();
+                GUIHandler guiHandler = new GUIHandler();
+                guiHandler.launchMainBoard();
             } catch (Exception e1) {
                 e1.printStackTrace();
             }
@@ -59,11 +64,11 @@ public class ChoosePowerup extends Application {
         powerupImg2.setOnMouseClicked(e -> {
             try {
                 closing = true;
-                loginGUI.launchBoard();
+                GUIHandler guiHandler = new GUIHandler();
+                guiHandler.launchMainBoard();
             } catch (Exception e1) {
                 e1.printStackTrace();
             }
         });
     }
-
 }
