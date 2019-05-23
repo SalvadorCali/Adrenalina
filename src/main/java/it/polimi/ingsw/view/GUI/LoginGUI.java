@@ -242,11 +242,12 @@ public class LoginGUI extends Application implements Initializable, ViewInterfac
 
         try {
             choosePowerup.launchChoosePowerup(object);
-
+            handleHidingScene();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
 
 
     private void notifyColor(Outcome outcome, TokenColor object) {
@@ -301,6 +302,11 @@ public class LoginGUI extends Application implements Initializable, ViewInterfac
             }
         }
         });
+    }
+
+    private void handleHidingScene() {
+        Stage stage = (Stage) loginButton.getScene().getWindow();
+        stage.hide();
     }
 }
 
