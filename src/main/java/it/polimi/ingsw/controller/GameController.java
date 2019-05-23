@@ -228,7 +228,7 @@ public class GameController {
         actionInterface.getClientData().setSquare(x, y);
     }
 
-    public boolean shoot(Player shooter, String weaponName, int mod, Player victim, Direction...directions) {
+    public boolean shoot(Player shooter, String weaponName, Player victim, int mod, Direction...directions) {
         final String weaponNameUpp;
         weaponNameUpp = Converter.weaponName(weaponName);
         for (WeaponCard w : shooter.getWeapons()) {

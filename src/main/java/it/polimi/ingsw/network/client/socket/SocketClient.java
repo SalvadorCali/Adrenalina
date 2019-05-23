@@ -180,7 +180,7 @@ public class SocketClient implements ClientInterface, Runnable, Serializable {
 
     @Override
     public void shoot(String weaponName, int effectNumber, TokenColor...colors) throws IOException {
-        objectOutputStream.writeObject(Message.SHOOT);
+        objectOutputStream.writeObject(Message.SHOOT_1);
         objectOutputStream.flush();
         objectOutputStream.writeUTF(weaponName);
         objectOutputStream.flush();
@@ -190,6 +190,40 @@ public class SocketClient implements ClientInterface, Runnable, Serializable {
         objectOutputStream.flush();
         for(TokenColor color : colors){
             objectOutputStream.writeObject(color);
+            objectOutputStream.flush();
+        }
+    }
+
+    @Override
+    public void shoot(String weaponName, int effectNumber, TokenColor color, int x, int y) throws IOException {
+        objectOutputStream.writeObject(Message.SHOOT_2);
+        objectOutputStream.flush();
+        objectOutputStream.writeUTF(weaponName);
+        objectOutputStream.flush();
+        objectOutputStream.writeInt(effectNumber);
+        objectOutputStream.flush();
+        objectOutputStream.writeObject(color);
+        objectOutputStream.flush();
+        objectOutputStream.writeInt(x);
+        objectOutputStream.flush();
+        objectOutputStream.writeInt(y);
+        objectOutputStream.flush();
+    }
+
+    @Override
+    public void shoot(String weaponName, int effectNumber, TokenColor color, Direction... directions) throws IOException {
+        objectOutputStream.writeObject(Message.SHOOT_3);
+        objectOutputStream.flush();
+        objectOutputStream.writeUTF(weaponName);
+        objectOutputStream.flush();
+        objectOutputStream.writeInt(effectNumber);
+        objectOutputStream.flush();
+        objectOutputStream.writeObject(color);
+        objectOutputStream.flush();
+        objectOutputStream.writeInt(directions.length);
+        objectOutputStream.flush();
+        for(Direction direction : directions){
+            objectOutputStream.writeObject(direction);
             objectOutputStream.flush();
         }
     }

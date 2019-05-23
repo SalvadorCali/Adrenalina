@@ -82,8 +82,14 @@ public class SocketServer implements Runnable, ServerInterface {
             case GRAB:
                 grab();
                 break;
-            case SHOOT:
-                shoot();
+            case SHOOT_1:
+                shootA();
+                break;
+            case SHOOT_2:
+                shootB();
+                break;
+            case SHOOT_3:
+                shootC();
                 break;
             case POWERUP:
                 powerup();
@@ -183,25 +189,52 @@ public class SocketServer implements Runnable, ServerInterface {
         }
     }
 
-    public void shoot(){
+    public void shootA(){
         try {
             String weaponName = objectInputStream.readUTF();
-            switch (weaponName){
-                case "lockrifle":
-                    TokenColor victim1, victim2;
-                    int effectNumber = objectInputStream.readInt();
-                    int victimSize = objectInputStream.readInt();
-                    if(victimSize == 1){
-                        victim1 = (TokenColor) objectInputStream.readObject();
-                        serverController.shoot(clientName, weaponName, effectNumber, victim1);
-                    }else{
-                        victim1 = (TokenColor) objectInputStream.readObject();
-                        victim2 = (TokenColor) objectInputStream.readObject();
-                        serverController.shoot(clientName, weaponName, effectNumber, victim1, victim2);
-                    }
-                    break;
-                default:
-                    break;
+            TokenColor victim1, victim2;
+            int effectNumber = objectInputStream.readInt();
+            int victimSize = objectInputStream.readInt();
+            if(victimSize == 1){
+                victim1 = (TokenColor) objectInputStream.readObject();
+                serverController.shoot(clientName, weaponName, effectNumber, victim1);
+            }else{
+                victim1 = (TokenColor) objectInputStream.readObject();
+                victim2 = (TokenColor) objectInputStream.readObject();
+                serverController.shoot(clientName, weaponName, effectNumber, victim1, victim2);
+            }
+        } catch (IOException | ClassNotFoundException e) {
+            Printer.err(e);
+        }
+    }
+
+    public void shootB(){
+        try {
+            String weaponName = objectInputStream.readUTF();
+            int effectNumber = objectInputStream.readInt();
+            TokenColor victim = (TokenColor) objectInputStream.readObject();
+            int x = objectInputStream.readInt();
+            int y = objectInputStream.readInt();
+            serverController.shoot(clientName, weaponName, effectNumber, victim, x, y);
+        } catch (IOException | ClassNotFoundException e) {
+            Printer.err(e);
+        }
+    }
+
+    public void shootC(){
+        try {
+            Direction first, second;
+            String weaponName = objectInputStream.readUTF();
+            int effectNumber = objectInputStream.readInt();
+            TokenColor victim = (TokenColor) objectInputStream.readObject();
+            int directionsSize = objectInputStream.readInt();
+            if(directionsSize == 1){
+                first = (Direction) objectInputStream.readObject();
+                serverController.shoot(clientName, weaponName,  victim, effectNumber,first);
+            }else{
+                first = (Direction) objectInputStream.readObject();
+                second = (Direction) objectInputStream.readObject();
+                serverController.shoot(clientName, weaponName,  victim, effectNumber,first, second);
             }
         } catch (IOException | ClassNotFoundException e) {
             Printer.err(e);

@@ -415,7 +415,7 @@ public class CommandLine implements ViewInterface {
                 Printer.println("With second lock: <first_victim> <second_victim>");
                 string = new StringTokenizer(userInputStream.readLine());
                 if(string.countTokens() == 1){
-                    client.shoot(weapon, 1, Converter.fromStringToTokenColor(string.nextToken()));
+                    //client.shoot(weapon, 1, Converter.fromStringToTokenColor(string.nextToken()));
                     return true;
                 }else if(string.countTokens() == 2){
                     client.shoot(weapon, 2, Converter.fromStringToTokenColor(string.nextToken()),
@@ -455,11 +455,12 @@ public class CommandLine implements ViewInterface {
                 Printer.println("Basic mode: <1>");
                 Printer.println("In reaper mode: <2>");
                 string = new StringTokenizer(userInputStream.readLine());
-                if(string.hasMoreTokens()){
-                    int choice = Integer.parseInt(string.nextToken());
-                    //
+                if(string.countTokens() == 1){
+                    client.shoot(weapon, Integer.parseInt(string.nextToken()), TokenColor.NONE, 0, 0);
+                    return true;
+                }else{
+                    return false;
                 }
-                break;
             case "tractorbeam":
                 Printer.println("Basic mode: <victim> <directions...>");
                 Printer.println("In reaper mode: <victim>");
