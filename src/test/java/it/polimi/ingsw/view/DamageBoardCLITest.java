@@ -29,5 +29,8 @@ public class DamageBoardCLITest {
         DamageBoardCLI damageBoardCLI = new DamageBoardCLI(player1);
 
         damageBoardCLI.printDamageBoard();
+
+        DamageBoardCLI damageBoardCLI1 = new DamageBoardCLI(player2);
+        damageBoardCLI1.printDamageBoard();
     }
 }

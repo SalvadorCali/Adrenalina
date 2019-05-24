@@ -49,11 +49,9 @@ public class DamageBoardCLI {
     public void printDamageBoard() {
 
         Integer damage[] = new Integer[MAX_DAMAGE];
-        String namePlayer = "Gianni";
         String colorDamage[] = new String[MAX_DAMAGE];
-        String[] mark = new String[MAX_MARK];
+        String mark[] = new String[MAX_MARK];
         String colorMark[] = new String[MAX_MARK];
-
 
         //initialize damage and colorDamage
         for(int i = 0; i < MAX_DAMAGE; i++){
@@ -107,39 +105,40 @@ public class DamageBoardCLI {
 
         }
 
-        for(int i = 0; i< mark.length; i++){
+        if(!markBoard.isEmpty()) {
+            for (int i = 0; i < mark.length; i++) {
 
-            if(markBoard.get(i).getFirstColor() != TokenColor.NONE){
+                if (markBoard.get(i).getFirstColor() != TokenColor.NONE) {
 
-                mark[i] = MARK;
+                    mark[i] = MARK;
 
-                if(markBoard.get(i).getFirstColor().equals(TokenColor.BLUE))
-                    colorMark[i] = BLUE;
+                    if (markBoard.get(i).getFirstColor().equals(TokenColor.BLUE))
+                        colorMark[i] = BLUE;
 
-                if(markBoard.get(i).getFirstColor().equals(TokenColor.RED))
-                    colorMark[i] = RED;
+                    if (markBoard.get(i).getFirstColor().equals(TokenColor.RED))
+                        colorMark[i] = RED;
 
-                if(markBoard.get(i).getFirstColor().equals(TokenColor.YELLOW))
-                    colorMark[i] = YELLOW;
+                    if (markBoard.get(i).getFirstColor().equals(TokenColor.YELLOW))
+                        colorMark[i] = YELLOW;
 
-                if(markBoard.get(i).getFirstColor().equals(TokenColor.GREY))
-                    colorMark[i] = GREY;
+                    if (markBoard.get(i).getFirstColor().equals(TokenColor.GREY))
+                        colorMark[i] = GREY;
 
-                if(markBoard.get(i).getFirstColor().equals(TokenColor.GREEN))
-                    colorMark[i] = GREEN;
+                    if (markBoard.get(i).getFirstColor().equals(TokenColor.GREEN))
+                        colorMark[i] = GREEN;
 
-                if(markBoard.get(i).getFirstColor().equals(TokenColor.PURPLE))
-                    colorMark[i] = PURPLE;
+                    if (markBoard.get(i).getFirstColor().equals(TokenColor.PURPLE))
+                        colorMark[i] = PURPLE;
 
-                if(markBoard.get(i).getFirstColor().equals(TokenColor.SKULL))
-                    colorMark[i] = CYAN;
+                    if (markBoard.get(i).getFirstColor().equals(TokenColor.SKULL))
+                        colorMark[i] = CYAN;
 
-                if(markBoard.get(i).getFirstColor().equals(TokenColor.NONE))
-                    colorMark[i] = CYAN;
+                    if (markBoard.get(i).getFirstColor().equals(TokenColor.NONE))
+                        colorMark[i] = CYAN;
 
+                }
             }
         }
-
 
         //give name current player
         //namePlayer = currentPlayer;
