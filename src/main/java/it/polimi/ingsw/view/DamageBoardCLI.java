@@ -49,16 +49,17 @@ public class DamageBoardCLI {
     public void printDamageBoard() {
 
         Integer damage[] = new Integer[MAX_DAMAGE];
-        String namePlayer;
+        String namePlayer = "Gianni";
         String colorDamage[] = new String[MAX_DAMAGE];
         String[] mark = new String[MAX_MARK];
         String colorMark[] = new String[MAX_MARK];
 
 
         //initialize damage and colorDamage
-        for(int i = 0; i < damage.length; i++){
+        for(int i = 0; i < MAX_DAMAGE; i++){
 
             damage[i] = 0;
+            colorDamage[i] = CYAN;
         }
 
         //initialize marks
