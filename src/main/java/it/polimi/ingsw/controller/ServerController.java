@@ -3,6 +3,7 @@ package it.polimi.ingsw.controller;
 import it.polimi.ingsw.controller.timer.SpawnLocationTimer;
 import it.polimi.ingsw.controller.timer.TurnTimer;
 import it.polimi.ingsw.model.cards.Card;
+import it.polimi.ingsw.model.cards.PowerupCard;
 import it.polimi.ingsw.model.enums.Direction;
 import it.polimi.ingsw.model.enums.TokenColor;
 import it.polimi.ingsw.model.gamecomponents.Player;
@@ -163,6 +164,7 @@ public class ServerController {
 
     public void choose(String username, int choice){
         users.get(username).setSpawned(true);
+        //users.get(username).addPowerup((PowerupCard) powerupsSpawn.get(username).get(0));
         gameController.setPlayer(users.get(username), powerupsSpawn.get(username).get(choice - 1).getColor());
         spawnedPlayers++;
         if(spawnedPlayers == servers.size()){
