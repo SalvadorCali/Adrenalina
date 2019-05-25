@@ -205,7 +205,11 @@ public class Converter {
             case "shotgun":
                 return "SHOTGUN";
             case "plasmagun":
-                return "PLASMAGUN";
+                return "PLASMA GUN";
+            case "machinegun":
+                return "MACHINE GUN";
+            case "flamethrower":
+                return "FLAMETHROWER";
             default:
                 return null;
         }

@@ -30,7 +30,7 @@ public class GameController {
     private Game game;
     private ActionInterface actionInterface;
 
-    public GameController(){
+    public GameController() {
         weapons = Parser.createWeapons();
         powerups = Parser.createPowerups();
         ammoCards = Parser.createAmmos();
@@ -53,7 +53,7 @@ public class GameController {
     }
 
     //methods
-    public void startGame(List<Player> players){
+    public void startGame(List<Player> players) {
         game.setPlayers(players);
         //game.setGamePhase(true);
         game.giveAmmos();
@@ -62,60 +62,60 @@ public class GameController {
         game.createScoreList();
     }
 
-    public void setGamePhase(boolean gamePhase){
+    public void setGamePhase(boolean gamePhase) {
         game.setGamePhase(gamePhase);
     }
 
-    public boolean isGamePhase(){
+    public boolean isGamePhase() {
         return game.isGamePhase();
     }
 
-    public void setSpawnLocationPhase(boolean spawnLocationPhase){
+    public void setSpawnLocationPhase(boolean spawnLocationPhase) {
         game.setSpawnLocationPhase(spawnLocationPhase);
     }
 
-    public boolean isSpawnLocationPhase(){
+    public boolean isSpawnLocationPhase() {
         return game.isSpawnLocationPhase();
     }
 
-    public void setColorSelection(boolean colorSelection){
+    public void setColorSelection(boolean colorSelection) {
         game.setColorSelection(colorSelection);
     }
 
-    public boolean isColorSelection(){
+    public boolean isColorSelection() {
         return game.isColorSelection();
     }
 
-    public void addPlayer(Player player){
+    public void addPlayer(Player player) {
         game.addPlayer(player);
     }
 
-    public boolean canMove(Player player, Direction...directions){
+    public boolean canMove(Player player, Direction... directions) {
         return game.getBoard().canMove(player, directions);
     }
 
-    public boolean canMove(int x, int y){
-        return game.getBoard().canMove(x,y);
+    public boolean canMove(int x, int y) {
+        return game.getBoard().canMove(x, y);
     }
 
     public ArrayList<TokenColor> getPlayerColors() {
         return game.getPlayerColors();
     }
 
-    public void move(Player player, Direction...directions){
-        if(player.canUseAction()){
-            for(Direction direction : directions){
+    public void move(Player player, Direction... directions) {
+        if (player.canUseAction()) {
+            for (Direction direction : directions) {
                 game.getBoard().move(direction, player);
             }
             player.increaseActionNumber();
         }
     }
 
-    public void move(Player player, int x, int y){
+    public void move(Player player, int x, int y) {
         game.getBoard().move(x, y, player);
     }
 
-    public SquareData showSquare(Player player){
+    public SquareData showSquare(Player player) {
         int x = player.getPosition().getX();
         int y = player.getPosition().getY();
         SquareData squareData = new SquareData();
@@ -124,44 +124,43 @@ public class GameController {
         return squareData;
     }
 
-    public SquareData showSquare(Player player, int x, int y){
+    public SquareData showSquare(Player player, int x, int y) {
         SquareData squareData = new SquareData();
         squareData.setAmmoCard(game.getBoard().getArena()[x][y].getAmmoCard());
         squareData.setWeapons(game.getBoard().getArena()[x][y].getWeapons());
         return squareData;
     }
 
-    public boolean grab(Player player, int choice, Direction...directions){
-        if(player.canUseAction()){
+    public boolean grab(Player player, int choice, Direction... directions) {
+        if (player.canUseAction()) {
             Printer.println("ccccj");
-            if(directions.length > 0){
-                if(canMove(player, directions)){
+            if (directions.length > 0) {
+                if (canMove(player, directions)) {
                     move(player, directions);
-                }
-                else{
+                } else {
                     return false;
                 }
             }
             int x = player.getPosition().getX();
             int y = player.getPosition().getY();
             Printer.println("porva");
-            game.getBoard().getArena()[x][y].getWeapons().forEach(w-> Printer.println(w.getName()));
+            game.getBoard().getArena()[x][y].getWeapons().forEach(w -> Printer.println(w.getName()));
             Printer.println("porva2");
-            if(game.getBoard().getArena()[x][y].canGrab(choice)){
+            if (game.getBoard().getArena()[x][y].canGrab(choice)) {
                 Printer.println("dentro if");
                 game.getBoard().getArena()[x][y].grab(actionInterface, choice);
                 player.increaseActionNumber();
                 return true;
-            }else{
+            } else {
                 return false;
             }
-        }else{
+        } else {
             Printer.println("cccc");
             return false;
         }
     }
 
-    public boolean shoot(Player shooter, String weaponName, int mod, Player...victims){
+    public boolean shoot(Player shooter, String weaponName, int mod, Player... victims) {
         final String weaponNameUpp;
         weaponNameUpp = Converter.weaponName(weaponName);
         for (WeaponCard w : shooter.getWeapons()) {
@@ -180,11 +179,11 @@ public class GameController {
         return false;
     }
 
-    private void setData(Player shooter, Player...victims) {
+    private void setData(Player shooter, Player... victims) {
 
         getActionInterface().getClientData().setCurrentPlayer(shooter);
 
-        switch (victims.length){
+        switch (victims.length) {
             case 1:
                 getActionInterface().getClientData().setVictim(victims[0]);
                 getActionInterface().getClientData().setSecondVictim(null);
@@ -204,7 +203,7 @@ public class GameController {
         }
     }
 
-    public boolean shoot(Player shooter, String weaponName, int mod, Player victim, int x, int y){
+    public boolean shoot(Player shooter, String weaponName, int mod, Player victim, int x, int y) {
         final String weaponNameUpp;
         weaponNameUpp = Converter.weaponName(weaponName);
         for (WeaponCard w : shooter.getWeapons()) {
@@ -221,20 +220,19 @@ public class GameController {
             }
         }
         return false;
-
     }
 
     private void setData(Player shooter, Player victim, int x, int y) {
 
         actionInterface.getClientData().setCurrentPlayer(shooter);
-        if(victim!=null)
+        if (victim != null)
             actionInterface.getClientData().setVictim(victim);
         else
             actionInterface.getClientData().setVictim(null);
         actionInterface.getClientData().setSquare(x, y);
     }
 
-    public boolean shoot(Player shooter, String weaponName, Player victim, int mod, Direction...directions) {
+    public boolean shoot(Player shooter, String weaponName, Player victim, int mod, Direction... directions) {
         final String weaponNameUpp;
         weaponNameUpp = Converter.weaponName(weaponName);
         for (WeaponCard w : shooter.getWeapons()) {
@@ -257,13 +255,127 @@ public class GameController {
         actionInterface.getClientData().setCurrentPlayer(shooter);
         actionInterface.getClientData().setVictim(victim);
         actionInterface.getClientData().setFirstMove(directions[0]);
-        if(directions.length > 1)
+        if (directions.length > 1)
             actionInterface.getClientData().setSecondMove(directions[1]);
     }
 
+    public boolean shoot(Player shooter, String weaponName, int mod, Direction direction, Player... victims) {
+        final String weaponNameUpp;
+        weaponNameUpp = Converter.weaponName(weaponName);
+        for (WeaponCard w : shooter.getWeapons()) {
+            if (w.getName().equals(weaponNameUpp)) {
+                setData(shooter, direction, victims);
+                if (w.getEffects().get(mod).canUseEffect(actionInterface)) {
+                    Printer.println(weaponNameUpp + "USED");
+                    w.getEffects().get(mod).useEffect(actionInterface);
+                    return true;
+                } else {
+                    Printer.println(weaponNameUpp + "NOT USED");
+                    return false;
+                }
+            }
+        }
+        return false;
+    } //flamethrower1
 
+    private void setData(Player shooter, Direction direction, Player[] victims) {
+        actionInterface.getClientData().setCurrentPlayer(shooter);
+        actionInterface.getClientData().setFirstMove(direction);
+        switch (victims.length) {
+            case 1:
+                getActionInterface().getClientData().setVictim(victims[0]);
+                getActionInterface().getClientData().setSecondVictim(null);
+                getActionInterface().getClientData().setThirdVictim(null);
+                break;
+            case 2:
+                getActionInterface().getClientData().setVictim(victims[0]);
+                getActionInterface().getClientData().setSecondVictim(victims[1]);
+                getActionInterface().getClientData().setThirdVictim(null);
+            case 3:
+                getActionInterface().getClientData().setVictim(victims[0]);
+                getActionInterface().getClientData().setSecondVictim(victims[1]);
+                getActionInterface().getClientData().setThirdVictim(victims[2]);
+                break;
+            default:
+                break;
+        }
+    }
 
+    private boolean shoot(Player shooter, String weaponName, int mod, Direction direction) {
+        final String weaponNameUpp;
+        weaponNameUpp = Converter.weaponName(weaponName);
+        for (WeaponCard w : shooter.getWeapons()) {
+            if (w.getName().equals(weaponNameUpp)) {
+                setData(shooter, direction);
+                if (w.getEffects().get(mod).canUseEffect(actionInterface)) {
+                    Printer.println(weaponNameUpp + "USED");
+                    w.getEffects().get(mod).useEffect(actionInterface);
+                    return true;
+                } else {
+                    Printer.println(weaponNameUpp + "NOT USED");
+                    return false;
+                }
+            }
+        }
+        return false;
+    }//flamethrower2
 
+    private void setData(Player shooter, Direction direction) {
+        actionInterface.getClientData().setCurrentPlayer(shooter);
+        actionInterface.getClientData().setFirstMove(direction);
+        actionInterface.getClientData().setSecondMove(direction);
+    }
+
+    public boolean shoot(String weaponName, int mod, boolean basicfirst, Player shooter, Player firstVictim, Player secondVictim, Player thirdVictim, int x, int y, Direction...directions) {
+
+        final String weaponNameUpp;
+        weaponNameUpp = Converter.weaponName(weaponName);
+        for (WeaponCard w : shooter.getWeapons()) {
+            if (w.getName().equals(weaponNameUpp)) {
+                setData(basicfirst, shooter, firstVictim, secondVictim, thirdVictim, x, y, directions);
+                if (w.getEffects().get(mod).canUseEffect(actionInterface)) {
+                    Printer.println(weaponNameUpp + "USED");
+                    w.getEffects().get(mod).useEffect(actionInterface);
+                    return true;
+                } else {
+                    Printer.println(weaponNameUpp + "NOT USED");
+                    return false;
+                }
+            }
+        }
+        return false;
+    } //metodo completo
+
+    private void setData(boolean basicfirst, Player shooter, Player firstVictim, Player secondVictim, Player thirdVictim, int x, int y, Direction...directions) {
+
+        actionInterface.getClientData().setBasicFirst(basicfirst);
+        actionInterface.getClientData().setCurrentPlayer(shooter);
+        actionInterface.getClientData().setVictim(firstVictim);
+        actionInterface.getClientData().setSecondVictim(secondVictim);
+        actionInterface.getClientData().setThirdVictim(thirdVictim);
+        switch (directions.length) {
+            case 1:
+                getActionInterface().getClientData().setFirstMove(directions[0]);
+                break;
+            case 2:
+                getActionInterface().getClientData().setFirstMove(directions[0]);
+                getActionInterface().getClientData().setSecondMove(directions[1]);
+                break;
+            case 3:
+                getActionInterface().getClientData().setFirstMove(directions[0]);
+                getActionInterface().getClientData().setSecondMove(directions[1]);
+                getActionInterface().getClientData().setThirdMove(directions[2]);
+                break;
+            case 4:
+                getActionInterface().getClientData().setFirstMove(directions[0]);
+                getActionInterface().getClientData().setSecondMove(directions[1]);
+                getActionInterface().getClientData().setThirdMove(directions[2]);
+                getActionInterface().getClientData().setFourthMove(directions[3]);
+            default:
+                break;
+        }
+        actionInterface.getClientData().setSquare(x, y);
+    }
 
     public void shoot(Player player, Player victim){
         if(player.canUseAction()){

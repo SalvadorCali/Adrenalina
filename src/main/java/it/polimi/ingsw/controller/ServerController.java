@@ -315,6 +315,7 @@ public class ServerController {
         gameController.shoot(users.get(username), weaponName, users.get(colors.get(color)), effectNumber-1, directions);
     }
 
+
     public void powerup(String username, String powerup, int x, int y){
         if(gameController.canMove(x,y)){
             gameController.move(users.get(username), x, y);

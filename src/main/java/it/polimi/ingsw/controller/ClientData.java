@@ -7,13 +7,19 @@ import it.polimi.ingsw.model.gamecomponents.Position;
 
 public class ClientData {
 
-    private Player victim, secondVictim, thirdVictim, currentPlayer;
+    private Player currentPlayer = new Player(TokenColor.NONE);
+
+    private Player victim = new Player(TokenColor.NONE);
+
+    private Player secondVictim = new Player(TokenColor.NONE);
+
+    private Player thirdVictim = new Player(TokenColor.NONE);
 
     private Player fakePlayer = new Player(TokenColor.NONE);
 
     private Player fakeVictim = new Player(TokenColor.NONE);
 
-    private Direction firstMove, secondMove, thirdMove, fourthMove;
+    private Direction firstMove = null, secondMove = null, thirdMove = null, fourthMove = null;
 
     private Position square = new Position(0, 0);
 
