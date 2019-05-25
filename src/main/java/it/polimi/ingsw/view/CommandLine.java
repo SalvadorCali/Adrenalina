@@ -203,10 +203,18 @@ public class CommandLine implements ViewInterface {
                     Printer.println(playerController.getWeapons());
                     break;
                 case "square":
-                    try {
-                        client.showSquare();
-                    } catch (IOException e) {
-                        Printer.err(e);
+                    if(input.countTokens() == 2){
+                        try {
+                            client.showSquare(Integer.parseInt(input.nextToken()), Integer.parseInt(input.nextToken()));
+                        } catch (IOException e) {
+                            Printer.err(e);
+                        }
+                    }else{
+                        try {
+                            client.showSquare();
+                        } catch (IOException e) {
+                            Printer.err(e);
+                        }
                     }
                     break;
                 case "map":
@@ -415,7 +423,7 @@ public class CommandLine implements ViewInterface {
                 Printer.println("With second lock: <first_victim> <second_victim>");
                 string = new StringTokenizer(userInputStream.readLine());
                 if(string.countTokens() == 1){
-                    //client.shoot(weapon, 1, Converter.fromStringToTokenColor(string.nextToken()));
+                    client.shoot(weapon, 1, Converter.fromStringToTokenColor(string.nextToken()));
                     return true;
                 }else if(string.countTokens() == 2){
                     client.shoot(weapon, 2, Converter.fromStringToTokenColor(string.nextToken()),
@@ -450,7 +458,13 @@ public class CommandLine implements ViewInterface {
                 break;
             case "whisper":
                 Printer.println("Effect: <victim>");
-                break;
+                string = new StringTokenizer(userInputStream.readLine());
+                if(string.countTokens() == 1){
+                    client.shoot(weapon, 1, Converter.fromStringToTokenColor(string.nextToken()));
+                    return true;
+                }else{
+                    return false;
+                }
             case "electroscythe":
                 Printer.println("Basic mode: <1>");
                 Printer.println("In reaper mode: <2>");
@@ -462,9 +476,23 @@ public class CommandLine implements ViewInterface {
                     return false;
                 }
             case "tractorbeam":
-                Printer.println("Basic mode: <victim> <directions...>");
-                Printer.println("In reaper mode: <victim>");
-                break;
+                Printer.println("Basic mode: <victim> <1> <directions...>");
+                Printer.println("In reaper mode: <victim> <2>");
+                string = new StringTokenizer(userInputStream.readLine());
+                if(string.countTokens() == 2){
+                    client.shoot(weapon, Converter.fromStringToTokenColor(string.nextToken()), Integer.parseInt(string.nextToken()));
+                    return true;
+                }else if(string.countTokens() == 3){
+                    client.shoot(weapon, Converter.fromStringToTokenColor(string.nextToken()), Integer.parseInt(string.nextToken()),
+                            Converter.fromStringToDirection(string.nextToken()));
+                    return true;
+                }else if(string.countTokens() == 4){
+                    client.shoot(weapon, Converter.fromStringToTokenColor(string.nextToken()), Integer.parseInt(string.nextToken()),
+                            Converter.fromStringToDirection(string.nextToken()), Converter.fromStringToDirection(string.nextToken()));
+                    return true;
+                }else{
+                    return false;
+                }
             case "vortexcannon":
                 Printer.println("Basic effect: <1> <squareX> <squareY> <victim>");
                 Printer.println("With black hole: <2> <squareX> <squareY> <victim> <victim>");
@@ -473,14 +501,34 @@ public class CommandLine implements ViewInterface {
             case "furnace":
                 Printer.println("Basic mode: <1> <squareX> <squareY>");
                 Printer.println("In cozy fire mode: <2> <squareX> <squareY>");
-                break;
+                string = new StringTokenizer(userInputStream.readLine());
+                if(string.countTokens() == 3){
+                    client.shoot(weapon, Integer.parseInt(string.nextToken()), TokenColor.NONE,
+                            Integer.parseInt(string.nextToken()), Integer.parseInt(string.nextToken()));
+                    return true;
+                }else{
+                    return false;
+                }
             case "heatseeker":
                 Printer.println("Effect: <victim>");
-                break;
+                string = new StringTokenizer(userInputStream.readLine());
+                if(string.countTokens() == 1){
+                    client.shoot(weapon, 1, Converter.fromStringToTokenColor(string.nextToken()));
+                    return true;
+                }else{
+                    return false;
+                }
             case "hellion":
                 Printer.println("Basic mode: <1> <victim> <squareX> <squareY>");
                 Printer.println("In nano-tracer mode: <2> <victim> <squareX> <squareY>");
-                break;
+                string = new StringTokenizer(userInputStream.readLine());
+                if(string.countTokens() == 4){
+                    client.shoot(weapon, Integer.parseInt(string.nextToken()), Converter.fromStringToTokenColor(string.nextToken()),
+                            Integer.parseInt(string.nextToken()), Integer.parseInt(string.nextToken()));
+                    return true;
+                }else{
+                    return false;
+                }
             case "flamethrower":
                 Printer.println("Basic mode: <direction> <victim1> <victim2>");
                 Printer.println("In barbecue mode: <direction>");
@@ -509,12 +557,36 @@ public class CommandLine implements ViewInterface {
                 Printer.println("In scanner mode: <2> <victim>");
                 Printer.println("In scanner mode: <2> <victim> <victim>");
                 Printer.println("In scanner mode: <2> <victim> <victim> <victim>");
-                break;
+                string = new StringTokenizer(userInputStream.readLine());
+                if(string.countTokens() == 2){
+                    client.shoot(weapon, Integer.parseInt(string.nextToken()), Converter.fromStringToTokenColor(string.nextToken()));
+                    return true;
+                }else if(string.countTokens() == 3){
+                    client.shoot(weapon, Integer.parseInt(string.nextToken()), Converter.fromStringToTokenColor(string.nextToken()),
+                            Converter.fromStringToTokenColor(string.nextToken()));
+                    return true;
+                }else if(string.countTokens() == 4){
+                    client.shoot(weapon, Integer.parseInt(string.nextToken()), Converter.fromStringToTokenColor(string.nextToken()),
+                            Converter.fromStringToTokenColor(string.nextToken()), Converter.fromStringToTokenColor(string.nextToken()));
+                    return true;
+                }else{
+                    return false;
+                }
             case "shotgun":
-                Printer.println("Basic mode: <1> <victim>");
-                Printer.println("Basic mode: <1> <victim> <direction>");
-                Printer.println("In long barrel mode: <2> <victim>");
-                break;
+                Printer.println("Basic mode: <victim> <1>");
+                Printer.println("Basic mode: <victim> <1> <direction>");
+                Printer.println("In long barrel mode: <victim> <2>");
+                string = new StringTokenizer(userInputStream.readLine());
+                if(string.countTokens() == 2){
+                    client.shoot(weapon, Converter.fromStringToTokenColor(string.nextToken()), Integer.parseInt(string.nextToken()));
+                    return true;
+                }else if(string.countTokens() == 3){
+                    client.shoot(weapon, Converter.fromStringToTokenColor(string.nextToken()), Integer.parseInt(string.nextToken()),
+                            Converter.fromStringToDirection(string.nextToken()));
+                    return true;
+                }else{
+                    return false;
+                }
             case "powerglove":
                 Printer.println("Basic mode: <1> <victim>");
                 Printer.println("In rocket fist mode: <2> <direction>");
@@ -679,6 +751,8 @@ public class CommandLine implements ViewInterface {
 
     private void notifyNewTurn(){
         Printer.println("It's your turn!");
+        damageBoardPrinter.setPlayer(playerController.getPlayer());
+        damageBoardPrinter.printDamageBoard();
         gameBoardPrinter.setGameBoard(playerController.getGameBoard());
         gameBoardPrinter.printMap();
     }

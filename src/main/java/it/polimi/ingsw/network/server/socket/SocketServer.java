@@ -74,6 +74,9 @@ public class SocketServer implements Runnable, ServerInterface {
             case SQUARE:
                 showSquare();
                 break;
+            case SQUARE_2:
+                showOtherSquare();
+                break;
             case USERNAME:
                 break;
             case MOVE:
@@ -144,6 +147,16 @@ public class SocketServer implements Runnable, ServerInterface {
 
     public void showSquare(){
         serverController.showSquare(clientName);
+    }
+
+    public void showOtherSquare(){
+        try {
+            int x = objectInputStream.readInt();
+            int y = objectInputStream.readInt();
+            serverController.showSquare(clientName, x, y);
+        } catch (IOException e) {
+            Printer.err(e);
+        }
     }
 
     public void move(){
@@ -225,16 +238,16 @@ public class SocketServer implements Runnable, ServerInterface {
         try {
             Direction first, second;
             String weaponName = objectInputStream.readUTF();
-            int effectNumber = objectInputStream.readInt();
             TokenColor victim = (TokenColor) objectInputStream.readObject();
+            int effectNumber = objectInputStream.readInt();
             int directionsSize = objectInputStream.readInt();
             if(directionsSize == 1){
                 first = (Direction) objectInputStream.readObject();
-                serverController.shoot(clientName, weaponName,  victim, effectNumber,first);
+                serverController.shoot(clientName, weaponName,  victim, effectNumber, first);
             }else{
                 first = (Direction) objectInputStream.readObject();
                 second = (Direction) objectInputStream.readObject();
-                serverController.shoot(clientName, weaponName,  victim, effectNumber,first, second);
+                serverController.shoot(clientName, weaponName,  victim, effectNumber, first, second);
             }
         } catch (IOException | ClassNotFoundException e) {
             Printer.err(e);

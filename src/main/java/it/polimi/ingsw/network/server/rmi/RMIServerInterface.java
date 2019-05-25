@@ -14,11 +14,12 @@ public interface RMIServerInterface extends ServerInterface, Remote {
     void login(String username, TokenColor color, ConnectionTimer connectionTimer) throws RemoteException;
     void choose(int choice) throws RemoteException;
     void showSquare() throws RemoteException;
+    void showSquare(int x, int y) throws RemoteException;
     void move(Direction...directions) throws RemoteException;
     void grab(int choice, Direction...directions) throws RemoteException;
     void shoot(String weaponName, int effectNumber, TokenColor...colors) throws RemoteException;
     void shoot(String weaponName, int effectNumber, TokenColor color, int x, int y) throws RemoteException;
-    void shoot(String weaponName, int effectNumber, TokenColor color, Direction...directions) throws RemoteException;
+    void shoot(String weaponName, TokenColor color, int effectNumber, Direction...directions) throws RemoteException;
     void powerup(String powerup, int x, int y) throws RemoteException;
     void powerup(String powerup, Direction direction, int value) throws RemoteException;
     void powerupAmmos(PowerupData...powerups) throws RemoteException;

@@ -191,6 +191,14 @@ public class ServerController {
         }
     }
 
+    public void showSquare(String username, int x, int y){
+        try {
+            servers.get(username).notify(Message.SQUARE, Outcome.RIGHT, gameController.showSquare(users.get(username), x, y));
+        } catch (IOException e) {
+            Printer.err(e);
+        }
+    }
+
     public void disconnect(String username){
         if(users.containsKey(username)){
             disconnectedUsers.put(username, users.get(username));
@@ -301,7 +309,7 @@ public class ServerController {
         gameController.shoot(users.get(username), weaponName, effectNumber-1, users.get(colors.get(color)), x, y);
     }
 
-    public void shoot(String username, String weaponName,  TokenColor color, int effectNumber,Direction...directions){
+    public void shoot(String username, String weaponName,  TokenColor color, int effectNumber, Direction...directions){
         gameController.shoot(users.get(username), weaponName, users.get(colors.get(color)), effectNumber-1, directions);
     }
 

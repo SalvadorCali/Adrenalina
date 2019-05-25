@@ -52,6 +52,11 @@ public class RMIServer extends UnicastRemoteObject implements RMIServerInterface
     }
 
     @Override
+    public void showSquare(int x, int y){
+        serverController.showSquare(clientName, x, y);
+    }
+
+    @Override
     public void move(Direction... directions) throws RemoteException {
         serverController.move(clientName, directions);
     }
@@ -72,8 +77,8 @@ public class RMIServer extends UnicastRemoteObject implements RMIServerInterface
     }
 
     @Override
-    public void shoot(String weaponName, int effectNumber, TokenColor color, Direction... directions) throws RemoteException {
-        serverController.shoot(clientName, weaponName,  color, effectNumber,directions);
+    public void shoot(String weaponName, TokenColor color, int effectNumber, Direction... directions) throws RemoteException {
+        serverController.shoot(clientName, weaponName,  color, effectNumber, directions);
     }
 
     @Override

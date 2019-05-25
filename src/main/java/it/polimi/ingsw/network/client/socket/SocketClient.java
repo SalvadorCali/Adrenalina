@@ -151,6 +151,16 @@ public class SocketClient implements ClientInterface, Runnable, Serializable {
     }
 
     @Override
+    public void showSquare(int x, int y) throws IOException{
+        objectOutputStream.writeObject(Message.SQUARE_2);
+        objectOutputStream.flush();
+        objectOutputStream.writeInt(x);
+        objectOutputStream.flush();
+        objectOutputStream.writeInt(y);
+        objectOutputStream.flush();
+    }
+
+    @Override
     public void move(Direction... directions) throws IOException {
         objectOutputStream.writeObject(Message.MOVE);
         objectOutputStream.flush();
@@ -211,14 +221,14 @@ public class SocketClient implements ClientInterface, Runnable, Serializable {
     }
 
     @Override
-    public void shoot(String weaponName, int effectNumber, TokenColor color, Direction... directions) throws IOException {
+    public void shoot(String weaponName, TokenColor color, int effectNumber, Direction... directions) throws IOException {
         objectOutputStream.writeObject(Message.SHOOT_3);
         objectOutputStream.flush();
         objectOutputStream.writeUTF(weaponName);
         objectOutputStream.flush();
-        objectOutputStream.writeInt(effectNumber);
-        objectOutputStream.flush();
         objectOutputStream.writeObject(color);
+        objectOutputStream.flush();
+        objectOutputStream.writeInt(effectNumber);
         objectOutputStream.flush();
         objectOutputStream.writeInt(directions.length);
         objectOutputStream.flush();

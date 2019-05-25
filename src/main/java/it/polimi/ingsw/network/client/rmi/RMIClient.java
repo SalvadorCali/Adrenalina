@@ -113,6 +113,15 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
     }
 
     @Override
+    public void showSquare(int x, int y){
+        try {
+            server.showSquare(x, y);
+        } catch (RemoteException e) {
+            Printer.err(e);
+        }
+    }
+
+    @Override
     public void move(Direction... directions) throws RemoteException {
         server.move(directions);
     }
@@ -133,8 +142,8 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
     }
 
     @Override
-    public void shoot(String weaponName, int effectNumber, TokenColor color, Direction... directions) throws IOException {
-        server.shoot(weaponName, effectNumber, color, directions);
+    public void shoot(String weaponName, TokenColor color, int effectNumber, Direction... directions) throws IOException {
+        server.shoot(weaponName, color, effectNumber, directions);
     }
 
     @Override

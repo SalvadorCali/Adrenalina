@@ -16,11 +16,12 @@ public interface ClientInterface {
     void disconnect() throws RemoteException;
     void choose(int choice) throws IOException;
     void showSquare() throws IOException;
+    void showSquare(int x, int y) throws IOException;
     void move(Direction...directions) throws IOException;
     void grab(int choice, Direction...directions) throws IOException;
     void shoot(String weaponName, int effectNumber, TokenColor...colors) throws IOException;
     void shoot(String weaponName, int effectNumber, TokenColor color, int x, int y) throws IOException;
-    void shoot(String weaponName, int effectNumber, TokenColor color, Direction...directions) throws IOException;
+    void shoot(String weaponName, TokenColor color, int effectNumber, Direction...directions) throws IOException;
     void powerup(String powerup, int x, int y) throws IOException;
     void powerup(String powerup, Direction direction, int value) throws IOException;
     void powerupAmmos(PowerupData...powerups) throws IOException;
