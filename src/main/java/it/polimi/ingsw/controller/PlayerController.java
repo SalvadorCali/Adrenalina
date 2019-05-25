@@ -9,6 +9,7 @@ import it.polimi.ingsw.model.gamecomponents.GameBoard;
 import it.polimi.ingsw.model.gamecomponents.Player;
 import it.polimi.ingsw.model.gamecomponents.PlayerBoard;
 import it.polimi.ingsw.network.client.ClientInterface;
+import it.polimi.ingsw.util.Config;
 
 import java.util.List;
 
@@ -16,6 +17,7 @@ public class PlayerController {
     private ClientInterface client;
     private Player player;
     private GameBoard gameBoard;
+    private int moves;
 
     public PlayerController(ClientInterface client){
         this.client = client;
@@ -63,5 +65,13 @@ public class PlayerController {
 
     public void addPowerup(PowerupCard powerup){
         player.addPowerup(powerup);
+    }
+
+    public void incrementMoves(){
+        moves++;
+    }
+
+    public boolean canUseAction(){
+        return moves < Config.MAX_ACTIONS;
     }
 }

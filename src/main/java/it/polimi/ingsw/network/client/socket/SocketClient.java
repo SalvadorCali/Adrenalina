@@ -342,6 +342,9 @@ public class SocketClient implements ClientInterface, Runnable, Serializable {
                 break;
             case MOVE:
                 outcome = (Outcome) objectInputStream.readObject();
+                if(outcome.equals(Outcome.RIGHT)){
+                    playerController.incrementMoves();
+                }
                 object = (GameBoard) objectInputStream.readObject();
                 playerController.setGameBoard((GameBoard) object);
                 view.notify(message, outcome);
@@ -354,6 +357,9 @@ public class SocketClient implements ClientInterface, Runnable, Serializable {
                 break;
             case GRAB:
                 outcome = (Outcome) objectInputStream.readObject();
+                if(outcome.equals(Outcome.RIGHT)){
+                    playerController.incrementMoves();
+                }
                 object = (Player) objectInputStream.readObject();
                 playerController.setPlayer((Player) object);
                 view.notify(message, outcome);
@@ -365,6 +371,9 @@ public class SocketClient implements ClientInterface, Runnable, Serializable {
                 break;
             case SHOOT:
                 outcome = (Outcome) objectInputStream.readObject();
+                if(outcome.equals(Outcome.RIGHT)){
+                    playerController.incrementMoves();
+                }
                 object = (Player) objectInputStream.readObject();
                 playerController.setPlayer((Player) object);
                 view.notify(message, outcome);

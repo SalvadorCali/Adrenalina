@@ -229,6 +229,22 @@ public class CommandLine implements ViewInterface {
         return result;
     }
 
+    private boolean move(StringTokenizer input) throws IOException {
+        if(input.countTokens() == 1){
+            client.move(Converter.fromStringToDirection(input.nextToken()));
+            return true;
+        }else if(input.countTokens() == 2){
+            client.move(Converter.fromStringToDirection(input.nextToken()), Converter.fromStringToDirection(input.nextToken()));
+            return true;
+        }else if(input.countTokens() == 3){
+            client.move(Converter.fromStringToDirection(input.nextToken()), Converter.fromStringToDirection(input.nextToken()),
+                        Converter.fromStringToDirection(input.nextToken()));
+            return true;
+        }
+        return false;
+    }
+
+    /*
     private boolean move(StringTokenizer input){
         boolean result = false;
         Direction first, second, third;
@@ -268,6 +284,8 @@ public class CommandLine implements ViewInterface {
         }
         return result;
     }
+
+     */
     /*
     private boolean moveFinalFrenzy(StringTokenizer input) throws IOException {
         Direction first, second, third, fourth;
@@ -316,6 +334,26 @@ public class CommandLine implements ViewInterface {
         return false;
     }
 
+    private boolean grab(StringTokenizer input) throws IOException {
+        int choice = Integer.parseInt(input.nextToken());
+        if(choice != 0){
+            handlePowerup();
+        }
+        if(input.countTokens() == 0){
+            client.grab(choice);
+            return true;
+        }else if(input.countTokens() == 1){
+            client.grab(choice, Converter.fromStringToDirection(input.nextToken()));
+            return true;
+        }else if(input.countTokens() == 2 && !playerController.getAdrenalineZone().equals(AdrenalineZone.DEFAULT)){
+            client.grab(choice, Converter.fromStringToDirection(input.nextToken()),
+                    Converter.fromStringToDirection(input.nextToken()));
+            return true;
+        }
+        return false;
+    }
+
+    /*
     private boolean grab(StringTokenizer input) throws RemoteException {
         if(input.hasMoreTokens()) {
             String next = input.nextToken();
@@ -361,6 +399,7 @@ public class CommandLine implements ViewInterface {
         }
         return false;
     }
+    */
 
     private boolean grabFinalFrenzy(StringTokenizer input) throws IOException {
         handlePowerup();

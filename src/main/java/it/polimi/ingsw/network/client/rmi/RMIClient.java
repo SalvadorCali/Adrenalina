@@ -216,6 +216,9 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
                 }
                 view.notify(message);
             case MOVE:
+                if(outcome.equals(Outcome.RIGHT)){
+                    playerController.incrementMoves();
+                }
                 GameBoard gameBoard = (GameBoard) object;
                 playerController.setGameBoard(gameBoard);
                 view.notify(message, outcome);
@@ -226,11 +229,17 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
                 view.notify(message, outcome);
                 break;
             case GRAB:
+                if(outcome.equals(Outcome.RIGHT)){
+                    playerController.incrementMoves();
+                }
                 Player player = (Player) object;
                 playerController.setPlayer(player);
                 view.notify(message, outcome);
                 break;
             case SHOOT:
+                if(outcome.equals(Outcome.RIGHT)){
+                    playerController.incrementMoves();
+                }
                 Player player2 = (Player) object;
                 playerController.setPlayer(player2);
                 view.notify(message, outcome);
