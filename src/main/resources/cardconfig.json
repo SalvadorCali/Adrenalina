@@ -5,6 +5,7 @@
         "cardtype": "weaponcard",
         "element": [
           {"id" : "0B","name" : "LOCK RIFLE",
+            "effect" : "*basic effect: Deal 2 damage and 1 mark to 1 target you can see.\n*with second lock: Deal 1 mark to a different target you can see.",
             "info_basic_effect" : "Deal 2 damage and 1 mark to 1 target you can see.",
             "info_second_effect" : "Deal 1 mark to a different target you can see.",
             "cost" : "BB",
@@ -15,6 +16,7 @@
             "second_effect" : {"target" : 1, "cost" : "R", "mark" :  1, "range" : 3, "need_different_target":  true}
           },
           {"id" : "1B","name" : "MACHINE GUN",
+            "effect" : "*basic effect: Deal 2 damage and 1 mark to 1 target you can see.\n*with second lock: Deal 1 mark to a different target you can see.",
             "info_basic_effect" : "Choose 1 or 2 targets you can see and deal 1 damage to each",
             "info_second_effect" : "Deal 1 additional damage to one of those targets.",
             "info_third_effect" : "Deal 1 additional damage to the other of those targets and/or deal 1 damage to a different target you can see.",
@@ -27,6 +29,7 @@
             "third_effect" : {"target" : 2, "cost" : "B", "damage" : 1, "range" : 3, "need_different_target":  true}
           },
           {"id" : "2B","name" : "T.H.O.R." ,
+            "effect" : "*basic effect: Deal 2 damage and 1 mark to 1 target you can see.\n*with second lock: Deal 1 mark to a different target you can see.",
             "info_basic_effect" : "Deal 2 damage to 1 target you can see",
             "info_second_effect" : "Deal 1 damage to a second target that your first target can see.",
             "info_third_effect" : "Deal 2 damage to a third target that your second target can see. You cannot use this effect unless you first use the second effect.",
@@ -39,6 +42,7 @@
             "third_effect" : {"target" : 1, "cost" : "B","damage" : 2, "range" : 7, "need_different_target":  true}
           },
           {"id" : "3B","name" : "PLASMA GUN",
+            "effect" : "*basic effect: Deal 2 damage and 1 mark to 1 target you can see.\n*with second lock: Deal 1 mark to a different target you can see.",
             "info_basic_effect" : "Deal 2 damage to 1 target you can see",
             "info_second_effect" : "Move 1 or 2 squares. This effect can be used either before or after the basic effect.",
             "info_third_effect" : "Deal 1 additional damage to your target.",
@@ -51,6 +55,7 @@
             "third_effect" : {"target" : 1, "cost" : "B", "damage" : 1, "range" : 3, "need_same_target" : true}
           },
           {"id" : "4B","name" : "WHISPER" ,
+            "effect" : "*basic effect: Deal 2 damage and 1 mark to 1 target you can see.\n*with second lock: Deal 1 mark to a different target you can see.",
             "info_basic_effect" : "Deal 3 damage and 1 mark to 1 target you can see.Your target must be at least 2 moves away from you.",
             "cost" : "BBY",
             "colour" : "B",
@@ -59,6 +64,7 @@
             "basic_effect" : {"target" : 1, "damage" : 3, "mark" : 1, "range" : 3, "min_range" : 2}
           },
           {"id" : "5B","name" : "ELECTROSCYTHE" ,
+            "effect" : "*basic effect: Deal 2 damage and 1 mark to 1 target you can see.\n*with second lock: Deal 1 mark to a different target you can see.",
             "info_basic_effect" : "Deal 1 damage to every other player on your square",
             "info_optional_effect" : " Deal 2 damage to every other player on your square.",
             "cost" : "B",
@@ -69,6 +75,7 @@
             "optional_effect" : {"target" : 4, "cost" : "BR", "damage" : 2, "range" : 0}
           },
           {"id" : "6B","name" : "TRACTOR BEAM" ,
+            "effect" : "*basic effect: Deal 2 damage and 1 mark to 1 target you can see.\n*with second lock: Deal 1 mark to a different target you can see.",
             "info_basic_effect" : "Move a target 0,1 or 2 squares to a square you can see, and give it 1 damage",
             "info_optional_effect" : "Choose a target 0, 1, or 2 moves away from you. Move the target to your square and deal 3 damage to it.",
             "cost" : "B",
@@ -79,6 +86,7 @@
             "optional_effect" : {"target" : 1, "cost" : "RY", "move_target" : 2, "move_on_your_square" : true, "damage" :  3, "range" : 0}
           },
           {"id" : "0R","name" : "VORTEX CANNON",
+            "effect" : "*basic effect: Deal 2 damage and 1 mark to 1 target you can see.\n*with second lock: Deal 1 mark to a different target you can see.",
             "info_basic_effect" : "Choose a square you can see, but not your square.Call it the vortex. Choose a target on the vortex or 1 move away from it.Move it onto the vortex and give it 2 damage",
             "info_second_effect" : "Choose up to 2 other targets on the vortex or 1 move away from it. Move them onto the vortex and give them each 1 damage.",
             "cost" : "BR",
@@ -89,6 +97,7 @@
             "second_effect" : {"target" : 2, "cost" : "R", "damage" : 1, "choose_vortex" : true}
           },
           {"id" : "1R","name" : "FURNACE",
+            "effect" : "*basic effect: Deal 2 damage and 1 mark to 1 target you can see.\n*with second lock: Deal 1 mark to a different target you can see.",
             "info_basic_effect" : "Choose a room you can see, but not the room you are in.Deal 1 damage to every",
             "info_optional_effect" : "Choose a square exactly one move away. Deal 1 damage and 1 mark to everyone on that square.",
             "cost" : "BR",
@@ -99,6 +108,7 @@
             "optional_effect" : {"target" : 4, "cost" : "null", "damage" : 1, "mark" : 1, "range" : 1, "min_range" : 1}
           },
           {"id" : "2R","name" : "HEATSEEKER",
+            "effect" : "*basic effect: Deal 2 damage and 1 mark to 1 target you can see.\n*with second lock: Deal 1 mark to a different target you can see.",
             "info_basic_effect" : "Choose 1 target you cannot see and deal 3 damage to it. Notes: Yes,this can only hit targets you cannot see.",
             "cost" : "RRY",
             "colour" : "R",
@@ -107,6 +117,7 @@
             "basic_effect" : {"target" : 1, "damage" : 3, "not_visible_target" : true}
           },
           {"id" : "3R","name" : "HELLION",
+            "effect" : "*basic effect: Deal 2 damage and 1 mark to 1 target you can see.\n*with second lock: Deal 1 mark to a different target you can see.",
             "info_basic_effect" : "Deal 1 damage to 1 target you can see at least 1 move away.Then give 1 mark to that target and everyone else on that square.",
             "info_optional_effect" : "Deal 1 damage to 1 target you can see at least 1 move away. Then give 2 marks to that target and everyone else on that square.",
             "cost" : "RY",
@@ -117,6 +128,7 @@
             "optional_effect" : {"target" : 1, "cost" : "R", "damage" : 1, "range" : 3, "min_range" : 1, "mark_all_square_target" : {"target" : 4, "mark" : 2}}
           },
           {"id" : "4R","name" : "FLAMETRHOWER",
+            "effect" : "*basic effect: Deal 2 damage and 1 mark to 1 target you can see.\n*with second lock: Deal 1 mark to a different target you can see.",
             "info_basic_effect" : "Choose a square 1 move away and possibly a second square 1 more move away in the same direction. On each square, you may choose 1 target and give it 1 damage.",
             "info_optional_effect" : "Choose 2 squares as above. Deal 2 damage to everyone on the first square and 1 damage to everyone on the second square.",
             "cost" : "R",
@@ -127,6 +139,7 @@
             "optional_effect" : {"target" : 4, "damage" : 2, "range" : 2, "choose_cardinal_direction" : true}
           },
           {"id" : "5R","name" : "GRENADE LAUNCHER",
+            "effect" : "*basic effect: Deal 2 damage and 1 mark to 1 target you can see.\n*with second lock: Deal 1 mark to a different target you can see.",
             "info_basic_effect" : "Deal 1 damage to 1 target you can see.Then you may move the target 1 square.",
             "info_second_effect" : " Deal 1 damage to every player on a square you can see. You can use this before or after the basic effect's move.",
             "cost" : "R",
@@ -137,6 +150,7 @@
             "second_effect" : {"target" : 4, "cost" : "R", "damage" : 1, "range" : 3}
           },
           {"id" : "6R","name" : "ROCKET LAUNCHER",
+            "effect" : "*basic effect: Deal 2 damage and 1 mark to 1 target you can see.\n*with second lock: Deal 1 mark to a different target you can see.",
             "info_basic_effect" : "Deal 2 damage to 1 target you can see that is not on your square.Then you may move the target 1 square.",
             "info_second_effect" : "Move 1 or 2 squares. This effect can be used either before or after the basic effect.",
             "info_third_effect" : "During the basic effect, deal 1 damage to every player on your target's original square – including the target, even if you move it.",
@@ -149,6 +163,7 @@
             "third_effect" : {"target" : 4, "cost" : "Y", "damage" : 1, "damage_on_square_target" : true}
           },
           {"id" : "0Y","name" : "RAILGUN",
+            "effect" : "*basic effect: Deal 2 damage and 1 mark to 1 target you can see.\n*with second lock: Deal 1 mark to a different target you can see.",
             "info_basic_effect" : "Choose a cardinal direction and 1 target in that direction.Deal 3 damage to it.",
             "info_optional_effect" : "Choose a cardinal direction and 1 or 2 targets in that direction. Deal 2 damage to each.",
             "cost" : "YYB",
@@ -159,6 +174,7 @@
             "optional_effect" : {"target" : 2, "cost" : "null", "damage" : 2, "range" :  4, "choose_cardinal_direction" : true, "ignore_walls" : true}
           },
           {"id" : "1Y","name" : "CYBERBLADE",
+            "effect" : "*basic effect: Deal 2 damage and 1 mark to 1 target you can see.\n*with second lock: Deal 1 mark to a different target you can see.",
             "info_basic_effect" : "Deal 2 damage to 1 target on your square.",
             "info_second_effect" : "Move 1 square before or after the basic effect.",
             "info_third_effect" : "Deal 2 damage to a different target on your square. The shadowstep may be used before or after this effect.",
@@ -171,6 +187,7 @@
             "third_effect" : {"target" : 1, "cost" : "Y", "damage" : 2, "range" : 0, "different_target" : true}
           },
           {"id" : "2Y","name" : "ZX-2",
+            "effect" : "*basic effect: Deal 2 damage and 1 mark to 1 target you can see.\n*with second lock: Deal 1 mark to a different target you can see.",
             "info_basic_effect" : "Deal 1 damage and 2 marks to 1 target you can see.",
             "info_optional_effect" : "Choose up to 3 targets you can see and deal 1 mark to each.",
             "cost" : "YR",
@@ -181,6 +198,7 @@
             "optional_effect" : {"target" : 3, "cost" : "null", "mark" : 1, "range" : 3}
           },
           {"id" : "3Y","name" : "SHOTGUN",
+            "effect" : "*basic effect: Deal 2 damage and 1 mark to 1 target you can see.\n*with second lock: Deal 1 mark to a different target you can see.",
             "info_basic_effect" : "Deal 3 damage to 1 target on your square. If you want, you may then move the target 1 square.",
             "info_optional_effect" : "Deal 2 damage to 1 target on any square exactly one move away.",
             "cost" : "YY",
@@ -191,6 +209,7 @@
             "optional_effect" : {"target" : 1, "cost" : "null", "damage" : 2, "range" : 1, "min_range" : 1}
           },
           {"id" : "4Y","name" : "POWER GLOVE",
+            "effect" : "*basic effect: Deal 2 damage and 1 mark to 1 target you can see.\n*with second lock: Deal 1 mark to a different target you can see.",
             "info_basic_effect" : "Choose 1 target on any square exactly 1 move away. Move onto that square and give the target 1 damage and 2 marks.",
             "info_optional_effect" : "Choose a square exactly 1 move away. Move onto that square. You may deal 2 damage to 1 target there. If you want, you may move 1 more square in that same direction (but only if it is a legal move). You may deal 2 damage to 1 target there, as well.",
             "cost" : "YB",
@@ -201,6 +220,7 @@
             "optional_effect" : {"target" : 1, "move" : 1, "damage" : 2, "range" : 0, "can_repeat" : true}
           },
           {"id" : "5Y","name" : "SHOCKWAVE",
+            "effect" : "*basic effect: Deal 2 damage and 1 mark to 1 target you can see.\n*with second lock: Deal 1 mark to a different target you can see.",
             "info_basic_effect" : "Choose up to 3 targets on different squares, each exactly 1 move away.Deal 1 damage to each target.",
             "info_optional_effect" : "Deal 1 damage to all targets that are exactly 1 move away.",
             "cost" : "Y",
@@ -211,6 +231,7 @@
             "optional_effect" : {"target" : 4, "cost" : "Y","damage" : 1, "range" : 1, "min_range" : 1, "different_square" : true}
           },
           {"id" : "6Y","name" : "SLEDGEHAMMER",
+            "effect" : "*basic effect: Deal 2 damage and 1 mark to 1 target you can see.\n*with second lock: Deal 1 mark to a different target you can see.",
             "info_basic_effect" : "Deal 2 damage to 1 target on your square.",
             "info_optional_effect" : "Deal 3 damage to 1 target on your square, then move that target 0, 1, or 2 squares in one direction.",
             "cost" : "Y",
@@ -278,25 +299,25 @@
       { "cardtype": "powerupcard",
         "element" : [
           {"id" :  "0P","name" :  "TARGETING SCOPE",
-            "info_card_effect" : "You may play this card when you are dealing damage to one or more targets.Pay 1 ammo cube of any color.Choose 1 of those targets and give it an extra point of damage.",
+            "info_card_effect" : "Effect: You may play this card when you are dealing damage to one or more targets.Pay 1 ammo cube of any color.Choose 1 of those targets and give it an extra point of damage.",
             "ammo_value": 1,
             "ammo_color" : ["B", "Y", "R"],
             "effect" : {"target" : 1, "ammo_needed" : 1, "ammo_color" : "ANY", "need_damage" : true, "damage" : 1}
           },
           {"id" :  "1P","name" :  "NEWTON",
-            "info_card_effect": "You may play this card on your turn before or after any action.Choose any other player's figure and move it 1 or 2 squares in one direction.(You can't use this to move a figure after it respawns at the end of your turn.That would be too late.)",
+            "info_card_effect": "Effect: You may play this card on your turn before or after any action.Choose any other player's figure and move it 1 or 2 squares in one direction.(You can't use this to move a figure after it respawns at the end of your turn.That would be too late.)",
             "ammo_value": 1,
             "ammo_color" : ["B", "Y", "R"],
             "effect" : {"not_doing_action" : true, "target" : 1, "move_target" : 2}
           },
           {"id" :  "2P","name" :  "TAGBACK GRENADE",
-            "info_card_effect" : "You may play this card when you receive damage from a player you can see.Give that player 1 mark.",
+            "info_card_effect" : "Effect: You may play this card when you receive damage from a player you can see.Give that player 1 mark.",
             "ammo_value": 1,
             "ammo_color" : ["B", "Y", "R"],
             "effect" : {"damage_received" : true, "range" : 3, "mark" : 1}
           },
           {"id" :  "3P","name" :  "TELEPORTER",
-            "info_card_effect" : "You may play this card on your turn before or after any action.Pick up your figure and set it down of any square of the board.(You can't use this after you see where someone respawns at the end of your turn.By then it is too late.)",
+            "info_card_effect" : "Effect: You may play this card on your turn before or after any action.Pick up your figure and set it down of any square of the board.(You can't use this after you see where someone respawns at the end of your turn.By then it is too late.)",
             "ammo_value": 1,
             "ammo_color" : ["B", "Y", "R"],
             "effect" : {"not_doing_action" : true, "move" : 10}

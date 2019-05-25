@@ -10,7 +10,7 @@ public class PowerupCard extends Card{
     private int powerupId;
     private Effect effect;
 
-    public PowerupCard(String name, Color color) {
-        super(name, color);
+    public PowerupCard(String name, Color color, String effect) {
+        super(name, color, effect);
     }
 }

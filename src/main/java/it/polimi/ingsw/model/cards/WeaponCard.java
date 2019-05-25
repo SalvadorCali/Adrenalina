@@ -24,9 +24,9 @@ public class WeaponCard extends Card{
 
     private List<Effect> effects = new ArrayList<>();
 
-    public WeaponCard(String name, Color color, int grabRedAmmos, int grabBlueAmmos, int grabYellowAmmos, int reloadRedAmmos, int reloadBlueAmmos, int reloadYellowAmmos) {
+    public WeaponCard(String name, Color color, String effect, int grabRedAmmos, int grabBlueAmmos, int grabYellowAmmos, int reloadRedAmmos, int reloadBlueAmmos, int reloadYellowAmmos) {
 
-        super(name, color);
+        super(name, color, effect);
         this.grabRedAmmos = grabRedAmmos;
         this.grabBlueAmmos = grabBlueAmmos;
         this.grabYellowAmmos = grabYellowAmmos;

@@ -31,6 +31,7 @@ public class Parser {
         Deck weapons = new Deck();
         String cardName;
         Color cardColor;
+        String cardEffect;
         int grabBlueAmmos, grabRedAmmos, grabYellowAmmos, reloadBlueAmmos, reloadRedAmmos, reloadYellowAmmos;
         for(int i=0; i < 21; i++){
             InputStream input = Parser.class.getClassLoader().getResourceAsStream("cardconfig.json");
@@ -51,6 +52,7 @@ public class Parser {
 
             cardName = (String) thirdObject.get("name");
             cardColor = fromStringToColor((String) thirdObject.get("colour"));
+            cardEffect = (String) thirdObject.get("effect");
             JSONArray grabAmmos = (JSONArray) thirdObject.get("grabAmmos");
             JSONObject grabAmmosObject = (JSONObject) grabAmmos.get(0);
             //JSONObject grabAmmos = (JSONObject) thirdObject.get("grabAmmos");
@@ -63,7 +65,7 @@ public class Parser {
             reloadBlueAmmos = (int)(long) reloadAmmosObject.get("blue");
             reloadRedAmmos = (int)(long) reloadAmmosObject.get("red");
             reloadYellowAmmos = (int)(long) reloadAmmosObject.get("yellow");
-            Card card = new WeaponCard(cardName, cardColor, grabRedAmmos, grabBlueAmmos, grabYellowAmmos, reloadRedAmmos, reloadBlueAmmos, reloadYellowAmmos);
+            Card card = new WeaponCard(cardName, cardColor, cardEffect, grabRedAmmos, grabBlueAmmos, grabYellowAmmos, reloadRedAmmos, reloadBlueAmmos, reloadYellowAmmos);
             weapons.addCard(card);
         }
         weapons.shuffle();
@@ -104,6 +106,7 @@ public class Parser {
     public static Deck createPowerups(){
         Deck powerups = new Deck();
         String cardName;
+        String cardEffect;
         for(int i=0; i < 4; i++){
             InputStream input = Parser.class.getClassLoader().getResourceAsStream("cardconfig.json");
             Object reader = null;
@@ -122,11 +125,12 @@ public class Parser {
             JSONObject thirdObject = (JSONObject) secondArray.get(i);
 
             cardName = (String) thirdObject.get("name");
-            Card card = new PowerupCard(cardName, Color.BLUE);
+            cardEffect = (String) thirdObject.get("info_card_effect");
+            Card card = new PowerupCard(cardName, Color.BLUE, cardEffect);
             powerups.addCard(card);
-            card = new PowerupCard(cardName, Color.YELLOW);
+            card = new PowerupCard(cardName, Color.YELLOW, cardEffect);
             powerups.addCard(card);
-            card = new PowerupCard(cardName, Color.RED);
+            card = new PowerupCard(cardName, Color.RED, cardEffect);
             powerups.addCard(card);
         }
         powerups.shuffle();

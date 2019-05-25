@@ -7,10 +7,17 @@ import java.io.Serializable;
 public abstract class Card implements Serializable {
     private String name;
     private Color color;
+    private String effect;
 
     public Card(String name, Color color){
         this.name = name;
         this.color = color;
+    }
+
+    public Card(String name, Color color, String effect){
+        this.name = name;
+        this.color = color;
+        this.effect = effect;
     }
 
     public String getName() {
@@ -31,7 +38,7 @@ public abstract class Card implements Serializable {
 
     public String toString(){
         StringBuilder card = new StringBuilder();
-        card.append("Name: " + this.name).append("\nColor: " + this.color).append("\nEffect:");
+        card.append("Name: " + this.name).append("\nColor: " + this.color).append("\n" + this.effect);
         return card.toString();
     }
 }
