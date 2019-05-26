@@ -6,7 +6,10 @@ import it.polimi.ingsw.model.cards.effects.Effect;
 import it.polimi.ingsw.model.cards.effects.weapons.basiceffects.SquareDamageEffect;
 import it.polimi.ingsw.model.enums.Color;
 import it.polimi.ingsw.model.enums.TokenColor;
+import it.polimi.ingsw.model.gamecomponents.Ammo;
 import it.polimi.ingsw.model.gamecomponents.Player;
+import it.polimi.ingsw.util.Printer;
+import it.polimi.ingsw.view.MapCLI;
 import org.junit.jupiter.api.Test;
 import static junit.framework.TestCase.*;
 
@@ -27,6 +30,24 @@ public class SquareDamageTest {
         //assertTrue(hellion.canUseEffect(gameController.getActionInterface()));
     }
 
+    @Test
+    void electroscytheUseTest1(){
+        playerSetup();
+        gameController.getGame().getBoard().move(0,0, victim);
+        MapCLI mapCLI = new MapCLI(gameController.getGame().getBoard());
+        mapCLI.printMap();
+        Effect electroscythe = new SquareDamageEffect("Electroscythe", 1, 0,0, 0,0);
+        electroscythe.canUseEffect(gameController.getActionInterface());
+        electroscythe.useEffect(gameController.getActionInterface());
+        assertEquals(TokenColor.GREEN ,victim.getPlayerBoard().getDamageBoard()[0].getFirstColor());
+        Effect electroscythe2 = new SquareDamageEffect("Electroscythe", 2, 0,1, 1,0);
+        currentPlayer.addAmmo(new Ammo(Color.BLUE), new Ammo(Color.RED));
+        electroscythe2.canUseEffect(gameController.getActionInterface());
+        electroscythe2.useEffect(gameController.getActionInterface());
+        assertEquals(TokenColor.GREEN ,victim.getPlayerBoard().getDamageBoard()[1].getFirstColor());
+        assertEquals(TokenColor.GREEN ,victim.getPlayerBoard().getDamageBoard()[2].getFirstColor());
+    }
+
     void playerSetup(){
 
         ClientData clientData = gameController.getActionInterface().getClientData();
@@ -35,8 +56,8 @@ public class SquareDamageTest {
         gameController.getGame().getBoard().generatePlayer(0,0,currentPlayer);
         gameController.getGame().getPlayers().add(currentPlayer);
         clientData.setCurrentPlayer(currentPlayer);
-        currentPlayer.increaseAmmoNumber(Color.BLUE);
-        currentPlayer.increaseAmmoNumber(Color.BLUE);
+        gameController.getGame().setCurrentPlayer(currentPlayer);
+
 
         //victimSetup
         gameController.getGame().getBoard().generatePlayer(1,0,victim);

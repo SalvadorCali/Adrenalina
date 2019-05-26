@@ -3,6 +3,7 @@ package it.polimi.ingsw.model.cards.effects.weapons.basiceffects;
 import it.polimi.ingsw.model.cards.effects.ActionInterface;
 import it.polimi.ingsw.model.gamecomponents.Player;
 import it.polimi.ingsw.model.gamecomponents.Position;
+import it.polimi.ingsw.util.Printer;
 
 public class SquareDamageEffect extends BasicEffect {
 
@@ -16,7 +17,7 @@ public class SquareDamageEffect extends BasicEffect {
 
     private Position square;
 
-    private Player victim;
+    private Player currentPlayer, victim;
 
     private boolean canUse;
 
@@ -35,8 +36,7 @@ public class SquareDamageEffect extends BasicEffect {
     public boolean canUseEffect(ActionInterface actionInterface) {
 
         setData(actionInterface);
-        canUse = actionInterface.ammoControl(redAmmos, yellowAmmos, blueAmmos); // Electroscythe
-
+        canUse = actionInterface.ammoControl(redAmmos, blueAmmos, yellowAmmos);// Electroscythe
         if(canUse) {
             if (effectName.equals("Furnace1") || effectName.equals("Hellion"))
                 canUse = actionInterface.isVisibleDifferentSquare(square.getX(), square.getY());
@@ -62,10 +62,14 @@ public class SquareDamageEffect extends BasicEffect {
 
     private void setData(ActionInterface actionInterface){
         actionInterface.getClientData().setAmmos();
+        currentPlayer = actionInterface.getCurrentPlayer();
         victim = actionInterface.getVictim();
         square = actionInterface.getSquare();
         if(effectName.equals("Hellion"))
             actionInterface.getClientData().setSquare(victim.getPosition().getX(), victim.getPosition().getY());
+        if(effectName.equals("Electroscythe"))
+            actionInterface.getClientData().setSquare(currentPlayer.getPosition().getX(), currentPlayer.getPosition().getY());
+
     }
 
 

@@ -51,16 +51,14 @@ public class AdditionalTargetTest {
         playerSetup();
         Effect lockRifle = new DamageMarkEffect("Lock Rifle", 2, 1, 0, 0, 0);
         Effect lockRifleAdditional = new AdditionalTarget("Lock Rifle", 0, 1,1,0,0, lockRifle);
-
         gameController.getActionInterface().getClientData().setBasicFirst(true);
-        currentPlayer.addAmmo(new Ammo(Color.RED));
+        currentPlayer.addAmmo(new Ammo(Color.RED), new Ammo(Color.BLUE));
         lockRifleAdditional.canUseEffect(gameController.getActionInterface());
         lockRifleAdditional.useEffect(gameController.getActionInterface());
         assertEquals(TokenColor.GREEN,victim.getPlayerBoard().getDamageBoard()[0].getFirstColor());
         assertEquals(TokenColor.GREEN,victim.getPlayerBoard().getDamageBoard()[1].getFirstColor());
         assertEquals(TokenColor.GREEN, victim.getPlayerBoard().getRevengeMarks().get(0).getFirstColor());
-        assertEquals(TokenColor.GREEN, secondVictim.getPlayerBoard().getRevengeMarks().get(0).getFirstColor());
-        Printer.println(currentPlayer.getAmmoBox().size());
+        assertEquals(TokenColor.GREEN, secondVictim.getPlayerBoard().getRevengeMarks().get(0).getFirstColor());;
     }
 
 
@@ -131,8 +129,7 @@ public class AdditionalTargetTest {
         gameController.getGame().getPlayers().add(currentPlayer);
         gameController.getGame().setCurrentPlayer(currentPlayer);
         clientData.setCurrentPlayer(currentPlayer);
-        currentPlayer.increaseAmmoNumber(Color.BLUE);
-        currentPlayer.increaseAmmoNumber(Color.BLUE);
+        currentPlayer.addAmmo(new Ammo(Color.BLUE), new Ammo(Color.BLUE));
 
         //victimSetup
         gameController.getGame().getBoard().generatePlayer(1,0,victim);
