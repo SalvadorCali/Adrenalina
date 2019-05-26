@@ -7,11 +7,13 @@ import it.polimi.ingsw.model.cards.effects.weapons.basiceffects.DamageMarkEffect
 import it.polimi.ingsw.model.cards.effects.weapons.singleaddictions.AdditionalTarget;
 import it.polimi.ingsw.model.enums.Color;
 import it.polimi.ingsw.model.enums.TokenColor;
+import it.polimi.ingsw.model.gamecomponents.Ammo;
 import it.polimi.ingsw.model.gamecomponents.Player;
+import it.polimi.ingsw.util.Printer;
 import it.polimi.ingsw.view.MapCLI;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class AdditionalTargetTest {
 
@@ -42,6 +44,26 @@ public class AdditionalTargetTest {
         assertFalse(lockRifle.canUseEffect(gameController.getActionInterface()));
         assertFalse(lockRifleAddictional.canUseEffect(gameController.getActionInterface()));
     }
+
+    @Test
+    void lockRifleAdditionalUseTest(){
+
+        playerSetup();
+        Effect lockRifle = new DamageMarkEffect("Lock Rifle", 2, 1, 0, 0, 0);
+        Effect lockRifleAdditional = new AdditionalTarget("Lock Rifle", 0, 1,1,0,0, lockRifle);
+
+        gameController.getActionInterface().getClientData().setBasicFirst(true);
+        currentPlayer.addAmmo(new Ammo(Color.RED));
+        lockRifleAdditional.canUseEffect(gameController.getActionInterface());
+        lockRifleAdditional.useEffect(gameController.getActionInterface());
+        assertEquals(TokenColor.GREEN,victim.getPlayerBoard().getDamageBoard()[0].getFirstColor());
+        assertEquals(TokenColor.GREEN,victim.getPlayerBoard().getDamageBoard()[1].getFirstColor());
+        assertEquals(TokenColor.GREEN, victim.getPlayerBoard().getRevengeMarks().get(0).getFirstColor());
+        assertEquals(TokenColor.GREEN, secondVictim.getPlayerBoard().getRevengeMarks().get(0).getFirstColor());
+        Printer.println(currentPlayer.getAmmoBox().size());
+    }
+
+
 
     @Test
     void thorFirstAdditionalTest(){
@@ -107,6 +129,7 @@ public class AdditionalTargetTest {
         //currentPlayerSetup
         gameController.getGame().getBoard().generatePlayer(0,0,currentPlayer);
         gameController.getGame().getPlayers().add(currentPlayer);
+        gameController.getGame().setCurrentPlayer(currentPlayer);
         clientData.setCurrentPlayer(currentPlayer);
         currentPlayer.increaseAmmoNumber(Color.BLUE);
         currentPlayer.increaseAmmoNumber(Color.BLUE);
