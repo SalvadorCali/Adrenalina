@@ -16,7 +16,7 @@ public interface ActionInterface {
 
     void playerDamage(TokenColor color, int damagePower);
 
-    void playerMark(TokenColor color, int markPower);
+    //void playerMark(TokenColor color, int markPower);
 
     boolean isVisible(TokenColor victim);
 
@@ -81,6 +81,10 @@ public interface ActionInterface {
     Player getFakePlayer();
 
     boolean basicFirst();
+
+    void playerDamage(Player victim, int damagePower);
+
+    void playerMark(Player victim, int markPower);
 
 
 }

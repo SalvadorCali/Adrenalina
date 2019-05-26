@@ -65,8 +65,8 @@ public class AdditionalTarget extends SingleAddictionEffect {
         if(effectName.equals("Machine Gun Double") || effectName.equals("T.H.O.R. Double")){
             actionInterface.playerDamage(thirdVictim.getColor(), damagePower);
         }else{
-            actionInterface.playerDamage(additionalVictim.getColor(), damagePower);
-            actionInterface.playerMark(additionalVictim.getColor(), markPower);
+            actionInterface.playerDamage(additionalVictim, damagePower);
+            actionInterface.playerMark(additionalVictim, markPower);
         }
         actionInterface.updateAmmoBox(redAmmos, blueAmmos, yellowAmmos);
     }

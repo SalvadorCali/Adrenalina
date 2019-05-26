@@ -8,6 +8,8 @@ import it.polimi.ingsw.model.enums.Color;
 import it.polimi.ingsw.model.enums.TokenColor;
 import it.polimi.ingsw.model.gamecomponents.Ammo;
 import it.polimi.ingsw.model.gamecomponents.Player;
+import it.polimi.ingsw.util.Printer;
+import it.polimi.ingsw.view.MapCLI;
 import org.junit.jupiter.api.Test;
 import static junit.framework.TestCase.*;
 
@@ -18,6 +20,7 @@ public class DamageMarkTest {
     private Player victim = new Player(TokenColor.BLUE);
     private Player secondVictim = new Player(TokenColor.PURPLE);
     private Player thirdVictim = new Player(TokenColor.YELLOW);
+
 
     @Test
     void lockRifleCanUseEffectTest() {
@@ -41,6 +44,18 @@ public class DamageMarkTest {
 
         gameController.getGame().getBoard().move(1,1,currentPlayer);
         assertFalse(lockRifle.canUseEffect(gameController.getActionInterface()));
+    }
+
+    @Test
+    void lockRifleUseTest(){
+
+        playerSetup();
+        Effect lockRifle = new DamageMarkEffect("Lock Rifle", 2, 1, 0, 0, 0);
+        lockRifle.canUseEffect(gameController.getActionInterface());
+        lockRifle.useEffect(gameController.getActionInterface());
+        assertEquals(TokenColor.GREEN, victim.getPlayerBoard().getDamageBoard()[0].getFirstColor());
+        assertEquals(TokenColor.GREEN, victim.getPlayerBoard().getDamageBoard()[1].getFirstColor());
+        assertEquals(TokenColor.GREEN, victim.getPlayerBoard().getRevengeMarks().get(0).getFirstColor());
     }
 
     @Test
@@ -197,6 +212,7 @@ public class DamageMarkTest {
         gameController.getGame().getBoard().generatePlayer(0,0,currentPlayer);
         gameController.getGame().getPlayers().add(currentPlayer);
         clientData.setCurrentPlayer(currentPlayer);
+        gameController.getGame().setCurrentPlayer(currentPlayer);
         currentPlayer.addAmmo(new Ammo(Color.BLUE), new Ammo(Color.BLUE));
 
         //victimSetup

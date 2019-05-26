@@ -48,13 +48,13 @@ public class DamageMarkEffect extends BasicEffect {
     @Override
     public void useEffect(ActionInterface actionInterface) {
 
-        actionInterface.playerDamage(victim.getColor(), damagePower);
-        actionInterface.playerMark(victim.getColor(), markPower);
+        actionInterface.playerDamage(victim, damagePower);
+        actionInterface.playerMark(victim, markPower);
         if (effectName.equals("Machine Gun")) {
             actionInterface.playerDamage(secondVictim.getColor(), damagePower);
         }else if (effectName.equals("ZX-22")){
-            actionInterface.playerMark(secondVictim.getColor(), markPower);
-            actionInterface.playerMark(thirdVictim.getColor(), markPower);
+            actionInterface.playerMark(secondVictim, markPower);
+            actionInterface.playerMark(thirdVictim, markPower);
         }
         actionInterface.updateAmmoBox(redAmmos, blueAmmos, yellowAmmos);
     }

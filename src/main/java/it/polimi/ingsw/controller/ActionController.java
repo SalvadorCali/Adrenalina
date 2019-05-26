@@ -105,11 +105,25 @@ public class ActionController implements ActionInterface {
 
     }
 
-    @Override
-    public void playerMark(TokenColor color, int markPower) {
+    public void playerDamage(Player victim, int damagePower){
 
-        for(int i = 0; i < markPower; i++)
-            game.findPlayer(color).getPlayerBoard().addRevengeMarks(game.getCurrentPlayer().getColor());
+        for(int i = 0; i < damagePower; i++){
+            for(int j = 0; j < game.getPlayers().size(); j++){
+                if(game.getPlayers().get(j).equals(victim))
+                    game.getPlayers().get(j).getPlayerBoard().addDamage(game.getCurrentPlayer().getColor());
+            }
+        }
+    }
+
+    @Override
+    public void playerMark(Player victim, int markPower) {
+
+        for(int i = 0; i < markPower; i++){
+            for(int j = 0; j < game.getPlayers().size(); j++){
+                if(game.getPlayers().get(j).equals(victim))
+                    game.getPlayers().get(j).getPlayerBoard().addRevengeMarks(game.getCurrentPlayer().getColor());
+            }
+        }
 
     }
 
