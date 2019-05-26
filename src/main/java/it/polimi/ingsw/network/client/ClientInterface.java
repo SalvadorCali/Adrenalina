@@ -19,6 +19,7 @@ public interface ClientInterface {
     void showSquare(int x, int y) throws IOException;
     void move(Direction...directions) throws IOException;
     void grab(int choice, Direction...directions) throws IOException;
+    void shoot(String weaponName, int effectNumber, boolean basicFirst, TokenColor firstVictim, TokenColor secondVictim, TokenColor thirdVictim, int x, int y, Direction...directions) throws IOException;
     void shoot(String weaponName, int effectNumber, TokenColor...colors) throws IOException;
     void shoot(String weaponName, int effectNumber, TokenColor color, int x, int y) throws IOException;
     void shoot(String weaponName, TokenColor color, int effectNumber, Direction...directions) throws IOException;

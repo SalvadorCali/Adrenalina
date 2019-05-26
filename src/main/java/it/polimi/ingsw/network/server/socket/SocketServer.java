@@ -202,6 +202,42 @@ public class SocketServer implements Runnable, ServerInterface {
         }
     }
 
+    public void shoot(){
+        try {
+            Direction first, second, third, fourth;
+            String weaponName = objectInputStream.readUTF();
+            int effectNumber = objectInputStream.readInt();
+            boolean basicFirst = objectInputStream.readBoolean();
+            TokenColor firstVictim = (TokenColor) objectInputStream.readObject();
+            TokenColor secondVictim = (TokenColor) objectInputStream.readObject();
+            TokenColor thirdVictim = (TokenColor) objectInputStream.readObject();
+            int x = objectInputStream.readInt();
+            int y = objectInputStream.readInt();
+            int directionsLength = objectInputStream.readInt();
+            if(directionsLength == 1){
+                first = (Direction) objectInputStream.readObject();
+                serverController.shoot(weaponName, effectNumber, basicFirst, clientName, firstVictim, secondVictim, thirdVictim, x, y, first);
+            }else if(directionsLength == 2){
+                first = (Direction) objectInputStream.readObject();
+                second = (Direction) objectInputStream.readObject();
+                serverController.shoot(weaponName, effectNumber, basicFirst, clientName, firstVictim, secondVictim, thirdVictim, x, y, first, second);
+            }else if(directionsLength == 3){
+                first = (Direction) objectInputStream.readObject();
+                second = (Direction) objectInputStream.readObject();
+                third = (Direction) objectInputStream.readObject();
+                serverController.shoot(weaponName, effectNumber, basicFirst, clientName, firstVictim, secondVictim, thirdVictim, x, y, first, second, third);
+            }else if(directionsLength == 4){
+                first = (Direction) objectInputStream.readObject();
+                second = (Direction) objectInputStream.readObject();
+                third = (Direction) objectInputStream.readObject();
+                fourth = (Direction) objectInputStream.readObject();
+                serverController.shoot(weaponName, effectNumber, basicFirst, clientName, firstVictim, secondVictim, thirdVictim, x, y, first, second, third, fourth);
+            }
+        } catch (IOException | ClassNotFoundException e) {
+            Printer.err(e);
+        }
+    }
+
     public void shootA(){
         try {
             String weaponName = objectInputStream.readUTF();

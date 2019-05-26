@@ -315,6 +315,23 @@ public class ServerController {
         gameController.shoot(users.get(username), weaponName, users.get(colors.get(color)), effectNumber-1, directions);
     }
 
+    //metodo completo
+    public void shoot(String weaponName, int effectNumber, boolean basicFirst, String username, TokenColor firstVictim, TokenColor secondVictim, TokenColor thirdVictim, int x, int y, Direction...directions){
+        Player victim1 = null;
+        Player victim2 = null;
+        Player victim3 = null;
+        if(!firstVictim.equals(TokenColor.NONE)){
+            victim1 = users.get(colors.get(firstVictim));
+        }
+        if(!secondVictim.equals(TokenColor.NONE)){
+            victim2 = users.get(colors.get(secondVictim));
+        }
+        if(!thirdVictim.equals(TokenColor.NONE)){
+            victim3 = users.get(colors.get(thirdVictim));
+        }
+        gameController.shoot(weaponName, effectNumber, basicFirst, users.get(username), victim1, victim2, victim3, x, y, directions);
+    }
+
 
     public void powerup(String username, String powerup, int x, int y){
         if(gameController.canMove(x,y)){

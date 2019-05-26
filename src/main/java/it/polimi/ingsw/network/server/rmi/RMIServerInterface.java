@@ -6,6 +6,7 @@ import it.polimi.ingsw.model.enums.Direction;
 import it.polimi.ingsw.model.enums.TokenColor;
 import it.polimi.ingsw.network.server.ServerInterface;
 
+import java.io.IOException;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 
@@ -17,6 +18,7 @@ public interface RMIServerInterface extends ServerInterface, Remote {
     void showSquare(int x, int y) throws RemoteException;
     void move(Direction...directions) throws RemoteException;
     void grab(int choice, Direction...directions) throws RemoteException;
+    void shoot(String weaponName, int effectNumber, boolean basicFirst, TokenColor firstVictim, TokenColor secondVictim, TokenColor thirdVictim, int x, int y, Direction...directions) throws RemoteException;
     void shoot(String weaponName, int effectNumber, TokenColor...colors) throws RemoteException;
     void shoot(String weaponName, int effectNumber, TokenColor color, int x, int y) throws RemoteException;
     void shoot(String weaponName, TokenColor color, int effectNumber, Direction...directions) throws RemoteException;

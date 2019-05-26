@@ -189,6 +189,34 @@ public class SocketClient implements ClientInterface, Runnable, Serializable {
     }
 
     @Override
+    public void shoot(String weaponName, int effectNumber, boolean basicFirst, TokenColor firstVictim, TokenColor secondVictim, TokenColor thirdVictim, int x, int y, Direction... directions) throws IOException {
+        objectOutputStream.writeObject(Message.SHOOT);
+        objectOutputStream.flush();
+        objectOutputStream.writeUTF(weaponName);
+        objectOutputStream.flush();
+        objectOutputStream.writeInt(effectNumber);
+        objectOutputStream.flush();
+        objectOutputStream.writeBoolean(basicFirst);
+        objectOutputStream.flush();
+        objectOutputStream.writeObject(firstVictim);
+        objectOutputStream.flush();
+        objectOutputStream.writeObject(secondVictim);
+        objectOutputStream.flush();
+        objectOutputStream.writeObject(thirdVictim);
+        objectOutputStream.flush();
+        objectOutputStream.writeInt(x);
+        objectOutputStream.flush();
+        objectOutputStream.writeInt(y);
+        objectOutputStream.flush();
+        objectOutputStream.writeInt(directions.length);
+        objectOutputStream.flush();
+        for(Direction direction : directions){
+            objectOutputStream.writeObject(direction);
+            objectOutputStream.flush();
+        }
+    }
+
+    @Override
     public void shoot(String weaponName, int effectNumber, TokenColor...colors) throws IOException {
         objectOutputStream.writeObject(Message.SHOOT_1);
         objectOutputStream.flush();
