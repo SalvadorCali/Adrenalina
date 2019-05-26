@@ -61,8 +61,6 @@ public class AdditionalTargetTest {
         assertEquals(TokenColor.GREEN, secondVictim.getPlayerBoard().getRevengeMarks().get(0).getFirstColor());;
     }
 
-
-
     @Test
     void thorFirstAdditionalTest(){
 
@@ -95,6 +93,14 @@ public class AdditionalTargetTest {
 
         gameController.getGame().getBoard().move(1,1,thirdVictim);
         assertFalse(machineGunDouble.canUseEffect(gameController.getActionInterface()));
+    }
+
+    @Test
+    void machineGunDoubleUseTest(){
+        playerSetup();
+        Effect machineGun = new DamageMarkEffect("Machine Gun",1,0,0,0,0);
+        //Effect machineGunAdd = new AdditionalTarget("Ma")
+
     }
 
     @Test

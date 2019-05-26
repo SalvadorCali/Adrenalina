@@ -141,6 +141,17 @@ public class DamageMarkTest {
     }
 
     @Test
+    void machineGunUseTest(){
+
+        playerSetup();
+        Effect machineGun = new DamageMarkEffect("Machine Gun",1,0,0,0,0);
+        machineGun.canUseEffect(gameController.getActionInterface());
+        machineGun.useEffect(gameController.getActionInterface());
+        assertEquals(TokenColor.GREEN, victim.getPlayerBoard().getDamageBoard()[0].getFirstColor());
+        assertEquals(TokenColor.GREEN, secondVictim.getPlayerBoard().getDamageBoard()[0].getFirstColor());
+    }
+
+    @Test
     void heatseekerCanUseEffectTest(){
 
         playerSetup();

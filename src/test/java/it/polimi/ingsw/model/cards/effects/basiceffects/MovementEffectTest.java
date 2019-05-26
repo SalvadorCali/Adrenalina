@@ -7,7 +7,9 @@ import it.polimi.ingsw.model.cards.effects.weapons.basiceffects.MovementEffect;
 import it.polimi.ingsw.model.enums.Color;
 import it.polimi.ingsw.model.enums.Direction;
 import it.polimi.ingsw.model.enums.TokenColor;
+import it.polimi.ingsw.model.gamecomponents.Ammo;
 import it.polimi.ingsw.model.gamecomponents.Player;
+import it.polimi.ingsw.util.Printer;
 import it.polimi.ingsw.view.MapCLI;
 import org.junit.jupiter.api.Test;
 import static junit.framework.TestCase.*;
@@ -38,9 +40,25 @@ public class MovementEffectTest {
     }
 
     @Test
+    void tractorBeamMod1UseTest(){
+
+        MapCLI mapCLI = new MapCLI(gameController.getGame().getBoard());
+        playerSetup();
+        mapCLI.printMap();
+        Effect tractorBeamMod1 = new MovementEffect("Tractor Beam1", 1, 0,0,2,0);
+        clientData.setFirstMove(Direction.UP);
+        tractorBeamMod1.canUseEffect(gameController.getActionInterface());
+        tractorBeamMod1.useEffect(gameController.getActionInterface());
+        mapCLI.printMap();
+        assertEquals(TokenColor.GREEN,victim.getPlayerBoard().getDamageBoard()[0].getFirstColor());
+
+    }
+
+    @Test
     void tractorBeamMod2Test(){
         playerSetup();
-        Effect tractorBeamMod2 = new MovementEffect("Tractor Beam2", 1, 0,0,2,0);
+        currentPlayer.addAmmo(new Ammo(Color.RED), new Ammo(Color.YELLOW));
+        Effect tractorBeamMod2 = new MovementEffect("Tractor Beam2", 1, 0,1,0,1);
 
         clientData.setFirstMove(Direction.UP);
         assertFalse(tractorBeamMod2.canUseEffect(gameController.getActionInterface()));
@@ -55,6 +73,26 @@ public class MovementEffectTest {
         gameController.getActionInterface().move(0,2, victim);
         clientData.setSecondMove(Direction.LEFT);
         assertTrue(tractorBeamMod2.canUseEffect(gameController.getActionInterface()));
+    }
+
+    @Test
+    void tractorBeamMod2UseTest(){
+
+        playerSetup();
+        currentPlayer.addAmmo(new Ammo(Color.RED), new Ammo(Color.YELLOW));
+        Effect tractorBeamMod2 = new MovementEffect("Tractor Beam2", 3, 0,1,0,1);
+        gameController.getActionInterface().move(0,2, victim);
+        clientData.setFirstMove(Direction.LEFT);
+        clientData.setSecondMove(Direction.LEFT);
+        MapCLI mapCLI = new MapCLI(gameController.getGame().getBoard());
+        mapCLI.printMap();
+        Printer.println(tractorBeamMod2.canUseEffect(gameController.getActionInterface()));
+        tractorBeamMod2.useEffect(gameController.getActionInterface());
+        mapCLI.printMap();
+        assertEquals(TokenColor.GREEN,victim.getPlayerBoard().getDamageBoard()[0].getFirstColor());
+        assertEquals(TokenColor.GREEN,victim.getPlayerBoard().getDamageBoard()[1].getFirstColor());
+        assertEquals(TokenColor.GREEN,victim.getPlayerBoard().getDamageBoard()[2].getFirstColor());
+
     }
 
     @Test
@@ -146,6 +184,7 @@ public class MovementEffectTest {
         gameController.getGame().getBoard().generatePlayer(0,0,currentPlayer);
         gameController.getGame().getPlayers().add(currentPlayer);
         clientData.setCurrentPlayer(currentPlayer);
+        gameController.getGame().setCurrentPlayer(currentPlayer);
         currentPlayer.increaseAmmoNumber(Color.BLUE);
         currentPlayer.increaseAmmoNumber(Color.BLUE);
 
