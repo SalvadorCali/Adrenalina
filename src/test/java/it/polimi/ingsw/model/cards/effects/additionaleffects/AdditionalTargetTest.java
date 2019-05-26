@@ -126,6 +126,28 @@ public class AdditionalTargetTest {
 
     }
 
+    @Test
+    void thorAdditionalUseTest(){
+        playerSetup();
+        currentPlayer.addAmmo(new Ammo(Color.BLUE), new Ammo(Color.BLUE));
+        Effect thor = new DamageMarkEffect("T.H.O.R.", 2, 0, 0, 0, 0);
+        Effect thorSingle = new AdditionalTarget("T.H.O.R. Single", 1, 0, 0,1,0, thor);
+        Effect thorDouble = new AdditionalTarget("T.H.O.R. Double",2,0,0,1,0, thorSingle);
+        gameController.getGame().getBoard().move(0,1,victim);
+        gameController.getGame().getBoard().move(0,2, secondVictim);
+        gameController.getGame().getBoard().move(1,2,thirdVictim);
+        thorDouble.canUseEffect(gameController.getActionInterface());
+        thorDouble.useEffect(gameController.getActionInterface());
+        assertEquals(TokenColor.GREEN ,victim.getPlayerBoard().getDamageBoard()[0].getFirstColor());
+        assertEquals(TokenColor.GREEN ,victim.getPlayerBoard().getDamageBoard()[1].getFirstColor());
+        assertEquals(TokenColor.GREEN ,secondVictim.getPlayerBoard().getDamageBoard()[0].getFirstColor());
+        assertEquals(TokenColor.GREEN ,thirdVictim.getPlayerBoard().getDamageBoard()[0].getFirstColor());
+        assertEquals(TokenColor.GREEN ,thirdVictim.getPlayerBoard().getDamageBoard()[1].getFirstColor());
+
+    }
+
+
+
     void playerSetup(){
 
         ClientData clientData = gameController.getActionInterface().getClientData();
