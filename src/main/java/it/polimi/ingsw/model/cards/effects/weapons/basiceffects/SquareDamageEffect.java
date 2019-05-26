@@ -63,6 +63,8 @@ public class SquareDamageEffect extends BasicEffect {
     private void setData(ActionInterface actionInterface){
         victim = actionInterface.getVictim();
         square = actionInterface.getSquare();
+        if(effectName.equals("Hellion"))
+            actionInterface.getClientData().setSquare(victim.getPosition().getX(), victim.getPosition().getY());
     }
 
 
