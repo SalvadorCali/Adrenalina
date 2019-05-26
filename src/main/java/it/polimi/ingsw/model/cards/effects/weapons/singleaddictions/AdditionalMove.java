@@ -79,6 +79,8 @@ public class AdditionalMove extends SingleAddictionEffect {
         currentPlayer = actionInterface.getClientData().getCurrentPlayer();
         basicFirst = actionInterface.basicFirst();
         player = actionInterface.getFakePlayer();
+        if(!basicFirst)
+            actionInterface.getClientData().setAmmos();
         if(!effectName.equals("Rocket Launcher")){
             firstMove = actionInterface.getFirstMove();
             secondMove = actionInterface.getSecondMove();

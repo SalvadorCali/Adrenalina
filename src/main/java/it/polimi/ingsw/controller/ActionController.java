@@ -94,7 +94,7 @@ public class ActionController implements ActionInterface {
 
     @Override
     public boolean ammoControl(int redAmmos, int blueAmmos, int yellowAmmos) {
-        return clientData.getCurrentPlayer().ammoControl(redAmmos, blueAmmos, yellowAmmos);
+        return clientData.ammoControl(redAmmos, blueAmmos, yellowAmmos);
     }
 
     @Override

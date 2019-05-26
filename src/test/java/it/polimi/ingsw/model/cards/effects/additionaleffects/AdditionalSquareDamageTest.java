@@ -29,7 +29,7 @@ public class AdditionalSquareDamageTest {
 
         playerSetup();
         Effect grenadeLauncher = new MovementEffect("Grenade Launcher", 0, 0,0,2,0);
-        Effect grenadeLauncherAdd = new AdditionalSquareDamage("Grenade Launcher",0,0,2,0, grenadeLauncher);
+        Effect grenadeLauncherAdd = new AdditionalSquareDamage("Grenade Launcher",0,0,0,0, grenadeLauncher);
         mapCLI.printMap();
 
         gameController.getActionInterface().getClientData().setBasicFirst(true);

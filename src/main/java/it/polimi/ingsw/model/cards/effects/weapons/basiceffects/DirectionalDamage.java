@@ -75,6 +75,7 @@ public class DirectionalDamage extends BasicEffect {
 
     private void setData(ActionInterface actionInterface){
         currentPlayer = actionInterface.getClientData().getCurrentPlayer();
+        actionInterface.getClientData().setAmmos();
         player = actionInterface.getFakePlayer();
         victim = actionInterface.getVictim();
         secondVictim = actionInterface.getSecondVictim();

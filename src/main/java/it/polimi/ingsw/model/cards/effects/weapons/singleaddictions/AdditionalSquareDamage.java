@@ -67,5 +67,8 @@ public class AdditionalSquareDamage extends SingleAddictionEffect{
             this.y = actionInterface.getClientData().getSquare().getY();
         }
         this.basicFirst = actionInterface.basicFirst();
+        if(!basicFirst)
+            actionInterface.getClientData().setAmmos();
+
     }
 }

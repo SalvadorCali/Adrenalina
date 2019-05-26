@@ -84,8 +84,10 @@ public class MovementEffect extends BasicEffect {
     private void setData(ActionInterface actionInterface){
 
         victim = actionInterface.getVictim();
-        if(actionInterface.basicFirst())
+        if(actionInterface.basicFirst()){
             currentPlayer = actionInterface.getClientData().getCurrentPlayer();
+            actionInterface.getClientData().setAmmos();
+        }
         else
             currentPlayer = actionInterface.getClientData().getFakePlayer();
 

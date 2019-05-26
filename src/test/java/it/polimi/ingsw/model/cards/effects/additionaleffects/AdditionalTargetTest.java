@@ -27,7 +27,7 @@ public class AdditionalTargetTest {
 
         playerSetup();
         Effect lockRifle = new DamageMarkEffect("Lock Rifle", 2, 1, 0, 2, 0);
-        Effect lockRifleAddictional = new AdditionalTarget("Lock Rifle", 0, 1,0,2,0, lockRifle);
+        Effect lockRifleAddictional = new AdditionalTarget("Lock Rifle", 0, 1,0,0,0, lockRifle);
 
         MapCLI mapCLI = new MapCLI(gameController.getGame().getBoard());
         assertTrue(lockRifleAddictional.canUseEffect(gameController.getActionInterface()));
@@ -48,7 +48,7 @@ public class AdditionalTargetTest {
 
         playerSetup();
         Effect thor = new DamageMarkEffect("T.H.O.R.", 2, 0, 0, 2, 0);
-        Effect additionalThor = new AdditionalTarget("T.H.O.R. Single", 1, 0,0,2,0, thor);
+        Effect additionalThor = new AdditionalTarget("T.H.O.R. Single", 1, 0,0,0,0, thor);
 
         gameController.getGame().getBoard().move(1,2, currentPlayer);
         gameController.getGame().getBoard().move(1,1, victim);
@@ -68,7 +68,7 @@ public class AdditionalTargetTest {
     void machineGunDoubleTest(){
         playerSetup();
         Effect machineGun = new DamageMarkEffect("Machine Gun", 2, 1, 0, 2, 0);
-        Effect machineGunDouble = new AdditionalTarget("Machine Gun Double", 0, 0, 0,2,0, machineGun);
+        Effect machineGunDouble = new AdditionalTarget("Machine Gun Double", 0, 0, 0,0,0, machineGun);
 
         mapCLI.printMap();
         assertTrue(machineGunDouble.canUseEffect(gameController.getActionInterface()));
@@ -81,8 +81,8 @@ public class AdditionalTargetTest {
     void thorAdditionalTest(){
         playerSetup();
         Effect thor = new DamageMarkEffect("T.H.O.R.", 2, 1, 0, 2, 0);
-        Effect thorSingle = new AdditionalTarget("T.H.O.R. Single", 0, 0, 0,2,0, thor);
-        Effect thorDouble = new AdditionalTarget("T.H.O.R. Double",0,0,0,2,0, thorSingle);
+        Effect thorSingle = new AdditionalTarget("T.H.O.R. Single", 0, 0, 0,0,0, thor);
+        Effect thorDouble = new AdditionalTarget("T.H.O.R. Double",0,0,0,0,0, thorSingle);
         gameController.getGame().getBoard().move(0,1,victim);
         gameController.getGame().getBoard().move(0,2, secondVictim);
         gameController.getGame().getBoard().move(1,2,thirdVictim);

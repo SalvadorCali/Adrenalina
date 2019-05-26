@@ -23,7 +23,10 @@ public class ClientData {
 
     private Position square = new Position(0, 0);
 
+    private int redAmmo = 0, blueAmmo = 0, yellowAmmo = 0;
+
     private boolean basicFirst = true;
+
 
 
     public Player getVictim() {
@@ -110,5 +113,22 @@ public class ClientData {
 
     public void setThirdVictim(Player thirdVictim) {
         this.thirdVictim = thirdVictim;
+    }
+
+    public void setAmmos(){
+        redAmmo = currentPlayer.getRedAmmo();
+        blueAmmo = currentPlayer.getBlueAmmo();
+        yellowAmmo = currentPlayer.getYellowAmmo();
+    }
+
+    public boolean ammoControl(int redAmmos, int blueAmmos, int yellowAmmos){
+
+        if(redAmmos <= redAmmo && blueAmmos <= blueAmmo && yellowAmmos <= yellowAmmo){
+            redAmmo = redAmmo - redAmmos;
+            blueAmmo = blueAmmo - blueAmmos;
+            yellowAmmo = yellowAmmo - yellowAmmos;
+            return true;
+        }
+        return false;
     }
 }
