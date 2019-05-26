@@ -20,6 +20,7 @@ public class SquareDamageTest {
     private GameController gameController = new GameController();
     private Player currentPlayer = new Player(TokenColor.GREEN);
     private Player victim = new Player(TokenColor.BLUE);
+    private Player secondVictim = new Player(TokenColor.YELLOW);
 
     @Test
     void hellionCanUseEffectTest(){
@@ -57,13 +58,14 @@ public class SquareDamageTest {
 
         playerSetup();
         Effect furnace1 = new SquareDamageEffect("Furnace1",1,0,0,0,0);
+        gameController.getGame().getBoard().move(0,1,victim);
         MapCLI mapCLI = new MapCLI(gameController.getGame().getBoard());
         mapCLI.printMap();
-        gameController.getActionInterface().getClientData().setSquare(1,0);
+        gameController.getActionInterface().getClientData().setSquare(0,1);
         Printer.println(furnace1.canUseEffect(gameController.getActionInterface()));
         furnace1.useEffect(gameController.getActionInterface());
-
-
+        assertEquals(TokenColor.GREEN, victim.getPlayerBoard().getDamageBoard()[0].getFirstColor());
+        assertEquals(TokenColor.GREEN,secondVictim.getPlayerBoard().getDamageBoard()[0].getFirstColor());
     }
 
     void playerSetup(){
@@ -76,11 +78,15 @@ public class SquareDamageTest {
         clientData.setCurrentPlayer(currentPlayer);
         gameController.getGame().setCurrentPlayer(currentPlayer);
 
-
         //victimSetup
         gameController.getGame().getBoard().generatePlayer(1,0,victim);
         gameController.getGame().getPlayers().add(victim);
         clientData.setVictim(victim);
+
+        //victimSetup
+        gameController.getGame().getBoard().generatePlayer(0,2,secondVictim);
+        gameController.getGame().getPlayers().add(secondVictim);
+        clientData.setVictim(secondVictim);
 
         //positionSetup
         clientData.setSquare(2, 1);

@@ -124,7 +124,7 @@ public class GameBoard implements Serializable {
         int x = shooter.getPosition().getX();
         int y = shooter.getPosition().getY();
 
-        return ((sameRoom(x, y, x_2, y_2) || throughDoor(x, y, x_2, y_2)));
+        return (throughDoor(x, y, x_2, y_2));
     }
 
     public int distance(Player shooter, int x_2, int y_2) {

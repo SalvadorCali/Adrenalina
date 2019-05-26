@@ -40,7 +40,8 @@ public class SquareDamageEffect extends BasicEffect {
         if(canUse) {
             if (effectName.equals("Hellion"))
                 canUse = actionInterface.isVisible(currentPlayer,victim) && (actionInterface.distanceControl(victim.getPosition().getX(),victim.getPosition().getY())>= 1);
-                //canUse = actionInterface.isVisibleDifferentSquare(square.getX(), square.getY());
+            else if(effectName.equals("Furnace1"))
+                canUse = actionInterface.isVisibleDifferentSquare(square.getX(),square.getY());
             else if (effectName.equals("Furnace2") && (actionInterface.distanceControl(square.getX(), square.getY()) != 1))
                     canUse = false;
         }
