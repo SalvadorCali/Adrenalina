@@ -25,11 +25,16 @@ public class SquareDamageTest {
     void hellionCanUseEffectTest(){
 
         playerSetup();
-        Effect hellion = new SquareDamageEffect("Hellion", 1, 1,0, 2,0);
-        gameController.getGame().getBoard().move(1,1, currentPlayer);
-        //assertTrue(hellion.canUseEffect(gameController.getActionInterface()));
-    }
+        Effect hellion = new SquareDamageEffect("Hellion", 1, 1,0, 0,0);
+        gameController.getGame().getBoard().move(0,1, currentPlayer);
+        MapCLI mapCLI = new MapCLI(gameController.getGame().getBoard());
+        mapCLI.printMap();
+        assertTrue(hellion.canUseEffect(gameController.getActionInterface()));
+        hellion.useEffect(gameController.getActionInterface());
+        assertEquals(TokenColor.GREEN,victim.getPlayerBoard().getDamageBoard()[0].getFirstColor());
+        assertEquals(TokenColor.GREEN,victim.getPlayerBoard().getRevengeMarks().get(0).getFirstColor());
 
+    }
     @Test
     void electroscytheUseTest1(){
         playerSetup();
@@ -46,6 +51,19 @@ public class SquareDamageTest {
         electroscythe2.useEffect(gameController.getActionInterface());
         assertEquals(TokenColor.GREEN ,victim.getPlayerBoard().getDamageBoard()[1].getFirstColor());
         assertEquals(TokenColor.GREEN ,victim.getPlayerBoard().getDamageBoard()[2].getFirstColor());
+    }
+    @Test
+    void furnace1UseTest(){
+
+        playerSetup();
+        Effect furnace1 = new SquareDamageEffect("Furnace1",1,0,0,0,0);
+        MapCLI mapCLI = new MapCLI(gameController.getGame().getBoard());
+        mapCLI.printMap();
+        gameController.getActionInterface().getClientData().setSquare(1,0);
+        Printer.println(furnace1.canUseEffect(gameController.getActionInterface()));
+        furnace1.useEffect(gameController.getActionInterface());
+
+
     }
 
     void playerSetup(){

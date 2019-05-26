@@ -38,8 +38,9 @@ public class SquareDamageEffect extends BasicEffect {
         setData(actionInterface);
         canUse = actionInterface.ammoControl(redAmmos, blueAmmos, yellowAmmos);// Electroscythe
         if(canUse) {
-            if (effectName.equals("Furnace1") || effectName.equals("Hellion"))
-                canUse = actionInterface.isVisibleDifferentSquare(square.getX(), square.getY());
+            if (effectName.equals("Hellion"))
+                canUse = actionInterface.isVisible(currentPlayer,victim) && (actionInterface.distanceControl(victim.getPosition().getX(),victim.getPosition().getY())>= 1);
+                //canUse = actionInterface.isVisibleDifferentSquare(square.getX(), square.getY());
             else if (effectName.equals("Furnace2") && (actionInterface.distanceControl(square.getX(), square.getY()) != 1))
                     canUse = false;
         }
@@ -48,7 +49,7 @@ public class SquareDamageEffect extends BasicEffect {
     @Override
     public void useEffect(ActionInterface actionInterface) {
 
-        if (effectName.equals("Furnace")) {
+        if (effectName.equals("Furnace1")) {
             actionInterface.roomDamage(square.getX(), square.getY(), damagePower, markPower);
         } else {
             if (effectName.equals("Hellion")) {
