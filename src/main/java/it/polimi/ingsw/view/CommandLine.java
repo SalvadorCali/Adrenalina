@@ -473,15 +473,23 @@ public class CommandLine implements ViewInterface {
                 }else{
                     return false;
                 }
-            case "machinegun":
+            case "machinegun": //da terminare
                 Printer.println("Basic effect: <1> <first_victim>");
                 Printer.println("Basic effect: <1> <first_victim> <second_victim>");
                 Printer.println("With focus shot: <2> <first_victim>");
                 Printer.println("With focus shot: <2> <first_victim> <second_victim> <first_or_second_victim>");
                 Printer.println("With turret tripod: <2> <victim>");
                 Printer.println("With turret tripod: <2> <victim> <victim> <victim>");
-                //da terminare
-                break;
+                string = new StringTokenizer(userInputStream.readLine());
+                if(string.countTokens() == 2){
+                    return true;
+                }else if(string.countTokens() == 3){
+                    return true;
+                }else if(string.countTokens() == 4){
+                    return true;
+                }else{
+                    return false;
+                }
             case "thor":
                 Printer.println("Basic effect: <victim>");
                 Printer.println("With chain reaction: <victim> <victim>");
@@ -505,16 +513,30 @@ public class CommandLine implements ViewInterface {
                 }
             case "plasmagun":
                 Printer.println("Basic effect: <1> <victim>");
-                Printer.println("With phase glide: <2> <victim> <direction> <direction>");
                 Printer.println("With phase glide: <2> <victim> <direction>");
-                Printer.println("With phase glide: <2> <direction> <direction> <victim>");
-                Printer.println("With phase glide: <2> <direction> <victim>");
-                Printer.println("With phase glide: <3> <victim> <direction> <direction>");
-                Printer.println("With phase glide: <3> <victim> <direction>");
-                Printer.println("With phase glide: <3> <direction> <direction> <victim>");
-                Printer.println("With phase glide: <3> <direction> <victim>");
-                //da terminare
-                break;
+                Printer.println("With phase glide: <2> <victim> <direction> <direction>");
+                Printer.println("With charged shot: <3> <victim>");
+                Printer.println("With charged shot: <3> <victim> <direction>");
+                Printer.println("With charged shot: <3> <victim> <direction> <direction>");
+                string = new StringTokenizer(userInputStream.readLine());
+                if(string.countTokens() == 2){
+                    client.shoot(weapon, Integer.parseInt(string.nextToken()), true, Converter.fromStringToTokenColor(string.nextToken()),
+                            TokenColor.NONE, TokenColor.NONE, -1, -1);
+                    return true;
+                }else if(string.countTokens() == 3){
+                    boolean basicFirst = basicFirst();
+                    client.shoot(weapon, Integer.parseInt(string.nextToken()), basicFirst, Converter.fromStringToTokenColor(string.nextToken()),
+                            TokenColor.NONE, TokenColor.NONE, -1, -1, Converter.fromStringToDirection(string.nextToken()));
+                    return true;
+                }else if(string.countTokens() == 4){
+                    boolean basicFirst = basicFirst();
+                    client.shoot(weapon, Integer.parseInt(string.nextToken()), basicFirst, Converter.fromStringToTokenColor(string.nextToken()),
+                            TokenColor.NONE, TokenColor.NONE, -1, -1, Converter.fromStringToDirection(string.nextToken()),
+                            Converter.fromStringToDirection(string.nextToken()));
+                    return true;
+                }else{
+                    return false;
+                }
             case "whisper":
                 Printer.println("Effect: <victim>");
                 string = new StringTokenizer(userInputStream.readLine());
@@ -556,7 +578,7 @@ public class CommandLine implements ViewInterface {
                 }else{
                     return false;
                 }
-            case "vortexcannon":
+            case "vortexcannon": //da terminare
                 Printer.println("Basic effect: <1> <squareX> <squareY> <victim>");
                 Printer.println("With black hole: <2> <squareX> <squareY> <victim> <victim>");
                 Printer.println("With black hole: <2> <squareX> <squareY> <victim> <victim> <victim>");
@@ -609,12 +631,37 @@ public class CommandLine implements ViewInterface {
                     return false;
                 }
             case "grenadelauncher":
+                Printer.println("Basic effect: <victim>");
+                Printer.println("Basic effect: <victim> <direction>");
+                Printer.println("With extra grenade: <victim> <squareX> <squareY>");
+                Printer.println("With extra grenade: <victim> <squareX> <squareY> <direction>");
+                string = new StringTokenizer(userInputStream.readLine());
+                if(string.countTokens() == 1){
+                    client.shoot(weapon, 1, true, Converter.fromStringToTokenColor(string.nextToken()),
+                            TokenColor.NONE, TokenColor.NONE, -1, -1);
+                    return true;
+                }else if(string.countTokens() == 2){
+                    client.shoot(weapon, 1, true, Converter.fromStringToTokenColor(string.nextToken()),
+                            TokenColor.NONE, TokenColor.NONE, -1, -1, Converter.fromStringToDirection(string.nextToken()));
+                    return true;
+                }else if(string.countTokens() == 3){
+                    client.shoot(weapon, 2, true, Converter.fromStringToTokenColor(string.nextToken()),
+                            TokenColor.NONE, TokenColor.NONE, Integer.parseInt(string.nextToken()), Integer.parseInt(string.nextToken()));
+                    return true;
+                }else if(string.countTokens() == 4){
+                    boolean basicFirst = basicFirst();
+                    client.shoot(weapon, 2, basicFirst, Converter.fromStringToTokenColor(string.nextToken()),
+                            TokenColor.NONE, TokenColor.NONE, Integer.parseInt(string.nextToken()), Integer.parseInt(string.nextToken()),
+                            Converter.fromStringToDirection(string.nextToken()));
+                    return true;
+                }else{
+                    return false;
+                }
+            case "rocketlauncher": //da terminare
                 Printer.println("Basic effect: <1> <victim>");
                 Printer.println("Basic effect: <1> <victim> <direction>");
-                Printer.println("With extra grenade: <2> <victim> <direction> <squareX> <squareY>");
-                Printer.println("With extra grenade: <2> <squareX> <squareY> <victim> <direction>");
-                break;
-            case "rocketlauncher":
+                Printer.println("With fragmenting warhead: <3> <victim>");
+                Printer.println("With fragmenting warhead: <3> <victim> <direction>");
                 break;
             case "railgun":
                 Printer.println("Basic mode: <1> <victim> <direction>");
@@ -675,16 +722,26 @@ public class CommandLine implements ViewInterface {
                 }else{
                     return false;
                 }
-            case "powerglove":
+            case "powerglove": //da terminare
                 Printer.println("Basic mode: <1> <victim>");
                 Printer.println("In rocket fist mode: <2> <direction>");
 
+                Printer.println("In rocket fist mode: <2> <direction> <direction>");
                 Printer.println("In rocket fist mode: <2> <victim> <direction>");
 
                 Printer.println("In rocket fist mode: <2> <victim> <direction> <direction>");
                 Printer.println("In rocket fist mode: <2> <victim> <victim> <direction>");
 
-                break;
+                Printer.println("In rocket fist mode: <2> <victim> <victim> <direction> <direction>");
+
+                string = new StringTokenizer(userInputStream.readLine());
+                int choice = Integer.parseInt(string.nextToken());
+                if(string.countTokens() == 1 && choice == 1){
+                    return true;
+                }else if(string.countTokens() == 1 && choice == 2){
+                    return true;
+                }
+                return true;
             case "shockwave":
                 Printer.println("Basic mode: <1> <victim>");
                 Printer.println("Basic mode: <1> <victim> <victim>");
@@ -733,6 +790,19 @@ public class CommandLine implements ViewInterface {
                 }
             default:
                 break;
+        }
+        return false;
+    }
+
+    private boolean basicFirst(){
+        Printer.println("Do you want to use the movement effect after the others?: <yes> <no>");
+        try {
+            String basicFirst = userInputStream.readLine();
+            if(basicFirst.equals("yes")){
+                return true;
+            }
+        } catch (IOException e) {
+            Printer.err(e);
         }
         return false;
     }

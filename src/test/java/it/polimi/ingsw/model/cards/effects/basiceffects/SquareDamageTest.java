@@ -21,7 +21,7 @@ public class SquareDamageTest {
     private Player currentPlayer = new Player(TokenColor.GREEN);
     private Player victim = new Player(TokenColor.BLUE);
     private Player secondVictim = new Player(TokenColor.YELLOW);
-
+/*
     @Test
     void hellionCanUseEffectTest(){
 
@@ -36,6 +36,8 @@ public class SquareDamageTest {
         assertEquals(TokenColor.GREEN,victim.getPlayerBoard().getRevengeMarks().get(0).getFirstColor());
 
     }
+    */
+ 
     @Test
     void electroscytheUseTest1(){
         playerSetup();
