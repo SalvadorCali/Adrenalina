@@ -155,7 +155,7 @@ public class DamageMarkTest {
     void heatseekerCanUseEffectTest(){
 
         playerSetup();
-        Effect heatseeker = new DamageMarkEffect("Heatseeker", 2, 1, 0, 2, 0);
+        Effect heatseeker = new DamageMarkEffect("Heatseeker", 3, 0, 0, 0, 0);
 
         assertFalse(heatseeker.canUseEffect(gameController.getActionInterface()));
         gameController.getGame().getBoard().move(0, 1, currentPlayer);
@@ -192,6 +192,12 @@ public class DamageMarkTest {
 
         gameController.getGame().getBoard().move(2,3, currentPlayer);
         assertTrue(heatseeker.canUseEffect(gameController.getActionInterface()));
+        MapCLI mapCLI = new MapCLI(gameController.getGame().getBoard());
+        mapCLI.printMap();
+        heatseeker.useEffect(gameController.getActionInterface());
+        assertEquals(TokenColor.GREEN, victim.getPlayerBoard().getDamageBoard()[0].getFirstColor());
+        assertEquals(TokenColor.GREEN, victim.getPlayerBoard().getDamageBoard()[1].getFirstColor());
+        assertEquals(TokenColor.GREEN, victim.getPlayerBoard().getDamageBoard()[2].getFirstColor());
     }
 
     @Test
