@@ -50,7 +50,12 @@ public class ChoosePowerup extends Application implements Initializable {
                 String name = powerup.get(i).getName();
 
                 Image image = new Image("powerup/" + color + "/" + name + ".png");
-                powerupImg1.setImage(image);
+
+                if(i == 0){
+                    powerupImg1.setImage(image);
+                }else{
+                    powerupImg2.setImage(image);
+                }
             }
         });
     }
