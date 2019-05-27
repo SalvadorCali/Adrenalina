@@ -578,11 +578,28 @@ public class CommandLine implements ViewInterface {
                 }else{
                     return false;
                 }
-            case "vortexcannon": //da terminare
-                Printer.println("Basic effect: <1> <squareX> <squareY> <victim>");
-                Printer.println("With black hole: <2> <squareX> <squareY> <victim> <victim>");
-                Printer.println("With black hole: <2> <squareX> <squareY> <victim> <victim> <victim>");
-                break;
+            case "vortexcannon":
+                Printer.println("Basic effect: <victim> <squareX> <squareY>");
+                Printer.println("With black hole: <victim> <victim> <squareX> <squareY>");
+                Printer.println("With black hole: <victim> <victim> <victim> <squareX> <squareY>");
+                string = new StringTokenizer(userInputStream.readLine());
+                if(string.countTokens() == 3){
+                    client.shoot(weapon, 1, true, Converter.fromStringToTokenColor(string.nextToken()),
+                            TokenColor.NONE, TokenColor.NONE, Integer.parseInt(string.nextToken()), Integer.parseInt(string.nextToken()));
+                    return true;
+                }else if(string.countTokens() == 4){
+                    client.shoot(weapon, 2, true, Converter.fromStringToTokenColor(string.nextToken()),
+                            Converter.fromStringToTokenColor(string.nextToken()), TokenColor.NONE,
+                            Integer.parseInt(string.nextToken()), Integer.parseInt(string.nextToken()));
+                    return true;
+                }else if(string.countTokens() == 5){
+                    client.shoot(weapon, 2, true, Converter.fromStringToTokenColor(string.nextToken()),
+                            Converter.fromStringToTokenColor(string.nextToken()), Converter.fromStringToTokenColor(string.nextToken()),
+                            Integer.parseInt(string.nextToken()), Integer.parseInt(string.nextToken()));
+                    return true;
+                }else{
+                    return false;
+                }
             case "furnace":
                 Printer.println("Basic mode: <1> <squareX> <squareY>");
                 Printer.println("In cozy fire mode: <2> <squareX> <squareY>");
@@ -660,6 +677,9 @@ public class CommandLine implements ViewInterface {
             case "rocketlauncher": //da terminare
                 Printer.println("Basic effect: <1> <victim>");
                 Printer.println("Basic effect: <1> <victim> <direction>");
+                Printer.println("With rocket jump: <2> <victim> <direction> <direction>");
+                Printer.println("With rocket jump: <2> <victim> <direction> <direction> <direction>");
+                Printer.println("With rocket jump: <2> <victim> <direction> <direction>");
                 Printer.println("With fragmenting warhead: <3> <victim>");
                 Printer.println("With fragmenting warhead: <3> <victim> <direction>");
                 break;
@@ -722,7 +742,7 @@ public class CommandLine implements ViewInterface {
                 }else{
                     return false;
                 }
-            case "powerglove": //da terminare
+            case "powerglove":
                 Printer.println("Basic mode: <1> <victim>");
                 Printer.println("In rocket fist mode: <2> <direction>");
 
@@ -737,11 +757,41 @@ public class CommandLine implements ViewInterface {
                 string = new StringTokenizer(userInputStream.readLine());
                 int choice = Integer.parseInt(string.nextToken());
                 if(string.countTokens() == 1 && choice == 1){
+                    client.shoot(weapon, choice, true, Converter.fromStringToTokenColor(string.nextToken()), TokenColor.NONE,
+                            TokenColor.NONE, -1, -1);
                     return true;
                 }else if(string.countTokens() == 1 && choice == 2){
+                    client.shoot(weapon, choice, true, TokenColor.NONE, TokenColor.NONE, TokenColor.NONE, -1, -1,
+                            Converter.fromStringToDirection(string.nextToken()));
                     return true;
+                }else if(string.countTokens() == 2){
+                    String move = string.nextToken();
+                    if(Converter.fromStringToTokenColor(move).equals(TokenColor.NONE)){
+                        client.shoot(weapon, choice, true, TokenColor.NONE, TokenColor.NONE, TokenColor.NONE, -1, -1,
+                                Converter.fromStringToDirection(move));
+                    }else{
+                        client.shoot(weapon, choice, true, Converter.fromStringToTokenColor(move), TokenColor.NONE, TokenColor.NONE,
+                                -1, -1);
+                    }
+                    return true;
+                }else if(string.countTokens() == 3){
+                    TokenColor firstVictim = Converter.fromStringToTokenColor(string.nextToken());
+                    String move = string.nextToken();
+                    if(Converter.fromStringToTokenColor(move).equals(TokenColor.NONE)){
+                        client.shoot(weapon, choice, true, firstVictim, TokenColor.NONE, TokenColor.NONE, -1, -1,
+                                Converter.fromStringToDirection(move), Converter.fromStringToDirection(string.nextToken()));
+                    }else{
+                        client.shoot(weapon, choice, true, firstVictim, Converter.fromStringToTokenColor(move), TokenColor.NONE,
+                                -1, -1, Converter.fromStringToDirection(string.nextToken()));
+                    }
+                    return true;
+                }else if(string.countTokens() == 4){
+                    client.shoot(weapon, choice, true, Converter.fromStringToTokenColor(string.nextToken()), Converter.fromStringToTokenColor(string.nextToken()),
+                            TokenColor.NONE, -1, -1, Converter.fromStringToDirection(string.nextToken()), Converter.fromStringToDirection(string.nextToken()));
+                    return true;
+                }else{
+                    return false;
                 }
-                return true;
             case "shockwave":
                 Printer.println("Basic mode: <1> <victim>");
                 Printer.println("Basic mode: <1> <victim> <victim>");

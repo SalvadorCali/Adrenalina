@@ -37,7 +37,7 @@ public class SquareDamageTest {
 
     }
     */
- 
+
     @Test
     void electroscytheUseTest1(){
         playerSetup();
