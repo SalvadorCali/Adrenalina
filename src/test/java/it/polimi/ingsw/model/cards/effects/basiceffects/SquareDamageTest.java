@@ -38,8 +38,6 @@ public class SquareDamageTest {
         assertEquals(TokenColor.GREEN,victim.getPlayerBoard().getRevengeMarks().get(0).getFirstColor());
 
     }
-
-
     @Test
     void electroscytheUseTest1(){
         playerSetup();

@@ -84,7 +84,7 @@ public class DamageMarkTest {
     void whisperCanUseEffectTest(){
 
         playerSetup();
-        Effect whisper = new DamageMarkEffect("Whisper",3,1,0,2,0);
+        Effect whisper = new DamageMarkEffect("Whisper",3,1,0,0,0);
 
         gameController.getGame().getBoard().move(1,2, victim);
 
@@ -117,6 +117,12 @@ public class DamageMarkTest {
 
         gameController.getGame().getBoard().move(2,1, currentPlayer);
         assertTrue(whisper.canUseEffect(gameController.getActionInterface()));
+        whisper.useEffect(gameController.getActionInterface());
+        assertEquals(TokenColor.GREEN, victim.getPlayerBoard().getDamageBoard()[0].getFirstColor());
+        assertEquals(TokenColor.GREEN, victim.getPlayerBoard().getDamageBoard()[1].getFirstColor());
+        assertEquals(TokenColor.GREEN, victim.getPlayerBoard().getDamageBoard()[2].getFirstColor());
+        assertEquals(TokenColor.GREEN, victim.getPlayerBoard().getRevengeMarks().get(0).getFirstColor());
+
 
         gameController.getGame().getBoard().move(2,2, currentPlayer);
         assertFalse(whisper.canUseEffect(gameController.getActionInterface()));
