@@ -3,6 +3,7 @@ package it.polimi.ingsw.model.cards.effects.weapons.singleaddictions;
 import it.polimi.ingsw.model.cards.effects.ActionInterface;
 import it.polimi.ingsw.model.cards.effects.Effect;
 import it.polimi.ingsw.model.gamecomponents.Player;
+import it.polimi.ingsw.util.Printer;
 
 public class AdditionalTarget extends SingleAddictionEffect {
 
@@ -35,8 +36,9 @@ public class AdditionalTarget extends SingleAddictionEffect {
 
         setData(actionInterface);
         if(basicFirst) {
+            Printer.println(actionInterface.ammoControl(redAmmos, blueAmmos, yellowAmmos));
             canUse = super.effect.canUseEffect(actionInterface) && actionInterface.ammoControl(redAmmos, blueAmmos, yellowAmmos);
-            if (canUse) {
+            if (canUse && !effectName.equals("Plasma Gun Double")) {
                 if (effectName.equals("Lock Rifle")) {
                     canUse = actionInterface.isVisible(currentPlayer, additionalVictim);
                 } else if (effectName.equals("T.H.O.R. Single")) {
@@ -51,6 +53,8 @@ public class AdditionalTarget extends SingleAddictionEffect {
             }
         }else {
             canUse = actionInterface.ammoControl(redAmmos, blueAmmos, yellowAmmos) && actionInterface.sameSquare(currentPlayer,additionalVictim) && super.effect.canUseEffect(actionInterface) ;
+            if(effectName.equals("Plasma Gun Double"))
+                canUse = actionInterface.ammoControl(redAmmos,blueAmmos,yellowAmmos) && super.effect.canUseEffect(actionInterface);
         }
         return canUse;
     }

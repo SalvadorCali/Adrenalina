@@ -4,8 +4,10 @@ import it.polimi.ingsw.controller.ClientData;
 import it.polimi.ingsw.controller.GameController;
 import it.polimi.ingsw.model.cards.effects.Effect;
 import it.polimi.ingsw.model.cards.effects.weapons.basiceffects.DamageMarkEffect;
+import it.polimi.ingsw.model.cards.effects.weapons.singleaddictions.AdditionalMove;
 import it.polimi.ingsw.model.cards.effects.weapons.singleaddictions.AdditionalTarget;
 import it.polimi.ingsw.model.enums.Color;
+import it.polimi.ingsw.model.enums.Direction;
 import it.polimi.ingsw.model.enums.TokenColor;
 import it.polimi.ingsw.model.gamecomponents.Ammo;
 import it.polimi.ingsw.model.gamecomponents.Player;
@@ -144,6 +146,35 @@ public class AdditionalTargetTest {
         assertEquals(TokenColor.GREEN ,thirdVictim.getPlayerBoard().getDamageBoard()[0].getFirstColor());
         assertEquals(TokenColor.GREEN ,thirdVictim.getPlayerBoard().getDamageBoard()[1].getFirstColor());
 
+    }
+
+    @Test
+    void plasmaGunDoubleTest(){
+        playerSetup();
+        Effect plasmaGun = new DamageMarkEffect("Plasma Gun", 2,0,0,0,0);
+        Effect plasmaGunAdd = new AdditionalMove("Plasma Gun", 0,0,0,0,0, plasmaGun);
+        Effect plasmaGunDouble = new AdditionalTarget("Plasma Gun Double", 1,0,0,1,0,plasmaGunAdd);
+        gameController.getGame().getBoard().move(1,1, victim);
+        mapCLI.printMap();
+        gameController.getActionInterface().getClientData().setBasicFirst(false);
+        gameController.getActionInterface().getClientData().setFirstMove(Direction.RIGHT);
+        gameController.getActionInterface().getClientData().setSecondMove(Direction.RIGHT);
+        assertTrue(plasmaGunDouble.canUseEffect(gameController.getActionInterface()));
+        plasmaGunDouble.useEffect(gameController.getActionInterface());
+        mapCLI.printMap();
+        assertEquals(TokenColor.GREEN,victim.getPlayerBoard().getDamageBoard()[0].getFirstColor());
+        assertEquals(TokenColor.GREEN,victim.getPlayerBoard().getDamageBoard()[1].getFirstColor());
+        assertEquals(TokenColor.GREEN,victim.getPlayerBoard().getDamageBoard()[2].getFirstColor());
+
+        gameController.getActionInterface().getClientData().setBasicFirst(true);
+        gameController.getGame().getBoard().move(1,1,currentPlayer);
+        mapCLI.printMap();
+        assertTrue(plasmaGunDouble.canUseEffect(gameController.getActionInterface()));
+        plasmaGunDouble.useEffect(gameController.getActionInterface());
+        assertEquals(TokenColor.GREEN,victim.getPlayerBoard().getDamageBoard()[3].getFirstColor());
+        assertEquals(TokenColor.GREEN,victim.getPlayerBoard().getDamageBoard()[4].getFirstColor());
+        assertEquals(TokenColor.GREEN,victim.getPlayerBoard().getDamageBoard()[5].getFirstColor());
+        mapCLI.printMap();
     }
 
 

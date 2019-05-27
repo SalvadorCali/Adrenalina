@@ -10,6 +10,7 @@ import it.polimi.ingsw.model.enums.Color;
 import it.polimi.ingsw.model.enums.Direction;
 import it.polimi.ingsw.model.enums.TokenColor;
 import it.polimi.ingsw.model.gamecomponents.Player;
+import it.polimi.ingsw.model.gamecomponents.Token;
 import it.polimi.ingsw.view.MapCLI;
 import org.junit.jupiter.api.Test;
 import static junit.framework.TestCase.*;
@@ -57,6 +58,22 @@ public class AdditionalMoveTest {
     }
 
     @Test
+    void plasmaGunAdditionalUseTest(){
+        playerSetup();
+        Effect plasmaGun = new DamageMarkEffect("Plasma Gun", 1,0,0,0,0);
+        Effect plasmaGunAdd = new AdditionalMove("Plasma Gun", 0,0,0,0,0, plasmaGun);
+        gameController.getGame().getBoard().move(1,1, victim);
+        mapCLI.printMap();
+        gameController.getActionInterface().getClientData().setBasicFirst(false);
+        gameController.getActionInterface().getClientData().setFirstMove(Direction.RIGHT);
+        gameController.getActionInterface().getClientData().setSecondMove(Direction.RIGHT);
+        assertTrue(plasmaGunAdd.canUseEffect(gameController.getActionInterface()));
+        plasmaGunAdd.useEffect(gameController.getActionInterface());
+        mapCLI.printMap();
+        assertEquals(TokenColor.GREEN, victim.getPlayerBoard().getDamageBoard()[0].getFirstColor());
+    }
+
+    @Test
     void rocketLauncherAdditionalMoveTest(){
         playerSetup();
         Effect rocketLauncher = new MovementEffect("Rocket Launcher", 0,0,0,2,0);
@@ -89,6 +106,7 @@ public class AdditionalMoveTest {
         gameController.getGame().getBoard().generatePlayer(0,0,currentPlayer);
         gameController.getGame().getPlayers().add(currentPlayer);
         clientData.setCurrentPlayer(currentPlayer);
+        gameController.getGame().setCurrentPlayer(currentPlayer);
         currentPlayer.increaseAmmoNumber(Color.BLUE);
         currentPlayer.increaseAmmoNumber(Color.BLUE);
 
