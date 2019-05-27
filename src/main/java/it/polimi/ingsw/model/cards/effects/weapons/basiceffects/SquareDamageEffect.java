@@ -54,8 +54,8 @@ public class SquareDamageEffect extends BasicEffect {
             actionInterface.roomDamage(square.getX(), square.getY(), damagePower, markPower);
         } else {
             if (effectName.equals("Hellion")) {
-                actionInterface.playerDamage(victim.getColor(), damagePower);
-                damagePower = 0;
+                actionInterface.playerDamage(victim, damagePower);
+                damagePower--;
             }
             actionInterface.squareDamage(square.getX(), square.getY(), damagePower, markPower);
         }
@@ -64,7 +64,7 @@ public class SquareDamageEffect extends BasicEffect {
 
     private void setData(ActionInterface actionInterface){
         actionInterface.getClientData().setAmmos();
-        currentPlayer = actionInterface.getCurrentPlayer();
+        currentPlayer = actionInterface.getClientData().getCurrentPlayer();
         victim = actionInterface.getVictim();
         square = actionInterface.getSquare();
         if(effectName.equals("Hellion"))

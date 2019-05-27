@@ -7,6 +7,7 @@ import it.polimi.ingsw.model.cards.effects.weapons.basiceffects.SquareDamageEffe
 import it.polimi.ingsw.model.enums.Color;
 import it.polimi.ingsw.model.enums.TokenColor;
 import it.polimi.ingsw.model.gamecomponents.Ammo;
+import it.polimi.ingsw.model.gamecomponents.Game;
 import it.polimi.ingsw.model.gamecomponents.Player;
 import it.polimi.ingsw.util.Printer;
 import it.polimi.ingsw.view.MapCLI;
@@ -21,13 +22,14 @@ public class SquareDamageTest {
     private Player currentPlayer = new Player(TokenColor.GREEN);
     private Player victim = new Player(TokenColor.BLUE);
     private Player secondVictim = new Player(TokenColor.YELLOW);
-/*
+
     @Test
     void hellionCanUseEffectTest(){
 
         playerSetup();
-        Effect hellion = new SquareDamageEffect("Hellion", 1, 1,0, 0,0);
+        Effect hellion = new SquareDamageEffect("Hellion", 1, 2,0, 0,0);
         gameController.getGame().getBoard().move(0,1, currentPlayer);
+        gameController.getGame().getBoard().move(1,0, secondVictim);
         MapCLI mapCLI = new MapCLI(gameController.getGame().getBoard());
         mapCLI.printMap();
         assertTrue(hellion.canUseEffect(gameController.getActionInterface()));
@@ -36,7 +38,7 @@ public class SquareDamageTest {
         assertEquals(TokenColor.GREEN,victim.getPlayerBoard().getRevengeMarks().get(0).getFirstColor());
 
     }
-    */
+
 
     @Test
     void electroscytheUseTest1(){
@@ -69,6 +71,23 @@ public class SquareDamageTest {
         assertEquals(TokenColor.GREEN, victim.getPlayerBoard().getDamageBoard()[0].getFirstColor());
         assertEquals(TokenColor.GREEN,secondVictim.getPlayerBoard().getDamageBoard()[0].getFirstColor());
     }
+    @Test
+    void furnace2UseTest(){
+        playerSetup();
+        Effect furnace2 = new SquareDamageEffect("Furnace2",1,1,0,0,0);
+        gameController.getGame().getBoard().move(0,1,victim);
+        gameController.getGame().getBoard().move(0,1,secondVictim);
+        MapCLI mapCLI = new MapCLI(gameController.getGame().getBoard());
+        mapCLI.printMap();
+        gameController.getActionInterface().getClientData().setSquare(0,1);
+        assertTrue(furnace2.canUseEffect(gameController.getActionInterface()));
+        furnace2.useEffect(gameController.getActionInterface());
+        assertEquals(TokenColor.GREEN, victim.getPlayerBoard().getDamageBoard()[0].getFirstColor());
+        assertEquals(TokenColor.GREEN, victim.getPlayerBoard().getRevengeMarks().get(0).getFirstColor());
+        assertEquals(TokenColor.GREEN, secondVictim.getPlayerBoard().getDamageBoard()[0].getFirstColor());
+        assertEquals(TokenColor.GREEN, secondVictim.getPlayerBoard().getRevengeMarks().get(0).getFirstColor());
+
+    }
 
     void playerSetup(){
 
@@ -88,7 +107,7 @@ public class SquareDamageTest {
         //victimSetup
         gameController.getGame().getBoard().generatePlayer(0,2,secondVictim);
         gameController.getGame().getPlayers().add(secondVictim);
-        clientData.setVictim(secondVictim);
+        clientData.setSecondVictim(secondVictim);
 
         //positionSetup
         clientData.setSquare(2, 1);
