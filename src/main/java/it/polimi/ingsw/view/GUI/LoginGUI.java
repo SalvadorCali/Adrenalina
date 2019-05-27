@@ -266,8 +266,9 @@ public class LoginGUI extends Application implements Initializable, ViewInterfac
         Platform.runLater(() -> {
             switch (outcome) {
                 case ALL:{
-                    statusConnectionLabel.setText("Disconnected");
-                    dispose();
+                    Stage stage = (Stage) loginButton.getScene().getWindow();
+                    stage.show();
+                    statusConnectionLabel.setText(object + " disconnected");
                     break;
                 }
                 default:
