@@ -14,6 +14,7 @@ import it.polimi.ingsw.model.gamecomponents.Ammo;
 import it.polimi.ingsw.model.gamecomponents.Player;
 import it.polimi.ingsw.model.gamecomponents.Token;
 import it.polimi.ingsw.util.Printer;
+import it.polimi.ingsw.view.DamageBoardCLI;
 import it.polimi.ingsw.view.MapCLI;
 import org.junit.jupiter.api.Test;
 import static junit.framework.TestCase.*;
@@ -85,12 +86,15 @@ public class AdditionalSquareDamageTest {
         gameController.getActionInterface().getClientData().setFourthMove(Direction.DOWN);
         mapCLI.printMap();
         assertTrue(rocketLauncherDouble.canUseEffect(gameController.getActionInterface()));
+        DamageBoardCLI d = new DamageBoardCLI(victim);
+        d.printDamageBoard();
         rocketLauncherDouble.useEffect(gameController.getActionInterface());
+        d.printDamageBoard();
         mapCLI.printMap();
         assertEquals(TokenColor.GREEN, victim.getPlayerBoard().getDamageBoard()[0].getFirstColor());
         assertEquals(TokenColor.GREEN, victim.getPlayerBoard().getDamageBoard()[1].getFirstColor());
         assertEquals(TokenColor.GREEN, victim.getPlayerBoard().getDamageBoard()[2].getFirstColor());
-        //assertEquals(TokenColor.GREEN, secondVictim.getPlayerBoard().getDamageBoard()[0].getFirstColor());
+        assertEquals(TokenColor.GREEN, secondVictim.getPlayerBoard().getDamageBoard()[0].getFirstColor());
     }
 
     void playerSetup(){

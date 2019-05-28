@@ -12,6 +12,7 @@ import it.polimi.ingsw.model.enums.TokenColor;
 import it.polimi.ingsw.model.gamecomponents.Ammo;
 import it.polimi.ingsw.model.gamecomponents.Player;
 import it.polimi.ingsw.util.Printer;
+import it.polimi.ingsw.view.DamageBoardCLI;
 import it.polimi.ingsw.view.MapCLI;
 import org.junit.jupiter.api.Test;
 
@@ -56,7 +57,10 @@ public class AdditionalTargetTest {
         gameController.getActionInterface().getClientData().setBasicFirst(true);
         currentPlayer.addAmmo(new Ammo(Color.RED), new Ammo(Color.BLUE));
         lockRifleAdditional.canUseEffect(gameController.getActionInterface());
+        DamageBoardCLI d = new DamageBoardCLI(victim);
+        d.printDamageBoard();
         lockRifleAdditional.useEffect(gameController.getActionInterface());
+        d.printDamageBoard();
         assertEquals(TokenColor.GREEN,victim.getPlayerBoard().getDamageBoard()[0].getFirstColor());
         assertEquals(TokenColor.GREEN,victim.getPlayerBoard().getDamageBoard()[1].getFirstColor());
         assertEquals(TokenColor.GREEN, victim.getPlayerBoard().getRevengeMarks().get(0).getFirstColor());

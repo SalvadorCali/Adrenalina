@@ -53,9 +53,7 @@ public class AdditionalSquareDamage extends SingleAddictionEffect{
     @Override
     public void useEffect(ActionInterface actionInterface) {
 
-        super.effect.useEffect(actionInterface);
-        Printer.print(x);
-        Printer.println(y);
+        super.effect.useEffect(actionInterface);;
         actionInterface.squareDamage(x, y, damagePower, 0);
         if(effectName.equals("Rocket Launcher") && (actionInterface.getVictim().getPosition().getX()!= x || actionInterface.getVictim().getPosition().getY()!=y))
             actionInterface.playerDamage(actionInterface.getVictim().getColor(), damagePower);
@@ -65,6 +63,8 @@ public class AdditionalSquareDamage extends SingleAddictionEffect{
     private void setData(ActionInterface actionInterface){
         if(effectName.equals("Rocket Launcher")){
             actionInterface.getClientData().setSquare(actionInterface.getClientData().getVictim().getPosition().getX(), actionInterface.getClientData().getVictim().getPosition().getY());
+            this.x = actionInterface.getClientData().getSquare().getX();
+            this.y = actionInterface.getClientData().getSquare().getY();
         }else {
             this.x = actionInterface.getClientData().getSquare().getX();
             this.y = actionInterface.getClientData().getSquare().getY();
