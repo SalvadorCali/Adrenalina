@@ -10,6 +10,7 @@ import it.polimi.ingsw.model.enums.TokenColor;
 import it.polimi.ingsw.model.gamecomponents.Ammo;
 import it.polimi.ingsw.model.gamecomponents.Player;
 import it.polimi.ingsw.util.Printer;
+import it.polimi.ingsw.view.DamageBoardCLI;
 import it.polimi.ingsw.view.MapCLI;
 import org.junit.jupiter.api.Test;
 import static junit.framework.TestCase.*;
@@ -99,11 +100,19 @@ public class MovementEffectTest {
     void powerGloveMod1Test(){
 
         playerSetup();
-        Effect powerGloveMod1 = new MovementEffect("Power Glove1", 1, 2,0,2,0);
+        Effect powerGloveMod1 = new MovementEffect("Power Glove1", 1, 2,0,0,0);
+
 
         gameController.getActionInterface().move(0,1, victim);
+        MapCLI mapCLI = new MapCLI(gameController.getGame().getBoard());
+        mapCLI.printMap();
         assertTrue(powerGloveMod1.canUseEffect(gameController.getActionInterface()));
+        powerGloveMod1.useEffect(gameController.getActionInterface());
+        mapCLI.printMap();
+        DamageBoardCLI dbc = new DamageBoardCLI(victim);
+        dbc.printDamageBoard();
         gameController.getActionInterface().move(1,0, victim);
+        gameController.getGame().getBoard().move(0,0,currentPlayer);
         assertTrue(powerGloveMod1.canUseEffect(gameController.getActionInterface()));
         gameController.getActionInterface().move(1,1, victim);
         assertFalse(powerGloveMod1.canUseEffect(gameController.getActionInterface()));

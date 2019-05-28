@@ -69,6 +69,7 @@ public class MovementEffect extends BasicEffect {
         else
             actionInterface.move(player.getPosition().getX(), player.getPosition().getY(), currentPlayer);
         actionInterface.playerDamage(victim.getColor(), damagePower);
+        actionInterface.playerMark(victim, markPower);
     }
 
     private void oneMovementControl(ActionInterface actionInterface, Player player){

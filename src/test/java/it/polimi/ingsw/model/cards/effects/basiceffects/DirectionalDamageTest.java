@@ -9,6 +9,7 @@ import it.polimi.ingsw.model.enums.Direction;
 import it.polimi.ingsw.model.enums.TokenColor;
 import it.polimi.ingsw.model.gamecomponents.Ammo;
 import it.polimi.ingsw.model.gamecomponents.Player;
+import it.polimi.ingsw.view.DamageBoardCLI;
 import it.polimi.ingsw.view.MapCLI;
 import org.junit.jupiter.api.Test;
 import static junit.framework.TestCase.*;
@@ -129,6 +130,25 @@ public class DirectionalDamageTest {
         gameController.getGame().getBoard().move(1,2,secondVictim);
         //assertTrue(railgun2.canUseEffect(gameController.getActionInterface()));
 
+    }
+
+    @Test
+    void powerGloveMod2Test(){
+
+        Effect powerglove2 = new DirectionalDamage("Power Glove2",2,0,0,0);
+        MapCLI mapCLI = new MapCLI(gameController.getGame().getBoard());
+        playerSetup();
+        gameController.getGame().getBoard().move(0,1,victim);
+        gameController.getGame().getBoard().move(0,2,secondVictim);
+        gameController.getActionInterface().getClientData().setFirstMove(Direction.RIGHT);
+        mapCLI.printMap();
+        assertTrue(powerglove2.canUseEffect(gameController.getActionInterface()));
+        powerglove2.useEffect(gameController.getActionInterface());
+        mapCLI.printMap();
+        DamageBoardCLI dbg = new DamageBoardCLI(victim);
+        DamageBoardCLI dbg2 = new DamageBoardCLI(secondVictim);
+        dbg.printDamageBoard();
+        dbg2.printDamageBoard();
     }
 
 
