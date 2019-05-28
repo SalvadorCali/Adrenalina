@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="217.0" prefWidth="250.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.GUI.Popup">
+   <children>
+      <Label layoutX="60.0" layoutY="29.0" text="Player Disconnected:" />
+      <Label fx:id="labelPlayerDisconnected" layoutX="106.0" layoutY="100.0" text="Gianni" />
+   </children>
+</AnchorPane>

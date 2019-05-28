@@ -42,7 +42,7 @@ public class ChoosePowerup extends Application implements Initializable {
     public void launchChoosePowerup(List<Card> powerup) throws Exception {
 
         start(new Stage());
-
+        /*
         Platform.runLater(() -> {
             for (int i = 0; i < powerup.size(); i++) {
 
@@ -57,7 +57,7 @@ public class ChoosePowerup extends Application implements Initializable {
                     powerupImg2.setImage(image);
                 }
             }
-        });
+        });*/
     }
 
 

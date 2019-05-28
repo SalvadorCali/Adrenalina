@@ -11,6 +11,7 @@ import it.polimi.ingsw.util.Converter;
 import it.polimi.ingsw.view.ViewInterface;
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -142,6 +143,9 @@ public class GUIHandler extends Application implements Initializable, ViewInterf
     @FXML
     private Label labelStatusPlayer;
 
+    @FXML private Label labelDisconnect;
+    @FXML private ImageView bannerDisconnect;
+
     private static final int ROWS = 3;
     private static final int COLUMNS = 4;
     private static final int NUM_SQUARES=12;
@@ -154,6 +158,9 @@ public class GUIHandler extends Application implements Initializable, ViewInterf
     private Stage scene;
     private boolean disconnected = false;
     private ChoosePowerup choosePowerup = new ChoosePowerup();
+    Popup popup = new Popup();
+
+
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -164,19 +171,19 @@ public class GUIHandler extends Application implements Initializable, ViewInterf
         stage.setTitle("Main Board");
         stage.show();
 
-        try {
-            placePlayers();
-        } catch (Exception e) {
-        }
-
-        if(disconnected){
-            stage.close();
-        }
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+        bannerDisconnect.setOnMouseClicked(mouseEvent -> {
+            try {
+                closeThis();
+                popup.showPopup();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
         setMapImage();
     }
 
@@ -355,5 +362,10 @@ public class GUIHandler extends Application implements Initializable, ViewInterf
                 e.printStackTrace();
             }
         });
+    }
+
+    private void closeThis(){
+        Stage stage = (Stage) labelDisconnect.getScene().getWindow();
+        stage.close();
     }
 }

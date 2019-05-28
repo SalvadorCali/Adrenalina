@@ -59,12 +59,12 @@
             <Image url="@boardElem/banner.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="bannerGrab" fitHeight="64.0" fitWidth="200.0" layoutX="963.0" layoutY="101.0">
+      <ImageView fx:id="bannerGrab" fitHeight="64.0" fitWidth="200.0" layoutX="963.0" layoutY="91.0">
          <image>
             <Image url="@boardElem/banner.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="bannerEndTurn" fitHeight="64.0" fitWidth="200.0" layoutX="964.0" layoutY="619.0">
+      <ImageView fx:id="bannerEndTurn" fitHeight="64.0" fitWidth="200.0" layoutX="963.0" layoutY="324.0">
          <image>
             <Image url="@boardElem/banner.png" />
          </image>
@@ -89,7 +89,7 @@
             <Image url="@boardElem/arrow.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="bannerShowWeapon" fitHeight="64.0" fitWidth="200.0" layoutX="963.0" layoutY="276.0" mouseTransparent="true">
+      <ImageView fx:id="bannerShowWeapon" fitHeight="64.0" fitWidth="200.0" layoutX="964.0" layoutY="245.0" mouseTransparent="true">
          <image>
             <Image url="@boardElem/banner.png" />
          </image>
@@ -99,37 +99,37 @@
             <Font name="Alien League Regular" size="30.0" />
          </font>
       </Label>
-      <Label layoutX="1035.0" layoutY="118.0" mouseTransparent="true" text="Grab" textFill="WHITE">
+      <Label layoutX="1035.0" layoutY="108.0" mouseTransparent="true" text="Grab" textFill="WHITE">
          <font>
             <Font name="Alien League Regular" size="30.0" />
          </font>
       </Label>
-      <Label layoutX="1010.0" layoutY="636.0" mouseTransparent="true" text="End Turn" textFill="WHITE">
+      <Label fx:id="labelEndTurn" layoutX="1009.0" layoutY="341.0" mouseTransparent="true" text="End Turn" textFill="WHITE">
          <font>
             <Font name="Alien League Regular" size="30.0" />
          </font>
       </Label>
-      <ImageView fx:id="bannerShowDamage1" fitHeight="64.0" fitWidth="200.0" layoutX="964.0" layoutY="188.0">
+      <ImageView fx:id="bannerShowDamage1" fitHeight="64.0" fitWidth="200.0" layoutX="964.0" layoutY="166.0">
          <image>
             <Image url="@boardElem/banner.png" />
          </image>
       </ImageView>
-      <Label layoutX="980.0" layoutY="293.0" text="Show Weapon" textFill="WHITE">
+      <Label layoutX="981.0" layoutY="262.0" text="Show Weapon" textFill="WHITE">
          <font>
             <Font name="Alien League Regular" size="30.0" />
          </font>
       </Label>
-      <Label layoutX="980.0" layoutY="205.0" mouseTransparent="true" text="Show Damage" textFill="WHITE">
+      <Label layoutX="980.0" layoutY="183.0" mouseTransparent="true" text="Show Damage" textFill="WHITE">
          <font>
             <Font name="Alien League Regular" size="30.0" />
          </font>
       </Label>
-      <Label layoutX="978.0" layoutY="388.0" text="Turn:" textFill="WHITE">
+      <Label layoutX="981.0" layoutY="412.0" text="Turn:" textFill="WHITE">
          <font>
             <Font name="Alien League Regular" size="30.0" />
          </font>
       </Label>
-      <Label fx:id="playerTurnLabel" layoutX="1069.0" layoutY="388.0" text="Gianni" textFill="WHITE">
+      <Label fx:id="playerTurnLabel" layoutX="1072.0" layoutY="412.0" text="Gianni" textFill="WHITE">
          <font>
             <Font name="Alien League Regular" size="30.0" />
          </font>
@@ -291,6 +291,16 @@
       <Label fx:id="labelStatusPlayer" layoutX="370.0" layoutY="659.0" text="Player disconnected" textFill="WHITE" visible="false">
          <font>
             <Font size="20.0" />
+         </font>
+      </Label>
+      <ImageView fx:id="bannerDisconnect" fitHeight="64.0" fitWidth="200.0" layoutX="972.0" layoutY="610.0">
+         <image>
+            <Image url="@boardElem/banner.png" />
+         </image>
+      </ImageView>
+      <Label fx:id="labelDisconnect" layoutX="999.0" layoutY="627.0" mouseTransparent="true" text="Disconnect" textFill="WHITE">
+         <font>
+            <Font name="Alien League Regular" size="30.0" />
          </font>
       </Label>
    </children>
