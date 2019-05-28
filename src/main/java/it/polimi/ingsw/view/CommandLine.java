@@ -473,19 +473,25 @@ public class CommandLine implements ViewInterface {
                 }else{
                     return false;
                 }
-            case "machinegun": //da terminare
+            case "machinegun":
                 Printer.println("Basic effect: <1> <first_victim>");
                 Printer.println("Basic effect: <1> <first_victim> <second_victim>");
                 Printer.println("With focus shot: <2> <first_victim>");
-                Printer.println("With focus shot: <2> <first_victim> <second_victim> <first_or_second_victim>");
-                Printer.println("With turret tripod: <2> <victim>");
-                Printer.println("With turret tripod: <2> <victim> <victim> <victim>");
+                Printer.println("With focus shot: <2> <first_victim> <second_victim>");
+                Printer.println("With turret tripod: <3> <victim> <victim>");
+                Printer.println("With turret tripod: <3> <victim> <victim> <victim>");
                 string = new StringTokenizer(userInputStream.readLine());
                 if(string.countTokens() == 2){
+                    client.shoot(weapon, Integer.parseInt(string.nextToken()), true, Converter.fromStringToTokenColor(string.nextToken()),
+                            TokenColor.NONE, TokenColor.NONE, -1, -1);
                     return true;
                 }else if(string.countTokens() == 3){
+                    client.shoot(weapon, Integer.parseInt(string.nextToken()), true, Converter.fromStringToTokenColor(string.nextToken()),
+                            Converter.fromStringToTokenColor(string.nextToken()), TokenColor.NONE, -1, -1);
                     return true;
                 }else if(string.countTokens() == 4){
+                    client.shoot(weapon, Integer.parseInt(string.nextToken()), true, Converter.fromStringToTokenColor(string.nextToken()),
+                            Converter.fromStringToTokenColor(string.nextToken()), Converter.fromStringToTokenColor(string.nextToken()), -1, -1);
                     return true;
                 }else{
                     return false;
@@ -675,14 +681,27 @@ public class CommandLine implements ViewInterface {
                     return false;
                 }
             case "rocketlauncher": //da terminare
-                Printer.println("Basic effect: <1> <victim>");
-                Printer.println("Basic effect: <1> <victim> <direction>");
-                Printer.println("With rocket jump: <2> <victim> <direction> <direction>");
-                Printer.println("With rocket jump: <2> <victim> <direction> <direction> <direction>");
-                Printer.println("With rocket jump: <2> <victim> <direction> <direction>");
-                Printer.println("With fragmenting warhead: <3> <victim>");
-                Printer.println("With fragmenting warhead: <3> <victim> <direction>");
-                break;
+                Printer.println("Choose your effect: <1> or <2> or <3>");
+                int choice2 = Integer.parseInt(userInputStream.readLine());
+                if(choice2 == 1){
+                    Printer.println("Basic effect: <victim>");
+                    Printer.println("Basic effect: <victim> <direction>");
+                    return true;
+                }else if(choice2 == 2){
+                    Printer.println("With rocket jump: <victim> <null> <direction>");
+                    Printer.println("With rocket jump: <victim> <null> <direction> <direction>");
+                    Printer.println("With rocket jump: <victim> <victim_direction> <shooter_direction>");
+                    Printer.println("With rocket jump: <victim> <victim_direction> <shooter_direction> <shooter_direction>");
+                    return true;
+                }else if(choice2 == 3){
+                    Printer.println("With fragmenting warhead: <victim> <null> <direction>");
+                    Printer.println("With fragmenting warhead: <victim> <null> <direction> <direction>");
+                    Printer.println("With fragmenting warhead: <victim> <victim_direction> <shooter_direction>");
+                    Printer.println("With fragmenting warhead: <victim> <victim_direction> <shooter_direction> <shooter_direction>");
+                    return true;
+                }else{
+                    return false;
+                }
             case "railgun":
                 Printer.println("Basic mode: <1> <victim> <direction>");
                 Printer.println("In piercing mode: <2> <victim> <direction>");
