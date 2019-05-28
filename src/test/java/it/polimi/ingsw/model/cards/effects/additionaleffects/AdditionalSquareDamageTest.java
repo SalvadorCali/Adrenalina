@@ -58,7 +58,7 @@ public class AdditionalSquareDamageTest {
         assertEquals(TokenColor.GREEN, victim.getPlayerBoard().getDamageBoard()[1].getFirstColor());
         assertEquals(TokenColor.GREEN, secondVictim.getPlayerBoard().getDamageBoard()[1].getFirstColor());
         assertEquals(TokenColor.GREEN, thirdVictim.getPlayerBoard().getDamageBoard()[1].getFirstColor());
-        
+
         gameController.getActionInterface().getClientData().setSquare(1,1);
         assertTrue(grenadeLauncher.canUseEffect(gameController.getActionInterface()));
         assertFalse(grenadeLauncherAdd.canUseEffect(gameController.getActionInterface()));

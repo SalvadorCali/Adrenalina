@@ -157,12 +157,24 @@ public class MovementEffectTest {
     void shotgunMod1Test(){
 
         playerSetup();
-        Effect shotgun1 = new MovementEffect("Shotgun1", 3,0,0,2,0 );
-
+        Effect shotgun1 = new MovementEffect("Shotgun1", 3,0,0,0,0 );
+        MapCLI mapCLI = new MapCLI(gameController.getGame().getBoard());
         gameController.getActionInterface().move(0,0, victim);
+        mapCLI.printMap();
         assertTrue(shotgun1.canUseEffect(gameController.getActionInterface()));
+        shotgun1.useEffect(gameController.getActionInterface());
+        assertEquals(TokenColor.GREEN, victim.getPlayerBoard().getDamageBoard()[0].getFirstColor());
+        assertEquals(TokenColor.GREEN, victim.getPlayerBoard().getDamageBoard()[1].getFirstColor());
+        assertEquals(TokenColor.GREEN, victim.getPlayerBoard().getDamageBoard()[2].getFirstColor());
+        mapCLI.printMap();
         clientData.setFirstMove(Direction.DOWN);
         assertTrue(shotgun1.canUseEffect(gameController.getActionInterface()));
+        shotgun1.useEffect(gameController.getActionInterface());
+        assertEquals(TokenColor.GREEN, victim.getPlayerBoard().getDamageBoard()[3].getFirstColor());
+        assertEquals(TokenColor.GREEN, victim.getPlayerBoard().getDamageBoard()[4].getFirstColor());
+        assertEquals(TokenColor.GREEN, victim.getPlayerBoard().getDamageBoard()[5].getFirstColor());
+        mapCLI.printMap();
+        gameController.getGame().getBoard().move(0,0,victim);
         clientData.setSecondMove(Direction.DOWN);
         assertFalse(shotgun1.canUseEffect(gameController.getActionInterface()));
         gameController.getActionInterface().move(0,1, victim);
@@ -173,10 +185,16 @@ public class MovementEffectTest {
     void shotgunMod2Test(){
 
         playerSetup();
-        Effect shotgun2 = new MovementEffect("Shotgun2", 2,0,0,2,0 );
+        Effect shotgun2 = new MovementEffect("Shotgun2", 2,0,0,0,0 );
 
         gameController.getActionInterface().move(0,1, victim);
+        MapCLI mapCLI = new MapCLI(gameController.getGame().getBoard());
+        mapCLI.printMap();
         assertTrue(shotgun2.canUseEffect(gameController.getActionInterface()));
+        shotgun2.useEffect(gameController.getActionInterface());
+        assertEquals(TokenColor.GREEN, victim.getPlayerBoard().getDamageBoard()[0].getFirstColor());
+        assertEquals(TokenColor.GREEN, victim.getPlayerBoard().getDamageBoard()[1].getFirstColor());
+        mapCLI.printMap();
         gameController.getActionInterface().move(1,0, victim);
         assertTrue(shotgun2.canUseEffect(gameController.getActionInterface()));
         gameController.getActionInterface().move(0,0, victim);
