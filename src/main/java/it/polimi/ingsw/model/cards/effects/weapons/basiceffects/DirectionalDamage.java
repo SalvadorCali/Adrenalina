@@ -60,17 +60,18 @@ public class DirectionalDamage extends BasicEffect {
     @Override
     public void useEffect(ActionInterface actionInterface) {
 
-        if(!effectName.equals("Flamethrower2")) {
+        if(!effectName.equals("Flamethrower2"))
             actionInterface.playerDamage(victim.getColor(), damagePower);
-            if(secondVictim != null)
-                actionInterface.playerDamage(secondVictim.getColor(), damagePower);
-            if(effectName.equals("Power Glove2"))
-                actionInterface.move(player.getPosition().getX(), player.getPosition().getY(), currentPlayer);
-        }else {
+        if(secondVictim != null && !effectName.equals("Flamethrower2"))
+            actionInterface.playerDamage(secondVictim.getColor(), damagePower);
+        if(effectName.equals("Power Glove2"))
+            actionInterface.move(player.getPosition().getX(), player.getPosition().getY(), currentPlayer);
+        if(effectName.equals("Flamethrower2")){
             actionInterface.squareDamage(firstSquare.getX(), firstSquare.getY(), damagePower, 0);
             if (squares == 2)
                 actionInterface.squareDamage(player.getPosition().getX(), player.getPosition().getY(), 1, 0);
         }
+        actionInterface.updateAmmoBox(redAmmos,blueAmmos,yellowAmmos);
     }
 
     private void setData(ActionInterface actionInterface){
