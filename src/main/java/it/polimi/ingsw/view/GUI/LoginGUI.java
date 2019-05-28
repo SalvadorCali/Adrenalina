@@ -242,7 +242,17 @@ public class LoginGUI extends Application implements Initializable, ViewInterfac
     private void notifySpawnLocation(List<Card> object) {
 
         try {
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ChoosePowerup.fxml"));
+            Parent root = loader.load();
+
+            choosePowerup = loader.getController();
             choosePowerup.launchChoosePowerup(object);
+
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root, 490, 386));
+            stage.setTitle("Choose Powerup");
+            stage.show();
+            //choosePowerup.launchChoosePowerup(object);
             handleHidingScene();
         } catch (Exception e) {
             e.printStackTrace();
@@ -270,7 +280,17 @@ public class LoginGUI extends Application implements Initializable, ViewInterfac
 
                     try {
                         statusConnectionLabel.setText(object + " disconnected!");
-                        //popup.showPopup1(object);
+
+                        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("Popup.fxml"));
+                        Parent root = loader.load();
+
+                        popup = loader.getController();
+                        popup.showPopup1(object);
+
+                        Stage stage = new Stage();
+                        stage.setScene(new Scene(root, 490, 386));
+                        stage.setTitle("Disconnection Popup");
+                        stage.show();
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
