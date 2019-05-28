@@ -129,12 +129,16 @@ public class MovementEffectTest {
     @Test
     void grenadeLauncherTest(){
         playerSetup();
-        Effect grenadeLauncher = new MovementEffect("Grenade Launcher", 2,0,0,2,0 );
+        Effect grenadeLauncher = new MovementEffect("Grenade Launcher", 2,0,0,0,0 );
         MapCLI mapCLI = new MapCLI(gameController.getGame().getBoard());
         clientData.setFirstMove(Direction.DOWN);
         clientData.setSecondMove(null);
         gameController.getGame().getBoard().move(1,0, victim);
+        mapCLI.printMap();
         assertTrue(grenadeLauncher.canUseEffect(gameController.getActionInterface()));
+        grenadeLauncher.useEffect(gameController.getActionInterface());
+        mapCLI.printMap();
+        assertEquals(TokenColor.GREEN, victim.getPlayerBoard().getDamageBoard()[0].getFirstColor());
 
         clientData.setSecondMove(Direction.DOWN);
         assertFalse(grenadeLauncher.canUseEffect(gameController.getActionInterface()));
@@ -144,6 +148,7 @@ public class MovementEffectTest {
         assertFalse(grenadeLauncher.canUseEffect(gameController.getActionInterface()));
 
         gameController.getGame().getBoard().move(2,0, victim);
+        mapCLI.printMap();
         clientData.setFirstMove(Direction.UP);
         assertFalse(grenadeLauncher.canUseEffect(gameController.getActionInterface()));
     }

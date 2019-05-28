@@ -10,6 +10,7 @@ import it.polimi.ingsw.model.cards.effects.weapons.singleaddictions.AdditionalSq
 import it.polimi.ingsw.model.enums.Color;
 import it.polimi.ingsw.model.enums.Direction;
 import it.polimi.ingsw.model.enums.TokenColor;
+import it.polimi.ingsw.model.gamecomponents.Ammo;
 import it.polimi.ingsw.model.gamecomponents.Player;
 import it.polimi.ingsw.view.MapCLI;
 import org.junit.jupiter.api.Test;
@@ -28,20 +29,36 @@ public class AdditionalSquareDamageTest {
     void grenadeLauncherAddTest(){
 
         playerSetup();
-        Effect grenadeLauncher = new MovementEffect("Grenade Launcher", 0, 0,0,2,0);
-        Effect grenadeLauncherAdd = new AdditionalSquareDamage("Grenade Launcher",0,0,0,0, grenadeLauncher);
+        Effect grenadeLauncher = new MovementEffect("Grenade Launcher", 1, 0,0,0,0);
+        Effect grenadeLauncherAdd = new AdditionalSquareDamage("Grenade Launcher",1,1,0,0, grenadeLauncher);
         mapCLI.printMap();
 
+        currentPlayer.addAmmo(new Ammo(Color.RED));
         gameController.getActionInterface().getClientData().setBasicFirst(true);
+        gameController.getActionInterface().getClientData().setFirstMove(Direction.DOWN);
         gameController.getActionInterface().getClientData().setSquare(0,1);
         assertTrue(grenadeLauncherAdd.canUseEffect(gameController.getActionInterface()));
+        grenadeLauncherAdd.useEffect(gameController.getActionInterface());
+        mapCLI.printMap();
+        assertEquals(TokenColor.GREEN, victim.getPlayerBoard().getDamageBoard()[0].getFirstColor());
+        assertEquals(TokenColor.GREEN, secondVictim.getPlayerBoard().getDamageBoard()[0].getFirstColor());
+        assertEquals(TokenColor.GREEN, thirdVictim.getPlayerBoard().getDamageBoard()[0].getFirstColor());
+        mapCLI.printMap();
 
+        currentPlayer.addAmmo(new Ammo(Color.RED));
         gameController.getActionInterface().getClientData().setFirstMove(Direction.LEFT);
         assertFalse(grenadeLauncherAdd.canUseEffect(gameController.getActionInterface()));
 
-        gameController.getActionInterface().getClientData().setFirstMove(Direction.DOWN);
+        gameController.getGame().getBoard().move(1,0,victim);
+        mapCLI.printMap();
+        gameController.getActionInterface().getClientData().setFirstMove(null);
         assertTrue(grenadeLauncherAdd.canUseEffect(gameController.getActionInterface()));
-
+        grenadeLauncherAdd.useEffect(gameController.getActionInterface());
+        mapCLI.printMap();
+        assertEquals(TokenColor.GREEN, victim.getPlayerBoard().getDamageBoard()[1].getFirstColor());
+        assertEquals(TokenColor.GREEN, secondVictim.getPlayerBoard().getDamageBoard()[1].getFirstColor());
+        assertEquals(TokenColor.GREEN, thirdVictim.getPlayerBoard().getDamageBoard()[1].getFirstColor());
+        
         gameController.getActionInterface().getClientData().setSquare(1,1);
         assertTrue(grenadeLauncher.canUseEffect(gameController.getActionInterface()));
         assertFalse(grenadeLauncherAdd.canUseEffect(gameController.getActionInterface()));
@@ -59,6 +76,7 @@ public class AdditionalSquareDamageTest {
         gameController.getGame().getBoard().generatePlayer(0,0,currentPlayer);
         gameController.getGame().getPlayers().add(currentPlayer);
         clientData.setCurrentPlayer(currentPlayer);
+        gameController.getGame().setCurrentPlayer(currentPlayer);
         currentPlayer.increaseAmmoNumber(Color.BLUE);
         currentPlayer.increaseAmmoNumber(Color.BLUE);
 
