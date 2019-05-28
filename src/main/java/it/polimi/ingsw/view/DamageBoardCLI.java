@@ -106,7 +106,7 @@ public class DamageBoardCLI {
         }
 
         if(!markBoard.isEmpty()) {
-            for (int i = 0; i < mark.length; i++) {
+            for (int i = 0; i < markBoard.size(); i++) {
 
                 if (markBoard.get(i).getFirstColor() != TokenColor.NONE) {
 
