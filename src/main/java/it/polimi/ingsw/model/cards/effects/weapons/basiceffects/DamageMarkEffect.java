@@ -2,6 +2,7 @@ package it.polimi.ingsw.model.cards.effects.weapons.basiceffects;
 
 import it.polimi.ingsw.model.cards.effects.ActionInterface;
 import it.polimi.ingsw.model.gamecomponents.Player;
+import it.polimi.ingsw.util.Printer;
 
 public class DamageMarkEffect extends BasicEffect {
 
@@ -10,6 +11,8 @@ public class DamageMarkEffect extends BasicEffect {
     private int damagePower;
 
     private int markPower;
+
+    private boolean visible1, visible2, visible3;
 
     private int redAmmos, blueAmmos, yellowAmmos;
 
@@ -40,8 +43,21 @@ public class DamageMarkEffect extends BasicEffect {
                 visibilityCheck(actionInterface);
             else if (effectName.equals("Heatseeker") && actionInterface.isVisible(currentPlayer, victim)) {
                 canUse = false;
-            }else if (effectName.equals("ZX-22"))
-                canUse = actionInterface.isVisible(currentPlayer, victim) && actionInterface.isVisible(currentPlayer, secondVictim) && actionInterface.isVisible(currentPlayer, thirdVictim);
+            }else if (effectName.equals("ZX-22")) {
+                canUse = actionInterface.isVisible(currentPlayer, victim) || actionInterface.isVisible(currentPlayer, secondVictim) || actionInterface.isVisible(currentPlayer, thirdVictim);
+                if (canUse) {
+                    if (actionInterface.isVisible(currentPlayer, victim)) {
+                        visible1 = true;
+                    }
+                    if (actionInterface.isVisible(currentPlayer, secondVictim)) {
+                        visible2 = true;
+                    }
+                    if (actionInterface.isVisible(currentPlayer, thirdVictim)) {
+                        visible3 = true;
+                    }
+                }
+            }
+
         }
         return canUse;
     }
@@ -49,12 +65,21 @@ public class DamageMarkEffect extends BasicEffect {
     public void useEffect(ActionInterface actionInterface) {
 
         actionInterface.playerDamage(victim, damagePower);
-        actionInterface.playerMark(victim, markPower);
+        if(!effectName.equals("ZX-22"))
+            actionInterface.playerMark(victim, markPower);
         if (effectName.equals("Machine Gun")) {
             actionInterface.playerDamage(secondVictim.getColor(), damagePower);
         }else if (effectName.equals("ZX-22")){
-            actionInterface.playerMark(secondVictim, markPower);
-            actionInterface.playerMark(thirdVictim, markPower);
+            if(visible1) {
+                actionInterface.playerMark(victim, markPower);
+                visible1 = false;
+            }if(visible2) {
+                actionInterface.playerMark(secondVictim, markPower);
+                visible2 = false;
+            }if(visible3) {
+                actionInterface.playerMark(thirdVictim, markPower);
+                visible3 = false;
+            }
         }
         actionInterface.updateAmmoBox(redAmmos, blueAmmos, yellowAmmos);
     }

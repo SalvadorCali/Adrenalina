@@ -210,20 +210,39 @@ public class DamageMarkTest {
     void zx2SecondMode(){
 
         playerSetup();
-        Effect zx22 = new DamageMarkEffect("ZX-22",0,0,0,2,0);
+        Effect zx22 = new DamageMarkEffect("ZX-22",0,1,0,0,0);
         assertTrue(zx22.canUseEffect(gameController.getActionInterface()));
+        zx22.useEffect(gameController.getActionInterface());
+        assertEquals(TokenColor.GREEN, victim.getPlayerBoard().getRevengeMarks().get(0).getFirstColor());
+        assertEquals(TokenColor.GREEN, secondVictim.getPlayerBoard().getRevengeMarks().get(0).getFirstColor());
+        assertEquals(TokenColor.GREEN, thirdVictim.getPlayerBoard().getRevengeMarks().get(0).getFirstColor());
 
+        MapCLI mapCLI = new MapCLI(gameController.getGame().getBoard());
+        mapCLI.printMap();
         gameController.getGame().getBoard().move(1,1, victim);
-        assertFalse(zx22.canUseEffect(gameController.getActionInterface()));
+        mapCLI.printMap();
+        assertTrue(zx22.canUseEffect(gameController.getActionInterface()));
+        zx22.useEffect(gameController.getActionInterface());
+        assertEquals(1, victim.getPlayerBoard().getRevengeMarks().size());
+        assertEquals(TokenColor.GREEN, secondVictim.getPlayerBoard().getRevengeMarks().get(1).getFirstColor());
+        assertEquals(TokenColor.GREEN, thirdVictim.getPlayerBoard().getRevengeMarks().get(1).getFirstColor());
+
 
         gameController.getGame().getBoard().move(0,1, victim);
         gameController.getGame().getBoard().move(1,1, secondVictim);
-        assertFalse(zx22.canUseEffect(gameController.getActionInterface()));
+        mapCLI.printMap();
+        assertTrue(zx22.canUseEffect(gameController.getActionInterface()));
+        zx22.useEffect(gameController.getActionInterface());
+        assertEquals(2, victim.getPlayerBoard().getRevengeMarks().size());
+        assertEquals(TokenColor.GREEN, victim.getPlayerBoard().getRevengeMarks().get(1).getFirstColor());
+        assertEquals(TokenColor.GREEN, thirdVictim.getPlayerBoard().getRevengeMarks().get(2).getFirstColor());
+
 
         gameController.getGame().getBoard().move(0,1, victim);
         gameController.getGame().getBoard().move(0,0, secondVictim);
         gameController.getGame().getBoard().move(2,2, thirdVictim);
-        assertFalse(zx22.canUseEffect(gameController.getActionInterface()));
+        mapCLI.printMap();
+        assertTrue(zx22.canUseEffect(gameController.getActionInterface()));
 
     }
     
