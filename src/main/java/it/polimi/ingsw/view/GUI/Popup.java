@@ -16,7 +16,7 @@ public class Popup extends Application implements Initializable {
 
     @FXML Label labelPlayerDisconnected;
 
-    String object = "Gianni";
+    String object;
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -45,8 +45,7 @@ public class Popup extends Application implements Initializable {
     }
 
     public void showPopup1(String object) throws Exception {
-
-        start(new Stage());
         this.object = object;
+        start(new Stage());
     }
 }

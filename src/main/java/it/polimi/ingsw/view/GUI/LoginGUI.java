@@ -290,7 +290,13 @@ public class LoginGUI extends Application implements Initializable, ViewInterfac
                     connectionErrorLabel.setText("Username already used");
 
                 case RIGHT: {
-                    statusConnectionLabel.setText("Connected, waiting for other players");
+
+                    statusConnectionLabel.setText(object + " connected, waiting for other players");
+                }
+
+                case ALL:{
+
+                    statusConnectionLabel.setText(object + " connected, waiting...");
                 }
 
             }
