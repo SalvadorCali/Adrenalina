@@ -269,7 +269,8 @@ public class LoginGUI extends Application implements Initializable, ViewInterfac
                 case ALL:{
 
                     try {
-                        popup.showPopup1(object);
+                        statusConnectionLabel.setText(object + "disconnected!");
+                        //popup.showPopup1(object);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
