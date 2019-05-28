@@ -37,23 +37,27 @@ public class AdditionalSquareDamage extends SingleAddictionEffect{
         setData(actionInterface);
 
 
-        if(basicFirst){
+        if (basicFirst) {
             canUse = super.effect.canUseEffect(actionInterface) && actionInterface.ammoControl(redAmmos, blueAmmos, yellowAmmos);
-            if(canUse && !effectName.equals("Rocket Launcher"))
+            if (canUse && !effectName.equals("Rocket Launcher"))
                 canUse = actionInterface.isVisibleDifferentSquare(x, y);
-        }else{
-            canUse = actionInterface.ammoControl(redAmmos, blueAmmos, yellowAmmos) && (actionInterface.isVisibleDifferentSquare(x, y) || (x == actionInterface.getClientData().getCurrentPlayer().getPosition().getX() && y == actionInterface.getClientData().getCurrentPlayer().getPosition().getY()));
-                if(canUse)
+        } else {
+            canUse = actionInterface.ammoControl(redAmmos, blueAmmos, yellowAmmos);
+            if (canUse) {
+                if (!effectName.equals("Rocket Launcher")) {
+                    canUse = actionInterface.isVisibleDifferentSquare(x, y) || (x == actionInterface.getClientData().getCurrentPlayer().getPosition().getX() && y == actionInterface.getClientData().getCurrentPlayer().getPosition().getY());
+                }
+                if (canUse)
                     canUse = super.effect.canUseEffect(actionInterface);
+            }
         }
         return canUse;
     }
 
-
     @Override
     public void useEffect(ActionInterface actionInterface) {
 
-        super.effect.useEffect(actionInterface);;
+        super.effect.useEffect(actionInterface);
         actionInterface.squareDamage(x, y, damagePower, 0);
         if(effectName.equals("Rocket Launcher") && (actionInterface.getVictim().getPosition().getX()!= x || actionInterface.getVictim().getPosition().getY()!=y))
             actionInterface.playerDamage(actionInterface.getVictim().getColor(), damagePower);
@@ -72,6 +76,5 @@ public class AdditionalSquareDamage extends SingleAddictionEffect{
         this.basicFirst = actionInterface.basicFirst();
         if(!basicFirst)
             actionInterface.getClientData().setAmmos();
-
     }
 }
