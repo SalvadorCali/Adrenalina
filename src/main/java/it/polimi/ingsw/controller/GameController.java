@@ -43,6 +43,19 @@ public class GameController {
         actionInterface = new ActionController(game);
     }
 
+    public GameController(int board) {
+        weapons = Parser.createWeapons();
+        powerups = Parser.createPowerups();
+        ammoCards = Parser.createAmmos();
+        gameBoards = Parser.createGameBoards();
+        /*
+        int gameBoardIndex = (int)(Math.random() * 4);
+        game = new Game(gameBoards.get(gameBoardIndex), weapons, powerups, ammoCards);
+        */
+        game = new Game(gameBoards.get(0), weapons, powerups, ammoCards);
+        actionInterface = new ActionController(game);
+    }
+
     //getters and setters
     public Game getGame() {
         return game;

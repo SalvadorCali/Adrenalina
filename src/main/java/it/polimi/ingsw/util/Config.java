@@ -1,5 +1,7 @@
 package it.polimi.ingsw.util;
 
+import it.polimi.ingsw.model.enums.BoardType;
+
 public class Config {
     private Config(){}
 
@@ -18,4 +20,6 @@ public class Config {
     //game
     public static final int MIN_PLAYERS = 3;
     public static final int MAX_ACTIONS = 2;
+    public static final BoardType BOARD_TYPE = BoardType.BASIC;
+    public static final int SKULLS = 8;
 }

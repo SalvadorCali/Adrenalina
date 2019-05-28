@@ -15,8 +15,7 @@ import java.util.List;
 
 public class Server {
     public static void main(String[] args) throws UnknownHostException, SocketException {
-        //1st method
-        CLIController.setA("ciaooo");
+        /*
         List<InetAddress> addresses = Connection.getAddresses();
         Printer.println("[SERVER]Current ip addresses:");
         addresses.forEach(a -> Printer.println("    " + a));
@@ -29,6 +28,11 @@ public class Server {
             //Printer.println(addresses.get(0).toString().substring(1));
 
         }
+        */
+        InetAddress address = Connection.getAddress();
+        Printer.println("[SERVER]Current ip address:");
+        Printer.println("   " + address);
+        System.setProperty("java.rmi.server.hostname", address.toString().substring(1));
         try {
             ConnectionManager connection = new ConnectionManager(new ServerController());
             connection.start();

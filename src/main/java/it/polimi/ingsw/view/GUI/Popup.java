@@ -33,19 +33,12 @@ public class Popup extends Application implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        labelPlayerDisconnected.setVisible(false);
-        labelPlayerDisconnected.setText("");
-        setDisconnected();
     }
 
-    private void setDisconnected() {
-
-        labelPlayerDisconnected.setVisible(true);
-        labelPlayerDisconnected.setText(this.object);
-    }
 
     public void showPopup1(String object) throws Exception {
-        this.object = object;
-        start(new Stage());
+
+        labelPlayerDisconnected.setText(object);
+        //start(new Stage());
     }
 }

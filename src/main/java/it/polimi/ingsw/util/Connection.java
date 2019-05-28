@@ -17,11 +17,38 @@ public class Connection {
             Enumeration<InetAddress> addresses = networkInterface.getInetAddresses();
             while(addresses.hasMoreElements()){
                 InetAddress address = addresses.nextElement();
-                if(address instanceof Inet4Address && !address.isLoopbackAddress()){
+
+                if(address instanceof Inet4Address && !address.isLoopbackAddress() && address.isSiteLocalAddress()){
+                    addressesList.add(address);
+                }
+
+                /*
+                if(address.isSiteLocalAddress()){
+                    addressesList.add(address);
+                }
+                */
+            }
+        }
+        return addressesList;
+    }
+
+    public static InetAddress getAddress() throws SocketException {
+        Enumeration<NetworkInterface> networkInterfaces = NetworkInterface.getNetworkInterfaces();
+        List<InetAddress> addressesList = new ArrayList<>();
+        while(networkInterfaces.hasMoreElements()) {
+            NetworkInterface networkInterface = networkInterfaces.nextElement();
+            Enumeration<InetAddress> addresses = networkInterface.getInetAddresses();
+            while(addresses.hasMoreElements()){
+                InetAddress address = addresses.nextElement();
+                if(address instanceof Inet4Address && !address.isLoopbackAddress() && address.isSiteLocalAddress()){
                     addressesList.add(address);
                 }
             }
         }
-        return addressesList;
+        if(addressesList.size() > 1){
+            return addressesList.get(1);
+        }else{
+            return addressesList.get(0);
+        }
     }
 }

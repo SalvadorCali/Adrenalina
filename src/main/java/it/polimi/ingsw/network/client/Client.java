@@ -31,11 +31,8 @@ public class Client {
         }
         */
         BufferedReader userInputStream = new BufferedReader(new InputStreamReader(System.in));
-        List<InetAddress> addresses = Connection.getAddresses();
         /*
-        Printer.println("[SERVER]Current ip addresses:");
-        addresses.forEach(a -> Printer.println("    " + a));
-        */
+        List<InetAddress> addresses = Connection.getAddresses();
         if(!addresses.isEmpty()){
             //Printer.println(addresses.get(0).toString().substring(1));
             if(System.getProperty("os.name").contains("ind")){
@@ -44,6 +41,9 @@ public class Client {
                 System.setProperty("java.rmi.server.hostname", addresses.get(0).toString().substring(1));
             }
         }
+        */
+        InetAddress address = Connection.getAddress();
+        System.setProperty("java.rmi.server.hostname", address.toString().substring(1));
 
         String graphicInterface = "default";
         while(!(graphicInterface.equalsIgnoreCase("cli") || graphicInterface.equalsIgnoreCase("gui"))) {
