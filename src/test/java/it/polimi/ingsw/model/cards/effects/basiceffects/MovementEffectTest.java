@@ -113,12 +113,20 @@ public class MovementEffectTest {
     void rocketLauncherTest(){
 
         playerSetup();
-        Effect rocketLauncher = new MovementEffect("Rocket Launcher", 2,0,0,2,0 );
+        Effect rocketLauncher = new MovementEffect("Rocket Launcher", 2,0,0,0,0 );
 
         gameController.getActionInterface().move(0,1, victim);
+        gameController.getActionInterface().getClientData().setFirstMove(Direction.RIGHT);
+        MapCLI mapCLI = new MapCLI(gameController.getGame().getBoard());
+        mapCLI.printMap();
         assertTrue(rocketLauncher.canUseEffect(gameController.getActionInterface()));
+        rocketLauncher.useEffect(gameController.getActionInterface());
+        mapCLI.printMap();
+        assertEquals(TokenColor.GREEN, victim.getPlayerBoard().getDamageBoard()[0].getFirstColor());
+        assertEquals(TokenColor.GREEN, victim.getPlayerBoard().getDamageBoard()[1].getFirstColor());
 
         gameController.getActionInterface().move(1,0, victim);
+        gameController.getActionInterface().getClientData().setFirstMove(null);
         assertTrue(rocketLauncher.canUseEffect(gameController.getActionInterface()));
 
         gameController.getActionInterface().move(0,0, victim);

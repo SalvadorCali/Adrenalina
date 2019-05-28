@@ -12,6 +12,8 @@ import it.polimi.ingsw.model.enums.Direction;
 import it.polimi.ingsw.model.enums.TokenColor;
 import it.polimi.ingsw.model.gamecomponents.Ammo;
 import it.polimi.ingsw.model.gamecomponents.Player;
+import it.polimi.ingsw.model.gamecomponents.Token;
+import it.polimi.ingsw.util.Printer;
 import it.polimi.ingsw.view.MapCLI;
 import org.junit.jupiter.api.Test;
 import static junit.framework.TestCase.*;
@@ -66,6 +68,29 @@ public class AdditionalSquareDamageTest {
         gameController.getActionInterface().getClientData().setBasicFirst(false);
         assertFalse(grenadeLauncherAdd.canUseEffect(gameController.getActionInterface()));
 
+    }
+
+    @Test
+    void rocketLauncherDoubleAddTest(){
+        playerSetup();
+        Effect rocketLauncher = new MovementEffect("Rocket Launcher",2,0,0,0,0);
+        Effect rocketLauncherAdd = new AdditionalMove("Rocket Launcher",0,0,0,1,0,rocketLauncher);
+        Effect rocketLauncherDouble = new AdditionalSquareDamage("Rocket Launcher",1,0,0,1,rocketLauncherAdd);
+        gameController.getActionInterface().getClientData().setBasicFirst(true);
+        MapCLI mapCLI = new MapCLI(gameController.getGame().getBoard());
+        gameController.getGame().getBoard().move(1,0,secondVictim);
+        currentPlayer.addAmmo(new Ammo(Color.YELLOW));
+        gameController.getActionInterface().getClientData().setFirstMove(Direction.DOWN);
+        gameController.getActionInterface().getClientData().setThirdMove(Direction.RIGHT);
+        gameController.getActionInterface().getClientData().setFourthMove(Direction.DOWN);
+        mapCLI.printMap();
+        assertTrue(rocketLauncherDouble.canUseEffect(gameController.getActionInterface()));
+        rocketLauncherDouble.useEffect(gameController.getActionInterface());
+        mapCLI.printMap();
+        assertEquals(TokenColor.GREEN, victim.getPlayerBoard().getDamageBoard()[0].getFirstColor());
+        assertEquals(TokenColor.GREEN, victim.getPlayerBoard().getDamageBoard()[1].getFirstColor());
+        assertEquals(TokenColor.GREEN, victim.getPlayerBoard().getDamageBoard()[2].getFirstColor());
+        //assertEquals(TokenColor.GREEN, secondVictim.getPlayerBoard().getDamageBoard()[0].getFirstColor());
     }
 
     void playerSetup(){

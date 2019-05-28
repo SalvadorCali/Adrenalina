@@ -2,6 +2,7 @@ package it.polimi.ingsw.model.cards.effects.weapons.singleaddictions;
 
 import it.polimi.ingsw.model.cards.effects.ActionInterface;
 import it.polimi.ingsw.model.cards.effects.Effect;
+import it.polimi.ingsw.util.Printer;
 
 public class AdditionalSquareDamage extends SingleAddictionEffect{
 
@@ -38,7 +39,7 @@ public class AdditionalSquareDamage extends SingleAddictionEffect{
 
         if(basicFirst){
             canUse = super.effect.canUseEffect(actionInterface) && actionInterface.ammoControl(redAmmos, blueAmmos, yellowAmmos);
-            if(canUse)
+            if(canUse && !effectName.equals("Rocket Launcher"))
                 canUse = actionInterface.isVisibleDifferentSquare(x, y);
         }else{
             canUse = actionInterface.ammoControl(redAmmos, blueAmmos, yellowAmmos) && (actionInterface.isVisibleDifferentSquare(x, y) || (x == actionInterface.getClientData().getCurrentPlayer().getPosition().getX() && y == actionInterface.getClientData().getCurrentPlayer().getPosition().getY()));
@@ -53,6 +54,8 @@ public class AdditionalSquareDamage extends SingleAddictionEffect{
     public void useEffect(ActionInterface actionInterface) {
 
         super.effect.useEffect(actionInterface);
+        Printer.print(x);
+        Printer.println(y);
         actionInterface.squareDamage(x, y, damagePower, 0);
         if(effectName.equals("Rocket Launcher") && (actionInterface.getVictim().getPosition().getX()!= x || actionInterface.getVictim().getPosition().getY()!=y))
             actionInterface.playerDamage(actionInterface.getVictim().getColor(), damagePower);

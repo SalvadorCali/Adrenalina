@@ -9,6 +9,7 @@ import it.polimi.ingsw.model.cards.effects.weapons.singleaddictions.AdditionalMo
 import it.polimi.ingsw.model.enums.Color;
 import it.polimi.ingsw.model.enums.Direction;
 import it.polimi.ingsw.model.enums.TokenColor;
+import it.polimi.ingsw.model.gamecomponents.Ammo;
 import it.polimi.ingsw.model.gamecomponents.Player;
 import it.polimi.ingsw.model.gamecomponents.Token;
 import it.polimi.ingsw.view.MapCLI;
@@ -76,24 +77,35 @@ public class AdditionalMoveTest {
     @Test
     void rocketLauncherAdditionalMoveTest(){
         playerSetup();
-        Effect rocketLauncher = new MovementEffect("Rocket Launcher", 0,0,0,2,0);
-        Effect rocketLauncherAdd = new AdditionalMove("Rocket Launcher", 0,0,0,0,0, rocketLauncher);
+        Effect rocketLauncher = new MovementEffect("Rocket Launcher", 2,0,0,0,0);
+        Effect rocketLauncherAdd = new AdditionalMove("Rocket Launcher", 0,0,0,1,0, rocketLauncher);
 
         gameController.getActionInterface().getClientData().setBasicFirst(true);
         gameController.getActionInterface().getClientData().setFirstMove(Direction.DOWN);
         gameController.getActionInterface().getClientData().setThirdMove(Direction.RIGHT);
         gameController.getActionInterface().getClientData().setFourthMove(Direction.DOWN);
         assertTrue(rocketLauncherAdd.canUseEffect(gameController.getActionInterface()));
+        rocketLauncherAdd.useEffect(gameController.getActionInterface());
+        assertEquals(TokenColor.GREEN, victim.getPlayerBoard().getDamageBoard()[0].getFirstColor());
+        assertEquals(TokenColor.GREEN, victim.getPlayerBoard().getDamageBoard()[1].getFirstColor());
+
 
         gameController.getActionInterface().getClientData().setBasicFirst(false);
         gameController.getGame().getBoard().move(1,1,currentPlayer);
+        gameController.getGame().getBoard().move(1,0,victim);
         gameController.getActionInterface().getClientData().setThirdMove(Direction.UP);
         gameController.getActionInterface().getClientData().setFourthMove(Direction.LEFT);
         gameController.getActionInterface().getClientData().setFirstMove(Direction.DOWN);
+        mapCLI.printMap();
         assertTrue(rocketLauncherAdd.canUseEffect(gameController.getActionInterface()));
+        rocketLauncherAdd.useEffect(gameController.getActionInterface());
+        mapCLI.printMap();
+        assertEquals(TokenColor.GREEN, victim.getPlayerBoard().getDamageBoard()[2].getFirstColor());
+        assertEquals(TokenColor.GREEN, victim.getPlayerBoard().getDamageBoard()[3].getFirstColor());
+
 
         gameController.getGame().getBoard().move(0,0,victim);
-        mapCLI.printMap();
+        currentPlayer.addAmmo(new Ammo(Color.BLUE));
         assertFalse(rocketLauncherAdd.canUseEffect(gameController.getActionInterface()));
 
     }
