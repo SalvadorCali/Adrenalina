@@ -62,6 +62,7 @@ public class LoginGUI extends Application implements Initializable, ViewInterfac
     private GUIHandler guiHandler = new GUIHandler();
     private boolean connected = false;
     private boolean matchStarted = true;
+    private Popup popup = new Popup();
 
     public synchronized void start(Stage primaryStage) throws Exception {
 
@@ -266,9 +267,12 @@ public class LoginGUI extends Application implements Initializable, ViewInterfac
         Platform.runLater(() -> {
             switch (outcome) {
                 case ALL:{
-                    Stage stage = (Stage) loginButton.getScene().getWindow();
-                    stage.show();
-                    statusConnectionLabel.setText(object + " disconnected");
+
+                    try {
+                        popup.showPopup1(object);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                     break;
                 }
                 default:

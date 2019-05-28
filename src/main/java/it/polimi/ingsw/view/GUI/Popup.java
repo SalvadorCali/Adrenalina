@@ -16,6 +16,7 @@ public class Popup extends Application implements Initializable {
 
     @FXML Label labelPlayerDisconnected;
 
+    String object = "Gianni";
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -32,11 +33,20 @@ public class Popup extends Application implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        //labelPlayerDisconnected.setText();
+        labelPlayerDisconnected.setVisible(false);
+        labelPlayerDisconnected.setText("");
+        setDisconnected();
     }
 
-    public void showPopup() throws Exception {
+    private void setDisconnected() {
+
+        labelPlayerDisconnected.setVisible(true);
+        labelPlayerDisconnected.setText(this.object);
+    }
+
+    public void showPopup1(String object) throws Exception {
 
         start(new Stage());
+        this.object = object;
     }
 }

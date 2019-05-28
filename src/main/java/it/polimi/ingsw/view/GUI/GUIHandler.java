@@ -179,11 +179,12 @@ public class GUIHandler extends Application implements Initializable, ViewInterf
         bannerDisconnect.setOnMouseClicked(mouseEvent -> {
             try {
                 closeThis();
-                popup.showPopup();
+                popup.showPopup1(currentPlayer);
             } catch (Exception e) {
                 e.printStackTrace();
             }
         });
+
         setMapImage();
     }
 
@@ -348,8 +349,11 @@ public class GUIHandler extends Application implements Initializable, ViewInterf
     private void notifyDisconnection(Outcome outcome, String object) {
 
         Platform.runLater(() -> {
-            labelStatusPlayer.setVisible(true);
-            disconnected = true;
+            try {
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
         });
     }
 
