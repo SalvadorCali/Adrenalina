@@ -156,7 +156,7 @@ public class DamageMarkTest {
         assertEquals(TokenColor.GREEN, victim.getPlayerBoard().getDamageBoard()[0].getFirstColor());
         assertEquals(TokenColor.GREEN, secondVictim.getPlayerBoard().getDamageBoard()[0].getFirstColor());
     }
-
+/*
     @Test
     void heatseekerCanUseEffectTest(){
 
@@ -205,6 +205,8 @@ public class DamageMarkTest {
         assertEquals(TokenColor.GREEN, victim.getPlayerBoard().getDamageBoard()[1].getFirstColor());
         assertEquals(TokenColor.GREEN, victim.getPlayerBoard().getDamageBoard()[2].getFirstColor());
     }
+    
+ */
 
     @Test
     void zx2SecondMode(){
