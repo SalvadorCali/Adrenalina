@@ -56,28 +56,45 @@ public class DamageMarkEffect extends BasicEffect {
                         visible3 = true;
                     }
                 }
-            }
+            }else{
+                canUse = actionInterface.distanceControl(victim.getPosition().getX(), victim.getPosition().getY()) == 1 || actionInterface.distanceControl(secondVictim.getPosition().getX(), secondVictim.getPosition().getY()) == 1 || actionInterface.distanceControl(thirdVictim.getPosition().getX(), thirdVictim.getPosition().getY()) == 1;
+                if(canUse){
+                    if (actionInterface.distanceControl(victim.getPosition().getX(), victim.getPosition().getY()) == 1) {
+                        visible1 = true;
+                    }
+                    if (actionInterface.distanceControl(secondVictim.getPosition().getX(), secondVictim.getPosition().getY()) == 1) {
+                        visible2 = true;
+                    }
+                    if (actionInterface.distanceControl(thirdVictim.getPosition().getX(), thirdVictim.getPosition().getY()) == 1) {
+                        visible3 = true;
+                    }
+                }
 
+            }
         }
         return canUse;
     }
     @Override
     public void useEffect(ActionInterface actionInterface) {
 
-        actionInterface.playerDamage(victim, damagePower);
+        if(!effectName.equals("Shockwave"))
+            actionInterface.playerDamage(victim, damagePower);
         if(!effectName.equals("ZX-22"))
             actionInterface.playerMark(victim, markPower);
         if (effectName.equals("Machine Gun")) {
             actionInterface.playerDamage(secondVictim.getColor(), damagePower);
-        }else if (effectName.equals("ZX-22")){
+        }else if (effectName.equals("ZX-22") || effectName.equals("Shockwave")){
             if(visible1) {
                 actionInterface.playerMark(victim, markPower);
+                actionInterface.playerDamage(victim, damagePower);
                 visible1 = false;
             }if(visible2) {
                 actionInterface.playerMark(secondVictim, markPower);
+                actionInterface.playerDamage(secondVictim, damagePower);
                 visible2 = false;
             }if(visible3) {
                 actionInterface.playerMark(thirdVictim, markPower);
+                actionInterface.playerDamage(thirdVictim, damagePower);
                 visible3 = false;
             }
         }

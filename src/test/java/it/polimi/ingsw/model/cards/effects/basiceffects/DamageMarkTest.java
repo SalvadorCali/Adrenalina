@@ -245,7 +245,27 @@ public class DamageMarkTest {
         assertTrue(zx22.canUseEffect(gameController.getActionInterface()));
 
     }
-    
+
+    @Test
+    void shockwave1Test(){
+        playerSetup();
+        Effect shockwave = new DamageMarkEffect("Shockwave",1,0,0,0,0);
+        MapCLI mapCLI = new MapCLI(gameController.getGame().getBoard());
+        assertTrue(shockwave.canUseEffect(gameController.getActionInterface()));
+        shockwave.useEffect(gameController.getActionInterface());
+        DamageBoardCLI dbc = new DamageBoardCLI(victim);
+        DamageBoardCLI dbc2 = new DamageBoardCLI(secondVictim);
+        DamageBoardCLI dbc3 = new DamageBoardCLI(thirdVictim);;
+        gameController.getGame().getBoard().move(1,1,currentPlayer);
+        gameController.getGame().getBoard().move(1,2,thirdVictim);
+        assertTrue(shockwave.canUseEffect(gameController.getActionInterface()));
+        shockwave.useEffect(gameController.getActionInterface());
+        mapCLI.printMap();
+        dbc.printDamageBoard();
+        dbc2.printDamageBoard();
+        dbc3.printDamageBoard();
+
+    }
 
     void playerSetup(){
 
