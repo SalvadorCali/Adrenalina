@@ -13,6 +13,7 @@ import java.rmi.RemoteException;
 
 public interface RMIServerInterface extends ServerInterface, Remote {
     void login(String username, TokenColor color, ConnectionTimer connectionTimer) throws RemoteException;
+    void board(int boardType, int skulls) throws RemoteException;
     void choose(int choice) throws RemoteException;
     void showSquare() throws RemoteException;
     void showSquare(int x, int y) throws RemoteException;

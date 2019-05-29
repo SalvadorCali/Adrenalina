@@ -17,6 +17,8 @@ public class Game {
     private ArrayList<TokenColor> playerColors;
     private Map<String, TokenColor> playersMap;
     private List<Token> killshotTrack;
+    private int killshotIndex;
+    private int skullsNumber;
     private Deck weapons;
     private Deck powerups;
     private List<AmmoCard> ammos;
@@ -25,6 +27,7 @@ public class Game {
     private boolean colorSelection;
     private boolean loginPhase;
     private boolean spawnLocationPhase;
+    private boolean boardTypePhase;
     private Map<TokenColor, Integer> scoreList;
 
     public Game(GameBoard board, Deck weapons, Deck powerups, List<AmmoCard> ammos){
@@ -39,6 +42,7 @@ public class Game {
         this.ammos = ammos;
         gamePhase = false;
         finalFrenzy = false;
+        killshotIndex = 0;
     }
 
     //getters and setters
@@ -64,6 +68,14 @@ public class Game {
 
     public void setSpawnLocationPhase(boolean spawnLocationPhase) {
         this.spawnLocationPhase = spawnLocationPhase;
+    }
+
+    public boolean isBoardTypePhase() {
+        return boardTypePhase;
+    }
+
+    public void setBoardTypePhase(boolean boardTypePhase) {
+        this.boardTypePhase = boardTypePhase;
     }
 
     public boolean isColorSelection() {
@@ -157,6 +169,7 @@ public class Game {
     }
 
     public void createKillshotTrack(int skulls){
+        skullsNumber = skulls;
         for(int i=0; i<skulls; i++){
             killshotTrack.add(new Token(TokenColor.SKULL));
         }
@@ -181,6 +194,17 @@ public class Game {
         players.add(player);
         if(players.size()==5){
             gamePhase = true;
+        }
+    }
+
+    public void setKillAndDoubleKill(Player player){
+        killshotTrack.get(killshotIndex).setFirstColor(player.getPlayerBoard().getKillshot());
+        if(player.getPlayerBoard().isOverkill()){
+            killshotTrack.get(killshotIndex).setSecondColor(player.getPlayerBoard().getOverkill());
+        }
+        killshotIndex++;
+        if(killshotIndex == skullsNumber){
+            finalFrenzy = true;
         }
     }
 

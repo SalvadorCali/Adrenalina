@@ -14,6 +14,7 @@ public interface ClientInterface {
     void login(String username, TokenColor color) throws RemoteException;
     void setView(ViewInterface view) throws RemoteException;
     void disconnect() throws RemoteException;
+    void board(int boardType, int skulls) throws IOException;
     void choose(int choice) throws IOException;
     void showSquare() throws IOException;
     void showSquare(int x, int y) throws IOException;

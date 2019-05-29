@@ -95,6 +95,11 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
     }
 
     @Override
+    public void board(int boardType, int skulls) throws IOException {
+        server.board(boardType, skulls);
+    }
+
+    @Override
     public void choose(int choice){
         try {
             server.choose(choice);
@@ -179,6 +184,9 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
     @Override
     public void notify(Message message) throws RemoteException{
         switch (message){
+            case BOARD:
+                view.notify(message);
+                break;
             case END_TURN:
                 view.notify(message);
                 break;

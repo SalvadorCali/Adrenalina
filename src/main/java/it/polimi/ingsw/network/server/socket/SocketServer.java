@@ -68,6 +68,9 @@ public class SocketServer implements Runnable, ServerInterface {
             case DISCONNECT:
                 disconnect();
                 break;
+            case BOARD:
+                board();
+                break;
             case SPAWN:
                 choose();
                 break;
@@ -131,6 +134,16 @@ public class SocketServer implements Runnable, ServerInterface {
             objectInputStream.close();
             objectOutputStream.close();
             socket.close();
+        } catch (IOException e) {
+            Printer.err(e);
+        }
+    }
+
+    public void board(){
+        try {
+            int boardType = objectInputStream.readInt();
+            int skulls = objectInputStream.readInt();
+            serverController.chooseBoardType(boardType, skulls);
         } catch (IOException e) {
             Printer.err(e);
         }

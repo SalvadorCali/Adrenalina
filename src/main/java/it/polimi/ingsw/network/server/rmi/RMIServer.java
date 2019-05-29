@@ -42,6 +42,11 @@ public class RMIServer extends UnicastRemoteObject implements RMIServerInterface
     }
 
     @Override
+    public void board(int boardType, int skulls) throws RemoteException {
+        serverController.chooseBoardType(boardType, skulls);
+    }
+
+    @Override
     public void choose(int choice){
         serverController.choose(clientName, choice);
     }

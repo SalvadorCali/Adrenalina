@@ -8,16 +8,14 @@ import it.polimi.ingsw.model.cards.effects.ActionInterface;
 import it.polimi.ingsw.model.enums.Color;
 import it.polimi.ingsw.model.enums.Direction;
 import it.polimi.ingsw.model.enums.TokenColor;
-import it.polimi.ingsw.model.gamecomponents.Deck;
-import it.polimi.ingsw.model.gamecomponents.Game;
-import it.polimi.ingsw.model.gamecomponents.GameBoard;
-import it.polimi.ingsw.model.gamecomponents.Player;
+import it.polimi.ingsw.model.gamecomponents.*;
 import it.polimi.ingsw.util.Converter;
 import it.polimi.ingsw.util.Parser;
 import it.polimi.ingsw.util.Printer;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class GameController {
 
@@ -75,6 +73,15 @@ public class GameController {
         game.createScoreList();
     }
 
+    public void startGame(List<Player> players, int board, int skulls) {
+        game.setPlayers(players);
+        game.giveAmmos();
+        game.createKillshotTrack(skulls);
+        game.setBoard(gameBoards.get(board - 1));
+        game.fillSquares(actionInterface);
+        game.createScoreList();
+    }
+
     public void setGamePhase(boolean gamePhase) {
         game.setGamePhase(gamePhase);
     }
@@ -91,6 +98,14 @@ public class GameController {
         return game.isSpawnLocationPhase();
     }
 
+    public void setBoardTypePhase(boolean boardTypePhase){
+        game.setBoardTypePhase(boardTypePhase);
+    }
+
+    public boolean isBoardTypePhase(){
+        return game.isBoardTypePhase();
+    }
+
     public void setColorSelection(boolean colorSelection) {
         game.setColorSelection(colorSelection);
     }
@@ -101,6 +116,11 @@ public class GameController {
 
     public void addPlayer(Player player) {
         game.addPlayer(player);
+    }
+
+    public void setBoard(int boardType, int skulls){
+        game.setBoard(gameBoards.get(boardType - 1));
+        game.createKillshotTrack(skulls);
     }
 
     public boolean canMove(Player player, Direction... directions) {
@@ -399,6 +419,16 @@ public class GameController {
 
     }
 
+    public void deathAndRespawn(List<Player> players){
+        game.scoring();
+        //game.getScoreList().forEach((c,i)->Printer.println(c + ": " + i));
+        for(Player player : players){
+            if(player.isDead()){
+                player.getPlayerBoard().resetBoard();
+            }
+        }
+    }
+
     public void endTurn(Player player){
         player.resetActionNumber();
         game.endTurn(player);
@@ -423,5 +453,8 @@ public class GameController {
         game.getBoard().setPlayer(player, color);
     }
 
+    public Map<TokenColor, Integer> getScoreList(){
+        return game.getScoreList();
+    }
 
 }

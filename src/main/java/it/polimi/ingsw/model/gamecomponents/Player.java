@@ -327,6 +327,10 @@ public class Player implements Serializable {
         return actionNumber < Config.MAX_ACTIONS;
     }
 
+    public boolean isDead(){
+        return playerBoard.isDead();
+    }
+
     public void canReload(String...weaponNames){
         //
     }

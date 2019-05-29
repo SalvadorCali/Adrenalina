@@ -1,5 +1,6 @@
 package it.polimi.ingsw.controller;
 
+import it.polimi.ingsw.controller.timer.BoardTypeTimer;
 import it.polimi.ingsw.controller.timer.SpawnLocationTimer;
 import it.polimi.ingsw.controller.timer.TurnTimer;
 import it.polimi.ingsw.model.cards.Card;
@@ -53,7 +54,8 @@ public class ServerController {
                 addPlayer(username, color, server);
                 if(servers.size() == Config.MIN_PLAYERS){
                     ScheduledExecutorService createGame = Executors.newSingleThreadScheduledExecutor();
-                    Runnable createGameTask = this::spawnLocation;
+                    //Runnable createGameTask = this::spawnLocation;
+                    Runnable createGameTask = this::boardTypePhase;
                     createGame.schedule(createGameTask, Config.START_TIME, TimeUnit.MILLISECONDS);
                 }
             }else if(newUsername || newColor){
@@ -113,6 +115,23 @@ public class ServerController {
                 Printer.err(e);
             }
         });
+    }
+
+    private void boardTypePhase(){
+        gameController.setBoardTypePhase(true);
+        try {
+            servers.get(players.get(0).getUsername()).notify(Message.BOARD);
+        } catch (IOException e) {
+            Printer.err(e);
+        }
+        BoardTypeTimer boardTypeTimer = new BoardTypeTimer(this, gameController);
+        boardTypeTimer.start();
+    }
+
+    public void chooseBoardType(int boardType, int skulls){
+        gameController.setBoardTypePhase(false);
+        gameController.setBoard(boardType, skulls);
+        spawnLocation();
     }
 
     private void startGame(){
@@ -399,6 +418,12 @@ public class ServerController {
     }
 
     public void endTurn(String username){
+        for(Player player : players){
+            if(player.isDead()){
+                deathAndRespawn();
+                break;
+            }
+        }
         for(int i = 0; i< players.size(); i++){
             if(players.get(i).getUsername().equals(username)){
                 try {
@@ -424,5 +449,16 @@ public class ServerController {
             }
         }
         gameController.endTurn(users.get(username));
+    }
+
+    private void deathAndRespawn(){
+        gameController.deathAndRespawn(players);
+        servers.forEach((u,s)-> {
+            try {
+                s.notify(Message.SCORE, Outcome.ALL, gameController.getScoreList());
+            } catch (IOException e) {
+                Printer.err(e);
+            }
+        });
     }
 }

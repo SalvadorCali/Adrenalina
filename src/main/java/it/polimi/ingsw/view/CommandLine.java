@@ -2,12 +2,10 @@ package it.polimi.ingsw.view;
 
 import it.polimi.ingsw.controller.*;
 import it.polimi.ingsw.model.cards.Card;
-import it.polimi.ingsw.model.enums.AdrenalineZone;
-import it.polimi.ingsw.model.enums.Color;
-import it.polimi.ingsw.model.enums.Direction;
-import it.polimi.ingsw.model.enums.TokenColor;
+import it.polimi.ingsw.model.enums.*;
 import it.polimi.ingsw.model.gamecomponents.GameBoard;
 import it.polimi.ingsw.model.gamecomponents.Player;
+import it.polimi.ingsw.model.gamecomponents.Score;
 import it.polimi.ingsw.model.gamecomponents.Token;
 import it.polimi.ingsw.network.client.ClientInterface;
 import it.polimi.ingsw.network.enums.Message;
@@ -22,6 +20,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.rmi.RemoteException;
 import java.util.List;
+import java.util.Map;
 import java.util.StringTokenizer;
 
 public class CommandLine implements ViewInterface {
@@ -79,6 +78,11 @@ public class CommandLine implements ViewInterface {
                 break;
             case "disconnect":
                 disconnect();
+                break;
+            case "board":
+                if(!board(string)){
+                    Printer.print(StringCLI.INVALID_COMMAND);
+                }
                 break;
             case "choose":
                 if(!choose(string)){
@@ -158,6 +162,19 @@ public class CommandLine implements ViewInterface {
             client.disconnect();
         } catch (RemoteException e) {
             Printer.err(e);
+        }
+    }
+
+    private boolean board(StringTokenizer input){
+        if(input.countTokens() == 2){
+            try {
+                client.board(Integer.parseInt(input.nextToken()), Integer.parseInt(input.nextToken()));
+            } catch (IOException e) {
+                Printer.err(e);
+            }
+            return true;
+        }else{
+            return false;
         }
     }
 
@@ -1014,6 +1031,18 @@ public class CommandLine implements ViewInterface {
         }
     }
 
+    private void notifyBoard(){
+        int i = 1;
+        Printer.println("[SERVER]Please, choose one of these boards:");
+        for(BoardType boardType : BoardType.values()){
+            Printer.print("   " + i + ": ");
+            Printer.println(boardType);
+            i++;
+        }
+        Printer.println("[SERVER]Please, insert the following command ->");
+        Printer.print("board <choosen_board> <skulls number>: ");
+    }
+
     private void notifyNewTurn(){
         Printer.println("It's your turn!");
         damageBoardPrinter.setPlayer(playerController.getPlayer());
@@ -1112,8 +1141,16 @@ public class CommandLine implements ViewInterface {
         }
     }
 
+    private void notifyScore(Map<TokenColor, Integer> scoreList){
+        Printer.println("Score:");
+        scoreList.forEach((c,i)->Printer.println(c + ": " + i));
+    }
+
     public void notify(Message message){
         switch (message){
+            case BOARD:
+                notifyBoard();
+                break;
             case NEW_TURN:
                 notifyNewTurn();
                 break;
@@ -1163,6 +1200,9 @@ public class CommandLine implements ViewInterface {
                 break;
             case SQUARE:
                 notifyShowSquare((SquareData) object);
+                break;
+            case SCORE:
+                notifyScore((Map<TokenColor, Integer>) object);
                 break;
             default:
                 break;

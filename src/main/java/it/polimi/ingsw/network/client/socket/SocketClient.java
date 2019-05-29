@@ -137,6 +137,16 @@ public class SocketClient implements ClientInterface, Runnable, Serializable {
     }
 
     @Override
+    public void board(int boardType, int skulls) throws IOException {
+        objectOutputStream.writeObject(Message.BOARD);
+        objectOutputStream.flush();
+        objectOutputStream.writeInt(boardType);
+        objectOutputStream.flush();
+        objectOutputStream.writeInt(skulls);
+        objectOutputStream.flush();
+    }
+
+    @Override
     public void choose(int choice) throws IOException {
         objectOutputStream.writeObject(Message.SPAWN);
         objectOutputStream.flush();
@@ -406,6 +416,13 @@ public class SocketClient implements ClientInterface, Runnable, Serializable {
                 playerController.setPlayer((Player) object);
                 view.notify(message, outcome);
                 break;
+            case BOARD:
+                view.notify(message);
+                break;
+            case SCORE:
+                outcome = (Outcome) objectInputStream.readObject();
+                object = (Map<TokenColor, Integer>) objectInputStream.readObject();
+                view.notify(message, outcome, object);
             default:
                 break;
         }
