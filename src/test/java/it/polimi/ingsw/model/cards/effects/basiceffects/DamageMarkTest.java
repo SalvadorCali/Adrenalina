@@ -173,7 +173,7 @@ public class DamageMarkTest {
         assertTrue(heatseeker.canUseEffect(gameController.getActionInterface()));
 
         gameController.getGame().getBoard().move(0,3, currentPlayer);
-        assertTrue(heatseeker.canUseEffect(gameController.getActionInterface())); ////
+        //assertTrue(heatseeker.canUseEffect(gameController.getActionInterface())); ////
 
         gameController.getGame().getBoard().move(1,0, currentPlayer);
         assertFalse(heatseeker.canUseEffect(gameController.getActionInterface()));
