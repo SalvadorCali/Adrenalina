@@ -10,6 +10,7 @@ import it.polimi.ingsw.model.gamecomponents.Ammo;
 import it.polimi.ingsw.model.gamecomponents.Game;
 import it.polimi.ingsw.model.gamecomponents.Player;
 import it.polimi.ingsw.util.Printer;
+import it.polimi.ingsw.view.DamageBoardCLI;
 import it.polimi.ingsw.view.MapCLI;
 import org.junit.jupiter.api.Test;
 import static junit.framework.TestCase.*;
@@ -85,6 +86,28 @@ public class SquareDamageTest {
         assertEquals(TokenColor.GREEN, secondVictim.getPlayerBoard().getDamageBoard()[0].getFirstColor());
         assertEquals(TokenColor.GREEN, secondVictim.getPlayerBoard().getRevengeMarks().get(0).getFirstColor());
 
+    }
+    @Test
+    void shockwave2Test(){
+        playerSetup();
+        Effect shockwave = new SquareDamageEffect("Shockwave", 1,0,0,0,1);
+        currentPlayer.addAmmo(new Ammo(Color.YELLOW));
+        MapCLI mapCLI = new MapCLI(gameController.getGame().getBoard());
+        gameController.getGame().getBoard().move(0,1,secondVictim);
+        mapCLI.printMap();
+        assertTrue(shockwave.canUseEffect(gameController.getActionInterface()));
+        shockwave.useEffect(gameController.getActionInterface());
+        DamageBoardCLI dbc = new DamageBoardCLI(victim);
+        DamageBoardCLI dbc2 = new DamageBoardCLI(secondVictim);
+        dbc.printDamageBoard();
+        dbc2.printDamageBoard();
+        currentPlayer.addAmmo(new Ammo(Color.YELLOW));
+        gameController.getGame().getBoard().move(0,2,victim);
+        mapCLI.printMap();
+        assertTrue(shockwave.canUseEffect(gameController.getActionInterface()));
+        shockwave.useEffect(gameController.getActionInterface());
+        dbc.printDamageBoard();
+        dbc2.printDamageBoard();
     }
 
     void playerSetup(){
