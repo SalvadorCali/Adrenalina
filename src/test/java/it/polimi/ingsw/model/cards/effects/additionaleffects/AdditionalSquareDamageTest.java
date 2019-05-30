@@ -5,6 +5,7 @@ import it.polimi.ingsw.controller.GameController;
 import it.polimi.ingsw.model.cards.effects.Effect;
 import it.polimi.ingsw.model.cards.effects.weapons.basiceffects.DamageMarkEffect;
 import it.polimi.ingsw.model.cards.effects.weapons.basiceffects.MovementEffect;
+import it.polimi.ingsw.model.cards.effects.weapons.basiceffects.SquareDamageEffect;
 import it.polimi.ingsw.model.cards.effects.weapons.singleaddictions.AdditionalMove;
 import it.polimi.ingsw.model.cards.effects.weapons.singleaddictions.AdditionalSquareDamage;
 import it.polimi.ingsw.model.enums.Color;
@@ -124,6 +125,28 @@ public class AdditionalSquareDamageTest {
         assertEquals(TokenColor.GREEN, secondVictim.getPlayerBoard().getDamageBoard()[0].getFirstColor());
     }
 
+    @Test
+    void vortexCannonAddTest(){
+        playerSetup();
+        Effect vortexCannon = new SquareDamageEffect("Vortex Cannon",2,0,0,0,0);
+        Effect vortexCannonAdd = new AdditionalSquareDamage("Vortex Cannon",1,1,0,0, vortexCannon);
+        currentPlayer.addAmmo(new Ammo(Color.RED));
+        MapCLI mapCLI = new MapCLI(gameController.getGame().getBoard());
+        gameController.getGame().getBoard().move(0,0, victim);
+        gameController.getGame().getBoard().move(0,2,secondVictim);
+        gameController.getGame().getBoard().move(1,1,thirdVictim);
+        gameController.getActionInterface().getClientData().setSquare(0,1);
+        mapCLI.printMap();
+        assertTrue(vortexCannonAdd.canUseEffect(gameController.getActionInterface()));
+        vortexCannonAdd.useEffect(gameController.getActionInterface());
+        mapCLI.printMap();
+        DamageBoardCLI dbc = new DamageBoardCLI(victim);
+        DamageBoardCLI dbc2 = new DamageBoardCLI(secondVictim);
+        DamageBoardCLI dbc3 = new DamageBoardCLI(thirdVictim);
+        dbc.printDamageBoard();
+        dbc2.printDamageBoard();
+        dbc3.printDamageBoard();
+    }
 
     void playerSetup(){
 
