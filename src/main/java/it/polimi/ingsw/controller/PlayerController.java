@@ -4,10 +4,7 @@ import it.polimi.ingsw.model.cards.PowerupCard;
 import it.polimi.ingsw.model.cards.WeaponCard;
 import it.polimi.ingsw.model.enums.AdrenalineZone;
 import it.polimi.ingsw.model.enums.TokenColor;
-import it.polimi.ingsw.model.gamecomponents.Ammo;
-import it.polimi.ingsw.model.gamecomponents.GameBoard;
-import it.polimi.ingsw.model.gamecomponents.Player;
-import it.polimi.ingsw.model.gamecomponents.PlayerBoard;
+import it.polimi.ingsw.model.gamecomponents.*;
 import it.polimi.ingsw.network.client.ClientInterface;
 import it.polimi.ingsw.util.Config;
 
@@ -17,6 +14,7 @@ public class PlayerController {
     private ClientInterface client;
     private Player player;
     private GameBoard gameBoard;
+    private List<Token> killshotTrack;
     private int moves;
 
     public PlayerController(ClientInterface client){
@@ -37,6 +35,14 @@ public class PlayerController {
 
     public void setGameBoard(GameBoard gameBoard) {
         this.gameBoard = gameBoard;
+    }
+
+    public List<Token> getKillshotTrack() {
+        return killshotTrack;
+    }
+
+    public void setKillshotTrack(List<Token> killshotTrack) {
+        this.killshotTrack = killshotTrack;
     }
 
     public int getScore(){

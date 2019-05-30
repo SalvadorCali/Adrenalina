@@ -8,9 +8,10 @@ import it.polimi.ingsw.model.enums.Direction;
 import it.polimi.ingsw.model.enums.TokenColor;
 import it.polimi.ingsw.util.Printer;
 
+import java.io.Serializable;
 import java.util.*;
 
-public class Game {
+public class Game implements Serializable {
     private GameBoard board;
     private Player currentPlayer;
     private List<Player> players;
@@ -169,6 +170,9 @@ public class Game {
     }
 
     public void createKillshotTrack(int skulls){
+        if(!killshotTrack.isEmpty()){
+            killshotTrack.clear();
+        }
         skullsNumber = skulls;
         for(int i=0; i<skulls; i++){
             killshotTrack.add(new Token(TokenColor.SKULL));

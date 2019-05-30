@@ -15,12 +15,10 @@ public class Config {
     public static final int TURN_TIME = 500000;
     public static final int START_TIME = 1000;
     public static final int DISCONNECTION_TIME = 5000;
-    public static final int BOARD_TYPE_TIME = 20000;
-    public static final int SPAWN_LOCATION_TIME = 10000;
+    public static final int BOARD_TYPE_TIME = 1000;
+    public static final int SPAWN_LOCATION_TIME = 1000;
 
     //game
-    public static final int MIN_PLAYERS = 3;
+    public static final int MIN_PLAYERS = 2;
     public static final int MAX_ACTIONS = 2;
-    public static final BoardType BOARD_TYPE = BoardType.BASIC;
-    public static final int SKULLS = 8;
 }

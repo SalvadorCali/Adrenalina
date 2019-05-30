@@ -37,6 +37,7 @@ public class CommandLine implements ViewInterface {
     private AmmoBoxReserveCLI ammoPrinter;
     private DamageBoardCLI damageBoardPrinter;
     private MapCLI gameBoardPrinter;
+    private KillshotTrackCLI killshotTrackPrinter;
 
 
 
@@ -1049,10 +1050,13 @@ public class CommandLine implements ViewInterface {
 
     private void notifyNewTurn(){
         Printer.println("It's your turn!");
-        damageBoardPrinter.setPlayer(playerController.getPlayer());
-        damageBoardPrinter.printDamageBoard();
+        killshotTrackPrinter.setKillshotTrack(playerController.getKillshotTrack());
+        killshotTrackPrinter.printKillshotTrack();
         gameBoardPrinter.setGameBoard(playerController.getGameBoard());
         gameBoardPrinter.printMap();
+        //Printer.print("         ");
+        damageBoardPrinter.setPlayer(playerController.getPlayer());
+        damageBoardPrinter.printDamageBoard();
     }
 
     private void notifyEndTurn(){
@@ -1068,6 +1072,7 @@ public class CommandLine implements ViewInterface {
                 gameBoardPrinter = new MapCLI(playerController.getGameBoard());
                 ammoPrinter = new AmmoBoxReserveCLI(playerController.getPlayer());
                 damageBoardPrinter = new DamageBoardCLI(playerController.getPlayer());
+                killshotTrackPrinter = new KillshotTrackCLI(playerController.getKillshotTrack());
                 Printer.println("Game is started!");
                 break;
             default:
@@ -1081,6 +1086,8 @@ public class CommandLine implements ViewInterface {
         }else{
             Printer.println("[SERVER]Not moved!");
         }
+        killshotTrackPrinter.setKillshotTrack(playerController.getKillshotTrack());
+        killshotTrackPrinter.printKillshotTrack();
         gameBoardPrinter.setGameBoard(playerController.getGameBoard());
         gameBoardPrinter.printMap();
     }
@@ -1091,6 +1098,8 @@ public class CommandLine implements ViewInterface {
         }else{
             Printer.println("[SERVER]Powerup not used!");
         }
+        killshotTrackPrinter.setKillshotTrack(playerController.getKillshotTrack());
+        killshotTrackPrinter.printKillshotTrack();
         gameBoardPrinter.setGameBoard(playerController.getGameBoard());
         gameBoardPrinter.printMap();
     }
@@ -1116,6 +1125,8 @@ public class CommandLine implements ViewInterface {
             case ALL:
                 Printer.println("[SERVER]Shot!");
                 Printer.println(playerController.getPlayer().getUsername());
+                killshotTrackPrinter.setKillshotTrack(playerController.getKillshotTrack());
+                killshotTrackPrinter.printKillshotTrack();
                 damageBoardPrinter.setPlayer(playerController.getPlayer());
                 damageBoardPrinter.printDamageBoard();
                 break;

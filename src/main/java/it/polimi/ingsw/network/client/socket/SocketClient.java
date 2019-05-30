@@ -1,5 +1,6 @@
 package it.polimi.ingsw.network.client.socket;
 
+import it.polimi.ingsw.controller.GameData;
 import it.polimi.ingsw.controller.PlayerController;
 import it.polimi.ingsw.controller.PowerupData;
 import it.polimi.ingsw.controller.SquareData;
@@ -337,8 +338,10 @@ public class SocketClient implements ClientInterface, Runnable, Serializable {
         switch(message){
             case NEW_TURN:
                 outcome = (Outcome) objectInputStream.readObject();
-                GameBoard gameBoard = (GameBoard) objectInputStream.readObject();
-                playerController.setGameBoard(gameBoard);
+                object = (GameData) objectInputStream.readObject();
+                GameData gameData = (GameData) object;
+                playerController.setGameBoard(gameData.getGameBoard());
+                playerController.setKillshotTrack(gameData.getKillshotTrack());
                 view.notify(message);
                 break;
             case END_TURN:
@@ -346,8 +349,10 @@ public class SocketClient implements ClientInterface, Runnable, Serializable {
                 break;
             case GAME:
                 outcome = (Outcome) objectInputStream.readObject();
-                object = objectInputStream.readObject();
-                playerController.setGameBoard((GameBoard) object);
+                object = (GameData) objectInputStream.readObject();
+                GameData gameData1 = (GameData) object;
+                playerController.setGameBoard(gameData1.getGameBoard());
+                playerController.setKillshotTrack(gameData1.getKillshotTrack());
                 view.notify(message, outcome);
                 break;
             case LOGIN:
@@ -383,14 +388,18 @@ public class SocketClient implements ClientInterface, Runnable, Serializable {
                 if(outcome.equals(Outcome.RIGHT)){
                     playerController.incrementMoves();
                 }
-                object = (GameBoard) objectInputStream.readObject();
-                playerController.setGameBoard((GameBoard) object);
+                object = (GameData) objectInputStream.readObject();
+                GameData gameData2 = (GameData) object;
+                playerController.setGameBoard(gameData2.getGameBoard());
+                playerController.setKillshotTrack(gameData2.getKillshotTrack());
                 view.notify(message, outcome);
                 break;
             case POWERUP:
                 outcome = (Outcome) objectInputStream.readObject();
-                object = (GameBoard) objectInputStream.readObject();
-                playerController.setGameBoard((GameBoard) object);
+                object = (GameData) objectInputStream.readObject();
+                GameData gameData3 = (GameData) object;
+                playerController.setGameBoard(gameData3.getGameBoard());
+                playerController.setKillshotTrack(gameData3.getKillshotTrack());
                 view.notify(message, outcome);
                 break;
             case GRAB:

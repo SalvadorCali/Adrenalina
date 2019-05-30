@@ -1,5 +1,6 @@
 package it.polimi.ingsw.network.client.rmi;
 
+import it.polimi.ingsw.controller.GameData;
 import it.polimi.ingsw.controller.PlayerController;
 import it.polimi.ingsw.controller.PowerupData;
 import it.polimi.ingsw.controller.timer.ConnectionTimer;
@@ -211,8 +212,10 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
                 break;
             case GAME:
                 if(outcome.equals(Outcome.ALL)){
-                    GameBoard gameBoard = (GameBoard) object;
-                    playerController.setGameBoard(gameBoard);
+                    GameData gameData = (GameData) object;
+                    //GameBoard gameBoard = (GameBoard) object;
+                    playerController.setGameBoard(gameData.getGameBoard());
+                    playerController.setKillshotTrack(gameData.getKillshotTrack());
                 }
                 view.notify(message, outcome);
                 break;
@@ -224,21 +227,27 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
                 break;
             case NEW_TURN:
                 if(outcome.equals(Outcome.RIGHT)){
-                    GameBoard gameBoard = (GameBoard) object;
-                    playerController.setGameBoard(gameBoard);
+                    GameData gameData = (GameData) object;
+                    //GameBoard gameBoard = (GameBoard) object;
+                    playerController.setGameBoard(gameData.getGameBoard());
+                    playerController.setKillshotTrack(gameData.getKillshotTrack());
                 }
                 view.notify(message);
             case MOVE:
                 if(outcome.equals(Outcome.RIGHT)){
                     playerController.incrementMoves();
                 }
-                GameBoard gameBoard = (GameBoard) object;
-                playerController.setGameBoard(gameBoard);
+                GameData gameData = (GameData) object;
+                //GameBoard gameBoard = (GameBoard) object;
+                playerController.setGameBoard(gameData.getGameBoard());
+                playerController.setKillshotTrack(gameData.getKillshotTrack());
                 view.notify(message, outcome);
                 break;
             case POWERUP:
-                GameBoard gb = (GameBoard) object;
-                playerController.setGameBoard(gb);
+                GameData gameData2 = (GameData) object;
+                //GameBoard gameBoard = (GameBoard) object;
+                playerController.setGameBoard(gameData2.getGameBoard());
+                playerController.setKillshotTrack(gameData2.getKillshotTrack());
                 view.notify(message, outcome);
                 break;
             case GRAB:

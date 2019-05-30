@@ -13,6 +13,7 @@ import it.polimi.ingsw.network.server.ServerInterface;
 import it.polimi.ingsw.util.Config;
 import it.polimi.ingsw.util.Printer;
 import it.polimi.ingsw.network.enums.Outcome;
+import it.polimi.ingsw.view.KillshotTrackCLI;
 import it.polimi.ingsw.view.MapCLI;
 
 import java.io.IOException;
@@ -33,6 +34,7 @@ public class ServerController {
     private Map<String, Player> disconnectedUsers;
     private Map<String, List<Card>> powerupsSpawn;
     private List<Player> players;
+    private GameData gameData;
 
     public ServerController(){
         gameController = new GameController();
@@ -43,6 +45,7 @@ public class ServerController {
         disconnectedUsers = new HashMap<>();
         players = new ArrayList<>();
         spawnedPlayers = 0;
+        gameData = new GameData();
     }
 
 
@@ -142,8 +145,9 @@ public class ServerController {
         gameController.setGamePhase(true);
         players.get(0).setMyTurn(true);
         gameController.getGame().setCurrentPlayer(players.get(0));
+        gameData.setGame(gameController.getGame());
         try {
-            servers.get(players.get(0).getUsername()).notify(Message.NEW_TURN, Outcome.RIGHT, gameController.getGame().getBoard());
+            servers.get(players.get(0).getUsername()).notify(Message.NEW_TURN, Outcome.RIGHT, gameData);
         } catch (IOException e) {
             Printer.err(e);
         }
@@ -162,9 +166,10 @@ public class ServerController {
             }
         });
         gameController.startGame(players);
+        gameData.setGame(gameController.getGame());
         servers.forEach((username, server) -> {
             try {
-                server.notify(Message.GAME, Outcome.ALL, gameController.getGame().getBoard());
+                server.notify(Message.GAME, Outcome.ALL, gameData);
             } catch (IOException e) {
                 Printer.err(e);
             }
@@ -262,14 +267,16 @@ public class ServerController {
     public void move(String username, Direction...directions){
         if(gameController.canMove(users.get(username), directions) && users.get(username).canUseAction()){
             gameController.move(users.get(username), directions);
+            gameData.setGame(gameController.getGame());
             try {
-                servers.get(username).notify(Message.MOVE, Outcome.RIGHT, gameController.getGame().getBoard());
+                servers.get(username).notify(Message.MOVE, Outcome.RIGHT, gameData);
             } catch (IOException e) {
                 Printer.err(e);
             }
         }else{
+            gameData.setGame(gameController.getGame());
             try {
-                servers.get(username).notify(Message.MOVE, Outcome.WRONG, gameController.getGame().getBoard());
+                servers.get(username).notify(Message.MOVE, Outcome.WRONG, gameData);
             } catch (IOException e) {
                 Printer.err(e);
             }
@@ -293,7 +300,6 @@ public class ServerController {
     }
 
     public Player[] getVictims(TokenColor...colors){
-        Printer.println("ciaooo");
         Player[] victims = new Player[colors.length];
         for(int i=0; i<colors.length; i++){
             victims[i] = users.get(this.colors.get(colors[i]));
@@ -318,11 +324,8 @@ public class ServerController {
                 }
             }
         }else{
-            Printer.println("lockriiiii");
             try {
-                Printer.println("lockriiiiiooo");
                 servers.get(username).notify(Message.SHOOT, Outcome.WRONG, users.get(username));
-                Printer.println("lockriiiiill");
             } catch (IOException e) {
                 Printer.err(e);
             }
@@ -358,14 +361,16 @@ public class ServerController {
     public void powerup(String username, String powerup, int x, int y){
         if(gameController.canMove(x,y)){
             gameController.move(users.get(username), x, y);
+            gameData.setGame(gameController.getGame());
             try {
-                servers.get(username).notify(Message.POWERUP, Outcome.RIGHT, gameController.getGame().getBoard());
+                servers.get(username).notify(Message.POWERUP, Outcome.RIGHT, gameData);
             } catch (IOException e) {
                 Printer.err(e);
             }
         }else{
+            gameData.setGame(gameController.getGame());
             try {
-                servers.get(username).notify(Message.POWERUP, Outcome.WRONG, gameController.getGame().getBoard());
+                servers.get(username).notify(Message.POWERUP, Outcome.WRONG, gameData);
             } catch (IOException e) {
                 Printer.err(e);
             }
@@ -376,14 +381,16 @@ public class ServerController {
         if(value == 1){
             if(gameController.canMove(users.get(username), direction)){
                 gameController.move(users.get(username), direction);
+                gameData.setGame(gameController.getGame());
                 try {
-                    servers.get(username).notify(Message.POWERUP, Outcome.RIGHT, gameController.getGame().getBoard());
+                    servers.get(username).notify(Message.POWERUP, Outcome.RIGHT, gameData);
                 } catch (IOException e) {
                     Printer.err(e);
                 }
             }else{
+                gameData.setGame(gameController.getGame());
                 try {
-                    servers.get(username).notify(Message.POWERUP, Outcome.WRONG, gameController.getGame().getBoard());
+                    servers.get(username).notify(Message.POWERUP, Outcome.WRONG, gameData);
                 } catch (IOException e) {
                     Printer.err(e);
                 }
@@ -391,14 +398,16 @@ public class ServerController {
         }else if(value == 2){
             if(gameController.canMove(users.get(username), direction, direction)){
                 gameController.move(users.get(username), direction, direction);
+                gameData.setGame(gameController.getGame());
                 try {
-                    servers.get(username).notify(Message.POWERUP, Outcome.RIGHT, gameController.getGame().getBoard());
+                    servers.get(username).notify(Message.POWERUP, Outcome.RIGHT, gameData);
                 } catch (IOException e) {
                     Printer.err(e);
                 }
             }else{
+                gameData.setGame(gameController.getGame());
                 try {
-                    servers.get(username).notify(Message.POWERUP, Outcome.WRONG, gameController.getGame().getBoard());
+                    servers.get(username).notify(Message.POWERUP, Outcome.WRONG, gameData);
                 } catch (IOException e) {
                     Printer.err(e);
                 }
@@ -435,13 +444,15 @@ public class ServerController {
                     }
                     if(i== players.size()-1){
                         if(servers.containsKey(players.get(0).getUsername())){
-                            servers.get(players.get(0).getUsername()).notify(Message.NEW_TURN, Outcome.RIGHT, gameController.getGame().getBoard());
+                            gameData.setGame(gameController.getGame());
+                            servers.get(players.get(0).getUsername()).notify(Message.NEW_TURN, Outcome.RIGHT, gameData);
                             TurnTimer timer = new TurnTimer(this, players, players.get(0));
                             timer.start();
                         }
                     }else{
                         if(servers.containsKey(players.get(i+1).getUsername())){
-                            servers.get(players.get(i+1).getUsername()).notify(Message.NEW_TURN, Outcome.RIGHT, gameController.getGame().getBoard());
+                            gameData.setGame(gameController.getGame());
+                            servers.get(players.get(i+1).getUsername()).notify(Message.NEW_TURN, Outcome.RIGHT, gameData);
                             TurnTimer timer = new TurnTimer(this, players, players.get(i+1));
                             timer.start();
                         }
