@@ -42,7 +42,7 @@ public class KillshotTrackCLI {
 
         //initialize damage and colorDamage
         for(int i = 0; i < MAX_SKULLS; i++){
-            damage[i] = "S";
+            damage[i] = "-";
             colorDamage[i] = BLACK;
         }
 
@@ -54,7 +54,7 @@ public class KillshotTrackCLI {
 
         //color and assign damage
         if(!killshotTrack.isEmpty()) {
-            for (int i = 0; i < MAX_SKULLS; i++) {
+            for (int i = 0; i < killshotTrack.size(); i++) {
 
                 if (killshotTrack.get(i).getFirstColor() != TokenColor.NONE) {
 

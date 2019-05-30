@@ -10,13 +10,13 @@ public class KillshotTrackCLITest {
     public void printTest(){
         GameController gameController = new GameController();
         Game game = gameController.getGame();
-        game.createKillshotTrack(8);
+        game.createKillshotTrack(7);
         KillshotTrackCLI killshotTrackCLI = new KillshotTrackCLI(game.getKillshotTrack());
         killshotTrackCLI.printKillshotTrack();
 
         game.getKillshotTrack().get(0).setFirstColor(TokenColor.BLUE);
         game.getKillshotTrack().get(3).setFirstColor(TokenColor.YELLOW);
-        game.getKillshotTrack().get(7).setFirstColor(TokenColor.PURPLE);
+        game.getKillshotTrack().get(6).setFirstColor(TokenColor.PURPLE);
         game.getKillshotTrack().get(6).setSecondColor(TokenColor.GREEN);
         killshotTrackCLI.setKillshotTrack(game.getKillshotTrack());
         killshotTrackCLI.printKillshotTrack();
