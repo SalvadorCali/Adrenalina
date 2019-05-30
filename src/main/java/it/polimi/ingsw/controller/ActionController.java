@@ -234,6 +234,11 @@ public class ActionController implements ActionInterface {
         return clientData.getSecondVictim();
     }
 
+    @Override
+    public int distanceControl(Player player, int x, int y){
+        return game.getBoard().distance(player, x, y);
+    }
+
 
 }
 

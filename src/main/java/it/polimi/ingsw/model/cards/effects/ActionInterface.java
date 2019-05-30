@@ -86,5 +86,7 @@ public interface ActionInterface {
 
     void playerMark(Player victim, int markPower);
 
+    int distanceControl(Player player, int x, int y);
+
 
 }

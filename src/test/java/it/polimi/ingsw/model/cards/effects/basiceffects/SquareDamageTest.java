@@ -109,6 +109,28 @@ public class SquareDamageTest {
         dbc.printDamageBoard();
         dbc2.printDamageBoard();
     }
+    @Test
+    void vortexCannon1Test(){
+        playerSetup();
+        Effect vortexCannon = new SquareDamageEffect("Vortex Cannon", 2,0,0,0,0);
+        gameController.getGame().getBoard().move(0,2,victim);
+        MapCLI mapCLI = new MapCLI(gameController.getGame().getBoard());
+        mapCLI.printMap();
+        gameController.getActionInterface().getClientData().setSquare(0,1);
+        assertTrue(vortexCannon.canUseEffect(gameController.getActionInterface()));
+        vortexCannon.useEffect(gameController.getActionInterface());
+        mapCLI.printMap();
+        DamageBoardCLI dbc = new DamageBoardCLI(victim);
+        dbc.printDamageBoard();
+        assertTrue(vortexCannon.canUseEffect(gameController.getActionInterface()));
+        vortexCannon.useEffect(gameController.getActionInterface());
+        mapCLI.printMap();
+        dbc.printDamageBoard();
+        gameController.getActionInterface().getClientData().setSquare(1,0);
+        assertFalse(vortexCannon.canUseEffect(gameController.getActionInterface()));
+        gameController.getActionInterface().getClientData().setSquare(0,0);
+        assertFalse(vortexCannon.canUseEffect(gameController.getActionInterface()));
+    }
 
     void playerSetup(){
 

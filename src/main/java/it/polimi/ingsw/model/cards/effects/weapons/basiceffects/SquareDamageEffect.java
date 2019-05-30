@@ -56,6 +56,9 @@ public class SquareDamageEffect extends BasicEffect {
                     right = true;
                 if(actionInterface.canMove(currentPlayer, Direction.LEFT))
                     left = true;
+            }else if(effectName.equals("Vortex Cannon")){
+                if(actionInterface.distanceControl(currentPlayer, square.getX(),square.getY()) == 0 || actionInterface.distanceControl(victim, square.getX(), square.getY()) > 1)
+                    canUse = false;
             }
         }
         return canUse;
@@ -78,8 +81,10 @@ public class SquareDamageEffect extends BasicEffect {
             down = false;
             right = false;
             left = false;
-        }
-        else {
+        }else if(effectName.equals("Vortex Cannon")) {
+            actionInterface.playerDamage(victim, damagePower);
+            actionInterface.move(square.getX(),square.getY(),victim);
+        }else {
             if (effectName.equals("Hellion")) {
                 actionInterface.playerDamage(victim, damagePower);
                 damagePower--;

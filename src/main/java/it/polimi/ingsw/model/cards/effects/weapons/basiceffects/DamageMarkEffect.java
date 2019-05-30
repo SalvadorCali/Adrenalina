@@ -2,7 +2,6 @@ package it.polimi.ingsw.model.cards.effects.weapons.basiceffects;
 
 import it.polimi.ingsw.model.cards.effects.ActionInterface;
 import it.polimi.ingsw.model.gamecomponents.Player;
-import it.polimi.ingsw.util.Printer;
 
 public class DamageMarkEffect extends BasicEffect {
 
