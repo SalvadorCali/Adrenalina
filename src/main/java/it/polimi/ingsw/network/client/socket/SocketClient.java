@@ -417,7 +417,8 @@ public class SocketClient implements ClientInterface, Runnable, Serializable {
                 view.notify(message, outcome);
                 break;
             case BOARD:
-                view.notify(message);
+                outcome = (Outcome) objectInputStream.readObject();
+                view.notify(message, outcome);
                 break;
             case SCORE:
                 outcome = (Outcome) objectInputStream.readObject();

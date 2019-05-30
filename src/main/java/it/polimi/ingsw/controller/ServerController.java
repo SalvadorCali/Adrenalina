@@ -120,7 +120,10 @@ public class ServerController {
     private void boardTypePhase(){
         gameController.setBoardTypePhase(true);
         try {
-            servers.get(players.get(0).getUsername()).notify(Message.BOARD);
+            servers.get(players.get(0).getUsername()).notify(Message.BOARD, Outcome.RIGHT);
+            for(int i=1; i<players.size(); i++){
+                servers.get(players.get(i).getUsername()).notify(Message.BOARD, Outcome.ALL);
+            }
         } catch (IOException e) {
             Printer.err(e);
         }

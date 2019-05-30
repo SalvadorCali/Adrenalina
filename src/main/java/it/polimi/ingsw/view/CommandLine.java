@@ -1031,16 +1031,20 @@ public class CommandLine implements ViewInterface {
         }
     }
 
-    private void notifyBoard(){
-        int i = 1;
-        Printer.println("[SERVER]Please, choose one of these boards:");
-        for(BoardType boardType : BoardType.values()){
-            Printer.print("   " + i + ": ");
-            Printer.println(boardType);
-            i++;
+    private void notifyBoard(Outcome outcome){
+        if(outcome.equals(Outcome.RIGHT)){
+            int i = 1;
+            Printer.println("[SERVER]Please, choose one of these boards:");
+            for(BoardType boardType : BoardType.values()){
+                Printer.print("   " + i + ": ");
+                Printer.println(boardType);
+                i++;
+            }
+            Printer.println("[SERVER]Please, insert the following command ->");
+            Printer.print("board <choosen_board> <skulls number>: ");
+        }else{
+            Printer.println("[SERVER]The first player is choosing the board...");
         }
-        Printer.println("[SERVER]Please, insert the following command ->");
-        Printer.print("board <choosen_board> <skulls number>: ");
     }
 
     private void notifyNewTurn(){
@@ -1148,9 +1152,6 @@ public class CommandLine implements ViewInterface {
 
     public void notify(Message message){
         switch (message){
-            case BOARD:
-                notifyBoard();
-                break;
             case NEW_TURN:
                 notifyNewTurn();
                 break;
@@ -1164,6 +1165,9 @@ public class CommandLine implements ViewInterface {
 
     public void notify(Message message, Outcome outcome){
         switch (message){
+            case BOARD:
+                notifyBoard(outcome);
+                break;
             case GAME:
                 notifyGame(outcome);
                 break;
