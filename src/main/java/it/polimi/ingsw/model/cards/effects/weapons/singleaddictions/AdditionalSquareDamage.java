@@ -16,6 +16,8 @@ public class AdditionalSquareDamage extends SingleAddictionEffect{
 
     private boolean basicFirst;
 
+    private boolean victim1, victim2;
+
     private boolean canUse;
 
 
@@ -39,8 +41,18 @@ public class AdditionalSquareDamage extends SingleAddictionEffect{
 
         if (basicFirst) {
             canUse = super.effect.canUseEffect(actionInterface) && actionInterface.ammoControl(redAmmos, blueAmmos, yellowAmmos);
-            if (canUse && !effectName.equals("Rocket Launcher"))
+            if (canUse && !effectName.equals("Rocket Launcher") && !effectName.equals("Vortex Cannon"))
                 canUse = actionInterface.isVisibleDifferentSquare(x, y);
+            if(canUse && effectName.equals("Vortex Cannon")) {
+                if(actionInterface.distanceControl(actionInterface.getClientData().getSecondVictim(), x, y)  > 1 && actionInterface.distanceControl(actionInterface.getClientData().getThirdVictim(), x, y) > 1)
+                    canUse = false;
+                if(actionInterface.distanceControl(actionInterface.getClientData().getSecondVictim(), x, y)  < 2)
+                    victim1 = true;
+                if(actionInterface.distanceControl(actionInterface.getClientData().getThirdVictim(), x, y)  < 2)
+                    victim2 = true;
+            }
+
+
         } else {
             canUse = actionInterface.ammoControl(redAmmos, blueAmmos, yellowAmmos);
             if (canUse) {
@@ -58,9 +70,22 @@ public class AdditionalSquareDamage extends SingleAddictionEffect{
     public void useEffect(ActionInterface actionInterface) {
 
         super.effect.useEffect(actionInterface);
-        actionInterface.squareDamage(x, y, damagePower, 0);
-        if(effectName.equals("Rocket Launcher") && (actionInterface.getVictim().getPosition().getX()!= x || actionInterface.getVictim().getPosition().getY()!=y))
-            actionInterface.playerDamage(actionInterface.getVictim().getColor(), damagePower);
+        if(!effectName.equals("Vortex Cannon")) {
+            actionInterface.squareDamage(x, y, damagePower, 0);
+            if (effectName.equals("Rocket Launcher") && (actionInterface.getVictim().getPosition().getX() != x || actionInterface.getVictim().getPosition().getY() != y))
+                actionInterface.playerDamage(actionInterface.getVictim().getColor(), damagePower);
+        }else{
+            if(victim1){
+                actionInterface.playerDamage(actionInterface.getSecondVictim(), damagePower);
+                actionInterface.move(x, y, actionInterface.getSecondVictim());
+                victim1 = false;
+            }
+            if(victim2){
+                actionInterface.playerDamage(actionInterface.getThirdVictim(), damagePower);
+                actionInterface.move(x, y, actionInterface.getThirdVictim());
+                victim2 = false;
+            }
+        }
         actionInterface.updateAmmoBox(redAmmos, blueAmmos, yellowAmmos);
     }
 
