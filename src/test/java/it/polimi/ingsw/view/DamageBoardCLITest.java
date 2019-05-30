@@ -1,6 +1,8 @@
 package it.polimi.ingsw.view;
 
+import it.polimi.ingsw.model.enums.Color;
 import it.polimi.ingsw.model.enums.TokenColor;
+import it.polimi.ingsw.model.gamecomponents.Ammo;
 import it.polimi.ingsw.model.gamecomponents.Player;
 import it.polimi.ingsw.model.gamecomponents.PlayerBoard;
 import org.junit.jupiter.api.Test;
@@ -16,6 +18,12 @@ public class DamageBoardCLITest {
         Player player3 = new Player(TokenColor.YELLOW);
         String name = "gianni";
         //Token [] damageBoard = new Token[12];
+
+        player1.addAmmo(new Ammo(Color.BLUE), new Ammo(Color.BLUE), new Ammo(Color.BLUE),
+                new Ammo(Color.YELLOW), new Ammo(Color.YELLOW), new Ammo(Color.YELLOW),
+                new Ammo(Color.RED), new Ammo(Color.RED), new Ammo(Color.RED));
+
+        playerBoard.setDeathNumber(3);
 
         playerBoard.addDamage(player1.getColor(), player1.getColor(), player3.getColor(), player2.getColor(), player2.getColor(), player1.getColor());
         //damageBoard = playerBoard.getDamageBoard();

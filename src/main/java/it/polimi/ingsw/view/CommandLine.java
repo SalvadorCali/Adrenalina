@@ -1054,9 +1054,16 @@ public class CommandLine implements ViewInterface {
         killshotTrackPrinter.printKillshotTrack();
         gameBoardPrinter.setGameBoard(playerController.getGameBoard());
         gameBoardPrinter.printMap();
-        //Printer.print("         ");
         damageBoardPrinter.setPlayer(playerController.getPlayer());
         damageBoardPrinter.printDamageBoard();
+        if(!playerController.getWeapons().isEmpty()){
+            Printer.println("Your weapons:");
+            playerController.getWeapons().forEach(Printer::println);
+        }
+        if(!playerController.getPowerups().isEmpty()){
+            Printer.println("Your powerups:");
+            playerController.getPowerups().forEach(Printer::println);
+        }
     }
 
     private void notifyEndTurn(){

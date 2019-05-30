@@ -1,8 +1,10 @@
 package it.polimi.ingsw.view;
 
 //import it.polimi.ingsw.controller.GameController;
+import it.polimi.ingsw.model.enums.Color;
 import it.polimi.ingsw.model.enums.TokenColor;
 //import it.polimi.ingsw.model.gamecomponents.Game;
+import it.polimi.ingsw.model.gamecomponents.Ammo;
 import it.polimi.ingsw.model.gamecomponents.Player;
 import it.polimi.ingsw.model.gamecomponents.Token;
 import it.polimi.ingsw.util.Printer;
@@ -24,10 +26,14 @@ public class DamageBoardCLI {
     public static final String GREY = "\033[0;37m";   // WHITE
     private final static Integer MAX_MARK = 3;
     private final static String MARK = "M";
+    public static final Integer RESERVE_LENGTH = 9;
+    public static final String AMMO = "A";
+    public static final Integer POINTS_LENGTH = 6;
 
     private Token[] damageBoard;
-    //private String currentPlayer;
+    private int deathNumber;
     private List<Token> markBoard;
+    private List<Ammo> ammoBox;
 
 
     public DamageBoardCLI(Player player){
@@ -35,6 +41,8 @@ public class DamageBoardCLI {
         damageBoard = player.getPlayerBoard().getDamageBoard();
         //currentPlayer = player.getUsername();
         markBoard = player.getPlayerBoard().getRevengeMarks();
+        ammoBox = player.getAmmoBox();
+        deathNumber = player.getPlayerBoard().getDeathNumber();
         //damageBoard = gameController.getGame().getCurrentPlayer().getPlayerBoard().getDamageBoard();
         //currentPlayer = gameController.getGame().getCurrentPlayer().getUsername();
         //markBoard = gameController.getGame().getCurrentPlayer().getPlayerBoard().getRevengeMarks();
@@ -52,6 +60,9 @@ public class DamageBoardCLI {
         String colorDamage[] = new String[MAX_DAMAGE];
         String mark[] = new String[MAX_MARK];
         String colorMark[] = new String[MAX_MARK];
+        String ammoColor[] = new String[RESERVE_LENGTH];
+        String ammoVal[] = new String[RESERVE_LENGTH];
+        String points[] = new String[POINTS_LENGTH];
 
         //initialize damage and colorDamage
         for(int i = 0; i < MAX_DAMAGE; i++){
@@ -140,22 +151,86 @@ public class DamageBoardCLI {
             }
         }
 
+        for(int i = 0; i < RESERVE_LENGTH; i++){
+
+            ammoColor[i] = CYAN;
+            ammoVal[i] = AMMO;
+        }
+
+        //give color to ammo
+        for (int i = 0; i < ammoBox.size(); i++){
+
+            if(ammoBox.get(i).getColor().equals(Color.BLUE)){
+
+                ammoColor[i] = BLUE;
+            }
+
+            if(ammoBox.get(i).getColor().equals(Color.RED)){
+
+                ammoColor[i] = RED;
+            }
+
+            if(ammoBox.get(i).getColor().equals(Color.YELLOW)){
+
+                ammoColor[i] = YELLOW;
+            }
+
+            if(ammoBox.get(i).getColor().equals(Color.NONE)){
+
+                ammoColor[i] = CYAN;
+            }
+
+        }
+
+        for(int i = 0; i < RESERVE_LENGTH; i++){
+
+
+            if(ammoColor[i].equals(CYAN)){
+
+                ammoVal[i] = SPACE;
+            }
+        }
+
+        points[0] = "8";
+        points[1] = "6";
+        points[2] = "4";
+        points[3] = "2";
+        points[4] = "1";
+        points[5] = "1";
+
+        for(int i=0; i<deathNumber; i++){
+            points[i] = "X";
+        }
+
         //give name current player
         //namePlayer = currentPlayer;
 
         //Printer.print(namePlayer + "'s damageBoard\n");
         Printer.print("        ");
-        Printer.print("                      ");
-        Printer.print(" _ _ _ _\n" + RESET);
+        //Printer.print("                      ");
+        Printer.print(" _Ammos_ _ _ _ _ _ _ _ _Marks_\n" + RESET);
         Printer.print("        ");
-        Printer.print("                      ");
+        Printer.print("|" + " " + ammoColor[0] + ammoVal[0] + SPACE + ammoColor[1] + ammoVal[1] + SPACE + ammoColor[2] + ammoVal[2] + SPACE + ammoColor[3] + ammoVal[3] + SPACE + ammoColor[4] + ammoVal[4] + SPACE + ammoColor[5] + ammoVal[5] + SPACE + ammoColor[6] + ammoVal[6] + SPACE + ammoColor[7] + ammoVal[7] + SPACE + ammoColor[8] + ammoVal[8] + GREY + " " + RESET);
+        //Printer.print("                      ");
+        Printer.print("| ");
         Printer.print("|" + " " + colorMark[0] + mark[0] + " " + colorMark[1] + mark[1] + " " + colorMark[2] + mark[2] + " " + RESET + "|\n");
         Printer.print("        ");
-        Printer.print(" _ _ _ _ _ _ _ _ _ _ _|_ _ _ _|\n" + RESET);
+        Printer.print("|_ _ _ _ _ _ _ _ _ _|_|_ _ _ _|\n" + RESET);
         Printer.print("        ");
         Printer.print("|" + colorDamage[0] + damage[0] + SPACE + colorDamage[1] + damage[1] + SPACE + GREY + "|" + SPACE + colorDamage[2] + damage[2] + SPACE + colorDamage[3] + damage[3] + SPACE + colorDamage[4] + damage[4] + SPACE + GREY + "|" + SPACE + colorDamage[5] + damage[5] + SPACE + colorDamage[6] + damage[6] + SPACE + colorDamage[7] + damage[7] + SPACE + colorDamage[8] + damage[8] + SPACE + colorDamage[9] + damage[9] + SPACE + GREY + "|" + SPACE + colorDamage[10] + damage[10] + SPACE + colorDamage[11] + damage[11] + RESET + "|\n");
         Printer.print("        ");
-        Printer.print(" ¯ ¯ ¯ ¯ ¯ ¯ ¯ ¯ ¯ ¯ ¯ ¯ ¯ ¯ ¯\n" + RESET);
+        Printer.print("|¯ ¯ ¯ ¯ ¯ ¯|¯ ¯ ¯ ¯ ¯ ¯ ¯ ¯ ¯\n" + RESET);
+        Printer.print("        ");
+        Printer.print("|" + points[0] + SPACE + points[1] + SPACE + points[2] + SPACE + points[3] + SPACE + points[4] + SPACE + points[5] + "|\n");
+        Printer.print("        ");
+        Printer.print(" ¯ ¯ ¯ ¯ ¯ ¯\n" + RESET);
+
+        /*
+        Printer.println(SPACE + "_________________");
+        Printer.println("|" + ammoColor[0] + ammoVal[0] + SPACE + ammoColor[1] + ammoVal[1] + SPACE + ammoColor[2] + ammoVal[2] + SPACE + ammoColor[3] + ammoVal[3] + SPACE + ammoColor[4] + ammoVal[4] + SPACE + ammoColor[5] + ammoVal[5] + SPACE + ammoColor[6] + ammoVal[6] + SPACE + ammoColor[7] + ammoVal[7] + SPACE + ammoColor[8] + ammoVal[8] + GREY + "|" + RESET);
+        Printer.println(SPACE + "¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯");
+
+         */
 
 /*
         Printer.print("Marks:\n");
