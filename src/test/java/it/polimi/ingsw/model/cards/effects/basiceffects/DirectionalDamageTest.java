@@ -151,6 +151,23 @@ public class DirectionalDamageTest {
         dbg2.printDamageBoard();
     }
 
+    @Test
+    void sledgehammerMod2Test(){
+        playerSetup();
+        Effect sledgehammer = new DirectionalDamage("Sledgehammer",3,1,0,0);
+        currentPlayer.addAmmo(new Ammo(Color.RED));
+        MapCLI mapCLI = new MapCLI(gameController.getGame().getBoard());
+        assertFalse(sledgehammer.canUseEffect(gameController.getActionInterface()));
+        gameController.getGame().getBoard().move(0,0,victim);
+        mapCLI.printMap();
+        gameController.getActionInterface().getClientData().setFirstMove(Direction.DOWN);
+        assertTrue(sledgehammer.canUseEffect(gameController.getActionInterface()));
+        sledgehammer.useEffect(gameController.getActionInterface());
+        mapCLI.printMap();
+        DamageBoardCLI dbc = new DamageBoardCLI(victim);
+        dbc.printDamageBoard();
+    }
+
 
     void playerSetup(){
 
