@@ -12,6 +12,9 @@ import it.polimi.ingsw.util.Printer;
 import it.polimi.ingsw.view.DamageBoardCLI;
 import it.polimi.ingsw.view.MapCLI;
 import org.junit.jupiter.api.Test;
+
+import java.util.Map;
+
 import static junit.framework.TestCase.*;
 
 public class DamageMarkTest {
@@ -156,7 +159,7 @@ public class DamageMarkTest {
         assertEquals(TokenColor.GREEN, victim.getPlayerBoard().getDamageBoard()[0].getFirstColor());
         assertEquals(TokenColor.GREEN, secondVictim.getPlayerBoard().getDamageBoard()[0].getFirstColor());
     }
-/*
+
     @Test
     void heatseekerCanUseEffectTest(){
 
@@ -167,13 +170,9 @@ public class DamageMarkTest {
         gameController.getGame().getBoard().move(0, 1, currentPlayer);
 
         assertFalse(heatseeker.canUseEffect(gameController.getActionInterface()));
-        heatseeker.canUseEffect(gameController.getActionInterface());
 
         gameController.getGame().getBoard().move(0, 2, currentPlayer);
         assertTrue(heatseeker.canUseEffect(gameController.getActionInterface()));
-
-        gameController.getGame().getBoard().move(0,3, currentPlayer);
-        //assertTrue(heatseeker.canUseEffect(gameController.getActionInterface())); ////
 
         gameController.getGame().getBoard().move(1,0, currentPlayer);
         assertFalse(heatseeker.canUseEffect(gameController.getActionInterface()));
@@ -182,6 +181,8 @@ public class DamageMarkTest {
         assertTrue(heatseeker.canUseEffect(gameController.getActionInterface()));
 
         gameController.getGame().getBoard().move(1,2, currentPlayer);
+        MapCLI mapCLI = new MapCLI(gameController.getGame().getBoard());
+        mapCLI.printMap();
         assertTrue(heatseeker.canUseEffect(gameController.getActionInterface()));
 
         gameController.getGame().getBoard().move(1,3, currentPlayer);
@@ -194,19 +195,18 @@ public class DamageMarkTest {
         assertTrue(heatseeker.canUseEffect(gameController.getActionInterface()));
 
         gameController.getGame().getBoard().move(2,2, currentPlayer);
+        mapCLI.printMap();
         assertTrue(heatseeker.canUseEffect(gameController.getActionInterface()));
 
         gameController.getGame().getBoard().move(2,3, currentPlayer);
         assertTrue(heatseeker.canUseEffect(gameController.getActionInterface()));
-        MapCLI mapCLI = new MapCLI(gameController.getGame().getBoard());
-        mapCLI.printMap();
         heatseeker.useEffect(gameController.getActionInterface());
         assertEquals(TokenColor.GREEN, victim.getPlayerBoard().getDamageBoard()[0].getFirstColor());
         assertEquals(TokenColor.GREEN, victim.getPlayerBoard().getDamageBoard()[1].getFirstColor());
         assertEquals(TokenColor.GREEN, victim.getPlayerBoard().getDamageBoard()[2].getFirstColor());
     }
     
- */
+
 
     @Test
     void zx2SecondMode(){
