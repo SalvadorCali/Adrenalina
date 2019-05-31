@@ -50,7 +50,7 @@ public class LoginGUI extends Application implements Initializable, ViewInterfac
     Label statusConnectionLabel;
 
     @FXML
-    Button loginButton;
+    Button loginButton = new Button();
 
     @FXML
     Label connectionErrorLabel;
