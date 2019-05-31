@@ -175,7 +175,7 @@ public class GameController {
             }
             int x = player.getPosition().getX();
             int y = player.getPosition().getY();
-            if (game.getBoard().getArena()[x][y].canGrab(choice)) {
+            if (game.getBoard().getArena()[x][y].canGrab(actionInterface, choice)) {
                 game.getBoard().getArena()[x][y].grab(actionInterface, choice);
                 player.increaseActionNumber();
                 return true;

@@ -31,7 +31,7 @@ public class AmmoPoint extends Square implements Serializable {
 
     //methods
     @Override
-    public boolean canGrab(int choice){
+    public boolean canGrab(ActionInterface actionInterface, int choice){
         return choice == 0 && !isEmpty();
     }
 

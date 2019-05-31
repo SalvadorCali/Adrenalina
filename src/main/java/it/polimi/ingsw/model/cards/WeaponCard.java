@@ -9,6 +9,7 @@ import it.polimi.ingsw.model.cards.effects.weapons.singleaddictions.AdditionalSq
 import it.polimi.ingsw.model.cards.effects.weapons.singleaddictions.AdditionalTarget;
 import it.polimi.ingsw.model.enums.Color;
 import it.polimi.ingsw.model.cards.effects.Effect;
+import it.polimi.ingsw.model.gamecomponents.Player;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -39,6 +40,7 @@ public class WeaponCard extends Card{
     public WeaponCard(String name, Color color){
         super(name,color);
     }
+
     private void setEffects(String name){
 
         switch (name){
@@ -173,7 +175,23 @@ public class WeaponCard extends Card{
         }
     }
 
+    public int getGrabRedAmmos(){
+        return grabRedAmmos;
+    }
+
+    public int getGrabBlueAmmos(){
+        return grabBlueAmmos;
+    }
+
+    public int getGrabYellowAmmos(){
+        return grabYellowAmmos;
+    }
+
     public List<Effect> getEffects() {
         return effects;
+    }
+
+    public boolean ammoControl(Player currentPlayer){
+        return grabRedAmmos <= currentPlayer.getRedAmmo() && grabBlueAmmos <= currentPlayer.getBlueAmmo()&& grabYellowAmmos <= currentPlayer.getYellowAmmo();
     }
 }

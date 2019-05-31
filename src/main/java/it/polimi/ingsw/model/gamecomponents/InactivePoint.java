@@ -15,7 +15,7 @@ public class InactivePoint extends Square implements Serializable {
     }
 
     @Override
-    public boolean canGrab(int choice) {
+    public boolean canGrab(ActionInterface actionInterface, int choice) {
         return false;
     }
 

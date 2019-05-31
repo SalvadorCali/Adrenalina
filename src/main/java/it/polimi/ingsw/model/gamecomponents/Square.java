@@ -137,7 +137,7 @@ public abstract class Square implements Serializable {
     public void addPlayer(Player player){
         players.add(player);
     }
-    public abstract boolean canGrab(int choice);
+    public abstract boolean canGrab(ActionInterface actionInterface, int choice);
     public abstract void grab(ActionInterface actionInterface, int choice);
     public abstract void fill(ActionInterface actionInterface);
     public abstract AmmoCard getAmmoCard();
