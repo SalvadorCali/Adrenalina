@@ -1,11 +1,9 @@
 package it.polimi.ingsw.view.GUI;
 
 import it.polimi.ingsw.model.cards.Card;
-import it.polimi.ingsw.model.enums.Color;
 import it.polimi.ingsw.util.Converter;
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
