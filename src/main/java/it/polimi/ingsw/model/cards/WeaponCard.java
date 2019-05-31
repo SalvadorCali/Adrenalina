@@ -168,7 +168,9 @@ public class WeaponCard extends Card{
                 break;
             case ("SHOCKWAVE"):
                 Effect shockwave1 = new DamageMarkEffect("Shockwave",1,0,0,0,0);
+                Effect shockwave2 = new SquareDamageEffect("Shockwave",1,0,0, 0,1);
                 effects.add(shockwave1);
+                effects.add(shockwave2);
                 break;
             default:
                 break;
