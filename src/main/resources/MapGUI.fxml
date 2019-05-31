@@ -15,7 +15,7 @@
    <children>
       <ImageView fx:id="mapImage" fitHeight="710.0" fitWidth="952.0" preserveRatio="true">
          <image>
-            <Image url="@boardImg/map2.png" />
+            <Image url="@boardImg/2.png" />
          </image>
       </ImageView>
       <ImageView fx:id="weaponRed1" fitHeight="96.0" fitWidth="148.0" layoutX="-10.0" layoutY="252.0" pickOnBounds="true" preserveRatio="true" />

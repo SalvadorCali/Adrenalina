@@ -10,6 +10,7 @@ import it.polimi.ingsw.network.enums.Message;
 import it.polimi.ingsw.network.enums.Outcome;
 import it.polimi.ingsw.util.Converter;
 import it.polimi.ingsw.view.ViewInterface;
+import javafx.animation.PauseTransition;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -19,6 +20,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.IOException;
 import java.net.URL;
@@ -61,8 +63,15 @@ public class LoginGUI extends Application implements Initializable, ViewInterfac
     private ChoosePowerup choosePowerup = new ChoosePowerup();
     private GUIHandler guiHandler = new GUIHandler();
     private boolean connected = false;
-    private boolean matchStarted = true;
     private Popup popup = new Popup();
+    private ChooseBoard chooseBoard = new ChooseBoard();
+    private Integer skulls = 8;
+    private Integer boardType = 1;
+    private final static LoginGUI instance = new LoginGUI();
+
+    public static LoginGUI getInstance() {
+        return instance;
+    }
 
     public synchronized void start(Stage primaryStage) throws Exception {
 
@@ -111,8 +120,6 @@ public class LoginGUI extends Application implements Initializable, ViewInterfac
 
     public synchronized void connectToSocket(String name, String host, String color){
 
-        System.out.println(name + host + color);
-
         try {
             client = new SocketClient(host);
             //client.start();
@@ -132,8 +139,6 @@ public class LoginGUI extends Application implements Initializable, ViewInterfac
         Thread thread = new Thread(this::handleThread);
         thread.setDaemon(true);
         thread.start();
-
-        statusConnectionLabel.setText("Offline");
     }
 
     public void handleThread(){
@@ -184,17 +189,12 @@ public class LoginGUI extends Application implements Initializable, ViewInterfac
         }
 
     }
-
-    public void dispose(){
-
-        isRunning = false;
-        statusConnectionLabel.setText("Closing Connection");
-    }
     
 
     public static void main(String[] args) {
         Application.launch(args);
     }
+
 
     @Override
     public void start() {
@@ -208,12 +208,42 @@ public class LoginGUI extends Application implements Initializable, ViewInterfac
 
     @Override
     public void notify(Message message) {
-
+        switch (message){
+            case NEW_TURN:
+                //notifyNewTurn();
+                break;
+            case END_TURN:
+                //notifyEndTurn();
+                break;
+            default:
+                break;
+        }
     }
 
     @Override
     public void notify(Message message, Outcome outcome) {
-
+        switch (message){
+            case BOARD:
+                notifyBoard(outcome);
+                break;
+            case GAME:
+                //notifyGame(outcome);
+                break;
+            case MOVE:
+                //notifyMovement(outcome);
+                break;
+            case GRAB:
+                //notifyGrab(outcome);
+                break;
+            case SHOOT:
+                //notifyShoot(outcome);
+                break;
+            case POWERUP:
+                //notifyPowerup(outcome);
+                break;
+            default:
+                break;
+        }
     }
 
 
@@ -240,23 +270,25 @@ public class LoginGUI extends Application implements Initializable, ViewInterfac
     }
 
     private void notifySpawnLocation(List<Card> object) {
-
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ChoosePowerup.fxml"));
-            Parent root = loader.load();
-
-            choosePowerup = loader.getController();
-            choosePowerup.launchChoosePowerup(object);
-
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root, 490, 386));
-            stage.setTitle("Choose Powerup");
-            stage.show();
-            //choosePowerup.launchChoosePowerup(object);
+        Platform.runLater(()-> {
             handleHidingScene();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ChoosePowerup.fxml"));
+                Parent root = loader.load();
+
+                choosePowerup = loader.getController();
+                choosePowerup.launchChoosePowerup(object);
+
+                Stage stage = new Stage();
+                stage.setScene(new Scene(root, 490, 386));
+                stage.setTitle("Choose Powerup");
+                stage.show();
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
     }
 
 
@@ -265,7 +297,6 @@ public class LoginGUI extends Application implements Initializable, ViewInterfac
         Platform.runLater(() ->{
 
             switch (outcome){
-
                 case WRONG: connectionErrorLabel.setText("Invalid color");
             }
         });
@@ -275,6 +306,7 @@ public class LoginGUI extends Application implements Initializable, ViewInterfac
     private void notifyDisconnection(Outcome outcome, String object) {
 
         Platform.runLater(() -> {
+
             switch (outcome) {
                 case ALL:{
 
@@ -306,7 +338,6 @@ public class LoginGUI extends Application implements Initializable, ViewInterfac
 
         Platform.runLater(() -> {
             switch (outcome) {
-
                 case WRONG:
                     connectionErrorLabel.setText("Username already used");
 
@@ -314,7 +345,6 @@ public class LoginGUI extends Application implements Initializable, ViewInterfac
 
                     statusConnectionLabel.setText(object + " connected, waiting for other players");
                 }
-
                 case ALL:{
 
                     statusConnectionLabel.setText(object + " connected, waiting...");
@@ -324,16 +354,58 @@ public class LoginGUI extends Application implements Initializable, ViewInterfac
         });
     }
 
-    public void launchBoard() throws Exception {
+    private void notifyBoard(Outcome outcome){
         Platform.runLater(() ->{
-        if(matchStarted) {
-            try {
-                guiHandler.launchMainBoard();
-            } catch (Exception e) {
-                e.printStackTrace();
+            if(outcome.equals(Outcome.RIGHT)){
+                try {
+                    FXMLLoader popupBoard = new FXMLLoader(getClass().getClassLoader().getResource("ChooseBoard.fxml"));
+                    Parent pop = popupBoard.load();
+
+
+                    Stage stage = new Stage();
+                    stage.setScene(new Scene(pop, 600, 400));
+                    stage.setTitle("Choose Board");
+                    stage.show();
+
+                    System.out.println(boardType);
+                    client.board(boardType, skulls);
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+
+            }else{
+                try {
+                    FXMLLoader popupBoard = new FXMLLoader(getClass().getClassLoader().getResource("Boardwaiting.fxml"));
+                    Parent pop = popupBoard.load();
+
+                    Stage stage = new Stage();
+                    stage.setScene(new Scene(pop, 234, 153));
+                    stage.setTitle("Board choosing...");
+                    stage.show();
+
+                    PauseTransition delay = new PauseTransition(Duration.seconds(5));
+                    delay.setOnFinished( event -> stage.close() );
+                    delay.play();
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
-        }
         });
+    }
+
+    public Integer getBoardType(){
+        return boardType;
+    }
+
+    public void setBoardType(Integer boardType) {
+        this.boardType = boardType;
+    }
+
+    public void setSkulls(Integer skulls){
+        this.skulls = skulls;
     }
 
     private void handleHidingScene() {
