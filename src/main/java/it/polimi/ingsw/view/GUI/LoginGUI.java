@@ -67,11 +67,7 @@ public class LoginGUI extends Application implements Initializable, ViewInterfac
     private ChooseBoard chooseBoard = new ChooseBoard();
     private Integer skulls = 8;
     private Integer boardType = 1;
-    private final static LoginGUI instance = new LoginGUI();
 
-    public static LoginGUI getInstance() {
-        return instance;
-    }
 
     public synchronized void start(Stage primaryStage) throws Exception {
 

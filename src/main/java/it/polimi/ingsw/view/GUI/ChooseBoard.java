@@ -26,7 +26,6 @@ public class ChooseBoard extends Application implements Initializable {
 
     @FXML
     private ImageView fourthBoard;
-    private LoginGUI loginGUI;
     private Integer boardType;
 
     @Override
@@ -39,7 +38,7 @@ public class ChooseBoard extends Application implements Initializable {
         stage.setScene(scene);
         stage.setTitle("Choose Board");
         stage.show();
-        
+
     }
 
     @Override
@@ -47,25 +46,25 @@ public class ChooseBoard extends Application implements Initializable {
 
         firstBoard.setOnMouseClicked(event -> {
 
-            LoginGUI.getInstance().setBoardType(1);
+            boardType = 1;
             closeChooseBoard();
         });
 
         secondBoard.setOnMouseClicked(event -> {
 
-            LoginGUI.getInstance().setBoardType(2);
+            boardType = 2;
             closeChooseBoard();
         });
 
         thirdBoard.setOnMouseClicked(event -> {
 
-            LoginGUI.getInstance().setBoardType(3);
+            boardType = 3;
             closeChooseBoard();
         });
 
         fourthBoard.setOnMouseClicked(event -> {
 
-            LoginGUI.getInstance().setBoardType(4);
+            boardType = 4;
             closeChooseBoard();
         });
 
