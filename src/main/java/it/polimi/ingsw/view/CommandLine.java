@@ -665,12 +665,17 @@ public class CommandLine implements ViewInterface {
                     return false;
                 }
             case "flamethrower":
+                Printer.println("Basic mode: <victim1> <direction>");
                 Printer.println("Basic mode: <victim1> <victim2> <direction>");
                 Printer.println("In barbecue mode: <direction>");
                 string = new StringTokenizer(userInputStream.readLine());
                 if(string.countTokens() == 1){
                     client.shoot(weapon, 2, true, TokenColor.NONE, TokenColor.NONE, TokenColor.NONE,
                             -1, -1, Converter.fromStringToDirection(string.nextToken()));
+                    return true;
+                }else if(string.countTokens() == 2) {
+                    client.shoot(weapon, 1, true, Converter.fromStringToTokenColor(string.nextToken()), TokenColor.NONE,
+                            TokenColor.NONE, -1, -1, Converter.fromStringToDirection(string.nextToken()));
                     return true;
                 }else if(string.countTokens() == 3){
                     client.shoot(weapon, 1, true, Converter.fromStringToTokenColor(string.nextToken()), Converter.fromStringToTokenColor(string.nextToken()),

@@ -51,6 +51,7 @@ public class DamageBoardCLI {
     public void setPlayer(Player player){
         damageBoard = player.getPlayerBoard().getDamageBoard();
         markBoard = player.getPlayerBoard().getRevengeMarks();
+        ammoBox = player.getAmmoBox();
     }
 
 
