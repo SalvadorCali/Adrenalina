@@ -113,6 +113,8 @@ public class GameBoard implements Serializable {
 
         int x = shooter.getPosition().getX();
         int y = shooter.getPosition().getY();
+        if(victim == null)
+            return false;
         int x_2 = victim.getPosition().getX();
         int y_2 = victim.getPosition().getY();
 
