@@ -210,6 +210,24 @@ public class Converter {
                 return "MACHINE GUN";
             case "flamethrower":
                 return "FLAMETHROWER";
+            case "shockwave":
+                return "SHOCKWAVE";
+            case "vortexcannon":
+                return "VORTEX CANNON";
+            case "thor":
+                return "T.H.O.R.";
+            case "grenadelauncher":
+                return "GRENADE LAUNCHER";
+            case "rocketlauncher":
+                return "ROCKET LAUNCHER";
+            case "railgun":
+                return "RAILGUN";
+            case "cyberblade":
+                return "CYBERBLADE";
+            case "powerglove":
+                return "POWER GLOVE";
+            case "sledgehammer":
+                return "SLEDGEHAMMER";
             default:
                 return null;
         }
