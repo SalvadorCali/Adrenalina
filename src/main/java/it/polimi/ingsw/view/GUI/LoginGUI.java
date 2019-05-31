@@ -65,9 +65,9 @@ public class LoginGUI extends Application implements Initializable, ViewInterfac
     private boolean connected = false;
     private Popup popup = new Popup();
     private ChooseBoard chooseBoard = new ChooseBoard();
-    private Integer skulls = 8;
-    private Integer boardType = 1;
-
+    private Integer skulls;
+    private Integer boardType;
+    private Integer selectedPowerup;
 
     public synchronized void start(Stage primaryStage) throws Exception {
 
@@ -281,6 +281,17 @@ public class LoginGUI extends Application implements Initializable, ViewInterfac
                 stage.setTitle("Choose Powerup");
                 stage.show();
 
+                PauseTransition delay = new PauseTransition(Duration.seconds(10));
+                delay.setOnFinished( event -> {
+                    try {
+                        setPowerup();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                });
+                delay.play();
+
+
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -400,10 +411,14 @@ public class LoginGUI extends Application implements Initializable, ViewInterfac
     }
 
     public void setBoard() throws IOException {
-        System.out.println(Data.getInstance().getBoardType() + " " + Data.getInstance().getSkull());
+
         client.board(Data.getInstance().getBoardType(), Data.getInstance().getSkull());
     }
 
+    public void setPowerup() throws IOException{
+
+        client.choose(Data.getInstance().getPowerup());
+    }
 
     private void handleHidingScene() {
         Stage stage = (Stage) loginButton.getScene().getWindow();

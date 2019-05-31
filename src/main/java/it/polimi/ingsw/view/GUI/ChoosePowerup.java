@@ -66,8 +66,8 @@ public class ChoosePowerup extends Application implements Initializable {
         powerupImg1.setOnMouseClicked(e -> {
 
             try {
-                GUIHandler guiHandler = new GUIHandler();
-                guiHandler.launchMainBoard();
+
+                Data.getInstance().setPowerup(1);
                 handleCloseAction1();
             } catch (Exception e1) {
                 e1.printStackTrace();
@@ -76,8 +76,7 @@ public class ChoosePowerup extends Application implements Initializable {
 
         powerupImg2.setOnMouseClicked(e -> {
             try {
-                GUIHandler guiHandler = new GUIHandler();
-                guiHandler.launchMainBoard();
+                Data.getInstance().setPowerup(2);
                 handleCloseAction2();
             } catch (Exception e1) {
                 e1.printStackTrace();
