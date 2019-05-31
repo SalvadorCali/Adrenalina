@@ -47,24 +47,28 @@ public class ChooseBoard extends Application implements Initializable {
         firstBoard.setOnMouseClicked(event -> {
 
             boardType = 1;
+            Data.getInstance().setI(boardType);
             closeChooseBoard();
         });
 
         secondBoard.setOnMouseClicked(event -> {
 
             boardType = 2;
+            Data.getInstance().setI(boardType);
             closeChooseBoard();
         });
 
         thirdBoard.setOnMouseClicked(event -> {
 
             boardType = 3;
+            Data.getInstance().setI(boardType);
             closeChooseBoard();
         });
 
         fourthBoard.setOnMouseClicked(event -> {
 
             boardType = 4;
+            Data.getInstance().setI(boardType);
             closeChooseBoard();
         });
 
