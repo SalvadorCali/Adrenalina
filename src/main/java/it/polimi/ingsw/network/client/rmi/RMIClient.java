@@ -216,6 +216,7 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
                     //GameBoard gameBoard = (GameBoard) object;
                     playerController.setGameBoard(gameData.getGameBoard());
                     playerController.setKillshotTrack(gameData.getKillshotTrack());
+                    playerController.setPlayer(gameData.getPlayer(username));
                 }
                 view.notify(message, outcome);
                 break;
@@ -231,6 +232,7 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
                     //GameBoard gameBoard = (GameBoard) object;
                     playerController.setGameBoard(gameData.getGameBoard());
                     playerController.setKillshotTrack(gameData.getKillshotTrack());
+                    playerController.setPlayer(gameData.getPlayer(username));
                 }
                 view.notify(message);
             case MOVE:
@@ -241,6 +243,7 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
                 //GameBoard gameBoard = (GameBoard) object;
                 playerController.setGameBoard(gameData.getGameBoard());
                 playerController.setKillshotTrack(gameData.getKillshotTrack());
+                playerController.setPlayer(gameData.getPlayer(username));
                 view.notify(message, outcome);
                 break;
             case POWERUP:
@@ -248,6 +251,7 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
                 //GameBoard gameBoard = (GameBoard) object;
                 playerController.setGameBoard(gameData2.getGameBoard());
                 playerController.setKillshotTrack(gameData2.getKillshotTrack());
+                playerController.setPlayer(gameData2.getPlayer(username));
                 view.notify(message, outcome);
                 break;
             case GRAB:

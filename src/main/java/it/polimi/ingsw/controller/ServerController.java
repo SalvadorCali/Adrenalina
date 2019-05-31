@@ -146,6 +146,7 @@ public class ServerController {
         players.get(0).setMyTurn(true);
         gameController.getGame().setCurrentPlayer(players.get(0));
         gameData.setGame(gameController.getGame());
+        gameData.setPlayers(users);
         try {
             servers.get(players.get(0).getUsername()).notify(Message.NEW_TURN, Outcome.RIGHT, gameData);
         } catch (IOException e) {
@@ -167,6 +168,7 @@ public class ServerController {
         });
         gameController.startGame(players);
         gameData.setGame(gameController.getGame());
+        gameData.setPlayers(users);
         servers.forEach((username, server) -> {
             try {
                 server.notify(Message.GAME, Outcome.ALL, gameData);
@@ -268,6 +270,7 @@ public class ServerController {
         if(gameController.canMove(users.get(username), directions) && users.get(username).canUseAction()){
             gameController.move(users.get(username), directions);
             gameData.setGame(gameController.getGame());
+            gameData.setPlayers(users);
             try {
                 servers.get(username).notify(Message.MOVE, Outcome.RIGHT, gameData);
             } catch (IOException e) {
@@ -275,6 +278,7 @@ public class ServerController {
             }
         }else{
             gameData.setGame(gameController.getGame());
+            gameData.setPlayers(users);
             try {
                 servers.get(username).notify(Message.MOVE, Outcome.WRONG, gameData);
             } catch (IOException e) {
@@ -354,6 +358,9 @@ public class ServerController {
         if(!thirdVictim.equals(TokenColor.NONE)){
             victim3 = users.get(colors.get(thirdVictim));
         }
+        Printer.println(victim1);
+        Printer.println(victim2);
+        Printer.println(victim3);
         gameController.shoot(weaponName, effectNumber, basicFirst, users.get(username), victim1, victim2, victim3, x, y, directions);
     }
 
@@ -362,6 +369,7 @@ public class ServerController {
         if(gameController.canMove(x,y)){
             gameController.move(users.get(username), x, y);
             gameData.setGame(gameController.getGame());
+            gameData.setPlayers(users);
             try {
                 servers.get(username).notify(Message.POWERUP, Outcome.RIGHT, gameData);
             } catch (IOException e) {
@@ -369,6 +377,7 @@ public class ServerController {
             }
         }else{
             gameData.setGame(gameController.getGame());
+            gameData.setPlayers(users);
             try {
                 servers.get(username).notify(Message.POWERUP, Outcome.WRONG, gameData);
             } catch (IOException e) {
@@ -382,6 +391,7 @@ public class ServerController {
             if(gameController.canMove(users.get(username), direction)){
                 gameController.move(users.get(username), direction);
                 gameData.setGame(gameController.getGame());
+                gameData.setPlayers(users);
                 try {
                     servers.get(username).notify(Message.POWERUP, Outcome.RIGHT, gameData);
                 } catch (IOException e) {
@@ -389,6 +399,7 @@ public class ServerController {
                 }
             }else{
                 gameData.setGame(gameController.getGame());
+                gameData.setPlayers(users);
                 try {
                     servers.get(username).notify(Message.POWERUP, Outcome.WRONG, gameData);
                 } catch (IOException e) {
@@ -399,6 +410,7 @@ public class ServerController {
             if(gameController.canMove(users.get(username), direction, direction)){
                 gameController.move(users.get(username), direction, direction);
                 gameData.setGame(gameController.getGame());
+                gameData.setPlayers(users);
                 try {
                     servers.get(username).notify(Message.POWERUP, Outcome.RIGHT, gameData);
                 } catch (IOException e) {
@@ -406,6 +418,7 @@ public class ServerController {
                 }
             }else{
                 gameData.setGame(gameController.getGame());
+                gameData.setPlayers(users);
                 try {
                     servers.get(username).notify(Message.POWERUP, Outcome.WRONG, gameData);
                 } catch (IOException e) {
@@ -445,6 +458,7 @@ public class ServerController {
                     if(i== players.size()-1){
                         if(servers.containsKey(players.get(0).getUsername())){
                             gameData.setGame(gameController.getGame());
+                            gameData.setPlayers(users);
                             servers.get(players.get(0).getUsername()).notify(Message.NEW_TURN, Outcome.RIGHT, gameData);
                             TurnTimer timer = new TurnTimer(this, players, players.get(0));
                             timer.start();
@@ -452,6 +466,7 @@ public class ServerController {
                     }else{
                         if(servers.containsKey(players.get(i+1).getUsername())){
                             gameData.setGame(gameController.getGame());
+                            gameData.setPlayers(users);
                             servers.get(players.get(i+1).getUsername()).notify(Message.NEW_TURN, Outcome.RIGHT, gameData);
                             TurnTimer timer = new TurnTimer(this, players, players.get(i+1));
                             timer.start();

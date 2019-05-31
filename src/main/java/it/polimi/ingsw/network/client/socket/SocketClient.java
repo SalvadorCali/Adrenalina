@@ -342,6 +342,7 @@ public class SocketClient implements ClientInterface, Runnable, Serializable {
                 GameData gameData = (GameData) object;
                 playerController.setGameBoard(gameData.getGameBoard());
                 playerController.setKillshotTrack(gameData.getKillshotTrack());
+                playerController.setPlayer(gameData.getPlayer(username));
                 view.notify(message);
                 break;
             case END_TURN:
@@ -353,6 +354,7 @@ public class SocketClient implements ClientInterface, Runnable, Serializable {
                 GameData gameData1 = (GameData) object;
                 playerController.setGameBoard(gameData1.getGameBoard());
                 playerController.setKillshotTrack(gameData1.getKillshotTrack());
+                playerController.setPlayer(gameData1.getPlayer(username));
                 view.notify(message, outcome);
                 break;
             case LOGIN:
@@ -392,6 +394,7 @@ public class SocketClient implements ClientInterface, Runnable, Serializable {
                 GameData gameData2 = (GameData) object;
                 playerController.setGameBoard(gameData2.getGameBoard());
                 playerController.setKillshotTrack(gameData2.getKillshotTrack());
+                playerController.setPlayer(gameData2.getPlayer(username));
                 view.notify(message, outcome);
                 break;
             case POWERUP:
@@ -400,6 +403,7 @@ public class SocketClient implements ClientInterface, Runnable, Serializable {
                 GameData gameData3 = (GameData) object;
                 playerController.setGameBoard(gameData3.getGameBoard());
                 playerController.setKillshotTrack(gameData3.getKillshotTrack());
+                playerController.setPlayer(gameData3.getPlayer(username));
                 view.notify(message, outcome);
                 break;
             case GRAB:

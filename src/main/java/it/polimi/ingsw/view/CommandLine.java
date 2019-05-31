@@ -445,6 +445,12 @@ public class CommandLine implements ViewInterface {
         if(input.hasMoreTokens()){
             weapon = input.nextToken();
             try {
+                return weaponEffect(weapon);
+            } catch (IOException e) {
+                Printer.err(e);
+            }
+            /*
+            try {
                 if(input.hasMoreTokens() && playerController.getAdrenalineZone().equals(AdrenalineZone.SECOND)){
                     Direction direction = Converter.fromStringToDirection(input.nextToken());
                     return weaponEffect(weapon, direction);
@@ -454,6 +460,8 @@ public class CommandLine implements ViewInterface {
             } catch (IOException e) {
                 Printer.err(e);
             }
+            */
+
         }
         return false;
     }
