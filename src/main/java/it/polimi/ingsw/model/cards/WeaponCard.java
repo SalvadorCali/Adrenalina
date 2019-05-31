@@ -79,6 +79,10 @@ public class WeaponCard extends Card{
                 effects.add(thorAdd2);
                 break;
             case ("VORTEX CANNON"):
+                Effect vortexCannon = new SquareDamageEffect("Vortex Cannon",2,0,0,0,0);
+                Effect vortexCannonAdd = new AdditionalSquareDamage("Vortex Cannon",1,1,0,0, vortexCannon);
+                effects.add(vortexCannon);
+                effects.add(vortexCannonAdd);
                 break;
             case ("FURNACE"):
                 Effect furnace1 = new SquareDamageEffect("Furnace1", 1,0, 0,0,0);
