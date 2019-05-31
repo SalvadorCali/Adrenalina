@@ -201,7 +201,7 @@ public class Converter {
             case "zx-2":
                 return "ZX-2";
             case "tractorbeam":
-                return "TRACTORBEAM";
+                return "TRACTOR BEAM";
             case "shotgun":
                 return "SHOTGUN";
             case "plasmagun":
