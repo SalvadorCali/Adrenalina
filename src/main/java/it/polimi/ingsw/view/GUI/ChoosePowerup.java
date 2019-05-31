@@ -1,11 +1,9 @@
 package it.polimi.ingsw.view.GUI;
 
 import it.polimi.ingsw.model.cards.Card;
-import it.polimi.ingsw.model.enums.Color;
 import it.polimi.ingsw.util.Converter;
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -66,8 +64,8 @@ public class ChoosePowerup extends Application implements Initializable {
         powerupImg1.setOnMouseClicked(e -> {
 
             try {
-                GUIHandler guiHandler = new GUIHandler();
-                guiHandler.launchMainBoard();
+
+                Data.getInstance().setPowerup(1);
                 handleCloseAction1();
             } catch (Exception e1) {
                 e1.printStackTrace();
@@ -76,8 +74,7 @@ public class ChoosePowerup extends Application implements Initializable {
 
         powerupImg2.setOnMouseClicked(e -> {
             try {
-                GUIHandler guiHandler = new GUIHandler();
-                guiHandler.launchMainBoard();
+                Data.getInstance().setPowerup(2);
                 handleCloseAction2();
             } catch (Exception e1) {
                 e1.printStackTrace();

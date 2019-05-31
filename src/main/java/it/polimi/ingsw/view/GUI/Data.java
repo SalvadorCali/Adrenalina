@@ -5,6 +5,7 @@ public class Data{
     private static Data instance;
     private Integer boardType;
     private Integer skull;
+    private Integer powerup;
 
     private Data(){
     }
@@ -31,4 +32,13 @@ public class Data{
     public Integer getSkull(){
         return this.skull;
     }
+
+    public void setPowerup(Integer powerup) {
+        this.powerup = powerup;
+    }
+
+    public Integer getPowerup() {
+        return this.powerup;
+    }
+
 }
