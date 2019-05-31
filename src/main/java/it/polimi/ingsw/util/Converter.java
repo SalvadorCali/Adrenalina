@@ -188,8 +188,8 @@ public class Converter {
         switch (weapon){
             case "lockrifle":
                 return "LOCK RIFLE";
-            case "electroschythe":
-                return "ELECTROSCHYTHE";
+            case "electroscythe":
+                return "ELECTROSCYTHE";
             case "furnace":
                 return "FURNACE";
             case "heatseeker":
