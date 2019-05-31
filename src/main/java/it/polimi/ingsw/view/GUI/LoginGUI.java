@@ -359,7 +359,7 @@ public class LoginGUI extends Application implements Initializable, ViewInterfac
 
 
                     Stage stage = new Stage();
-                    stage.setScene(new Scene(pop, 600, 400));
+                    stage.setScene(new Scene(pop, 600, 474));
                     stage.setTitle("Choose Board");
                     stage.show();
 
@@ -400,8 +400,8 @@ public class LoginGUI extends Application implements Initializable, ViewInterfac
     }
 
     public void setBoard() throws IOException {
-        System.out.println(Data.getInstance().getI());
-        client.board(Data.getInstance().getI(), skulls);
+        System.out.println(Data.getInstance().getBoardType() + " " + Data.getInstance().getSkull());
+        client.board(Data.getInstance().getBoardType(), Data.getInstance().getSkull());
     }
 
 

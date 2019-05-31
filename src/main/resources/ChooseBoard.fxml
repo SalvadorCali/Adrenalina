@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.GUI.ChooseBoard">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="474.0" prefWidth="600.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.GUI.ChooseBoard">
    <children>
       <Label layoutX="209.0" layoutY="14.0" text="Choose BoardType" textFill="WHITE">
          <font>
@@ -59,6 +61,13 @@
          </font>
       </Label>
       <Label layoutX="363.0" layoutY="203.0" text="(3-4 players reccomended)" textFill="WHITE">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <TextField fx:id="skullText" layoutX="226.0" layoutY="400.0" promptText="insert skull" />
+      <Button fx:id="enterButton" layoutX="426.0" layoutY="400.0" mnemonicParsing="false" text="Enter" />
+      <Label fx:id="labelErrorSkull" layoutX="226.0" layoutY="432.0" prefHeight="21.0" prefWidth="149.0" textFill="WHITE">
          <font>
             <Font size="15.0" />
          </font>

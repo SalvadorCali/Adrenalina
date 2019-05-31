@@ -3,7 +3,8 @@ package it.polimi.ingsw.view.GUI;
 public class Data{
 
     private static Data instance;
-    private Integer i;
+    private Integer boardType;
+    private Integer skull;
 
     private Data(){
     }
@@ -15,11 +16,19 @@ public class Data{
         return instance;
     }
 
-    public void setI(Integer i) {
-        this.i = i;
+    public void setBoardType(Integer boardType) {
+        this.boardType = boardType;
     }
 
-    public Integer getI(){
-        return this.i;
+    public Integer getBoardType(){
+        return this.boardType;
+    }
+
+    public void setSkull(Integer skull) {
+        this.skull = skull;
+    }
+
+    public Integer getSkull(){
+        return this.skull;
     }
 }
