@@ -367,9 +367,6 @@ public class LoginGUI extends Application implements Initializable, ViewInterfac
                     stage.setTitle("Choose Board");
                     stage.show();
 
-                    System.out.println(boardType);
-                    client.board(boardType, skulls);
-
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -394,6 +391,12 @@ public class LoginGUI extends Application implements Initializable, ViewInterfac
                 }
             }
         });
+    }
+
+    public void setBoard() throws IOException {
+
+        System.out.println(boardType);
+        client.board(boardType, skulls);
     }
 
     public Integer getBoardType(){

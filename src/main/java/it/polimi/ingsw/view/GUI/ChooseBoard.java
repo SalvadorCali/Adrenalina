@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -25,6 +26,7 @@ public class ChooseBoard extends Application implements Initializable {
 
     @FXML
     private ImageView fourthBoard;
+    private LoginGUI loginGUI;
     private Integer boardType;
 
     @Override
@@ -37,6 +39,7 @@ public class ChooseBoard extends Application implements Initializable {
         stage.setScene(scene);
         stage.setTitle("Choose Board");
         stage.show();
+        
     }
 
     @Override
@@ -65,6 +68,7 @@ public class ChooseBoard extends Application implements Initializable {
             LoginGUI.getInstance().setBoardType(4);
             closeChooseBoard();
         });
+
 
     }
 
