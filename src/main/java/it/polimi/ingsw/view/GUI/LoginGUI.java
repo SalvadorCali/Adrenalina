@@ -363,10 +363,20 @@ public class LoginGUI extends Application implements Initializable, ViewInterfac
                     stage.setTitle("Choose Board");
                     stage.show();
 
+                    PauseTransition delay = new PauseTransition(Duration.seconds(10));
+                    delay.setOnFinished( event -> {
+                        try {
+                            setBoard();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    });
+                    delay.play();
+
+
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-
 
             }else{
                 try {
@@ -390,22 +400,10 @@ public class LoginGUI extends Application implements Initializable, ViewInterfac
     }
 
     public void setBoard() throws IOException {
-
-        System.out.println(boardType);
-        client.board(boardType, skulls);
+        System.out.println(Data.getInstance().getI());
+        client.board(Data.getInstance().getI(), skulls);
     }
 
-    public Integer getBoardType(){
-        return boardType;
-    }
-
-    public void setBoardType(Integer boardType) {
-        this.boardType = boardType;
-    }
-
-    public void setSkulls(Integer skulls){
-        this.skulls = skulls;
-    }
 
     private void handleHidingScene() {
         Stage stage = (Stage) loginButton.getScene().getWindow();
