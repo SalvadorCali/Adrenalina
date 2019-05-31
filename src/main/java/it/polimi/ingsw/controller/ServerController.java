@@ -288,8 +288,12 @@ public class ServerController {
     }
     //da gestire
     public void grab(String username, int choice, Direction...directions){
+        Printer.println("Prima");
+        users.get(username).getAmmoBox().forEach(ammo -> Printer.println(ammo.getColor()));
         if(gameController.grab(users.get(username), choice, directions)){
             try{
+                Printer.println("Dopo");
+                users.get(username).getAmmoBox().forEach(ammo -> Printer.println(ammo.getColor()));
                 servers.get(username).notify(Message.GRAB, Outcome.RIGHT, users.get(username));
             }catch (IOException e){
                 Printer.err(e);
@@ -361,7 +365,7 @@ public class ServerController {
         Printer.println(victim1);
         Printer.println(victim2);
         Printer.println(victim3);
-        gameController.shoot(weaponName, effectNumber, basicFirst, users.get(username), victim1, victim2, victim3, x, y, directions);
+        gameController.shoot(weaponName, effectNumber - 1, basicFirst, users.get(username), victim1, victim2, victim3, x, y, directions);
     }
 
 
