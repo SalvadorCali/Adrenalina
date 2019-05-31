@@ -166,7 +166,6 @@ public class GameController {
 
     public boolean grab(Player player, int choice, Direction... directions) {
         if (player.canUseAction()) {
-            Printer.println("ccccj");
             if (directions.length > 0) {
                 if (canMove(player, directions)) {
                     move(player, directions);
@@ -176,11 +175,7 @@ public class GameController {
             }
             int x = player.getPosition().getX();
             int y = player.getPosition().getY();
-            Printer.println("porva");
-            game.getBoard().getArena()[x][y].getWeapons().forEach(w -> Printer.println(w.getName()));
-            Printer.println("porva2");
             if (game.getBoard().getArena()[x][y].canGrab(choice)) {
-                Printer.println("dentro if");
                 game.getBoard().getArena()[x][y].grab(actionInterface, choice);
                 player.increaseActionNumber();
                 return true;
@@ -188,7 +183,6 @@ public class GameController {
                 return false;
             }
         } else {
-            Printer.println("cccc");
             return false;
         }
     }
