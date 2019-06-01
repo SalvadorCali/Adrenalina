@@ -3,10 +3,7 @@ package it.polimi.ingsw.view;
 import it.polimi.ingsw.controller.*;
 import it.polimi.ingsw.model.cards.Card;
 import it.polimi.ingsw.model.enums.*;
-import it.polimi.ingsw.model.gamecomponents.GameBoard;
-import it.polimi.ingsw.model.gamecomponents.Player;
-import it.polimi.ingsw.model.gamecomponents.Score;
-import it.polimi.ingsw.model.gamecomponents.Token;
+import it.polimi.ingsw.model.gamecomponents.*;
 import it.polimi.ingsw.network.client.ClientInterface;
 import it.polimi.ingsw.network.enums.Message;
 import it.polimi.ingsw.network.enums.Outcome;
@@ -1077,6 +1074,20 @@ public class CommandLine implements ViewInterface {
             Printer.println("Your powerups:");
             playerController.getPowerups().forEach(Printer::println);
         }
+        Printer.println("In your square:");
+        Square square = playerController.getGameBoard().getArena()[playerController.getPlayer().getPosition().getX()][playerController.getPlayer().getPosition().getY()];
+        if(square.getAmmoCard() != null){
+            Printer.print(square.getAmmoCard().getFirstAmmo().getColor() + ", " +
+                    square.getAmmoCard().getSecondAmmo().getColor() + ", ");
+            if(square.getAmmoCard().isPowerup()){
+                //Printer.println(squareData.getAmmoCard().);
+            }else{
+                Printer.println(square.getAmmoCard().getThirdAmmo().getColor());
+            }
+        }
+        if(square.getWeapons() != null){
+            square.getWeapons().forEach(Printer::println);
+        }
     }
 
     private void notifyEndTurn(){
@@ -1110,6 +1121,20 @@ public class CommandLine implements ViewInterface {
         killshotTrackPrinter.printKillshotTrack();
         gameBoardPrinter.setGameBoard(playerController.getGameBoard());
         gameBoardPrinter.printMap();
+        Printer.println("In your square:");
+        Square square = playerController.getGameBoard().getArena()[playerController.getPlayer().getPosition().getX()][playerController.getPlayer().getPosition().getY()];
+        if(square.getAmmoCard() != null){
+            Printer.print(square.getAmmoCard().getFirstAmmo().getColor() + ", " +
+                    square.getAmmoCard().getSecondAmmo().getColor() + ", ");
+            if(square.getAmmoCard().isPowerup()){
+                Printer.println(square.getAmmoCard());
+            }else{
+                Printer.println(square.getAmmoCard().getThirdAmmo().getColor());
+            }
+        }
+        if(square.getWeapons() != null){
+            square.getWeapons().forEach(Printer::println);
+        }
     }
 
     private void notifyPowerup(Outcome outcome){

@@ -110,6 +110,7 @@ public class SocketClient implements ClientInterface, Runnable, Serializable {
     @Override
     public void login(String username, TokenColor color){
         try {
+            this.username = username;
             connectionTimer = new ConnectionTimer(this);
             objectOutputStream.writeObject(Message.LOGIN);
             objectOutputStream.flush();

@@ -6,6 +6,7 @@ import it.polimi.ingsw.model.gamecomponents.Player;
 import it.polimi.ingsw.model.gamecomponents.Token;
 
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -35,5 +36,11 @@ public class GameData implements Serializable {
 
     public Player getPlayer(String username){
         return users.get(username);
+    }
+
+    public Map<String, Player> getOtherPlayers(String username){
+        Map<String, Player> players = users;
+        players.remove(username);
+        return players;
     }
 }
