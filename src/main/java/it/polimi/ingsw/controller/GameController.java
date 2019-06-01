@@ -425,7 +425,7 @@ public class GameController {
 
     public void endTurn(Player player){
         player.resetActionNumber();
-        game.endTurn(player);
+        game.endTurn(player, actionInterface);
     }
 
     public boolean havePowerup(Player player, String powerup){

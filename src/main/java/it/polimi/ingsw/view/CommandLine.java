@@ -1077,10 +1077,11 @@ public class CommandLine implements ViewInterface {
         Printer.println("In your square:");
         Square square = playerController.getGameBoard().getArena()[playerController.getPlayer().getPosition().getX()][playerController.getPlayer().getPosition().getY()];
         if(square.getAmmoCard() != null){
+            Printer.print("AmmoCard: ");
             Printer.print(square.getAmmoCard().getFirstAmmo().getColor() + ", " +
                     square.getAmmoCard().getSecondAmmo().getColor() + ", ");
             if(square.getAmmoCard().isPowerup()){
-                //Printer.println(squareData.getAmmoCard().);
+                Printer.println("POWERUP");
             }else{
                 Printer.println(square.getAmmoCard().getThirdAmmo().getColor());
             }
@@ -1124,10 +1125,11 @@ public class CommandLine implements ViewInterface {
         Printer.println("In your square:");
         Square square = playerController.getGameBoard().getArena()[playerController.getPlayer().getPosition().getX()][playerController.getPlayer().getPosition().getY()];
         if(square.getAmmoCard() != null){
+            Printer.print("AmmoCard: ");
             Printer.print(square.getAmmoCard().getFirstAmmo().getColor() + ", " +
                     square.getAmmoCard().getSecondAmmo().getColor() + ", ");
             if(square.getAmmoCard().isPowerup()){
-                Printer.println(square.getAmmoCard());
+                Printer.println("POWERUP");
             }else{
                 Printer.println(square.getAmmoCard().getThirdAmmo().getColor());
             }

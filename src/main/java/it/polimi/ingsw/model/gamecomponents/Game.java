@@ -275,7 +275,8 @@ public class Game implements Serializable {
         }
     }
 
-    public void endTurn(Player player){
+    public void endTurn(Player player, ActionInterface actionInterface){
+        refillSquares(actionInterface);
         for(int i=0; i<players.size(); i++){
             if(players.get(i).equals(player)){
                 player.setMyTurn(false);
@@ -286,6 +287,17 @@ public class Game implements Serializable {
                 }while(currentPlayer.isDisconnected());
                 currentPlayer.setMyTurn(true);
                 break;
+            }
+        }
+    }
+
+    public void refillSquares(ActionInterface actionInterface){
+        Square[][] arena = board.getArena();
+        for(int i=0; i<3; i++){
+            for(int j=0; j<4; j++){
+                if(!arena[i][j].getColor().equals(TokenColor.NONE) && arena[i][j].isEmpty()){
+                    arena[i][j].fill(actionInterface);
+                }
             }
         }
     }
