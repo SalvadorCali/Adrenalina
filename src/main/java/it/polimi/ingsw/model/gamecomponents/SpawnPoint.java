@@ -37,6 +37,7 @@ public class SpawnPoint extends Square implements Serializable {
 
     @Override
     public void grab(ActionInterface actionInterface, int choice) {
+        weapons.get(choice - 1).load();
         actionInterface.addWeapon(weapons.get(choice - 1));
         actionInterface.updateAmmoBox(weapons.get(choice - 1).getGrabRedAmmos(),weapons.get(choice - 1).getGrabBlueAmmos(),weapons.get(choice - 1).getGrabYellowAmmos());
         weapons.remove(choice-1);

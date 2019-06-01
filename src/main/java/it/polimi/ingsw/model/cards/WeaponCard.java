@@ -23,6 +23,8 @@ public class WeaponCard extends Card{
 
     private int reloadRedAmmos, reloadBlueAmmos, reloadYellowAmmos;
 
+    private boolean loaded;
+
     private List<Effect> effects = new ArrayList<>();
 
     public WeaponCard(String name, Color color, String effect, int grabRedAmmos, int grabBlueAmmos, int grabYellowAmmos, int reloadRedAmmos, int reloadBlueAmmos, int reloadYellowAmmos) {
@@ -193,11 +195,39 @@ public class WeaponCard extends Card{
         return grabYellowAmmos;
     }
 
+    public int getReloadRedAmmos(){
+        return grabRedAmmos;
+    }
+
+    public int getReloadBlueAmmos(){
+        return grabBlueAmmos;
+    }
+
+    public int getReloadYellowAmmos(){
+        return grabYellowAmmos;
+    }
+
     public List<Effect> getEffects() {
         return effects;
     }
 
+    public void load(){
+        loaded = true;
+    }
+
+    public void unload(){
+        loaded = false;
+    }
+
+    public boolean isLoaded(){
+        return loaded;
+    }
+
     public boolean ammoControl(Player currentPlayer){
         return grabRedAmmos <= currentPlayer.getRedAmmo() && grabBlueAmmos <= currentPlayer.getBlueAmmo()&& grabYellowAmmos <= currentPlayer.getYellowAmmo();
+    }
+
+    public boolean reloadAmmoControl(Player currentPlayer){
+        return reloadRedAmmos <= currentPlayer.getRedAmmo() && reloadBlueAmmos <= currentPlayer.getBlueAmmo() && reloadYellowAmmos <= currentPlayer.getYellowAmmo();
     }
 }

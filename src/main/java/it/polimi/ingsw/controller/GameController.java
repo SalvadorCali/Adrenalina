@@ -164,6 +164,25 @@ public class GameController {
         return squareData;
     }
 
+    public boolean reload(Player player, String weaponName) {
+        final String weaponNameUpp;
+        weaponNameUpp = Converter.weaponName(weaponName);
+        for(WeaponCard w : player.getWeapons()){
+            if(w.getName().equals(weaponNameUpp)){
+                if(w.reloadAmmoControl(player)) {
+                    Printer.println(weaponNameUpp + " RELOADED");
+                    player.updateAmmoBox(w.getReloadRedAmmos(), w.getReloadBlueAmmos(),w.getReloadYellowAmmos());
+                    w.load();
+                    return true;
+                }else{
+                    Printer.println(weaponNameUpp + " NOT RELOADED");
+                    return false;
+                }
+            }
+        }
+        return false;
+    }
+
     public boolean grab(Player player, int choice, Direction... directions) {
         if (player.canUseAction()) {
             if (directions.length > 0) {
@@ -358,11 +377,12 @@ public class GameController {
         final String weaponNameUpp;
         weaponNameUpp = Converter.weaponName(weaponName);
         for (WeaponCard w : shooter.getWeapons()) {
-            if (w.getName().equals(weaponNameUpp)) {
+            if (w.getName().equals(weaponNameUpp) && w.isLoaded()) {
                 setData(basicfirst, shooter, firstVictim, secondVictim, thirdVictim, x, y, directions);
                 if (w.getEffects().get(mod).canUseEffect(actionInterface)) {
                     Printer.println(weaponNameUpp + "USED");
                     w.getEffects().get(mod).useEffect(actionInterface);
+                    w.unload();
                     return true;
                 } else {
                     Printer.println(weaponNameUpp + "NOT USED");
