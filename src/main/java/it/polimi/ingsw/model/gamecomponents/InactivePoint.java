@@ -38,4 +38,9 @@ public class InactivePoint extends Square implements Serializable {
         return null;
     }
 
+    @Override
+    public boolean isActive(){
+        return false;
+    }
+
 }

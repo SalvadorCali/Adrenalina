@@ -143,6 +143,7 @@ public abstract class Square implements Serializable {
     public abstract void fill(ActionInterface actionInterface);
     public abstract AmmoCard getAmmoCard();
     public abstract List<WeaponCard> getWeapons();
+    public abstract boolean isActive();
 
 
     public boolean noOutofBounds(Direction direction) {

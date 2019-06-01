@@ -64,6 +64,11 @@ public class SpawnPoint extends Square implements Serializable {
         return null;
     }
 
+    @Override
+    public boolean isActive(){
+        return true;
+    }
+
     public void spawn(Player player){
         //to implement
     }

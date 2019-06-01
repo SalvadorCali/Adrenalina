@@ -8,6 +8,7 @@ import it.polimi.ingsw.model.enums.TokenColor;
 import it.polimi.ingsw.model.gamecomponents.Ammo;
 import it.polimi.ingsw.model.gamecomponents.Player;
 import it.polimi.ingsw.model.gamecomponents.Position;
+import it.polimi.ingsw.model.gamecomponents.Square;
 
 
 public interface ActionInterface {
@@ -87,6 +88,10 @@ public interface ActionInterface {
     void playerMark(Player victim, int markPower);
 
     int distanceControl(Player player, int x, int y);
+
+    boolean isDamaged();
+
+    boolean isActive(Position position);
 
 
 }

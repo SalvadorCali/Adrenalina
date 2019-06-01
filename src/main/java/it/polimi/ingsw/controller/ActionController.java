@@ -239,6 +239,16 @@ public class ActionController implements ActionInterface {
         return game.getBoard().distance(player, x, y);
     }
 
+    @Override
+    public boolean isDamaged(){
+        return clientData.getPowerupVictim().isDamaged();
+    }
+
+    @Override
+    public boolean isActive(Position position){
+        return game.getBoard().getArena()[position.getX()][position.getY()].isActive();
+    }
+
 
 }
 

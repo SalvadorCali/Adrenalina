@@ -20,6 +20,8 @@ public class ClientData {
 
     private Player fakeVictim = new Player(TokenColor.NONE);
 
+    private Player powerupVictim = new Player(TokenColor.NONE);
+
     private Direction firstMove = null, secondMove = null, thirdMove = null, fourthMove = null;
 
     private Position square = new Position(0, 0);
@@ -52,6 +54,14 @@ public class ClientData {
 
     public void setCurrentPlayer(Player currentPlayer) {
         this.currentPlayer = currentPlayer;
+    }
+
+    public Player getPowerupVictim(){
+        return powerupVictim;
+    }
+
+    public void setPowerupVictim(Player powerupVictim){
+        this.powerupVictim = powerupVictim;
     }
 
     public Direction getFirstMove() {

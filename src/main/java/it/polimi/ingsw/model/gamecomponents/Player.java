@@ -33,6 +33,7 @@ public class Player implements Serializable {
     private String username;
     private boolean disconnected;
     private boolean spawned;
+    private boolean damaged;
     private static final long serialVersionUID = 1L;
 
     public Player(TokenColor color){
@@ -343,6 +344,10 @@ public class Player implements Serializable {
                 }
             }
         }
+    }
+
+    public boolean isDamaged(){
+        return damaged;
     }
 
 }
