@@ -7,7 +7,7 @@ import it.polimi.ingsw.model.enums.TokenColor;
 import it.polimi.ingsw.model.gamecomponents.Player;
 import it.polimi.ingsw.model.gamecomponents.Position;
 
-public class powerupEffect extends Effect {
+public class PowerupEffect extends Effect {
 
     private String powerupName;
 
@@ -17,6 +17,10 @@ public class powerupEffect extends Effect {
 
     private Position square;
 
+    public PowerupEffect(String powerupName){
+        this.powerupName = powerupName;
+        this.canUse = true;
+    }
 
     @Override
     public boolean canUseEffect(ActionInterface actionInterface) {
