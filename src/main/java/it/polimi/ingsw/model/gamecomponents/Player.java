@@ -350,4 +350,7 @@ public class Player implements Serializable {
         return damaged;
     }
 
+    public void setDamaged(boolean damaged) {
+        this.damaged = damaged;
+    }
 }

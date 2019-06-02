@@ -125,8 +125,10 @@ public abstract class Square implements Serializable {
     public void squareDamage(int damagePower, int markPower, TokenColor color) {
         for(Player player: getPlayers()){
             for (int i = 0; i < damagePower; i++){
-                if(!player.getColor().equals(color))
+                if(!player.getColor().equals(color)) {
                     player.getPlayerBoard().addDamage(color);
+                    player.setDamaged(true);
+                }
             }
             for(int j = 0; j < markPower; j++){
                 if(!player.getColor().equals(color))

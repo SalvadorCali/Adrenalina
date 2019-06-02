@@ -100,8 +100,10 @@ public class ActionController implements ActionInterface {
     @Override
     public void playerDamage(TokenColor color, int damagePower) {
 
-        for(int i = 0; i < damagePower; i++)
+        for(int i = 0; i < damagePower; i++) {
             game.findPlayer(color).getPlayerBoard().addDamage(game.getCurrentPlayer().getColor());
+        }
+        game.findPlayer(color).setDamaged(true);
 
     }
 
@@ -109,8 +111,10 @@ public class ActionController implements ActionInterface {
 
         for(int i = 0; i < damagePower; i++){
             for(int j = 0; j < game.getPlayers().size(); j++){
-                if(game.getPlayers().get(j).equals(victim))
+                if(game.getPlayers().get(j).equals(victim)) {
                     game.getPlayers().get(j).getPlayerBoard().addDamage(game.getCurrentPlayer().getColor());
+                    victim.setDamaged(true);
+                }
             }
         }
     }
