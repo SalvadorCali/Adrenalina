@@ -173,8 +173,8 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
     }
 
     @Override
-    public void reload(int...weapons) throws RemoteException{
-        server.reload(weapons);
+    public void reload(String weaponName) throws RemoteException{
+        server.reload(weaponName);
     }
 
     @Override
@@ -266,10 +266,16 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
                 if(outcome.equals(Outcome.RIGHT)){
                     playerController.incrementMoves();
                 }
-                Player player2 = (Player) object;
-                playerController.setPlayer(player2);
+                GameData gameData3 = (GameData) object;
+                //GameBoard gameBoard = (GameBoard) object;
+                playerController.setGameBoard(gameData3.getGameBoard());
+                playerController.setKillshotTrack(gameData3.getKillshotTrack());
+                playerController.setPlayer(gameData3.getPlayer(username));
+                playerController.setVictims(gameData3.getVictims());
                 view.notify(message, outcome);
                 break;
+            case RELOAD:
+                view.notify(message, outcome, object);
             default:
                 view.notify(message, outcome, object);
                 break;

@@ -26,6 +26,6 @@ public interface RMIServerInterface extends ServerInterface, Remote {
     void powerup(String powerup, int x, int y) throws RemoteException;
     void powerup(String powerup, Direction direction, int value) throws RemoteException;
     void powerupAmmos(PowerupData...powerups) throws RemoteException;
-    void reload(int...weapons) throws RemoteException;
+    void reload(String weaponName) throws RemoteException;
     void endTurn() throws RemoteException;
 }

@@ -973,13 +973,12 @@ public class CommandLine implements ViewInterface {
 
     private boolean reload(StringTokenizer input) throws IOException {
         if(input.countTokens() == 1){
-            client.reload(Integer.parseInt(input.nextToken()));
+            client.reload(input.nextToken());
             return true;
-        }else if(input.countTokens() == 2){
-            client.reload(Integer.parseInt(input.nextToken()), Integer.parseInt(input.nextToken()));
-            return true;
+        }else{
+            return false;
         }
-        return false;
+
     }
 
     private void endTurn(){
@@ -1168,14 +1167,17 @@ public class CommandLine implements ViewInterface {
         switch(outcome){
             case RIGHT:
                 Printer.println("[SERVER]Shoot!");
+                damageBoardPrinter.setPlayer(playerController.getPlayer());
+                damageBoardPrinter.setVictims(playerController.getVictims());
+                damageBoardPrinter.printDamageBoard();
+                damageBoardPrinter.printVictimsDamageBoard();
                 break;
             case ALL:
                 Printer.println("[SERVER]Shot!");
-                Printer.println(playerController.getPlayer().getUsername());
-                killshotTrackPrinter.setKillshotTrack(playerController.getKillshotTrack());
-                killshotTrackPrinter.printKillshotTrack();
                 damageBoardPrinter.setPlayer(playerController.getPlayer());
+                damageBoardPrinter.setVictims(playerController.getVictims());
                 damageBoardPrinter.printDamageBoard();
+                damageBoardPrinter.printVictimsDamageBoard();
                 break;
             case WRONG:
                 Printer.println("[SERVER]Not shoot!");
@@ -1206,6 +1208,14 @@ public class CommandLine implements ViewInterface {
     private void notifyScore(Map<TokenColor, Integer> scoreList){
         Printer.println("Score:");
         scoreList.forEach((c,i)->Printer.println(c + ": " + i));
+    }
+
+    private void notifyReload(Outcome outcome, String weaponName){
+        if(outcome.equals(Outcome.RIGHT)){
+            Printer.println(weaponName + " reloaded!");
+        }else{
+            Printer.println(weaponName + " not reloaded!");
+        }
     }
 
     public void notify(Message message){
@@ -1266,6 +1276,8 @@ public class CommandLine implements ViewInterface {
             case SCORE:
                 notifyScore((Map<TokenColor, Integer>) object);
                 break;
+            case RELOAD:
+                notifyReload(outcome, (String) object);
             default:
                 break;
         }

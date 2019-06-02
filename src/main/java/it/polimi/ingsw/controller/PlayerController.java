@@ -15,6 +15,7 @@ public class PlayerController {
     private Player player;
     private GameBoard gameBoard;
     private List<Token> killshotTrack;
+    private List<Player> victims;
     private int moves;
 
     public PlayerController(ClientInterface client){
@@ -79,5 +80,13 @@ public class PlayerController {
 
     public boolean canUseAction(){
         return moves < Config.MAX_ACTIONS;
+    }
+
+    public List<Player> getVictims() {
+        return victims;
+    }
+
+    public void setVictims(List<Player> victims) {
+        this.victims = victims;
     }
 }

@@ -288,11 +288,9 @@ public class ServerController {
     }
     //da gestire
     public void grab(String username, int choice, Direction...directions){
-        Printer.println("Prima");
         users.get(username).getAmmoBox().forEach(ammo -> Printer.println(ammo.getColor()));
         if(gameController.grab(users.get(username), choice, directions)){
             try{
-                Printer.println("Dopo");
                 users.get(username).getAmmoBox().forEach(ammo -> Printer.println(ammo.getColor()));
                 servers.get(username).notify(Message.GRAB, Outcome.RIGHT, users.get(username));
             }catch (IOException e){
@@ -350,22 +348,36 @@ public class ServerController {
 
     //metodo completo
     public void shoot(String weaponName, int effectNumber, boolean basicFirst, String username, TokenColor firstVictim, TokenColor secondVictim, TokenColor thirdVictim, int x, int y, Direction...directions){
+        List<Player> victims = new ArrayList<>();
         Player victim1 = null;
         Player victim2 = null;
         Player victim3 = null;
         if(!firstVictim.equals(TokenColor.NONE)){
             victim1 = users.get(colors.get(firstVictim));
+            victims.add(victim1);
         }
         if(!secondVictim.equals(TokenColor.NONE)){
             victim2 = users.get(colors.get(secondVictim));
+            victims.add(victim2);
         }
         if(!thirdVictim.equals(TokenColor.NONE)){
             victim3 = users.get(colors.get(thirdVictim));
+            victims.add(victim3);
         }
-        Printer.println(victim1);
-        Printer.println(victim2);
-        Printer.println(victim3);
-        gameController.shoot(weaponName, effectNumber - 1, basicFirst, users.get(username), victim1, victim2, victim3, x, y, directions);
+        if(gameController.shoot(weaponName, effectNumber - 1, basicFirst, users.get(username), victim1, victim2, victim3, x, y, directions)){
+            try {
+                gameData.setVictims(victims);
+                servers.get(username).notify(Message.SHOOT, Outcome.RIGHT, gameData);
+            } catch (IOException e) {
+                Printer.err(e);
+            }
+        }else{
+            try {
+                servers.get(username).notify(Message.SHOOT, Outcome.WRONG, gameData);
+            } catch (IOException e) {
+                Printer.err(e);
+            }
+        }
     }
 
 
@@ -442,8 +454,20 @@ public class ServerController {
         users.get(username).resetPowerupAmmos();
     }
 
-    public void reload(String username, int...weapons){
-        //
+    public void reload(String username, String weaponName){
+        if(gameController.reload(users.get(username), weaponName)){
+            try {
+                servers.get(username).notify(Message.RELOAD, Outcome.RIGHT, weaponName);
+            } catch (IOException e) {
+                Printer.err(e);
+            }
+        }else{
+            try {
+                servers.get(username).notify(Message.RELOAD, Outcome.WRONG, weaponName);
+            } catch (IOException e) {
+                Printer.err(e);
+            }
+        }
     }
 
     public void endTurn(String username){

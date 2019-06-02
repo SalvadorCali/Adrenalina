@@ -50,6 +50,7 @@ public class SpawnPoint extends Square implements Serializable {
         for(int i=0; i<(3 - size); i++){
             weapons.add(actionInterface.getWeapon());
         }
+        setEmpty(false);
         /*
         List<WeaponCard> newWeapons = new ArrayList<>();
         newWeapons.add(actionInterface.getWeapon());

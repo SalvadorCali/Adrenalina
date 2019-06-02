@@ -85,7 +85,7 @@ public class SocketClient implements ClientInterface, Runnable, Serializable {
                     clientSocket.close();
                     thisThread = null;
                     Printer.println("Server disconnesso");
-                    //handle disconnection
+                    Printer.println("Eskereee");
                 } catch (IOException e1) {
                     Printer.err(e1);
                 }
@@ -315,15 +315,11 @@ public class SocketClient implements ClientInterface, Runnable, Serializable {
     }
 
     @Override
-    public void reload(int...weapons) throws IOException {
+    public void reload(String weaponName) throws IOException {
         objectOutputStream.writeObject(Message.RELOAD);
         objectOutputStream.flush();
-        objectOutputStream.writeInt(weapons.length);
+        objectOutputStream.writeUTF(weaponName);
         objectOutputStream.flush();
-        for(int weapon : weapons){
-            objectOutputStream.writeInt(weapon);
-            objectOutputStream.flush();
-        }
     }
 
     @Override
@@ -426,8 +422,14 @@ public class SocketClient implements ClientInterface, Runnable, Serializable {
                 if(outcome.equals(Outcome.RIGHT)){
                     playerController.incrementMoves();
                 }
-                object = (Player) objectInputStream.readObject();
-                playerController.setPlayer((Player) object);
+                object = (GameData) objectInputStream.readObject();
+
+                GameData gameData5 = (GameData) object;
+                playerController.setGameBoard(gameData5.getGameBoard());
+                playerController.setKillshotTrack(gameData5.getKillshotTrack());
+                playerController.setPlayer(gameData5.getPlayer(username));
+                playerController.setVictims(gameData5.getVictims());
+
                 view.notify(message, outcome);
                 break;
             case BOARD:
@@ -438,6 +440,12 @@ public class SocketClient implements ClientInterface, Runnable, Serializable {
                 outcome = (Outcome) objectInputStream.readObject();
                 object = (Map<TokenColor, Integer>) objectInputStream.readObject();
                 view.notify(message, outcome, object);
+                break;
+            case RELOAD:
+                outcome = (Outcome) objectInputStream.readObject();
+                object = (String) objectInputStream.readObject();
+                view.notify(message, outcome, object);
+                break;
             default:
                 break;
         }

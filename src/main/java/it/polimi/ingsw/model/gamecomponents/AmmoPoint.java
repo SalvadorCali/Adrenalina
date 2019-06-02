@@ -50,6 +50,7 @@ public class AmmoPoint extends Square implements Serializable {
     @Override
     public void fill(ActionInterface actionInterface){
         setAmmoCard(actionInterface.getAmmo());
+        setEmpty(false);
     }
 
     @Override

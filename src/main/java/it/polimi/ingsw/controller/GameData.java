@@ -12,6 +12,7 @@ import java.util.Map;
 
 public class GameData implements Serializable {
     private Game game;
+    private List<Player> victims;
     private Map<String, Player> users;
 
     public Game getGame() {
@@ -20,6 +21,14 @@ public class GameData implements Serializable {
 
     public void setGame(Game game) {
         this.game = game;
+    }
+
+    public void setVictims(List<Player> victims){
+        this.victims = victims;
+    }
+
+    public List<Player> getVictims() {
+        return victims;
     }
 
     public void setPlayers(Map<String, Player> users){

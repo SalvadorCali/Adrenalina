@@ -35,6 +35,12 @@ public class DamageBoardCLI {
     private List<Token> markBoard;
     private List<Ammo> ammoBox;
 
+    private List<Player> victims;
+    private Token[] victimDamageBoard;
+    private int victimDeathNumber;
+    private List<Token> victimMarkBoard;
+    private List<Ammo> victimAmmoBox;
+
 
     public DamageBoardCLI(Player player){
 
@@ -52,6 +58,10 @@ public class DamageBoardCLI {
         damageBoard = player.getPlayerBoard().getDamageBoard();
         markBoard = player.getPlayerBoard().getRevengeMarks();
         ammoBox = player.getAmmoBox();
+    }
+
+    public void setVictims(List<Player> victims){
+        this.victims = victims;
     }
 
 
@@ -240,5 +250,198 @@ public class DamageBoardCLI {
         Printer.print("|" + " " + colorMark[0] + mark[0] + " " + colorMark[1] + mark[1] + " " + colorMark[2] + mark[2] + " " + GREY + "|\n" + RESET);
         Printer.print(" ¯ ¯ ¯ ¯\n" + RESET);
 */
+    }
+
+    public void printVictimsDamageBoard() {
+        for(int k = 0; k<victims.size(); k++){
+            Integer damage[] = new Integer[MAX_DAMAGE];
+            String colorDamage[] = new String[MAX_DAMAGE];
+            String mark[] = new String[MAX_MARK];
+            String colorMark[] = new String[MAX_MARK];
+            String ammoColor[] = new String[RESERVE_LENGTH];
+            String ammoVal[] = new String[RESERVE_LENGTH];
+            String points[] = new String[POINTS_LENGTH];
+            victimDamageBoard = victims.get(k).getPlayerBoard().getDamageBoard();
+            victimMarkBoard = victims.get(k).getPlayerBoard().getRevengeMarks();
+            victimAmmoBox = victims.get(k).getAmmoBox();
+            victimDeathNumber = victims.get(k).getPlayerBoard().getDeathNumber();
+
+            //initialize damage and colorDamage
+            for(int i = 0; i < MAX_DAMAGE; i++){
+
+                damage[i] = 0;
+                colorDamage[i] = CYAN;
+            }
+
+            //initialize marks
+            for(int i = 0; i< MAX_MARK; i++){
+
+                mark[i] = " ";
+                colorMark[i] = CYAN;
+            }
+
+
+            //color and assign damage
+            for(int i = 0; i < damage.length; i++){
+
+                damage[i]= 0;
+
+                if(victimDamageBoard[i].getFirstColor().equals(TokenColor.BLUE))
+                    colorDamage[i] = BLUE;
+
+                if(victimDamageBoard[i].getFirstColor().equals(TokenColor.RED))
+                    colorDamage[i] = RED;
+
+                if(victimDamageBoard[i].getFirstColor().equals(TokenColor.YELLOW))
+                    colorDamage[i] = YELLOW;
+
+                if(victimDamageBoard[i].getFirstColor().equals(TokenColor.GREY))
+                    colorDamage[i] = GREY;
+
+                if(victimDamageBoard[i].getFirstColor().equals(TokenColor.PURPLE))
+                    colorDamage[i] = PURPLE;
+
+                if(victimDamageBoard[i].getFirstColor().equals(TokenColor.GREEN))
+                    colorDamage[i] = GREEN;
+
+                if(victimDamageBoard[i].getFirstColor().equals(TokenColor.SKULL))
+                    colorDamage[i] = CYAN;
+
+                if(victimDamageBoard[i].getFirstColor().equals(TokenColor.NONE))
+                    colorDamage[i] = CYAN;
+
+                if(colorDamage[i] != CYAN){
+
+                    damage[i] = 1;
+                }
+
+
+            }
+
+            if(!victimMarkBoard.isEmpty()) {
+                for (int i = 0; i < victimMarkBoard.size(); i++) {
+
+                    if (victimMarkBoard.get(i).getFirstColor() != TokenColor.NONE) {
+
+                        mark[i] = MARK;
+
+                        if (victimMarkBoard.get(i).getFirstColor().equals(TokenColor.BLUE))
+                            colorMark[i] = BLUE;
+
+                        if (victimMarkBoard.get(i).getFirstColor().equals(TokenColor.RED))
+                            colorMark[i] = RED;
+
+                        if (victimMarkBoard.get(i).getFirstColor().equals(TokenColor.YELLOW))
+                            colorMark[i] = YELLOW;
+
+                        if (victimMarkBoard.get(i).getFirstColor().equals(TokenColor.GREY))
+                            colorMark[i] = GREY;
+
+                        if (victimMarkBoard.get(i).getFirstColor().equals(TokenColor.GREEN))
+                            colorMark[i] = GREEN;
+
+                        if (victimMarkBoard.get(i).getFirstColor().equals(TokenColor.PURPLE))
+                            colorMark[i] = PURPLE;
+
+                        if (victimMarkBoard.get(i).getFirstColor().equals(TokenColor.SKULL))
+                            colorMark[i] = CYAN;
+
+                        if (victimMarkBoard.get(i).getFirstColor().equals(TokenColor.NONE))
+                            colorMark[i] = CYAN;
+
+                    }
+                }
+            }
+
+            for(int i = 0; i < RESERVE_LENGTH; i++){
+
+                ammoColor[i] = CYAN;
+                ammoVal[i] = AMMO;
+            }
+
+            //give color to ammo
+            for (int i = 0; i < victimAmmoBox.size(); i++){
+
+                if(victimAmmoBox.get(i).getColor().equals(Color.BLUE)){
+
+                    ammoColor[i] = BLUE;
+                }
+
+                if(victimAmmoBox.get(i).getColor().equals(Color.RED)){
+
+                    ammoColor[i] = RED;
+                }
+
+                if(victimAmmoBox.get(i).getColor().equals(Color.YELLOW)){
+
+                    ammoColor[i] = YELLOW;
+                }
+
+                if(victimAmmoBox.get(i).getColor().equals(Color.NONE)){
+
+                    ammoColor[i] = CYAN;
+                }
+
+            }
+
+            for(int i = 0; i < RESERVE_LENGTH; i++){
+
+
+                if(ammoColor[i].equals(CYAN)){
+
+                    ammoVal[i] = SPACE;
+                }
+            }
+
+            points[0] = "8";
+            points[1] = "6";
+            points[2] = "4";
+            points[3] = "2";
+            points[4] = "1";
+            points[5] = "1";
+
+            for(int i=0; i<victimDeathNumber; i++){
+                points[i] = "X";
+            }
+
+            //give name current player
+            //namePlayer = currentPlayer;
+
+            //Printer.print(namePlayer + "'s damageBoard\n");
+            Printer.print("        ");
+            //Printer.print("                      ");
+            Printer.print(" _Ammos_ _ _ _ _ _ _ _ _Marks_\n" + RESET);
+            Printer.print("        ");
+            Printer.print("|" + " " + ammoColor[0] + ammoVal[0] + SPACE + ammoColor[1] + ammoVal[1] + SPACE + ammoColor[2] + ammoVal[2] + SPACE + ammoColor[3] + ammoVal[3] + SPACE + ammoColor[4] + ammoVal[4] + SPACE + ammoColor[5] + ammoVal[5] + SPACE + ammoColor[6] + ammoVal[6] + SPACE + ammoColor[7] + ammoVal[7] + SPACE + ammoColor[8] + ammoVal[8] + GREY + " " + RESET);
+            //Printer.print("                      ");
+            Printer.print("| ");
+            Printer.print("|" + " " + colorMark[0] + mark[0] + " " + colorMark[1] + mark[1] + " " + colorMark[2] + mark[2] + " " + RESET + "|\n");
+            Printer.print("        ");
+            Printer.print("|_ _ _ _ _ _ _ _ _ _|_|_ _ _ _|\n" + RESET);
+            Printer.print("        ");
+            Printer.print("|" + colorDamage[0] + damage[0] + SPACE + colorDamage[1] + damage[1] + SPACE + GREY + "|" + SPACE + colorDamage[2] + damage[2] + SPACE + colorDamage[3] + damage[3] + SPACE + colorDamage[4] + damage[4] + SPACE + GREY + "|" + SPACE + colorDamage[5] + damage[5] + SPACE + colorDamage[6] + damage[6] + SPACE + colorDamage[7] + damage[7] + SPACE + colorDamage[8] + damage[8] + SPACE + colorDamage[9] + damage[9] + SPACE + GREY + "|" + SPACE + colorDamage[10] + damage[10] + SPACE + colorDamage[11] + damage[11] + RESET + "|\n");
+            Printer.print("        ");
+            Printer.print("|¯ ¯ ¯ ¯ ¯ ¯|¯ ¯ ¯ ¯ ¯ ¯ ¯ ¯ ¯\n" + RESET);
+            Printer.print("        ");
+            Printer.print("|" + points[0] + SPACE + points[1] + SPACE + points[2] + SPACE + points[3] + SPACE + points[4] + SPACE + points[5] + "|\n");
+            Printer.print("        ");
+            Printer.print(" ¯ ¯ ¯ ¯ ¯ ¯\n" + RESET);
+
+        /*
+        Printer.println(SPACE + "_________________");
+        Printer.println("|" + ammoColor[0] + ammoVal[0] + SPACE + ammoColor[1] + ammoVal[1] + SPACE + ammoColor[2] + ammoVal[2] + SPACE + ammoColor[3] + ammoVal[3] + SPACE + ammoColor[4] + ammoVal[4] + SPACE + ammoColor[5] + ammoVal[5] + SPACE + ammoColor[6] + ammoVal[6] + SPACE + ammoColor[7] + ammoVal[7] + SPACE + ammoColor[8] + ammoVal[8] + GREY + "|" + RESET);
+        Printer.println(SPACE + "¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯");
+
+         */
+
+/*
+        Printer.print("Marks:\n");
+
+        Printer.print(" _ _ _ _\n" + RESET);
+        Printer.print("|" + " " + colorMark[0] + mark[0] + " " + colorMark[1] + mark[1] + " " + colorMark[2] + mark[2] + " " + GREY + "|\n" + RESET);
+        Printer.print(" ¯ ¯ ¯ ¯\n" + RESET);
+*/
+        }
+
     }
 }

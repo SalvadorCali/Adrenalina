@@ -50,7 +50,7 @@ public class SocketServer implements Runnable, ServerInterface {
                     socket.close();
                     thisThread = null;
                     serverController.disconnect(clientName);
-                    //handle disconnection
+                    Printer.println("disconnnesss");
                 } catch (IOException e1) {
                     e1.printStackTrace();
                 }
@@ -108,6 +108,9 @@ public class SocketServer implements Runnable, ServerInterface {
                 break;
             case END_TURN:
                 endTurn();
+                break;
+            case SHOOT:
+                shoot();
                 break;
             default:
                 break;
@@ -350,15 +353,8 @@ public class SocketServer implements Runnable, ServerInterface {
 
     public void reload(){
         try {
-            int weaponsSize = objectInputStream.readInt();
-            if(weaponsSize == 1){
-                int first = objectInputStream.readInt();
-                serverController.reload(clientName, first);
-            }else{
-                int first = objectInputStream.readInt();
-                int second = objectInputStream.readInt();
-                serverController.reload(clientName, first, second);
-            }
+            String weaponName = objectInputStream.readUTF();
+            serverController.reload(clientName, weaponName);
         } catch (IOException e) {
             Printer.err(e);
         }
