@@ -280,6 +280,7 @@ public class Game implements Serializable {
         for(int i=0; i<players.size(); i++){
             if(players.get(i).equals(player)){
                 player.setMyTurn(false);
+                player.setDamaged(false);
                 do{
                     currentPlayer = nextPlayer(i);
                     Printer.println(currentPlayer.getUsername());
