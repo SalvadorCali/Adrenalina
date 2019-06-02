@@ -112,6 +112,9 @@ public class SocketServer implements Runnable, ServerInterface {
             case SHOOT:
                 shoot();
                 break;
+            case DROP:
+                drop();
+                break;
             default:
                 break;
         }
@@ -214,6 +217,15 @@ public class SocketServer implements Runnable, ServerInterface {
                 serverController.grab(clientName, choice, first, second);
             }
         } catch (IOException | ClassNotFoundException e) {
+            Printer.err(e);
+        }
+    }
+
+    public void drop(){
+        try {
+            String weaponName = objectInputStream.readUTF();
+            serverController.drop(clientName, weaponName);
+        } catch (IOException e) {
             Printer.err(e);
         }
     }

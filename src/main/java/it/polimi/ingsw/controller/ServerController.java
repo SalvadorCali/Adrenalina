@@ -305,6 +305,10 @@ public class ServerController {
         }
     }
 
+    public void drop(String username, String weapon){
+        gameController.drop(users.get(username), weapon);
+    }
+
     public Player[] getVictims(TokenColor...colors){
         Player[] victims = new Player[colors.length];
         for(int i=0; i<colors.length; i++){

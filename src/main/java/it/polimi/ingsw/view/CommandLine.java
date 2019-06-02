@@ -342,7 +342,7 @@ public class CommandLine implements ViewInterface {
             client.move(Converter.fromStringToDirection(input.nextToken()), Converter.fromStringToDirection(input.nextToken()),
                     Converter.fromStringToDirection(input.nextToken()));
             return true;
-        }else if(input.countTokens() == 4){
+        }else if(input.countTokens() == 4){ //&& !firstPlayer
             client.move(Converter.fromStringToDirection(input.nextToken()), Converter.fromStringToDirection(input.nextToken()),
                     Converter.fromStringToDirection(input.nextToken()), Converter.fromStringToDirection(input.nextToken()));
             return true;
@@ -354,6 +354,9 @@ public class CommandLine implements ViewInterface {
         int choice = Integer.parseInt(input.nextToken());
         if(choice != 0){
             handlePowerup();
+            if(playerController.getPlayer().getWeapons().size() == 3){
+                dropWeapon();
+            }
         }
         if(input.countTokens() == 0){
             client.grab(choice);
@@ -367,6 +370,16 @@ public class CommandLine implements ViewInterface {
             return true;
         }
         return false;
+    }
+
+    private void dropWeapon(){
+        Printer.print("Please choose a weapon to drop:");
+        try {
+            String weapon = userInputStream.readLine();
+            client.drop(weapon);
+        } catch (IOException e) {
+            Printer.err(e);
+        }
     }
 
     /*
@@ -429,7 +442,7 @@ public class CommandLine implements ViewInterface {
             client.grab(Integer.parseInt(input.nextToken()), Converter.fromStringToDirection(input.nextToken()),
                     Converter.fromStringToDirection(input.nextToken()));
             return true;
-        }else if(input.countTokens() == 4){
+        }else if(input.countTokens() == 4){ //&& firstPlayer
             client.grab(Integer.parseInt(input.nextToken()), Converter.fromStringToDirection(input.nextToken()),
                     Converter.fromStringToDirection(input.nextToken()), Converter.fromStringToDirection(input.nextToken()));
             return true;
@@ -476,6 +489,64 @@ public class CommandLine implements ViewInterface {
             return true;
         }
         return false;
+    }
+
+    private boolean lockRifle(String weapon) throws IOException {
+        TokenColor firstVictim, secondVictim;
+        Printer.print("Please choose <1> or <2> effect:");
+        int effectNumber = Integer.parseInt(userInputStream.readLine());
+        if(effectNumber == 1){
+            Printer.print("Please choose your victim:");
+            firstVictim = Converter.fromStringToTokenColor(userInputStream.readLine());
+            client.shoot(weapon, effectNumber, true, firstVictim, TokenColor.NONE, TokenColor.NONE, -1, -1);
+            return true;
+        }else if(effectNumber == 2){
+            Printer.print("Please choose 1st victim:");
+            firstVictim = Converter.fromStringToTokenColor(userInputStream.readLine());
+            Printer.print("Please choose 2nd victim:");
+            secondVictim = Converter.fromStringToTokenColor(userInputStream.readLine());
+            client.shoot(weapon, effectNumber, true, firstVictim, secondVictim, TokenColor.NONE, -1, -1);
+            return true;
+        }else{
+            return false;
+        }
+    }
+/*
+    private boolean machineGun(String weapon) throws IOException{
+        Printer.print("Please choose <1>, <2> or <3> effect:");
+        int effectNumber = Integer.parseInt(userInputStream.readLine());
+
+    }
+ */
+
+    private boolean thor(String weapon) throws IOException{
+        TokenColor firstVictim, secondVictim, thirdVictim;
+        Printer.print("Please choose <1>, <2> or <3> effect:");
+        int effectNumber = Integer.parseInt(userInputStream.readLine());
+        if(effectNumber == 1){
+            Printer.print("Please choose your victim:");
+            firstVictim = Converter.fromStringToTokenColor(userInputStream.readLine());
+            client.shoot(weapon, effectNumber, true, firstVictim, TokenColor.NONE, TokenColor.NONE, -1, -1);
+            return true;
+        }else if(effectNumber == 2){
+            Printer.print("Please choose 1st victim:");
+            firstVictim = Converter.fromStringToTokenColor(userInputStream.readLine());
+            Printer.print("Please choose 2nd victim:");
+            secondVictim = Converter.fromStringToTokenColor(userInputStream.readLine());
+            client.shoot(weapon, effectNumber, true, firstVictim, secondVictim, TokenColor.NONE, -1, -1);
+            return true;
+        }else if(effectNumber == 3){
+            Printer.print("Please choose 1st victim:");
+            firstVictim = Converter.fromStringToTokenColor(userInputStream.readLine());
+            Printer.print("Please choose 2nd victim:");
+            secondVictim = Converter.fromStringToTokenColor(userInputStream.readLine());
+            Printer.print("Please choose 3rd victim:");
+            thirdVictim = Converter.fromStringToTokenColor(userInputStream.readLine());
+            client.shoot(weapon, effectNumber, true, firstVictim, secondVictim, thirdVictim, -1, -1);
+            return true;
+        }else{
+            return false;
+        }
     }
 
     private boolean weaponEffect(String weapon, Direction...directions) throws IOException {

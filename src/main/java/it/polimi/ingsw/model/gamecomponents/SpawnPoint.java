@@ -1,6 +1,7 @@
 package it.polimi.ingsw.model.gamecomponents;
 
 import it.polimi.ingsw.model.cards.AmmoCard;
+import it.polimi.ingsw.model.cards.Card;
 import it.polimi.ingsw.model.cards.WeaponCard;
 import it.polimi.ingsw.model.cards.effects.ActionInterface;
 import it.polimi.ingsw.model.enums.Cardinal;
@@ -58,6 +59,11 @@ public class SpawnPoint extends Square implements Serializable {
         newWeapons.add(actionInterface.getWeapon());
         setWeapons(newWeapons);
         */
+    }
+
+    @Override
+    public void drop(Card weapon){
+        weapons.add((WeaponCard)weapon);
     }
 
     @Override

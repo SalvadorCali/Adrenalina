@@ -201,6 +201,14 @@ public class SocketClient implements ClientInterface, Runnable, Serializable {
     }
 
     @Override
+    public void drop(String weaponName) throws IOException {
+        objectOutputStream.writeObject(Message.DROP);
+        objectOutputStream.flush();
+        objectOutputStream.writeUTF(weaponName);
+        objectOutputStream.flush();
+    }
+
+    @Override
     public void shoot(String weaponName, int effectNumber, boolean basicFirst, TokenColor firstVictim, TokenColor secondVictim, TokenColor thirdVictim, int x, int y, Direction... directions) throws IOException {
         objectOutputStream.writeObject(Message.SHOOT);
         objectOutputStream.flush();

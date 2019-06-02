@@ -18,6 +18,7 @@ public interface RMIServerInterface extends ServerInterface, Remote {
     void showSquare() throws RemoteException;
     void showSquare(int x, int y) throws RemoteException;
     void move(Direction...directions) throws RemoteException;
+    void drop(String weaponName) throws RemoteException;
     void grab(int choice, Direction...directions) throws RemoteException;
     void shoot(String weaponName, int effectNumber, boolean basicFirst, TokenColor firstVictim, TokenColor secondVictim, TokenColor thirdVictim, int x, int y, Direction...directions) throws RemoteException;
     void shoot(String weaponName, int effectNumber, TokenColor...colors) throws RemoteException;

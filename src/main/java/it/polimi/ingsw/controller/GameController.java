@@ -206,6 +206,19 @@ public class GameController {
         }
     }
 
+    public void drop(Player player, String weapon){
+        final String weaponNameUpp;
+        weaponNameUpp = Converter.weaponName(weapon);
+        int x = player.getPosition().getX();
+        int y = player.getPosition().getY();
+        for(int i=0; i<player.getWeapons().size(); i++){
+            if(player.getWeapons().get(i).getName().equals(weaponNameUpp)){
+                game.getBoard().getArena()[x][y].drop(player.getWeapons().get(i));
+                player.getWeapons().remove(i);
+            }
+        }
+    }
+
     public boolean shoot(Player shooter, String weaponName, int mod, Player... victims) {
         final String weaponNameUpp;
         weaponNameUpp = Converter.weaponName(weaponName);

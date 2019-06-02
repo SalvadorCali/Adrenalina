@@ -9,7 +9,7 @@ public enum Message {
     SPAWN(17), SQUARE(18), POWERUP(19),
     POWERUP_AMMOS(20), RELOAD(21),
     SHOOT_1(22), SHOOT_2(23), SHOOT_3(24),
-    SQUARE_2(25), BOARD(26), SCORE(27);
+    SQUARE_2(25), BOARD(26), SCORE(27), DROP(28);
     private final int number;
     Message(int number){
         this.number = number;

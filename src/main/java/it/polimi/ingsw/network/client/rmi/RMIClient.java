@@ -133,6 +133,11 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
     }
 
     @Override
+    public void drop(String weaponName) throws RemoteException {
+        server.drop(weaponName);
+    }
+
+    @Override
     public void grab(int choice, Direction...directions) throws RemoteException {
         server.grab(choice);
     }

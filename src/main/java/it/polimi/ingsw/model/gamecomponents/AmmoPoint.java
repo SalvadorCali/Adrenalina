@@ -1,6 +1,7 @@
 package it.polimi.ingsw.model.gamecomponents;
 
 import it.polimi.ingsw.model.cards.AmmoCard;
+import it.polimi.ingsw.model.cards.Card;
 import it.polimi.ingsw.model.cards.WeaponCard;
 import it.polimi.ingsw.model.cards.effects.ActionInterface;
 import it.polimi.ingsw.model.enums.Cardinal;
@@ -51,6 +52,11 @@ public class AmmoPoint extends Square implements Serializable {
     public void fill(ActionInterface actionInterface){
         setAmmoCard(actionInterface.getAmmo());
         setEmpty(false);
+    }
+
+    @Override
+    public void drop(Card card) {
+
     }
 
     @Override
