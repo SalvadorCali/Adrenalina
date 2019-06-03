@@ -51,6 +51,12 @@ public class Converter {
                 return Color.RED;
             case "Y":
                 return Color.YELLOW;
+            case "blue":
+                return Color.BLUE;
+            case "red":
+                return Color.RED;
+            case "yellow":
+                return Color.YELLOW;
             default:
                 return Color.NONE;
         }

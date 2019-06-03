@@ -976,50 +976,67 @@ public class CommandLine implements ViewInterface {
     }
 
     private boolean powerup(StringTokenizer input){
-        if(input.hasMoreTokens()){
+        if(input.hasMoreTokens()) {
             String powerup = input.nextToken();
             try {
-                powerupEffect(powerup);
+                return powerupEffect(powerup);
             } catch (IOException e) {
                 Printer.err(e);
             }
-            return true;
-        }else{
-            return false;
         }
+        return false;
     }
 
-    private void powerupEffect(String powerup) throws IOException {
+    private boolean powerupEffect(String powerup) throws IOException {
         StringTokenizer string;
         switch(powerup){
+            case "targetingscope":
+                string = new StringTokenizer(userInputStream.readLine());
+                Printer.println("Effect: <victim> <ammo>");
+                if(string.countTokens() == 2){
+                    client.powerup(powerup, Converter.fromStringToTokenColor(string.nextToken()), Converter.fromStringToColor(string.nextToken()),
+                            -1, -1);
+                    return true;
+                }else{
+                    return false;
+                }
             case "newton":
-                Printer.println("Choose a direction and a movement: <direction> <1 or 2>");
                 string = new StringTokenizer(userInputStream.readLine());
-                int value;
-                Direction direction;
-                if(string.hasMoreTokens()){
-                    direction = Converter.fromStringToDirection(string.nextToken());
-                    if(string.hasMoreTokens()){
-                        value = Integer.parseInt(string.nextToken());
-                        client.powerup(powerup, direction, value);
-                    }
+                Printer.println("Effect: <victim> <direction>");
+                Printer.println("Effect: <victim> <direction> <direction>");
+                if(string.countTokens() == 2){
+                    client.powerup(powerup, Converter.fromStringToTokenColor(string.nextToken()), Color.NONE, -1, -1,
+                            Converter.fromStringToDirection(string.nextToken()));
+                    return true;
+                }else if(string.countTokens() == 3){
+                    client.powerup(powerup, Converter.fromStringToTokenColor(string.nextToken()), Color.NONE, -1, -1,
+                            Converter.fromStringToDirection(string.nextToken()), Converter.fromStringToDirection(string.nextToken()));
+                    return true;
+                }else{
+                    return false;
                 }
-                break;
+            case "tagbackgrenade":
+                string = new StringTokenizer(userInputStream.readLine());
+                Printer.println("Effect: <victim>");
+                if(string.countTokens() == 1){
+                    client.powerup(powerup, Converter.fromStringToTokenColor(string.nextToken()), Color.NONE, -1, -1);
+                    return true;
+                }else{
+                    return false;
+                }
             case "teleporter":
-                Printer.println("Choose a square: <square_x> <square_y>");
                 string = new StringTokenizer(userInputStream.readLine());
-                int x, y;
-                if(string.hasMoreTokens()){
-                    x = Integer.parseInt(string.nextToken());
-                    if(string.hasMoreTokens()){
-                        y = Integer.parseInt(string.nextToken());
-                        client.powerup(powerup, x, y);
-                    }
+                Printer.println("Effect: <square_x> <square_y");
+                if(string.countTokens() == 2){
+                    client.powerup(powerup, TokenColor.NONE, Color.NONE, Integer.parseInt(string.nextToken()), Integer.parseInt(string.nextToken()));
+                    return true;
+                }else{
+                    return false;
                 }
-                break;
             default:
                 break;
         }
+        return false;
     }
 
     public void handlePowerup() throws IOException {
@@ -1211,9 +1228,21 @@ public class CommandLine implements ViewInterface {
 
     private void notifyPowerup(Outcome outcome){
         if(outcome.equals(Outcome.RIGHT)){
-            Printer.println("[SERVER]Powerup used!");
+            Printer.println("[SERVER]" + playerController.getPowerup() + " used!");
         }else{
-            Printer.println("[SERVER]Powerup not used!");
+            Printer.println("[SERVER]" + playerController.getPowerup() + " not used!");
+        }
+        switch(playerController.getPowerup()){
+            case "targetingscope":
+                break;
+            case "newton":
+                break;
+            case "tagbackgrenade":
+                break;
+            case "teleporter":
+                break;
+            default:
+                break;
         }
         killshotTrackPrinter.setKillshotTrack(playerController.getKillshotTrack());
         killshotTrackPrinter.printKillshotTrack();

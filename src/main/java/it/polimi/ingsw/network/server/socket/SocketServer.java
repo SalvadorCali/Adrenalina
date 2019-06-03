@@ -3,6 +3,7 @@ package it.polimi.ingsw.network.server.socket;
 import it.polimi.ingsw.controller.PowerupData;
 import it.polimi.ingsw.controller.ServerController;
 import it.polimi.ingsw.controller.timer.ConnectionTimer;
+import it.polimi.ingsw.model.enums.Color;
 import it.polimi.ingsw.model.enums.Direction;
 import it.polimi.ingsw.model.enums.TokenColor;
 import it.polimi.ingsw.model.gamecomponents.Token;
@@ -319,28 +320,25 @@ public class SocketServer implements Runnable, ServerInterface {
     }
 
     public void powerup(){
-        String powerup;
         try {
-            powerup = objectInputStream.readUTF();
-            switch (powerup){
-                case "newton":
-                    try {
-                        Direction direction = (Direction) objectInputStream.readObject();
-                        int value = objectInputStream.readInt();
-                        serverController.powerup(clientName, powerup, direction, value);
-                    } catch (ClassNotFoundException e) {
-                        Printer.err(e);
-                    }
-                    break;
-                case "teleporter":
-                    int x = objectInputStream.readInt();
-                    int y = objectInputStream.readInt();
-                    serverController.powerup(clientName, powerup, x, y);
-                    break;
-                default:
-                    break;
+            Direction first, second;
+            String powerup = objectInputStream.readUTF();
+            TokenColor victim = (TokenColor) objectInputStream.readObject();
+            Color ammo = (Color) objectInputStream.readObject();
+            int x = objectInputStream.readInt();
+            int y = objectInputStream.readInt();
+            int directionsSize = objectInputStream.readInt();
+            if(directionsSize == 1){
+                first = (Direction) objectInputStream.readObject();
+                serverController.powerup(clientName, powerup, victim, ammo, x, y, first);
+            }else if(directionsSize == 2){
+                first = (Direction) objectInputStream.readObject();
+                second = (Direction) objectInputStream.readObject();
+                serverController.powerup(clientName, powerup, victim, ammo, x, y, first, second);
+            }else{
+                serverController.powerup(clientName, powerup, victim, ammo, x, y);
             }
-        } catch (IOException e) {
+        } catch (IOException | ClassNotFoundException e) {
             Printer.err(e);
         }
     }

@@ -7,6 +7,7 @@ import it.polimi.ingsw.controller.SquareData;
 import it.polimi.ingsw.controller.timer.ConnectionTimer;
 import it.polimi.ingsw.model.cards.Card;
 import it.polimi.ingsw.model.enums.AdrenalineZone;
+import it.polimi.ingsw.model.enums.Color;
 import it.polimi.ingsw.model.enums.Direction;
 import it.polimi.ingsw.model.enums.TokenColor;
 import it.polimi.ingsw.model.gamecomponents.GameBoard;
@@ -311,6 +312,32 @@ public class SocketClient implements ClientInterface, Runnable, Serializable {
     }
 
     @Override
+    public void powerup(String powerup, TokenColor victim, Color ammo, int x, int y, Direction... directions) throws IOException {
+        objectOutputStream.writeObject(Message.POWERUP);
+        objectOutputStream.flush();
+        objectOutputStream.writeUTF(powerup);
+        objectOutputStream.flush();
+        objectOutputStream.writeObject(victim);
+        objectOutputStream.flush();
+        objectOutputStream.writeObject(ammo);
+        objectOutputStream.flush();
+        objectOutputStream.writeInt(x);
+        objectOutputStream.flush();
+        objectOutputStream.writeInt(y);
+        objectOutputStream.flush();
+        objectOutputStream.writeInt(directions.length);
+        if(directions.length == 1){
+            objectOutputStream.writeObject(directions[0]);
+            objectOutputStream.flush();
+        }else{
+            objectOutputStream.writeObject(directions[0]);
+            objectOutputStream.flush();
+            objectOutputStream.writeObject(directions[1]);
+            objectOutputStream.flush();
+        }
+    }
+
+    @Override
     public void powerupAmmos(PowerupData...powerups) throws IOException{
         objectOutputStream.writeObject(Message.POWERUP_AMMOS);
         objectOutputStream.flush();
@@ -409,6 +436,7 @@ public class SocketClient implements ClientInterface, Runnable, Serializable {
                 playerController.setGameBoard(gameData3.getGameBoard());
                 playerController.setKillshotTrack(gameData3.getKillshotTrack());
                 playerController.setPlayer(gameData3.getPlayer(username));
+                playerController.setPowerup(gameData3.getPowerup());
                 view.notify(message, outcome);
                 break;
             case GRAB:

@@ -17,6 +17,7 @@ public class PlayerController {
     private List<Token> killshotTrack;
     private List<Player> victims;
     private int moves;
+    private String powerup;
 
     public PlayerController(ClientInterface client){
         this.client = client;
@@ -88,5 +89,13 @@ public class PlayerController {
 
     public void setVictims(List<Player> victims) {
         this.victims = victims;
+    }
+
+    public String getPowerup() {
+        return powerup;
+    }
+
+    public void setPowerup(String powerup) {
+        this.powerup = powerup;
     }
 }

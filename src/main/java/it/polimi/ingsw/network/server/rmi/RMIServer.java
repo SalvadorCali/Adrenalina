@@ -3,6 +3,7 @@ package it.polimi.ingsw.network.server.rmi;
 import it.polimi.ingsw.controller.PowerupData;
 import it.polimi.ingsw.controller.ServerController;
 import it.polimi.ingsw.controller.timer.ConnectionTimer;
+import it.polimi.ingsw.model.enums.Color;
 import it.polimi.ingsw.model.enums.Direction;
 import it.polimi.ingsw.model.enums.TokenColor;
 import it.polimi.ingsw.network.client.rmi.RMIClientInterface;
@@ -104,6 +105,11 @@ public class RMIServer extends UnicastRemoteObject implements RMIServerInterface
     @Override
     public void powerup(String powerup, Direction direction, int value){
         serverController.powerup(clientName, powerup, direction, value);
+    }
+
+    @Override
+    public void powerup(String powerup, TokenColor victim, Color ammo, int x, int y, Direction... directions) throws RemoteException {
+        serverController.powerup(clientName, powerup, victim, ammo, x, y, directions);
     }
 
     @Override

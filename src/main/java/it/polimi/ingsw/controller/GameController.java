@@ -437,13 +437,13 @@ public class GameController {
         actionInterface.getClientData().setSquare(x, y);
     }
 
-    public boolean usePowerup(String powerupName, Player shooter, Player victim, int x, int y, Direction direction){
+    public boolean usePowerup(String powerupName, Player shooter, Player victim, Color ammo, int x, int y, Direction...directions){
 
         final String powerupNameUpp;
         powerupNameUpp = Converter.powerupName(powerupName);
         for (PowerupCard p : shooter.getPowerups()) {
             if (p.getName().equals(powerupNameUpp)){
-                setData(shooter, victim, x, y, direction);
+                setData(shooter, victim, x, y, directions[0]); //to fix
                 if (p.getEffect().canUseEffect(actionInterface)) {
                     Printer.println(powerupNameUpp + "USED");
                     p.getEffect().useEffect(actionInterface);

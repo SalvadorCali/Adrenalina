@@ -5,6 +5,7 @@ import it.polimi.ingsw.controller.PlayerController;
 import it.polimi.ingsw.controller.PowerupData;
 import it.polimi.ingsw.controller.timer.ConnectionTimer;
 import it.polimi.ingsw.model.enums.AdrenalineZone;
+import it.polimi.ingsw.model.enums.Color;
 import it.polimi.ingsw.model.enums.Direction;
 import it.polimi.ingsw.model.enums.TokenColor;
 import it.polimi.ingsw.model.gamecomponents.GameBoard;
@@ -173,6 +174,11 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
     }
 
     @Override
+    public void powerup(String powerup, TokenColor victim, Color ammo, int x, int y, Direction... directions) throws IOException {
+        server.powerup(powerup, victim, ammo, x, y, directions);
+    }
+
+    @Override
     public void powerupAmmos(PowerupData...powerups) throws RemoteException{
         server.powerupAmmos(powerups);
     }
@@ -253,10 +259,10 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
                 break;
             case POWERUP:
                 GameData gameData2 = (GameData) object;
-                //GameBoard gameBoard = (GameBoard) object;
                 playerController.setGameBoard(gameData2.getGameBoard());
                 playerController.setKillshotTrack(gameData2.getKillshotTrack());
                 playerController.setPlayer(gameData2.getPlayer(username));
+                playerController.setPowerup(gameData2.getPowerup());
                 view.notify(message, outcome);
                 break;
             case GRAB:

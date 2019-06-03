@@ -5,6 +5,7 @@ import it.polimi.ingsw.controller.timer.SpawnLocationTimer;
 import it.polimi.ingsw.controller.timer.TurnTimer;
 import it.polimi.ingsw.model.cards.Card;
 import it.polimi.ingsw.model.cards.PowerupCard;
+import it.polimi.ingsw.model.enums.Color;
 import it.polimi.ingsw.model.enums.Direction;
 import it.polimi.ingsw.model.enums.TokenColor;
 import it.polimi.ingsw.model.gamecomponents.Player;
@@ -266,6 +267,7 @@ public class ServerController {
         });
     }
 
+    //board a tutti
     public void move(String username, Direction...directions){
         if(gameController.canMove(users.get(username), directions) && users.get(username).canUseAction()){
             gameController.move(users.get(username), directions);
@@ -286,7 +288,7 @@ public class ServerController {
             }
         }
     }
-    //da gestire
+    //board a tutti e playerBoard del grabber
     public void grab(String username, int choice, Direction...directions){
         users.get(username).getAmmoBox().forEach(ammo -> Printer.println(ammo.getColor()));
         if(gameController.grab(users.get(username), choice, directions)){
@@ -444,6 +446,28 @@ public class ServerController {
                 } catch (IOException e) {
                     Printer.err(e);
                 }
+            }
+        }
+    }
+
+    public void powerup(String username, String powerup, TokenColor victim, Color ammo, int x, int y, Direction...directions){
+        if(gameController.usePowerup(powerup, users.get(username), users.get(colors.get(victim)), ammo, x, y, directions)){
+            gameData.setPowerup(powerup);
+            gameData.setGame(gameController.getGame());
+            servers.forEach((u,s)-> {
+                try {
+                    s.notify(Message.POWERUP, Outcome.RIGHT, gameData);
+                } catch (IOException e) {
+                    Printer.err(e);
+                }
+            });
+        }else{
+            gameData.setPowerup(powerup);
+            gameData.setGame(gameController.getGame());
+            try {
+                servers.get(username).notify(Message.POWERUP, Outcome.WRONG, gameData);
+            } catch (IOException e) {
+                Printer.err(e);
             }
         }
     }
