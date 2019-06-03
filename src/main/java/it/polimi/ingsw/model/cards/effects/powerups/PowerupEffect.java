@@ -75,9 +75,10 @@ public class PowerupEffect extends Effect {
 
     private void newton(ActionInterface actionInterface){
 
-        Direction direction = actionInterface.getFirstMove();
+        Direction direction = actionInterface.getClientData().getFirstMove();
+        Direction secondDirection = actionInterface.getClientData().getSecondMove();
         actionInterface.generatePlayer(actionInterface.getClientData().getPowerupVictim(),victim);
-        canUse = actionInterface.canMove(victim, direction);
+        canUse = ((direction.equals(secondDirection)||secondDirection == null) && actionInterface.canMove(victim, direction));
         if(canUse){
             actionInterface.move(direction, victim);
             if(direction.equals(actionInterface.getSecondMove()) && actionInterface.canMove(victim, direction))
