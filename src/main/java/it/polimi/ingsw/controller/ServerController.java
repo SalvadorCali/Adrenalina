@@ -275,9 +275,19 @@ public class ServerController {
             gameData.setPlayers(users);
             try {
                 servers.get(username).notify(Message.MOVE, Outcome.RIGHT, gameData);
+
             } catch (IOException e) {
                 Printer.err(e);
             }
+            servers.forEach((u,s)-> {
+                try {
+                    if(!u.equals(username)){
+                        s.notify(Message.MOVE, Outcome.ALL, gameData);
+                    }
+                } catch (IOException e) {
+                    Printer.err(e);
+                }
+            });
         }else{
             gameData.setGame(gameController.getGame());
             gameData.setPlayers(users);
@@ -306,6 +316,7 @@ public class ServerController {
             }
         }
     }
+
 
     public void drop(String username, String weapon){
         gameController.drop(users.get(username), weapon);
@@ -353,6 +364,7 @@ public class ServerController {
     }
 
     //metodo completo
+    //playerBoard delle vittime
     public void shoot(String weaponName, int effectNumber, boolean basicFirst, String username, TokenColor firstVictim, TokenColor secondVictim, TokenColor thirdVictim, int x, int y, Direction...directions){
         List<Player> victims = new ArrayList<>();
         Player victim1 = null;
@@ -385,7 +397,6 @@ public class ServerController {
             }
         }
     }
-
 
     public void powerup(String username, String powerup, int x, int y){
         if(gameController.canMove(x,y)){
@@ -450,6 +461,7 @@ public class ServerController {
         }
     }
 
+    //in base al powerup
     public void powerup(String username, String powerup, TokenColor victim, Color ammo, int x, int y, Direction...directions){
         if(gameController.usePowerup(powerup, users.get(username), users.get(colors.get(victim)), ammo, x, y, directions)){
             gameData.setPowerup(powerup);
@@ -482,6 +494,7 @@ public class ServerController {
         users.get(username).resetPowerupAmmos();
     }
 
+    //nome arma e playerboard al solo reloader
     public void reload(String username, String weaponName){
         if(gameController.reload(users.get(username), weaponName)){
             try {
@@ -497,7 +510,7 @@ public class ServerController {
             }
         }
     }
-
+    //tutti i dati
     public void endTurn(String username){
         for(Player player : players){
             if(player.isDead()){
@@ -535,7 +548,7 @@ public class ServerController {
         }
         gameController.endTurn(users.get(username));
     }
-
+    //punteggio
     private void deathAndRespawn(){
         gameController.deathAndRespawn(players);
         servers.forEach((u,s)-> {
