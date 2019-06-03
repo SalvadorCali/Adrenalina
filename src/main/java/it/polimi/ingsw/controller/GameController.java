@@ -127,9 +127,11 @@ public class GameController {
         return game.getBoard().canMove(player, directions);
     }
 
+
     public boolean canMove(int x, int y) {
         return game.getBoard().canMove(x, y);
     }
+
 
     public ArrayList<TokenColor> getPlayerColors() {
         return game.getPlayerColors();

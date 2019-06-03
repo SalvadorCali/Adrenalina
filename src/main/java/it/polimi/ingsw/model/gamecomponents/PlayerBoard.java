@@ -19,6 +19,7 @@ public class PlayerBoard implements Serializable {
     private boolean overkill;
     private Map<TokenColor, Score> scoreList;
 
+
     public PlayerBoard(){
         damageBoard = new Token[MAX_DAMAGE];
         for(int i=0; i<MAX_DAMAGE; i++){
