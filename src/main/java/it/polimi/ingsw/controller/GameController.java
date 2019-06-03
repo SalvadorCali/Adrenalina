@@ -437,13 +437,39 @@ public class GameController {
         actionInterface.getClientData().setSquare(x, y);
     }
 
+    public boolean usePowerup(String powerupName, Player shooter, Player victim, int x, int y, Direction direction){
+
+        final String powerupNameUpp;
+        powerupNameUpp = Converter.powerupName(powerupName);
+        for (PowerupCard p : shooter.getPowerups()) {
+            if (p.getName().equals(powerupNameUpp)){
+                setData(shooter, victim, x, y, direction);
+                if (p.getEffect().canUseEffect(actionInterface)) {
+                    Printer.println(powerupNameUpp + "USED");
+                    p.getEffect().useEffect(actionInterface);
+                    return true;
+                } else {
+                    Printer.println(powerupName + "NOT USED");
+                    return false;
+                }
+            }
+        }
+        return false;
+    }
+
+    private void setData(Player shooter, Player victim, int x, int y, Direction direction){
+        getActionInterface().getClientData().setCurrentPlayer(shooter);
+        getActionInterface().getClientData().setPowerupVictim(victim);
+        getActionInterface().getClientData().setSquare(x,y);
+        getActionInterface().getClientData().setFirstMove(direction);
+    }
+
     public void shoot(Player player, Player victim){
         if(player.canUseAction()){
             actionInterface.getClientData().setVictim(victim);
             //player.getWeapons()...
             player.increaseActionNumber();
         }
-
     }
 
     public void deathAndRespawn(List<Player> players){

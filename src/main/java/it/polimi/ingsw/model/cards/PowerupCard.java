@@ -37,5 +37,8 @@ public class PowerupCard extends Card{
                 throw new IllegalStateException("Unexpected value: " + name);
         }
     }
+    public Effect getEffect(){
+        return effect;
+    }
 
 }
