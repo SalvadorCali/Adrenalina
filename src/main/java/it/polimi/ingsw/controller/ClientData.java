@@ -1,5 +1,6 @@
 package it.polimi.ingsw.controller;
 
+import it.polimi.ingsw.model.enums.Color;
 import it.polimi.ingsw.model.enums.Direction;
 import it.polimi.ingsw.model.enums.TokenColor;
 import it.polimi.ingsw.model.gamecomponents.Player;
@@ -25,6 +26,8 @@ public class ClientData {
     private Direction firstMove = null, secondMove = null, thirdMove = null, fourthMove = null;
 
     private Position square = new Position(0, 0);
+
+    private Color ammoColor = Color.NONE;
 
     private int redAmmo = 0, blueAmmo = 0, yellowAmmo = 0;
 
@@ -130,6 +133,10 @@ public class ClientData {
         redAmmo = currentPlayer.getRedAmmo();
         blueAmmo = currentPlayer.getBlueAmmo();
         yellowAmmo = currentPlayer.getYellowAmmo();
+    }
+
+    public void setAmmoColor(Color color){
+        this.ammoColor = color;
     }
 
     public boolean ammoControl(int redAmmos, int blueAmmos, int yellowAmmos){
