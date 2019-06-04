@@ -359,9 +359,11 @@ public class CommandLine implements ViewInterface {
             }
         }
         if(input.countTokens() == 0){
+            Printer.println("0");
             client.grab(choice);
             return true;
         }else if(input.countTokens() == 1){
+            Printer.println("1");
             client.grab(choice, Converter.fromStringToDirection(input.nextToken()));
             return true;
         }else if(input.countTokens() == 2 && !playerController.getAdrenalineZone().equals(AdrenalineZone.DEFAULT)){
@@ -1200,29 +1202,29 @@ public class CommandLine implements ViewInterface {
     }
 
     private void notifyMovement(Outcome outcome){
-        if(outcome.equals(Outcome.RIGHT)){
+        if(outcome.equals(Outcome.RIGHT) || outcome.equals(Outcome.ALL)){
             Printer.println("[SERVER]Moved!");
+            killshotTrackPrinter.setKillshotTrack(playerController.getKillshotTrack());
+            killshotTrackPrinter.printKillshotTrack();
+            gameBoardPrinter.setGameBoard(playerController.getGameBoard());
+            gameBoardPrinter.printMap();
+            Printer.println("In your square:");
+            Square square = playerController.getGameBoard().getArena()[playerController.getPlayer().getPosition().getX()][playerController.getPlayer().getPosition().getY()];
+            if(square.getAmmoCard() != null){
+                Printer.print("AmmoCard: ");
+                Printer.print(square.getAmmoCard().getFirstAmmo().getColor() + ", " +
+                        square.getAmmoCard().getSecondAmmo().getColor() + ", ");
+                if(square.getAmmoCard().isPowerup()){
+                    Printer.println("POWERUP");
+                }else{
+                    Printer.println(square.getAmmoCard().getThirdAmmo().getColor());
+                }
+            }
+            if(square.getWeapons() != null){
+                square.getWeapons().forEach(Printer::println);
+            }
         }else{
             Printer.println("[SERVER]Not moved!");
-        }
-        killshotTrackPrinter.setKillshotTrack(playerController.getKillshotTrack());
-        killshotTrackPrinter.printKillshotTrack();
-        gameBoardPrinter.setGameBoard(playerController.getGameBoard());
-        gameBoardPrinter.printMap();
-        Printer.println("In your square:");
-        Square square = playerController.getGameBoard().getArena()[playerController.getPlayer().getPosition().getX()][playerController.getPlayer().getPosition().getY()];
-        if(square.getAmmoCard() != null){
-            Printer.print("AmmoCard: ");
-            Printer.print(square.getAmmoCard().getFirstAmmo().getColor() + ", " +
-                    square.getAmmoCard().getSecondAmmo().getColor() + ", ");
-            if(square.getAmmoCard().isPowerup()){
-                Printer.println("POWERUP");
-            }else{
-                Printer.println(square.getAmmoCard().getThirdAmmo().getColor());
-            }
-        }
-        if(square.getWeapons() != null){
-            square.getWeapons().forEach(Printer::println);
         }
     }
 
@@ -1275,13 +1277,21 @@ public class CommandLine implements ViewInterface {
         switch(outcome){
             case RIGHT:
                 Printer.println("[SERVER]Shoot!");
+                killshotTrackPrinter.setKillshotTrack(playerController.getKillshotTrack());
+                killshotTrackPrinter.printKillshotTrack();
+                gameBoardPrinter.setGameBoard(playerController.getGameBoard());
+                gameBoardPrinter.printMap();
                 damageBoardPrinter.setPlayer(playerController.getPlayer());
                 damageBoardPrinter.setVictims(playerController.getVictims());
                 damageBoardPrinter.printDamageBoard();
                 damageBoardPrinter.printVictimsDamageBoard();
                 break;
             case ALL:
-                Printer.println("[SERVER]Shot!");
+                Printer.println("[SERVER]Shoot!");
+                killshotTrackPrinter.setKillshotTrack(playerController.getKillshotTrack());
+                killshotTrackPrinter.printKillshotTrack();
+                gameBoardPrinter.setGameBoard(playerController.getGameBoard());
+                gameBoardPrinter.printMap();
                 damageBoardPrinter.setPlayer(playerController.getPlayer());
                 damageBoardPrinter.setVictims(playerController.getVictims());
                 damageBoardPrinter.printDamageBoard();

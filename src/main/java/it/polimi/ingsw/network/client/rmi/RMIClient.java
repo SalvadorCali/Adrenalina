@@ -140,7 +140,7 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
 
     @Override
     public void grab(int choice, Direction...directions) throws RemoteException {
-        server.grab(choice);
+        server.grab(choice, directions);
     }
 
     @Override

@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model.cards;
 
+import it.polimi.ingsw.model.cards.effects.powerups.PowerupEffect;
 import it.polimi.ingsw.model.enums.Color;
 import it.polimi.ingsw.model.cards.effects.Effect;
 

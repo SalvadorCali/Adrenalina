@@ -211,6 +211,7 @@ public class SocketServer implements Runnable, ServerInterface {
                 serverController.grab(clientName, choice);
             }else if(directionsSize == 1){
                 first = (Direction) objectInputStream.readObject();
+                Printer.println(first);
                 serverController.grab(clientName, choice, first);
             }else{
                 first = (Direction) objectInputStream.readObject();

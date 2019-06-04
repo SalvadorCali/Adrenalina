@@ -195,6 +195,7 @@ public class SocketClient implements ClientInterface, Runnable, Serializable {
         objectOutputStream.flush();
         objectOutputStream.writeInt(directionsSize);
         objectOutputStream.flush();
+        Printer.println(directionsSize);
         for (Direction direction : directions) {
             objectOutputStream.writeObject(direction);
             objectOutputStream.flush();
