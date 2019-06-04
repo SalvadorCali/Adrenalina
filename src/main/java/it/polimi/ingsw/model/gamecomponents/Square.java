@@ -12,7 +12,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ * abstract class that represents a square in the arena.
+ */
 public abstract class Square implements Serializable {
     private TokenColor color;
     private Cardinal north;
@@ -24,6 +26,15 @@ public abstract class Square implements Serializable {
     private boolean spawn;
     private static final long serialVersionUID = 1L;
 
+    /**
+     * constructor of the Square class.
+     * @param color color of the square.
+     * @param north entity of the upper side of the square.
+     * @param south entity of the lower side of the square.
+     * @param west entity of the left side of the square.
+     * @param east entity of the right side of the square.
+     * @param spawn boolean that indicates if the square is a spawn point.
+     */
     public Square(TokenColor color, Cardinal north, Cardinal south, Cardinal west, Cardinal east, boolean spawn){
         this.color = color;
         this.north = north;
@@ -35,67 +46,99 @@ public abstract class Square implements Serializable {
         this.empty = false;
     }
 
-
+    /**
+     * getter of the upper side of the square.
+     * @return the cardinal of the upper side of the square.
+     */
     public Cardinal getNorth() {
         return north;
     }
 
-    public void setNorth(Cardinal north) {
-        this.north = north;
-    }
-
+    /**
+     * getter of the lower side of the square.
+     * @return the cardinal of the lower side of the square.
+     */
     public Cardinal getSouth() {
         return south;
     }
 
-    public void setSouth(Cardinal south) {
-        this.south = south;
-    }
-
+    /**
+     * getter of the left side of the square.
+     * @return the cardinal of the left side of the square.
+     */
     public Cardinal getWest() {
         return west;
     }
 
-    public void setWest(Cardinal west) {
-        this.west = west;
-    }
-
+    /**
+     * getter of the right side of the square.
+     * @return the cardinal of the right side of the square.
+     */
     public Cardinal getEast() {
         return east;
     }
 
-    public void setEast(Cardinal east) {
-        this.east = east;
-    }
-
+    /**
+     * getter of the color of the square.
+     * @return the tokenColor of the square.
+     */
     public TokenColor getColor() {
         return color;
     }
 
+    /**
+     * setter of the color of the square.
+     * @param color indicates the chosen color of the square.
+     */
     public void setColor(TokenColor color) {
         this.color = color;
     }
 
+    /**
+     * getter of the boolean spawn.
+     * @return the boolean spawn: true if the square if a spawn point, false if isn't.
+     */
     public boolean isSpawn() {
         return spawn;
     }
 
+    /**
+     * setter of the boolean spawn.
+     * @param spawn indicates the chosen boolean.
+     */
     public void setSpawn(boolean spawn) {
         this.spawn = spawn;
     }
 
+    /**
+     * getter of the boolean empty.
+     * @return the boolean empty.
+     */
     public boolean isEmpty() {
         return empty;
     }
 
-    public void setEmpty(boolean empty) {
+    /**
+     * setter of the boolean empty.
+     * @param empty indicates the chosen boolean.
+     */
+    void setEmpty(boolean empty) {
         this.empty = empty;
     }
 
+    /**
+     * getter of the list of players that are located in the square.
+     * @return the list that indicates the players that are located in the square.
+     */
     public List<Player> getPlayers(){
         return players;
     }
 
+    /**
+     * evaluates if is possible to move in the chosen direction.
+     * @param direction indicates the chosen direction.
+     * @return the result of the control: true if the movement is possible, false if isn't.
+     */
     public boolean canMove(Direction direction) {
         switch (direction) {
             case UP:
@@ -111,11 +154,19 @@ public abstract class Square implements Serializable {
         }
     }
 
+    /**
+     * add a chosen player to the list of the players present in the square.
+     * @param player indicates the chosen player.
+     */
     public void move(Player player) {
         players.add(player);
     }
 
-    public void moveAway(Player player) {
+    /**
+     * remove a chosen player from the list of the players present in the square.
+     * @param player indicates the chosen player.
+     */
+    void moveAway(Player player) {
 
         for(int i = 0 ; i < players.size(); i++){
             if(players.get(i).equals(player))
@@ -123,6 +174,12 @@ public abstract class Square implements Serializable {
         }
     }
 
+    /**
+     * adds damages and marks of the chosen color to all the players in the square.
+     * @param damagePower int which indicates the number of damages to add to each player in the square.
+     * @param markPower int which indicates the number of marks to add to each player in the square.
+     * @param color tokenColor that indicates the color of the damages/marks to add to each player in the square.
+     */
     public void squareDamage(int damagePower, int markPower, TokenColor color) {
         for(Player player: getPlayers()){
             for (int i = 0; i < damagePower; i++){
@@ -138,23 +195,67 @@ public abstract class Square implements Serializable {
         }
     }
 
-    public void addPlayer(Player player){
+    /**
+     * adds the chosen player to the list of the players present in the square.
+     * @param player indicates the chosen player.
+     */
+    void addPlayer(Player player){
         players.add(player);
     }
+
+    /**
+     * evaluates if a card in the square can be grabbed by a player.
+     * @param actionInterface contains the methods to access the game.
+     * @param choice int which indicates the choice of the player.
+     * @return the result of the control.
+     */
     public abstract boolean canGrab(ActionInterface actionInterface, int choice);
+
+    /**
+     * grabs the card in the square in the chosen position.
+     * @param actionInterface contains the methods to access the game.
+     * @param choice int which indicates the choice of the player.
+     */
     public abstract void grab(ActionInterface actionInterface, int choice);
+
+    /**
+     * fills the square with the missing cards.
+     * @param actionInterface contains the methods to access the game.
+     */
     public abstract void fill(ActionInterface actionInterface);
+
+    /**
+     * drops the chosen card.
+     * @param card indicates the chosen card.
+     */
     public abstract void drop(Card card);
+
+    /**
+     * getter of the ammo card present in the square.
+     * @return the ammo card present in the square.
+     */
     public abstract AmmoCard getAmmoCard();
+
+    /**
+     * getter of the weapon cards present in the square.
+     * @return the list of weapons present in the square.
+     */
     public abstract List<WeaponCard> getWeapons();
+
+    /**
+     * evaluates if the square is an active point.
+     * @return the result of the control, true if the square is a spawn point or an ammo point, false if isn't.
+     */
     public abstract boolean isActive();
 
-
-    public boolean noOutofBounds(Direction direction) {
-
+    /**
+     * evaluates if a move in the chosen direction brings a player out of the arena.
+     * @param direction indicates the chosen direction to control.
+     * @return the result of the control, true if the player is still in the arena, false if is out of bounds.
+     */
+    boolean noOutofBounds(Direction direction) {
         if(direction == null)
             return true;
-
         switch (direction) {
             case UP:
                 return !getNorth().equals(Cardinal.NONE);
