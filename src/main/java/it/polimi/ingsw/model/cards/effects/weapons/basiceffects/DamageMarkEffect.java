@@ -61,10 +61,10 @@ public class DamageMarkEffect extends BasicEffect {
                     if (actionInterface.distanceControl(victim.getPosition().getX(), victim.getPosition().getY()) == 1) {
                         visible1 = true;
                     }
-                    if (actionInterface.distanceControl(secondVictim.getPosition().getX(), secondVictim.getPosition().getY()) == 1) {
+                    if (secondVictim!=null && actionInterface.distanceControl(secondVictim.getPosition().getX(), secondVictim.getPosition().getY()) == 1) {
                         visible2 = true;
                     }
-                    if (actionInterface.distanceControl(thirdVictim.getPosition().getX(), thirdVictim.getPosition().getY()) == 1) {
+                    if (thirdVictim!=null && actionInterface.distanceControl(thirdVictim.getPosition().getX(), thirdVictim.getPosition().getY()) == 1) {
                         visible3 = true;
                     }
                 }
