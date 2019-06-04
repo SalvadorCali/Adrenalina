@@ -1253,14 +1253,22 @@ public class CommandLine implements ViewInterface {
     private void notifyGrab(Outcome outcome){
         if(outcome.equals(Outcome.RIGHT)){
             Printer.println("[SERVER]Grabbed!");
-        }else{
+            killshotTrackPrinter.setKillshotTrack(playerController.getKillshotTrack());
+            killshotTrackPrinter.printKillshotTrack();
+            gameBoardPrinter.setGameBoard(playerController.getGameBoard());
+            gameBoardPrinter.printMap();
+            damageBoardPrinter.setPlayer(playerController.getPlayer());
+            damageBoardPrinter.printDamageBoard();
+            playerController.getPlayer().getWeapons().forEach(Printer::println);
+            playerController.getPlayer().getPowerups().forEach(Printer::println);
+        }else if(outcome.equals(Outcome.WRONG)){
             Printer.println("[SERVER]Not grabbed!");
+        }else{
+            killshotTrackPrinter.setKillshotTrack(playerController.getKillshotTrack());
+            killshotTrackPrinter.printKillshotTrack();
+            gameBoardPrinter.setGameBoard(playerController.getGameBoard());
+            gameBoardPrinter.printMap();
         }
-        ammoPrinter.setPlayer(playerController.getPlayer());
-        ammoPrinter.printAmmoBox();
-        ammoPrinter.printAmmoReserve();
-        playerController.getPlayer().getWeapons().forEach(Printer::println);
-        playerController.getPlayer().getPowerups().forEach(Printer::println);
     }
 
     private void notifyShoot(Outcome outcome){

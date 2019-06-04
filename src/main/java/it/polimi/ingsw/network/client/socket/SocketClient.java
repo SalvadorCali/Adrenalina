@@ -444,8 +444,11 @@ public class SocketClient implements ClientInterface, Runnable, Serializable {
                 if(outcome.equals(Outcome.RIGHT)){
                     playerController.incrementMoves();
                 }
-                object = (Player) objectInputStream.readObject();
-                playerController.setPlayer((Player) object);
+                GameData gameData4 = (GameData) objectInputStream.readObject();
+                playerController.setGameBoard(gameData4.getGameBoard());
+                playerController.setKillshotTrack(gameData4.getKillshotTrack());
+                playerController.setPlayer(gameData4.getPlayer(username));
+                playerController.setVictims(gameData4.getPlayers(username));
                 view.notify(message, outcome);
                 break;
             case SQUARE:

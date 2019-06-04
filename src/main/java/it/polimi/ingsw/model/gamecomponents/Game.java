@@ -7,6 +7,7 @@ import it.polimi.ingsw.model.enums.Color;
 import it.polimi.ingsw.model.enums.Direction;
 import it.polimi.ingsw.model.enums.TokenColor;
 import it.polimi.ingsw.util.Printer;
+import it.polimi.ingsw.view.KillshotTrackCLI;
 
 import java.io.Serializable;
 import java.util.*;

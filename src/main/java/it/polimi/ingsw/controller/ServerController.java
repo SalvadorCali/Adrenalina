@@ -159,6 +159,7 @@ public class ServerController {
     }
 
     public void spawnLocation(){
+        gameController.setBoardTypePhase(false);
         gameController.setSpawnLocationPhase(true);
         colors.forEach((c, u) -> {
             try {
@@ -300,17 +301,28 @@ public class ServerController {
     }
     //board a tutti e playerBoard del grabber
     public void grab(String username, int choice, Direction...directions){
-        users.get(username).getAmmoBox().forEach(ammo -> Printer.println(ammo.getColor()));
         if(gameController.grab(users.get(username), choice, directions)){
+            gameData.setGame(gameController.getGame());
+            gameData.setPlayers(users);
             try{
-                users.get(username).getAmmoBox().forEach(ammo -> Printer.println(ammo.getColor()));
-                servers.get(username).notify(Message.GRAB, Outcome.RIGHT, users.get(username));
+                servers.get(username).notify(Message.GRAB, Outcome.RIGHT, gameData);
             }catch (IOException e){
                 Printer.err(e);
             }
+            servers.forEach((u,s)-> {
+                try {
+                    if(!u.equals(username)){
+                        s.notify(Message.GRAB, Outcome.ALL, gameData);
+                    }
+                } catch (IOException e) {
+                    Printer.err(e);
+                }
+            });
         }else{
+            gameData.setGame(gameController.getGame());
+            gameData.setPlayers(users);
             try{
-                servers.get(username).notify(Message.GRAB, Outcome.WRONG, users.get(username));
+                servers.get(username).notify(Message.GRAB, Outcome.WRONG, gameData);
             }catch (IOException e){
                 Printer.err(e);
             }

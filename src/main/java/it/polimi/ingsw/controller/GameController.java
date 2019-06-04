@@ -68,7 +68,7 @@ public class GameController {
         game.setPlayers(players);
         //game.setGamePhase(true);
         game.giveAmmos();
-        game.createKillshotTrack(8);
+        //game.createKillshotTrack(8);
         game.fillSquares(actionInterface);
         game.createScoreList();
     }

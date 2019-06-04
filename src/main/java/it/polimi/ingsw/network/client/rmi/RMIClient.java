@@ -269,8 +269,11 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
                 if(outcome.equals(Outcome.RIGHT)){
                     playerController.incrementMoves();
                 }
-                Player player = (Player) object;
-                playerController.setPlayer(player);
+                GameData gameData4 = (GameData) object;
+                playerController.setGameBoard(gameData4.getGameBoard());
+                playerController.setKillshotTrack(gameData4.getKillshotTrack());
+                playerController.setPlayer(gameData4.getPlayer(username));
+                playerController.setVictims(gameData4.getPlayers(username));
                 view.notify(message, outcome);
                 break;
             case SHOOT:

@@ -66,7 +66,7 @@ public class GameData implements Serializable {
     public List<Player> getPlayers(String username){
         Map<String, Player> playersWithoutUser = new HashMap<>(users);
         playersWithoutUser.remove(username);
-        //List<Player> players = new ArrayList<>(playersWithoutUser.values());
-        return (List<Player>) playersWithoutUser.values();
+        List<Player> players = new ArrayList<>(playersWithoutUser.values());
+        return players;
     }
 }
