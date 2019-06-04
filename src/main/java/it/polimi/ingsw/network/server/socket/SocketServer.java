@@ -235,14 +235,23 @@ public class SocketServer implements Runnable, ServerInterface {
         try {
             Direction first, second, third, fourth;
             String weaponName = objectInputStream.readUTF();
+            Printer.println(weaponName);
             int effectNumber = objectInputStream.readInt();
+            Printer.println(effectNumber);
             boolean basicFirst = objectInputStream.readBoolean();
+            Printer.println(basicFirst);
             TokenColor firstVictim = (TokenColor) objectInputStream.readObject();
+            Printer.println(firstVictim);
             TokenColor secondVictim = (TokenColor) objectInputStream.readObject();
+            Printer.println(secondVictim);
             TokenColor thirdVictim = (TokenColor) objectInputStream.readObject();
+            Printer.println(thirdVictim);
             int x = objectInputStream.readInt();
+            Printer.println(x);
             int y = objectInputStream.readInt();
+            Printer.println(y);
             int directionsLength = objectInputStream.readInt();
+            Printer.println(directionsLength);
             if(directionsLength == 1){
                 first = (Direction) objectInputStream.readObject();
                 serverController.shoot(weaponName, effectNumber, basicFirst, clientName, firstVictim, secondVictim, thirdVictim, x, y, first);

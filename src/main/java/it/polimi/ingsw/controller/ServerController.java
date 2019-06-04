@@ -384,18 +384,22 @@ public class ServerController {
         Player victim3 = null;
         if(!firstVictim.equals(TokenColor.NONE)){
             victim1 = users.get(colors.get(firstVictim));
+            Printer.println("icao");
             victims.add(victim1);
         }
         if(!secondVictim.equals(TokenColor.NONE)){
             victim2 = users.get(colors.get(secondVictim));
+            Printer.println("icao2");
             victims.add(victim2);
         }
         if(!thirdVictim.equals(TokenColor.NONE)){
             victim3 = users.get(colors.get(thirdVictim));
+            Printer.println("icao3");
             victims.add(victim3);
         }
         if(gameController.shoot(weaponName, effectNumber - 1, basicFirst, users.get(username), victim1, victim2, victim3, x, y, directions)){
             try {
+                Printer.println("ciaoooo");
                 gameData.setVictims(victims);
                 servers.get(username).notify(Message.SHOOT, Outcome.RIGHT, gameData);
             } catch (IOException e) {
