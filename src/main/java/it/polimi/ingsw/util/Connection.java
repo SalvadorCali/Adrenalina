@@ -45,7 +45,7 @@ public class Connection {
                 }
             }
         }
-        if(addressesList.size() > 1 && addressesList.size() < 3){
+        if(addressesList.size() > 1 && addressesList.size() < 4){
             return addressesList.get(1);
         }else if(addressesList.size() > 3) {
             return addressesList.get(3);
