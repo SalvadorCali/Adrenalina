@@ -305,14 +305,6 @@ public class GUIHandler extends Application implements Initializable, ViewInterf
                         e.printStackTrace();
                     }
 
-
-                    PauseTransition delay = new PauseTransition(Duration.seconds(5));
-                    delay.setOnFinished( event -> {
-                        setMap(Data.getInstance().getBoardType(), Data.getInstance().getSkull());
-
-                    });
-                    delay.play();
-
                     Stage stage = new Stage();
                     stage.setScene(new Scene(adrenaline, 1189, 710));
                     stage.setTitle("Adrenaline's Board");
@@ -488,9 +480,10 @@ public class GUIHandler extends Application implements Initializable, ViewInterf
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Platform.runLater(() ->{
-
+            mapImage.setImage(new Image("boardImg/" + Data.getInstance().getBoardType() + ".png"));
             placePlayers();
             //move();
+
         });
     }
 
@@ -511,12 +504,6 @@ public class GUIHandler extends Application implements Initializable, ViewInterf
         stage.close();
     }*/
 
-    public void setMap(Integer board, Integer skulls){
-        Platform.runLater(() -> {
-            System.out.println(board);
-            mapImage.setImage(new Image("boardImg/" + board + ".png"));
-        });
-    }
 
     public void move(){
         Platform.runLater(() -> {
