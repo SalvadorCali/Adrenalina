@@ -17,7 +17,7 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class ChoosePowerup implements Initializable {
+public class ChoosePowerup extends Application implements Initializable {
 
     @FXML
     private ImageView powerupImg1;
@@ -25,8 +25,21 @@ public class ChoosePowerup implements Initializable {
     @FXML
     private ImageView powerupImg2;
 
+    @Override
+    public void start(Stage powerupStage) throws Exception {
+
+        Parent choosePowerup = FXMLLoader.load(getClass().getClassLoader().getResource("ChoosePowerup.fxml"));
+        Scene scene = new Scene(choosePowerup, 490, 386);
+
+        powerupStage.setScene(scene);
+        powerupStage.setTitle("Choose Powerup");
+        powerupStage.show();
+
+    }
 
     public void launchChoosePowerup(List<Card> powerup) throws Exception {
+
+        //start(new Stage());
 
         Platform.runLater(() -> {
             for (int i = 0; i < powerup.size(); i++) {
@@ -49,6 +62,7 @@ public class ChoosePowerup implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         powerupImg1.setOnMouseClicked(e -> {
+
             try {
 
                 Data.getInstance().setPowerup(1);
