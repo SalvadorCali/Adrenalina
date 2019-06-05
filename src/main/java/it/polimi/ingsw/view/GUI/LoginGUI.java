@@ -1,16 +1,5 @@
 package it.polimi.ingsw.view.GUI;
 
-import it.polimi.ingsw.controller.PlayerController;
-import it.polimi.ingsw.model.cards.Card;
-import it.polimi.ingsw.model.enums.TokenColor;
-import it.polimi.ingsw.network.client.ClientInterface;
-import it.polimi.ingsw.network.client.rmi.RMIClient;
-import it.polimi.ingsw.network.client.socket.SocketClient;
-import it.polimi.ingsw.network.enums.Message;
-import it.polimi.ingsw.network.enums.Outcome;
-import it.polimi.ingsw.util.Converter;
-import it.polimi.ingsw.view.ViewInterface;
-import javafx.animation.PauseTransition;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -20,16 +9,12 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 
-import java.io.IOException;
 import java.net.URL;
-import java.rmi.NotBoundException;
-import java.util.List;
 import java.util.ResourceBundle;
 
 
-public class LoginGUI extends Application implements Initializable, ViewInterface {
+public class LoginGUI extends Application implements Initializable {
 
     @FXML
     RadioButton socketButton;
@@ -59,15 +44,7 @@ public class LoginGUI extends Application implements Initializable, ViewInterfac
     private String address;
     private String colorPlayer;
     boolean isRunning = true;
-    private ClientInterface client;
-    private ChoosePowerup choosePowerup = new ChoosePowerup();
-    private GUIHandler guiHandler = new GUIHandler();
-    private boolean connected = false;
-    private Popup popup = new Popup();
-    private ChooseBoard chooseBoard = new ChooseBoard();
-    private Integer skulls;
-    private Integer boardType;
-    private Integer selectedPowerup;
+    GUIHandler guiHandler = new GUIHandler();
 
     public synchronized void start(Stage primaryStage) throws Exception {
 
@@ -78,55 +55,39 @@ public class LoginGUI extends Application implements Initializable, ViewInterfac
         primaryStage.setScene(scene);
         primaryStage.show();
 
-        if(connected){
-            primaryStage.hide();
-        }
     }
 
 
     public synchronized void clickButton(String playerName, String address, String colorPlayer){
+        Object lock = Data.getInstance().getLock();
 
         if(rmiButton.isSelected()){
-            connectToRMI(playerName, address, colorPlayer);
+            Data.getInstance().setConnectionMethod("rmi");
+            Data.getInstance().setNamePlayer(playerName);
+            Data.getInstance().setHost(address);
+            Data.getInstance().setColorPlayer(colorPlayer);
+
+            synchronized (lock){
+                guiHandler.connectToServer();
+                lock.notifyAll();
+            }
         }
 
         if(socketButton.isSelected()){
-            connectToSocket(playerName, address, colorPlayer);
+            Data.getInstance().setConnectionMethod("socket");
+            Data.getInstance().setNamePlayer(playerName);
+            Data.getInstance().setHost(address);
+            Data.getInstance().setColorPlayer(colorPlayer);
+
+            synchronized (lock){
+                guiHandler.connectToServer();
+                notifyAll();
+            }
         }
 
         if(!rmiButton.isSelected() && !socketButton.isSelected()){
             connectionErrorLabel.setText("Choose connection method");
         }
-    }
-
-    public synchronized void connectToRMI(String name, String host, String color){
-
-        try{
-            client = new RMIClient(host);
-            client.setView(this);
-            //client.start();
-            client.login(name, Converter.fromStringToTokenColor(color));
-
-        } catch (NotBoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public synchronized void connectToSocket(String name, String host, String color){
-
-        try {
-            client = new SocketClient(host);
-            //client.start();
-            client.setView(this);
-            client.login(name, Converter.fromStringToTokenColor(color));
-
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
     }
 
     @Override
@@ -138,9 +99,7 @@ public class LoginGUI extends Application implements Initializable, ViewInterfac
     }
 
     public void handleThread(){
-
         while(isRunning){
-
             Platform.runLater(() -> {
 
                 loginButton.setOnAction(actionEvent ->  {
@@ -150,7 +109,6 @@ public class LoginGUI extends Application implements Initializable, ViewInterfac
                 });
 
             });
-
 
             try{
 
@@ -185,13 +143,58 @@ public class LoginGUI extends Application implements Initializable, ViewInterfac
         }
 
     }
-    
 
-    public static void main(String[] args) {
-        Application.launch(args);
+    private void handleHidingScene() {
+        Stage stage = (Stage) loginButton.getScene().getWindow();
+        stage.hide();
+    }
+
+    public void setConnectionText(String text){
+        Platform.runLater(() ->{
+            statusConnectionLabel.setText(text);
+        });
+    }
+
+    public void setErrorText(String text){
+        Platform.runLater(() -> {
+            connectionErrorLabel.setText(text);
+        });
     }
 
 
+    /*
+    public synchronized void connectToRMI(String name, String host, String color){
+
+        try{
+            client = new RMIClient(host);
+            client.setView(this);
+            //client.start();
+            client.login(name, Converter.fromStringToTokenColor(color));
+
+        } catch (NotBoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public synchronized void connectToSocket(String name, String host, String color){
+
+        try {
+            client = new SocketClient(host);
+            //client.start();
+            client.setView(this);
+            client.login(name, Converter.fromStringToTokenColor(color));
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+    */
+
+    /*
     @Override
     public void start() {
 
@@ -199,7 +202,7 @@ public class LoginGUI extends Application implements Initializable, ViewInterfac
 
     @Override
     public void setPlayerController(PlayerController playerController) {
-
+        this.playerController = playerController;
     }
 
     @Override
@@ -218,28 +221,34 @@ public class LoginGUI extends Application implements Initializable, ViewInterfac
 
     @Override
     public void notify(Message message, Outcome outcome) {
-        switch (message){
-            case BOARD:
-                notifyBoard(outcome);
-                break;
-            case GAME:
-                //notifyGame(outcome);
-                break;
-            case MOVE:
-                //notifyMovement(outcome);
-                break;
-            case GRAB:
-                //notifyGrab(outcome);
-                break;
-            case SHOOT:
-                //notifyShoot(outcome);
-                break;
-            case POWERUP:
-                //notifyPowerup(outcome);
-                break;
-            default:
-                break;
-        }
+        Platform.runLater(() -> {
+            switch (message) {
+                case BOARD:
+                    notifyBoard(outcome);
+                    break;
+                case GAME:
+                    try {
+                        notifyGame(outcome);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    break;
+                case MOVE:
+                    //notifyMovement(outcome);
+                    break;
+                case GRAB:
+                    //notifyGrab(outcome);
+                    break;
+                case SHOOT:
+                    //notifyShoot(outcome);
+                    break;
+                case POWERUP:
+                    //notifyPowerup(outcome);
+                    break;
+                default:
+                    break;
+            }
+        });
     }
 
 
@@ -252,7 +261,7 @@ public class LoginGUI extends Application implements Initializable, ViewInterfac
                     break;
                 case COLOR:
                     notifyColor(outcome, (TokenColor) object);
-                break;
+                    break;
                 case DISCONNECT:
                     notifyDisconnection(outcome, (String) object);
                     break;
@@ -261,10 +270,11 @@ public class LoginGUI extends Application implements Initializable, ViewInterfac
                     break;
                 default:
                     break;
-        }
+            }
         });
-    }
+    } */
 
+    /*
     private void notifySpawnLocation(List<Card> object) {
         Platform.runLater(()-> {
             handleHidingScene();
@@ -361,10 +371,12 @@ public class LoginGUI extends Application implements Initializable, ViewInterfac
         });
     }
 
+
     private void notifyBoard(Outcome outcome){
         Platform.runLater(() ->{
             if(outcome.equals(Outcome.RIGHT)){
                 try {
+
                     FXMLLoader popupBoard = new FXMLLoader(getClass().getClassLoader().getResource("ChooseBoard.fxml"));
                     Parent pop = popupBoard.load();
 
@@ -410,6 +422,8 @@ public class LoginGUI extends Application implements Initializable, ViewInterfac
         });
     }
 
+
+
     public void setBoard() throws IOException {
 
         client.board(Data.getInstance().getBoardType(), Data.getInstance().getSkull());
@@ -420,9 +434,20 @@ public class LoginGUI extends Application implements Initializable, ViewInterfac
         client.choose(Data.getInstance().getPowerup());
     }
 
-    private void handleHidingScene() {
-        Stage stage = (Stage) loginButton.getScene().getWindow();
-        stage.hide();
+
+    public void setMovement() throws IOException{
+        Direction direction[] = new Direction[3];
+        String movement[];
+
+        for(int i = 0; i < 3; i++){
+            movement = Data.getInstance().getMovement();
+            direction[i] = Converter.fromStringToDirection(movement[i]);
+            System.out.println(movement[i]);
+        }
+
+        client.move(direction);
     }
+*/
+
 }
 
