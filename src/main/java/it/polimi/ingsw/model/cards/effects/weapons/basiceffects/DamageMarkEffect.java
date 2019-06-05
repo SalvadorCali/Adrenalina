@@ -56,7 +56,7 @@ public class DamageMarkEffect extends BasicEffect {
                     }
                 }
             }else if(effectName.equals("Shockwave")){
-                canUse = actionInterface.distanceControl(victim.getPosition().getX(), victim.getPosition().getY()) == 1 || actionInterface.distanceControl(secondVictim.getPosition().getX(), secondVictim.getPosition().getY()) == 1 || actionInterface.distanceControl(thirdVictim.getPosition().getX(), thirdVictim.getPosition().getY()) == 1;
+                canUse = actionInterface.distanceControl(victim.getPosition().getX(), victim.getPosition().getY()) == 1 || (secondVictim!= null && actionInterface.distanceControl(secondVictim.getPosition().getX(), secondVictim.getPosition().getY()) == 1) || (thirdVictim!= null && actionInterface.distanceControl(thirdVictim.getPosition().getX(), thirdVictim.getPosition().getY()) == 1);
                 if(canUse){
                     if (actionInterface.distanceControl(victim.getPosition().getX(), victim.getPosition().getY()) == 1) {
                         visible1 = true;
