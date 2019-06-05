@@ -45,10 +45,12 @@ public class Connection {
                 }
             }
         }
-        if(addressesList.size() > 1 && addressesList.size() < 4){
+        //&& addressesList.size() < 4
+        if(addressesList.size() > 1){
             return addressesList.get(1);
-        }else if(addressesList.size() > 3) {
-            return addressesList.get(3);
+        //}
+        //else if(addressesList.size() > 3) {
+            //return addressesList.get(3);
         }else{
             return addressesList.get(0);
         }

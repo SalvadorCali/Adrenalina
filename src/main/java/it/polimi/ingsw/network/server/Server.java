@@ -30,7 +30,7 @@ public class Server {
         }
         */
 
-        Printer.println("Corretto:");
+        //Printer.println("Corretto:");
         InetAddress address = Connection.getAddress();
         Printer.println("[SERVER]Current ip address:");
         Printer.println("   " + address);
