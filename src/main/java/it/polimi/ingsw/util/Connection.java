@@ -40,7 +40,7 @@ public class Connection {
             Enumeration<InetAddress> addresses = networkInterface.getInetAddresses();
             while(addresses.hasMoreElements()){
                 InetAddress address = addresses.nextElement();
-                if(address instanceof Inet4Address && !address.isLoopbackAddress()){
+                if(address instanceof Inet4Address && !address.isLoopbackAddress() && address.isSiteLocalAddress()){
                     addressesList.add(address);
                 }
             }
