@@ -263,6 +263,9 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
                 playerController.setKillshotTrack(gameData2.getKillshotTrack());
                 playerController.setPlayer(gameData2.getPlayer(username));
                 playerController.setPowerup(gameData2.getPowerup());
+                if(gameData2.getPowerup().equals("targetingscope") || gameData2.getPowerup().equals("tagbackgrenade")){
+                    playerController.setVictims(gameData2.getPlayers(username));
+                }
                 view.notify(message, outcome);
                 break;
             case GRAB:
@@ -274,6 +277,10 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
                 playerController.setKillshotTrack(gameData4.getKillshotTrack());
                 playerController.setPlayer(gameData4.getPlayer(username));
                 playerController.setVictims(gameData4.getPlayers(username));
+                playerController.setCurrentPlayer(gameData4.getCurrentPlayer());
+                if(gameData4.isMovement()){
+                    playerController.setMovement(true);
+                }
                 view.notify(message, outcome);
                 break;
             case SHOOT:
@@ -286,10 +293,14 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
                 playerController.setKillshotTrack(gameData3.getKillshotTrack());
                 playerController.setPlayer(gameData3.getPlayer(username));
                 playerController.setVictims(gameData3.getVictims());
+                if(gameData3.isMovement()){
+                    playerController.setMovement(true);
+                }
                 view.notify(message, outcome);
                 break;
             case RELOAD:
                 view.notify(message, outcome, object);
+                break;
             default:
                 view.notify(message, outcome, object);
                 break;

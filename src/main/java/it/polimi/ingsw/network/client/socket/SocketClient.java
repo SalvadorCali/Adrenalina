@@ -449,6 +449,9 @@ public class SocketClient implements ClientInterface, Runnable, Serializable {
                 playerController.setKillshotTrack(gameData3.getKillshotTrack());
                 playerController.setPlayer(gameData3.getPlayer(username));
                 playerController.setPowerup(gameData3.getPowerup());
+                if(gameData3.getPowerup().equals("targetingscope") || gameData3.getPowerup().equals("tagbackgrenade")){
+                    playerController.setVictims(gameData3.getPlayers(username));
+                }
                 view.notify(message, outcome);
                 break;
             case GRAB:
@@ -461,6 +464,10 @@ public class SocketClient implements ClientInterface, Runnable, Serializable {
                 playerController.setKillshotTrack(gameData4.getKillshotTrack());
                 playerController.setPlayer(gameData4.getPlayer(username));
                 playerController.setVictims(gameData4.getPlayers(username));
+                playerController.setCurrentPlayer(gameData4.getCurrentPlayer());
+                if(gameData4.isMovement()){
+                    playerController.setMovement(true);
+                }
                 view.notify(message, outcome);
                 break;
             case SQUARE:
@@ -480,7 +487,9 @@ public class SocketClient implements ClientInterface, Runnable, Serializable {
                 playerController.setKillshotTrack(gameData5.getKillshotTrack());
                 playerController.setPlayer(gameData5.getPlayer(username));
                 playerController.setVictims(gameData5.getVictims());
-Printer.println("eeeeeeee");
+                if(gameData5.isMovement()){
+                    playerController.setMovement(true);
+                }
                 view.notify(message, outcome);
                 break;
             case BOARD:

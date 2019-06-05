@@ -16,6 +16,8 @@ public class GameData implements Serializable {
     private List<Player> victims;
     private Map<String, Player> users;
     private String powerup;
+    private String currentPlayer;
+    private boolean movement;
 
     public Game getGame() {
         return game;
@@ -55,6 +57,22 @@ public class GameData implements Serializable {
 
     public void setPowerup(String powerup) {
         this.powerup = powerup;
+    }
+
+    public String getCurrentPlayer() {
+        return currentPlayer;
+    }
+
+    public void setCurrentPlayer(String currentPlayer) {
+        this.currentPlayer = currentPlayer;
+    }
+
+    public boolean isMovement() {
+        return movement;
+    }
+
+    public void setMovement(boolean movement) {
+        this.movement = movement;
     }
 
     public Map<String, Player> getOtherPlayers(String username){

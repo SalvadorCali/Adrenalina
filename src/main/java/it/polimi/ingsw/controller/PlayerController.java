@@ -18,6 +18,8 @@ public class PlayerController {
     private List<Player> victims;
     private int moves;
     private String powerup;
+    private String currentPlayer;
+    private boolean movement;
 
     public PlayerController(ClientInterface client){
         this.client = client;
@@ -97,5 +99,21 @@ public class PlayerController {
 
     public void setPowerup(String powerup) {
         this.powerup = powerup;
+    }
+
+    public String getCurrentPlayer() {
+        return currentPlayer;
+    }
+
+    public void setCurrentPlayer(String currentPlayer) {
+        this.currentPlayer = currentPlayer;
+    }
+
+    public boolean isMovement() {
+        return movement;
+    }
+
+    public void setMovement(boolean movement) {
+        this.movement = movement;
     }
 }

@@ -103,6 +103,10 @@ public class ServerController {
         colors.put(color, username);
         //added
         Player player = new Player(color);
+        if(username.equals("cali2")){
+            player.getPlayerBoard().addDamage(TokenColor.GREY, TokenColor.GREY, TokenColor.GREY, TokenColor.GREY, TokenColor.GREY, TokenColor.GREY,
+                    TokenColor.GREY, TokenColor.GREY, TokenColor.GREY, TokenColor.GREY);
+        }
         player.setUsername(username);
         players.add(player);
         users.put(colors.get(color), player);
@@ -302,6 +306,10 @@ public class ServerController {
     //board a tutti e playerBoard del grabber
     public void grab(String username, int choice, Direction...directions){
         if(gameController.grab(users.get(username), choice, directions)){
+            if(directions.length > 0){
+                gameData.setMovement(true);
+            }
+            gameData.setCurrentPlayer(username);
             gameData.setGame(gameController.getGame());
             gameData.setPlayers(users);
             try{
@@ -318,6 +326,7 @@ public class ServerController {
                     Printer.err(e);
                 }
             });
+            gameData.setMovement(false);
         }else{
             gameData.setGame(gameController.getGame());
             gameData.setPlayers(users);
@@ -384,24 +393,43 @@ public class ServerController {
         Player victim3 = null;
         if(!firstVictim.equals(TokenColor.NONE)){
             victim1 = users.get(colors.get(firstVictim));
-            Printer.println("icao");
             victims.add(victim1);
         }
         if(!secondVictim.equals(TokenColor.NONE)){
             victim2 = users.get(colors.get(secondVictim));
-            Printer.println("icao2");
             victims.add(victim2);
         }
         if(!thirdVictim.equals(TokenColor.NONE)){
             victim3 = users.get(colors.get(thirdVictim));
-            Printer.println("icao3");
             victims.add(victim3);
         }
         if(gameController.shoot(weaponName, effectNumber - 1, basicFirst, users.get(username), victim1, victim2, victim3, x, y, directions)){
             try {
-                Printer.println("ciaoooo");
                 gameData.setVictims(victims);
+                if(directions.length > 0){
+                    gameData.setMovement(true);
+                }
+                if(victims.isEmpty()){
+                    users.forEach((u,p)->{
+                        if(p.getPosition().getX() == users.get(username).getPosition().getX() &&
+                                p.getPosition().getY() == users.get(username).getPosition().getY() &&
+                                    !u.equals(username)){
+                            victims.add(p);
+                        }
+                    });
+                    gameData.setVictims(victims);
+                }
                 servers.get(username).notify(Message.SHOOT, Outcome.RIGHT, gameData);
+                servers.forEach((u,s)-> {
+                    try {
+                        if(!u.equals(username)){
+                            s.notify(Message.SHOOT, Outcome.ALL, gameData);
+                        }
+                    } catch (IOException e) {
+                        Printer.err(e);
+                    }
+                });
+                gameData.setMovement(false);
             } catch (IOException e) {
                 Printer.err(e);
             }
@@ -480,6 +508,17 @@ public class ServerController {
     //in base al powerup
     public void powerup(String username, String powerup, TokenColor victim, Color ammo, int x, int y, Direction...directions){
         if(gameController.usePowerup(powerup, users.get(username), users.get(colors.get(victim)), ammo, x, y, directions)){
+            List<Player> victims = new ArrayList<>();
+            switch(powerup){
+                case "targetingscope":
+                case "tagbackgrenade":
+                    Player victim1 = users.get(colors.get(victim));
+                    victims.add(victim1);
+                    gameData.setVictims(victims);
+                    break;
+                default:
+                    break;
+            }
             gameData.setPowerup(powerup);
             gameData.setGame(gameController.getGame());
             servers.forEach((u,s)-> {

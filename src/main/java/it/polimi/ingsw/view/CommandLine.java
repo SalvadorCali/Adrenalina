@@ -1236,12 +1236,16 @@ public class CommandLine implements ViewInterface {
         }
         switch(playerController.getPowerup()){
             case "targetingscope":
+            case "tagbackgrenade":
+                damageBoardPrinter.setVictims(playerController.getVictims());
+                damageBoardPrinter.printVictimsDamageBoard();
                 break;
             case "newton":
-                break;
-            case "tagbackgrenade":
-                break;
             case "teleporter":
+                killshotTrackPrinter.setKillshotTrack(playerController.getKillshotTrack());
+                killshotTrackPrinter.printKillshotTrack();
+                gameBoardPrinter.setGameBoard(playerController.getGameBoard());
+                gameBoardPrinter.printMap();
                 break;
             default:
                 break;
@@ -1261,15 +1265,25 @@ public class CommandLine implements ViewInterface {
             gameBoardPrinter.printMap();
             damageBoardPrinter.setPlayer(playerController.getPlayer());
             damageBoardPrinter.printDamageBoard();
-            playerController.getPlayer().getWeapons().forEach(Printer::println);
-            playerController.getPlayer().getPowerups().forEach(Printer::println);
+            if(!playerController.getWeapons().isEmpty()){
+                Printer.println("Your weapons:");
+                playerController.getWeapons().forEach(Printer::println);
+            }
+            if(!playerController.getPowerups().isEmpty()){
+                Printer.println("Your powerups:");
+                playerController.getPowerups().forEach(Printer::println);
+            }
         }else if(outcome.equals(Outcome.WRONG)){
             Printer.println("[SERVER]Not grabbed!");
         }else{
-            killshotTrackPrinter.setKillshotTrack(playerController.getKillshotTrack());
-            killshotTrackPrinter.printKillshotTrack();
-            gameBoardPrinter.setGameBoard(playerController.getGameBoard());
-            gameBoardPrinter.printMap();
+            Printer.println("[SERVER]" + playerController.getCurrentPlayer() + " grabbed!");
+            if(playerController.isMovement()){
+                killshotTrackPrinter.setKillshotTrack(playerController.getKillshotTrack());
+                killshotTrackPrinter.printKillshotTrack();
+                gameBoardPrinter.setGameBoard(playerController.getGameBoard());
+                gameBoardPrinter.printMap();
+                playerController.setMovement(false);
+            }
         }
     }
 
@@ -1277,24 +1291,26 @@ public class CommandLine implements ViewInterface {
         switch(outcome){
             case RIGHT:
                 Printer.println("[SERVER]Shoot!");
-                killshotTrackPrinter.setKillshotTrack(playerController.getKillshotTrack());
-                killshotTrackPrinter.printKillshotTrack();
-                gameBoardPrinter.setGameBoard(playerController.getGameBoard());
-                gameBoardPrinter.printMap();
-                damageBoardPrinter.setPlayer(playerController.getPlayer());
+                if(playerController.isMovement()){
+                    killshotTrackPrinter.setKillshotTrack(playerController.getKillshotTrack());
+                    killshotTrackPrinter.printKillshotTrack();
+                    gameBoardPrinter.setGameBoard(playerController.getGameBoard());
+                    gameBoardPrinter.printMap();
+                    playerController.setMovement(false);
+                }
                 damageBoardPrinter.setVictims(playerController.getVictims());
-                damageBoardPrinter.printDamageBoard();
                 damageBoardPrinter.printVictimsDamageBoard();
                 break;
             case ALL:
                 Printer.println("[SERVER]Shoot!");
-                killshotTrackPrinter.setKillshotTrack(playerController.getKillshotTrack());
-                killshotTrackPrinter.printKillshotTrack();
-                gameBoardPrinter.setGameBoard(playerController.getGameBoard());
-                gameBoardPrinter.printMap();
-                damageBoardPrinter.setPlayer(playerController.getPlayer());
+                if(playerController.isMovement()){
+                    killshotTrackPrinter.setKillshotTrack(playerController.getKillshotTrack());
+                    killshotTrackPrinter.printKillshotTrack();
+                    gameBoardPrinter.setGameBoard(playerController.getGameBoard());
+                    gameBoardPrinter.printMap();
+                    playerController.setMovement(false);
+                }
                 damageBoardPrinter.setVictims(playerController.getVictims());
-                damageBoardPrinter.printDamageBoard();
                 damageBoardPrinter.printVictimsDamageBoard();
                 break;
             case WRONG:
