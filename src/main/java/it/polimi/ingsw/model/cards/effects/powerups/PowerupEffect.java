@@ -7,6 +7,7 @@ import it.polimi.ingsw.model.enums.Direction;
 import it.polimi.ingsw.model.enums.TokenColor;
 import it.polimi.ingsw.model.gamecomponents.Player;
 import it.polimi.ingsw.model.gamecomponents.Position;
+import it.polimi.ingsw.util.Printer;
 
 public class PowerupEffect extends Effect {
 
@@ -99,6 +100,8 @@ public class PowerupEffect extends Effect {
             actionInterface.move(direction, victim);
             if(direction.equals(actionInterface.getSecondMove()) && actionInterface.canMove(victim, direction))
                 actionInterface.move(direction,victim);
+            else if(actionInterface.getSecondMove() != null)
+                canUse = false;
         }
         actionInterface.removePlayer(victim);
     }
@@ -108,7 +111,7 @@ public class PowerupEffect extends Effect {
     }
 
     private void tagbackGrenade(ActionInterface actionInterface){
-        victim = actionInterface.getVictim();
+        victim = actionInterface.getClientData().getPowerupVictim();
         int count = -1;
         for(int i = 0; i < actionInterface.getClientData().getCurrentPlayer().getPlayerBoard().getDamageBoard().length; i++){
             if(actionInterface.getClientData().getCurrentPlayer().getPlayerBoard().getDamageBoard()[i].getFirstColor().equals(TokenColor.NONE)){
@@ -131,11 +134,5 @@ public class PowerupEffect extends Effect {
     private void teleporterUse(ActionInterface actionInterface){
         actionInterface.move(square.getX(), square.getY(), actionInterface.getCurrentPlayer());
     }
-
-
-
-
-
-
 
 }
