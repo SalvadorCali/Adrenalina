@@ -34,6 +34,7 @@ public class DamageBoardCLI {
     private int deathNumber;
     private List<Token> markBoard;
     private List<Ammo> ammoBox;
+    private boolean finalFrenzy;
 
     private List<Player> victims;
     private Token[] victimDamageBoard;
@@ -49,6 +50,7 @@ public class DamageBoardCLI {
         markBoard = player.getPlayerBoard().getRevengeMarks();
         ammoBox = player.getAmmoBox();
         deathNumber = player.getPlayerBoard().getDeathNumber();
+        finalFrenzy = false;
         //damageBoard = gameController.getGame().getCurrentPlayer().getPlayerBoard().getDamageBoard();
         //currentPlayer = gameController.getGame().getCurrentPlayer().getUsername();
         //markBoard = gameController.getGame().getCurrentPlayer().getPlayerBoard().getRevengeMarks();
@@ -58,12 +60,16 @@ public class DamageBoardCLI {
         damageBoard = player.getPlayerBoard().getDamageBoard();
         markBoard = player.getPlayerBoard().getRevengeMarks();
         ammoBox = player.getAmmoBox();
+        deathNumber = player.getPlayerBoard().getDeathNumber();
     }
 
     public void setVictims(List<Player> victims){
         this.victims = victims;
     }
 
+    public void setFinalFrenzy(boolean finalFrenzy){
+        this.finalFrenzy = finalFrenzy;
+    }
 
     public void printDamageBoard() {
 
@@ -211,6 +217,16 @@ public class DamageBoardCLI {
 
         for(int i=0; i<deathNumber; i++){
             points[i] = "X";
+        }
+
+        if(finalFrenzy){
+            Printer.println("Frenesia");
+            points[0] = " ";
+            points[1] = "2";
+            points[2] = "1";
+            points[3] = "1";
+            points[4] = "1";
+            points[5] = " ";
         }
 
         //give name current player
@@ -402,6 +418,15 @@ public class DamageBoardCLI {
 
             for(int i=0; i<victimDeathNumber; i++){
                 points[i] = "X";
+            }
+
+            if(finalFrenzy){
+                points[0] = " ";
+                points[1] = "2";
+                points[2] = "1";
+                points[3] = "1";
+                points[4] = "1";
+                points[5] = " ";
             }
 
             //give name current player

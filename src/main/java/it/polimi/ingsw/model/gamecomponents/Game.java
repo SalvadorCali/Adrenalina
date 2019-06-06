@@ -3,6 +3,7 @@ package it.polimi.ingsw.model.gamecomponents;
 import it.polimi.ingsw.model.cards.AmmoCard;
 import it.polimi.ingsw.model.cards.Card;
 import it.polimi.ingsw.model.cards.effects.ActionInterface;
+import it.polimi.ingsw.model.enums.AdrenalineZone;
 import it.polimi.ingsw.model.enums.Color;
 import it.polimi.ingsw.model.enums.Direction;
 import it.polimi.ingsw.model.enums.TokenColor;
@@ -24,6 +25,7 @@ public class Game implements Serializable {
     private Deck weapons;
     private Deck powerups;
     private List<AmmoCard> ammos;
+    private int finalFrenzyTurns;
     private boolean finalFrenzy;
     private boolean gamePhase;
     private boolean colorSelection;
@@ -210,6 +212,19 @@ public class Game implements Serializable {
         killshotIndex++;
         if(killshotIndex == skullsNumber){
             finalFrenzy = true;
+            int index = 0;
+            for(int i=0; i<players.size(); i++){
+                if(players.get(i).equals(currentPlayer)){
+                    index = i;
+                }
+            }
+            for(int i=0; i<players.size(); i++){
+                if(i <= index){
+                    players.get(i).setFinalFrenzyActions(1);
+                }else{
+                    players.get(i).setFinalFrenzyActions(2);
+                }
+            }
         }
     }
 
@@ -277,6 +292,13 @@ public class Game implements Serializable {
     }
 
     public void endTurn(Player player, ActionInterface actionInterface){
+        if(isFinalFrenzy()){
+            finalFrenzyTurns--;
+            if(finalFrenzyTurns == 0){
+                Printer.println("Game end!");
+                scoring();
+            }
+        }
         refillSquares(actionInterface);
         for(int i=0; i<players.size(); i++){
             if(players.get(i).equals(player)){
@@ -336,5 +358,14 @@ public class Game implements Serializable {
     public Card drawPowerup(){
         powerups.shuffle();
         return powerups.draw();
+    }
+
+    public void finalFrenzy(){
+        finalFrenzyTurns = players.size() + 1;
+        players.forEach(p->{
+            p.getPlayerBoard().resetDamage();
+            p.getPlayerBoard().setDead(false);
+            p.getPlayerBoard().setAdrenalineZone(AdrenalineZone.DEFAULT);
+        });
     }
 }

@@ -36,6 +36,7 @@ public class ServerController {
     private Map<String, List<Card>> powerupsSpawn;
     private List<Player> players;
     private GameData gameData;
+    private boolean finalFrenzy;
 
     public ServerController(){
         gameController = new GameController();
@@ -47,6 +48,7 @@ public class ServerController {
         players = new ArrayList<>();
         spawnedPlayers = 0;
         gameData = new GameData();
+        finalFrenzy = false;
     }
 
 
@@ -106,6 +108,10 @@ public class ServerController {
         if(username.equals("cali2")){
             player.getPlayerBoard().addDamage(TokenColor.GREY, TokenColor.GREY, TokenColor.GREY, TokenColor.GREY, TokenColor.GREY, TokenColor.GREY,
                     TokenColor.GREY, TokenColor.GREY, TokenColor.GREY, TokenColor.GREY);
+        }
+        if(username.equals("cali3")){
+            player.getPlayerBoard().addDamage(TokenColor.GREEN, TokenColor.GREY, TokenColor.GREY, TokenColor.GREY, TokenColor.GREY, TokenColor.GREY,
+                    TokenColor.GREY, TokenColor.GREEN, TokenColor.GREEN, TokenColor.GREEN);
         }
         player.setUsername(username);
         players.add(player);
@@ -577,6 +583,19 @@ public class ServerController {
                 deathAndRespawn();
                 break;
             }
+        }
+        if(gameController.isFinalFrenzy() && !finalFrenzy){
+            gameController.finalFrenzy();
+            finalFrenzy = true;
+            gameData.setGame(gameController.getGame());
+            gameData.setPlayers(users);
+            servers.forEach((u,s)-> {
+                try {
+                    s.notify(Message.FINAL_FRENZY, Outcome.ALL, gameData);
+                } catch (IOException e) {
+                    Printer.err(e);
+                }
+            });
         }
         for(int i = 0; i< players.size(); i++){
             if(players.get(i).getUsername().equals(username)){

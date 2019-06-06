@@ -69,6 +69,10 @@ public class PlayerBoard implements Serializable {
         return adrenalineZone;
     }
 
+    public void setAdrenalineZone(AdrenalineZone adrenalineZone) {
+        this.adrenalineZone = adrenalineZone;
+    }
+
     public boolean isDead() {
         return dead;
     }
@@ -238,9 +242,11 @@ public class PlayerBoard implements Serializable {
         score = scoreList.get(getFirstBlood());
         score.setScore(score.getScore() + 1);
         scoreList.replace(getFirstBlood(), score);
+        /*
         score = scoreList.get(getKillshot());
         score.setScore(score.getScore() + 1);
         scoreList.replace(getKillshot(), score);
+        */
         return scoreList;
     }
 

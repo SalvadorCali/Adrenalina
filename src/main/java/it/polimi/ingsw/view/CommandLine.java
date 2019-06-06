@@ -93,8 +93,14 @@ public class CommandLine implements ViewInterface {
                 }
                 break;
             case "move":
-                if(!move(string)){
-                    Printer.print(StringCLI.INVALID_COMMAND);
+                if(playerController.isFinalFrenzy()){
+                    if(!moveFinalFrenzy(string)){
+                        Printer.print(StringCLI.INVALID_COMMAND);
+                    }
+                }else{
+                    if(!move(string)){
+                        Printer.print(StringCLI.INVALID_COMMAND);
+                    }
                 }
                 break;
             case "grab":
@@ -1366,6 +1372,11 @@ public class CommandLine implements ViewInterface {
         }
     }
 
+    private void notifyFinalFrenzy(){
+        Printer.println("Final Frenzy!!!");
+        damageBoardPrinter.setFinalFrenzy(true);
+    }
+
     public void notify(Message message){
         switch (message){
             case NEW_TURN:
@@ -1373,6 +1384,9 @@ public class CommandLine implements ViewInterface {
                 break;
             case END_TURN:
                 notifyEndTurn();
+                break;
+            case FINAL_FRENZY:
+                notifyFinalFrenzy();
                 break;
             default:
                 break;

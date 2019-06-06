@@ -20,6 +20,7 @@ public class PlayerController {
     private String powerup;
     private String currentPlayer;
     private boolean movement;
+    private boolean finalFrenzy;
 
     public PlayerController(ClientInterface client){
         this.client = client;
@@ -115,5 +116,13 @@ public class PlayerController {
 
     public void setMovement(boolean movement) {
         this.movement = movement;
+    }
+
+    public boolean isFinalFrenzy() {
+        return finalFrenzy;
+    }
+
+    public void setFinalFrenzy(boolean finalFrenzy) {
+        this.finalFrenzy = finalFrenzy;
     }
 }

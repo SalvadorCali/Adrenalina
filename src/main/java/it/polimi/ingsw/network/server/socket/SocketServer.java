@@ -180,7 +180,7 @@ public class SocketServer implements Runnable, ServerInterface {
     }
 
     public void move(){
-        Direction first, second, third;
+        Direction first, second, third, fourth;
         try {
             int directionsSize = objectInputStream.readInt();
             if(directionsSize == 1){
@@ -195,6 +195,12 @@ public class SocketServer implements Runnable, ServerInterface {
                 second = (Direction) objectInputStream.readObject();
                 third = (Direction) objectInputStream.readObject();
                 serverController.move(clientName, first, second, third);
+            }else if(directionsSize == 4){
+                first = (Direction) objectInputStream.readObject();
+                second = (Direction) objectInputStream.readObject();
+                third = (Direction) objectInputStream.readObject();
+                fourth = (Direction) objectInputStream.readObject();
+                serverController.move(clientName, first, second, third, fourth);
             }
         } catch (IOException | ClassNotFoundException e) {
             Printer.err(e);
@@ -271,6 +277,8 @@ public class SocketServer implements Runnable, ServerInterface {
                 third = (Direction) objectInputStream.readObject();
                 fourth = (Direction) objectInputStream.readObject();
                 serverController.shoot(weaponName, effectNumber, basicFirst, clientName, firstVictim, secondVictim, thirdVictim, x, y, first, second, third, fourth);
+            }else{
+                serverController.shoot(weaponName, effectNumber, basicFirst, clientName, firstVictim, secondVictim, thirdVictim, x, y);
             }
         } catch (IOException | ClassNotFoundException e) {
             Printer.err(e);

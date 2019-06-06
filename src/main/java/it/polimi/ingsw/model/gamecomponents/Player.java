@@ -29,6 +29,7 @@ public class Player implements Serializable {
     private PlayerBoard playerBoard;
     private Position position;
     private int actionNumber;
+    private int finalFrenzyActions;
     private boolean myTurn;
     private String username;
     private boolean disconnected;
@@ -352,5 +353,13 @@ public class Player implements Serializable {
 
     public void setDamaged(boolean damaged) {
         this.damaged = damaged;
+    }
+
+    public int getFinalFrenzyActions() {
+        return finalFrenzyActions;
+    }
+
+    public void setFinalFrenzyActions(int finalFrenzyActions) {
+        this.finalFrenzyActions = finalFrenzyActions;
     }
 }

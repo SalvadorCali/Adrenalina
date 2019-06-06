@@ -214,38 +214,27 @@ public class SocketClient implements ClientInterface, Runnable, Serializable {
     public void shoot(String weaponName, int effectNumber, boolean basicFirst, TokenColor firstVictim, TokenColor secondVictim, TokenColor thirdVictim, int x, int y, Direction... directions) throws IOException {
         objectOutputStream.writeObject(Message.SHOOT);
         objectOutputStream.flush();
-        Printer.println("Prova");
         objectOutputStream.writeUTF(weaponName);
         objectOutputStream.flush();
-        Printer.println("Prova");
         objectOutputStream.writeInt(effectNumber);
         objectOutputStream.flush();
-        Printer.println("Prova");
         objectOutputStream.writeBoolean(basicFirst);
         objectOutputStream.flush();
-        Printer.println("Prova");
         objectOutputStream.writeObject(firstVictim);
         objectOutputStream.flush();
-        Printer.println("Prova");
         objectOutputStream.writeObject(secondVictim);
         objectOutputStream.flush();
-        Printer.println("Prova");
         objectOutputStream.writeObject(thirdVictim);
         objectOutputStream.flush();
-        Printer.println("Prova");
         objectOutputStream.writeInt(x);
         objectOutputStream.flush();
-        Printer.println("Prova");
         objectOutputStream.writeInt(y);
         objectOutputStream.flush();
-        Printer.println("Prova");
         objectOutputStream.writeInt(directions.length);
         objectOutputStream.flush();
-        Printer.println("Prova");
         for(Direction direction : directions){
             objectOutputStream.writeObject(direction);
             objectOutputStream.flush();
-            Printer.println("Prova");
         }
     }
 
@@ -514,6 +503,13 @@ public class SocketClient implements ClientInterface, Runnable, Serializable {
                 playerController.setKillshotTrack(gameData6.getKillshotTrack());
                 playerController.setPlayer(gameData6.getPlayer(username));
                 view.notify(message, outcome);
+                break;
+            case FINAL_FRENZY:
+                outcome = (Outcome) objectInputStream.readObject();
+                object = (GameData) objectInputStream.readObject();
+                GameData gameData7 = (GameData) object;
+                playerController.setFinalFrenzy(true);
+                view.notify(message);
                 break;
             default:
                 break;

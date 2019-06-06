@@ -477,9 +477,9 @@ public class GameController {
 
     public void deathAndRespawn(List<Player> players){
         game.scoring();
-        //game.getScoreList().forEach((c,i)->Printer.println(c + ": " + i));
         for(Player player : players){
             if(player.isDead()){
+                game.setKillAndDoubleKill(player);
                 player.getPlayerBoard().resetBoard();
             }
         }
@@ -511,6 +511,13 @@ public class GameController {
 
     public Map<TokenColor, Integer> getScoreList(){
         return game.getScoreList();
+    }
+
+    public boolean isFinalFrenzy(){
+        return game.isFinalFrenzy();
+    }
+    public void finalFrenzy(){
+        game.finalFrenzy();
     }
 
 }
