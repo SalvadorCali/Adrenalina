@@ -36,7 +36,7 @@ public class DamageMarkEffect extends BasicEffect {
         setData(actionInterface);
         canUse = actionInterface.ammoControl(redAmmos, blueAmmos, yellowAmmos);
         if (canUse) {
-            if (effectName.equals("Cyberblade") || effectName.equals("Sledgehammer1"))
+            if (effectName.equals("Cyberblade") || effectName.equals("Sledgehammer"))
                 canUse = actionInterface.sameSquare(currentPlayer, victim);
             else if (effectName.equals("Lock Rifle") || effectName.equals("T.H.O.R.") || effectName.equals("Plasma Gun") || effectName.equals("ZX-21") || effectName.equals("Whisper") || effectName.equals("Machine Gun"))
                 visibilityCheck(actionInterface);

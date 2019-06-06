@@ -168,7 +168,7 @@ public class WeaponCard extends Card{
                 break;
             case ("SLEDGEHAMMER"):
                 Effect sledgehammer1 = new DamageMarkEffect("Sledgehammer",2,0,0,0,0);
-                Effect sledgehammer2 = new MovementEffect("Sledgehammer",3,0,1,0,0);
+                Effect sledgehammer2 = new DirectionalDamage("Sledgehammer",3,1,0,0);
                 effects.add(sledgehammer1);
                 effects.add(sledgehammer2);
                 break;
