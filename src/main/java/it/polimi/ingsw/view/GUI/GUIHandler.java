@@ -503,7 +503,6 @@ public class GUIHandler extends Application implements Initializable, ViewInterf
             Platform.runLater(() -> {
 
                 placePlayers();
-                move();
 
             });
 
@@ -538,37 +537,22 @@ public class GUIHandler extends Application implements Initializable, ViewInterf
     }*/
 
 
-    public void move(){
-
-        upArrow.setOnMouseClicked(ee -> {
-            moveUp();
-        });
-
-        downArrow.setOnMouseClicked(event -> {
-            moveDown();
-        });
-
-        leftArrow.setOnMouseClicked(event -> {
-            moveLeft();
-        });
-
-        rightArrow.setOnMouseClicked(event -> {
-            moveRight();
-        });
-    }
-
+    @FXML
     private void moveUp(){
         saveMovement("up");
     }
 
+    @FXML
     private void moveDown(){
         saveMovement("down");
     }
 
+    @FXML
     private void moveLeft(){
         saveMovement("left");
     }
 
+    @FXML
     private void moveRight(){
         saveMovement("right");
     }
