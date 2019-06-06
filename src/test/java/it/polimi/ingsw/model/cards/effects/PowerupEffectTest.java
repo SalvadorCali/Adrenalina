@@ -8,13 +8,14 @@ import it.polimi.ingsw.model.enums.Direction;
 import it.polimi.ingsw.model.enums.TokenColor;
 import it.polimi.ingsw.model.gamecomponents.Ammo;
 import it.polimi.ingsw.model.gamecomponents.Player;
+import it.polimi.ingsw.view.DamageBoardCLI;
 import it.polimi.ingsw.view.MapCLI;
 import org.junit.jupiter.api.Test;
 
 import static junit.framework.TestCase.assertFalse;
 import static junit.framework.TestCase.assertTrue;
 
-public class PowerupEffectTest {
+class PowerupEffectTest {
 
     private GameController gameController = new GameController();
     private Player currentPlayer = new Player(TokenColor.GREEN);
@@ -41,7 +42,6 @@ public class PowerupEffectTest {
         gameController.getActionInterface().getClientData().setSecondMove(Direction.UP);
         assertFalse(newton.canUseEffect(gameController.getActionInterface()));
     }
-
     @Test
     void teleporterCanUseTest(){
         playerSetup();
@@ -59,8 +59,21 @@ public class PowerupEffectTest {
         gameController.getActionInterface().getClientData().setSquare(3,0);
         assertFalse(teleporter.canUseEffect(gameController.getActionInterface()));
     }
-
-
+    @Test
+    void targetingScopeCanUseTest(){
+        playerSetup();
+        Effect targetingScope = new PowerupEffect("Targeting Scope");
+        MapCLI mapCLI = new MapCLI(gameController.getGame().getBoard());
+        mapCLI.printMap();
+        assertFalse(targetingScope.canUseEffect(gameController.getActionInterface()));
+        gameController.getActionInterface().playerDamage(victim,1);
+        gameController.getActionInterface().getClientData().setAmmoColor(Color.BLUE);
+        assertTrue(targetingScope.canUseEffect(gameController.getActionInterface()));
+        DamageBoardCLI dbc = new DamageBoardCLI(victim);
+        dbc.printDamageBoard();
+        targetingScope.useEffect(gameController.getActionInterface());
+        dbc.printDamageBoard();
+    }
 
     void playerSetup(){
 
