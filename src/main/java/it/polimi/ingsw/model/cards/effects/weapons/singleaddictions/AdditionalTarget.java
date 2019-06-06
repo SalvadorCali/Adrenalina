@@ -52,8 +52,12 @@ public class AdditionalTarget extends SingleAddictionEffect {
                 }
             }
         }else {
-            canUse = actionInterface.ammoControl(redAmmos, blueAmmos, yellowAmmos) && actionInterface.sameSquare(currentPlayer,additionalVictim) && super.effect.canUseEffect(actionInterface) ;
-            if(effectName.equals("Plasma Gun Double"))
+            if(effectName.equals("Cyberblade")) {
+                canUse = actionInterface.ammoControl(redAmmos, blueAmmos, yellowAmmos) && actionInterface.sameSquare(currentPlayer, additionalVictim);
+                actionInterface.getClientData().setBasicFirst(true);
+                if(canUse)
+                    super.effect.canUseEffect(actionInterface);
+            }else if(effectName.equals("Plasma Gun Double"))
                 canUse = actionInterface.ammoControl(redAmmos,blueAmmos,yellowAmmos) && super.effect.canUseEffect(actionInterface);
         }
         return canUse;
@@ -80,7 +84,7 @@ public class AdditionalTarget extends SingleAddictionEffect {
         this.basicFirst = actionInterface.basicFirst();
         if(!basicFirst)
             actionInterface.getClientData().setAmmos();
-        if(effectName.equals("Cyberblade Double"))
+        if(effectName.equals("Cyberblade") && basicFirst)
             currentPlayer = actionInterface.getClientData().getFakePlayer();
         else
             currentPlayer = actionInterface.getClientData().getCurrentPlayer();

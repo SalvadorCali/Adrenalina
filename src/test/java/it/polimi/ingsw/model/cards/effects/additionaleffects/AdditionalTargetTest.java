@@ -181,6 +181,37 @@ public class AdditionalTargetTest {
         mapCLI.printMap();
     }
 
+    @Test
+    void cyberbladeDoubleTest(){
+        playerSetup();
+        Effect cyberblade = new DamageMarkEffect("Cyberblade",2,0,0,0,0);
+        Effect cyberbladeAdd = new AdditionalMove("Cyberblade",0,0,0,0,0, cyberblade);
+        Effect cyberbladeAdd2 = new AdditionalTarget("Cyberblade",2,0,0,0,1,cyberbladeAdd);
+        currentPlayer.addAmmo(new Ammo(Color.YELLOW));
+        gameController.getGame().getBoard().move(0,0,victim);
+        gameController.getActionInterface().getClientData().setBasicFirst(true);
+        gameController.getActionInterface().getClientData().setFirstMove(Direction.RIGHT);
+        mapCLI.printMap();
+        assertTrue(cyberbladeAdd2.canUseEffect(gameController.getActionInterface()));
+        cyberbladeAdd2.useEffect(gameController.getActionInterface());
+        DamageBoardCLI dbg = new DamageBoardCLI(victim);
+        DamageBoardCLI dbg2 = new DamageBoardCLI(secondVictim);
+        mapCLI.printMap();
+        dbg.printDamageBoard();
+        dbg2.printDamageBoard();
+
+        currentPlayer.addAmmo(new Ammo(Color.YELLOW));
+        gameController.getGame().getBoard().move(0,0,currentPlayer);
+        gameController.getGame().getBoard().move(0,0,secondVictim);
+        mapCLI.printMap();
+        gameController.getActionInterface().getClientData().setBasicFirst(false);
+        assertTrue(cyberbladeAdd2.canUseEffect(gameController.getActionInterface()));
+        cyberbladeAdd2.useEffect(gameController.getActionInterface());
+        mapCLI.printMap();
+        dbg.printDamageBoard();
+        dbg2.printDamageBoard();
+    }
+
 
 
     void playerSetup(){
