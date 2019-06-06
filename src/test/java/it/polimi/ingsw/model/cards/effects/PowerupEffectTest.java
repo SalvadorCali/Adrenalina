@@ -42,6 +42,24 @@ public class PowerupEffectTest {
         assertFalse(newton.canUseEffect(gameController.getActionInterface()));
     }
 
+    @Test
+    void teleporterCanUseTest(){
+        playerSetup();
+        Effect teleporter = new PowerupEffect("Teleporter");
+        MapCLI mapCLI = new MapCLI(gameController.getGame().getBoard());
+        mapCLI.printMap();
+        gameController.getActionInterface().getClientData().setSquare(1,2);
+        assertTrue(teleporter.canUseEffect(gameController.getActionInterface()));
+        teleporter.useEffect(gameController.getActionInterface());
+        mapCLI.printMap();
+        gameController.getActionInterface().getClientData().setSquare(0,3);
+        assertFalse(teleporter.canUseEffect(gameController.getActionInterface()));
+        gameController.getActionInterface().getClientData().setSquare(0,4);
+        assertFalse(teleporter.canUseEffect(gameController.getActionInterface()));
+        gameController.getActionInterface().getClientData().setSquare(3,0);
+        assertFalse(teleporter.canUseEffect(gameController.getActionInterface()));
+    }
+
 
 
     void playerSetup(){
