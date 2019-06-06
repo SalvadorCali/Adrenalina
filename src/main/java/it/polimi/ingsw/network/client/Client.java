@@ -4,7 +4,7 @@ import it.polimi.ingsw.network.client.rmi.RMIClient;
 import it.polimi.ingsw.network.client.socket.SocketClient;
 import it.polimi.ingsw.util.Connection;
 import it.polimi.ingsw.util.Printer;
-import it.polimi.ingsw.view.GUI.LoginGUI;
+import it.polimi.ingsw.view.GUI.GUIHandler;
 import javafx.application.Application;
 
 import java.io.BufferedReader;
@@ -56,7 +56,7 @@ public class Client {
         }
 
         if(graphicInterface.equals("gui")){
-            Application.launch(LoginGUI.class, args);
+            Application.launch(GUIHandler.class, args);
         }else{
             String choice = "default";
             while(!(choice.equalsIgnoreCase("rmi") || choice.equalsIgnoreCase("socket"))) {

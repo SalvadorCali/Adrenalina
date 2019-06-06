@@ -178,6 +178,7 @@ public class GUIHandler extends Application implements Initializable, ViewInterf
     private ChooseBoard chooseBoard = new ChooseBoard();
     private LoginGUI loginGUI;
     public boolean connected = false;
+    private boolean checkTurn = true;
 
     //starting methods
 
@@ -265,7 +266,16 @@ public class GUIHandler extends Application implements Initializable, ViewInterf
                     stage.setTitle("Choose Board");
                     stage.show();
 
-                    setBoard();
+                    PauseTransition delay = new PauseTransition(Duration.seconds(5));
+                    delay.setOnFinished( event -> {
+                        try {
+                            setBoard();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    });
+                    delay.play();
+
 
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -479,12 +489,32 @@ public class GUIHandler extends Application implements Initializable, ViewInterf
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        Thread thread = new Thread(this::checkPosition);
+        thread.setDaemon(true);
+        thread.start();
+
         Platform.runLater(() ->{
             mapImage.setImage(new Image("boardImg/" + Data.getInstance().getBoardType() + ".png"));
-            placePlayers();
-            //move();
-
         });
+    }
+
+    private void checkPosition() {
+        while(checkTurn){
+            Platform.runLater(() -> {
+
+                placePlayers();
+                move();
+
+            });
+
+            try{
+
+                Thread.sleep(4000);
+
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
 
@@ -498,6 +528,9 @@ public class GUIHandler extends Application implements Initializable, ViewInterf
         client.choose(Data.getInstance().getPowerup());
     }
 
+    public static void main(String[] args) {
+        Application.launch(args);
+    }
     /*
     private void closeThis(){
         Stage stage = (Stage) labelDisconnect.getScene().getWindow();
@@ -506,25 +539,38 @@ public class GUIHandler extends Application implements Initializable, ViewInterf
 
 
     public void move(){
-        Platform.runLater(() -> {
 
-            upArrow.setOnMouseClicked(event -> {
-                saveMovement("up");
-            });
-
-            downArrow.setOnMouseClicked(event -> {
-                saveMovement("down");
-            });
-
-            leftArrow.setOnMouseClicked(event -> {
-                saveMovement("left");
-            });
-
-            rightArrow.setOnMouseClicked(event -> {
-                saveMovement("right");
-            });
-
+        upArrow.setOnMouseClicked(ee -> {
+            moveUp();
         });
+
+        downArrow.setOnMouseClicked(event -> {
+            moveDown();
+        });
+
+        leftArrow.setOnMouseClicked(event -> {
+            moveLeft();
+        });
+
+        rightArrow.setOnMouseClicked(event -> {
+            moveRight();
+        });
+    }
+
+    private void moveUp(){
+        saveMovement("up");
+    }
+
+    private void moveDown(){
+        saveMovement("down");
+    }
+
+    private void moveLeft(){
+        saveMovement("left");
+    }
+
+    private void moveRight(){
+        saveMovement("right");
     }
 
     public void saveMovement(String move){
@@ -533,6 +579,7 @@ public class GUIHandler extends Application implements Initializable, ViewInterf
             this.movement[countMove] = move;
             countMove++;
             System.out.println(movement[countMove]);
+
         }else{
             this.movement[countMove] = move;
             moveClient(this.movement);
@@ -542,7 +589,8 @@ public class GUIHandler extends Application implements Initializable, ViewInterf
 
     private void moveClient(String[] movement) {
         try {
-            client.move(Converter.fromStringToDirection(this.movement[0]),Converter.fromStringToDirection(this.movement[1]), Converter.fromStringToDirection(this.movement[2]));
+
+            client.move(Converter.fromStringToDirection(movement[0]),Converter.fromStringToDirection(movement[1]), Converter.fromStringToDirection(movement[2]));
 
         } catch (IOException e) {
             e.printStackTrace();
