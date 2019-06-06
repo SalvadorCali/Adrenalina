@@ -149,4 +149,8 @@ public class ClientData {
         }
         return false;
     }
+
+    public Color getAmmoColor() {
+        return ammoColor;
+    }
 }

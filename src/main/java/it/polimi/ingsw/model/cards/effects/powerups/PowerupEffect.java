@@ -2,6 +2,7 @@ package it.polimi.ingsw.model.cards.effects.powerups;
 
 import it.polimi.ingsw.model.cards.effects.ActionInterface;
 import it.polimi.ingsw.model.cards.effects.Effect;
+import it.polimi.ingsw.model.enums.Color;
 import it.polimi.ingsw.model.enums.Direction;
 import it.polimi.ingsw.model.enums.TokenColor;
 import it.polimi.ingsw.model.gamecomponents.Player;
@@ -66,11 +67,26 @@ public class PowerupEffect extends Effect {
     }
 
     private void targetingScope(ActionInterface actionInterface){
-        canUse = actionInterface.isDamaged();
+        actionInterface.getClientData().setAmmos();
+        canUse = !actionInterface.getClientData().getAmmoColor().equals(Color.NONE) && actionInterface.isDamaged();
+        if(canUse) {
+            if (actionInterface.getClientData().getAmmoColor().equals(Color.RED))
+                canUse = actionInterface.ammoControl(1, 0, 0);
+            else if (actionInterface.getClientData().getAmmoColor().equals(Color.BLUE))
+                canUse = actionInterface.ammoControl(0, 1, 0);
+            else
+                canUse = actionInterface.ammoControl(0, 0, 1);
+        }
     }
 
     private void targetingScopeUse(ActionInterface actionInterface){
         actionInterface.playerDamage(actionInterface.getClientData().getPowerupVictim(), 1);
+        if (actionInterface.getClientData().getAmmoColor().equals(Color.RED))
+            actionInterface.updateAmmoBox(1, 0, 0);
+        else if (actionInterface.getClientData().getAmmoColor().equals(Color.BLUE))
+            actionInterface.updateAmmoBox(0, 1, 0);
+        else
+            actionInterface.updateAmmoBox(0, 0, 1);
     }
 
     private void newton(ActionInterface actionInterface){
@@ -92,11 +108,19 @@ public class PowerupEffect extends Effect {
     }
 
     private void tagbackGrenade(ActionInterface actionInterface){
-
+        victim = actionInterface.getVictim();
+        int count = -1;
+        for(int i = 0; i < actionInterface.getClientData().getCurrentPlayer().getPlayerBoard().getDamageBoard().length; i++){
+            if(actionInterface.getClientData().getCurrentPlayer().getPlayerBoard().getDamageBoard()[i].getFirstColor().equals(TokenColor.NONE)){
+                count = i - 1;
+                break;
+            }
+        }
+        canUse = count!= -1 && actionInterface.getClientData().getCurrentPlayer().isDamaged() && actionInterface.getClientData().getCurrentPlayer().getPlayerBoard().getDamageBoard()[count].getFirstColor().equals(victim.getColor());
     }
 
     private void tagbackGrenadeUse(ActionInterface actionInterface){
-
+        actionInterface.playerMark(victim, 1);
     }
 
     private void teleporter(ActionInterface actionInterface){
