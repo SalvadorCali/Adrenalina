@@ -47,6 +47,7 @@ public class Connection {
         }
         //&& addressesList.size() < 4
         if(addressesList.size() > 1){
+            addressesList.forEach(a->Printer.println(a.toString()));
             return addressesList.get(1);
         //}
         //else if(addressesList.size() > 3) {

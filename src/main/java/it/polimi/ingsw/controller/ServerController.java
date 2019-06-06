@@ -237,6 +237,9 @@ public class ServerController {
     }
 
     public void disconnect(String username){
+        if(users.get(username).isMyTurn()){
+            gameController.endTurn(users.get(username));
+        }
         if(users.containsKey(username)){
             disconnectedUsers.put(username, users.get(username));
             users.get(username).setDisconnected(true);
@@ -259,12 +262,14 @@ public class ServerController {
         disconnectedUsers.remove(username);
         servers.put(username, server);
         Printer.println(username + " connected!");
+        gameData.setGame(gameController.getGame());
+        gameData.setPlayers(users);
         servers.forEach((u, s) -> {
             try {
                 if(u.equals(username)){
-                    s.notify(Message.LOGIN, Outcome.RIGHT, username);
+                    s.notify(Message.RECONNECTION, Outcome.RIGHT, gameData);
                 }else{
-                    s.notify(Message.LOGIN, Outcome.ALL, username);
+                    s.notify(Message.RECONNECTION, Outcome.ALL, gameData);
                 }
             } catch (IOException e) {
                 Printer.err(e);
@@ -576,10 +581,20 @@ public class ServerController {
         for(int i = 0; i< players.size(); i++){
             if(players.get(i).getUsername().equals(username)){
                 try {
-                    if(servers.containsKey(username)){
+                    if(servers.containsKey(username) && !players.get(i).isDisconnected()){
                         servers.get(username).notify(Message.END_TURN);
                     }
+                    int index = nextPlayerIndex(i);
+                    if(servers.containsKey(players.get(index).getUsername())){
+                        gameData.setGame(gameController.getGame());
+                        gameData.setPlayers(users);
+                        servers.get(players.get(index).getUsername()).notify(Message.NEW_TURN, Outcome.RIGHT, gameData);
+                        TurnTimer timer = new TurnTimer(this, players, players.get(index));
+                        timer.start();
+                    }
+                    /*
                     if(i== players.size()-1){
+
                         if(servers.containsKey(players.get(0).getUsername())){
                             gameData.setGame(gameController.getGame());
                             gameData.setPlayers(users);
@@ -588,6 +603,7 @@ public class ServerController {
                             timer.start();
                         }
                     }else{
+
                         if(servers.containsKey(players.get(i+1).getUsername())){
                             gameData.setGame(gameController.getGame());
                             gameData.setPlayers(users);
@@ -596,12 +612,31 @@ public class ServerController {
                             timer.start();
                         }
                     }
+                    */
                 } catch (IOException e) {
                     Printer.err(e);
                 }
             }
         }
         gameController.endTurn(users.get(username));
+    }
+
+    private int nextPlayerIndex(int index){
+        boolean cycle = true;
+        while(cycle){
+            if(index == players.size() - 1){
+                if(!players.get(0).isDisconnected()){
+                    cycle = false;
+                }
+                index = 0;
+            }else{
+                if(!players.get(index + 1).isDisconnected()){
+                    cycle = false;
+                }
+                index++;
+            }
+        }
+        return index;
     }
     //punteggio
     private void deathAndRespawn(){

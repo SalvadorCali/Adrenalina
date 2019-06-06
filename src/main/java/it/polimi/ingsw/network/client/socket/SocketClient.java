@@ -506,6 +506,15 @@ public class SocketClient implements ClientInterface, Runnable, Serializable {
                 object = (String) objectInputStream.readObject();
                 view.notify(message, outcome, object);
                 break;
+            case RECONNECTION:
+                outcome = (Outcome) objectInputStream.readObject();
+                object = (GameData) objectInputStream.readObject();
+                GameData gameData6 = (GameData) object;
+                playerController.setGameBoard(gameData6.getGameBoard());
+                playerController.setKillshotTrack(gameData6.getKillshotTrack());
+                playerController.setPlayer(gameData6.getPlayer(username));
+                view.notify(message, outcome);
+                break;
             default:
                 break;
         }

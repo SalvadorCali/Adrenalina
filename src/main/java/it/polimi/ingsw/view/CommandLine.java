@@ -1352,6 +1352,20 @@ public class CommandLine implements ViewInterface {
         }
     }
 
+    private void notifyReconnection(Outcome outcome){
+        if(outcome.equals(Outcome.RIGHT)){
+            Printer.println("Reconnected");
+            killshotTrackPrinter = new KillshotTrackCLI(playerController.getKillshotTrack());
+            killshotTrackPrinter.printKillshotTrack();
+            gameBoardPrinter = new MapCLI(playerController.getGameBoard());
+            gameBoardPrinter.printMap();
+            damageBoardPrinter = new DamageBoardCLI(playerController.getPlayer());
+            damageBoardPrinter.printDamageBoard();
+        }else{
+            Printer.println("Reconnected");
+        }
+    }
+
     public void notify(Message message){
         switch (message){
             case NEW_TURN:
@@ -1384,6 +1398,9 @@ public class CommandLine implements ViewInterface {
                 break;
             case POWERUP:
                 notifyPowerup(outcome);
+                break;
+            case RECONNECTION:
+                notifyReconnection(outcome);
                 break;
             default:
                 break;
