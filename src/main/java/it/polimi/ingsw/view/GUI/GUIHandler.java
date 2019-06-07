@@ -478,6 +478,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
                     try {
                         setBoard();
+                        setMapImage();
                     } catch (IOException | InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -526,7 +527,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
             try {
                 client = new RMIClient(host);
                 client.setView(this);
-                playerController = client.getPlayerController();
+                this.playerController = client.getPlayerController();
                 client.login(name, Converter.fromStringToTokenColor(color));
 
             } catch (NotBoundException e) {
@@ -678,6 +679,11 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
     }
 
+    private void setMapImage() {
+
+        mapImage.setImage(new Image("boardImg/" + this.boardType +".png"));
+    }
+
     public void setPowerup() throws IOException{
 
         client.choose(Data.getInstance().getPowerup());
@@ -737,7 +743,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
             e.printStackTrace();
         }
     }
-
+    */
 
     public void placePlayers(){
         Platform.runLater(() -> {
@@ -842,5 +848,5 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         });
     }
 
-    */
+
 }
