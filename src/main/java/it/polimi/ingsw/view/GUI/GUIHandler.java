@@ -338,7 +338,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     public void chooseBoardButton(){
 
         Platform.runLater(() -> {
-            
+
             this.skull = Integer.valueOf(skullText.getText());
             Data.getInstance().setSkull(skull);
 
@@ -673,7 +673,6 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     public void setBoard() throws IOException, InterruptedException {
         Platform.runLater(() -> {
             try {
-                System.out.println(boardType + "porcoooooooo");
                 client.board(Data.getInstance().getBoardType(), Data.getInstance().getSkull());
             } catch (IOException e) {
                 e.printStackTrace();
@@ -683,7 +682,6 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     }
 
     private void setMapImage() {
-        System.out.println(boardType + "dioooooooooooo");
         mapImage.setImage(new Image("boardImg/" + this.boardType +".png"));
     }
 
