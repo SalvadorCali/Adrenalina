@@ -8,29 +8,29 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="474.0" prefWidth="600.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.GUI.ChooseBoard">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="474.0" prefWidth="600.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.GUI.GUIHandler">
    <children>
       <Label layoutX="209.0" layoutY="14.0" text="Click one BoardType" textFill="WHITE">
          <font>
             <Font size="22.0" />
          </font>
       </Label>
-      <ImageView fx:id="firstBoard" fitHeight="112.0" fitWidth="149.0" layoutX="82.0" layoutY="78.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="firstBoard" fitHeight="112.0" fitWidth="149.0" layoutX="82.0" layoutY="78.0" pickOnBounds="true" preserveRatio="true" onMouseClicked="#chooseBoard0">
          <image>
             <Image url="@boardImg/0.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="secondBoard" fitHeight="112.0" fitWidth="149.0" layoutX="378.0" layoutY="79.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="secondBoard" fitHeight="112.0" fitWidth="149.0" layoutX="378.0" layoutY="79.0" pickOnBounds="true" preserveRatio="true" onMouseClicked="#chooseBoard1">
          <image>
             <Image url="@boardImg/3.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="thirdBoard" fitHeight="112.0" fitWidth="149.0" layoutX="82.0" layoutY="238.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="thirdBoard" fitHeight="112.0" fitWidth="149.0" layoutX="82.0" layoutY="238.0" pickOnBounds="true" preserveRatio="true" onMouseClicked="#chooseBoard2">
          <image>
             <Image url="@boardImg/1.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="fourthBoard" fitHeight="112.0" fitWidth="149.0" layoutX="378.0" layoutY="239.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="fourthBoard" fitHeight="112.0" fitWidth="149.0" layoutX="378.0" layoutY="239.0" pickOnBounds="true" preserveRatio="true" onMouseClicked="#chooseBoard3">
          <image>
             <Image url="@boardImg/2.png" />
          </image>
@@ -66,7 +66,7 @@
          </font>
       </Label>
       <TextField fx:id="skullText" layoutX="226.0" layoutY="400.0" promptText="insert skull" />
-      <Button fx:id="enterButton" layoutX="426.0" layoutY="400.0" mnemonicParsing="false" text="Enter" />
+      <Button fx:id="enterButton" layoutX="426.0" layoutY="400.0" mnemonicParsing="false" text="Enter" onMouseClicked="#chooseBoardButton"/>
       <Label fx:id="labelErrorSkull" layoutX="226.0" layoutY="432.0" prefHeight="21.0" prefWidth="149.0" textFill="WHITE">
          <font>
             <Font size="15.0" />

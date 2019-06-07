@@ -69,22 +69,22 @@
             <Image url="@boardElem/banner.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="upArrow" fitHeight="39.0" fitWidth="45.0" layoutX="1041.0" layoutY="471.0" onMouseClicked="#moveUp">
+      <ImageView fx:id="upArrow" fitHeight="39.0" fitWidth="45.0" layoutX="1041.0" layoutY="471.0">
          <image>
             <Image url="@boardElem/arrow.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="rightArrow" fitHeight="39.0" fitWidth="45.0" layoutX="1083.0" layoutY="513.0" onMouseClicked="#moveRight" rotate="90.0">
+      <ImageView fx:id="rightArrow" fitHeight="39.0" fitWidth="45.0" layoutX="1083.0" layoutY="513.0" rotate="90.0">
          <image>
             <Image url="@boardElem/arrow.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="downArrow" fitHeight="39.0" fitWidth="45.0" layoutX="1041.0" layoutY="555.0" onMouseClicked="#moveDown" rotate="180.0">
+      <ImageView fx:id="downArrow" fitHeight="39.0" fitWidth="45.0" layoutX="1041.0" layoutY="555.0" rotate="180.0">
          <image>
             <Image url="@boardElem/arrow.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="leftArrow" fitHeight="39.0" fitWidth="45.0" layoutX="999.0" layoutY="513.0" onMouseClicked="#moveLeft" rotate="270.0">
+      <ImageView fx:id="leftArrow" fitHeight="39.0" fitWidth="45.0" layoutX="999.0" layoutY="513.0"  rotate="270.0">
          <image>
             <Image url="@boardElem/arrow.png" />
          </image>

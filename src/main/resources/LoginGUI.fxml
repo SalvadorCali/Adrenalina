@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="462.0" prefWidth="478.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.GUI.LoginGUI">
+<AnchorPane prefHeight="462.0" prefWidth="478.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.GUI.GUIHandler">
    <children>
       <Pane prefHeight="470.0" prefWidth="600.0">
          <children>
@@ -28,7 +28,7 @@
                </toggleGroup></RadioButton>
             <RadioButton fx:id="rmiButton" layoutX="64.0" layoutY="213.0" mnemonicParsing="false" text="Rmi" textFill="WHITE" toggleGroup="$connection" />
             <TextField fx:id="colorField" layoutX="217.0" layoutY="257.0" opacity="0.8" promptText="Color" />
-            <Button fx:id="loginButton" layoutX="274.0" layoutY="330.0" mnemonicParsing="false" text="Login" />
+            <Button fx:id="loginButton" layoutX="274.0" layoutY="330.0" mnemonicParsing="false" text="Login" onMouseClicked="#tryConnection" />
             <Label fx:id="statusConnectionLabel" layoutX="145.0" layoutY="373.0" text="Offline" textFill="WHITE" />
             <Label layoutX="169.0" layoutY="14.0" text="Adrenaline" textFill="#33a192">
                <font>

@@ -3,7 +3,6 @@ package it.polimi.ingsw.view.GUI;
 import it.polimi.ingsw.controller.GameController;
 import it.polimi.ingsw.controller.PlayerController;
 import it.polimi.ingsw.model.cards.Card;
-import it.polimi.ingsw.model.enums.BoardType;
 import it.polimi.ingsw.model.enums.Direction;
 import it.polimi.ingsw.model.enums.TokenColor;
 import it.polimi.ingsw.model.gamecomponents.Square;
@@ -18,30 +17,33 @@ import it.polimi.ingsw.view.ViewInterface;
 import javafx.animation.PauseTransition;
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.IOException;
+
 import java.net.URL;
 import java.rmi.NotBoundException;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import static it.polimi.ingsw.network.enums.Message.DISCONNECT;
-import static it.polimi.ingsw.network.enums.Message.SPAWN;
+import static java.lang.Thread.sleep;
 
-public class GUIHandler extends Application implements Initializable, ViewInterface{
+public class GUIHandler extends Application implements ViewInterface, Initializable {
 
     @FXML
     private ImageView mapImage;
@@ -157,6 +159,38 @@ public class GUIHandler extends Application implements Initializable, ViewInterf
     @FXML private Label labelDisconnect;
     @FXML private ImageView bannerDisconnect;
 
+    @FXML
+    RadioButton socketButton;
+
+    @FXML
+    RadioButton rmiButton;
+
+    @FXML
+    TextField nicknameField;
+
+    @FXML
+    TextField addressField;
+
+    @FXML
+    TextField colorField;
+
+    @FXML
+    Label statusConnectionLabel;
+
+    @FXML
+    Button loginButton;
+
+    @FXML
+    Label connectionErrorLabel;
+
+    @FXML private ImageView firstBoard;
+    @FXML private ImageView secondBoard;
+    @FXML private ImageView thirdBoard;
+    @FXML private ImageView fourthBoard;
+    @FXML private Label labelErrorSkull;
+    @FXML private TextField skullText;
+    @FXML private Button enterButton;
+
     private static final int ROWS = 3;
     private static final int COLUMNS = 4;
     private static final int NUM_SQUARES=12;
@@ -165,7 +199,6 @@ public class GUIHandler extends Application implements Initializable, ViewInterf
 
     private GameController gameController;
     private String currentPlayer;
-    private BoardType boardType;
     private Square[][] arena = new Square[ROWS][COLUMNS];
     private Stage scene;
     private boolean disconnected = false;
@@ -179,16 +212,21 @@ public class GUIHandler extends Application implements Initializable, ViewInterf
     private LoginGUI loginGUI;
     public boolean connected = false;
     private boolean checkTurn = true;
+    private String playerName;
+    private String address;
+    private String colorPlayer;
+    private boolean isRunning = true;
+    private Integer boardType;
+    private Integer skull;
 
     //starting methods
-
+    //
+    //
     @Override
     public void start(Stage stage) throws Exception {
 
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("LoginGUI.fxml"));
         Parent root = loader.load();
-
-        this.loginGUI = loader.getController();
 
         Scene scene = new Scene(root, 600, 470);
         stage.setScene(scene);
@@ -196,7 +234,138 @@ public class GUIHandler extends Application implements Initializable, ViewInterf
         stage.show();
     }
 
+
+    //login methods
+    //
+    //
+    public synchronized void clickButton(String playerName, String address, String colorPlayer){
+
+        if(rmiButton.isSelected()){
+
+            connectToRMI(playerName, address, colorPlayer);
+        }
+
+        if(socketButton.isSelected()){
+
+            connectToSocket(playerName, address, colorPlayer);
+        }
+
+        if(!rmiButton.isSelected() && !socketButton.isSelected()){
+            connectionErrorLabel.setText("Choose connection method");
+        }
+    }
+
+    public synchronized void tryConnection(){
+
+        playerName = nicknameField.getText();
+        address = addressField.getText();
+        colorPlayer = colorField.getText();
+
+        if(playerName.equals("")){
+            connectionErrorLabel.setText("Userfield can't be empty");
+        }
+
+        else if(address.equals("")){
+            connectionErrorLabel.setText("Ip can't be empty");
+        }
+
+        else if(colorPlayer.equals("")){
+            connectionErrorLabel.setText("Color can't be empty");
+        }
+
+        else{
+            clickButton(playerName, address, colorPlayer);
+        }
+
+    }
+
+
+    public void setConnectionText(String text){
+        Platform.runLater(() ->{
+            statusConnectionLabel.setText(text);
+        });
+    }
+
+    public void setErrorText(String text){
+        Platform.runLater(() -> {
+            connectionErrorLabel.setText(text);
+        });
+    }
+
+
+
+
+    //chooseBoard methods
+    //
+    //
+    public void chooseBoard0(){
+        Platform.runLater(() ->{
+
+            firstBoard.setOnMouseClicked(event -> {
+                this.boardType = 0;
+            });
+        });
+    }
+
+    public void chooseBoard1(){
+        Platform.runLater(() ->{
+
+            secondBoard.setOnMouseClicked(event -> {
+                this.boardType = 1;
+            });
+        });
+    }
+
+    public void chooseBoard2(){
+        Platform.runLater(() ->{
+
+            thirdBoard.setOnMouseClicked(event -> {
+                this.boardType = 2;
+            });
+        });
+    }
+
+    public void chooseBoard3(){
+        Platform.runLater(() ->{
+
+            fourthBoard.setOnMouseClicked(event -> {
+                this.boardType = 3;
+            });
+        });
+    }
+
+
+    public void chooseBoardButton(){
+
+        Platform.runLater(() -> {
+            enterButton.setOnMouseClicked(event -> {
+
+                this.skull = Integer.valueOf(skullText.getText());
+
+                if (boardType == null) {
+
+                    labelErrorSkull.setText("Board not chosen");
+
+                } else if (skull > 8 || skull < 5) {
+
+                    labelErrorSkull.setText("Wrong skull number");
+
+                } else {
+                    Stage stage = (Stage) enterButton.getScene().getWindow();
+                    stage.close();
+                }
+            });
+        });
+    }
+
+
+
+
+
     //viewInterface methods
+    //
+    //
+
     @Override
     public void start() {
 
@@ -257,6 +426,7 @@ public class GUIHandler extends Application implements Initializable, ViewInterf
         Platform.runLater(() ->{
             if(outcome.equals(Outcome.RIGHT)){
                 try {
+
                     FXMLLoader popupBoard = new FXMLLoader(getClass().getClassLoader().getResource("ChooseBoard.fxml"));
                     Parent pop = popupBoard.load();
 
@@ -266,16 +436,6 @@ public class GUIHandler extends Application implements Initializable, ViewInterf
                     stage.setTitle("Choose Board");
                     stage.show();
 
-                    PauseTransition delay = new PauseTransition(Duration.seconds(5));
-                    delay.setOnFinished( event -> {
-                        try {
-                            setBoard();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    });
-                    delay.play();
-
 
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -283,6 +443,7 @@ public class GUIHandler extends Application implements Initializable, ViewInterf
 
             }else{
                 try {
+
                     FXMLLoader popupBoard = new FXMLLoader(getClass().getClassLoader().getResource("Boardwaiting.fxml"));
                     Parent pop = popupBoard.load();
 
@@ -312,6 +473,12 @@ public class GUIHandler extends Application implements Initializable, ViewInterf
                     try {
                         adrenaline = FXMLLoader.load(getClass().getClassLoader().getResource("MapGUI.fxml"));
                     } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                    try {
+                        setBoard();
+                    } catch (IOException | InterruptedException e) {
                         e.printStackTrace();
                     }
 
@@ -352,23 +519,9 @@ public class GUIHandler extends Application implements Initializable, ViewInterf
         });
     }
 
-    public synchronized void connectToServer(){
-        Platform.runLater(() -> {
-            String connection = Data.getInstance().getConnectionMethod();
 
-            if (connection == "rmi") {
-                connectToRMI();
-            } else if (connection == "socket") {
-                connectToSocket();
-            }
-        });
-    }
-
-    private void connectToRMI() {
+    private void connectToRMI(String name, String host, String color) {
         Platform.runLater(() -> {
-            String name = Data.getInstance().getNamePlayer();
-            String host = Data.getInstance().getHost();
-            String color = Data.getInstance().getColorPlayer();
 
             try {
                 client = new RMIClient(host);
@@ -383,11 +536,9 @@ public class GUIHandler extends Application implements Initializable, ViewInterf
         });
     }
 
-    private void connectToSocket() {
+    private void connectToSocket(String name, String host, String color) {
         Platform.runLater(() -> {
-            String name = Data.getInstance().getNamePlayer();
-            String host = Data.getInstance().getHost();
-            String color = Data.getInstance().getColorPlayer();
+
 
             try {
                 client = new SocketClient(host);
@@ -405,13 +556,13 @@ public class GUIHandler extends Application implements Initializable, ViewInterf
         Platform.runLater(() -> {
             switch (outcome) {
                 case WRONG:{
-                    this.loginGUI.setErrorText("Username already used");
+                    setErrorText("Username already used");
                 }
                 case RIGHT: {
-                    this.loginGUI.setConnectionText(object + " connected, waiting for other players");
+                    setConnectionText(object + " connected, waiting for other players");
                 }
                 case ALL:{
-                    this.loginGUI.setConnectionText(object + " connected, waiting...");
+                    setConnectionText(object + " connected, waiting...");
                 }
             }
         });
@@ -422,7 +573,7 @@ public class GUIHandler extends Application implements Initializable, ViewInterf
         Platform.runLater(() -> {
             switch (outcome) {
                 case WRONG:
-                    loginGUI.setErrorText("Invalid color");
+                    setErrorText("Invalid color");
             }
         });
     }
@@ -486,16 +637,13 @@ public class GUIHandler extends Application implements Initializable, ViewInterf
     }
 
 
-
+/*
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Thread thread = new Thread(this::checkPosition);
         thread.setDaemon(true);
         thread.start();
 
-        Platform.runLater(() ->{
-            mapImage.setImage(new Image("boardImg/" + Data.getInstance().getBoardType() + ".png"));
-        });
     }
 
     private void checkPosition() {
@@ -515,11 +663,17 @@ public class GUIHandler extends Application implements Initializable, ViewInterf
             }
         }
     }
+*/
 
+    public void setBoard() throws IOException, InterruptedException {
+        Platform.runLater(() -> {
+            try {
+                client.board(this.boardType, this.skull);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
 
-    public void setBoard() throws IOException {
-
-        client.board(Data.getInstance().getBoardType(), Data.getInstance().getSkull());
     }
 
     public void setPowerup() throws IOException{
@@ -530,39 +684,40 @@ public class GUIHandler extends Application implements Initializable, ViewInterf
     public static void main(String[] args) {
         Application.launch(args);
     }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+
+    }
+
+
     /*
-    private void closeThis(){
-        Stage stage = (Stage) labelDisconnect.getScene().getWindow();
-        stage.close();
-    }*/
-
-
     @FXML
-    private void moveUp(){
-        saveMovement("up");
+    private void moveUp(MouseEvent event) throws IOException {
+        this.client.move(Direction.UP);
     }
 
     @FXML
-    private void moveDown(){
-        saveMovement("down");
+    private void moveDown(MouseEvent event) throws IOException {
+        this.client.move(Direction.DOWN);
     }
 
     @FXML
-    private void moveLeft(){
-        saveMovement("left");
+    private void moveLeft(MouseEvent event) throws IOException {
+        this.client.move(Direction.LEFT);
     }
 
     @FXML
-    private void moveRight(){
-        saveMovement("right");
+    private void moveRight(MouseEvent event) throws IOException {
+        this.client.move(Direction.RIGHT);
     }
 
     public void saveMovement(String move){
+        System.out.println(move);
         if(countMove < MAX_MOVEMENT - 1) {
 
             this.movement[countMove] = move;
             countMove++;
-            System.out.println(movement[countMove]);
 
         }else{
             this.movement[countMove] = move;
@@ -685,5 +840,5 @@ public class GUIHandler extends Application implements Initializable, ViewInterf
         });
     }
 
-
+    */
 }
