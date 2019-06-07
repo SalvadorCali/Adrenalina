@@ -1211,37 +1211,40 @@ public class CommandLine implements ViewInterface {
         }
     }
 
-    private void notifyNewTurn(){
-        Printer.println("It's your turn!");
-        killshotTrackPrinter.setKillshotTrack(playerController.getKillshotTrack());
-        killshotTrackPrinter.printKillshotTrack();
-        gameBoardPrinter.setGameBoard(playerController.getGameBoard());
-        gameBoardPrinter.printMap();
-        damageBoardPrinter.setPlayer(playerController.getPlayer());
-        damageBoardPrinter.printDamageBoard();
-        if(!playerController.getWeapons().isEmpty()){
-            Printer.println("Your weapons:");
-            playerController.getWeapons().forEach(Printer::println);
-        }
-        if(!playerController.getPowerups().isEmpty()){
-            Printer.println("Your powerups:");
-            playerController.getPowerups().forEach(Printer::println);
-        }
-        Printer.println("In your square:");
-        Square square = playerController.getGameBoard().getArena()[playerController.getPlayer().getPosition().getX()][playerController.getPlayer().getPosition().getY()];
-        if(square.getAmmoCard() != null){
-            Printer.print("AmmoCard: ");
-            Printer.print(square.getAmmoCard().getFirstAmmo().getColor() + ", " +
-                    square.getAmmoCard().getSecondAmmo().getColor() + ", ");
-            if(square.getAmmoCard().isPowerup()){
-                Printer.println("POWERUP");
-            }else{
-                Printer.println(square.getAmmoCard().getThirdAmmo().getColor());
+    private void notifyNewTurn(Outcome outcome){
+        if(outcome.equals(Outcome.RIGHT)){
+            Printer.println("It's your turn!");
+            killshotTrackPrinter.setKillshotTrack(playerController.getKillshotTrack());
+            killshotTrackPrinter.printKillshotTrack();
+            gameBoardPrinter.setGameBoard(playerController.getGameBoard());
+            gameBoardPrinter.printMap();
+            damageBoardPrinter.setPlayer(playerController.getPlayer());
+            damageBoardPrinter.printDamageBoard();
+            if(!playerController.getWeapons().isEmpty()){
+                Printer.println("Your weapons:");
+                playerController.getWeapons().forEach(Printer::println);
+            }
+            if(!playerController.getPowerups().isEmpty()){
+                Printer.println("Your powerups:");
+                playerController.getPowerups().forEach(Printer::println);
+            }
+            Printer.println("In your square:");
+            Square square = playerController.getGameBoard().getArena()[playerController.getPlayer().getPosition().getX()][playerController.getPlayer().getPosition().getY()];
+            if(square.getAmmoCard() != null){
+                Printer.print("AmmoCard: ");
+                Printer.print(square.getAmmoCard().getFirstAmmo().getColor() + ", " +
+                        square.getAmmoCard().getSecondAmmo().getColor() + ", ");
+                if(square.getAmmoCard().isPowerup()){
+                    Printer.println("POWERUP");
+                }else{
+                    Printer.println(square.getAmmoCard().getThirdAmmo().getColor());
+                }
+            }
+            if(square.getWeapons() != null){
+                square.getWeapons().forEach(Printer::println);
             }
         }
-        if(square.getWeapons() != null){
-            square.getWeapons().forEach(Printer::println);
-        }
+
     }
 
     private void notifyEndTurn(){
@@ -1437,9 +1440,6 @@ public class CommandLine implements ViewInterface {
 
     public void notify(Message message){
         switch (message){
-            case NEW_TURN:
-                notifyNewTurn();
-                break;
             case END_TURN:
                 notifyEndTurn();
                 break;
@@ -1453,6 +1453,9 @@ public class CommandLine implements ViewInterface {
 
     public void notify(Message message, Outcome outcome){
         switch (message){
+            case NEW_TURN:
+                notifyNewTurn(outcome);
+                break;
             case BOARD:
                 notifyBoard(outcome);
                 break;

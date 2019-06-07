@@ -381,7 +381,7 @@ public class SocketClient implements ClientInterface, Runnable, Serializable {
                 playerController.setGameBoard(gameData.getGameBoard());
                 playerController.setKillshotTrack(gameData.getKillshotTrack());
                 playerController.setPlayer(gameData.getPlayer(username));
-                view.notify(message);
+                view.notify(message, outcome);
                 break;
             case END_TURN:
                 view.notify(message);

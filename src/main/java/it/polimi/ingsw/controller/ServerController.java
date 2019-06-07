@@ -160,6 +160,15 @@ public class ServerController {
         gameData.setPlayers(users);
         try {
             servers.get(players.get(0).getUsername()).notify(Message.NEW_TURN, Outcome.RIGHT, gameData);
+            servers.forEach((u,s)->{
+                if(!u.equals(players.get(0).getUsername())){
+                    try {
+                        s.notify(Message.NEW_TURN, Outcome.ALL, gameData);
+                    } catch (IOException e) {
+                        Printer.err(e);
+                    }
+                }
+            });
         } catch (IOException e) {
             Printer.err(e);
         }

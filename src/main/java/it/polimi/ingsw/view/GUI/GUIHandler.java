@@ -13,6 +13,7 @@ import it.polimi.ingsw.network.enums.Message;
 import it.polimi.ingsw.network.enums.Outcome;
 import it.polimi.ingsw.util.Converter;
 import it.polimi.ingsw.util.Printer;
+import it.polimi.ingsw.view.MapCLI;
 import it.polimi.ingsw.view.ViewInterface;
 import javafx.animation.PauseTransition;
 import javafx.application.Application;
@@ -634,7 +635,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                 stage.setTitle("Choose Powerup");
                 stage.show();
 
-                PauseTransition delay = new PauseTransition(Duration.seconds(10));
+                PauseTransition delay = new PauseTransition(Duration.seconds(5));
                 delay.setOnFinished( event -> {
                     try {
                         setPowerup();
@@ -766,7 +767,8 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         Platform.runLater(() -> {
 
         arena = this.playerController.getGameBoard().getArena();
-
+            MapCLI mapCLI = new MapCLI(playerController.getGameBoard());
+            mapCLI.printMap();
         if(!arena[0][0].getPlayers().isEmpty()){
             for(int index = 0; index < arena[0][0].getPlayers().size(); index ++){
 
