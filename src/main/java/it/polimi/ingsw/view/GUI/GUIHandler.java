@@ -218,6 +218,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     private boolean isRunning = true;
     private Integer boardType;
     private Integer skull;
+    private int startedGame = 0;
 
     //starting methods
     //
@@ -301,36 +302,35 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     public void chooseBoard0(){
         Platform.runLater(() ->{
 
-            firstBoard.setOnMouseClicked(event -> {
-                this.boardType = 0;
-            });
+            this.boardType = 0;
+            Data.getInstance().setBoardType(0);
+            System.out.println(boardType);
         });
     }
 
     public void chooseBoard1(){
         Platform.runLater(() ->{
 
-            secondBoard.setOnMouseClicked(event -> {
-                this.boardType = 1;
-            });
+            this.boardType = 1;
+            Data.getInstance().setBoardType(1);
+            System.out.println(boardType);
         });
     }
 
     public void chooseBoard2(){
         Platform.runLater(() ->{
+            this.boardType = 2;
+            Data.getInstance().setBoardType(2);
+            System.out.println(boardType);
 
-            thirdBoard.setOnMouseClicked(event -> {
-                this.boardType = 2;
-            });
         });
     }
 
     public void chooseBoard3(){
         Platform.runLater(() ->{
-
-            fourthBoard.setOnMouseClicked(event -> {
-                this.boardType = 3;
-            });
+            this.boardType = 3;
+            Data.getInstance().setBoardType(3);
+            System.out.println(boardType);
         });
     }
 
@@ -338,23 +338,22 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     public void chooseBoardButton(){
 
         Platform.runLater(() -> {
-            enterButton.setOnMouseClicked(event -> {
+            
+            this.skull = Integer.valueOf(skullText.getText());
+            Data.getInstance().setSkull(skull);
 
-                this.skull = Integer.valueOf(skullText.getText());
+            if (boardType == null) {
 
-                if (boardType == null) {
+                labelErrorSkull.setText("Board not chosen");
 
-                    labelErrorSkull.setText("Board not chosen");
+            } else if (skull > 8 || skull < 5) {
 
-                } else if (skull > 8 || skull < 5) {
+                labelErrorSkull.setText("Wrong skull number");
 
-                    labelErrorSkull.setText("Wrong skull number");
-
-                } else {
-                    Stage stage = (Stage) enterButton.getScene().getWindow();
-                    stage.close();
-                }
-            });
+            } else {
+                Stage stage = (Stage) enterButton.getScene().getWindow();
+                stage.close();
+            }
         });
     }
 
@@ -380,7 +379,14 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     public void notify(Message message) {
         switch (message){
             case NEW_TURN:
-                //notifyNewTurn();
+                try {
+                    if(this.startedGame == 0){
+                        notifyNewTurn();
+                        this.startedGame ++;
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 break;
             case END_TURN:
                 //notifyEndTurn();
@@ -399,7 +405,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                     break;
                 case GAME:
                     try {
-                        notifyGame(outcome);
+                        Printer.println("new game");
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -464,33 +470,32 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     }
 
 
-    private void notifyGame(Outcome outcome) throws Exception {
+    private void notifyNewTurn() throws Exception {
         Platform.runLater(() -> {
-            switch (outcome) {
-                case ALL:
 
-                    Parent adrenaline = null;
-                    try {
-                        adrenaline = FXMLLoader.load(getClass().getClassLoader().getResource("MapGUI.fxml"));
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+            Thread thread = new Thread(this::checkPosition);
+            thread.setDaemon(true);
+            thread.start();
 
-                    try {
-                        setBoard();
-                        setMapImage();
-                    } catch (IOException | InterruptedException e) {
-                        e.printStackTrace();
-                    }
-
-                    Stage stage = new Stage();
-                    stage.setScene(new Scene(adrenaline, 1189, 710));
-                    stage.setTitle("Adrenaline's Board");
-                    stage.show();
-                    break;
-                default:
-                    break;
+            Parent adrenaline = null;
+            try {
+                adrenaline = FXMLLoader.load(getClass().getClassLoader().getResource("MapGUI.fxml"));
+            } catch (IOException e) {
+                e.printStackTrace();
             }
+
+            try {
+                setBoard();
+                setMapImage();
+            } catch (IOException | InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            Stage stage = new Stage();
+            stage.setScene(new Scene(adrenaline, 1189, 710));
+            stage.setTitle("Adrenaline's Board");
+            stage.show();
+
         });
     }
 
@@ -640,12 +645,9 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     }
 
 
-/*
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        Thread thread = new Thread(this::checkPosition);
-        thread.setDaemon(true);
-        thread.start();
 
     }
 
@@ -659,19 +661,20 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
             try{
 
-                Thread.sleep(4000);
+                Thread.sleep(5000);
 
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
     }
-*/
+
 
     public void setBoard() throws IOException, InterruptedException {
         Platform.runLater(() -> {
             try {
-                client.board(this.boardType, this.skull);
+                System.out.println(boardType + "porcoooooooo");
+                client.board(Data.getInstance().getBoardType(), Data.getInstance().getSkull());
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -680,7 +683,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     }
 
     private void setMapImage() {
-
+        System.out.println(boardType + "dioooooooooooo");
         mapImage.setImage(new Image("boardImg/" + this.boardType +".png"));
     }
 
@@ -693,10 +696,6 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         Application.launch(args);
     }
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-
-    }
 
 
     /*
@@ -745,10 +744,23 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     }
     */
 
+    public void endTurn(){
+        Platform.runLater(() -> {
+            bannerEndTurn.setOnMouseClicked(e ->{
+                try {
+
+                    client.endTurn();
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
+            });
+        });
+    }
+
     public void placePlayers(){
         Platform.runLater(() -> {
 
-        arena = playerController.getGameBoard().getArena();
+        arena = this.playerController.getGameBoard().getArena();
 
         if(!arena[0][0].getPlayers().isEmpty()){
             for(int index = 0; index < arena[0][0].getPlayers().size(); index ++){
