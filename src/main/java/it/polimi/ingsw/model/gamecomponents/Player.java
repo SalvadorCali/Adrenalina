@@ -329,6 +329,10 @@ public class Player implements Serializable {
         return actionNumber < Config.MAX_ACTIONS;
     }
 
+    public boolean canUseActionFinalFrenzy(){
+        return actionNumber < finalFrenzyActions;
+    }
+
     public boolean isDead(){
         return playerBoard.isDead();
     }

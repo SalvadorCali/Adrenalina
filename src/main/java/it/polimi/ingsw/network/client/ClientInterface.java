@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.rmi.RemoteException;
 
 public interface ClientInterface {
-    PlayerController getPlayerController();
+    PlayerController getPlayerController() throws RemoteException;
     void start() throws RemoteException;
     void login(String username, TokenColor color) throws RemoteException;
     void setView(ViewInterface view) throws RemoteException;
