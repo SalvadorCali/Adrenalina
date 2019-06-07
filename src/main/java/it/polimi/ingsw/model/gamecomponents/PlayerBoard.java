@@ -122,6 +122,7 @@ public class PlayerBoard implements Serializable {
             if(damageIndex == 11){
                 maxDamage = 11;
                 dead = true;
+                deathNumber++;
             }
             if(damageIndex == 12){
                 maxDamage = 12;
@@ -253,16 +254,16 @@ public class PlayerBoard implements Serializable {
     private ArrayList<Integer> getScoreValues(){
         ArrayList<Integer> scoreValues;
         Integer[] numbers;
-        if(deathNumber == 0){
+        if(deathNumber == 1){
             numbers = new Integer[]{8,6,4,2};
             scoreValues = new ArrayList<>(Arrays.asList(numbers));
-        }else if(deathNumber == 1){
+        }else if(deathNumber == 2){
             numbers = new Integer[]{6,4,2,1};
             scoreValues = new ArrayList<>(Arrays.asList(numbers));
-        }else if(deathNumber == 2){
+        }else if(deathNumber == 3){
             numbers = new Integer[]{4,2,1,1};
             scoreValues = new ArrayList<>(Arrays.asList(numbers));
-        }else if(deathNumber == 3){
+        }else if(deathNumber == 4){
             numbers = new Integer[]{2,1,1,1};
             scoreValues = new ArrayList<>(Arrays.asList(numbers));
         }else {

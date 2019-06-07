@@ -286,24 +286,33 @@ public class ServerController {
     //board a tutti
     public void move(String username, Direction...directions){
         if(gameController.canMove(users.get(username), directions) && users.get(username).canUseAction()){
-            gameController.move(users.get(username), directions);
-            gameData.setGame(gameController.getGame());
-            gameData.setPlayers(users);
-            try {
-                servers.get(username).notify(Message.MOVE, Outcome.RIGHT, gameData);
-
-            } catch (IOException e) {
-                Printer.err(e);
-            }
-            servers.forEach((u,s)-> {
+            if(gameController.move(users.get(username), directions)){
+                gameData.setGame(gameController.getGame());
+                gameData.setPlayers(users);
                 try {
-                    if(!u.equals(username)){
-                        s.notify(Message.MOVE, Outcome.ALL, gameData);
-                    }
+                    servers.get(username).notify(Message.MOVE, Outcome.RIGHT, gameData);
+
                 } catch (IOException e) {
                     Printer.err(e);
                 }
-            });
+                servers.forEach((u,s)-> {
+                    try {
+                        if(!u.equals(username)){
+                            s.notify(Message.MOVE, Outcome.ALL, gameData);
+                        }
+                    } catch (IOException e) {
+                        Printer.err(e);
+                    }
+                });
+            }else{
+                gameData.setGame(gameController.getGame());
+                gameData.setPlayers(users);
+                try {
+                    servers.get(username).notify(Message.MOVE, Outcome.WRONG, gameData);
+                } catch (IOException e) {
+                    Printer.err(e);
+                }
+            }
         }else{
             gameData.setGame(gameController.getGame());
             gameData.setPlayers(users);

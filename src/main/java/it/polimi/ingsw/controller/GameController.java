@@ -137,12 +137,25 @@ public class GameController {
         return game.getPlayerColors();
     }
 
-    public void move(Player player, Direction... directions) {
-        if (player.canUseAction()) {
-            for (Direction direction : directions) {
-                game.getBoard().move(direction, player);
+    public boolean move(Player player, Direction... directions) {
+        if(game.isFinalFrenzy()){
+            if(player.canUseActionFinalFrenzy()){
+                for (Direction direction : directions) {
+                    game.getBoard().move(direction, player);
+                }
+                player.increaseActionNumber();
+                return true;
             }
-            player.increaseActionNumber();
+            return false;
+        }else{
+            if (player.canUseAction()) {
+                for (Direction direction : directions) {
+                    game.getBoard().move(direction, player);
+                }
+                player.increaseActionNumber();
+                return true;
+            }
+            return false;
         }
     }
 
@@ -186,26 +199,48 @@ public class GameController {
     }
 
     public boolean grab(Player player, int choice, Direction... directions) {
-        if (player.canUseAction()) {
-            if (directions.length > 0) {
-                if (canMove(player, directions)) {
-                    move(player, directions);
+        if(game.isFinalFrenzy()){
+            if(player.canUseActionFinalFrenzy()){
+                if (directions.length > 0) {
+                    if (canMove(player, directions)) {
+                        move(player, directions);
+                    } else {
+                        return false;
+                    }
+                }
+                int x = player.getPosition().getX();
+                int y = player.getPosition().getY();
+                if (game.getBoard().getArena()[x][y].canGrab(actionInterface, choice)) {
+                    game.getBoard().getArena()[x][y].grab(actionInterface, choice);
+                    player.increaseActionNumber();
+                    return true;
                 } else {
                     return false;
                 }
             }
-            int x = player.getPosition().getX();
-            int y = player.getPosition().getY();
-            if (game.getBoard().getArena()[x][y].canGrab(actionInterface, choice)) {
-                game.getBoard().getArena()[x][y].grab(actionInterface, choice);
-                player.increaseActionNumber();
-                return true;
+        }else{
+            if (player.canUseAction()) {
+                if (directions.length > 0) {
+                    if (canMove(player, directions)) {
+                        move(player, directions);
+                    } else {
+                        return false;
+                    }
+                }
+                int x = player.getPosition().getX();
+                int y = player.getPosition().getY();
+                if (game.getBoard().getArena()[x][y].canGrab(actionInterface, choice)) {
+                    game.getBoard().getArena()[x][y].grab(actionInterface, choice);
+                    player.increaseActionNumber();
+                    return true;
+                } else {
+                    return false;
+                }
             } else {
                 return false;
             }
-        } else {
-            return false;
         }
+        return false;
     }
 
     public void drop(Player player, String weapon){
