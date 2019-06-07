@@ -471,6 +471,10 @@ public class ServerController {
         }
     }
 
+    public void moveAndReload(String username, Direction firstDirection, Direction secondDirection, String...weapons){
+
+    }
+
     public void powerup(String username, String powerup, int x, int y){
         if(gameController.canMove(x,y)){
             gameController.move(users.get(username), x, y);

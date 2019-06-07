@@ -485,18 +485,57 @@ public class CommandLine implements ViewInterface {
     }
 
     private boolean shootFinalFrenzy(StringTokenizer input) throws IOException {
-        if(input.countTokens() == 1){
+        StringTokenizer moveAndReload;
+        Direction first, second;
+        if(input.countTokens()==1){
+            Printer.println("Do you want to move?: <yes> <no>");
+            try {
+                String movement = userInputStream.readLine();
+                if(movement.equals("yes")){
+                    Printer.println("Choose up to 2 directions: <direction> <direction>");
+                    moveAndReload = new StringTokenizer(userInputStream.readLine());
+                    if(moveAndReload.countTokens()==1){
+                        first = Converter.fromStringToDirection(moveAndReload.nextToken());
+                    }else if (moveAndReload.countTokens()==2){
+                        first = Converter.fromStringToDirection(moveAndReload.nextToken());
+                        second = Converter.fromStringToDirection(moveAndReload.nextToken());
+                    }
+                    Printer.println("Do you want to reload?: <yes> <no>");
+                    String reload = userInputStream.readLine();
+                    if(reload.equals("yes")){
+                        Printer.println("Choose weapon to reload:");
+                        moveAndReload = new StringTokenizer(userInputStream.readLine());
+                        if(moveAndReload.countTokens()==1){
+                            //
+                        }else if(moveAndReload.countTokens()==2){
+                            //
+                        }else if(moveAndReload.countTokens()==3){
+                            //
+                        }
+                    }
+                }else{
+                    Printer.println("Do you want to reload?: <yes> <no>");
+                    String reload = userInputStream.readLine();
+                    if(reload.equals("yes")){
+                        Printer.println("Choose weapon to reload:");
+                        moveAndReload = new StringTokenizer(userInputStream.readLine());
+                        if(moveAndReload.countTokens()==1){
+
+                        }else if(moveAndReload.countTokens()==2){
+
+                        }else if(moveAndReload.countTokens()==3){
+
+                        }
+                    }
+                }
+            } catch (IOException e) {
+                Printer.err(e);
+            }
             weaponEffect(input.nextToken());
             return true;
-        }else if(input.countTokens() == 2){
-            weaponEffect(input.nextToken(), Converter.fromStringToDirection(input.nextToken()));
-            return true;
-        }else if(input.countTokens() == 3){
-            weaponEffect(input.nextToken(), Converter.fromStringToDirection(input.nextToken()),
-                    Converter.fromStringToDirection(input.nextToken()));
-            return true;
+        }else{
+            return false;
         }
-        return false;
     }
 
     private boolean lockRifle(String weapon) throws IOException {
@@ -557,7 +596,7 @@ public class CommandLine implements ViewInterface {
         }
     }
 
-    private boolean weaponEffect(String weapon, Direction...directions) throws IOException {
+    private boolean weaponEffect(String weapon) throws IOException {
         StringTokenizer string;
         switch(weapon){
             case "lockrifle":
