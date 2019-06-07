@@ -17,7 +17,7 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class ChoosePowerup implements Initializable {
+public class ChoosePowerup {
 
     @FXML
     private ImageView powerupImg1;
@@ -46,35 +46,4 @@ public class ChoosePowerup implements Initializable {
     }
 
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        powerupImg1.setOnMouseClicked(e -> {
-            try {
-
-                Data.getInstance().setPowerup(1);
-                handleCloseAction1();
-            } catch (Exception e1) {
-                e1.printStackTrace();
-            }
-        });
-
-        powerupImg2.setOnMouseClicked(e -> {
-            try {
-                Data.getInstance().setPowerup(2);
-                handleCloseAction2();
-            } catch (Exception e1) {
-                e1.printStackTrace();
-            }
-        });
-    }
-
-    public void handleCloseAction1() {
-        Stage stage = (Stage) powerupImg1.getScene().getWindow();
-        stage.close();
-    }
-
-    public void handleCloseAction2() {
-        Stage stage = (Stage) powerupImg2.getScene().getWindow();
-        stage.close();
-    }
 }

@@ -191,6 +191,9 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     @FXML private Label labelErrorSkull;
     @FXML private TextField skullText;
     @FXML private Button enterButton;
+    @FXML private ImageView powerupImg1;
+    @FXML private ImageView powerupImg2;
+
 
     private static final int ROWS = 3;
     private static final int COLUMNS = 4;
@@ -220,6 +223,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     private Integer boardType;
     private Integer skull;
     private int startedGame = 0;
+    private Integer powerup;
     private GUIHandler guiHandler;
 
     //starting methods
@@ -361,6 +365,42 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
 
 
+    //choosePowerup methods
+    //
+    //
+    public void choosePowerup1() throws IOException {
+        Platform.runLater(() ->{
+            Data.getInstance().setPowerup(1);
+            handleCloseAction1();
+            try {
+                setPowerup();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
+    public void choosePowerup2() throws IOException {
+        Platform.runLater(() ->{
+            Data.getInstance().setPowerup(2);
+            handleCloseAction2();
+            try {
+                setPowerup();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
+    public void handleCloseAction1() {
+        Stage stage = (Stage) powerupImg1.getScene().getWindow();
+        stage.close();
+    }
+
+    public void handleCloseAction2() {
+        Stage stage = (Stage) powerupImg2.getScene().getWindow();
+        stage.close();
+    }
 
 
     //viewInterface methods
@@ -490,6 +530,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                 stage.setScene(new Scene(root, 1189, 710));
                 stage.setTitle("Adrenaline's Board");
                 stage.show();
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -627,23 +668,14 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                 FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ChoosePowerup.fxml"));
                 Parent root = loader.load();
 
-                choosePowerup = loader.getController();
-                choosePowerup.launchChoosePowerup(object);
+                guiHandler = loader.getController();
+                guiHandler.setPowerupImage(object);
+
 
                 Stage stage = new Stage();
                 stage.setScene(new Scene(root, 490, 386));
                 stage.setTitle("Choose Powerup");
                 stage.show();
-
-                PauseTransition delay = new PauseTransition(Duration.seconds(5));
-                delay.setOnFinished( event -> {
-                    try {
-                        setPowerup();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                });
-                delay.play();
 
 
             } catch (Exception e) {
@@ -652,6 +684,23 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         });
     }
 
+    private void setPowerupImage(List<Card> powerup) {
+        Platform.runLater(() -> {
+            for (int i = 0; i < powerup.size(); i++) {
+
+                String color = Converter.fromColorToLetter(powerup.get(i).getColor());
+                String name = powerup.get(i).getName();
+
+                Image image = new Image("powerup/" + color + "/" + name + ".png");
+
+                if(i == 0){
+                    powerupImg1.setImage(image);
+                }else{
+                    powerupImg2.setImage(image);
+                }
+            }
+        });
+    }
 
 
     @Override
@@ -694,8 +743,15 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     }
 
     public void setPowerup() throws IOException{
+        Platform.runLater(() ->{
 
-        client.choose(Data.getInstance().getPowerup());
+            try {
+                client.choose(Data.getInstance().getPowerup());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        });
     }
 
     public static void main(String[] args) {
