@@ -163,6 +163,29 @@ public class GameController {
         game.getBoard().move(x, y, player);
     }
 
+    public boolean moveAndReload(Player player, Direction firstDirection, Direction secondDirection, String...weapons){
+        boolean result = true;
+        if(canMove(player, firstDirection, secondDirection)){
+
+            for(String weapon : weapons){
+                String weaponNameUpp;
+                weaponNameUpp = Converter.weaponName(weapon);
+                for(WeaponCard w : player.getWeapons()){
+                    if(!w.getName().equals(weaponNameUpp)){
+                        result = false;
+                    }else{
+                        if(!w.reloadAmmoControl(player)) {
+                            result = false;
+                        }
+                    }
+                }
+            }
+        }else{
+            return false;
+        }
+return false;
+    }
+
     public SquareData showSquare(Player player) {
         int x = player.getPosition().getX();
         int y = player.getPosition().getY();
