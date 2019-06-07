@@ -219,6 +219,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     private Integer boardType;
     private Integer skull;
     private int startedGame = 0;
+    private GUIHandler guiHandler;
 
     //starting methods
     //
@@ -477,12 +478,22 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
             thread.setDaemon(true);
             thread.start();
 
-            Parent adrenaline = null;
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("MapGUI.fxml"));
             try {
-                adrenaline = FXMLLoader.load(getClass().getClassLoader().getResource("MapGUI.fxml"));
+                Parent root = loader.load();
+
+                guiHandler = loader.getController();
+                guiHandler.setMapImage();
+
+                Stage stage = new Stage();
+                stage.setScene(new Scene(root, 1189, 710));
+                stage.setTitle("Adrenaline's Board");
+                stage.show();
             } catch (IOException e) {
                 e.printStackTrace();
             }
+
+
 
             try {
                 setBoard();
@@ -491,10 +502,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                 e.printStackTrace();
             }
 
-            Stage stage = new Stage();
-            stage.setScene(new Scene(adrenaline, 1189, 710));
-            stage.setTitle("Adrenaline's Board");
-            stage.show();
+
 
         });
     }
@@ -681,8 +689,9 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
     }
 
-    private void setMapImage() {
-        mapImage.setImage(new Image("boardImg/" + this.boardType +".png"));
+    public void setMapImage() {
+
+        mapImage.setImage(new Image("boardImg/" + Data.getInstance().getBoardType() +".png"));
     }
 
     public void setPowerup() throws IOException{
