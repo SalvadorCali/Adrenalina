@@ -66,7 +66,12 @@ public class SocketClient implements ClientInterface, Runnable, Serializable {
     public void setView(ViewInterface view){
         this.view = view;
     }
-    
+
+    @Override
+    public PlayerController getPlayerController() {
+        return playerController;
+    }
+
     public void start() {
         thisThread = new Thread(this);
         thisThread.start();

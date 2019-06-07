@@ -69,6 +69,11 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
     }
 
     @Override
+    public PlayerController getPlayerController() {
+        return playerController;
+    }
+
+    @Override
     public void start() {
         view = new CommandLine(this);
         view.start();

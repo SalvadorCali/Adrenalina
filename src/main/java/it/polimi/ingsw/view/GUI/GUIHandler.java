@@ -526,6 +526,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
             try {
                 client = new RMIClient(host);
                 client.setView(this);
+                playerController = client.getPlayerController();
                 client.login(name, Converter.fromStringToTokenColor(color));
 
             } catch (NotBoundException e) {
@@ -543,6 +544,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
             try {
                 client = new SocketClient(host);
                 client.setView(this);
+                playerController = client.getPlayerController();
                 client.login(name, Converter.fromStringToTokenColor(color));
 
 

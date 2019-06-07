@@ -1,5 +1,6 @@
 package it.polimi.ingsw.network.client;
 
+import it.polimi.ingsw.controller.PlayerController;
 import it.polimi.ingsw.controller.PowerupData;
 import it.polimi.ingsw.model.enums.AdrenalineZone;
 import it.polimi.ingsw.model.enums.Color;
@@ -11,6 +12,7 @@ import java.io.IOException;
 import java.rmi.RemoteException;
 
 public interface ClientInterface {
+    PlayerController getPlayerController();
     void start() throws RemoteException;
     void login(String username, TokenColor color) throws RemoteException;
     void setView(ViewInterface view) throws RemoteException;
