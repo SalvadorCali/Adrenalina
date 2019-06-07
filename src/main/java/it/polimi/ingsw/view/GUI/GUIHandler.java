@@ -497,7 +497,6 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
             try {
                 setBoard();
-                setMapImage();
             } catch (IOException | InterruptedException e) {
                 e.printStackTrace();
             }
@@ -690,7 +689,6 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     }
 
     public void setMapImage() {
-
         mapImage.setImage(new Image("boardImg/" + Data.getInstance().getBoardType() +".png"));
     }
 
