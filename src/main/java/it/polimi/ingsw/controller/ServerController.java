@@ -214,6 +214,11 @@ public class ServerController {
 
     public void choose(String username, int choice){
         users.get(username).setSpawned(true);
+        if(choice == 1){
+            gameController.addPowerup(users.get(username), powerupsSpawn.get(username).get(1));
+        }else if(choice == 2){
+            gameController.addPowerup(users.get(username), powerupsSpawn.get(username).get(0));
+        }
         //users.get(username).addPowerup((PowerupCard) powerupsSpawn.get(username).get(0));
         gameController.setPlayer(users.get(username), powerupsSpawn.get(username).get(choice - 1).getColor());
         spawnedPlayers++;
@@ -226,6 +231,7 @@ public class ServerController {
         users.forEach((u,p) -> {
             if(!p.isSpawned()){
                 p.setSpawned(true);
+                gameController.addPowerup(p, powerupsSpawn.get(u).get(1));
                 gameController.setPlayer(p, powerupsSpawn.get(u).get(0).getColor());
                 spawnedPlayers++;
                 if(spawnedPlayers == servers.size()){

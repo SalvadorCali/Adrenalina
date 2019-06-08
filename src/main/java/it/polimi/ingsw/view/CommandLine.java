@@ -1111,8 +1111,8 @@ public class CommandLine implements ViewInterface {
         StringTokenizer string;
         switch(powerup){
             case "targetingscope":
-                string = new StringTokenizer(userInputStream.readLine());
                 Printer.println("Effect: <victim> <ammo>");
+                string = new StringTokenizer(userInputStream.readLine());
                 if(string.countTokens() == 2){
                     client.powerup(powerup, Converter.fromStringToTokenColor(string.nextToken()), Converter.fromStringToColor(string.nextToken()),
                             -1, -1);
@@ -1121,9 +1121,9 @@ public class CommandLine implements ViewInterface {
                     return false;
                 }
             case "newton":
-                string = new StringTokenizer(userInputStream.readLine());
                 Printer.println("Effect: <victim> <direction>");
                 Printer.println("Effect: <victim> <direction> <direction>");
+                string = new StringTokenizer(userInputStream.readLine());
                 if(string.countTokens() == 2){
                     client.powerup(powerup, Converter.fromStringToTokenColor(string.nextToken()), Color.NONE, -1, -1,
                             Converter.fromStringToDirection(string.nextToken()));
@@ -1136,8 +1136,8 @@ public class CommandLine implements ViewInterface {
                     return false;
                 }
             case "tagbackgrenade":
-                string = new StringTokenizer(userInputStream.readLine());
                 Printer.println("Effect: <victim>");
+                string = new StringTokenizer(userInputStream.readLine());
                 if(string.countTokens() == 1){
                     client.powerup(powerup, Converter.fromStringToTokenColor(string.nextToken()), Color.NONE, -1, -1);
                     return true;
@@ -1145,8 +1145,8 @@ public class CommandLine implements ViewInterface {
                     return false;
                 }
             case "teleporter":
-                string = new StringTokenizer(userInputStream.readLine());
                 Printer.println("Effect: <square_x> <square_y");
+                string = new StringTokenizer(userInputStream.readLine());
                 if(string.countTokens() == 2){
                     client.powerup(powerup, TokenColor.NONE, Color.NONE, Integer.parseInt(string.nextToken()), Integer.parseInt(string.nextToken()));
                     return true;

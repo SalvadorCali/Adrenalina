@@ -591,4 +591,8 @@ return false;
         game.finalFrenzy();
     }
 
+    public void addPowerup(Player player, Card powerupCard){
+        player.addPowerup((PowerupCard) powerupCard);
+    }
+
 }

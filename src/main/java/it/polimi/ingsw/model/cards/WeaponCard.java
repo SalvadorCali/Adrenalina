@@ -230,4 +230,11 @@ public class WeaponCard extends Card{
     public boolean reloadAmmoControl(Player currentPlayer){
         return reloadRedAmmos <= currentPlayer.getRedAmmo() && reloadBlueAmmos <= currentPlayer.getBlueAmmo() && reloadYellowAmmos <= currentPlayer.getYellowAmmo();
     }
+
+    @Override
+    public String toString(){
+        StringBuilder card = new StringBuilder();
+        card.append("Name: " + getName()).append("[Grab: " + grabBlueAmmos + "B" + grabRedAmmos + "R" + grabYellowAmmos + "Y][Reload: " + reloadBlueAmmos + "B" + reloadRedAmmos + "R" + reloadYellowAmmos + "Y]").append("\nColor: " + getColor()).append("\n" + getCardEffect());
+        return card.toString();
+    }
 }

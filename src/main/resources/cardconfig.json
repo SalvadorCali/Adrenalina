@@ -5,7 +5,7 @@
         "cardtype": "weaponcard",
         "element": [
           {"id" : "0B","name" : "LOCK RIFLE",
-            "effect" : "*basic effect: Deal 2 damage and 1 mark to 1 target you can see.\n*with second lock: Deal 1 mark to a different target you can see.",
+            "effect" : "*basic effect: Deal 2 damage and 1 mark to 1 target you can see.\n*with second lock[1R]: Deal 1 mark to a different target you can see.",
             "info_basic_effect" : "Deal 2 damage and 1 mark to 1 target you can see.",
             "info_second_effect" : "Deal 1 mark to a different target you can see.",
             "cost" : "BB",
@@ -16,7 +16,7 @@
             "second_effect" : {"target" : 1, "cost" : "R", "mark" :  1, "range" : 3, "need_different_target":  true}
           },
           {"id" : "1B","name" : "MACHINE GUN",
-            "effect" : "*basic effect: Choose 1 or 2 targets you can see and deal 1 damage to each.\n*with focus shot: Deal 1 additional damage to one of those targets.\n*with turret tripod: Deal 1 additional damage to the other of those targets and/or deal 1 damage to a different target you can see.",
+            "effect" : "*basic effect: Choose 1 or 2 targets you can see and deal 1 damage to each.\n*with focus shot[1Y]: Deal 1 additional damage to one of those targets.\n*with turret tripod[1B]: Deal 1 additional damage to the other of those targets and/or deal 1 damage to a different target you can see.",
             "info_basic_effect" : "Choose 1 or 2 targets you can see and deal 1 damage to each",
             "info_second_effect" : "Deal 1 additional damage to one of those targets.",
             "info_third_effect" : "Deal 1 additional damage to the other of those targets and/or deal 1 damage to a different target you can see.",
@@ -29,7 +29,7 @@
             "third_effect" : {"target" : 2, "cost" : "B", "damage" : 1, "range" : 3, "need_different_target":  true}
           },
           {"id" : "2B","name" : "T.H.O.R." ,
-            "effect" : "*basic effect: Deal 2 damage to 1 target you can see.\n*with chain reaction: Deal 1 damage to a second target that your first target can see.\n*with high voltage: Deal 2 damage to a third target that your second target can see. You cannot use this effect unless you first use the chain reaction.",
+            "effect" : "*basic effect: Deal 2 damage to 1 target you can see.\n*with chain reaction[1B]: Deal 1 damage to a second target that your first target can see.\n*with high voltage[1B]: Deal 2 damage to a third target that your second target can see. You cannot use this effect unless you first use the chain reaction.",
             "info_basic_effect" : "Deal 2 damage to 1 target you can see",
             "info_second_effect" : "Deal 1 damage to a second target that your first target can see.",
             "info_third_effect" : "Deal 2 damage to a third target that your second target can see. You cannot use this effect unless you first use the second effect.",
@@ -42,7 +42,7 @@
             "third_effect" : {"target" : 1, "cost" : "B","damage" : 2, "range" : 7, "need_different_target":  true}
           },
           {"id" : "3B","name" : "PLASMA GUN",
-            "effect" : "*basic effect: Deal 2 damage to 1 target you can see.\n*with phase glide: Move 1 or 2 squares. This effect can be used either before or after the basic effect.\n*with charged shot: Deal 1 additional damage to your target.",
+            "effect" : "*basic effect: Deal 2 damage to 1 target you can see.\n*with phase glide: Move 1 or 2 squares. This effect can be used either before or after the basic effect.\n*with charged shot[1B]: Deal 1 additional damage to your target.",
             "info_basic_effect" : "Deal 2 damage to 1 target you can see",
             "info_second_effect" : "Move 1 or 2 squares. This effect can be used either before or after the basic effect.",
             "info_third_effect" : "Deal 1 additional damage to your target.",
@@ -64,7 +64,7 @@
             "basic_effect" : {"target" : 1, "damage" : 3, "mark" : 1, "range" : 3, "min_range" : 2}
           },
           {"id" : "5B","name" : "ELECTROSCYTHE" ,
-            "effect" : "*basic mode: Deal 1 damage to every other player on your square.\n*in reaper mode: Deal 2 damage to every other player on your square.",
+            "effect" : "*basic mode: Deal 1 damage to every other player on your square.\n*in reaper mode[1B1R]: Deal 2 damage to every other player on your square.",
             "info_basic_effect" : "Deal 1 damage to every other player on your square",
             "info_optional_effect" : " Deal 2 damage to every other player on your square.",
             "cost" : "B",
@@ -75,7 +75,7 @@
             "optional_effect" : {"target" : 4, "cost" : "BR", "damage" : 2, "range" : 0}
           },
           {"id" : "6B","name" : "TRACTOR BEAM" ,
-            "effect" : "*basic mode: Move a target 0, 1, or 2 squares to a square you can see, and give it 1 damage.\n*in punisher mode: Choose a target 0, 1, or 2 moves away from you. Move the target to your square and deal 3 damage to it.",
+            "effect" : "*basic mode: Move a target 0, 1, or 2 squares to a square you can see, and give it 1 damage.\n*in punisher mode[1R1Y]: Choose a target 0, 1, or 2 moves away from you. Move the target to your square and deal 3 damage to it.",
             "info_basic_effect" : "Move a target 0,1 or 2 squares to a square you can see, and give it 1 damage",
             "info_optional_effect" : "Choose a target 0, 1, or 2 moves away from you. Move the target to your square and deal 3 damage to it.",
             "cost" : "B",
@@ -86,7 +86,7 @@
             "optional_effect" : {"target" : 1, "cost" : "RY", "move_target" : 2, "move_on_your_square" : true, "damage" :  3, "range" : 0}
           },
           {"id" : "0R","name" : "VORTEX CANNON",
-            "effect" : "*basic effect: Choose a square you can see, but not your square. Call it 'the vortex'. Choose a target on the vortex or 1 move away from it. Move it onto the vortex and give it 2 damage.\n*with black hole: Choose up to 2 other targets on the vortex or 1 move away from it. Move them onto the vortex and give them each 1 damage.",
+            "effect" : "*basic effect: Choose a square you can see, but not your square. Call it 'the vortex'. Choose a target on the vortex or 1 move away from it. Move it onto the vortex and give it 2 damage.\n*with black hole[1R]: Choose up to 2 other targets on the vortex or 1 move away from it. Move them onto the vortex and give them each 1 damage.",
             "info_basic_effect" : "Choose a square you can see, but not your square.Call it the vortex. Choose a target on the vortex or 1 move away from it.Move it onto the vortex and give it 2 damage",
             "info_second_effect" : "Choose up to 2 other targets on the vortex or 1 move away from it. Move them onto the vortex and give them each 1 damage.",
             "cost" : "BR",
@@ -117,7 +117,7 @@
             "basic_effect" : {"target" : 1, "damage" : 3, "not_visible_target" : true}
           },
           {"id" : "3R","name" : "HELLION",
-            "effect" : "*basic mode: Deal 1 damage to 1 target you can see at least 1 move away. Then give 1 mark to that target and everyone else on that square.\n*in nano-tracer mode: Deal 1 damage to 1 target you can see at least 1 move away. Then give 2 marks to that target and everyone else on that square.",
+            "effect" : "*basic mode: Deal 1 damage to 1 target you can see at least 1 move away. Then give 1 mark to that target and everyone else on that square.\n*in nano-tracer mode[1R]: Deal 1 damage to 1 target you can see at least 1 move away. Then give 2 marks to that target and everyone else on that square.",
             "info_basic_effect" : "Deal 1 damage to 1 target you can see at least 1 move away.Then give 1 mark to that target and everyone else on that square.",
             "info_optional_effect" : "Deal 1 damage to 1 target you can see at least 1 move away. Then give 2 marks to that target and everyone else on that square.",
             "cost" : "RY",
@@ -128,7 +128,7 @@
             "optional_effect" : {"target" : 1, "cost" : "R", "damage" : 1, "range" : 3, "min_range" : 1, "mark_all_square_target" : {"target" : 4, "mark" : 2}}
           },
           {"id" : "4R","name" : "FLAMETHROWER",
-            "effect" : "*basic mode: Choose a square 1 move away and possibly a second square 1 more move away in the same direction. On each square, you may choose 1 target and give it 1 damage.\n*in barbecue mode: Choose 2 squares as above. Deal 2 damage to everyone on the first square and 1 damage to everyone on the second square.",
+            "effect" : "*basic mode: Choose a square 1 move away and possibly a second square 1 more move away in the same direction. On each square, you may choose 1 target and give it 1 damage.\n*in barbecue mode[2Y]: Choose 2 squares as above. Deal 2 damage to everyone on the first square and 1 damage to everyone on the second square.",
             "info_basic_effect" : "Choose a square 1 move away and possibly a second square 1 more move away in the same direction. On each square, you may choose 1 target and give it 1 damage.",
             "info_optional_effect" : "Choose 2 squares as above. Deal 2 damage to everyone on the first square and 1 damage to everyone on the second square.",
             "cost" : "R",
@@ -139,7 +139,7 @@
             "optional_effect" : {"target" : 4, "damage" : 2, "range" : 2, "choose_cardinal_direction" : true}
           },
           {"id" : "5R","name" : "GRENADE LAUNCHER",
-            "effect" : "*basic effect: Deal 1 damage to 1 target you can see. Then you may move the target 1 square.\n*with extra grenade: Deal 1 damage to every player on a square you can see. You can use this before or after the basic effect's move.",
+            "effect" : "*basic effect: Deal 1 damage to 1 target you can see. Then you may move the target 1 square.\n*with extra grenade[1R]: Deal 1 damage to every player on a square you can see. You can use this before or after the basic effect's move.",
             "info_basic_effect" : "Deal 1 damage to 1 target you can see.Then you may move the target 1 square.",
             "info_second_effect" : " Deal 1 damage to every player on a square you can see. You can use this before or after the basic effect's move.",
             "cost" : "R",
@@ -150,7 +150,7 @@
             "second_effect" : {"target" : 4, "cost" : "R", "damage" : 1, "range" : 3}
           },
           {"id" : "6R","name" : "ROCKET LAUNCHER",
-            "effect" : "*basic effect: Deal 2 damage to 1 target you can see that is not on your square. Then you may move the target 1 square.\n*with rocket jump: Move 1 or 2 squares. This effect can be used either before or after the basic effect.\n*with fragmenting warhead: During the basic effect, deal 1 damage to every player on your target's original square – including the target, even if you move it.",
+            "effect" : "*basic effect: Deal 2 damage to 1 target you can see that is not on your square. Then you may move the target 1 square.\n*with rocket jump[1B]: Move 1 or 2 squares. This effect can be used either before or after the basic effect.\n*with fragmenting warhead[1Y]: During the basic effect, deal 1 damage to every player on your target's original square – including the target, even if you move it.",
             "info_basic_effect" : "Deal 2 damage to 1 target you can see that is not on your square.Then you may move the target 1 square.",
             "info_second_effect" : "Move 1 or 2 squares. This effect can be used either before or after the basic effect.",
             "info_third_effect" : "During the basic effect, deal 1 damage to every player on your target's original square – including the target, even if you move it.",
@@ -174,7 +174,7 @@
             "optional_effect" : {"target" : 2, "cost" : "null", "damage" : 2, "range" :  4, "choose_cardinal_direction" : true, "ignore_walls" : true}
           },
           {"id" : "1Y","name" : "CYBERBLADE",
-            "effect" : "*basic effect: Deal 2 damage to 1 target on your square. with shadowstep: Move 1 square before or after the basic effect.\n*with slice and dice: Deal 2 damage to a different target on your square. The shadowstep may be used before or after this effect.",
+            "effect" : "*basic effect: Deal 2 damage to 1 target on your square.\n*with shadowstep: Move 1 square before or after the basic effect.\n*with slice and dice[1Y]: Deal 2 damage to a different target on your square. The shadowstep may be used before or after this effect.",
             "info_basic_effect" : "Deal 2 damage to 1 target on your square.",
             "info_second_effect" : "Move 1 square before or after the basic effect.",
             "info_third_effect" : "Deal 2 damage to a different target on your square. The shadowstep may be used before or after this effect.",
@@ -209,7 +209,7 @@
             "optional_effect" : {"target" : 1, "cost" : "null", "damage" : 2, "range" : 1, "min_range" : 1}
           },
           {"id" : "4Y","name" : "POWER GLOVE",
-            "effect" : "*basic mode: Choose 1 target on any square exactly 1 move away. Move onto that square and give the target 1 damage and 2 marks.\n*in rocket fist mode: Choose a square exactly 1 move away. Move onto that square. You may deal 2 damage to 1 target there. If you want, you may move 1 more square in that same direction (but only if it is a legal move). You may deal 2 damage to 1 target there, as well.",
+            "effect" : "*basic mode: Choose 1 target on any square exactly 1 move away. Move onto that square and give the target 1 damage and 2 marks.\n*in rocket fist mode[1B]: Choose a square exactly 1 move away. Move onto that square. You may deal 2 damage to 1 target there. If you want, you may move 1 more square in that same direction (but only if it is a legal move). You may deal 2 damage to 1 target there, as well.",
             "info_basic_effect" : "Choose 1 target on any square exactly 1 move away. Move onto that square and give the target 1 damage and 2 marks.",
             "info_optional_effect" : "Choose a square exactly 1 move away. Move onto that square. You may deal 2 damage to 1 target there. If you want, you may move 1 more square in that same direction (but only if it is a legal move). You may deal 2 damage to 1 target there, as well.",
             "cost" : "YB",
@@ -220,7 +220,7 @@
             "optional_effect" : {"target" : 1, "move" : 1, "damage" : 2, "range" : 0, "can_repeat" : true}
           },
           {"id" : "5Y","name" : "SHOCKWAVE",
-            "effect" : "*basic mode: Choose up to 3 targets on different squares, each exactly 1 move away. Deal 1 damage to each target.\n*in tsunami mode: Deal 1 damage to all targets that are exactly 1 move away.",
+            "effect" : "*basic mode: Choose up to 3 targets on different squares, each exactly 1 move away. Deal 1 damage to each target.\n*in tsunami mode[1Y]: Deal 1 damage to all targets that are exactly 1 move away.",
             "info_basic_effect" : "Choose up to 3 targets on different squares, each exactly 1 move away.Deal 1 damage to each target.",
             "info_optional_effect" : "Deal 1 damage to all targets that are exactly 1 move away.",
             "cost" : "Y",
@@ -231,7 +231,7 @@
             "optional_effect" : {"target" : 4, "cost" : "Y","damage" : 1, "range" : 1, "min_range" : 1, "different_square" : true}
           },
           {"id" : "6Y","name" : "SLEDGEHAMMER",
-            "effect" : "*basic mode: Deal 2 damage to 1 target on your square.\n*in pulverize mode: Deal 3 damage to 1 target on your square, then move that target 0, 1, or 2 squares in one direction.",
+            "effect" : "*basic mode: Deal 2 damage to 1 target on your square.\n*in pulverize mode[1R]: Deal 3 damage to 1 target on your square, then move that target 0, 1, or 2 squares in one direction.",
             "info_basic_effect" : "Deal 2 damage to 1 target on your square.",
             "info_optional_effect" : "Deal 3 damage to 1 target on your square, then move that target 0, 1, or 2 squares in one direction.",
             "cost" : "Y",

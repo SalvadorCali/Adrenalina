@@ -39,4 +39,11 @@ public class PowerupCard extends Card{
         return effect;
     }
 
+    @Override
+    public String toString(){
+        StringBuilder card = new StringBuilder();
+        card.append("Name: " + getName()).append("\nColor: " + getColor()).append("\n" + getCardEffect());
+        return card.toString();
+    }
+
 }

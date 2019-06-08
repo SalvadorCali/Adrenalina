@@ -36,9 +36,15 @@ public abstract class Card implements Serializable {
         this.color = color;
     }
 
+    public String getCardEffect() {
+        return effect;
+    }
+
+    /*
     public String toString(){
         StringBuilder card = new StringBuilder();
         card.append("Name: " + this.name).append("\nColor: " + this.color).append("\n" + this.effect);
         return card.toString();
     }
+     */
 }
