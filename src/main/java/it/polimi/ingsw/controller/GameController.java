@@ -516,7 +516,7 @@ return false;
         powerupNameUpp = Converter.powerupName(powerupName);
         for (PowerupCard p : shooter.getPowerups()) {
             if (p.getName().equals(powerupNameUpp)){
-                setData(shooter, victim, x, y, ammo, directions[0]); //to fix
+                setData(shooter, victim, x, y, ammo, directions); //to fix
                 if (p.getEffect().canUseEffect(actionInterface)) {
                     Printer.println(powerupNameUpp + "USED");
                     p.getEffect().useEffect(actionInterface);
@@ -530,12 +530,22 @@ return false;
         return false;
     }
 
-    private void setData(Player shooter, Player victim, int x, int y, Color ammo, Direction direction){
+    private void setData(Player shooter, Player victim, int x, int y, Color ammo, Direction...directions){
         getActionInterface().getClientData().setCurrentPlayer(shooter);
         getActionInterface().getClientData().setPowerupVictim(victim);
         getActionInterface().getClientData().setSquare(x,y);
         getActionInterface().getClientData().setAmmoColor(ammo);
-        getActionInterface().getClientData().setFirstMove(direction);
+        switch (directions.length){
+            case 1:
+                getActionInterface().getClientData().setFirstMove(directions[0]);
+                break;
+            case 2:
+                getActionInterface().getClientData().setFirstMove(directions[0]);
+                getActionInterface().getClientData().setFirstMove(directions[1]);
+                break;
+        }
+
+
     }
 
     public void shoot(Player player, Player victim){
