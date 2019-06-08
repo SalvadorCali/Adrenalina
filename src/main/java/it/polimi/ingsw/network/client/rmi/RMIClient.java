@@ -169,6 +169,11 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
     }
 
     @Override
+    public void moveAndReload(Direction firstDirection, Direction secondDirection, String... weapons) throws IOException {
+        server.moveAndReload(firstDirection, secondDirection, weapons);
+    }
+
+    @Override
     public void powerup(String powerup, int x, int y) throws RemoteException{
         server.powerup(powerup, x, y);
     }

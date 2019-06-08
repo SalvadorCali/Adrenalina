@@ -472,7 +472,7 @@ public class ServerController {
     }
 
     public void moveAndReload(String username, Direction firstDirection, Direction secondDirection, String...weapons){
-
+        gameController.moveAndReload(users.get(username), firstDirection, secondDirection, weapons);
     }
 
     public void powerup(String username, String powerup, int x, int y){

@@ -104,8 +104,14 @@ public class CommandLine implements ViewInterface {
                 }
                 break;
             case "grab":
-                if(!grab(string)){
-                    Printer.print(StringCLI.INVALID_COMMAND);
+                if(playerController.isFinalFrenzy()){
+                    if(!grabFinalFrenzy(string)){
+                        Printer.print(StringCLI.INVALID_COMMAND);
+                    }
+                }else{
+                    if(!grab(string)){
+                        Printer.print(StringCLI.INVALID_COMMAND);
+                    }
                 }
                 break;
             case "shoot":
@@ -348,7 +354,7 @@ public class CommandLine implements ViewInterface {
             client.move(Converter.fromStringToDirection(input.nextToken()), Converter.fromStringToDirection(input.nextToken()),
                     Converter.fromStringToDirection(input.nextToken()));
             return true;
-        }else if(input.countTokens() == 4){ //&& !firstPlayer
+        }else if(input.countTokens() == 4 && playerController.getFinalFrenzyActions().equals(FinalFrenzyAction.TWO_ACTIONS)){
             client.move(Converter.fromStringToDirection(input.nextToken()), Converter.fromStringToDirection(input.nextToken()),
                     Converter.fromStringToDirection(input.nextToken()), Converter.fromStringToDirection(input.nextToken()));
             return true;
@@ -446,11 +452,11 @@ public class CommandLine implements ViewInterface {
         }else if(input.countTokens() == 2){
             client.grab(Integer.parseInt(input.nextToken()), Converter.fromStringToDirection(input.nextToken()));
             return true;
-        }else if(input.countTokens() == 3){
+        }else if(input.countTokens() == 3 && playerController.getFinalFrenzyActions().equals(FinalFrenzyAction.TWO_ACTIONS)){
             client.grab(Integer.parseInt(input.nextToken()), Converter.fromStringToDirection(input.nextToken()),
                     Converter.fromStringToDirection(input.nextToken()));
             return true;
-        }else if(input.countTokens() == 4){ //&& firstPlayer
+        }else if(input.countTokens() == 4 && playerController.getFinalFrenzyActions().equals(FinalFrenzyAction.ONE_ACTION)){ //&& firstPlayer
             client.grab(Integer.parseInt(input.nextToken()), Converter.fromStringToDirection(input.nextToken()),
                     Converter.fromStringToDirection(input.nextToken()), Converter.fromStringToDirection(input.nextToken()));
             return true;
@@ -486,7 +492,8 @@ public class CommandLine implements ViewInterface {
 
     private boolean shootFinalFrenzy(StringTokenizer input) throws IOException {
         StringTokenizer moveAndReload;
-        Direction first, second;
+        Direction first = null;
+        Direction second = null;
         if(input.countTokens()==1){
             Printer.println("Do you want to move?: <yes> <no>");
             try {
@@ -506,11 +513,15 @@ public class CommandLine implements ViewInterface {
                         Printer.println("Choose weapon to reload:");
                         moveAndReload = new StringTokenizer(userInputStream.readLine());
                         if(moveAndReload.countTokens()==1){
-                            //
+                            client.moveAndReload(first, second, moveAndReload.nextToken());
+                            return true;
                         }else if(moveAndReload.countTokens()==2){
-                            //
+                            client.moveAndReload(first, second, moveAndReload.nextToken(), moveAndReload.nextToken());
+                            return true;
                         }else if(moveAndReload.countTokens()==3){
-                            //
+                            client.moveAndReload(first, second, moveAndReload.nextToken(), moveAndReload.nextToken(),
+                                    moveAndReload.nextToken());
+                            return true;
                         }
                     }
                 }else{
@@ -520,11 +531,15 @@ public class CommandLine implements ViewInterface {
                         Printer.println("Choose weapon to reload:");
                         moveAndReload = new StringTokenizer(userInputStream.readLine());
                         if(moveAndReload.countTokens()==1){
-
+                            client.moveAndReload(first, second, moveAndReload.nextToken());
+                            return true;
                         }else if(moveAndReload.countTokens()==2){
-
+                            client.moveAndReload(first, second, moveAndReload.nextToken(), moveAndReload.nextToken());
+                            return true;
                         }else if(moveAndReload.countTokens()==3){
-
+                            client.moveAndReload(first, second, moveAndReload.nextToken(), moveAndReload.nextToken(),
+                                    moveAndReload.nextToken());
+                            return true;
                         }
                     }
                 }

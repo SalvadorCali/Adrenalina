@@ -294,6 +294,22 @@ public class SocketClient implements ClientInterface, Runnable, Serializable {
     }
 
     @Override
+    public void moveAndReload(Direction firstDirection, Direction secondDirection, String... weapons) throws IOException {
+        objectOutputStream.writeObject(Message.MOVE_RELOAD);
+        objectOutputStream.flush();
+        objectOutputStream.writeObject(firstDirection);
+        objectOutputStream.flush();
+        objectOutputStream.writeObject(secondDirection);
+        objectOutputStream.flush();
+        objectOutputStream.writeInt(weapons.length);
+        objectOutputStream.flush();
+        for(String weapon : weapons){
+            objectOutputStream.writeObject(weapon);
+            objectOutputStream.flush();
+        }
+    }
+
+    @Override
     public void powerup(String powerup, int x, int y) throws IOException{
         objectOutputStream.writeObject(Message.POWERUP);
         objectOutputStream.flush();

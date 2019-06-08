@@ -116,6 +116,9 @@ public class SocketServer implements Runnable, ServerInterface {
             case DROP:
                 drop();
                 break;
+            case MOVE_RELOAD:
+                moveAndReload();
+                break;
             default:
                 break;
         }
@@ -331,6 +334,37 @@ public class SocketServer implements Runnable, ServerInterface {
                 first = (Direction) objectInputStream.readObject();
                 second = (Direction) objectInputStream.readObject();
                 serverController.shoot(clientName, weaponName,  victim, effectNumber, first, second);
+            }
+        } catch (IOException | ClassNotFoundException e) {
+            Printer.err(e);
+        }
+    }
+
+    public void moveAndReload(){
+        try {
+            String firstWeapon, secondWeapon, thirdWeapon;
+            Direction firstDirection = (Direction) objectInputStream.readObject();
+            Direction secondDirection = (Direction) objectInputStream.readObject();
+            int weaponsSize = objectInputStream.readInt();
+            switch (weaponsSize){
+                case 0:
+                    serverController.moveAndReload(clientName, firstDirection, secondDirection);
+                    break;
+                case 1:
+                    firstWeapon = objectInputStream.readUTF();
+                    serverController.moveAndReload(clientName, firstDirection, secondDirection, firstWeapon);
+                    break;
+                case 2:
+                    firstWeapon = objectInputStream.readUTF();
+                    secondWeapon = objectInputStream.readUTF();
+                    serverController.moveAndReload(clientName, firstDirection, secondDirection, firstWeapon, secondWeapon);
+                    break;
+                case 3:
+                    firstWeapon = objectInputStream.readUTF();
+                    secondWeapon = objectInputStream.readUTF();
+                    thirdWeapon = objectInputStream.readUTF();
+                    serverController.moveAndReload(clientName, firstDirection, secondDirection, firstWeapon, secondWeapon, thirdWeapon);
+                    break;
             }
         } catch (IOException | ClassNotFoundException e) {
             Printer.err(e);

@@ -4,6 +4,7 @@ import it.polimi.ingsw.model.cards.PowerupCard;
 import it.polimi.ingsw.model.cards.WeaponCard;
 import it.polimi.ingsw.model.enums.Color;
 import it.polimi.ingsw.model.enums.Direction;
+import it.polimi.ingsw.model.enums.FinalFrenzyAction;
 import it.polimi.ingsw.model.enums.TokenColor;
 import it.polimi.ingsw.util.Config;
 
@@ -29,7 +30,8 @@ public class Player implements Serializable {
     private PlayerBoard playerBoard;
     private Position position;
     private int actionNumber;
-    private int finalFrenzyActions;
+    private int finalFrenzyActionsNumber;
+    private FinalFrenzyAction finalFrenzyActions;
     private boolean myTurn;
     private String username;
     private boolean disconnected;
@@ -50,6 +52,7 @@ public class Player implements Serializable {
         redAmmo = 0;
         actionNumber = 0;
         playerBoard = new PlayerBoard();
+        finalFrenzyActions = FinalFrenzyAction.NO_FINAL_FRENZY;
     }
 
     public boolean isSpawned() {
@@ -330,7 +333,7 @@ public class Player implements Serializable {
     }
 
     public boolean canUseActionFinalFrenzy(){
-        return actionNumber < finalFrenzyActions;
+        return actionNumber < finalFrenzyActionsNumber;
     }
 
     public boolean isDead(){
@@ -359,11 +362,19 @@ public class Player implements Serializable {
         this.damaged = damaged;
     }
 
-    public int getFinalFrenzyActions() {
+    public int getFinalFrenzyActionsNumber() {
+        return finalFrenzyActionsNumber;
+    }
+
+    public void setFinalFrenzyActionsNumber(int finalFrenzyActionsNumber) {
+        this.finalFrenzyActionsNumber = finalFrenzyActionsNumber;
+    }
+
+    public FinalFrenzyAction getFinalFrenzyActions() {
         return finalFrenzyActions;
     }
 
-    public void setFinalFrenzyActions(int finalFrenzyActions) {
+    public void setFinalFrenzyActions(FinalFrenzyAction finalFrenzyActions) {
         this.finalFrenzyActions = finalFrenzyActions;
     }
 }

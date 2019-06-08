@@ -164,21 +164,34 @@ public class GameController {
     }
 
     public boolean moveAndReload(Player player, Direction firstDirection, Direction secondDirection, String...weapons){
-        boolean result = true;
+        boolean hasWeapon = false;
+        boolean hasAmmo = false;
+        boolean reloadResult = true;
+        boolean reload[] = new boolean[weapons.length];
         if(canMove(player, firstDirection, secondDirection)){
-
-            for(String weapon : weapons){
+            for(int i=0; i<weapons.length; i++){
                 String weaponNameUpp;
-                weaponNameUpp = Converter.weaponName(weapon);
+                weaponNameUpp = Converter.weaponName(weapons[i]);
                 for(WeaponCard w : player.getWeapons()){
-                    if(!w.getName().equals(weaponNameUpp)){
-                        result = false;
-                    }else{
-                        if(!w.reloadAmmoControl(player)) {
-                            result = false;
+                    if(w.getName().equals(weaponNameUpp)){
+                        hasWeapon = true;
+                        if(w.reloadAmmoControl(player)) {
+                            hasAmmo = true;
                         }
                     }
+                    if(hasWeapon && hasAmmo){
+                        reload[i] = true;
+                        hasWeapon = false;
+                        hasAmmo = false;
+                        break;
+                    }
                 }
+            }
+            for(int i=0; i<weapons.length; i++){
+                reloadResult = reloadResult && reload[i];
+            }
+            if(reloadResult){
+
             }
         }else{
             return false;

@@ -3,6 +3,7 @@ package it.polimi.ingsw.controller;
 import it.polimi.ingsw.model.cards.PowerupCard;
 import it.polimi.ingsw.model.cards.WeaponCard;
 import it.polimi.ingsw.model.enums.AdrenalineZone;
+import it.polimi.ingsw.model.enums.FinalFrenzyAction;
 import it.polimi.ingsw.model.enums.TokenColor;
 import it.polimi.ingsw.model.gamecomponents.*;
 import it.polimi.ingsw.network.client.ClientInterface;
@@ -124,5 +125,9 @@ public class PlayerController {
 
     public void setFinalFrenzy(boolean finalFrenzy) {
         this.finalFrenzy = finalFrenzy;
+    }
+
+    public FinalFrenzyAction getFinalFrenzyActions(){
+        return player.getFinalFrenzyActions();
     }
 }
