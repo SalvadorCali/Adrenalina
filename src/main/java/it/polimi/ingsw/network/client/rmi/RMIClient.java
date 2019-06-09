@@ -235,10 +235,8 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
                     playerController.setPlayer(gameData7.getPlayer(username));
                 //}
                 view.notify(message, outcome);
+                break;
             case MOVE:
-                if(outcome.equals(Outcome.RIGHT)){
-                    playerController.incrementMoves();
-                }
                 GameData gameData = (GameData) object;
                 //GameBoard gameBoard = (GameBoard) object;
                 playerController.setGameBoard(gameData.getGameBoard());
@@ -258,9 +256,6 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
                 view.notify(message, outcome);
                 break;
             case GRAB:
-                if(outcome.equals(Outcome.RIGHT)){
-                    playerController.incrementMoves();
-                }
                 GameData gameData4 = (GameData) object;
                 playerController.setGameBoard(gameData4.getGameBoard());
                 playerController.setKillshotTrack(gameData4.getKillshotTrack());
@@ -273,9 +268,6 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
                 view.notify(message, outcome);
                 break;
             case SHOOT:
-                if(outcome.equals(Outcome.RIGHT)){
-                    playerController.incrementMoves();
-                }
                 GameData gameData3 = (GameData) object;
                 //GameBoard gameBoard = (GameBoard) object;
                 playerController.setGameBoard(gameData3.getGameBoard());

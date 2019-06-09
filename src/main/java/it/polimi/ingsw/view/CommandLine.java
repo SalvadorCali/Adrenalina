@@ -860,6 +860,7 @@ public class CommandLine implements ViewInterface {
                 if(choice2 == 1){
                     Printer.println("Basic effect: <victim>");
                     Printer.println("Basic effect: <victim> <direction>");
+                    //inserire
                     return true;
                 }else if(choice2 == 2 || choice2 == 3){
                     boolean basicFirst = basicFirst(weapon);
@@ -1145,7 +1146,7 @@ public class CommandLine implements ViewInterface {
                     return false;
                 }
             case "teleporter":
-                Printer.println("Effect: <square_x> <square_y");
+                Printer.println("Effect: <square_x> <square_y>");
                 string = new StringTokenizer(userInputStream.readLine());
                 if(string.countTokens() == 2){
                     client.powerup(powerup, TokenColor.NONE, Color.NONE, Integer.parseInt(string.nextToken()), Integer.parseInt(string.nextToken()));
@@ -1375,10 +1376,6 @@ public class CommandLine implements ViewInterface {
             default:
                 break;
         }
-        killshotTrackPrinter.setKillshotTrack(playerController.getKillshotTrack());
-        killshotTrackPrinter.printKillshotTrack();
-        gameBoardPrinter.setGameBoard(playerController.getGameBoard());
-        gameBoardPrinter.printMap();
     }
 
     private void notifyGrab(Outcome outcome){

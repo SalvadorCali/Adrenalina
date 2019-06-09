@@ -297,12 +297,13 @@ return false;
         final String weaponNameUpp;
         weaponNameUpp = Converter.weaponName(weaponName);
         for (WeaponCard w : shooter.getWeapons()) {
-            if (w.getName().equals(weaponNameUpp) && w.isLoaded()) {
+            if (w.getName().equals(weaponNameUpp) && w.isLoaded() && shooter.canUseAction()) {
                 setData(basicfirst, shooter, firstVictim, secondVictim, thirdVictim, x, y, directions);
                 if (w.getEffects().get(mod).canUseEffect(actionInterface)) {
                     Printer.println(weaponNameUpp + "USED");
                     w.getEffects().get(mod).useEffect(actionInterface);
                     w.unload();
+                    shooter.increaseActionNumber();
                     return true;
                 } else {
                     Printer.println(weaponNameUpp + "NOT USED");
@@ -355,6 +356,7 @@ return false;
                 if (p.getEffect().canUseEffect(actionInterface)) {
                     Printer.println(powerupNameUpp + "USED");
                     p.getEffect().useEffect(actionInterface);
+                    //rimuovere powerup
                     return true;
                 } else {
                     Printer.println(powerupName + "NOT USED");
