@@ -110,6 +110,14 @@ public class ActionController implements ActionInterface {
 
     }
 
+    @Override
+    public void playerMark(Player shooter, Player victim) {
+        for(int j = 0; j < game.getPlayers().size(); j++) {
+            if (game.getPlayers().get(j).equals(victim))
+                game.getPlayers().get(j).getPlayerBoard().addRevengeMarks(shooter.getColor());
+        }
+    }
+
     public void playerDamage(Player victim, int damagePower){
 
         for(int i = 0; i < damagePower; i++){

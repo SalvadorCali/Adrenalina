@@ -45,7 +45,6 @@ public class PowerupEffect extends Effect {
         }
         return  canUse;
     }
-
     @Override
     public void useEffect(ActionInterface actionInterface) {
 
@@ -123,7 +122,7 @@ public class PowerupEffect extends Effect {
     }
 
     private void tagbackGrenadeUse(ActionInterface actionInterface){
-        actionInterface.playerMark(victim, 1);
+        actionInterface.playerMark(actionInterface.getClientData().getCurrentPlayer(),victim);
     }
 
     private void teleporter(ActionInterface actionInterface){

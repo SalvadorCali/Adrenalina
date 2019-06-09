@@ -17,6 +17,8 @@ public interface ActionInterface {
 
     void playerDamage(TokenColor color, int damagePower);
 
+    void playerMark(Player shooter, Player victim);
+
     //void playerMark(TokenColor color, int markPower);
 
     boolean isVisible(TokenColor victim);

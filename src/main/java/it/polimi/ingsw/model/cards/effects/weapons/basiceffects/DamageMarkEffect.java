@@ -80,7 +80,7 @@ public class DamageMarkEffect extends BasicEffect {
             actionInterface.playerDamage(victim, damagePower);
         if(!effectName.equals("ZX-22"))
             actionInterface.playerMark(victim, markPower);
-        if (effectName.equals("Machine Gun")) {
+        if (effectName.equals("Machine Gun") && secondVictim!= null) {
             actionInterface.playerDamage(secondVictim.getColor(), damagePower);
         }else if (effectName.equals("ZX-22") || effectName.equals("Shockwave")){
             if(visible1) {

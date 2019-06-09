@@ -378,7 +378,7 @@ return false;
                 break;
             case 2:
                 getActionInterface().getClientData().setFirstMove(directions[0]);
-                getActionInterface().getClientData().setFirstMove(directions[1]);
+                getActionInterface().getClientData().setSecondMove(directions[1]);
                 break;
         }
 
