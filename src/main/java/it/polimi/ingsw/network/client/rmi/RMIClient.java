@@ -154,33 +154,8 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
     }
 
     @Override
-    public void shoot(String weaponName, int effectNumber, TokenColor...colors) throws RemoteException {
-        server.shoot(weaponName, effectNumber, colors);
-    }
-
-    @Override
-    public void shoot(String weaponName, int effectNumber, TokenColor color, int x, int y) throws IOException {
-        server.shoot(weaponName, effectNumber, color, x, y);
-    }
-
-    @Override
-    public void shoot(String weaponName, TokenColor color, int effectNumber, Direction... directions) throws IOException {
-        server.shoot(weaponName, color, effectNumber, directions);
-    }
-
-    @Override
     public void moveAndReload(Direction firstDirection, Direction secondDirection, String... weapons) throws IOException {
         server.moveAndReload(firstDirection, secondDirection, weapons);
-    }
-
-    @Override
-    public void powerup(String powerup, int x, int y) throws RemoteException{
-        server.powerup(powerup, x, y);
-    }
-
-    @Override
-    public void powerup(String powerup, Direction direction, int value) throws RemoteException{
-        server.powerup(powerup, direction, value);
     }
 
     @Override
@@ -205,6 +180,8 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
 
     @Override
     public void notify(Message message) throws RemoteException{
+        view.notify(message);
+        /*
         switch (message){
             case BOARD:
                 view.notify(message);
@@ -215,6 +192,8 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
             default:
                 break;
         }
+
+         */
     }
 
     @Override

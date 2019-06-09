@@ -1305,6 +1305,10 @@ public class CommandLine implements ViewInterface {
         Printer.println("Your turn is ended!");
     }
 
+    private void notifyNotTurn(){
+        Printer.println("[SERVER]It's not your turn!");
+    }
+
     private void notifyGame(Outcome outcome){
         switch (outcome){
             case WRONG:
@@ -1342,7 +1346,7 @@ public class CommandLine implements ViewInterface {
                 }
             }
             if(square.getWeapons() != null){
-                square.getWeapons().forEach(Printer::println);
+                square.getWeapons().forEach(w->Printer.println(w.getName()));
             }
         }else{
             Printer.println("[SERVER]Not moved!");
@@ -1496,6 +1500,9 @@ public class CommandLine implements ViewInterface {
         switch (message){
             case END_TURN:
                 notifyEndTurn();
+                break;
+            case NOT_TURN:
+                notifyNotTurn();
                 break;
             case FINAL_FRENZY:
                 notifyFinalFrenzy();

@@ -26,11 +26,6 @@ public interface ClientInterface {
     void drop(String weaponName) throws IOException;
     void moveAndReload(Direction firstDirection, Direction secondDirection, String...weapons) throws IOException;
     void shoot(String weaponName, int effectNumber, boolean basicFirst, TokenColor firstVictim, TokenColor secondVictim, TokenColor thirdVictim, int x, int y, Direction...directions) throws IOException;
-    void shoot(String weaponName, int effectNumber, TokenColor...colors) throws IOException;
-    void shoot(String weaponName, int effectNumber, TokenColor color, int x, int y) throws IOException;
-    void shoot(String weaponName, TokenColor color, int effectNumber, Direction...directions) throws IOException;
-    void powerup(String powerup, int x, int y) throws IOException;
-    void powerup(String powerup, Direction direction, int value) throws IOException;
     void powerup(String powerup, TokenColor victim, Color ammo, int x, int y, Direction...directions) throws IOException;
     void powerupAmmos(PowerupData...powerups) throws IOException;
     void reload(String weaponName) throws IOException;

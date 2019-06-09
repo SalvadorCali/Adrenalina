@@ -83,33 +83,8 @@ public class RMIServer extends UnicastRemoteObject implements RMIServerInterface
     }
 
     @Override
-    public void shoot(String weaponName, int effectNumber, TokenColor...colors){
-        serverController.shoot(clientName, weaponName, effectNumber, colors);
-    }
-
-    @Override
-    public void shoot(String weaponName, int effectNumber, TokenColor color, int x, int y) throws RemoteException {
-        serverController.shoot(clientName, weaponName, effectNumber, color, x, y);
-    }
-
-    @Override
-    public void shoot(String weaponName, TokenColor color, int effectNumber, Direction... directions) throws RemoteException {
-        serverController.shoot(clientName, weaponName,  color, effectNumber, directions);
-    }
-
-    @Override
     public void moveAndReload(Direction firstDirection, Direction secondDirection, String... weapons) throws RemoteException {
         serverController.moveAndReload(clientName, firstDirection, secondDirection, weapons);
-    }
-
-    @Override
-    public void powerup(String powerup, int x, int y){
-        serverController.powerup(clientName, powerup, x, y);
-    }
-
-    @Override
-    public void powerup(String powerup, Direction direction, int value){
-        serverController.powerup(clientName, powerup, direction, value);
     }
 
     @Override

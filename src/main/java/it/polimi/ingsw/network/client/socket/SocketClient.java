@@ -244,56 +244,6 @@ public class SocketClient implements ClientInterface, Runnable, Serializable {
     }
 
     @Override
-    public void shoot(String weaponName, int effectNumber, TokenColor...colors) throws IOException {
-        objectOutputStream.writeObject(Message.SHOOT_1);
-        objectOutputStream.flush();
-        objectOutputStream.writeUTF(weaponName);
-        objectOutputStream.flush();
-        objectOutputStream.writeInt(effectNumber);
-        objectOutputStream.flush();
-        objectOutputStream.writeInt(colors.length);
-        objectOutputStream.flush();
-        for(TokenColor color : colors){
-            objectOutputStream.writeObject(color);
-            objectOutputStream.flush();
-        }
-    }
-
-    @Override
-    public void shoot(String weaponName, int effectNumber, TokenColor color, int x, int y) throws IOException {
-        objectOutputStream.writeObject(Message.SHOOT_2);
-        objectOutputStream.flush();
-        objectOutputStream.writeUTF(weaponName);
-        objectOutputStream.flush();
-        objectOutputStream.writeInt(effectNumber);
-        objectOutputStream.flush();
-        objectOutputStream.writeObject(color);
-        objectOutputStream.flush();
-        objectOutputStream.writeInt(x);
-        objectOutputStream.flush();
-        objectOutputStream.writeInt(y);
-        objectOutputStream.flush();
-    }
-
-    @Override
-    public void shoot(String weaponName, TokenColor color, int effectNumber, Direction... directions) throws IOException {
-        objectOutputStream.writeObject(Message.SHOOT_3);
-        objectOutputStream.flush();
-        objectOutputStream.writeUTF(weaponName);
-        objectOutputStream.flush();
-        objectOutputStream.writeObject(color);
-        objectOutputStream.flush();
-        objectOutputStream.writeInt(effectNumber);
-        objectOutputStream.flush();
-        objectOutputStream.writeInt(directions.length);
-        objectOutputStream.flush();
-        for(Direction direction : directions){
-            objectOutputStream.writeObject(direction);
-            objectOutputStream.flush();
-        }
-    }
-
-    @Override
     public void moveAndReload(Direction firstDirection, Direction secondDirection, String... weapons) throws IOException {
         objectOutputStream.writeObject(Message.MOVE_RELOAD);
         objectOutputStream.flush();
@@ -307,30 +257,6 @@ public class SocketClient implements ClientInterface, Runnable, Serializable {
             objectOutputStream.writeObject(weapon);
             objectOutputStream.flush();
         }
-    }
-
-    @Override
-    public void powerup(String powerup, int x, int y) throws IOException{
-        objectOutputStream.writeObject(Message.POWERUP);
-        objectOutputStream.flush();
-        objectOutputStream.writeUTF(powerup);
-        objectOutputStream.flush();
-        objectOutputStream.writeInt(x);
-        objectOutputStream.flush();
-        objectOutputStream.writeInt(y);
-        objectOutputStream.flush();
-    }
-
-    @Override
-    public void powerup(String powerup, Direction direction, int value) throws IOException{
-        objectOutputStream.writeObject(Message.POWERUP);
-        objectOutputStream.flush();
-        objectOutputStream.writeUTF(powerup);
-        objectOutputStream.flush();
-        objectOutputStream.writeObject(direction);
-        objectOutputStream.flush();
-        objectOutputStream.writeInt(value);
-        objectOutputStream.flush();
     }
 
     @Override
@@ -348,14 +274,20 @@ public class SocketClient implements ClientInterface, Runnable, Serializable {
         objectOutputStream.writeInt(y);
         objectOutputStream.flush();
         objectOutputStream.writeInt(directions.length);
-        if(directions.length == 1){
-            objectOutputStream.writeObject(directions[0]);
-            objectOutputStream.flush();
-        }else{
-            objectOutputStream.writeObject(directions[0]);
-            objectOutputStream.flush();
-            objectOutputStream.writeObject(directions[1]);
-            objectOutputStream.flush();
+        objectOutputStream.flush();
+        switch(directions.length){
+            case 1:
+                objectOutputStream.writeObject(directions[0]);
+                objectOutputStream.flush();
+                break;
+            case 2:
+                objectOutputStream.writeObject(directions[0]);
+                objectOutputStream.flush();
+                objectOutputStream.writeObject(directions[1]);
+                objectOutputStream.flush();
+                break;
+            default:
+                break;
         }
     }
 
@@ -400,6 +332,7 @@ public class SocketClient implements ClientInterface, Runnable, Serializable {
                 view.notify(message, outcome);
                 break;
             case END_TURN:
+            case NOT_TURN:
                 view.notify(message);
                 break;
             case GAME:

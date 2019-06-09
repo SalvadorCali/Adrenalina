@@ -300,25 +300,35 @@ public class ServerController {
 
     //board a tutti
     public void move(String username, Direction...directions){
-        if(gameController.canMove(users.get(username), directions) && users.get(username).canUseAction()){
-            if(gameController.move(users.get(username), directions)){
-                gameData.setGame(gameController.getGame());
-                gameData.setPlayers(users);
-                try {
-                    servers.get(username).notify(Message.MOVE, Outcome.RIGHT, gameData);
-
-                } catch (IOException e) {
-                    Printer.err(e);
-                }
-                servers.forEach((u,s)-> {
+        if(users.get(username).isMyTurn()){
+            if(gameController.canMove(users.get(username), directions) && users.get(username).canUseAction()){
+                if(gameController.move(users.get(username), directions)){
+                    gameData.setGame(gameController.getGame());
+                    gameData.setPlayers(users);
                     try {
-                        if(!u.equals(username)){
-                            s.notify(Message.MOVE, Outcome.ALL, gameData);
-                        }
+                        servers.get(username).notify(Message.MOVE, Outcome.RIGHT, gameData);
+
                     } catch (IOException e) {
                         Printer.err(e);
                     }
-                });
+                    servers.forEach((u,s)-> {
+                        try {
+                            if(!u.equals(username)){
+                                s.notify(Message.MOVE, Outcome.ALL, gameData);
+                            }
+                        } catch (IOException e) {
+                            Printer.err(e);
+                        }
+                    });
+                }else{
+                    gameData.setGame(gameController.getGame());
+                    gameData.setPlayers(users);
+                    try {
+                        servers.get(username).notify(Message.MOVE, Outcome.WRONG, gameData);
+                    } catch (IOException e) {
+                        Printer.err(e);
+                    }
+                }
             }else{
                 gameData.setGame(gameController.getGame());
                 gameData.setPlayers(users);
@@ -329,10 +339,8 @@ public class ServerController {
                 }
             }
         }else{
-            gameData.setGame(gameController.getGame());
-            gameData.setPlayers(users);
             try {
-                servers.get(username).notify(Message.MOVE, Outcome.WRONG, gameData);
+                servers.get(username).notify(Message.NOT_TURN);
             } catch (IOException e) {
                 Printer.err(e);
             }
@@ -340,34 +348,42 @@ public class ServerController {
     }
     //board a tutti e playerBoard del grabber
     public void grab(String username, int choice, Direction...directions){
-        if(gameController.grab(users.get(username), choice, directions)){
-            if(directions.length > 0){
-                gameData.setMovement(true);
-            }
-            gameData.setCurrentPlayer(username);
-            gameData.setGame(gameController.getGame());
-            gameData.setPlayers(users);
-            try{
-                servers.get(username).notify(Message.GRAB, Outcome.RIGHT, gameData);
-            }catch (IOException e){
-                Printer.err(e);
-            }
-            servers.forEach((u,s)-> {
-                try {
-                    if(!u.equals(username)){
-                        s.notify(Message.GRAB, Outcome.ALL, gameData);
-                    }
-                } catch (IOException e) {
+        if(users.get(username).isMyTurn()){
+            if(gameController.grab(users.get(username), choice, directions)){
+                if(directions.length > 0){
+                    gameData.setMovement(true);
+                }
+                gameData.setCurrentPlayer(username);
+                gameData.setGame(gameController.getGame());
+                gameData.setPlayers(users);
+                try{
+                    servers.get(username).notify(Message.GRAB, Outcome.RIGHT, gameData);
+                }catch (IOException e){
                     Printer.err(e);
                 }
-            });
-            gameData.setMovement(false);
+                servers.forEach((u,s)-> {
+                    try {
+                        if(!u.equals(username)){
+                            s.notify(Message.GRAB, Outcome.ALL, gameData);
+                        }
+                    } catch (IOException e) {
+                        Printer.err(e);
+                    }
+                });
+                gameData.setMovement(false);
+            }else{
+                gameData.setGame(gameController.getGame());
+                gameData.setPlayers(users);
+                try{
+                    servers.get(username).notify(Message.GRAB, Outcome.WRONG, gameData);
+                }catch (IOException e){
+                    Printer.err(e);
+                }
+            }
         }else{
-            gameData.setGame(gameController.getGame());
-            gameData.setPlayers(users);
-            try{
-                servers.get(username).notify(Message.GRAB, Outcome.WRONG, gameData);
-            }catch (IOException e){
+            try {
+                servers.get(username).notify(Message.NOT_TURN);
+            } catch (IOException e) {
                 Printer.err(e);
             }
         }
@@ -378,99 +394,66 @@ public class ServerController {
         gameController.drop(users.get(username), weapon);
     }
 
-    public Player[] getVictims(TokenColor...colors){
-        Player[] victims = new Player[colors.length];
-        for(int i=0; i<colors.length; i++){
-            victims[i] = users.get(this.colors.get(colors[i]));
-        }
-        Printer.println(victims[0].getColor());
-        return victims;
-
-    }
-
-    public void shoot(String username, String weaponName, int effectNumber, TokenColor...colors){
-        if(gameController.shoot(users.get(username), weaponName, effectNumber-1, getVictims(colors))){
-            try {
-                servers.get(username).notify(Message.SHOOT, Outcome.RIGHT, users.get(username));
-            } catch (IOException e) {
-                Printer.err(e);
+    //metodo completo
+    //playerBoard delle vittime
+    public void shoot(String weaponName, int effectNumber, boolean basicFirst, String username, TokenColor firstVictim, TokenColor secondVictim, TokenColor thirdVictim, int x, int y, Direction...directions){
+        if(users.get(username).isMyTurn()){
+            List<Player> victims = new ArrayList<>();
+            Player victim1 = null;
+            Player victim2 = null;
+            Player victim3 = null;
+            if(!firstVictim.equals(TokenColor.NONE)){
+                victim1 = users.get(colors.get(firstVictim));
+                victims.add(victim1);
             }
-            for(TokenColor color : colors){
+            if(!secondVictim.equals(TokenColor.NONE)){
+                victim2 = users.get(colors.get(secondVictim));
+                victims.add(victim2);
+            }
+            if(!thirdVictim.equals(TokenColor.NONE)){
+                victim3 = users.get(colors.get(thirdVictim));
+                victims.add(victim3);
+            }
+            if(gameController.shoot(weaponName, effectNumber - 1, basicFirst, users.get(username), victim1, victim2, victim3, x, y, directions)){
                 try {
-                    servers.get(this.colors.get(color)).notify(Message.SHOOT, Outcome.ALL, users.get(this.colors.get(color)));
+                    gameData.setVictims(victims);
+                    if(directions.length > 0){
+                        gameData.setMovement(true);
+                    }
+                    if(victims.isEmpty()){
+                        users.forEach((u,p)->{
+                            if(p.getPosition().getX() == users.get(username).getPosition().getX() &&
+                                    p.getPosition().getY() == users.get(username).getPosition().getY() &&
+                                    !u.equals(username)){
+                                victims.add(p);
+                            }
+                        });
+                        gameData.setVictims(victims);
+                    }
+                    servers.get(username).notify(Message.SHOOT, Outcome.RIGHT, gameData);
+                    servers.forEach((u,s)-> {
+                        try {
+                            if(!u.equals(username)){
+                                s.notify(Message.SHOOT, Outcome.ALL, gameData);
+                            }
+                        } catch (IOException e) {
+                            Printer.err(e);
+                        }
+                    });
+                    gameData.setMovement(false);
+                } catch (IOException e) {
+                    Printer.err(e);
+                }
+            }else{
+                try {
+                    servers.get(username).notify(Message.SHOOT, Outcome.WRONG, gameData);
                 } catch (IOException e) {
                     Printer.err(e);
                 }
             }
         }else{
             try {
-                servers.get(username).notify(Message.SHOOT, Outcome.WRONG, users.get(username));
-            } catch (IOException e) {
-                Printer.err(e);
-            }
-        }
-    }
-
-    public void shoot(String username, String weaponName, int effectNumber, TokenColor color, int x, int y){
-        gameController.shoot(users.get(username), weaponName, effectNumber-1, users.get(colors.get(color)), x, y);
-    }
-
-    public void shoot(String username, String weaponName,  TokenColor color, int effectNumber, Direction...directions){
-        gameController.shoot(users.get(username), weaponName, users.get(colors.get(color)), effectNumber-1, directions);
-    }
-
-    //metodo completo
-    //playerBoard delle vittime
-    public void shoot(String weaponName, int effectNumber, boolean basicFirst, String username, TokenColor firstVictim, TokenColor secondVictim, TokenColor thirdVictim, int x, int y, Direction...directions){
-        List<Player> victims = new ArrayList<>();
-        Player victim1 = null;
-        Player victim2 = null;
-        Player victim3 = null;
-        if(!firstVictim.equals(TokenColor.NONE)){
-            victim1 = users.get(colors.get(firstVictim));
-            victims.add(victim1);
-        }
-        if(!secondVictim.equals(TokenColor.NONE)){
-            victim2 = users.get(colors.get(secondVictim));
-            victims.add(victim2);
-        }
-        if(!thirdVictim.equals(TokenColor.NONE)){
-            victim3 = users.get(colors.get(thirdVictim));
-            victims.add(victim3);
-        }
-        if(gameController.shoot(weaponName, effectNumber - 1, basicFirst, users.get(username), victim1, victim2, victim3, x, y, directions)){
-            try {
-                gameData.setVictims(victims);
-                if(directions.length > 0){
-                    gameData.setMovement(true);
-                }
-                if(victims.isEmpty()){
-                    users.forEach((u,p)->{
-                        if(p.getPosition().getX() == users.get(username).getPosition().getX() &&
-                                p.getPosition().getY() == users.get(username).getPosition().getY() &&
-                                    !u.equals(username)){
-                            victims.add(p);
-                        }
-                    });
-                    gameData.setVictims(victims);
-                }
-                servers.get(username).notify(Message.SHOOT, Outcome.RIGHT, gameData);
-                servers.forEach((u,s)-> {
-                    try {
-                        if(!u.equals(username)){
-                            s.notify(Message.SHOOT, Outcome.ALL, gameData);
-                        }
-                    } catch (IOException e) {
-                        Printer.err(e);
-                    }
-                });
-                gameData.setMovement(false);
-            } catch (IOException e) {
-                Printer.err(e);
-            }
-        }else{
-            try {
-                servers.get(username).notify(Message.SHOOT, Outcome.WRONG, gameData);
+                servers.get(username).notify(Message.NOT_TURN);
             } catch (IOException e) {
                 Printer.err(e);
             }
@@ -479,69 +462,6 @@ public class ServerController {
 
     public void moveAndReload(String username, Direction firstDirection, Direction secondDirection, String...weapons){
         gameController.moveAndReload(users.get(username), firstDirection, secondDirection, weapons);
-    }
-
-    public void powerup(String username, String powerup, int x, int y){
-        if(gameController.canMove(x,y)){
-            gameController.move(users.get(username), x, y);
-            gameData.setGame(gameController.getGame());
-            gameData.setPlayers(users);
-            try {
-                servers.get(username).notify(Message.POWERUP, Outcome.RIGHT, gameData);
-            } catch (IOException e) {
-                Printer.err(e);
-            }
-        }else{
-            gameData.setGame(gameController.getGame());
-            gameData.setPlayers(users);
-            try {
-                servers.get(username).notify(Message.POWERUP, Outcome.WRONG, gameData);
-            } catch (IOException e) {
-                Printer.err(e);
-            }
-        }
-    }
-
-    public void powerup(String username, String powerup, Direction direction, int value){
-        if(value == 1){
-            if(gameController.canMove(users.get(username), direction)){
-                gameController.move(users.get(username), direction);
-                gameData.setGame(gameController.getGame());
-                gameData.setPlayers(users);
-                try {
-                    servers.get(username).notify(Message.POWERUP, Outcome.RIGHT, gameData);
-                } catch (IOException e) {
-                    Printer.err(e);
-                }
-            }else{
-                gameData.setGame(gameController.getGame());
-                gameData.setPlayers(users);
-                try {
-                    servers.get(username).notify(Message.POWERUP, Outcome.WRONG, gameData);
-                } catch (IOException e) {
-                    Printer.err(e);
-                }
-            }
-        }else if(value == 2){
-            if(gameController.canMove(users.get(username), direction, direction)){
-                gameController.move(users.get(username), direction, direction);
-                gameData.setGame(gameController.getGame());
-                gameData.setPlayers(users);
-                try {
-                    servers.get(username).notify(Message.POWERUP, Outcome.RIGHT, gameData);
-                } catch (IOException e) {
-                    Printer.err(e);
-                }
-            }else{
-                gameData.setGame(gameController.getGame());
-                gameData.setPlayers(users);
-                try {
-                    servers.get(username).notify(Message.POWERUP, Outcome.WRONG, gameData);
-                } catch (IOException e) {
-                    Printer.err(e);
-                }
-            }
-        }
     }
 
     //in base al powerup
@@ -590,15 +510,23 @@ public class ServerController {
 
     //nome arma e playerboard al solo reloader
     public void reload(String username, String weaponName){
-        if(gameController.reload(users.get(username), weaponName)){
-            try {
-                servers.get(username).notify(Message.RELOAD, Outcome.RIGHT, weaponName);
-            } catch (IOException e) {
-                Printer.err(e);
+        if(users.get(username).isMyTurn()){
+            if(gameController.reload(users.get(username), weaponName)){
+                try {
+                    servers.get(username).notify(Message.RELOAD, Outcome.RIGHT, weaponName);
+                } catch (IOException e) {
+                    Printer.err(e);
+                }
+            }else{
+                try {
+                    servers.get(username).notify(Message.RELOAD, Outcome.WRONG, weaponName);
+                } catch (IOException e) {
+                    Printer.err(e);
+                }
             }
         }else{
             try {
-                servers.get(username).notify(Message.RELOAD, Outcome.WRONG, weaponName);
+                servers.get(username).notify(Message.NOT_TURN);
             } catch (IOException e) {
                 Printer.err(e);
             }
@@ -606,39 +534,40 @@ public class ServerController {
     }
     //tutti i dati
     public void endTurn(String username){
-        for(Player player : players){
-            if(player.isDead()){
-                deathAndRespawn();
-                break;
-            }
-        }
-        if(gameController.isFinalFrenzy() && !finalFrenzy){
-            gameController.finalFrenzy();
-            finalFrenzy = true;
-            gameData.setGame(gameController.getGame());
-            gameData.setPlayers(users);
-            servers.forEach((u,s)-> {
-                try {
-                    s.notify(Message.FINAL_FRENZY, Outcome.ALL, gameData);
-                } catch (IOException e) {
-                    Printer.err(e);
+        if(users.get(username).isMyTurn()){
+            for(Player player : players){
+                if(player.isDead()){
+                    deathAndRespawn();
+                    break;
                 }
-            });
-        }
-        for(int i = 0; i< players.size(); i++){
-            if(players.get(i).getUsername().equals(username)){
-                try {
-                    if(servers.containsKey(username) && !players.get(i).isDisconnected()){
-                        servers.get(username).notify(Message.END_TURN);
+            }
+            if(gameController.isFinalFrenzy() && !finalFrenzy){
+                gameController.finalFrenzy();
+                finalFrenzy = true;
+                gameData.setGame(gameController.getGame());
+                gameData.setPlayers(users);
+                servers.forEach((u,s)-> {
+                    try {
+                        s.notify(Message.FINAL_FRENZY, Outcome.ALL, gameData);
+                    } catch (IOException e) {
+                        Printer.err(e);
                     }
-                    int index = nextPlayerIndex(i);
-                    if(servers.containsKey(players.get(index).getUsername())){
-                        gameData.setGame(gameController.getGame());
-                        gameData.setPlayers(users);
-                        servers.get(players.get(index).getUsername()).notify(Message.NEW_TURN, Outcome.RIGHT, gameData);
-                        TurnTimer timer = new TurnTimer(this, players, players.get(index));
-                        timer.start();
-                    }
+                });
+            }
+            for(int i = 0; i< players.size(); i++){
+                if(players.get(i).getUsername().equals(username)){
+                    try {
+                        if(servers.containsKey(username) && !players.get(i).isDisconnected()){
+                            servers.get(username).notify(Message.END_TURN);
+                        }
+                        int index = nextPlayerIndex(i);
+                        if(servers.containsKey(players.get(index).getUsername())){
+                            gameData.setGame(gameController.getGame());
+                            gameData.setPlayers(users);
+                            servers.get(players.get(index).getUsername()).notify(Message.NEW_TURN, Outcome.RIGHT, gameData);
+                            TurnTimer timer = new TurnTimer(this, players, players.get(index));
+                            timer.start();
+                        }
                     /*
                     if(i== players.size()-1){
 
@@ -660,12 +589,19 @@ public class ServerController {
                         }
                     }
                     */
-                } catch (IOException e) {
-                    Printer.err(e);
+                    } catch (IOException e) {
+                        Printer.err(e);
+                    }
                 }
             }
+            gameController.endTurn(users.get(username));
+        }else{
+            try {
+                servers.get(username).notify(Message.NOT_TURN);
+            } catch (IOException e) {
+                Printer.err(e);
+            }
         }
-        gameController.endTurn(users.get(username));
     }
 
     private int nextPlayerIndex(int index){
