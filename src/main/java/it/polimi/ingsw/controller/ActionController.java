@@ -225,6 +225,11 @@ public class ActionController implements ActionInterface {
     }
 
     @Override
+    public boolean canGetWeapon(){
+        return game.getWeapons().size()>0;
+    }
+
+    @Override
     public WeaponCard getWeapon() {
         return (WeaponCard) game.getWeapons().draw();
     }

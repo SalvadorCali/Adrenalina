@@ -65,76 +65,78 @@ public class CommandLine implements ViewInterface {
 
     private void readInput(String message) throws IOException {
         StringTokenizer string = new StringTokenizer(message);
-        switch(string.nextToken()){
-            case "help":
-                help();
-                break;
-            case "login":
-                if(!login(string)){
-                    Printer.print(StringCLI.INVALID_COMMAND);
-                }
-                break;
-            case "disconnect":
-                disconnect();
-                break;
-            case "board":
-                if(!board(string)){
-                    Printer.print(StringCLI.INVALID_COMMAND);
-                }
-                break;
-            case "choose":
-                if(!choose(string)){
-                    Printer.print(StringCLI.INVALID_COMMAND);
-                }
-                break;
-            case "show":
-                if(!show(string)){
-                    Printer.print(StringCLI.INVALID_COMMAND);
-                }
-                break;
-            case "move":
-                if(playerController.isFinalFrenzy()){
-                    if(!moveFinalFrenzy(string)){
+        if(string.hasMoreTokens()){
+            switch(string.nextToken()){
+                case "help":
+                    help();
+                    break;
+                case "login":
+                    if(!login(string)){
                         Printer.print(StringCLI.INVALID_COMMAND);
                     }
-                }else{
-                    if(!move(string)){
+                    break;
+                case "disconnect":
+                    disconnect();
+                    break;
+                case "board":
+                    if(!board(string)){
                         Printer.print(StringCLI.INVALID_COMMAND);
                     }
-                }
-                break;
-            case "grab":
-                if(playerController.isFinalFrenzy()){
-                    if(!grabFinalFrenzy(string)){
+                    break;
+                case "choose":
+                    if(!choose(string)){
                         Printer.print(StringCLI.INVALID_COMMAND);
                     }
-                }else{
-                    if(!grab(string)){
+                    break;
+                case "show":
+                    if(!show(string)){
                         Printer.print(StringCLI.INVALID_COMMAND);
                     }
-                }
-                break;
-            case "shoot":
-                if(!shoot(string)){
-                    Printer.print(StringCLI.INVALID_COMMAND);
-                }
-                break;
-            case "powerup":
-                if(!powerup(string)){
-                    Printer.print(StringCLI.INVALID_COMMAND);
-                }
-                break;
-            case "reload":
-                if(!reload(string)){
-                    Printer.print(StringCLI.INVALID_COMMAND);
-                }
-                break;
-            case "end":
-                endTurn();
-                break;
-            default:
-                Printer.println(StringCLI.INVALID_COMMAND);
-                break;
+                    break;
+                case "move":
+                    if(playerController.isFinalFrenzy()){
+                        if(!moveFinalFrenzy(string)){
+                            Printer.print(StringCLI.INVALID_COMMAND);
+                        }
+                    }else{
+                        if(!move(string)){
+                            Printer.print(StringCLI.INVALID_COMMAND);
+                        }
+                    }
+                    break;
+                case "grab":
+                    if(playerController.isFinalFrenzy()){
+                        if(!grabFinalFrenzy(string)){
+                            Printer.print(StringCLI.INVALID_COMMAND);
+                        }
+                    }else{
+                        if(!grab(string)){
+                            Printer.print(StringCLI.INVALID_COMMAND);
+                        }
+                    }
+                    break;
+                case "shoot":
+                    if(!shoot(string)){
+                        Printer.print(StringCLI.INVALID_COMMAND);
+                    }
+                    break;
+                case "powerup":
+                    if(!powerup(string)){
+                        Printer.print(StringCLI.INVALID_COMMAND);
+                    }
+                    break;
+                case "reload":
+                    if(!reload(string)){
+                        Printer.print(StringCLI.INVALID_COMMAND);
+                    }
+                    break;
+                case "end":
+                    endTurn();
+                    break;
+                default:
+                    Printer.println(StringCLI.INVALID_COMMAND);
+                    break;
+            }
         }
     }
 
@@ -371,11 +373,9 @@ public class CommandLine implements ViewInterface {
             }
         }
         if(input.countTokens() == 0){
-            Printer.println("0");
             client.grab(choice);
             return true;
         }else if(input.countTokens() == 1){
-            Printer.println("1");
             client.grab(choice, Converter.fromStringToDirection(input.nextToken()));
             return true;
         }else if(input.countTokens() == 2 && !playerController.getAdrenalineZone().equals(AdrenalineZone.DEFAULT)){
@@ -854,14 +854,24 @@ public class CommandLine implements ViewInterface {
                 }else{
                     return false;
                 }
-            case "rocketlauncher": //da terminare
+            case "rocketlauncher":
                 Printer.println("Choose your effect: <1> or <2> or <3>");
                 int choice2 = Integer.parseInt(userInputStream.readLine());
                 if(choice2 == 1){
                     Printer.println("Basic effect: <victim>");
                     Printer.println("Basic effect: <victim> <direction>");
-                    //inserire
-                    return true;
+                    string = new StringTokenizer(userInputStream.readLine());
+                    if(string.countTokens()==1){
+                        client.shoot(weapon, choice2, true, Converter.fromStringToTokenColor(string.nextToken()),
+                                TokenColor.NONE, TokenColor.NONE, -1, -1);
+                        return true;
+                    }else if(string.countTokens()==2){
+                        client.shoot(weapon, choice2, true, Converter.fromStringToTokenColor(string.nextToken()),
+                                TokenColor.NONE, TokenColor.NONE, -1, -1, Converter.fromStringToDirection(string.nextToken()));
+                        return true;
+                    }else{
+                        return false;
+                    }
                 }else if(choice2 == 2 || choice2 == 3){
                     boolean basicFirst = basicFirst(weapon);
                     Printer.println("With rocket jump: <victim>");

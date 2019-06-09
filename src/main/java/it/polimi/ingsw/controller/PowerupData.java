@@ -2,7 +2,9 @@ package it.polimi.ingsw.controller;
 
 import it.polimi.ingsw.model.enums.Color;
 
-public class PowerupData {
+import java.io.Serializable;
+
+public class PowerupData implements Serializable {
     private String name;
     private Color color;
 

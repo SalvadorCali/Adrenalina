@@ -9,6 +9,7 @@ import java.util.List;
 
 public class Deck implements Serializable {
     private List<Card> cards = new ArrayList<>();
+    private List<Card> reserve = new ArrayList<>();
 
     //methods
     public void shuffle(){
@@ -16,10 +17,13 @@ public class Deck implements Serializable {
     }
 
     public Card draw(){
-       // if(cards.isEmpty()){
-
-        //}
-        return cards.remove(cards.size() - 1);
+        Card card = cards.remove(cards.size()-1);
+        reserve.add(card);
+        if(cards.isEmpty()){
+            cards.addAll(reserve);
+            shuffle();
+        }
+        return card;
     }
 
     public void addCard(Card card){

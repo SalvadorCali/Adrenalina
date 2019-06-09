@@ -28,7 +28,6 @@ public class TurnTimer extends Thread {
                 serverController.endTurn(player.getUsername());
             }
         } catch (InterruptedException e) {
-            Printer.err(e);
             Thread.currentThread().interrupt();
         }
         /*

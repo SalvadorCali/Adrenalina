@@ -49,6 +49,8 @@ public interface ActionInterface {
 
     AmmoCard getAmmo();
 
+    boolean canGetWeapon();
+
     WeaponCard getWeapon();
 
     Player getCurrentPlayer();

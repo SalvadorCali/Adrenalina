@@ -37,6 +37,7 @@ public class ServerController {
     private List<Player> players;
     private GameData gameData;
     private boolean finalFrenzy;
+    private TurnTimer timer;
 
     public ServerController(){
         gameController = new GameController();
@@ -172,7 +173,7 @@ public class ServerController {
         } catch (IOException e) {
             Printer.err(e);
         }
-        TurnTimer timer = new TurnTimer(this, players, players.get(0));
+        timer = new TurnTimer(this, players, players.get(0));
         timer.start();
         Printer.println("Game iniziato!");
     }
@@ -565,7 +566,8 @@ public class ServerController {
                             gameData.setGame(gameController.getGame());
                             gameData.setPlayers(users);
                             servers.get(players.get(index).getUsername()).notify(Message.NEW_TURN, Outcome.RIGHT, gameData);
-                            TurnTimer timer = new TurnTimer(this, players, players.get(index));
+                            timer.interrupt();
+                            timer = new TurnTimer(this, players, players.get(index));
                             timer.start();
                         }
                     /*

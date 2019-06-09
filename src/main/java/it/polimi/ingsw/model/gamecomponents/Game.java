@@ -297,6 +297,7 @@ public class Game implements Serializable {
                 scoring();
             }
         }
+        Printer.println("Refill:");
         refillSquares(actionInterface);
         for(int i=0; i<players.size(); i++){
             if(players.get(i).equals(player)){

@@ -49,7 +49,9 @@ public class SpawnPoint extends Square implements Serializable {
     public void fill(ActionInterface actionInterface){
         int size = weapons.size();
         for(int i=0; i<(3 - size); i++){
-            weapons.add(actionInterface.getWeapon());
+            if(actionInterface.canGetWeapon()){
+                weapons.add(actionInterface.getWeapon());
+            }
         }
         setEmpty(false);
         /*
