@@ -140,6 +140,9 @@ public abstract class Square implements Serializable {
      * @return the result of the control: true if the movement is possible, false if isn't.
      */
     public boolean canMove(Direction direction) {
+        if(direction == null){
+           return false;
+        }
         switch (direction) {
             case UP:
                 return getNorth().equals(Cardinal.DOOR) || getNorth().equals(Cardinal.ROOM);
