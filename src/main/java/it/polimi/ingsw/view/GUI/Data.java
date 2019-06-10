@@ -1,11 +1,14 @@
 package it.polimi.ingsw.view.GUI;
 
+import it.polimi.ingsw.network.client.ClientInterface;
+
 public class Data{
 
     private static Data instance;
     private Integer boardType;
     private Integer skull;
     private Integer powerup;
+    private ClientInterface client;
 
     private Data(){
     }
@@ -41,5 +44,11 @@ public class Data{
         return this.powerup;
     }
 
+    public void setClient(ClientInterface client){
+        this.client = client;
+    }
 
+    public ClientInterface getClient() {
+        return client;
+    }
 }

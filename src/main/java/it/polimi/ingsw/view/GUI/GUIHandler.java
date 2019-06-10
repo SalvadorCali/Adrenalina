@@ -310,7 +310,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
             this.boardType = 0;
             Data.getInstance().setBoardType(0);
-            System.out.println(boardType);
+
         });
     }
 
@@ -319,7 +319,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
             this.boardType = 1;
             Data.getInstance().setBoardType(1);
-            System.out.println(boardType);
+
         });
     }
 
@@ -327,7 +327,6 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         Platform.runLater(() ->{
             this.boardType = 2;
             Data.getInstance().setBoardType(2);
-            System.out.println(boardType);
 
         });
     }
@@ -336,7 +335,6 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         Platform.runLater(() ->{
             this.boardType = 3;
             Data.getInstance().setBoardType(3);
-            System.out.println(boardType);
         });
     }
 
@@ -345,8 +343,9 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
         Platform.runLater(() -> {
 
-            this.skull = Integer.valueOf(skullText.getText());
+            skull = Integer.valueOf(skullText.getText());
             Data.getInstance().setSkull(skull);
+            System.out.println(Data.getInstance().getSkull());
 
             if (boardType == null) {
 
@@ -357,6 +356,11 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                 labelErrorSkull.setText("Wrong skull number");
 
             } else {
+                try {
+                    setBoard();
+                } catch (IOException | InterruptedException e) {
+                    e.printStackTrace();
+                }
                 Stage stage = (Stage) enterButton.getScene().getWindow();
                 stage.close();
             }
@@ -420,16 +424,6 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     @Override
     public void notify(Message message) {
         switch (message){
-            case NEW_TURN:
-                try {
-                    if(this.startedGame == 0){
-                        notifyNewTurn();
-                        this.startedGame ++;
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                break;
             case END_TURN:
                 //notifyEndTurn();
                 break;
@@ -442,15 +436,22 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     public void notify(Message message, Outcome outcome) {
         Platform.runLater(() -> {
             switch (message) {
+                case NEW_TURN:
+                    try {
+                        System.out.println("topolino");
+                        if(this.startedGame == 0){
+                            notifyNewTurn();
+                            this.startedGame ++;
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    break;
                 case BOARD:
                     notifyBoard(outcome);
                     break;
                 case GAME:
-                    try {
-                        Printer.println("new game");
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
+                    System.out.println("new game");
                     break;
                 case MOVE:
                     //notifyMovement(outcome);
@@ -514,16 +515,16 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
     private void notifyNewTurn() throws Exception {
         Platform.runLater(() -> {
-
-            Thread thread = new Thread(this::checkPosition);
-            thread.setDaemon(true);
-            thread.start();
-
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("MapGUI.fxml"));
-            try {
-                Parent root = loader.load();
 
-                guiHandler = loader.getController();
+            Parent root = null;
+            try {
+                root = loader.load();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            guiHandler = loader.getController();
                 guiHandler.setMapImage();
 
                 Stage stage = new Stage();
@@ -531,19 +532,10 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                 stage.setTitle("Adrenaline's Board");
                 stage.show();
 
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
 
-
-
-            try {
-                setBoard();
-            } catch (IOException | InterruptedException e) {
-                e.printStackTrace();
-            }
-
-
+            Thread thread = new Thread(this::checkPosition);
+            thread.setDaemon(true);
+            thread.start();
 
         });
     }
@@ -583,6 +575,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                 client.setView(this);
                 this.playerController = client.getPlayerController();
                 client.login(name, Converter.fromStringToTokenColor(color));
+                Data.getInstance().setClient(client);
 
             } catch (NotBoundException e) {
                 e.printStackTrace();
@@ -601,6 +594,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                 client.setView(this);
                 playerController = client.getPlayerController();
                 client.login(name, Converter.fromStringToTokenColor(color));
+                Data.getInstance().setClient(client);
 
 
             } catch (IOException e) {
@@ -677,7 +671,6 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                 stage.setTitle("Choose Powerup");
                 stage.show();
 
-
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -730,7 +723,9 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     public void setBoard() throws IOException, InterruptedException {
         Platform.runLater(() -> {
             try {
-                client.board(Data.getInstance().getBoardType(), Data.getInstance().getSkull());
+                client = Data.getInstance().getClient();
+                System.out.println( Data.getInstance().getSkull());
+                client.board(Data.getInstance().getBoardType() + 1, Data.getInstance().getSkull());
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -744,8 +739,8 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
     public void setPowerup() throws IOException{
         Platform.runLater(() ->{
-
             try {
+                client = Data.getInstance().getClient();
                 client.choose(Data.getInstance().getPowerup());
             } catch (IOException e) {
                 e.printStackTrace();
@@ -810,7 +805,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         Platform.runLater(() -> {
             bannerEndTurn.setOnMouseClicked(e ->{
                 try {
-
+                    client = Data.getInstance().getClient();
                     client.endTurn();
                 } catch (IOException e1) {
                     e1.printStackTrace();
