@@ -144,6 +144,21 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
     }
 
     @Override
+    public void dropPowerup(int powerup) throws IOException {
+        server.dropPowerup(powerup);
+    }
+
+    @Override
+    public void dropWeapon(int weapon) throws IOException {
+        server.dropWeapon(weapon);
+    }
+
+    @Override
+    public void discardPowerup(int powerup) throws IOException {
+        server.discardPowerup(powerup);
+    }
+
+    @Override
     public void grab(int choice, Direction...directions) throws RemoteException {
         server.grab(choice, directions);
     }
@@ -165,6 +180,11 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
 
     @Override
     public void powerupAmmos(PowerupData...powerups) throws RemoteException{
+        server.powerupAmmos(powerups);
+    }
+
+    @Override
+    public void powerupAmmos(int... powerups) throws IOException {
         server.powerupAmmos(powerups);
     }
 
@@ -293,6 +313,13 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
                 GameData gameData6 = (GameData) object;
                 playerController.setFinalFrenzy(true);
                 view.notify(message);
+                break;
+            case DROP_POWERUP:
+            case DROP_WEAPON:
+            case DISCARD_POWERUP:
+                GameData gameData8 = (GameData) object;
+                playerController.setPlayer(gameData8.getPlayer(username));
+                view.notify(message, outcome);
                 break;
             default:
                 view.notify(message, outcome, object);

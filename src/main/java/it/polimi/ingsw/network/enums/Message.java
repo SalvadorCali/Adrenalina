@@ -1,21 +1,15 @@
 package it.polimi.ingsw.network.enums;
 
 public enum Message {
-    HELP(0), LOGIN(1), DISCONNECT(2), SHOW(3),
-    MOVE(4), GRAB(5), SHOOT(6), NOTIFY(7),
-    MESSAGE(8), COLOR(9), MOVE_GRAB(10),
-    USERNAME(11), PLAYER(12), END_TURN(13),
-    NEW_TURN(14), GAME(15), RECONNECTION(16),
-    SPAWN(17), SQUARE(18), POWERUP(19),
-    POWERUP_AMMOS(20), RELOAD(21),
-    SHOOT_1(22), SHOOT_2(23), SHOOT_3(24),
-    SQUARE_2(25), BOARD(26), SCORE(27), DROP(28),
-    FINAL_FRENZY(29), MOVE_RELOAD(30), NOT_TURN(31);
-    private final int number;
-    Message(int number){
-        this.number = number;
-    }
-    public int getNumber(){
-        return number;
-    }
+    HELP, LOGIN, DISCONNECT, SHOW,
+    MOVE, GRAB, SHOOT, NOTIFY,
+    MESSAGE, COLOR, MOVE_GRAB,
+    USERNAME, PLAYER, END_TURN,
+    NEW_TURN, GAME, RECONNECTION,
+    SPAWN, SQUARE, POWERUP,
+    POWERUP_AMMOS, RELOAD,
+    SQUARE_2, BOARD, SCORE, DROP,
+    FINAL_FRENZY, MOVE_RELOAD, NOT_TURN,
+    DROP_POWERUP, DROP_WEAPON, DISCARD_POWERUP, DISCARD_WEAPON;
+
 }

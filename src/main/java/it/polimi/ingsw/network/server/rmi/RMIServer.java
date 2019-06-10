@@ -78,6 +78,21 @@ public class RMIServer extends UnicastRemoteObject implements RMIServerInterface
     }
 
     @Override
+    public void dropPowerup(int powerup) throws RemoteException {
+        serverController.dropPowerup(clientName, powerup);
+    }
+
+    @Override
+    public void dropWeapon(int weapon) throws RemoteException {
+        serverController.dropWeapon(clientName, weapon);
+    }
+
+    @Override
+    public void discardPowerup(int powerup) throws RemoteException {
+        serverController.discardPowerup(clientName, powerup);
+    }
+
+    @Override
     public void shoot(String weaponName, int effectNumber, boolean basicFirst, TokenColor firstVictim, TokenColor secondVictim, TokenColor thirdVictim, int x, int y, Direction... directions) throws RemoteException {
         serverController.shoot(weaponName, effectNumber, basicFirst, clientName, firstVictim, secondVictim, thirdVictim, x, y, directions);
     }
@@ -94,6 +109,11 @@ public class RMIServer extends UnicastRemoteObject implements RMIServerInterface
 
     @Override
     public void powerupAmmos(PowerupData...powerups){
+        serverController.powerupAmmos(clientName, powerups);
+    }
+
+    @Override
+    public void powerupAmmos(int... powerups) throws RemoteException {
         serverController.powerupAmmos(clientName, powerups);
     }
 

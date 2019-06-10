@@ -83,6 +83,16 @@ public class CommandLine implements ViewInterface {
                         Printer.print(StringCLI.INVALID_COMMAND);
                     }
                     break;
+                case "drop":
+                    if(!drop(string)){
+                        Printer.print(StringCLI.INVALID_COMMAND);
+                    }
+                    break;
+                case "discard":
+                    if(!discard(string)){
+                        Printer.print(StringCLI.INVALID_COMMAND);
+                    }
+                    break;
                 case "choose":
                     if(!choose(string)){
                         Printer.print(StringCLI.INVALID_COMMAND);
@@ -174,6 +184,34 @@ public class CommandLine implements ViewInterface {
             client.disconnect();
         } catch (RemoteException e) {
             Printer.err(e);
+        }
+    }
+
+    private boolean drop(StringTokenizer input){
+        if(input.hasMoreTokens() && input.countTokens()==2){
+            String whatToDrop = input.nextToken();
+            if(whatToDrop.equals("weapon")){
+                dropWeapon(Integer.parseInt(input.nextToken()));
+                return true;
+            }else if(whatToDrop.equals("powerup")){
+                dropPowerup(Integer.parseInt(input.nextToken()));
+                return true;
+            }else{
+                Printer.println("prova");
+                return false;
+            }
+        }else{
+            Printer.println("prova2");
+            return false;
+        }
+    }
+
+    private boolean discard(StringTokenizer input){
+        if(input.hasMoreTokens() && input.countTokens()==1){
+            discardPowerup(Integer.parseInt(input.nextToken()));
+            return true;
+        }else{
+            return false;
         }
     }
 
@@ -368,9 +406,6 @@ public class CommandLine implements ViewInterface {
         int choice = Integer.parseInt(input.nextToken());
         if(choice != 0){
             handlePowerup();
-            if(playerController.getPlayer().getWeapons().size() == 3){
-                dropWeapon();
-            }
         }
         if(input.countTokens() == 0){
             client.grab(choice);
@@ -386,11 +421,25 @@ public class CommandLine implements ViewInterface {
         return false;
     }
 
-    private void dropWeapon(){
-        Printer.print("Please choose a weapon to drop:");
+    private void dropWeapon(int weapon){
         try {
-            String weapon = userInputStream.readLine();
-            client.drop(weapon);
+            client.dropWeapon(weapon);
+        } catch (IOException e) {
+            Printer.err(e);
+        }
+    }
+
+    private void dropPowerup(int powerup){
+        try {
+            client.dropPowerup(powerup);
+        } catch (IOException e) {
+            Printer.err(e);
+        }
+    }
+
+    private void discardPowerup(int powerup){
+        try {
+            client.discardPowerup(powerup);
         } catch (IOException e) {
             Printer.err(e);
         }
@@ -1171,26 +1220,23 @@ public class CommandLine implements ViewInterface {
     }
 
     public void handlePowerup() throws IOException {
-        Printer.println("Please, insert powerups or write <no>: <first_powerup_name> <first_color> <second_powerup_name> <second_color>:");
-        StringTokenizer string = new StringTokenizer(userInputStream.readLine());
-        if(string.hasMoreTokens()){
-            String firstPowerup = string.nextToken();
-            if(string.hasMoreTokens() && !firstPowerup.equals("no")){
-                Color firstColor = Converter.fromStringToColor(string.nextToken());
-                if(string.hasMoreTokens()){
-                    String secondPowerup = string.nextToken();
-                    if(string.hasMoreTokens()){
-                        Color secondColor = Converter.fromStringToColor(string.nextToken());
-                        client.powerupAmmos(new PowerupData(firstPowerup, firstColor), new PowerupData(secondPowerup, secondColor));
-                    }
-                }else{
-                    client.powerupAmmos(new PowerupData(firstPowerup, firstColor));
+        Printer.println("Do you want to discard a powerup as ammo? <yes> <no>");
+        String choice = userInputStream.readLine();
+        if(choice.equals("yes")){
+            Printer.println("Please, insert powerup's number: <1> <2> <3>:");
+            StringTokenizer string = new StringTokenizer(userInputStream.readLine());
+            if(string.hasMoreTokens()){
+                if(string.countTokens()==1){
+                    client.powerupAmmos(Integer.parseInt(string.nextToken()));
+                }else if(string.countTokens()==2){
+                    client.powerupAmmos(Integer.parseInt(string.nextToken()), Integer.parseInt(string.nextToken()));
                 }
             }
         }
     }
 
     private boolean reload(StringTokenizer input) throws IOException {
+        handlePowerup();
         if(input.countTokens() == 1){
             client.reload(input.nextToken());
             return true;
@@ -1498,6 +1544,36 @@ public class CommandLine implements ViewInterface {
         }
     }
 
+    private void notifyDiscardPowerup(Outcome outcome){
+        if(outcome.equals(Outcome.RIGHT)){
+            Printer.println("Powerup discard!");
+            if(!playerController.getPowerups().isEmpty()){
+                Printer.println("Your powerups:");
+                playerController.getPowerups().forEach(Printer::println);
+            }
+        }
+    }
+
+    private void notifyDropPowerup(Outcome outcome){
+        if(outcome.equals(Outcome.RIGHT)){
+            Printer.println("Powerup drop!");
+            if(!playerController.getPowerups().isEmpty()){
+                Printer.println("Your powerups:");
+                playerController.getPowerups().forEach(Printer::println);
+            }
+        }
+    }
+
+    private void notifyDropWeapon(Outcome outcome){
+        if(outcome.equals(Outcome.RIGHT)){
+            Printer.println("Weapon drop!");
+            if(!playerController.getWeapons().isEmpty()){
+                Printer.println("Your weapons:");
+                playerController.getWeapons().forEach(Printer::println);
+            }
+        }
+    }
+
     private void notifyFinalFrenzy(){
         Printer.println("Final Frenzy!!!");
         damageBoardPrinter.setFinalFrenzy(true);
@@ -1544,6 +1620,15 @@ public class CommandLine implements ViewInterface {
                 break;
             case RECONNECTION:
                 notifyReconnection(outcome);
+                break;
+            case DISCARD_POWERUP:
+                notifyDiscardPowerup(outcome);
+                break;
+            case DROP_POWERUP:
+                notifyDropPowerup(outcome);
+                break;
+            case DROP_WEAPON:
+                notifyDropWeapon(outcome);
                 break;
             default:
                 break;

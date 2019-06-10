@@ -216,6 +216,30 @@ public class SocketClient implements ClientInterface, Runnable, Serializable {
     }
 
     @Override
+    public void dropPowerup(int powerup) throws IOException {
+        objectOutputStream.writeObject(Message.DROP_POWERUP);
+        objectOutputStream.flush();
+        objectOutputStream.writeInt(powerup);
+        objectOutputStream.flush();
+    }
+
+    @Override
+    public void dropWeapon(int weapon) throws IOException {
+        objectOutputStream.writeObject(Message.DROP_WEAPON);
+        objectOutputStream.flush();
+        objectOutputStream.writeInt(weapon);
+        objectOutputStream.flush();
+    }
+
+    @Override
+    public void discardPowerup(int powerup) throws IOException {
+        objectOutputStream.writeObject(Message.DISCARD_POWERUP);
+        objectOutputStream.flush();
+        objectOutputStream.writeInt(powerup);
+        objectOutputStream.flush();
+    }
+
+    @Override
     public void shoot(String weaponName, int effectNumber, boolean basicFirst, TokenColor firstVictim, TokenColor secondVictim, TokenColor thirdVictim, int x, int y, Direction... directions) throws IOException {
         objectOutputStream.writeObject(Message.SHOOT);
         objectOutputStream.flush();
@@ -299,6 +323,18 @@ public class SocketClient implements ClientInterface, Runnable, Serializable {
         objectOutputStream.flush();
         for(PowerupData powerup : powerups){
             objectOutputStream.writeObject(powerup);
+            objectOutputStream.flush();
+        }
+    }
+
+    @Override
+    public void powerupAmmos(int... powerups) throws IOException {
+        objectOutputStream.writeObject(Message.POWERUP_AMMOS);
+        objectOutputStream.flush();
+        objectOutputStream.writeInt(powerups.length);
+        objectOutputStream.flush();
+        for(int powerup : powerups){
+            objectOutputStream.writeInt(powerup);
             objectOutputStream.flush();
         }
     }
@@ -426,6 +462,7 @@ public class SocketClient implements ClientInterface, Runnable, Serializable {
                 }
                 view.notify(message, outcome);
                 break;
+
             case BOARD:
                 outcome = (Outcome) objectInputStream.readObject();
                 view.notify(message, outcome);
@@ -447,6 +484,15 @@ public class SocketClient implements ClientInterface, Runnable, Serializable {
                 playerController.setGameBoard(gameData6.getGameBoard());
                 playerController.setKillshotTrack(gameData6.getKillshotTrack());
                 playerController.setPlayer(gameData6.getPlayer(username));
+                view.notify(message, outcome);
+                break;
+            case DROP_POWERUP:
+            case DROP_WEAPON:
+            case DISCARD_POWERUP:
+                outcome = (Outcome) objectInputStream.readObject();
+                object = (GameData) objectInputStream.readObject();
+                GameData gameData8 = (GameData) object;
+                playerController.setPlayer(gameData8.getPlayer(username));
                 view.notify(message, outcome);
                 break;
             case FINAL_FRENZY:

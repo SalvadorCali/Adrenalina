@@ -37,6 +37,7 @@ public class Player implements Serializable {
     private boolean disconnected;
     private boolean spawned;
     private boolean damaged;
+    private boolean powerupAsAmmo;
     private static final long serialVersionUID = 1L;
 
     public Player(TokenColor color){
@@ -53,6 +54,14 @@ public class Player implements Serializable {
         actionNumber = 0;
         playerBoard = new PlayerBoard();
         finalFrenzyActions = FinalFrenzyAction.NO_FINAL_FRENZY;
+    }
+
+    public boolean isPowerupAsAmmo() {
+        return powerupAsAmmo;
+    }
+
+    public void setPowerupAsAmmo(boolean powerupAsAmmo) {
+        this.powerupAsAmmo = powerupAsAmmo;
     }
 
     public boolean isSpawned() {
@@ -227,6 +236,7 @@ public class Player implements Serializable {
         powerupBlueAmmo = 0;
         powerupRedAmmo = 0;
         powerupYellowAmmo = 0;
+        powerupAsAmmo = false;
     }
 
     public void increasePowerupAmmoNumber(Color color){
@@ -267,6 +277,13 @@ public class Player implements Serializable {
     }
 
     public void updateAmmoBox(int redAmmos, int blueAmmos, int yellowAmmos) {
+        if(powerupAsAmmo){
+            redAmmos-=powerupRedAmmo;
+            blueAmmos-=powerupBlueAmmo;
+            yellowAmmos-=powerupYellowAmmo;
+            resetPowerupAmmos();
+        }
+
         redAmmo-=redAmmos;
         blueAmmo-=blueAmmos;
         yellowAmmo-=yellowAmmos;

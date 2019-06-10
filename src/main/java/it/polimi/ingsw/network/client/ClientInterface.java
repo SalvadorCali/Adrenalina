@@ -24,10 +24,14 @@ public interface ClientInterface {
     void move(Direction...directions) throws IOException;
     void grab(int choice, Direction...directions) throws IOException;
     void drop(String weaponName) throws IOException;
+    void dropPowerup(int powerup) throws IOException;
+    void dropWeapon(int weapon) throws IOException;
+    void discardPowerup(int powerup) throws IOException;
     void moveAndReload(Direction firstDirection, Direction secondDirection, String...weapons) throws IOException;
     void shoot(String weaponName, int effectNumber, boolean basicFirst, TokenColor firstVictim, TokenColor secondVictim, TokenColor thirdVictim, int x, int y, Direction...directions) throws IOException;
     void powerup(String powerup, TokenColor victim, Color ammo, int x, int y, Direction...directions) throws IOException;
     void powerupAmmos(PowerupData...powerups) throws IOException;
+    void powerupAmmos(int...powerups) throws IOException;
     void reload(String weaponName) throws IOException;
     void endTurn() throws IOException;
     AdrenalineZone getAdrenalineZone() throws RemoteException;

@@ -442,4 +442,41 @@ return false;
         player.addPowerup((PowerupCard) powerupCard);
     }
 
+    public void powerupAmmos(Player player, int...powerups){
+        for(int powerup : powerups){
+            if(powerup - 1 < player.getPowerups().size()){
+                Color color = player.getPowerups().get(powerup - 1).getColor();
+                player.increasePowerupAmmoNumber(color);
+                player.getPowerups().remove(powerup - 1);
+                player.setPowerupAsAmmo(true);
+            }
+        }
+    }
+
+    public boolean canDropPowerup(Player player, int powerup){
+        return powerup <= player.getPowerups().size() && powerup > 0;
+    }
+
+    public void dropPowerup(Player player, int powerup){
+        player.getPowerups().remove(powerup - 1);
+    }
+
+    public boolean canDropWeapon(Player player, int weapon){
+        return weapon <= player.getWeapons().size() && weapon > 0;
+    }
+
+    public void dropWeapon(Player player, int weapon){
+        player.getWeapons().remove(weapon - 1);
+    }
+
+    public boolean canDiscardPowerup(Player player, int powerup){
+        return powerup <= player.getPowerups().size() && powerup > 0;
+    }
+
+    public void discardPowerup(Player player, int powerup){
+        Color color = player.getPowerups().get(powerup - 1).getColor();
+        player.increasePowerupAmmoNumber(color);
+        player.getPowerups().remove(powerup - 1);
+        player.setPowerupAsAmmo(true);
+    }
 }

@@ -16,6 +16,7 @@ import it.polimi.ingsw.util.Printer;
 import it.polimi.ingsw.network.enums.Outcome;
 import it.polimi.ingsw.view.KillshotTrackCLI;
 import it.polimi.ingsw.view.MapCLI;
+import jdk.internal.org.objectweb.asm.tree.TryCatchBlockNode;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -395,6 +396,63 @@ public class ServerController {
         gameController.drop(users.get(username), weapon);
     }
 
+    public void dropPowerup(String username, int powerup){
+        if(gameController.canDropPowerup(users.get(username), powerup)){
+            try{
+                gameController.dropPowerup(users.get(username), powerup);
+                gameData.setPlayers(users);
+                servers.get(username).notify(Message.DROP_POWERUP, Outcome.RIGHT, gameData);
+            }catch (IOException e) {
+                Printer.err(e);
+            }
+        }else{
+            try{
+                gameData.setPlayers(users);
+                servers.get(username).notify(Message.DROP_POWERUP, Outcome.WRONG, gameData);
+            }catch (IOException e) {
+                Printer.err(e);
+            }
+        }
+    }
+
+    public void dropWeapon(String username, int weapon){
+        if(gameController.canDropWeapon(users.get(username), weapon)){
+            try{
+                gameController.dropWeapon(users.get(username), weapon);
+                gameData.setPlayers(users);
+                servers.get(username).notify(Message.DROP_WEAPON, Outcome.RIGHT, gameData);
+            }catch (IOException e) {
+                Printer.err(e);
+            }
+        }else{
+            try{
+                gameData.setPlayers(users);
+                servers.get(username).notify(Message.DROP_WEAPON, Outcome.WRONG, gameData);
+            }catch (IOException e) {
+                Printer.err(e);
+            }
+        }
+    }
+
+    public void discardPowerup(String username, int powerup){
+         if(gameController.canDiscardPowerup(users.get(username), powerup)){
+            try{
+                gameController.discardPowerup(users.get(username), powerup);
+                gameData.setPlayers(users);
+                servers.get(username).notify(Message.DISCARD_POWERUP, Outcome.RIGHT, gameData);
+            }catch (IOException e) {
+                Printer.err(e);
+            }
+        }else{
+             try{
+                 gameData.setPlayers(users);
+                 servers.get(username).notify(Message.DISCARD_POWERUP, Outcome.WRONG, gameData);
+             }catch (IOException e) {
+                 Printer.err(e);
+             }
+        }
+    }
+
     //metodo completo
     //playerBoard delle vittime
     public void shoot(String weaponName, int effectNumber, boolean basicFirst, String username, TokenColor firstVictim, TokenColor secondVictim, TokenColor thirdVictim, int x, int y, Direction...directions){
@@ -503,6 +561,10 @@ public class ServerController {
         for(PowerupData powerup : powerups){
             users.get(username).increasePowerupAmmoNumber(powerup.getColor());
         }
+    }
+
+    public void powerupAmmos(String username, int...powerups){
+        gameController.powerupAmmos(users.get(username), powerups);
     }
 
     public void resetPowerupAmmos(String username){

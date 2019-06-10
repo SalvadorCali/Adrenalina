@@ -107,6 +107,15 @@ public class SocketServer implements Runnable, ServerInterface {
             case DROP:
                 drop();
                 break;
+            case DROP_POWERUP:
+                dropPowerup();
+                break;
+            case DROP_WEAPON:
+                dropWeapon();
+                break;
+            case DISCARD_POWERUP:
+                discardPowerup();
+                break;
             case MOVE_RELOAD:
                 moveAndReload();
                 break;
@@ -232,6 +241,33 @@ public class SocketServer implements Runnable, ServerInterface {
         }
     }
 
+    public void dropPowerup(){
+        try {
+            int powerup = objectInputStream.readInt();
+            serverController.dropPowerup(clientName, powerup);
+        } catch (IOException e) {
+            Printer.err(e);
+        }
+    }
+
+    public void dropWeapon(){
+        try {
+            int weapon = objectInputStream.readInt();
+            serverController.dropWeapon(clientName, weapon);
+        } catch (IOException e) {
+            Printer.err(e);
+        }
+    }
+
+    public void discardPowerup(){
+        try {
+            int powerup = objectInputStream.readInt();
+            serverController.discardPowerup(clientName, powerup);
+        } catch (IOException e) {
+            Printer.err(e);
+        }
+    }
+
     public void shoot(){
         try {
             Direction first, second, third, fourth;
@@ -334,7 +370,7 @@ public class SocketServer implements Runnable, ServerInterface {
         }
     }
 
-    public void powerupAmmos() {
+    public void powerupAmmos(int i) {
         PowerupData first, second;
         try {
             int powerupsSize = objectInputStream.readInt();
@@ -350,6 +386,26 @@ public class SocketServer implements Runnable, ServerInterface {
             Printer.err(e);
         }
 
+    }
+
+    public void powerupAmmos(){
+        int firstPowerup, secondPowerup;
+        try {
+            int powerupSize = objectInputStream.readInt();
+            switch(powerupSize){
+                case 1:
+                    firstPowerup = objectInputStream.readInt();
+                    serverController.powerupAmmos(clientName, firstPowerup);
+                    break;
+                case 2:
+                    firstPowerup = objectInputStream.readInt();
+                    secondPowerup = objectInputStream.readInt();
+                    serverController.powerupAmmos(clientName, firstPowerup, secondPowerup);
+                    break;
+            }
+        } catch (IOException e) {
+            Printer.err(e);
+        }
     }
 
     public void reload(){
