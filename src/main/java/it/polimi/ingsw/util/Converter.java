@@ -96,6 +96,22 @@ public class Converter {
         }
     }
 
+    public static Integer fromBoardTypeToInt(BoardType boardType){
+        switch (boardType){
+            case BASIC:
+                return 0;
+            case GENERIC:
+                return 1;
+            case PLAYERS_3_4:
+                return 2;
+            case PLAYERS_4_5:
+                return 3;
+            default:
+                return 0;
+        }
+    }
+
+
     public static Cardinal fromStringToCardinal(String cardinal){
         switch (cardinal){
             case "door":

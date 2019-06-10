@@ -1,5 +1,6 @@
 package it.polimi.ingsw.view.GUI;
 
+import it.polimi.ingsw.controller.PlayerController;
 import it.polimi.ingsw.network.client.ClientInterface;
 
 public class Data{
@@ -9,6 +10,7 @@ public class Data{
     private Integer skull;
     private Integer powerup;
     private ClientInterface client;
+    private PlayerController playerController;
 
     private Data(){
     }
@@ -50,5 +52,13 @@ public class Data{
 
     public ClientInterface getClient() {
         return client;
+    }
+
+    public PlayerController getPlayerController() {
+        return playerController;
+    }
+
+    public void setPlayerController(PlayerController playerController) {
+        this.playerController = playerController;
     }
 }
