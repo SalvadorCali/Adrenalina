@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -64,27 +65,27 @@
             <Image url="@boardElem/banner.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="bannerEndTurn" fitHeight="64.0" fitWidth="200.0" layoutX="963.0" layoutY="324.0">
+      <ImageView fx:id="bannerEndTurn" fitHeight="64.0" fitWidth="200.0" layoutX="963.0" layoutY="324.0" onMouseClicked="#endTurn">
          <image>
             <Image url="@boardElem/banner.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="upArrow" fitHeight="39.0" fitWidth="45.0" layoutX="1041.0" layoutY="471.0">
+      <ImageView fx:id="upArrow" fitHeight="39.0" fitWidth="45.0" layoutX="1041.0" layoutY="460.0" onMouseClicked="#moveUp">
          <image>
             <Image url="@boardElem/arrow.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="rightArrow" fitHeight="39.0" fitWidth="45.0" layoutX="1083.0" layoutY="513.0" rotate="90.0">
+      <ImageView fx:id="rightArrow" fitHeight="39.0" fitWidth="45.0" layoutX="1109.0" layoutY="513.0" rotate="90.0" onMouseClicked="#moveRight">
          <image>
             <Image url="@boardElem/arrow.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="downArrow" fitHeight="39.0" fitWidth="45.0" layoutX="1041.0" layoutY="555.0" rotate="180.0">
+      <ImageView fx:id="downArrow" fitHeight="39.0" fitWidth="45.0" layoutX="1041.0" layoutY="563.0" rotate="180.0" onMouseClicked="#moveDown">
          <image>
             <Image url="@boardElem/arrow.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="leftArrow" fitHeight="39.0" fitWidth="45.0" layoutX="999.0" layoutY="513.0"  rotate="270.0">
+      <ImageView fx:id="leftArrow" fitHeight="39.0" fitWidth="45.0" layoutX="977.0" layoutY="513.0" rotate="270.0" onMouseClicked="#moveLeft">
          <image>
             <Image url="@boardElem/arrow.png" />
          </image>
@@ -104,7 +105,7 @@
             <Font name="Alien League Regular" size="30.0" />
          </font>
       </Label>
-      <Label fx:id="labelEndTurn" layoutX="1009.0" layoutY="341.0" mouseTransparent="true" text="End Turn" textFill="WHITE">
+      <Label fx:id="labelEndTurn" layoutX="1009.0" layoutY="341.0" mouseTransparent="true" onMouseClicked="#endTurn" text="End Turn" textFill="WHITE">
          <font>
             <Font name="Alien League Regular" size="30.0" />
          </font>
@@ -303,5 +304,6 @@
             <Font name="Alien League Regular" size="30.0" />
          </font>
       </Label>
+      <Button fx:id="enterMove" layoutX="1031.0" layoutY="519.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="69.0" text="Confirm" onMouseClicked="#confirmMovement" />
    </children>
 </AnchorPane>
