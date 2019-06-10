@@ -825,127 +825,129 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
     public void placePlayers(Square[][] arena){
         Platform.runLater(() -> {
-
+            playerController = Data.getInstance().getPlayerController();
+        MapCLI mapCLI = new MapCLI(playerController.getGameBoard());
+        mapCLI.printMap();
 
         if(!arena[0][0].getPlayers().isEmpty()){
             for(int index = 0; index < arena[0][0].getPlayers().size(); index ++){
-                Circle circle = new Circle();
-                circle.setRadius(1);
-                circle.setFill(Color.RED);
-                //Image image = new Image("colorPlayer/" + Converter.fromTokenColorToString(arena[0][0].getPlayers().get(index).getColor())+ ".jpg");
-                grid00.getChildren().add(index, circle);
+                //Circle circle = new Circle();
+                //circle.setRadius(15);
+                //circle.setFill(Color.RED);
+                Image image = new Image("colorPlayer/" + Converter.fromTokenColorToString(arena[0][0].getPlayers().get(index).getColor())+ ".jpg");
+                grid00.getChildren().add(index, new ImageView(image));
             }
         }
 
         if(!arena[0][1].getPlayers().isEmpty()){
             for(int index = 0; index < arena[0][1].getPlayers().size(); index ++){
-                Circle circle = new Circle();
-                circle.setRadius(1);
-                circle.setFill(Color.YELLOW);
-                //Image image = new Image("colorPlayer/" + Converter.fromTokenColorToString(arena[0][1].getPlayers().get(index).getColor())+ ".jpg");
-                grid01.getChildren().add(index, circle);
+                //Circle circle = new Circle();
+                //circle.setRadius(15);
+                //circle.setFill(Color.YELLOW);
+                Image image = new Image("colorPlayer/" + Converter.fromTokenColorToString(arena[0][1].getPlayers().get(index).getColor())+ ".jpg");
+                grid01.getChildren().add(index, new ImageView(image));
             }
         }
 
         if(!arena[0][2].getPlayers().isEmpty()){
             for(int index = 0; index < arena[0][2].getPlayers().size(); index ++){
 
-                Circle circle = new Circle();
-                circle.setRadius(1);
-                circle.setFill(Color.YELLOW);
-                //Image image = new Image("colorPlayer/" + Converter.fromTokenColorToString(arena[0][2].getPlayers().get(index).getColor())+ ".jpg");
-                grid02.getChildren().add(index, circle);
+                //Circle circle = new Circle();
+                //circle.setRadius(15);
+                //circle.setFill(Color.YELLOW);
+                Image image = new Image("colorPlayer/" + Converter.fromTokenColorToString(arena[0][2].getPlayers().get(index).getColor())+ ".jpg");
+                grid02.getChildren().add(index, new ImageView(image));
             }
         }
 
         if(!arena[0][3].getPlayers().isEmpty()){
             for(int index = 0; index < arena[0][3].getPlayers().size(); index ++){
-                Circle circle = new Circle();
-                circle.setRadius(1);
-                circle.setFill(Color.YELLOW);
-                //Image image = new Image("colorPlayer/" + Converter.fromTokenColorToString(arena[0][3].getPlayers().get(index).getColor())+ ".jpg");
-                grid03.getChildren().add(index, circle);
+                //Circle circle = new Circle();
+                //circle.setRadius(15);
+                //circle.setFill(Color.YELLOW);
+                Image image = new Image("colorPlayer/" + Converter.fromTokenColorToString(arena[0][3].getPlayers().get(index).getColor())+ ".jpg");
+                grid03.getChildren().add(index, new ImageView(image));
             }
         }
 
         if(!arena[1][0].getPlayers().isEmpty()){
             for(int index = 0; index < arena[1][0].getPlayers().size(); index ++){
 
-                Circle circle = new Circle();
-                circle.setRadius(1);
-                circle.setFill(Color.YELLOW);
-                //Image image = new Image("colorPlayer/" + Converter.fromTokenColorToString(arena[1][0].getPlayers().get(index).getColor())+ ".jpg");
-                grid10.getChildren().add(index, circle);
+                //Circle circle = new Circle();
+                //circle.setRadius(15);
+                //circle.setFill(Color.YELLOW);
+                Image image = new Image("colorPlayer/" + Converter.fromTokenColorToString(arena[1][0].getPlayers().get(index).getColor())+ ".jpg");
+                grid10.getChildren().add(index, new ImageView(image));
             }
         }
 
         if(!arena[1][1].getPlayers().isEmpty()){
             for(int index = 0; index < arena[1][1].getPlayers().size(); index ++){
-                Circle circle = new Circle();
-                circle.setRadius(1);
-                circle.setFill(Color.YELLOW);
-                //Image image = new Image("colorPlayer/" + Converter.fromTokenColorToString(arena[1][1].getPlayers().get(index).getColor())+ ".jpg");
-                grid11.getChildren().add(index, circle);
+                //Circle circle = new Circle();
+                //circle.setRadius(15);
+                //circle.setFill(Color.YELLOW);
+                Image image = new Image("colorPlayer/" + Converter.fromTokenColorToString(arena[1][1].getPlayers().get(index).getColor())+ ".jpg");
+                grid11.getChildren().add(index, new ImageView(image));
             }
         }
 
         if(!arena[1][2].getPlayers().isEmpty()){
             for(int index = 0; index < arena[1][2].getPlayers().size(); index ++){
-                Circle circle = new Circle();
-                circle.setRadius(1);
-                circle.setFill(Color.YELLOW);
-                //Image image = new Image("colorPlayer/" + Converter.fromTokenColorToString(arena[1][2].getPlayers().get(index).getColor())+ ".jpg");
-                grid12.getChildren().add(index, circle);
+                //Circle circle = new Circle();
+                //circle.setRadius(15);
+                //circle.setFill(Color.YELLOW);
+                Image image = new Image("colorPlayer/" + Converter.fromTokenColorToString(arena[1][2].getPlayers().get(index).getColor())+ ".jpg");
+                grid12.getChildren().add(index, new ImageView(image));
             }
         }
 
         if(!arena[1][3].getPlayers().isEmpty()){
             for(int index = 0; index < arena[1][3].getPlayers().size(); index ++){
-                Circle circle = new Circle();
-                circle.setRadius(1);
-                circle.setFill(Color.YELLOW);
-                //Image image = new Image("colorPlayer/" + Converter.fromTokenColorToString(arena[1][3].getPlayers().get(index).getColor())+ ".jpg");
-                grid13.getChildren().add(index, circle);
+                //Circle circle = new Circle();
+                //circle.setRadius(15);
+                //circle.setFill(Color.YELLOW);
+                Image image = new Image("colorPlayer/" + Converter.fromTokenColorToString(arena[1][3].getPlayers().get(index).getColor())+ ".jpg");
+                grid13.getChildren().add(index, new ImageView(image));
             }
         }
 
         if(!arena[2][0].getPlayers().isEmpty()){
             for(int index = 0; index < arena[2][0].getPlayers().size(); index ++){
-                Circle circle = new Circle();
-                circle.setRadius(1);
-                circle.setFill(Color.YELLOW);
-                //Image image = new Image("colorPlayer/" + Converter.fromTokenColorToString(arena[2][0].getPlayers().get(index).getColor())+ ".jpg");
-                grid20.getChildren().add(index, circle);
+                //Circle circle = new Circle();
+                //circle.setRadius(15);
+                //circle.setFill(Color.YELLOW);
+                Image image = new Image("colorPlayer/" + Converter.fromTokenColorToString(arena[2][0].getPlayers().get(index).getColor())+ ".jpg");
+                grid20.getChildren().add(index, new ImageView(image));
             }
         }
 
         if(!arena[2][1].getPlayers().isEmpty()){
             for(int index = 0; index < arena[2][1].getPlayers().size(); index ++){
-                Circle circle = new Circle();
-                circle.setRadius(1);
-                circle.setFill(Color.YELLOW);
-                //Image image = new Image("colorPlayer/" + Converter.fromTokenColorToString(arena[2][1].getPlayers().get(index).getColor())+ ".jpg");
-                grid21.getChildren().add(index, circle);
+                //Circle circle = new Circle();
+                //circle.setRadius(15);
+                //circle.setFill(Color.YELLOW);
+                Image image = new Image("colorPlayer/" + Converter.fromTokenColorToString(arena[2][1].getPlayers().get(index).getColor())+ ".jpg");
+                grid21.getChildren().add(index, new ImageView(image));
             }
         }
 
         if(!arena[2][2].getPlayers().isEmpty()){
             for(int index = 0; index < arena[2][2].getPlayers().size(); index ++){
-                Circle circle = new Circle();
-                circle.setRadius(1);
-                circle.setFill(Color.YELLOW);
-                //Image image = new Image("colorPlayer/" + Converter.fromTokenColorToString(arena[2][2].getPlayers().get(index).getColor())+ ".jpg");
-                grid22.getChildren().add(index, circle);
+                //Circle circle = new Circle();
+                //circle.setRadius(15);
+                //circle.setFill(Color.YELLOW);
+                Image image = new Image("colorPlayer/" + Converter.fromTokenColorToString(arena[2][2].getPlayers().get(index).getColor())+ ".jpg");
+                grid22.getChildren().add(index, new ImageView(image));
             }
         }
 
         if(!arena[2][3].getPlayers().isEmpty()){
             for(int index = 0; index < arena[2][3].getPlayers().size(); index ++){
-                Circle circle = new Circle();
-                circle.setRadius(1);
-                circle.setFill(Color.YELLOW);
-                //Image image = new Image("colorPlayer/" + Converter.fromTokenColorToString(arena[2][3].getPlayers().get(index).getColor())+ ".jpg");
-                grid23.getChildren().add(index, circle);
+                //Circle circle = new Circle();
+                //circle.setRadius(15);
+                //circle.setFill(Color.YELLOW);
+                Image image = new Image("colorPlayer/" + Converter.fromTokenColorToString(arena[2][3].getPlayers().get(index).getColor())+ ".jpg");
+                grid23.getChildren().add(index, new ImageView(image));
             }
         }
         });
