@@ -25,6 +25,7 @@ public interface RMIServerInterface extends ServerInterface, Remote {
     void discardPowerup(int powerup) throws RemoteException;
     void grab(int choice, Direction...directions) throws RemoteException;
     void shoot(String weaponName, int effectNumber, boolean basicFirst, TokenColor firstVictim, TokenColor secondVictim, TokenColor thirdVictim, int x, int y, Direction...directions) throws RemoteException;
+    void moveAndReload(Direction firstDirection, String... weapons) throws RemoteException;
     void moveAndReload(Direction firstDirection, Direction secondDirection, String... weapons) throws RemoteException;
     void powerup(String powerup, TokenColor victim, Color ammo, int x, int y, Direction...directions) throws RemoteException;
     void powerupAmmos(PowerupData...powerups) throws RemoteException;

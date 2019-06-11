@@ -197,11 +197,9 @@ public class CommandLine implements ViewInterface {
                 dropPowerup(Integer.parseInt(input.nextToken()));
                 return true;
             }else{
-                Printer.println("prova");
                 return false;
             }
         }else{
-            Printer.println("prova2");
             return false;
         }
     }
@@ -514,27 +512,29 @@ public class CommandLine implements ViewInterface {
     }
 
     private boolean shoot(StringTokenizer input){
+        Printer.println(playerController.getPlayer().isMoveAndReload());
         String weapon;
         if(input.hasMoreTokens()){
-            weapon = input.nextToken();
+            //weapon = input.nextToken();
+            if(playerController.getAdrenalineZone().equals(AdrenalineZone.SECOND)){
+                Printer.println("Do you want to move? <yes> <no>");
+                try {
+                    String movement = userInputStream.readLine();
+                    if(movement.equals("yes")){
+                        Printer.print("Choose a direction: ");
+                        Direction direction = Converter.fromStringToDirection(userInputStream.readLine());
+                        client.moveAndReload(direction);
+                    }
+                } catch (IOException e) {
+                    Printer.err(e);
+                }
+            }
             try {
+                weapon = input.nextToken();
                 return weaponEffect(weapon);
             } catch (IOException e) {
                 Printer.err(e);
             }
-            /*
-            try {
-                if(input.hasMoreTokens() && playerController.getAdrenalineZone().equals(AdrenalineZone.SECOND)){
-                    Direction direction = Converter.fromStringToDirection(input.nextToken());
-                    return weaponEffect(weapon, direction);
-                }else{
-                    return weaponEffect(weapon);
-                }
-            } catch (IOException e) {
-                Printer.err(e);
-            }
-            */
-
         }
         return false;
     }
@@ -1551,6 +1551,8 @@ public class CommandLine implements ViewInterface {
                 Printer.println("Your powerups:");
                 playerController.getPowerups().forEach(Printer::println);
             }
+        }else{
+            Printer.println("Powerup not discard!");
         }
     }
 
@@ -1561,6 +1563,8 @@ public class CommandLine implements ViewInterface {
                 Printer.println("Your powerups:");
                 playerController.getPowerups().forEach(Printer::println);
             }
+        }else{
+            Printer.println("Powerup not drop!");
         }
     }
 
@@ -1571,6 +1575,8 @@ public class CommandLine implements ViewInterface {
                 Printer.println("Your weapons:");
                 playerController.getWeapons().forEach(Printer::println);
             }
+        }else{
+            Printer.println("Weapon not drop!");
         }
     }
 
@@ -1657,6 +1663,7 @@ public class CommandLine implements ViewInterface {
                 break;
             case RELOAD:
                 notifyReload(outcome, (String) object);
+                break;
             default:
                 break;
         }

@@ -518,8 +518,16 @@ public class ServerController {
         }
     }
 
+    public void moveAndReload(String username, Direction firstDirection, String...weapons){
+        if(gameController.canMoveAndReload(users.get(username), firstDirection, weapons)){
+            gameController.moveAndReload(users.get(username), firstDirection, weapons);
+        }
+    }
+
     public void moveAndReload(String username, Direction firstDirection, Direction secondDirection, String...weapons){
-        gameController.moveAndReload(users.get(username), firstDirection, secondDirection, weapons);
+        if(gameController.canMoveAndReload(users.get(username), firstDirection, secondDirection, weapons)){
+            gameController.moveAndReload(users.get(username), firstDirection, secondDirection, weapons);
+        }
     }
 
     //in base al powerup

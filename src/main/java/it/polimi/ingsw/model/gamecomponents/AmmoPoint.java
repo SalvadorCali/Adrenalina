@@ -65,7 +65,10 @@ public class AmmoPoint extends Square implements Serializable {
      */
     @Override
     public boolean canGrab(ActionInterface actionInterface, int choice){
-        return choice == 0 && !isEmpty();
+        if(ammoCard.isPowerup()){
+            return actionInterface.getCurrentPlayer().getPowerups().size() < 3 && choice == 0 && !isEmpty();
+        }
+        return choice== 0 && !isEmpty() ;
     }
 
     /**

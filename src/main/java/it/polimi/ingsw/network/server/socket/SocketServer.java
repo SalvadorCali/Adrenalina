@@ -116,8 +116,11 @@ public class SocketServer implements Runnable, ServerInterface {
             case DISCARD_POWERUP:
                 discardPowerup();
                 break;
-            case MOVE_RELOAD:
-                moveAndReload();
+            case MOVE_RELOAD_1:
+                moveAndReloadOneDirection();
+                break;
+            case MOVE_RELOAD_2:
+                moveAndReloadTwoDirections();
                 break;
             default:
                 break;
@@ -315,7 +318,37 @@ public class SocketServer implements Runnable, ServerInterface {
         }
     }
 
-    public void moveAndReload(){
+    public void moveAndReloadOneDirection(){
+        try {
+            String firstWeapon, secondWeapon, thirdWeapon;
+            Direction firstDirection = (Direction) objectInputStream.readObject();
+            int weaponsSize = objectInputStream.readInt();
+            switch (weaponsSize){
+                case 0:
+                    serverController.moveAndReload(clientName, firstDirection);
+                    break;
+                case 1:
+                    firstWeapon = objectInputStream.readUTF();
+                    serverController.moveAndReload(clientName, firstDirection, firstWeapon);
+                    break;
+                case 2:
+                    firstWeapon = objectInputStream.readUTF();
+                    secondWeapon = objectInputStream.readUTF();
+                    serverController.moveAndReload(clientName, firstDirection, firstWeapon, secondWeapon);
+                    break;
+                case 3:
+                    firstWeapon = objectInputStream.readUTF();
+                    secondWeapon = objectInputStream.readUTF();
+                    thirdWeapon = objectInputStream.readUTF();
+                    serverController.moveAndReload(clientName, firstDirection, firstWeapon, secondWeapon, thirdWeapon);
+                    break;
+            }
+        } catch (IOException | ClassNotFoundException e) {
+            Printer.err(e);
+        }
+    }
+
+    public void moveAndReloadTwoDirections(){
         try {
             String firstWeapon, secondWeapon, thirdWeapon;
             Direction firstDirection = (Direction) objectInputStream.readObject();

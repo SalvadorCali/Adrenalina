@@ -38,6 +38,7 @@ public class Player implements Serializable {
     private boolean spawned;
     private boolean damaged;
     private boolean powerupAsAmmo;
+    private boolean moveAndReload;
     private static final long serialVersionUID = 1L;
 
     public Player(TokenColor color){
@@ -54,6 +55,14 @@ public class Player implements Serializable {
         actionNumber = 0;
         playerBoard = new PlayerBoard();
         finalFrenzyActions = FinalFrenzyAction.NO_FINAL_FRENZY;
+    }
+
+    public boolean isMoveAndReload() {
+        return moveAndReload;
+    }
+
+    public void setMoveAndReload(boolean moveAndReload) {
+        this.moveAndReload = moveAndReload;
     }
 
     public boolean isPowerupAsAmmo() {
@@ -276,12 +285,60 @@ public class Player implements Serializable {
         return (redAmmos <= redAmmo && blueAmmos <= blueAmmo && yellowAmmos <= yellowAmmo);
     }
 
+    public void updateAmmoBoxAdd(int redAmmos, int blueAmmos, int yellowAmmos){
+        redAmmo-=redAmmos;
+        blueAmmo-=blueAmmos;
+        yellowAmmo-=yellowAmmos;
+
+        for(int i=0; i<ammoReserve.size(); i++){
+            switch (ammoReserve.get(i).getColor()){
+                case RED:
+                    if(redAmmos > 0){
+                        redAmmos--;
+                        ammoBox.add(ammoReserve.get(i));
+                        ammoReserve.remove(i);
+                    }
+                    break;
+                case BLUE:
+                    if(blueAmmos > 0){
+                        blueAmmos--;
+                        ammoBox.add(ammoReserve.get(i));
+                        ammoReserve.remove(i);
+                    }
+                    break;
+                case YELLOW:
+                    if(yellowAmmos > 0){
+                        yellowAmmos--;
+                        ammoBox.add(ammoReserve.get(i));
+                        ammoReserve.remove(i);
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
     public void updateAmmoBox(int redAmmos, int blueAmmos, int yellowAmmos) {
         if(powerupAsAmmo){
-            redAmmos-=powerupRedAmmo;
-            blueAmmos-=powerupBlueAmmo;
-            yellowAmmos-=powerupYellowAmmo;
-            resetPowerupAmmos();
+            if(redAmmos>0){
+                while(redAmmos>0 && powerupRedAmmo>0){
+                    redAmmos-=1;
+                    powerupRedAmmo-=1;
+                }
+            }
+            if(blueAmmos>0){
+                while(blueAmmos>0 && powerupBlueAmmo>0){
+                    blueAmmos-=1;
+                    powerupBlueAmmo-=1;
+                }
+            }
+            if(yellowAmmos>0){
+                while(yellowAmmos>0 && powerupYellowAmmo>0){
+                    yellowAmmos-=1;
+                    powerupYellowAmmo-=1;
+                }
+            }
         }
 
         redAmmo-=redAmmos;

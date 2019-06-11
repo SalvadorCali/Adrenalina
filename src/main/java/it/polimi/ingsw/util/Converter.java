@@ -6,6 +6,21 @@ import it.polimi.ingsw.model.enums.*;
 public class Converter {
     private Converter(){}
 
+    public static Direction fromDirectionToOpposite(Direction direction){
+        switch(direction){
+            case UP:
+                return Direction.DOWN;
+            case DOWN:
+                return Direction.UP;
+            case RIGHT:
+                return Direction.LEFT;
+            case LEFT:
+                return Direction.RIGHT;
+            default:
+                return null;
+        }
+    }
+
     public static String fromAmmoCardToString(AmmoCard ammoCard){
 
         String first = new String();

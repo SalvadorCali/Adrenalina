@@ -56,7 +56,8 @@ public class SpawnPoint extends Square implements Serializable {
      */
     @Override
     public boolean canGrab(ActionInterface actionInterface, int choice){
-        return choice >= 1 && choice <= 3 && !isEmpty() && weapons.get(choice - 1).ammoControl(actionInterface.getCurrentPlayer());
+        return choice >= 1 && choice <= 3 && !isEmpty() && weapons.get(choice - 1).ammoControl(actionInterface.getCurrentPlayer()) &&
+                actionInterface.getCurrentPlayer().getWeapons().size() < 3;
     }
 
     /**

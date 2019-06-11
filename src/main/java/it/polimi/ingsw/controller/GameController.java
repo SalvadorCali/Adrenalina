@@ -25,8 +25,10 @@ public class GameController {
     Deck powerups;
     List<AmmoCard> ammoCards;
     List<GameBoard> gameBoards;
+    private MoveAndReloadData moveAndReloadData;
     private Game game;
     private ActionInterface actionInterface;
+    private boolean canShoot;
 
     public GameController() {
         weapons = Parser.createWeapons();
@@ -39,6 +41,7 @@ public class GameController {
         */
         game = new Game(gameBoards.get(0), weapons, powerups, ammoCards);
         actionInterface = new ActionController(game);
+        canShoot = true;
     }
 
     public GameController(int board) {
@@ -163,40 +166,101 @@ public class GameController {
         game.getBoard().move(x, y, player);
     }
 
-    public boolean moveAndReload(Player player, Direction firstDirection, Direction secondDirection, String...weapons){
-        boolean hasWeapon = false;
-        boolean hasAmmo = false;
-        boolean reloadResult = true;
-        boolean reload[] = new boolean[weapons.length];
-        if(canMove(player, firstDirection, secondDirection)){
-            for(int i=0; i<weapons.length; i++){
-                String weaponNameUpp;
-                weaponNameUpp = Converter.weaponName(weapons[i]);
-                for(WeaponCard w : player.getWeapons()){
-                    if(w.getName().equals(weaponNameUpp)){
-                        hasWeapon = true;
-                        if(w.reloadAmmoControl(player)) {
-                            hasAmmo = true;
-                        }
-                    }
-                    if(hasWeapon && hasAmmo){
-                        reload[i] = true;
-                        hasWeapon = false;
-                        hasAmmo = false;
-                        break;
-                    }
+    public void inverseMoveAndReload(Player player){
+        if(moveAndReloadData.getSecondDirection() != null){
+            game.getBoard().move(Converter.fromDirectionToOpposite(moveAndReloadData.getSecondDirection()), player);
+        }
+        if(moveAndReloadData.getFirstDirection() != null){
+            game.getBoard().move(Converter.fromDirectionToOpposite(moveAndReloadData.getFirstDirection()), player);
+        }
+        for(int i=0; i<moveAndReloadData.getWeapons().size(); i++){
+            String weapon = Converter.weaponName(moveAndReloadData.getWeapons().get(i));
+            for(WeaponCard w : player.getWeapons()){
+                if(w.getName().equals(weapon)){
+                    player.updateAmmoBoxAdd(w.getReloadRedAmmos(), w.getReloadBlueAmmos(), w.getReloadYellowAmmos());
                 }
             }
-            for(int i=0; i<weapons.length; i++){
-                reloadResult = reloadResult && reload[i];
-            }
-            if(reloadResult){
+        }
+        player.setMoveAndReload(false);
+    }
 
+    public boolean canMoveAndReload(Player player, Direction firstDirection, String...weapons){
+        boolean[] reload = new boolean[weapons.length];
+        boolean canReload = true;
+        if(canMove(player, firstDirection)){
+            if(weapons.length > 0){
+                for(int i=0; i<weapons.length; i++){
+                    String weaponNameUpp;
+                    weaponNameUpp = Converter.weaponName(weapons[i]);
+                    for(WeaponCard w : player.getWeapons()){
+                        if(w.getName().equals(weaponNameUpp)){
+                            if(w.reloadAmmoControl(player)) {
+                                reload[i] = true;
+                            }
+                        }
+                    }
+                }
+                for(int i=0; i<weapons.length; i++){
+                    canReload = canReload && reload[i];
+                }
+                canShoot = canReload;
+                return canReload;
+            }else{
+                return true;
             }
         }else{
+            canShoot = false;
             return false;
         }
-return false;
+    }
+
+    public boolean canMoveAndReload(Player player, Direction firstDirection, Direction secondDirection, String...weapons){
+        boolean[] reload = new boolean[weapons.length];
+        boolean canReload = true;
+        if(canMove(player, firstDirection, secondDirection)){
+            if(weapons.length > 0){
+                for(int i=0; i<weapons.length; i++){
+                    String weaponNameUpp;
+                    weaponNameUpp = Converter.weaponName(weapons[i]);
+                    for(WeaponCard w : player.getWeapons()){
+                        if(w.getName().equals(weaponNameUpp)){
+                            if(w.reloadAmmoControl(player)) {
+                                reload[i] = true;
+                            }
+                        }
+                    }
+                }
+                for(int i=0; i<weapons.length; i++){
+                    canReload = canReload && reload[i];
+                }
+                canShoot = canReload;
+                return canReload;
+            }else{
+                return true;
+            }
+        }else{
+            canShoot = false;
+            return false;
+        }
+    }
+
+    public void moveAndReload(Player player, Direction firstDirection, String...weapons){
+        game.getBoard().move(firstDirection, player);
+        for(String weapon : weapons){
+            reload(player, weapon);
+        }
+        moveAndReloadData = new MoveAndReloadData(firstDirection, null, weapons);
+        player.setMoveAndReload(true);
+    }
+
+    public void moveAndReload(Player player, Direction firstDirection, Direction secondDirection, String...weapons){
+        game.getBoard().move(firstDirection, player);
+        game.getBoard().move(secondDirection, player);
+        for(String weapon : weapons){
+            reload(player, weapon);
+        }
+        moveAndReloadData = new MoveAndReloadData(firstDirection, secondDirection, weapons);
+        player.setMoveAndReload(true);
     }
 
     public SquareData showSquare(Player player) {
@@ -297,7 +361,8 @@ return false;
         final String weaponNameUpp;
         weaponNameUpp = Converter.weaponName(weaponName);
         for (WeaponCard w : shooter.getWeapons()) {
-            if (w.getName().equals(weaponNameUpp) && w.isLoaded() && shooter.canUseAction()) {
+            if (w.getName().equals(weaponNameUpp) && w.isLoaded() && shooter.canUseAction() && canShoot) {
+                Printer.println("sparo");
                 setData(basicfirst, shooter, firstVictim, secondVictim, thirdVictim, x, y, directions);
                 if (w.getEffects().get(mod).canUseEffect(actionInterface)) {
                     Printer.println(weaponNameUpp + "USED");
@@ -306,9 +371,18 @@ return false;
                     shooter.increaseActionNumber();
                     return true;
                 } else {
+                    if(shooter.isMoveAndReload()){
+                        inverseMoveAndReload(shooter);
+                        canShoot = true;
+                    }
                     Printer.println(weaponNameUpp + "NOT USED");
                     return false;
                 }
+            }else{
+                if(!canShoot){
+                    canShoot = true;
+                }
+                return false;
             }
         }
         return false;

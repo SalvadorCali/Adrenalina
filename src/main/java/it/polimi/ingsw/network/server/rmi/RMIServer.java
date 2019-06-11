@@ -98,6 +98,11 @@ public class RMIServer extends UnicastRemoteObject implements RMIServerInterface
     }
 
     @Override
+    public void moveAndReload(Direction firstDirection, String... weapons) throws RemoteException {
+        serverController.moveAndReload(clientName, firstDirection, weapons);
+    }
+
+    @Override
     public void moveAndReload(Direction firstDirection, Direction secondDirection, String... weapons) throws RemoteException {
         serverController.moveAndReload(clientName, firstDirection, secondDirection, weapons);
     }
