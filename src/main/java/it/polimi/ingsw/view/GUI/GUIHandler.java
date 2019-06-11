@@ -4,6 +4,7 @@ import it.polimi.ingsw.controller.GameController;
 import it.polimi.ingsw.controller.PlayerController;
 import it.polimi.ingsw.model.cards.AmmoCard;
 import it.polimi.ingsw.model.cards.Card;
+import it.polimi.ingsw.model.cards.WeaponCard;
 import it.polimi.ingsw.model.enums.Direction;
 import it.polimi.ingsw.model.enums.TokenColor;
 import it.polimi.ingsw.model.gamecomponents.Square;
@@ -33,8 +34,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -168,6 +167,10 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     @FXML private ImageView rightArrowGrab;
     @FXML private ImageView leftArrowGrab;
     @FXML private Button enterMoveGrab;
+    @FXML private ImageView firstWeapon;
+    @FXML private ImageView secondWeapon;
+    @FXML private ImageView thirdWeapon;
+
 
     @FXML
     RadioButton socketButton;
@@ -459,13 +462,13 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                     notifyBoard(outcome);
                     break;
                 case GAME:
-                    System.out.println("new game");
+                    Printer.println("new game");
                     break;
                 case MOVE:
                     notifyMovement(outcome);
                     break;
                 case GRAB:
-                    //notifyGrab(outcome);
+                    notifyGrab(outcome);
                     break;
                 case SHOOT:
                     //notifyShoot(outcome);
@@ -479,17 +482,28 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         });
     }
 
-    private void notifyMovement(Outcome outcome) {
+    private void notifyGrab(Outcome outcome) {
         guiHandler = Data.getInstance().getGuiHandler();
-        if (outcome.equals(Outcome.RIGHT) || outcome.equals(Outcome.ALL)) {
-            guiHandler.setLabelMove("Player moved");
+        if(outcome.equals(Outcome.RIGHT) || outcome.equals(Outcome.ALL)){
+            guiHandler.setLabelStatement("Grabbed");
 
-        } else {
-            guiHandler.setLabelMove("Player didn't move");
+        }else{
+            guiHandler.setLabelStatement("Not grabbed");
         }
     }
 
-    private void setLabelMove(String move) {
+    private void notifyMovement(Outcome outcome) {
+        guiHandler = Data.getInstance().getGuiHandler();
+        if (outcome.equals(Outcome.RIGHT) || outcome.equals(Outcome.ALL)) {
+            guiHandler.setLabelStatement("Player moved");
+
+        } else {
+            guiHandler.setLabelStatement("Player didn't move");
+            guiHandler.resetMovement();
+        }
+    }
+
+    private void setLabelStatement(String move) {
         labelStatusPlayer.setVisible(true);
         labelStatusPlayer.setText(move);
     }
@@ -1016,6 +1030,14 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         }
     }
 
+    public void resetMovement(){
+        for(int i = 0; i < MAX_MOVEMENT; i++){
+            this.movement[i] = null;
+        }
+
+        this.countMove = 0;
+    }
+
     public void confirmMovement() throws IOException {
         client = Data.getInstance().getClient();
 
@@ -1230,8 +1252,6 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
             stage.setScene(new Scene(root, 222, 256));
             stage.setTitle("Grab Popup");
             stage.show();
-
-
         });
     }
 
@@ -1263,12 +1283,31 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
             if(moveGrab == null){
                 if(!playerController.getGameBoard().getArena()[x][y].isSpawn()) {
                     try {
-                        client.grab(0, null);
+                        client.grab(0);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
                 }else {
-                    //choose weapon popup
+                    FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ChooseWeapon.fxml"));
+                    Parent root = null;
+                    try {
+                        root = loader.load();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                    Data.getInstance().setMoveGrab(null);
+
+                    List<WeaponCard> weapon = playerController.getGameBoard().getArena()[x][y].getWeapons();
+                    firstWeapon.setImage(new Image("weapon/" + Converter.weaponNameInvert(weapon.get(0).getName()) + ".png"));
+                    secondWeapon.setImage(new Image("weapon/" + Converter.weaponNameInvert(weapon.get(1).getName()) + ".png"));
+                    thirdWeapon.setImage(new Image("weapon/" + Converter.weaponNameInvert(weapon.get(2).getName()) + ".png"));
+
+
+                    Stage stage = new Stage();
+                    stage.setScene(new Scene(root, 496, 269));
+                    stage.setTitle("Choose Weapon");
+                    stage.show();
                 }
 
             }else {
@@ -1281,7 +1320,26 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                                 e.printStackTrace();
                             }
                         }else{
-                            //choose weapon
+                            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ChooseWeapon.fxml"));
+                            Parent root = null;
+                            try {
+                                root = loader.load();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+
+                            Data.getInstance().setMoveGrab("up");
+
+                            List<WeaponCard> weapon = playerController.getGameBoard().getArena()[x--][y].getWeapons();
+                            firstWeapon.setImage(new Image("weapon/" + Converter.weaponNameInvert(weapon.get(0).getName()) + ".png"));
+                            secondWeapon.setImage(new Image("weapon/" + Converter.weaponNameInvert(weapon.get(1).getName()) + ".png"));
+                            thirdWeapon.setImage(new Image("weapon/" + Converter.weaponNameInvert(weapon.get(2).getName()) + ".png"));
+
+
+                            Stage stage = new Stage();
+                            stage.setScene(new Scene(root, 496, 269));
+                            stage.setTitle("Choose Weapon");
+                            stage.show();
                         }
                     }
 
@@ -1294,7 +1352,26 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                                 e.printStackTrace();
                             }
                         }else{
-                            //choose weapon
+                            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ChooseWeapon.fxml"));
+                            Parent root = null;
+                            try {
+                                root = loader.load();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+
+                            Data.getInstance().setMoveGrab("down");
+
+                            List<WeaponCard> weapon = playerController.getGameBoard().getArena()[x++][y].getWeapons();
+                            firstWeapon.setImage(new Image("weapon/" + Converter.weaponNameInvert(weapon.get(0).getName()) + ".png"));
+                            secondWeapon.setImage(new Image("weapon/" + Converter.weaponNameInvert(weapon.get(1).getName()) + ".png"));
+                            thirdWeapon.setImage(new Image("weapon/" + Converter.weaponNameInvert(weapon.get(2).getName()) + ".png"));
+
+
+                            Stage stage = new Stage();
+                            stage.setScene(new Scene(root, 496, 269));
+                            stage.setTitle("Choose Weapon");
+                            stage.show();
                         }
                     }
 
@@ -1307,20 +1384,58 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                                 e.printStackTrace();
                             }
                         } else{
-                            //choose weapon
+                            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ChooseWeapon.fxml"));
+                            Parent root = null;
+                            try {
+                                root = loader.load();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+
+                            Data.getInstance().setMoveGrab("left");
+
+                            List<WeaponCard> weapon = playerController.getGameBoard().getArena()[x][y--].getWeapons();
+                            firstWeapon.setImage(new Image("weapon/" + Converter.weaponNameInvert(weapon.get(0).getName()) + ".png"));
+                            secondWeapon.setImage(new Image("weapon/" + Converter.weaponNameInvert(weapon.get(1).getName()) + ".png"));
+                            thirdWeapon.setImage(new Image("weapon/" + Converter.weaponNameInvert(weapon.get(2).getName()) + ".png"));
+
+
+                            Stage stage = new Stage();
+                            stage.setScene(new Scene(root, 496, 269));
+                            stage.setTitle("Choose Weapon");
+                            stage.show();
                         }
                     }
 
                 }if(moveGrab == "right"){
-                    if(playerController.getGameBoard().getArena()[x][y].canMove(Direction.LEFT)){
+                    if(playerController.getGameBoard().getArena()[x][y].canMove(Direction.RIGHT)){
                         if(!playerController.getGameBoard().getArena()[x][y++].isSpawn()) {
                             try {
-                                client.grab(0, Direction.UP);
+                                client.grab(0, Direction.RIGHT);
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
                         }else{
-                            //choose weapon
+                            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ChooseWeapon.fxml"));
+                            Parent root = null;
+                            try {
+                                root = loader.load();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+
+                            Data.getInstance().setMoveGrab("right");
+
+                            List<WeaponCard> weapon = playerController.getGameBoard().getArena()[x][y++].getWeapons();
+                            firstWeapon.setImage(new Image("weapon/" + Converter.weaponNameInvert(weapon.get(0).getName()) + ".png"));
+                            secondWeapon.setImage(new Image("weapon/" + Converter.weaponNameInvert(weapon.get(1).getName()) + ".png"));
+                            thirdWeapon.setImage(new Image("weapon/" + Converter.weaponNameInvert(weapon.get(2).getName()) + ".png"));
+
+
+                            Stage stage = new Stage();
+                            stage.setScene(new Scene(root, 496, 269));
+                            stage.setTitle("Choose Weapon");
+                            stage.show();
                         }
                     }
 
@@ -1330,5 +1445,49 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
             Stage stage = (Stage) upArrowGrab.getScene().getWindow();
             stage.close();
         });
+    }
+
+    public void grabFirstImg(MouseEvent mouseEvent) throws IOException {
+        client = Data.getInstance().getClient();
+        String move = Data.getInstance().getMoveGrab();
+
+        if(move != null) {
+            client.grab(0, Converter.fromStringToDirection(move));
+
+        }else{
+            client.grab(0);
+        }
+
+        Stage stage = (Stage) firstWeapon.getScene().getWindow();
+        stage.close();
+    }
+
+    public void grabSecondImg(MouseEvent mouseEvent) throws IOException {
+        client = Data.getInstance().getClient();
+        String move = Data.getInstance().getMoveGrab();
+
+        if(move != null) {
+            client.grab(1, Converter.fromStringToDirection(move));
+
+        }else{
+            client.grab(1);
+        }
+
+        Stage stage = (Stage) firstWeapon.getScene().getWindow();
+        stage.close();
+    }
+
+    public void grabThirdImg(MouseEvent mouseEvent) throws IOException {
+        client = Data.getInstance().getClient();
+        String move = Data.getInstance().getMoveGrab();
+
+        if(move != null) {
+            client.grab(2, Converter.fromStringToDirection(move));
+
+        }else{
+            client.grab(2);
+        }
+        Stage stage = (Stage) firstWeapon.getScene().getWindow();
+        stage.close();
     }
 }
