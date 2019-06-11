@@ -170,6 +170,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     @FXML private ImageView firstWeapon;
     @FXML private ImageView secondWeapon;
     @FXML private ImageView thirdWeapon;
+    @FXML private Label labelGrab;
 
 
     @FXML
@@ -205,6 +206,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     @FXML private Button enterButton;
     @FXML private ImageView powerupImg1;
     @FXML private ImageView powerupImg2;
+    @FXML private Label labelEndTurn;
 
 
     private static final int ROWS = 3;
@@ -584,7 +586,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
                     startedGame++;
                 }else{
-                    //enableButtons();
+                    enableButtons();
                 }
 
 
@@ -603,7 +605,6 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
                     guiHandler = loader.getController();
                     guiHandler.setMapImage();
-                    //guiHandler.placePlayers(playerController.getGameBoard().getArena());
                     guiHandler.setLabelTurn();
 
                     Data.getInstance().setGuiHandler(guiHandler);
@@ -622,7 +623,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
                     startedGame++;
                 }else{
-                    //disableButtons();
+                    disableButtons();
                 }
             }
         });
@@ -1057,11 +1058,10 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
     }
 
-
     public void endTurn(){
         Platform.runLater(() -> {
             try {
-                System.out.println("pippo");
+                
                 client = Data.getInstance().getClient();
                 client.endTurn();
             } catch (IOException e1) {
@@ -1297,12 +1297,10 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                     }
 
                     Data.getInstance().setMoveGrab(null);
+                    guiHandler = Data.getInstance().getGuiHandler();
 
                     List<WeaponCard> weapon = playerController.getGameBoard().getArena()[x][y].getWeapons();
-                    firstWeapon.setImage(new Image("weapon/" + Converter.weaponNameInvert(weapon.get(0).getName()) + ".png"));
-                    secondWeapon.setImage(new Image("weapon/" + Converter.weaponNameInvert(weapon.get(1).getName()) + ".png"));
-                    thirdWeapon.setImage(new Image("weapon/" + Converter.weaponNameInvert(weapon.get(2).getName()) + ".png"));
-
+                    guiHandler.setWeaponImage(weapon);
 
                     Stage stage = new Stage();
                     stage.setScene(new Scene(root, 496, 269));
@@ -1331,9 +1329,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                             Data.getInstance().setMoveGrab("up");
 
                             List<WeaponCard> weapon = playerController.getGameBoard().getArena()[x--][y].getWeapons();
-                            firstWeapon.setImage(new Image("weapon/" + Converter.weaponNameInvert(weapon.get(0).getName()) + ".png"));
-                            secondWeapon.setImage(new Image("weapon/" + Converter.weaponNameInvert(weapon.get(1).getName()) + ".png"));
-                            thirdWeapon.setImage(new Image("weapon/" + Converter.weaponNameInvert(weapon.get(2).getName()) + ".png"));
+                            guiHandler.setWeaponImage(weapon);
 
 
                             Stage stage = new Stage();
@@ -1363,9 +1359,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                             Data.getInstance().setMoveGrab("down");
 
                             List<WeaponCard> weapon = playerController.getGameBoard().getArena()[x++][y].getWeapons();
-                            firstWeapon.setImage(new Image("weapon/" + Converter.weaponNameInvert(weapon.get(0).getName()) + ".png"));
-                            secondWeapon.setImage(new Image("weapon/" + Converter.weaponNameInvert(weapon.get(1).getName()) + ".png"));
-                            thirdWeapon.setImage(new Image("weapon/" + Converter.weaponNameInvert(weapon.get(2).getName()) + ".png"));
+                            guiHandler.setWeaponImage(weapon);
 
 
                             Stage stage = new Stage();
@@ -1395,9 +1389,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                             Data.getInstance().setMoveGrab("left");
 
                             List<WeaponCard> weapon = playerController.getGameBoard().getArena()[x][y--].getWeapons();
-                            firstWeapon.setImage(new Image("weapon/" + Converter.weaponNameInvert(weapon.get(0).getName()) + ".png"));
-                            secondWeapon.setImage(new Image("weapon/" + Converter.weaponNameInvert(weapon.get(1).getName()) + ".png"));
-                            thirdWeapon.setImage(new Image("weapon/" + Converter.weaponNameInvert(weapon.get(2).getName()) + ".png"));
+                            guiHandler.setWeaponImage(weapon);
 
 
                             Stage stage = new Stage();
@@ -1427,10 +1419,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                             Data.getInstance().setMoveGrab("right");
 
                             List<WeaponCard> weapon = playerController.getGameBoard().getArena()[x][y++].getWeapons();
-                            firstWeapon.setImage(new Image("weapon/" + Converter.weaponNameInvert(weapon.get(0).getName()) + ".png"));
-                            secondWeapon.setImage(new Image("weapon/" + Converter.weaponNameInvert(weapon.get(1).getName()) + ".png"));
-                            thirdWeapon.setImage(new Image("weapon/" + Converter.weaponNameInvert(weapon.get(2).getName()) + ".png"));
-
+                            guiHandler.setWeaponImage(weapon);
 
                             Stage stage = new Stage();
                             stage.setScene(new Scene(root, 496, 269));
@@ -1438,12 +1427,19 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                             stage.show();
                         }
                     }
-
                 }
             }
 
             Stage stage = (Stage) upArrowGrab.getScene().getWindow();
             stage.close();
+        });
+    }
+
+    private void setWeaponImage(List<WeaponCard> weapon) {
+        Platform.runLater(() ->{
+            firstWeapon.setImage(new Image("weapon/" + Converter.weaponNameInvert(weapon.get(0).getName()) + ".png"));
+            secondWeapon.setImage(new Image("weapon/" + Converter.weaponNameInvert(weapon.get(1).getName()) + ".png"));
+            thirdWeapon.setImage(new Image("weapon/" + Converter.weaponNameInvert(weapon.get(2).getName()) + ".png"));
         });
     }
 
@@ -1518,6 +1514,50 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
             }
             Stage stage = (Stage) firstWeapon.getScene().getWindow();
             stage.close();
+        });
+    }
+
+    public void disableButtons(){
+        Platform.runLater(() ->{
+
+            //disable move
+            upArrow.setDisable(true);
+            downArrow.setDisable(true);
+            rightArrow.setDisable(true);
+            leftArrow.setDisable(true);
+            enterMove.setDisable(true);
+
+            //disable grab
+            bannerGrab.setDisable(true);
+            labelGrab.setDisable(true);
+
+            //disable endturn
+            bannerEndTurn.setDisable(true);
+            labelEndTurn.setDisable(true);
+
+            //disable shoot
+        });
+    }
+
+    public void enableButtons(){
+        Platform.runLater(() ->{
+
+            //disable move
+            upArrow.setDisable(false);
+            downArrow.setDisable(false);
+            rightArrow.setDisable(false);
+            leftArrow.setDisable(false);
+            enterMove.setDisable(false);
+
+            //disable grab
+            bannerGrab.setDisable(false);
+            labelGrab.setDisable(false);
+
+            //disable endturn
+            bannerEndTurn.setDisable(false);
+            labelEndTurn.setDisable(false);
+
+            //disable shoot
         });
     }
 }
