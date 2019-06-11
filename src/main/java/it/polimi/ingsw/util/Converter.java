@@ -37,22 +37,27 @@ public class Converter {
             default:
                 break;
         }
-        switch (ammoCard.getThirdAmmo().getColor()){
-            case BLUE:
-                third = "B";
-                break;
-            case RED:
-                third = "R";
-                break;
-            case YELLOW:
-                third = "Y";
-                break;
-            case NONE:
-                third = "";
-                break;
-            default:
-                break;
+        if(!ammoCard.isPowerup()) {
+            switch (ammoCard.getThirdAmmo().getColor()) {
+                case BLUE:
+                    third = "B";
+                    break;
+                case RED:
+                    third = "R";
+                    break;
+                case YELLOW:
+                    third = "Y";
+                    break;
+                case NONE:
+                    third = "";
+                    break;
+                default:
+                    break;
+            }
+        }else{
+            third = "P";
         }
+
         return first+second+third;
     }
 

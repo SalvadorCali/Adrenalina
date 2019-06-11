@@ -781,6 +781,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                 guiHandler.removeImg();
                 //guiHandler.addWeapon();
                 guiHandler.addAmmo();
+
             });
 
             try{
@@ -796,14 +797,56 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     private void addAmmo() {
         playerController = Data.getInstance().getPlayerController();
         arena = playerController.getGameBoard().getArena();
+        for(int i=0; i < ROWS ; i++){
+            for(int j=0; j<COLUMNS; j++){
+                if(arena[i][j].isActive() && !arena[i][j].isSpawn()){
+                    AmmoCard ammoCard = arena[i][j].getAmmoCard();
+                    System.out.println(Converter.fromAmmoCardToString(ammoCard));
+                    String url = "ammo/" + Converter.fromAmmoCardToString(ammoCard) + ".png";
 
-        for(int i = 0; i< ROWS; i++){
-            for(int j = 0; j< COLUMNS; j++){
-                AmmoCard ammoCard = arena[i][j].getAmmoCard();
+                    if(i == 0 && j == 0){
+                        grid00.add(new ImageView(url), 1, 2);
 
+                    } else if(i == 0 && j == 1){
+                        grid01.add(new ImageView(url), 1, 2);
 
+                    }else if(i == 0 && j == 2){
+                        grid02.add(new ImageView(url), 1, 2);
+
+                    }else if(i == 0 && j == 3){
+                        grid03.add(new ImageView(url), 1, 2);
+
+                    }else if(i == 1 && j == 0){
+
+                        grid10.add(new ImageView(url), 1, 2);
+
+                    }else if(i == 1 && j == 1){
+                        grid11.add(new ImageView(url), 1, 2);
+
+                    }else if(i == 1 && j == 2){
+                        grid12.add(new ImageView(url), 1, 2);
+
+                    }else if(i == 1 && j == 3){
+                        grid13.add(new ImageView(url), 1, 2);
+
+                    }else if(i == 2 && j == 0){
+                        grid20.add(new ImageView(url), 1, 2);
+
+                    }else if(i == 2 && j == 1){
+                        grid21.add(new ImageView(url), 1, 2);
+
+                    }else if(i == 2 && j == 2){
+                        grid22.add(new ImageView(url), 1, 2);
+
+                    }else if(i == 2 && j == 3){
+                        grid23.add(new ImageView(url), 1, 2);
+                    }
+                }
             }
         }
+
+
+
     }
 
     private void addWeapon() {
