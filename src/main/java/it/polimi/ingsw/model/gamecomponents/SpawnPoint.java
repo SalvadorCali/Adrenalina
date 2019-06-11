@@ -6,7 +6,6 @@ import it.polimi.ingsw.model.cards.WeaponCard;
 import it.polimi.ingsw.model.cards.effects.ActionInterface;
 import it.polimi.ingsw.model.enums.Cardinal;
 import it.polimi.ingsw.model.enums.TokenColor;
-import it.polimi.ingsw.util.Printer;
 
 import java.io.Serializable;
 import java.util.ArrayList;
