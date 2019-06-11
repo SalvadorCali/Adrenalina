@@ -204,6 +204,8 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     private static final int NUM_SQUARES=12;
     private static final int MAX_NUM_PLAYER=5;
     private static final int MAX_MOVEMENT = 3;
+    private static final double GRID_WIDTH = 25;
+    private static final double GRID_HEIGHT = 25;
 
     private GameController gameController;
     private String currentPlayer;
@@ -779,7 +781,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                 playerController = Data.getInstance().getPlayerController();
                 guiHandler.placePlayers(playerController.getGameBoard().getArena());
                 guiHandler.removeImg();
-                //guiHandler.addWeapon();
+                guiHandler.addWeapon();
                 guiHandler.addAmmo();
 
             });
@@ -801,11 +803,10 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
             for(int j=0; j<COLUMNS; j++){
                 if(arena[i][j].isActive() && !arena[i][j].isSpawn()){
                     AmmoCard ammoCard = arena[i][j].getAmmoCard();
-                    System.out.println(Converter.fromAmmoCardToString(ammoCard));
                     String url = "ammo/" + Converter.fromAmmoCardToString(ammoCard) + ".png";
                     ImageView imageView = new ImageView(url);
-                    imageView.setFitHeight(25);
-                    imageView.setFitWidth(25);
+                    imageView.setFitHeight(GRID_HEIGHT);
+                    imageView.setFitWidth(GRID_WIDTH);
 
                     if(i == 0 && j == 0){
                         grid00.add(imageView, 1, 2);
@@ -858,10 +859,38 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         int k = 0;
         for(int i = 0; i < ROWS ; i++){
             for(int j = 0; j< COLUMNS; j++){
-                if(!arena[i][j].getWeapons().isEmpty()){
-
+                if(arena[i][j].isSpawn()){
                     if(arena[i][j].getColor().equals(TokenColor.BLUE)){
-                        //weaponBlue1.setImage(arena[i][j].getWeapons().get(k));
+
+                        String url1 = "weapon/" + Converter.weaponNameInvert(arena[i][j].getWeapons().get(0).getName()) + ".png";
+                        String url2 = "weapon/" + Converter.weaponNameInvert(arena[i][j].getWeapons().get(1).getName()) + ".png";
+                        String url3 = "weapon/" + Converter.weaponNameInvert(arena[i][j].getWeapons().get(2).getName()) + ".png";
+
+                        weaponBlue1.setImage(new Image(url1));
+                        weaponBlue2.setImage(new Image(url2));
+                        weaponBlue3.setImage(new Image(url3));
+                    }
+
+                    if(arena[i][j].getColor().equals(TokenColor.RED)){
+
+                        String url1 = "weapon/" + Converter.weaponNameInvert(arena[i][j].getWeapons().get(0).getName()) + ".png";
+                        String url2 = "weapon/" + Converter.weaponNameInvert(arena[i][j].getWeapons().get(1).getName()) + ".png";
+                        String url3 = "weapon/" + Converter.weaponNameInvert(arena[i][j].getWeapons().get(2).getName()) + ".png";
+
+                        weaponRed1.setImage(new Image(url1));
+                        weaponRed2.setImage(new Image(url2));
+                        weaponRed3.setImage(new Image(url3));
+                    }
+
+                    if(arena[i][j].getColor().equals(TokenColor.YELLOW)){
+
+                        String url1 = "weapon/" + Converter.weaponNameInvert(arena[i][j].getWeapons().get(0).getName()) + ".png";
+                        String url2 = "weapon/" + Converter.weaponNameInvert(arena[i][j].getWeapons().get(1).getName()) + ".png";
+                        String url3 = "weapon/" + Converter.weaponNameInvert(arena[i][j].getWeapons().get(2).getName()) + ".png";
+
+                        weaponYellow1.setImage(new Image(url1));
+                        weaponYellow2.setImage(new Image(url2));
+                        weaponYellow3.setImage(new Image(url3));
                     }
                 }
             }
@@ -908,8 +937,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         }
     }
 
-
-    private void setLabelTurn() {
+    public void setLabelTurn() {
 
         playerController = Data.getInstance().getPlayerController();
         playerTurnLabel.setText(playerController.getCurrentPlayer());
@@ -920,7 +948,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         Platform.runLater(() -> {
             try {
                 client = Data.getInstance().getClient();
-                System.out.println( Data.getInstance().getSkull());
+                System.out.println(Data.getInstance().getBoardType());
                 client.board(Data.getInstance().getBoardType() + 1, Data.getInstance().getSkull());
             } catch (IOException e) {
                 e.printStackTrace();

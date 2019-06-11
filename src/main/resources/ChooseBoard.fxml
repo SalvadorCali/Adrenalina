@@ -22,7 +22,7 @@
       </ImageView>
       <ImageView fx:id="secondBoard" fitHeight="112.0" fitWidth="149.0" layoutX="378.0" layoutY="79.0" pickOnBounds="true" preserveRatio="true" onMouseClicked="#chooseBoard1">
          <image>
-            <Image url="@boardImg/3.png" />
+            <Image url="@boardImg/2.png" />
          </image>
       </ImageView>
       <ImageView fx:id="thirdBoard" fitHeight="112.0" fitWidth="149.0" layoutX="82.0" layoutY="238.0" pickOnBounds="true" preserveRatio="true" onMouseClicked="#chooseBoard2">
@@ -32,7 +32,7 @@
       </ImageView>
       <ImageView fx:id="fourthBoard" fitHeight="112.0" fitWidth="149.0" layoutX="378.0" layoutY="239.0" pickOnBounds="true" preserveRatio="true" onMouseClicked="#chooseBoard3">
          <image>
-            <Image url="@boardImg/2.png" />
+            <Image url="@boardImg/3.png" />
          </image>
       </ImageView>
       <Label layoutX="122.0" layoutY="190.0" text="basic board" textFill="WHITE">
