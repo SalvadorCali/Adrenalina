@@ -12,11 +12,11 @@ public class Config {
     public static final int RMI_FREE_PORT = 0;
 
     //timer
-    public static final int TURN_TIME = 50000;
+    public static final int TURN_TIME = 500000;
     public static final int START_TIME = 1000;
     public static final int DISCONNECTION_TIME = 5000;
-    public static final int BOARD_TYPE_TIME = 1000;
-    public static final int SPAWN_LOCATION_TIME = 1000;
+    public static final int BOARD_TYPE_TIME = 10000;
+    public static final int SPAWN_LOCATION_TIME = 5000;
 
     //game
     public static final int MIN_PLAYERS = 2;

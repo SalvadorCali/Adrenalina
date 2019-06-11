@@ -19,12 +19,12 @@
             <Image url="@boardImg/3.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="weaponRed1" fitHeight="96.0" fitWidth="148.0" layoutX="-10.0" layoutY="252.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="weaponRed2" fitHeight="96.0" fitWidth="148.0" layoutX="-10.0" layoutY="355.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="weaponRed3" fitHeight="96.0" fitWidth="148.0" layoutX="-10.0" layoutY="460.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="weaponYellow1" fitHeight="96.0" fitWidth="148.0" layoutX="803.0" layoutY="395.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="weaponYellow2" fitHeight="96.0" fitWidth="148.0" layoutX="803.0" layoutY="498.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="weaponYellow3" fitHeight="96.0" fitWidth="148.0" layoutX="803.0" layoutY="602.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="weaponRed1" fitHeight="70.0" fitWidth="120.0" layoutX="-23.0" layoutY="254.0" pickOnBounds="true" preserveRatio="true" rotate="90.0" />
+      <ImageView fx:id="weaponRed2" fitHeight="70.0" fitWidth="120.0" layoutX="-24.0" layoutY="369.0" pickOnBounds="true" preserveRatio="true" rotate="90.0" />
+      <ImageView fx:id="weaponRed3" fitHeight="70.0" fitWidth="120.0" layoutX="-23.0" layoutY="475.0" pickOnBounds="true" preserveRatio="true" rotate="90.0" />
+      <ImageView fx:id="weaponYellow1" fitHeight="96.0" fitWidth="100.0" layoutX="835.0" layoutY="394.0" pickOnBounds="true" preserveRatio="true" rotate="90.0" />
+      <ImageView fx:id="weaponYellow2" fitHeight="96.0" fitWidth="100.0" layoutX="838.0" layoutY="498.0" pickOnBounds="true" preserveRatio="true" rotate="90.0" />
+      <ImageView fx:id="weaponYellow3" fitHeight="96.0" fitWidth="100.0" layoutX="838.0" layoutY="602.0" pickOnBounds="true" preserveRatio="true" rotate="90.0" />
       <ImageView fx:id="weaponBlue1" fitHeight="143.0" fitWidth="98.0" layoutX="696.0" layoutY="-10.0" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="weaponBlue2" fitHeight="143.0" fitWidth="98.0" layoutX="595.0" layoutY="-10.0" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="weaponBlue3" fitHeight="143.0" fitWidth="98.0" layoutX="489.0" layoutY="-10.0" pickOnBounds="true" preserveRatio="true" />
@@ -100,7 +100,7 @@
             <Font name="Alien League Regular" size="30.0" />
          </font>
       </Label>
-      <Label layoutX="1035.0" layoutY="108.0" mouseTransparent="true" text="Grab" textFill="WHITE" onMouseClicked="#grab">
+      <Label layoutX="1035.0" layoutY="108.0" mouseTransparent="true" onMouseClicked="#grab" text="Grab" textFill="WHITE">
          <font>
             <Font name="Alien League Regular" size="30.0" />
          </font>
