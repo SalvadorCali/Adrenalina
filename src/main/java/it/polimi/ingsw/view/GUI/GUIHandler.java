@@ -1447,47 +1447,77 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         });
     }
 
-    public void grabFirstImg(MouseEvent mouseEvent) throws IOException {
-        client = Data.getInstance().getClient();
-        String move = Data.getInstance().getMoveGrab();
+    public void grabFirstImg(MouseEvent mouseEvent) {
+        Platform.runLater(() -> {
+            client = Data.getInstance().getClient();
+            String move = Data.getInstance().getMoveGrab();
 
-        if(move != null) {
-            client.grab(0, Converter.fromStringToDirection(move));
+            if (move != null) {
+                try {
+                    client.grab(0, Converter.fromStringToDirection(move));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
 
-        }else{
-            client.grab(0);
-        }
+            } else {
+                try {
+                    client.grab(0);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
 
-        Stage stage = (Stage) firstWeapon.getScene().getWindow();
-        stage.close();
+            Stage stage = (Stage) firstWeapon.getScene().getWindow();
+            stage.close();
+        });
     }
 
-    public void grabSecondImg(MouseEvent mouseEvent) throws IOException {
-        client = Data.getInstance().getClient();
-        String move = Data.getInstance().getMoveGrab();
+    public void grabSecondImg(MouseEvent mouseEvent){
+        Platform.runLater(() -> {
+            client = Data.getInstance().getClient();
+            String move = Data.getInstance().getMoveGrab();
 
-        if(move != null) {
-            client.grab(1, Converter.fromStringToDirection(move));
+            if (move != null) {
+                try {
+                    client.grab(1, Converter.fromStringToDirection(move));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
 
-        }else{
-            client.grab(1);
-        }
+            } else {
+                try {
+                    client.grab(1);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
 
-        Stage stage = (Stage) firstWeapon.getScene().getWindow();
-        stage.close();
+            Stage stage = (Stage) firstWeapon.getScene().getWindow();
+            stage.close();
+        });
     }
 
-    public void grabThirdImg(MouseEvent mouseEvent) throws IOException {
-        client = Data.getInstance().getClient();
-        String move = Data.getInstance().getMoveGrab();
+    public void grabThirdImg(MouseEvent mouseEvent) {
+        Platform.runLater(() -> {
+            client = Data.getInstance().getClient();
+            String move = Data.getInstance().getMoveGrab();
 
-        if(move != null) {
-            client.grab(2, Converter.fromStringToDirection(move));
+            if (move != null) {
+                try {
+                    client.grab(2, Converter.fromStringToDirection(move));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
 
-        }else{
-            client.grab(2);
-        }
-        Stage stage = (Stage) firstWeapon.getScene().getWindow();
-        stage.close();
+            } else {
+                try {
+                    client.grab(2);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            Stage stage = (Stage) firstWeapon.getScene().getWindow();
+            stage.close();
+        });
     }
 }
