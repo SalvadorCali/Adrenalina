@@ -310,4 +310,53 @@ public class Converter {
                 return null;
         }
     }
+
+    public static String weaponNameInvert(String weapon){
+        switch (weapon){
+            case "LOCK RIFLE":
+                return "lockrifle";
+            case "ELECTROSCYTHE":
+                return "electroscythe";
+            case "FURNACE":
+                return "furnace";
+            case "HEATSEEKER":
+                return "heatseeker";
+            case "WHISPER":
+                return "whisper";
+            case "HELLION":
+                return "hellion";
+            case "ZX-2":
+                return "zx-2";
+            case "TRACTOR BEAM":
+                return "tractorbeam";
+            case "SHOTGUN":
+                return "shotgun";
+            case "PLASMA GUN":
+                return "plasmagun";
+            case "MACHINE GUN":
+                return "machinegun";
+            case "FLAMETHROWER":
+                return "flamethrower";
+            case "SHOCKWAVE":
+                return "shockwave";
+            case "VORTEX CANNON":
+                return "vortexcannon";
+            case "T.H.O.R.":
+                return "thor";
+            case "GRENADE LAUNCHER":
+                return "grenadelauncher";
+            case "ROCKET LAUNCHER":
+                return "rocketlauncher";
+            case "RAILGUN":
+                return "railgun";
+            case "CYBERBLADE":
+                return "cyberblade";
+            case "POWER GLOVE":
+                return "powerglove";
+            case "SLEDGEHAMMER":
+                return "sledgehammer";
+            default:
+                return null;
+        }
+    }
 }
