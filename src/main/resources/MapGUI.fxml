@@ -60,7 +60,7 @@
             <Image url="@boardElem/banner.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="bannerGrab" fitHeight="64.0" fitWidth="200.0" layoutX="963.0" layoutY="91.0">
+      <ImageView fx:id="bannerGrab" fitHeight="64.0" fitWidth="200.0" layoutX="963.0" layoutY="91.0" onMouseClicked="#grab">
          <image>
             <Image url="@boardElem/banner.png" />
          </image>
@@ -100,7 +100,7 @@
             <Font name="Alien League Regular" size="30.0" />
          </font>
       </Label>
-      <Label layoutX="1035.0" layoutY="108.0" mouseTransparent="true" text="Grab" textFill="WHITE">
+      <Label layoutX="1035.0" layoutY="108.0" mouseTransparent="true" text="Grab" textFill="WHITE" onMouseClicked="#grab">
          <font>
             <Font name="Alien League Regular" size="30.0" />
          </font>

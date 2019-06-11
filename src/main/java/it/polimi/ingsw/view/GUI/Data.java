@@ -12,6 +12,7 @@ public class Data{
     private ClientInterface client;
     private PlayerController playerController;
     private GUIHandler guiHandler;
+    private String moveGrab;
 
     private Data(){
     }
@@ -69,5 +70,13 @@ public class Data{
 
     public void setGuiHandler(GUIHandler guiHandler) {
         this.guiHandler = guiHandler;
+    }
+
+    public String getMoveGrab() {
+        return moveGrab;
+    }
+
+    public void setMoveGrab(String moveGrab) {
+        this.moveGrab = moveGrab;
     }
 }

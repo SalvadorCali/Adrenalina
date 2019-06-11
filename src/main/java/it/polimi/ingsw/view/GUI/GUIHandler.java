@@ -163,6 +163,11 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     @FXML private Label labelDisconnect;
     @FXML private ImageView bannerDisconnect;
     @FXML private Button enterMove;
+    @FXML private ImageView upArrowGrab;
+    @FXML private ImageView downArrowGrab;
+    @FXML private ImageView rightArrowGrab;
+    @FXML private ImageView leftArrowGrab;
+    @FXML private Button enterMoveGrab;
 
     @FXML
     RadioButton socketButton;
@@ -548,7 +553,6 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
                     guiHandler = loader.getController();
                     guiHandler.setMapImage();
-                    //guiHandler.placePlayers(playerController.getGameBoard().getArena());
                     guiHandler.setLabelTurn();
 
                     Data.getInstance().setGuiHandler(guiHandler);
@@ -938,9 +942,11 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     }
 
     public void setLabelTurn() {
+        Platform.runLater(() -> {
 
-        playerController = Data.getInstance().getPlayerController();
-        playerTurnLabel.setText(playerController.getCurrentPlayer());
+            playerController = Data.getInstance().getPlayerController();
+            playerTurnLabel.setText(playerController.getCurrentPlayer());
+        });
     }
 
 
@@ -1028,7 +1034,6 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         }
 
     }
-
 
 
     public void endTurn(){
@@ -1210,5 +1215,70 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         });
     }
 
+    public void grab(){
+        Platform.runLater(() ->{
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("GrabMove.fxml"));
 
+            Parent root = null;
+            try {
+                root = loader.load();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root, 222, 256));
+            stage.setTitle("Grab Popup");
+            stage.show();
+
+
+        });
+    }
+
+    public void moveUpGrab(MouseEvent mouseEvent) {
+        Data.getInstance().setMoveGrab("up");
+    }
+
+    public void moveRightGrab(MouseEvent mouseEvent) {
+        Data.getInstance().setMoveGrab("right");
+    }
+
+    public void moveDownGrab(MouseEvent mouseEvent) {
+        Data.getInstance().setMoveGrab("down");
+    }
+
+    public void moveLeftGrab(MouseEvent mouseEvent) {
+        Data.getInstance().setMoveGrab("left");
+    }
+
+    public void confirmMovementGrab(MouseEvent mouseEvent) {
+        Platform.runLater(() -> {
+
+            String moveGrab = Data.getInstance().getMoveGrab();
+            client = Data.getInstance().getClient();
+            playerController = Data.getInstance().getPlayerController();
+            int x = playerController.getPlayer().getPosition().getX();
+            int y = playerController.getPlayer().getPosition().getY();
+
+
+            if (!playerController.getGameBoard().getArena()[x][y].isSpawn()) {
+                if (moveGrab == null) {
+
+                    try {
+                        client.grab(0, null);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                }else{
+
+                    try {
+                        client.grab(0, Converter.fromStringToDirection(moveGrab));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+    }
 }
