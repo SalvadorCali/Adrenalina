@@ -1,9 +1,60 @@
 package it.polimi.ingsw.util;
 
+import it.polimi.ingsw.model.cards.AmmoCard;
 import it.polimi.ingsw.model.enums.*;
 
 public class Converter {
     private Converter(){}
+
+    public static String fromAmmoCardToString(AmmoCard ammoCard){
+
+        String first = new String();
+        String second = new String();
+        String third = new String();
+            switch (ammoCard.getFirstAmmo().getColor()){
+                case BLUE:
+                    first = "B";
+                    break;
+                case RED:
+                    first = "R";
+                    break;
+                case YELLOW:
+                    first = "Y";
+                    break;
+                default:
+                    break;
+            }
+        switch (ammoCard.getSecondAmmo().getColor()){
+            case BLUE:
+                second = "B";
+                break;
+            case RED:
+                second = "R";
+                break;
+            case YELLOW:
+                second = "Y";
+                break;
+            default:
+                break;
+        }
+        switch (ammoCard.getThirdAmmo().getColor()){
+            case BLUE:
+                third = "B";
+                break;
+            case RED:
+                third = "R";
+                break;
+            case YELLOW:
+                third = "Y";
+                break;
+            case NONE:
+                third = "";
+                break;
+            default:
+                break;
+        }
+        return first+second+third;
+    }
 
     public static Direction fromStringToDirection(String direction){
         switch(direction){
