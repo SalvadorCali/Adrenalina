@@ -88,7 +88,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     private ImageView deckAmmo;
 
     @FXML
-    private HBox hboxDeath;
+    private GridPane gridSkulls;
 
     @FXML
     private GridPane grid00;
@@ -440,13 +440,24 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
     @Override
     public void notify(Message message) {
-        switch (message){
-            case END_TURN:
-                //notifyEndTurn();
-                break;
-            default:
-                break;
-        }
+        Platform.runLater(() ->{
+            switch (message){
+                case END_TURN:
+                    notifyEndTurn();
+                    break;
+                default:
+                    break;
+            }
+        });
+    }
+
+    private void notifyEndTurn() {
+        Platform.runLater(() ->{
+
+            playerController = Data.getInstance().getPlayerController();
+            Printer.print(playerController.getCurrentPlayer() + " new turn");
+            setLabelStatement(playerController.getCurrentPlayer() + " new turn");
+        });
     }
 
     @Override
@@ -464,7 +475,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                     notifyBoard(outcome);
                     break;
                 case GAME:
-                    Printer.println("new game");
+                    Printer.println("New Game");
                     break;
                 case MOVE:
                     notifyMovement(outcome);
@@ -569,6 +580,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
                     guiHandler = loader.getController();
                     guiHandler.setMapImage();
+                    guiHandler.setSkulls();
                     guiHandler.setLabelTurn();
 
                     Data.getInstance().setGuiHandler(guiHandler);
@@ -629,8 +641,12 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         });
     }
 
-
-
+    public void setSkulls() {
+        int skulls = Data.getInstance().getSkull();
+        for(int i = 0; i < skulls; i++) {
+            gridSkulls.add(new ImageView("boardElem/skull.png"), i, 0);
+        }
+    }
 
 
     @Override
