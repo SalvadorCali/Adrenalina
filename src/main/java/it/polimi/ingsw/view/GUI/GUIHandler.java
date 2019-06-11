@@ -1260,25 +1260,75 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
             int x = playerController.getPlayer().getPosition().getX();
             int y = playerController.getPlayer().getPosition().getY();
 
-
-            if (!playerController.getGameBoard().getArena()[x][y].isSpawn()) {
-                if (moveGrab == null) {
-
+            if(moveGrab == null){
+                if(!playerController.getGameBoard().getArena()[x][y].isSpawn()) {
                     try {
                         client.grab(0, null);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
+                }else {
+                    //choose weapon popup
+                }
 
-                }else{
-
-                    try {
-                        client.grab(0, Converter.fromStringToDirection(moveGrab));
-                    } catch (IOException e) {
-                        e.printStackTrace();
+            }else {
+                if(moveGrab == "up"){
+                    if(playerController.getGameBoard().getArena()[x][y].canMove(Direction.UP)){
+                        if(!playerController.getGameBoard().getArena()[x--][y].isSpawn()) {
+                            try {
+                                client.grab(0, Direction.UP);
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }else{
+                            //choose weapon
+                        }
                     }
+
+                } else if(moveGrab == "down"){
+                    if(playerController.getGameBoard().getArena()[x][y].canMove(Direction.DOWN)){
+                        if(!playerController.getGameBoard().getArena()[x++][y].isSpawn()) {
+                            try {
+                                client.grab(0, Direction.DOWN);
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }else{
+                            //choose weapon
+                        }
+                    }
+
+                } if(moveGrab == "left"){
+                    if(playerController.getGameBoard().getArena()[x][y].canMove(Direction.LEFT)){
+                        if(!playerController.getGameBoard().getArena()[x][y--].isSpawn()) {
+                            try {
+                                client.grab(0, Direction.LEFT);
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        } else{
+                            //choose weapon
+                        }
+                    }
+
+                }if(moveGrab == "right"){
+                    if(playerController.getGameBoard().getArena()[x][y].canMove(Direction.LEFT)){
+                        if(!playerController.getGameBoard().getArena()[x][y++].isSpawn()) {
+                            try {
+                                client.grab(0, Direction.UP);
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }else{
+                            //choose weapon
+                        }
+                    }
+
                 }
             }
+
+            Stage stage = (Stage) upArrowGrab.getScene().getWindow();
+            stage.close();
         });
     }
 }
