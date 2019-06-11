@@ -75,17 +75,17 @@
             <Image url="@boardElem/arrow.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="rightArrow" fitHeight="39.0" fitWidth="45.0" layoutX="1109.0" layoutY="513.0" rotate="90.0" onMouseClicked="#moveRight">
+      <ImageView fx:id="rightArrow" fitHeight="39.0" fitWidth="45.0" layoutX="1109.0" layoutY="513.0" onMouseClicked="#moveRight" rotate="90.0">
          <image>
             <Image url="@boardElem/arrow.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="downArrow" fitHeight="39.0" fitWidth="45.0" layoutX="1041.0" layoutY="563.0" rotate="180.0" onMouseClicked="#moveDown">
+      <ImageView fx:id="downArrow" fitHeight="39.0" fitWidth="45.0" layoutX="1041.0" layoutY="563.0" onMouseClicked="#moveDown" rotate="180.0">
          <image>
             <Image url="@boardElem/arrow.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="leftArrow" fitHeight="39.0" fitWidth="45.0" layoutX="977.0" layoutY="513.0" rotate="270.0" onMouseClicked="#moveLeft">
+      <ImageView fx:id="leftArrow" fitHeight="39.0" fitWidth="45.0" layoutX="977.0" layoutY="513.0" onMouseClicked="#moveLeft" rotate="270.0">
          <image>
             <Image url="@boardElem/arrow.png" />
          </image>
@@ -289,7 +289,7 @@
             <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
          </padding>
       </GridPane>
-      <Label fx:id="labelStatusPlayer" layoutX="370.0" layoutY="659.0" text="Player disconnected" textFill="WHITE" visible="false">
+      <Label fx:id="labelStatusPlayer" layoutX="370.0" layoutY="659.0" prefHeight="26.0" prefWidth="323.0" text="Player disconnected" textFill="WHITE" visible="false">
          <font>
             <Font size="20.0" />
          </font>
@@ -304,6 +304,6 @@
             <Font name="Alien League Regular" size="30.0" />
          </font>
       </Label>
-      <Button fx:id="enterMove" layoutX="1031.0" layoutY="519.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="69.0" text="Confirm" onMouseClicked="#confirmMovement" />
+      <Button fx:id="enterMove" layoutX="1031.0" layoutY="519.0" mnemonicParsing="false" onMouseClicked="#confirmMovement" prefHeight="27.0" prefWidth="69.0" text="Confirm" />
    </children>
 </AnchorPane>

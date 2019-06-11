@@ -11,6 +11,7 @@ public class Data{
     private Integer powerup;
     private ClientInterface client;
     private PlayerController playerController;
+    private GUIHandler guiHandler;
 
     private Data(){
     }
@@ -60,5 +61,13 @@ public class Data{
 
     public void setPlayerController(PlayerController playerController) {
         this.playerController = playerController;
+    }
+
+    public GUIHandler getGuiHandler() {
+        return guiHandler;
+    }
+
+    public void setGuiHandler(GUIHandler guiHandler) {
+        this.guiHandler = guiHandler;
     }
 }
