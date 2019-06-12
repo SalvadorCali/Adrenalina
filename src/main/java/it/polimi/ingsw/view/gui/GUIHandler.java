@@ -9,6 +9,7 @@ import it.polimi.ingsw.model.cards.WeaponCard;
 import it.polimi.ingsw.model.enums.Color;
 import it.polimi.ingsw.model.enums.Direction;
 import it.polimi.ingsw.model.enums.TokenColor;
+import it.polimi.ingsw.model.gamecomponents.Player;
 import it.polimi.ingsw.model.gamecomponents.Square;
 import it.polimi.ingsw.network.client.ClientInterface;
 import it.polimi.ingsw.network.client.rmi.RMIClient;
@@ -1633,7 +1634,20 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
             playerController = Data.getInstance().getPlayerController();
             firstBoard.setImage(new Image("playerBoard/" + Converter.fromTokenColorToString(playerController.getPlayer().getColor()) + ".jpg"));
-            //to fill
+
+            List<Player> otherPlayers = playerController.getOtherPlayers();
+            if(otherPlayers.size() == 1){
+
+                secondBoard.setImage(new Image("playerBoard/" + Converter.fromTokenColorToString(otherPlayers.get(0).getColor()) + ".jpg"));
+                secondBoard.setVisible(true);
+
+            }else if(otherPlayers.size() == 2){
+
+                secondBoard.setImage(new Image("playerBoard/" + Converter.fromTokenColorToString(otherPlayers.get(0).getColor()) + ".jpg"));
+                thirdBoard.setImage(new Image("playerBoard/" + Converter.fromTokenColorToString(otherPlayers.get(1).getColor()) + ".jpg"));
+                secondBoard.setVisible(true);
+                thirdBoard.setVisible(true);
+            }
         });
     }
 
