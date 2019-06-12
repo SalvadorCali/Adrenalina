@@ -4,7 +4,9 @@ import it.polimi.ingsw.controller.GameController;
 import it.polimi.ingsw.controller.PlayerController;
 import it.polimi.ingsw.model.cards.AmmoCard;
 import it.polimi.ingsw.model.cards.Card;
+import it.polimi.ingsw.model.cards.PowerupCard;
 import it.polimi.ingsw.model.cards.WeaponCard;
+import it.polimi.ingsw.model.enums.Color;
 import it.polimi.ingsw.model.enums.Direction;
 import it.polimi.ingsw.model.enums.TokenColor;
 import it.polimi.ingsw.model.gamecomponents.Square;
@@ -33,6 +35,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -207,6 +210,31 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     @FXML private ImageView powerupImg2;
     @FXML private Label labelEndTurn;
 
+    @FXML private ImageView firstPlayerBoard;
+    @FXML private ImageView secondPlayerBoard;
+    @FXML private ImageView thirdPlayerBoard;
+    @FXML private ImageView fourthPlayerBoard;
+    @FXML private ImageView fifthPlayerBoard;
+    @FXML private GridPane firstDamageGrid;
+    @FXML private GridPane secondDamageGrid;
+    @FXML private GridPane thirdDamageGrid;
+    @FXML private GridPane fourthDamageGrid;
+    @FXML private GridPane fifthDamageGrid;
+    @FXML private GridPane ammoBoxGrid;
+    @FXML private GridPane ammoReserveGrid;
+    @FXML private GridPane firstDeathCounterGrid;
+    @FXML private GridPane secondDeathCounterGrid;
+    @FXML private GridPane thirdDeathCounterGrid;
+    @FXML private GridPane fourthDeathCounterGrid;
+    @FXML private GridPane fifthDeathCounterGrid;
+
+
+    @FXML private ImageView firstWeaponHad;
+    @FXML private ImageView secondWeaponHad;
+    @FXML private ImageView thirdWeaponHad;
+    @FXML private ImageView firstPowerupHad;
+    @FXML private ImageView secondPowerupHad;
+    @FXML private ImageView thirdPowerupHad;
 
     private static final int ROWS = 3;
     private static final int COLUMNS = 4;
@@ -645,12 +673,9 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         int skulls = playerController.getKillshotTrack().size();
 
         Image imageSkull = new Image("boardElem/skull.png");
-        ImageView iv = new ImageView(imageSkull);
-        iv.setFitWidth(2*GRID_WIDTH);
-        iv.setFitHeight(2*GRID_HEIGHT);
 
         for(int i = 0; i < skulls; i++) {
-            gridSkulls.add(iv, i, 0);
+            gridSkulls.add(new ImageView(imageSkull), i, 0);
         }
     }
 
@@ -1324,7 +1349,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                     guiHandler.setWeaponImage(weapon);
 
                     Stage stage = new Stage();
-                    stage.setScene(new Scene(root, 496, 269));
+                    stage.setScene(new Scene(root, 269, 496));
                     stage.setTitle("Choose Weapon");
                     stage.show();
                 }
@@ -1354,7 +1379,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
 
                             Stage stage = new Stage();
-                            stage.setScene(new Scene(root, 496, 269));
+                            stage.setScene(new Scene(root, 269, 496));
                             stage.setTitle("Choose Weapon");
                             stage.show();
                         }
@@ -1384,7 +1409,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
 
                             Stage stage = new Stage();
-                            stage.setScene(new Scene(root, 496, 269));
+                            stage.setScene(new Scene(root, 269, 496));
                             stage.setTitle("Choose Weapon");
                             stage.show();
                         }
@@ -1414,7 +1439,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
 
                             Stage stage = new Stage();
-                            stage.setScene(new Scene(root, 496, 269));
+                            stage.setScene(new Scene(root, 269, 496));
                             stage.setTitle("Choose Weapon");
                             stage.show();
                         }
@@ -1443,7 +1468,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                             guiHandler.setWeaponImage(weapon);
 
                             Stage stage = new Stage();
-                            stage.setScene(new Scene(root, 496, 269));
+                            stage.setScene(new Scene(root, 269, 496));
                             stage.setTitle("Choose Weapon");
                             stage.show();
                         }
@@ -1579,6 +1604,98 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
             labelEndTurn.setDisable(false);
 
             //disable shoot
+        });
+    }
+
+    public void showDamageBoard(MouseEvent mouseEvent) {
+        Platform.runLater(() ->{
+
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("PlayerBoard.fxml"));
+            Parent root = null;
+            try {
+                root = loader.load();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            guiHandler = Data.getInstance().getGuiHandler();
+            guiHandler.setPlayerBoardImage();
+
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root, 1218, 755));
+            stage.setTitle("DamageBoards");
+            stage.show();
+        });
+    }
+
+    private void setPlayerBoardImage() {
+        Platform.runLater(() ->{
+
+            playerController = Data.getInstance().getPlayerController();
+            firstBoard.setImage(new Image("playerBoard/" + Converter.fromTokenColorToString(playerController.getPlayer().getColor()) + ".jpg"));
+            //to fill
+        });
+    }
+
+    public void showWeapon(MouseEvent mouseEvent) {
+        Platform.runLater(() ->{
+
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ShowWeapon.fxml"));
+            Parent root = null;
+            try {
+                root = loader.load();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            guiHandler = Data.getInstance().getGuiHandler();
+            guiHandler.setWeaponHad();
+            guiHandler.setPowerupHad();
+
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root, 522, 518));
+            stage.setTitle("Weapons");
+            stage.show();
+        });
+    }
+
+    private void setPowerupHad() {
+        Platform.runLater(() -> {
+            playerController = Data.getInstance().getPlayerController();
+            List<PowerupCard> powerupsHad = playerController.getPowerups();
+
+            if(powerupsHad.size() == 1){
+                //firstPowerupHad.setImage(new Image());
+            }
+        });
+    }
+
+    private void setWeaponHad() {
+        Platform.runLater(() ->{
+
+            playerController = Data.getInstance().getPlayerController();
+            List<WeaponCard> weaponsHad = playerController.getWeapons();
+
+            if(weaponsHad.size() == 1){
+                firstWeaponHad.setImage(new Image("weapon/" + Converter.weaponNameInvert(weaponsHad.get(0).getName()) + ".png"));
+                firstWeaponHad.setVisible(true);
+
+            }else if(weaponsHad.size() == 2){
+
+                firstWeaponHad.setImage(new Image("weapon/" + Converter.weaponNameInvert(weaponsHad.get(0).getName()) + ".png"));
+                secondWeaponHad.setImage(new Image("weapon/" + Converter.weaponNameInvert(weaponsHad.get(1).getName()) + ".png"));
+                firstWeaponHad.setVisible(true);
+                secondWeaponHad.setVisible(true);
+
+            }else if(weaponsHad.size() == 3){
+
+                firstWeaponHad.setImage(new Image("weapon/" + Converter.weaponNameInvert(weaponsHad.get(0).getName()) + ".png"));
+                secondWeaponHad.setImage(new Image("weapon/" + Converter.weaponNameInvert(weaponsHad.get(1).getName()) + ".png"));
+                thirdWeaponHad.setImage(new Image("weapon/" + Converter.weaponNameInvert(weaponsHad.get(2).getName()) + ".png"));
+                firstWeaponHad.setVisible(true);
+                secondWeaponHad.setVisible(true);
+                thirdWeaponHad.setVisible(true);
+            }
         });
     }
 }

@@ -88,7 +88,7 @@
             <Image url="@boardElem/arrow.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="bannerShowWeapon" fitHeight="64.0" fitWidth="200.0" layoutX="964.0" layoutY="245.0" mouseTransparent="true">
+      <ImageView fx:id="bannerShowWeapon" fitHeight="64.0" fitWidth="200.0" layoutX="964.0" layoutY="245.0" mouseTransparent="true" onMouseClicked="#showWeapon">
          <image>
             <Image url="@boardElem/banner.png" />
          </image>
@@ -108,17 +108,17 @@
             <Font name="Alien League Regular" size="30.0" />
          </font>
       </Label>
-      <ImageView fx:id="bannerShowDamage1" fitHeight="64.0" fitWidth="200.0" layoutX="964.0" layoutY="166.0">
+      <ImageView fx:id="bannerShowDamage1" fitHeight="64.0" fitWidth="200.0" layoutX="964.0" layoutY="166.0" onMouseClicked="#showDamageBoard">
          <image>
             <Image url="@boardElem/banner.png" />
          </image>
       </ImageView>
-      <Label layoutX="981.0" layoutY="262.0" text="Show Weapon" textFill="WHITE">
+      <Label layoutX="981.0" layoutY="262.0" text="Show Weapon" textFill="WHITE" onMouseClicked="#showWeapon">
          <font>
             <Font name="Alien League Regular" size="30.0" />
          </font>
       </Label>
-      <Label layoutX="980.0" layoutY="183.0" mouseTransparent="true" text="Show Damage" textFill="WHITE">
+      <Label layoutX="980.0" layoutY="183.0" mouseTransparent="true" text="Show Damage" textFill="WHITE"onMouseClicked="#showDamageBoard">
          <font>
             <Font name="Alien League Regular" size="30.0" />
          </font>
