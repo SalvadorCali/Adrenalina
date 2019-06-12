@@ -1,4 +1,4 @@
-package it.polimi.ingsw.view.GUI;
+package it.polimi.ingsw.view.gui;
 
 import it.polimi.ingsw.controller.PlayerController;
 import it.polimi.ingsw.network.client.ClientInterface;

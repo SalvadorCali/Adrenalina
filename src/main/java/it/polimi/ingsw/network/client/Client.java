@@ -4,7 +4,7 @@ import it.polimi.ingsw.network.client.rmi.RMIClient;
 import it.polimi.ingsw.network.client.socket.SocketClient;
 import it.polimi.ingsw.util.Connection;
 import it.polimi.ingsw.util.Printer;
-import it.polimi.ingsw.view.GUI.GUIHandler;
+import it.polimi.ingsw.view.gui.GUIHandler;
 import javafx.application.Application;
 
 import java.io.BufferedReader;
@@ -13,9 +13,6 @@ import java.io.InputStreamReader;
 import java.net.*;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
-import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.List;
 import java.util.Objects;
 
 public class Client {

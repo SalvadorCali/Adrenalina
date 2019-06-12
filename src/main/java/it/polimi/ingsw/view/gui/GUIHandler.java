@@ -1,4 +1,4 @@
-package it.polimi.ingsw.view.GUI;
+package it.polimi.ingsw.view.gui;
 
 import it.polimi.ingsw.controller.GameController;
 import it.polimi.ingsw.controller.PlayerController;
@@ -33,7 +33,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -580,6 +579,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
                     guiHandler = loader.getController();
                     guiHandler.setMapImage();
+                    guiHandler.setSkulls();
 
                     Data.getInstance().setGuiHandler(guiHandler);
 
@@ -615,6 +615,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
                     guiHandler = loader.getController();
                     guiHandler.setMapImage();
+                    guiHandler.setSkulls();
 
                     Data.getInstance().setGuiHandler(guiHandler);
 
@@ -642,11 +643,14 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
         playerController = Data.getInstance().getPlayerController();
         int skulls = playerController.getKillshotTrack().size();
-        Printer.print("number of skull " + skulls );
 
         Image imageSkull = new Image("boardElem/skull.png");
+        ImageView iv = new ImageView(imageSkull);
+        iv.setFitWidth(2*GRID_WIDTH);
+        iv.setFitHeight(2*GRID_HEIGHT);
+
         for(int i = 0; i < skulls; i++) {
-            gridSkulls.add(new ImageView(imageSkull), i, 0);
+            gridSkulls.add(iv, i, 0);
         }
     }
 
@@ -820,7 +824,6 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                 guiHandler.removeImg();
                 guiHandler.addWeapon();
                 guiHandler.addAmmo();
-                guiHandler.setSkulls();
             });
 
             try{
