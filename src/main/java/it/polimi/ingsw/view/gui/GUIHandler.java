@@ -1665,7 +1665,10 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
             List<PowerupCard> powerupsHad = playerController.getPowerups();
 
             if(powerupsHad.size() == 1){
-                //firstPowerupHad.setImage(new Image());
+                String color = Converter.fromColorToLetter(powerupsHad.get(1).getColor());
+                String name = powerupsHad.get(1).getName();
+                firstPowerupHad.setImage(new Image("powerup/" + color + "/" + name + ".png"));
+                firstPowerupHad.setVisible(true);
             }
         });
     }
