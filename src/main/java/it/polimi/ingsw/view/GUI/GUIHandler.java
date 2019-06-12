@@ -581,7 +581,6 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                     guiHandler = loader.getController();
                     guiHandler.setMapImage();
                     guiHandler.setSkulls();
-                    guiHandler.setLabelTurn();
 
                     Data.getInstance().setGuiHandler(guiHandler);
 
@@ -617,7 +616,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
                     guiHandler = loader.getController();
                     guiHandler.setMapImage();
-                    guiHandler.setLabelTurn();
+                    guiHandler.setSkulls();
 
                     Data.getInstance().setGuiHandler(guiHandler);
 
@@ -642,9 +641,14 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     }
 
     public void setSkulls() {
-        int skulls = Data.getInstance().getSkull();
+
+        playerController = Data.getInstance().getPlayerController();
+        int skulls = playerController.getKillshotTrack().size();
+        Printer.print("number of skull " + skulls );
+
+        Image imageSkull = new Image("boardElem/skull.png");
         for(int i = 0; i < skulls; i++) {
-            gridSkulls.add(new ImageView("boardElem/skull.png"), i, 0);
+            gridSkulls.add(new ImageView(imageSkull), i, 0);
         }
     }
 
