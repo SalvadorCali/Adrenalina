@@ -29,6 +29,11 @@ public class RMIServer extends UnicastRemoteObject implements RMIServerInterface
     }
 
     @Override
+    public void setServerController(ServerController serverController) throws RemoteException{
+        this.serverController = serverController;
+    }
+
+    @Override
     public void login(String username, TokenColor color, ConnectionTimer connectionTimer){
         this.connectionTimer = connectionTimer;
         connectionTimer.setServer(this);

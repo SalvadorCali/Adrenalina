@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.rmi.RemoteException;
 
 public class SocketServer implements Runnable, ServerInterface {
     private Thread thisThread;
@@ -59,6 +60,11 @@ public class SocketServer implements Runnable, ServerInterface {
                 e.printStackTrace();
             }
         }
+    }
+
+    @Override
+    public void setServerController(ServerController serverController) throws RemoteException {
+        this.serverController = serverController;
     }
 
     public void readRequest(Message message){

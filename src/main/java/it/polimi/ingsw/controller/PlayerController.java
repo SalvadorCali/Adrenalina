@@ -17,11 +17,20 @@ public class PlayerController {
     private GameBoard gameBoard;
     private List<Token> killshotTrack;
     private List<Player> victims;
+    private List<Player> otherPlayers;
     private int moves;
     private String powerup;
     private String currentPlayer;
     private boolean movement;
     private boolean finalFrenzy;
+
+    public List<Player> getOtherPlayers() {
+        return otherPlayers;
+    }
+
+    public void setOtherPlayers(List<Player> otherPlayers) {
+        this.otherPlayers = otherPlayers;
+    }
 
     public PlayerController(ClientInterface client){
         this.client = client;

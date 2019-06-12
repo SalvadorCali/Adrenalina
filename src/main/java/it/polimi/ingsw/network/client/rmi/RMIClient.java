@@ -242,6 +242,7 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
                     playerController.setGameBoard(gameData.getGameBoard());
                     playerController.setKillshotTrack(gameData.getKillshotTrack());
                     playerController.setPlayer(gameData.getPlayer(username));
+                    playerController.setOtherPlayers(gameData.getPlayers(username));
                 }
                 view.notify(message, outcome);
                 break;
@@ -258,6 +259,7 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
                     playerController.setGameBoard(gameData7.getGameBoard());
                     playerController.setKillshotTrack(gameData7.getKillshotTrack());
                     playerController.setPlayer(gameData7.getPlayer(username));
+                playerController.setOtherPlayers(gameData7.getPlayers(username));
                 //}
                 view.notify(message, outcome);
                 break;
@@ -267,6 +269,7 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
                 playerController.setGameBoard(gameData.getGameBoard());
                 playerController.setKillshotTrack(gameData.getKillshotTrack());
                 playerController.setPlayer(gameData.getPlayer(username));
+                playerController.setOtherPlayers(gameData.getPlayers(username));
                 view.notify(message, outcome);
                 break;
             case POWERUP:
@@ -274,6 +277,7 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
                 playerController.setGameBoard(gameData2.getGameBoard());
                 playerController.setKillshotTrack(gameData2.getKillshotTrack());
                 playerController.setPlayer(gameData2.getPlayer(username));
+                playerController.setOtherPlayers(gameData2.getPlayers(username));
                 playerController.setPowerup(gameData2.getPowerup());
                 if(gameData2.getPowerup().equals("targetingscope") || gameData2.getPowerup().equals("tagbackgrenade")){
                     playerController.setVictims(gameData2.getPlayers(username));
@@ -285,6 +289,7 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
                 playerController.setGameBoard(gameData4.getGameBoard());
                 playerController.setKillshotTrack(gameData4.getKillshotTrack());
                 playerController.setPlayer(gameData4.getPlayer(username));
+                playerController.setOtherPlayers(gameData4.getPlayers(username));
                 playerController.setVictims(gameData4.getPlayers(username));
                 playerController.setCurrentPlayer(gameData4.getCurrentPlayer());
                 if(gameData4.isMovement()){
@@ -298,6 +303,7 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
                 playerController.setGameBoard(gameData3.getGameBoard());
                 playerController.setKillshotTrack(gameData3.getKillshotTrack());
                 playerController.setPlayer(gameData3.getPlayer(username));
+                playerController.setOtherPlayers(gameData3.getPlayers(username));
                 playerController.setVictims(gameData3.getVictims());
                 if(gameData3.isMovement()){
                     playerController.setMovement(true);
@@ -312,6 +318,7 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
                 playerController.setGameBoard(gameData5.getGameBoard());
                 playerController.setKillshotTrack(gameData5.getKillshotTrack());
                 playerController.setPlayer(gameData5.getPlayer(username));
+                playerController.setOtherPlayers(gameData5.getPlayers(username));
                 view.notify(message, outcome);
                 break;
             case FINAL_FRENZY:
@@ -324,6 +331,7 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
             case DISCARD_POWERUP:
                 GameData gameData8 = (GameData) object;
                 playerController.setPlayer(gameData8.getPlayer(username));
+                playerController.setOtherPlayers(gameData8.getPlayers(username));
                 view.notify(message, outcome);
                 break;
             default:

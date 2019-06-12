@@ -4,6 +4,7 @@ import it.polimi.ingsw.controller.CLIController;
 import it.polimi.ingsw.controller.GameController;
 import it.polimi.ingsw.controller.ServerController;
 import it.polimi.ingsw.network.ConnectionManager;
+import it.polimi.ingsw.network.ServerControllerManager;
 import it.polimi.ingsw.util.Connection;
 import it.polimi.ingsw.util.Printer;
 
@@ -14,6 +15,7 @@ import java.util.Enumeration;
 import java.util.List;
 
 public class Server {
+    private ServerControllerManager serverControllerManager = new ServerControllerManager();
     public static void main(String[] args) throws UnknownHostException, SocketException {
         /*
         List<InetAddress> addresses = Connection.getAddresses();
@@ -36,7 +38,7 @@ public class Server {
         Printer.println("   " + address);
         System.setProperty("java.rmi.server.hostname", address.toString().substring(1));
         try {
-            ConnectionManager connection = new ConnectionManager(new ServerController());
+            ConnectionManager connection = new ConnectionManager();
             connection.start();
         } catch (IOException e) {
             Printer.err(e);

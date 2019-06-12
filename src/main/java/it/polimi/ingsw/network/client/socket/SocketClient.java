@@ -379,6 +379,7 @@ public class SocketClient implements ClientInterface, Runnable, Serializable {
                 playerController.setGameBoard(gameData.getGameBoard());
                 playerController.setKillshotTrack(gameData.getKillshotTrack());
                 playerController.setPlayer(gameData.getPlayer(username));
+                playerController.setOtherPlayers(gameData.getPlayers(username));
                 view.notify(message, outcome);
                 break;
             case END_TURN:
@@ -392,6 +393,7 @@ public class SocketClient implements ClientInterface, Runnable, Serializable {
                 playerController.setGameBoard(gameData1.getGameBoard());
                 playerController.setKillshotTrack(gameData1.getKillshotTrack());
                 playerController.setPlayer(gameData1.getPlayer(username));
+                playerController.setOtherPlayers(gameData1.getPlayers(username));
                 view.notify(message, outcome);
                 break;
             case LOGIN:
@@ -429,6 +431,7 @@ public class SocketClient implements ClientInterface, Runnable, Serializable {
                 playerController.setGameBoard(gameData2.getGameBoard());
                 playerController.setKillshotTrack(gameData2.getKillshotTrack());
                 playerController.setPlayer(gameData2.getPlayer(username));
+                playerController.setOtherPlayers(gameData2.getPlayers(username));
                 view.notify(message, outcome);
                 break;
             case POWERUP:
@@ -438,6 +441,7 @@ public class SocketClient implements ClientInterface, Runnable, Serializable {
                 playerController.setGameBoard(gameData3.getGameBoard());
                 playerController.setKillshotTrack(gameData3.getKillshotTrack());
                 playerController.setPlayer(gameData3.getPlayer(username));
+                playerController.setOtherPlayers(gameData3.getPlayers(username));
                 playerController.setPowerup(gameData3.getPowerup());
                 if(gameData3.getPowerup().equals("targetingscope") || gameData3.getPowerup().equals("tagbackgrenade")){
                     playerController.setVictims(gameData3.getPlayers(username));
@@ -451,6 +455,7 @@ public class SocketClient implements ClientInterface, Runnable, Serializable {
                 playerController.setKillshotTrack(gameData4.getKillshotTrack());
                 playerController.setPlayer(gameData4.getPlayer(username));
                 playerController.setVictims(gameData4.getPlayers(username));
+                playerController.setOtherPlayers(gameData4.getPlayers(username));
                 playerController.setCurrentPlayer(gameData4.getCurrentPlayer());
                 if(gameData4.isMovement()){
                     playerController.setMovement(true);
@@ -471,6 +476,7 @@ public class SocketClient implements ClientInterface, Runnable, Serializable {
                 playerController.setKillshotTrack(gameData5.getKillshotTrack());
                 playerController.setPlayer(gameData5.getPlayer(username));
                 playerController.setVictims(gameData5.getVictims());
+                playerController.setOtherPlayers(gameData5.getPlayers(username));
                 if(gameData5.isMovement()){
                     playerController.setMovement(true);
                 }
@@ -498,6 +504,7 @@ public class SocketClient implements ClientInterface, Runnable, Serializable {
                 playerController.setGameBoard(gameData6.getGameBoard());
                 playerController.setKillshotTrack(gameData6.getKillshotTrack());
                 playerController.setPlayer(gameData6.getPlayer(username));
+                playerController.setOtherPlayers(gameData6.getPlayers(username));
                 view.notify(message, outcome);
                 break;
             case DROP_POWERUP:
@@ -507,6 +514,7 @@ public class SocketClient implements ClientInterface, Runnable, Serializable {
                 object = (GameData) objectInputStream.readObject();
                 GameData gameData8 = (GameData) object;
                 playerController.setPlayer(gameData8.getPlayer(username));
+                playerController.setOtherPlayers(gameData8.getPlayers(username));
                 view.notify(message, outcome);
                 break;
             case FINAL_FRENZY:

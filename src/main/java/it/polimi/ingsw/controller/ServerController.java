@@ -9,6 +9,7 @@ import it.polimi.ingsw.model.enums.Color;
 import it.polimi.ingsw.model.enums.Direction;
 import it.polimi.ingsw.model.enums.TokenColor;
 import it.polimi.ingsw.model.gamecomponents.Player;
+import it.polimi.ingsw.network.ServerControllerManager;
 import it.polimi.ingsw.network.enums.Message;
 import it.polimi.ingsw.network.server.ServerInterface;
 import it.polimi.ingsw.util.Config;
@@ -18,6 +19,7 @@ import it.polimi.ingsw.view.KillshotTrackCLI;
 import it.polimi.ingsw.view.MapCLI;
 
 import java.io.IOException;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -52,8 +54,24 @@ public class ServerController {
         finalFrenzy = false;
     }
 
+    public Map<String, Player> getDisconnectedUsers() {
+        return disconnectedUsers;
+    }
+
+    public boolean isGamePhase(){
+        return gameController.isGamePhase();
+    }
 
     public void login(String username, TokenColor color, ServerInterface server){
+        if(ServerControllerManager.containsUsername(username)){
+            try {
+                server.setServerController(ServerControllerManager.getServerController(username));
+            } catch (RemoteException e) {
+                Printer.err(e);
+            }
+            ServerControllerManager.getServerController(username).reconnect(username, server);
+            return;
+        }
         if(!gameController.isGamePhase()){
             boolean newUsername = !servers.containsKey(username) && !disconnectedUsers.containsKey(username); //contains
             boolean newColor = !colors.containsKey(color) && !color.equals(TokenColor.NONE); //contains
@@ -91,6 +109,8 @@ public class ServerController {
                 if(disconnectedUsers.get(username).getColor().equals(color)){
                     reconnect(username, server);
                 }
+            //}else if(ServerControllerManager.containsUsername(username)){
+              //  ServerControllerManager.getServerController(username).reconnect(username, server);
             }else{
                 try {
                     server.notify(Message.GAME, Outcome.WRONG);

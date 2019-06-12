@@ -17,6 +17,8 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -25,10 +27,11 @@ public class ConnectionManager implements ConnectionInterface, Runnable {
     private Thread thisThread;
     private final ExecutorService pool;
     private ServerController serverController;
+    private ServerControllerManager serverControllerManager = new ServerControllerManager();
 
-    public ConnectionManager(ServerController serverController) throws IOException {
+    public ConnectionManager() throws IOException {
         //super(Config.RMI_FREE_PORT);
-        this.serverController = serverController;
+        //this.serverController = serverController;
 
         //socket
         serverSocket = new ServerSocket(Config.SOCKET_PORT);
@@ -60,7 +63,7 @@ public class ConnectionManager implements ConnectionInterface, Runnable {
         Thread currentThread = Thread.currentThread();
         while (thisThread == currentThread) {
             try {
-                pool.execute(new SocketServer(serverSocket.accept(), serverController));
+                pool.execute(new SocketServer(serverSocket.accept(), ServerControllerManager.getServerController()));
             } catch (Exception e) {
                 Printer.err(e);
             }
@@ -70,6 +73,6 @@ public class ConnectionManager implements ConnectionInterface, Runnable {
     @Override
     public RMIServerInterface enrol(RMIClientInterface client) throws RemoteException {
         //return (RMIServerInterface) UnicastRemoteObject.exportObject(new RMIServer(client, serverController), Config.RMI_FREE_PORT);
-        return new RMIServer(client, serverController);
+        return new RMIServer(client, ServerControllerManager.getServerController());
     }
 }
