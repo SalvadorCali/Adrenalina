@@ -1689,6 +1689,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                 secondPowerupHad.setImage(new Image("powerup/" + Converter.fromColorToLetter(powerupsHad.get(2).getColor()) + "/" + powerupsHad.get(2).getName() + ".png"));
                 firstPowerupHad.setVisible(true);
                 secondPowerupHad.setVisible(true);
+
             }else if(powerupsHad.size() == 3){
 
                 firstPowerupHad.setImage(new Image("powerup/" + Converter.fromColorToLetter(powerupsHad.get(1).getColor()) + "/" + powerupsHad.get(1).getName() + ".png"));
