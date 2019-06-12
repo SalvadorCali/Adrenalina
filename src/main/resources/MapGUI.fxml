@@ -118,7 +118,7 @@
             <Font name="Alien League Regular" size="30.0" />
          </font>
       </Label>
-      <Label layoutX="980.0" layoutY="183.0" mouseTransparent="true" text="Show Damage" textFill="WHITE"onMouseClicked="#showDamageBoard">
+      <Label layoutX="980.0" layoutY="183.0" mouseTransparent="true" text="Show Damage" textFill="WHITE" onMouseClicked="#showDamageBoard">
          <font>
             <Font name="Alien League Regular" size="30.0" />
          </font>

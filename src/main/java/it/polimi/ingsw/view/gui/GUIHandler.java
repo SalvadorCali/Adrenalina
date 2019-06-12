@@ -608,7 +608,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
                     guiHandler = loader.getController();
                     guiHandler.setMapImage();
-                    guiHandler.setSkulls();
+                    //guiHandler.setSkulls();
 
                     Data.getInstance().setGuiHandler(guiHandler);
 
@@ -644,7 +644,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
                     guiHandler = loader.getController();
                     guiHandler.setMapImage();
-                    guiHandler.setSkulls();
+                    //guiHandler.setSkulls();
 
                     Data.getInstance().setGuiHandler(guiHandler);
 
