@@ -1665,10 +1665,24 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
             List<PowerupCard> powerupsHad = playerController.getPowerups();
 
             if(powerupsHad.size() == 1){
-                String color = Converter.fromColorToLetter(powerupsHad.get(1).getColor());
-                String name = powerupsHad.get(1).getName();
-                firstPowerupHad.setImage(new Image("powerup/" + color + "/" + name + ".png"));
+
+                firstPowerupHad.setImage(new Image("powerup/" + Converter.fromColorToLetter(powerupsHad.get(1).getColor()) + "/" + powerupsHad.get(1).getName() + ".png"));
                 firstPowerupHad.setVisible(true);
+
+            }else if(powerupsHad.size() == 2){
+
+                firstPowerupHad.setImage(new Image("powerup/" + Converter.fromColorToLetter(powerupsHad.get(1).getColor()) + "/" + powerupsHad.get(1).getName() + ".png"));
+                secondPowerupHad.setImage(new Image("powerup/" + Converter.fromColorToLetter(powerupsHad.get(2).getColor()) + "/" + powerupsHad.get(2).getName() + ".png"));
+                firstPowerupHad.setVisible(true);
+                secondPowerupHad.setVisible(true);
+            }else if(powerupsHad.size() == 3){
+
+                firstPowerupHad.setImage(new Image("powerup/" + Converter.fromColorToLetter(powerupsHad.get(1).getColor()) + "/" + powerupsHad.get(1).getName() + ".png"));
+                secondPowerupHad.setImage(new Image("powerup/" + Converter.fromColorToLetter(powerupsHad.get(2).getColor()) + "/" + powerupsHad.get(2).getName() + ".png"));
+                thirdPowerupHad.setImage(new Image("powerup/" + Converter.fromColorToLetter(powerupsHad.get(3).getColor()) + "/" + powerupsHad.get(3).getName() + ".png"));
+                firstPowerupHad.setVisible(true);
+                secondPowerupHad.setVisible(true);
+                thirdPowerupHad.setVisible(true);
             }
         });
     }
