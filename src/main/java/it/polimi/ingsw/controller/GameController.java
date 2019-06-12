@@ -28,7 +28,7 @@ public class GameController {
     private MoveAndReloadData moveAndReloadData;
     private Game game;
     private ActionInterface actionInterface;
-    private boolean canShoot;
+    private boolean canShoot = true;
 
     public GameController() {
         weapons = Parser.createWeapons();
@@ -178,6 +178,7 @@ public class GameController {
             for(WeaponCard w : player.getWeapons()){
                 if(w.getName().equals(weapon)){
                     player.updateAmmoBoxAdd(w.getReloadRedAmmos(), w.getReloadBlueAmmos(), w.getReloadYellowAmmos());
+                    w.unload(); //da controllare
                 }
             }
         }
@@ -361,6 +362,9 @@ public class GameController {
         final String weaponNameUpp;
         weaponNameUpp = Converter.weaponName(weaponName);
         for (WeaponCard w : shooter.getWeapons()) {
+            Printer.println("carica:" + w.getName() + " " + w.isLoaded());
+            Printer.println("canuse:" + shooter.canUseAction());
+            Printer.println("canShoot:" + canShoot);
             if (w.getName().equals(weaponNameUpp) && w.isLoaded() && shooter.canUseAction() && canShoot) {
                 Printer.println("sparo");
                 setData(basicfirst, shooter, firstVictim, secondVictim, thirdVictim, x, y, directions);
@@ -380,6 +384,7 @@ public class GameController {
                 }
             }else{
                 if(!canShoot){
+                    Printer.println("debug");
                     canShoot = true;
                 }
                 return false;

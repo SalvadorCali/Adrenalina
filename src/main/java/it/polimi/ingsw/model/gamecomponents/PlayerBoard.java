@@ -133,7 +133,7 @@ public class PlayerBoard implements Serializable {
 
     public int findRevengeMarks(TokenColor color, int damageIndex){
         int revengeMarksSize = revengeMarks.size();
-        for(int i=0; i<revengeMarksSize; i++){
+        for(int i=0; i<revengeMarks.size(); i++){
             if(revengeMarks.get(i).getFirstColor().equals(color)){
                 damageBoard[damageIndex] = new Token(color);
                 damageIndex++;

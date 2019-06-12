@@ -908,7 +908,7 @@ public class CommandLine implements ViewInterface {
                 int choice2 = Integer.parseInt(userInputStream.readLine());
                 if(choice2 == 1){
                     Printer.println("Basic effect: <victim>");
-                    Printer.println("Basic effect: <victim> <direction>");
+                    Printer.println("Basic effect: <victim> <victim_direction>");
                     string = new StringTokenizer(userInputStream.readLine());
                     if(string.countTokens()==1){
                         client.shoot(weapon, choice2, true, Converter.fromStringToTokenColor(string.nextToken()),
@@ -924,7 +924,7 @@ public class CommandLine implements ViewInterface {
                 }else if(choice2 == 2 || choice2 == 3){
                     boolean basicFirst = basicFirst(weapon);
                     Printer.println("With rocket jump: <victim>");
-                    Printer.println("With rocket jump: <victim> <direction>");
+                    Printer.println("With rocket jump: <victim> <victim_direction>");
                     string = new StringTokenizer(userInputStream.readLine());
                     TokenColor victim = TokenColor.NONE;
                     Direction direction1 = null;

@@ -298,10 +298,10 @@ public class Game implements Serializable {
             }
         }
         refillSquares(actionInterface);
+        players.forEach(p->p.setDamaged(false));
         for(int i=0; i<players.size(); i++){
             if(players.get(i).equals(player)){
                 player.setMyTurn(false);
-                player.setDamaged(false);
                 player.resetPowerupAmmos();
                 player.resetActionNumber();
                 do{
