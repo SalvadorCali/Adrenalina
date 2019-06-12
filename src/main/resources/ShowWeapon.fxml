@@ -13,32 +13,32 @@
             <Font size="24.0" />
          </font>
       </Label>
-      <ImageView fx:id="firstWeaponHad" fitHeight="200.0" fitWidth="118.0" layoutX="24.0" layoutY="91.0">
+      <ImageView fx:id="firstWeaponHad" fitHeight="200.0" fitWidth="118.0" layoutX="24.0" layoutY="91.0" visible="false">
          <image>
             <Image url="@weapon/hellion.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="firstPowerupHad" fitHeight="155.0" fitWidth="99.0" layoutX="34.0" layoutY="340.0">
+      <ImageView fx:id="firstPowerupHad" fitHeight="155.0" fitWidth="99.0" layoutX="34.0" layoutY="340.0" visible="false">
          <image>
             <Image url="@powerup/Y/NEWTON.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="secondWeaponHad" fitHeight="200.0" fitWidth="118.0" layoutX="191.0" layoutY="91.0">
+      <ImageView fx:id="secondWeaponHad" fitHeight="200.0" fitWidth="118.0" layoutX="191.0" layoutY="91.0" visible="false">
          <image>
             <Image url="@weapon/hellion.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="thirdWeaponHad" fitHeight="200.0" fitWidth="118.0" layoutX="359.0" layoutY="91.0">
+      <ImageView fx:id="thirdWeaponHad" fitHeight="200.0" fitWidth="118.0" layoutX="359.0" layoutY="91.0" visible="false">
          <image>
             <Image url="@weapon/hellion.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="secondPowerupHad" fitHeight="155.0" fitWidth="99.0" layoutX="201.0" layoutY="340.0">
+      <ImageView fx:id="secondPowerupHad" fitHeight="155.0" fitWidth="99.0" layoutX="201.0" layoutY="340.0" visible="false">
          <image>
             <Image url="@powerup/Y/NEWTON.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="thirdPowerupHad" fitHeight="155.0" fitWidth="99.0" layoutX="369.0" layoutY="340.0">
+      <ImageView fx:id="thirdPowerupHad" fitHeight="155.0" fitWidth="99.0" layoutX="369.0" layoutY="340.0" visible="false">
          <image>
             <Image url="@powerup/Y/NEWTON.png" />
          </image>
