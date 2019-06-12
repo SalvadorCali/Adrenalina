@@ -580,7 +580,6 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
                     guiHandler = loader.getController();
                     guiHandler.setMapImage();
-                    guiHandler.setSkulls();
 
                     Data.getInstance().setGuiHandler(guiHandler);
 
@@ -616,7 +615,6 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
                     guiHandler = loader.getController();
                     guiHandler.setMapImage();
-                    guiHandler.setSkulls();
 
                     Data.getInstance().setGuiHandler(guiHandler);
 
@@ -822,7 +820,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                 guiHandler.removeImg();
                 guiHandler.addWeapon();
                 guiHandler.addAmmo();
-
+                guiHandler.setSkulls();
             });
 
             try{
