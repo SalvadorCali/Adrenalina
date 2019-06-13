@@ -165,6 +165,14 @@ public abstract class Square implements Serializable {
         players.add(player);
     }
 
+    public boolean containsPlayer(Player player){
+        if(players.contains(player)){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
     /**
      * remove a chosen player from the list of the players present in the square.
      * @param player indicates the chosen player.

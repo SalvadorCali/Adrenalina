@@ -28,6 +28,8 @@ public class Game implements Serializable {
     private boolean loginPhase;
     private boolean spawnLocationPhase;
     private boolean boardTypePhase;
+    private boolean respawnPhase;
+    private boolean endPhase;
     private Map<TokenColor, Integer> scoreList;
 
     public Game(GameBoard board, Deck weapons, Deck powerups, List<AmmoCard> ammos){
@@ -46,6 +48,14 @@ public class Game implements Serializable {
     }
 
     //getters and setters
+    public boolean isRespawnPhase() {
+        return respawnPhase;
+    }
+
+    public void setRespawnPhase(boolean respawnPhase) {
+        this.respawnPhase = respawnPhase;
+    }
+
     public boolean isGamePhase() {
         return gamePhase;
     }
@@ -293,7 +303,9 @@ public class Game implements Serializable {
         if(isFinalFrenzy()){
             finalFrenzyTurns--;
             if(finalFrenzyTurns == 0){
-                Printer.println("Game end!");
+                players.forEach(p->p.setMyTurn(false));
+                gamePhase = false;
+                endPhase = true;
                 scoring();
             }
         }

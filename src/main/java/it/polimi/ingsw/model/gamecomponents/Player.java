@@ -36,6 +36,7 @@ public class Player implements Serializable {
     private String username;
     private boolean disconnected;
     private boolean spawned;
+    private boolean respawned;
     private boolean damaged;
     private boolean powerupAsAmmo;
     private boolean moveAndReload;
@@ -55,6 +56,14 @@ public class Player implements Serializable {
         actionNumber = 0;
         playerBoard = new PlayerBoard();
         finalFrenzyActions = FinalFrenzyAction.NO_FINAL_FRENZY;
+    }
+
+    public boolean isRespawned() {
+        return respawned;
+    }
+
+    public void setRespawned(boolean respawned) {
+        this.respawned = respawned;
     }
 
     public boolean isMoveAndReload() {

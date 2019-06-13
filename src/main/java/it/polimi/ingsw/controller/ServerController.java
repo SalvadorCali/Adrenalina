@@ -1,6 +1,7 @@
 package it.polimi.ingsw.controller;
 
 import it.polimi.ingsw.controller.timer.BoardTypeTimer;
+import it.polimi.ingsw.controller.timer.RespawnTimer;
 import it.polimi.ingsw.controller.timer.SpawnLocationTimer;
 import it.polimi.ingsw.controller.timer.TurnTimer;
 import it.polimi.ingsw.model.cards.Card;
@@ -40,6 +41,8 @@ public class ServerController {
     private GameData gameData;
     private boolean finalFrenzy;
     private TurnTimer timer;
+    private int deathNumber;
+    private int respawnNumber;
 
     public ServerController(){
         gameController = new GameController();
@@ -233,6 +236,19 @@ public class ServerController {
         spawnLocationTimer.start();
     }
 
+    public void respawn(String username, int choice){
+        if(gameController.canRespawn(users.get(username), choice)){
+            gameController.respawn(users.get(username), choice);
+            respawnNumber++;
+            if(respawnNumber == deathNumber){
+                gameController.setRespawnPhase(false);
+                gameController.setGamePhase(true);
+                respawnNumber = 0;
+                endTurn(gameController.getGame().getCurrentPlayer().getUsername());
+            }
+        }
+    }
+
     public void choose(String username, int choice){
         users.get(username).setSpawned(true);
         if(choice == 1){
@@ -280,11 +296,13 @@ public class ServerController {
 
     public void disconnect(String username){
         if(users.get(username).isMyTurn()){
-            gameController.endTurn(users.get(username));
+            users.get(username).setDisconnected(true);
+            endTurnDisconnected(username);
+            //gameController.endTurn(users.get(username));
         }
         if(users.containsKey(username)){
             disconnectedUsers.put(username, users.get(username));
-            users.get(username).setDisconnected(true);
+            //users.get(username).setDisconnected(true);
             users.remove(username);
             Printer.println(username + " disconnected!");
             servers.remove(username);
@@ -603,6 +621,7 @@ public class ServerController {
         if(users.get(username).isMyTurn()){
             if(gameController.reload(users.get(username), weaponName)){
                 try {
+                    users.get(username).setActionNumber(2);
                     servers.get(username).notify(Message.RELOAD, Outcome.RIGHT, weaponName);
                 } catch (IOException e) {
                     Printer.err(e);
@@ -628,9 +647,11 @@ public class ServerController {
             for(Player player : players){
                 if(player.isDead()){
                     deathAndRespawn();
-                    break;
+                    Printer.println("proooovq");
+                    return;
                 }
             }
+            Printer.println("proooovq");
             if(gameController.isFinalFrenzy() && !finalFrenzy){
                 gameController.finalFrenzy();
                 finalFrenzy = true;
@@ -695,6 +716,59 @@ public class ServerController {
         }
     }
 
+    public void endTurnDisconnected(String username){
+        if(users.get(username).isMyTurn()){
+            for(Player player : players){
+                if(player.isDead()){
+                    deathAndRespawn();
+                    return;
+                }
+            }
+            if(gameController.isFinalFrenzy() && !finalFrenzy){
+                gameController.finalFrenzy();
+                finalFrenzy = true;
+                gameData.setGame(gameController.getGame());
+                gameData.setPlayers(users);
+                servers.forEach((u,s)-> {
+                    try {
+                        if(!u.equals(username)){
+                            s.notify(Message.FINAL_FRENZY, Outcome.ALL, gameData);
+                        }
+                    } catch (IOException e) {
+                        Printer.err(e);
+                    }
+                });
+            }
+            for(int i = 0; i< players.size(); i++){
+                if(players.get(i).getUsername().equals(username)){
+                    try {
+                        if(servers.containsKey(username) && !players.get(i).isDisconnected()){
+                            servers.get(username).notify(Message.END_TURN);
+                        }
+                        int index = nextPlayerIndex(i);
+                        if(servers.containsKey(players.get(index).getUsername())){
+                            gameData.setGame(gameController.getGame());
+                            gameData.setPlayers(users);
+                            servers.get(players.get(index).getUsername()).notify(Message.NEW_TURN, Outcome.RIGHT, gameData);
+                            timer.interrupt();
+                            timer = new TurnTimer(this, players, players.get(index));
+                            timer.start();
+                        }
+                    } catch (IOException e) {
+                        Printer.err(e);
+                    }
+                }
+            }
+            gameController.endTurn(users.get(username));
+        }else{
+            try {
+                servers.get(username).notify(Message.NOT_TURN);
+            } catch (IOException e) {
+                Printer.err(e);
+            }
+        }
+    }
+
     private int nextPlayerIndex(int index){
         boolean cycle = true;
         while(cycle){
@@ -715,6 +789,22 @@ public class ServerController {
     //punteggio
     private void deathAndRespawn(){
         gameController.deathAndRespawn(players);
+        gameData.setPlayers(users);
+        deathNumber = 0;
+        for(Player player : players){
+            if(player.isDead()){
+                Printer.println(player.getUsername());
+                player.setRespawned(false);
+                deathNumber++;
+                try {
+                    servers.get(player.getUsername()).notify(Message.RESPAWN, Outcome.RIGHT, gameData);
+                } catch (IOException e) {
+                    Printer.err(e);
+                }
+                RespawnTimer respawnTimer = new RespawnTimer(this, gameController, player);
+                respawnTimer.start();
+            }
+        }
         servers.forEach((u,s)-> {
             try {
                 s.notify(Message.SCORE, Outcome.ALL, gameController.getScoreList());

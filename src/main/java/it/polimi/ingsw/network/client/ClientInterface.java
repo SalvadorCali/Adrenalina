@@ -34,6 +34,7 @@ public interface ClientInterface {
     void powerupAmmos(PowerupData...powerups) throws IOException;
     void powerupAmmos(int...powerups) throws IOException;
     void reload(String weaponName) throws IOException;
+    void respawn(int powerup) throws IOException;
     void endTurn() throws IOException;
     AdrenalineZone getAdrenalineZone() throws RemoteException;
     void testConnection() throws RemoteException;

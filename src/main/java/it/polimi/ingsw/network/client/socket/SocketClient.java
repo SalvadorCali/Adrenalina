@@ -362,6 +362,14 @@ public class SocketClient implements ClientInterface, Runnable, Serializable {
     }
 
     @Override
+    public void respawn(int powerup) throws IOException {
+        objectOutputStream.writeObject(Message.RESPAWN);
+        objectOutputStream.flush();
+        objectOutputStream.writeInt(powerup);
+        objectOutputStream.flush();
+    }
+
+    @Override
     public void endTurn() throws IOException {
         objectOutputStream.writeObject(Message.END_TURN);
         objectOutputStream.flush();
@@ -515,6 +523,13 @@ public class SocketClient implements ClientInterface, Runnable, Serializable {
                 GameData gameData8 = (GameData) object;
                 playerController.setPlayer(gameData8.getPlayer(username));
                 playerController.setOtherPlayers(gameData8.getPlayers(username));
+                view.notify(message, outcome);
+                break;
+            case RESPAWN:
+                outcome = (Outcome) objectInputStream.readObject();
+                object = (GameData) objectInputStream.readObject();
+                GameData gameData9 = (GameData) object;
+                playerController.setPlayer(gameData9.getPlayer(username));
                 view.notify(message, outcome);
                 break;
             case FINAL_FRENZY:

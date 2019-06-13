@@ -128,6 +128,9 @@ public class SocketServer implements Runnable, ServerInterface {
             case MOVE_RELOAD_2:
                 moveAndReloadTwoDirections();
                 break;
+            case RESPAWN:
+                respawn();
+                break;
             default:
                 break;
         }
@@ -451,6 +454,15 @@ public class SocketServer implements Runnable, ServerInterface {
         try {
             String weaponName = objectInputStream.readUTF();
             serverController.reload(clientName, weaponName);
+        } catch (IOException e) {
+            Printer.err(e);
+        }
+    }
+
+    public void respawn(){
+        try {
+            int powerup = objectInputStream.readInt();
+            serverController.respawn(clientName, powerup);
         } catch (IOException e) {
             Printer.err(e);
         }

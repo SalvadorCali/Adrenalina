@@ -140,6 +140,11 @@ public class CommandLine implements ViewInterface {
                         Printer.print(StringCLI.INVALID_COMMAND);
                     }
                     break;
+                case "respawn":
+                    if(!respawn(string)){
+                        Printer.print(StringCLI.INVALID_COMMAND);
+                    }
+                    break;
                 case "end":
                     endTurn();
                     break;
@@ -243,6 +248,19 @@ public class CommandLine implements ViewInterface {
             result = true;
         }
         return result;
+    }
+
+    private boolean respawn(StringTokenizer input){
+        if(input.hasMoreTokens() && input.countTokens()==1){
+            try {
+                client.respawn(Integer.parseInt(input.nextToken()));
+            } catch (IOException e) {
+                Printer.err(e);
+            }
+            return true;
+        }else{
+            return false;
+        }
     }
 
     private boolean show(StringTokenizer input){
@@ -1585,6 +1603,12 @@ public class CommandLine implements ViewInterface {
         damageBoardPrinter.setFinalFrenzy(true);
     }
 
+    private void notifyRespawn(Outcome outcome){
+        Printer.println("Please, discard a powerup to respawn:");
+        playerController.getPowerups().forEach(Printer::println);
+        Printer.println("respawn: <powerup_number>");
+    }
+
     public void notify(Message message){
         switch (message){
             case END_TURN:
@@ -1635,6 +1659,9 @@ public class CommandLine implements ViewInterface {
                 break;
             case DROP_WEAPON:
                 notifyDropWeapon(outcome);
+                break;
+            case RESPAWN:
+                notifyRespawn(outcome);
                 break;
             default:
                 break;

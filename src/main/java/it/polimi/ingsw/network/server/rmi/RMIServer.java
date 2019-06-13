@@ -133,6 +133,11 @@ public class RMIServer extends UnicastRemoteObject implements RMIServerInterface
     }
 
     @Override
+    public void respawn(int powerup) throws RemoteException {
+        serverController.respawn(clientName, powerup);
+    }
+
+    @Override
     public void endTurn() throws RemoteException{
         serverController.endTurn(clientName);
     }

@@ -199,6 +199,11 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
     }
 
     @Override
+    public void respawn(int powerup) throws IOException {
+        server.respawn(powerup);
+    }
+
+    @Override
     public void endTurn() throws RemoteException{
         server.endTurn();
     }
@@ -325,6 +330,11 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
                 GameData gameData6 = (GameData) object;
                 playerController.setFinalFrenzy(true);
                 view.notify(message);
+                break;
+            case RESPAWN:
+                GameData gameData9 = (GameData) object;
+                playerController.setPlayer(gameData9.getPlayer(username));
+                view.notify(message, outcome);
                 break;
             case DROP_POWERUP:
             case DROP_WEAPON:

@@ -84,6 +84,13 @@ public class GameController {
         game.fillSquares(actionInterface);
         game.createScoreList();
     }
+    public void setRespawnPhase(boolean respawnPhase) {
+        game.setRespawnPhase(respawnPhase);
+    }
+
+    public boolean isRespawnPhase() {
+        return game.isRespawnPhase();
+    }
 
     public void setGamePhase(boolean gamePhase) {
         game.setGamePhase(gamePhase);
@@ -304,7 +311,9 @@ public class GameController {
             if(player.canUseActionFinalFrenzy()){
                 if (directions.length > 0) {
                     if (canMove(player, directions)) {
-                        move(player, directions);
+                        for(Direction direction : directions){
+                            game.getBoard().move(direction, player);
+                        }
                     } else {
                         return false;
                     }
@@ -323,7 +332,9 @@ public class GameController {
             if (player.canUseAction()) {
                 if (directions.length > 0) {
                     if (canMove(player, directions)) {
-                        move(player, directions);
+                        for(Direction direction : directions){
+                            game.getBoard().move(direction, player);
+                        }
                     } else {
                         return false;
                     }
@@ -431,11 +442,11 @@ public class GameController {
         powerupNameUpp = Converter.powerupName(powerupName);
         for (PowerupCard p : shooter.getPowerups()) {
             if (p.getName().equals(powerupNameUpp)){
-                setData(shooter, victim, x, y, ammo, directions); //to fix
+                setData(shooter, victim, x, y, ammo, directions);
                 if (p.getEffect().canUseEffect(actionInterface)) {
                     Printer.println(powerupNameUpp + "USED");
                     p.getEffect().useEffect(actionInterface);
-                    //rimuovere powerup
+                    shooter.getPowerups().remove(p);
                     return true;
                 } else {
                     Printer.println(powerupName + "NOT USED");
@@ -464,13 +475,6 @@ public class GameController {
 
     }
 
-    public void shoot(Player player, Player victim){
-        if(player.canUseAction()){
-            actionInterface.getClientData().setVictim(victim);
-            //player.getWeapons()...
-            player.increaseActionNumber();
-        }
-    }
 
     public void deathAndRespawn(List<Player> players){
         game.scoring();
@@ -478,8 +482,10 @@ public class GameController {
             if(player.isDead()){
                 game.setKillAndDoubleKill(player);
                 player.getPlayerBoard().resetBoard();
+                player.addPowerup((PowerupCard) powerups.draw());
             }
         }
+        game.setRespawnPhase(true);
     }
 
     public void endTurn(Player player){
@@ -557,5 +563,20 @@ public class GameController {
         player.increasePowerupAmmoNumber(color);
         player.getPowerups().remove(powerup - 1);
         player.setPowerupAsAmmo(true);
+    }
+
+    public boolean canRespawn(Player player, int powerup){
+        if(player.getPowerups().size() >= powerup){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public void respawn(Player player, int powerup){
+        Color color = player.getPowerups().get(powerup - 1).getColor();
+        game.getBoard().removePlayer(player);
+        game.getBoard().setPlayer(player, color);
+        player.setRespawned(true);
     }
 }

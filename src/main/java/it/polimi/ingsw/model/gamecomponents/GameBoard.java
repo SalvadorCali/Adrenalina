@@ -105,6 +105,17 @@ public class GameBoard implements Serializable {
         }
     }
 
+    public void removePlayer(Player player){
+        for(int i=0; i<3; i++){
+            for(int j=0; j<4; j++){
+                if(arena[i][j].containsPlayer(player)){
+                    arena[i][j].moveAway(player);
+                    break;
+                }
+            }
+        }
+    }
+
     /**
      * moves the player in a choosen direction.
      * @param direction direction of the move applied to the player.
