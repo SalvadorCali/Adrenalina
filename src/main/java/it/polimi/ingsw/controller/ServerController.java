@@ -651,7 +651,7 @@ public class ServerController {
                     return;
                 }
             }
-            Printer.println("proooovq");
+            Printer.println("proooove");
             if(gameController.isFinalFrenzy() && !finalFrenzy){
                 gameController.finalFrenzy();
                 finalFrenzy = true;
@@ -794,6 +794,7 @@ public class ServerController {
         for(Player player : players){
             if(player.isDead()){
                 Printer.println(player.getUsername());
+                player.setDead(false);
                 player.setRespawned(false);
                 deathNumber++;
                 try {

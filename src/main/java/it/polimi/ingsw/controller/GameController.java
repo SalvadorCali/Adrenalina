@@ -479,10 +479,13 @@ public class GameController {
     public void deathAndRespawn(List<Player> players){
         game.scoring();
         for(Player player : players){
+            Printer.println("game" + player.getUsername());
             if(player.isDead()){
+                Printer.println("gaem2" + player.getUsername());
                 game.setKillAndDoubleKill(player);
                 player.getPlayerBoard().resetBoard();
                 player.addPowerup((PowerupCard) powerups.draw());
+                player.setDead(true);
             }
         }
         game.setRespawnPhase(true);
@@ -575,6 +578,7 @@ public class GameController {
 
     public void respawn(Player player, int powerup){
         Color color = player.getPowerups().get(powerup - 1).getColor();
+        player.getPowerups().remove(powerup - 1);
         game.getBoard().removePlayer(player);
         game.getBoard().setPlayer(player, color);
         player.setRespawned(true);

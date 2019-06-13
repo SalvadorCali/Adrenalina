@@ -58,6 +58,8 @@ public class Player implements Serializable {
         finalFrenzyActions = FinalFrenzyAction.NO_FINAL_FRENZY;
     }
 
+
+
     public boolean isRespawned() {
         return respawned;
     }
@@ -421,6 +423,10 @@ public class Player implements Serializable {
 
     public boolean isDead(){
         return playerBoard.isDead();
+    }
+
+    public void setDead(boolean dead){
+        playerBoard.setDead(dead);
     }
 
     public void canReload(String...weaponNames){
