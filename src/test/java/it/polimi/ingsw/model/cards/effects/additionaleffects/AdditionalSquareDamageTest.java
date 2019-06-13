@@ -3,7 +3,6 @@ package it.polimi.ingsw.model.cards.effects.additionaleffects;
 import it.polimi.ingsw.controller.ClientData;
 import it.polimi.ingsw.controller.GameController;
 import it.polimi.ingsw.model.cards.effects.Effect;
-import it.polimi.ingsw.model.cards.effects.weapons.basiceffects.DamageMarkEffect;
 import it.polimi.ingsw.model.cards.effects.weapons.basiceffects.MovementEffect;
 import it.polimi.ingsw.model.cards.effects.weapons.basiceffects.SquareDamageEffect;
 import it.polimi.ingsw.model.cards.effects.weapons.singleaddictions.AdditionalMove;
@@ -13,12 +12,11 @@ import it.polimi.ingsw.model.enums.Direction;
 import it.polimi.ingsw.model.enums.TokenColor;
 import it.polimi.ingsw.model.gamecomponents.Ammo;
 import it.polimi.ingsw.model.gamecomponents.Player;
-import it.polimi.ingsw.model.gamecomponents.Token;
-import it.polimi.ingsw.util.Printer;
 import it.polimi.ingsw.view.DamageBoardCLI;
 import it.polimi.ingsw.view.MapCLI;
 import org.junit.jupiter.api.Test;
-import static junit.framework.TestCase.*;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class AdditionalSquareDamageTest {
 

@@ -7,11 +7,10 @@ import it.polimi.ingsw.model.cards.effects.ActionInterface;
 import it.polimi.ingsw.model.enums.Cardinal;
 import it.polimi.ingsw.model.enums.Color;
 import it.polimi.ingsw.model.enums.TokenColor;
-import it.polimi.ingsw.model.gamecomponents.*;
 import it.polimi.ingsw.util.Parser;
 import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
-import static org.junit.Assert.*;
 
 public class AmmoPointTest {
     @Test

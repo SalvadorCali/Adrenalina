@@ -5,6 +5,7 @@ import it.polimi.ingsw.model.enums.TokenColor;
 import it.polimi.ingsw.model.gamecomponents.Game;
 import org.junit.jupiter.api.Test;
 
+
 public class KillshotTrackCLITest {
     @Test
     public void printTest(){

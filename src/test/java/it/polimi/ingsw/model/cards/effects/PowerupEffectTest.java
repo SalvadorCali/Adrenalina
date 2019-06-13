@@ -11,9 +11,7 @@ import it.polimi.ingsw.model.gamecomponents.Player;
 import it.polimi.ingsw.view.DamageBoardCLI;
 import it.polimi.ingsw.view.MapCLI;
 import org.junit.jupiter.api.Test;
-
-import static junit.framework.TestCase.assertFalse;
-import static junit.framework.TestCase.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 class PowerupEffectTest {
 

@@ -2,15 +2,13 @@ package it.polimi.ingsw.model.gamecomponents;
 
 import it.polimi.ingsw.model.enums.Direction;
 import it.polimi.ingsw.model.enums.TokenColor;
-import it.polimi.ingsw.model.gamecomponents.*;
 import it.polimi.ingsw.util.Parser;
 import it.polimi.ingsw.view.MapCLI;
 import org.junit.jupiter.api.Test;
-import java.util.List;
-import java.util.logging.Logger;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import java.util.List;
+import static org.junit.jupiter.api.Assertions.*;
+
 
 class GameBoardTest {
 

@@ -1,17 +1,11 @@
 package it.polimi.ingsw.model.gamecomponents;
 
 import it.polimi.ingsw.model.enums.AdrenalineZone;
-import it.polimi.ingsw.model.gamecomponents.PlayerBoard;
-import it.polimi.ingsw.model.gamecomponents.Score;
-import it.polimi.ingsw.model.gamecomponents.Token;
 import it.polimi.ingsw.model.enums.TokenColor;
-import it.polimi.ingsw.util.Printer;
 import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
-import java.util.ArrayList;
-import java.util.Map;
 
-import static org.junit.Assert.*;
 
 public class PlayerBoardTest {
     @Test

@@ -7,13 +7,13 @@ import it.polimi.ingsw.model.cards.effects.weapons.basiceffects.SquareDamageEffe
 import it.polimi.ingsw.model.enums.Color;
 import it.polimi.ingsw.model.enums.TokenColor;
 import it.polimi.ingsw.model.gamecomponents.Ammo;
-import it.polimi.ingsw.model.gamecomponents.Game;
 import it.polimi.ingsw.model.gamecomponents.Player;
 import it.polimi.ingsw.util.Printer;
 import it.polimi.ingsw.view.DamageBoardCLI;
 import it.polimi.ingsw.view.MapCLI;
 import org.junit.jupiter.api.Test;
-import static junit.framework.TestCase.*;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 
 

@@ -3,12 +3,9 @@ package it.polimi.ingsw.model.gamecomponents;
 import it.polimi.ingsw.model.cards.Card;
 import it.polimi.ingsw.model.cards.WeaponCard;
 import it.polimi.ingsw.model.enums.Color;
-import it.polimi.ingsw.model.gamecomponents.Deck;
 import it.polimi.ingsw.util.Parser;
 import org.junit.jupiter.api.Test;
-
-import static org.junit.Assert.*;
-
+import static org.junit.jupiter.api.Assertions.*;
 
 public class DeckTest {
     @Test

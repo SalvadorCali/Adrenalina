@@ -13,7 +13,8 @@ import it.polimi.ingsw.util.Printer;
 import it.polimi.ingsw.view.DamageBoardCLI;
 import it.polimi.ingsw.view.MapCLI;
 import org.junit.jupiter.api.Test;
-import static junit.framework.TestCase.*;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class MovementEffectTest {
 

@@ -30,7 +30,7 @@
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-api</artifactId>
-      <version>RELEASE</version>
+      <version>5.4.2</version>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -54,11 +54,6 @@
       <artifactId>javafx-fxml</artifactId>
       <version>11.0.2</version>
     </dependency>
-      <dependency>
-          <groupId>org.openjfx</groupId>
-          <artifactId>javafx-controls</artifactId>
-          <version>11.0.2</version>
-      </dependency>
   </dependencies>
 
   <build>
@@ -110,6 +105,26 @@
           <configuration>
             <mainClass>org.openjfx.App</mainClass>
           </configuration>
+        </plugin>
+        <plugin>
+          <groupId>org.jacoco</groupId>
+          <artifactId>jacoco-maven-plugin</artifactId>
+          <version>0.8.3</version>
+          <executions>
+            <execution>
+              <goals>
+                <goal>prepare-agent</goal>
+              </goals>
+            </execution>
+            <!-- attached to Maven test phase -->
+            <execution>
+              <id>report</id>
+              <phase>test</phase>
+              <goals>
+                <goal>report</goal>
+              </goals>
+            </execution>
+          </executions>
         </plugin>
       </plugins>
     </pluginManagement>

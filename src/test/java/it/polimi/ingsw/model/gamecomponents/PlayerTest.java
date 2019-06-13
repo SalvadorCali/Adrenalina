@@ -4,16 +4,14 @@ import it.polimi.ingsw.model.cards.PowerupCard;
 import it.polimi.ingsw.model.cards.WeaponCard;
 import it.polimi.ingsw.model.enums.Color;
 import it.polimi.ingsw.model.enums.TokenColor;
-import it.polimi.ingsw.model.gamecomponents.Ammo;
-import it.polimi.ingsw.model.gamecomponents.Player;
 import it.polimi.ingsw.util.Parser;
 import org.junit.jupiter.api.Test;
 
+
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
+import static org.junit.jupiter.api.Assertions.*;
 
-import static org.junit.Assert.*;
 
 public class PlayerTest {
     @Test
