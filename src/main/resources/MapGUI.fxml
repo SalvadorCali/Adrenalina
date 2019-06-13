@@ -53,7 +53,7 @@
             <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
          </padding>
       </GridPane>
-      <ImageView fx:id="bannerShoot" fitHeight="64.0" fitWidth="200.0" layoutX="963.0" layoutY="14.0">
+      <ImageView fx:id="bannerShoot" fitHeight="64.0" fitWidth="200.0" layoutX="963.0" layoutY="14.0" onMouseClicked="#shoot">
          <image>
             <Image url="@boardElem/banner.png" />
          </image>
@@ -93,7 +93,7 @@
             <Image url="@boardElem/banner.png" />
          </image>
       </ImageView>
-      <Label layoutX="1029.0" layoutY="31.0" mouseTransparent="true" text="Shoot" textFill="WHITE">
+      <Label layoutX="1029.0" layoutY="31.0" mouseTransparent="true" text="Shoot" textFill="WHITE" onMouseClicked="#shoot">
          <font>
             <Font name="Alien League Regular" size="30.0" />
          </font>

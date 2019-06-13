@@ -6,7 +6,6 @@ import it.polimi.ingsw.model.cards.AmmoCard;
 import it.polimi.ingsw.model.cards.Card;
 import it.polimi.ingsw.model.cards.PowerupCard;
 import it.polimi.ingsw.model.cards.WeaponCard;
-import it.polimi.ingsw.model.enums.Color;
 import it.polimi.ingsw.model.enums.Direction;
 import it.polimi.ingsw.model.enums.TokenColor;
 import it.polimi.ingsw.model.gamecomponents.Player;
@@ -36,7 +35,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -46,8 +44,6 @@ import java.net.URL;
 import java.rmi.NotBoundException;
 import java.util.List;
 import java.util.ResourceBundle;
-
-import static java.lang.Thread.sleep;
 
 public class GUIHandler extends Application implements ViewInterface, Initializable {
 
@@ -236,6 +232,9 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     @FXML private ImageView firstPowerupHad;
     @FXML private ImageView secondPowerupHad;
     @FXML private ImageView thirdPowerupHad;
+    @FXML private Button shootButton1;
+    @FXML private Button shootButton2;
+    @FXML private Button shootButton3;
 
     private static final int ROWS = 3;
     private static final int COLUMNS = 4;
@@ -611,6 +610,8 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                     guiHandler = loader.getController();
                     guiHandler.setMapImage();
                     guiHandler.setSkulls();
+                    guiHandler.addWeapon();
+
 
                     Data.getInstance().setGuiHandler(guiHandler);
 
@@ -647,6 +648,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                     guiHandler = loader.getController();
                     guiHandler.setMapImage();
                     guiHandler.setSkulls();
+                    guiHandler.addWeapon();
 
                     Data.getInstance().setGuiHandler(guiHandler);
 
@@ -850,7 +852,6 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                 playerController = Data.getInstance().getPlayerController();
                 guiHandler.placePlayers(playerController.getGameBoard().getArena());
                 guiHandler.removeImg();
-                guiHandler.addWeapon();
                 guiHandler.addAmmo();
             });
 
@@ -1353,7 +1354,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                     guiHandler.setWeaponImage(weapon);
 
                     Stage stage = new Stage();
-                    stage.setScene(new Scene(root, 269, 496));
+                    stage.setScene(new Scene(root, 496, 269));
                     stage.setTitle("Choose Weapon");
                     stage.show();
                 }
@@ -1383,7 +1384,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
 
                             Stage stage = new Stage();
-                            stage.setScene(new Scene(root, 269, 496));
+                            stage.setScene(new Scene(root, 496, 269));
                             stage.setTitle("Choose Weapon");
                             stage.show();
                         }
@@ -1413,7 +1414,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
 
                             Stage stage = new Stage();
-                            stage.setScene(new Scene(root, 269, 496));
+                            stage.setScene(new Scene(root, 496, 269));
                             stage.setTitle("Choose Weapon");
                             stage.show();
                         }
@@ -1443,7 +1444,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
 
                             Stage stage = new Stage();
-                            stage.setScene(new Scene(root, 269, 496));
+                            stage.setScene(new Scene(root, 496, 269));
                             stage.setTitle("Choose Weapon");
                             stage.show();
                         }
@@ -1472,7 +1473,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                             guiHandler.setWeaponImage(weapon);
 
                             Stage stage = new Stage();
-                            stage.setScene(new Scene(root, 269, 496));
+                            stage.setScene(new Scene(root, 496, 269));
                             stage.setTitle("Choose Weapon");
                             stage.show();
                         }
@@ -1732,6 +1733,14 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                 secondWeaponHad.setVisible(true);
                 thirdWeaponHad.setVisible(true);
             }
+        });
+    }
+
+    public void shoot(MouseEvent mouseEvent) {
+        Platform.runLater(() ->{
+
+            guiHandler = Data.getInstance().getGuiHandler();
+            guiHandler.showWeapon(mouseEvent);
         });
     }
 }
