@@ -8,8 +8,10 @@ import it.polimi.ingsw.model.cards.PowerupCard;
 import it.polimi.ingsw.model.cards.WeaponCard;
 import it.polimi.ingsw.model.enums.Direction;
 import it.polimi.ingsw.model.enums.TokenColor;
+import it.polimi.ingsw.model.gamecomponents.Ammo;
 import it.polimi.ingsw.model.gamecomponents.Player;
 import it.polimi.ingsw.model.gamecomponents.Square;
+import it.polimi.ingsw.model.gamecomponents.Token;
 import it.polimi.ingsw.network.client.ClientInterface;
 import it.polimi.ingsw.network.client.rmi.RMIClient;
 import it.polimi.ingsw.network.client.socket.SocketClient;
@@ -224,6 +226,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     @FXML private GridPane thirdDeathCounterGrid;
     @FXML private GridPane fourthDeathCounterGrid;
     @FXML private GridPane fifthDeathCounterGrid;
+    @FXML private GridPane marksGrid;
 
 
     @FXML private ImageView firstWeaponHad;
@@ -652,8 +655,6 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                     Thread thread = new Thread(this::checkPosition);
                     thread.setDaemon(true);
                     thread.start();
-
-                    System.out.println(this.startedGame);
 
                     startedGame++;
                 }else{
@@ -1167,7 +1168,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
                     Image image = new Image("colorPlayer/" + Converter.fromTokenColorToString(arena[0][0].getPlayers().get(index).getColor()) + ".jpg");
                     grid00.add(new ImageView(image), index, row);
-                    if (index == 2) {
+                    if (index == 1) {
                         row++;
                         index = 0;
                     }
@@ -1181,7 +1182,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
                     Image image = new Image("colorPlayer/" + Converter.fromTokenColorToString(arena[0][1].getPlayers().get(index).getColor()) + ".jpg");
                     grid01.add(new ImageView(image), index, row);
-                    if (index == 2) {
+                    if (index == 1) {
                         row++;
                         index = 0;
                     }
@@ -1195,7 +1196,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
                     Image image = new Image("colorPlayer/" + Converter.fromTokenColorToString(arena[0][2].getPlayers().get(index).getColor()) + ".jpg");
                     grid02.add(new ImageView(image), index, row);
-                    if (index == 2) {
+                    if (index == 1) {
                         row++;
                         index = 0;
                     }
@@ -1208,7 +1209,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
                     Image image = new Image("colorPlayer/" + Converter.fromTokenColorToString(arena[0][3].getPlayers().get(index).getColor()) + ".jpg");
                     grid03.add(new ImageView(image), index, row);
-                    if (index == 2) {
+                    if (index == 1) {
                         row++;
                         index = 0;
                     }
@@ -1222,7 +1223,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
                     Image image = new Image("colorPlayer/" + Converter.fromTokenColorToString(arena[1][0].getPlayers().get(index).getColor()) + ".jpg");
                     grid10.add(new ImageView(image), index, row);
-                    if (index == 2) {
+                    if (index == 1) {
                         row++;
                         index = 0;
                     }
@@ -1235,7 +1236,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
                     Image image = new Image("colorPlayer/" + Converter.fromTokenColorToString(arena[1][1].getPlayers().get(index).getColor()) + ".jpg");
                     grid11.add(new ImageView(image), index, row);
-                    if (index == 2) {
+                    if (index == 1) {
                         row++;
                         index = 0;
                     }
@@ -1248,7 +1249,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
                     Image image = new Image("colorPlayer/" + Converter.fromTokenColorToString(arena[1][2].getPlayers().get(index).getColor()) + ".jpg");
                     grid12.add(new ImageView(image), index, row);
-                    if (index == 2) {
+                    if (index == 1) {
                         row++;
                         index = 0;
                     }
@@ -1261,7 +1262,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
                     Image image = new Image("colorPlayer/" + Converter.fromTokenColorToString(arena[1][3].getPlayers().get(index).getColor()) + ".jpg");
                     grid13.add(new ImageView(image), index, row);
-                    if (index == 2) {
+                    if (index == 1) {
                         row++;
                         index = 0;
                     }
@@ -1274,7 +1275,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
                     Image image = new Image("colorPlayer/" + Converter.fromTokenColorToString(arena[2][0].getPlayers().get(index).getColor()) + ".jpg");
                     grid20.add(new ImageView(image), index, row);
-                    if (index == 2) {
+                    if (index == 1) {
                         row++;
                         index = 0;
                     }
@@ -1287,7 +1288,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
                     Image image = new Image("colorPlayer/" + Converter.fromTokenColorToString(arena[2][1].getPlayers().get(index).getColor()) + ".jpg");
                     grid21.add(new ImageView(image), index, row);
-                    if (index == 2) {
+                    if (index == 1) {
                         row++;
                         index = 0;
                     }
@@ -1300,7 +1301,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
                     Image image = new Image("colorPlayer/" + Converter.fromTokenColorToString(arena[2][2].getPlayers().get(index).getColor()) + ".jpg");
                     grid22.add(new ImageView(image), index, row);
-                    if (index == 2) {
+                    if (index == 1) {
                         row++;
                         index = 0;
                     }
@@ -1313,7 +1314,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
                     Image image = new Image("colorPlayer/" + Converter.fromTokenColorToString(arena[2][3].getPlayers().get(index).getColor()) + ".jpg");
                     grid23.add(new ImageView(image), index, row);
-                    if (index == 2) {
+                    if (index == 1) {
                         row++;
                         index = 0;
                     }
@@ -1665,10 +1666,92 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
             Stage stage = new Stage();
             stage.setScene(new Scene(root, 1218, 755));
-            stage.setTitle("DamageBoards");
+            stage.setTitle("asda    ");
             stage.show();
+
+
+            Thread thread1 = new Thread(this::checkPlayerBoards);
+            thread1.setDaemon(true);
+            thread1.start();
         });
     }
+
+    @FXML
+    private void checkPlayerBoards() {
+        while(checkTurn){
+            Platform.runLater(() -> {
+
+                guiHandler = Data.getInstance().getGuiHandler();
+                playerController = Data.getInstance().getPlayerController();
+
+                guiHandler.setFirstDamageGrid();
+                guiHandler.setAmmoBoxGrid();
+                guiHandler.setAmmoReserveGrid();
+                guiHandler.setMarksGrid();
+            });
+
+            try{
+
+                Thread.sleep(7000);
+
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private void setMarksGrid() {
+
+        playerController = Data.getInstance().getPlayerController();
+        List<Token> marks = playerController.getPlayerBoard().getRevengeMarks();
+
+        for(int i = 0, row = 0; i < marks.size(); i++){
+            Image image = new Image("colorPlayer/" + Converter.fromTokenColorToString(marks.get(i).getFirstColor()) + ".jpg");
+            marksGrid.add(new ImageView(image), i, row);
+        }
+    }
+
+    public void setFirstDamageGrid(){
+
+        playerController = Data.getInstance().getPlayerController();
+        Token[] damageBoard = playerController.getPlayerBoard().getDamageBoard();
+
+        for(int i = 0, row = 0; i < damageBoard.length; i++){
+            Image image = new Image("colorPlayer/" + Converter.fromTokenColorToString(damageBoard[i].getFirstColor()) + ".jpg");
+            firstDamageGrid.add(new ImageView(image), i, row);
+        }
+    }
+
+    public void setAmmoBoxGrid(){
+
+        playerController = Data.getInstance().getPlayerController();
+        List<Ammo> ammobox = playerController.getPlayer().getAmmoBox();
+
+        for(int i = 0, row = 0; i < ammobox.size(); i++){
+            Image image = new Image("singleAmmo/" + Converter.fromColorToLetter(ammobox.get(i).getColor()) + ".jpg");
+            ammoBoxGrid.add(new ImageView(image), i, row);
+            if (i == 2) {
+                row++;
+                i = 0;
+            }
+        }
+    }
+
+    public void setAmmoReserveGrid(){
+
+        playerController = Data.getInstance().getPlayerController();
+        List<Ammo> ammoReserve = playerController.getPlayer().getAmmoReserve();
+
+        for(int i = 0, row = 0; i < ammoReserve.size(); i++){
+            Image image = new Image("singleAmmo/" + Converter.fromColorToLetter(ammoReserve.get(i).getColor()) + ".jpg");
+            ammoReserveGrid.add(new ImageView(image), i, row);
+            if (i == 2) {
+                row++;
+                i = 0;
+            }
+        }
+    }
+
 
     @FXML
     private void setPlayerBoardImage() {
@@ -1723,21 +1806,21 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
             if(powerupsHad.size() == 1){
 
-                firstPowerupHad.setImage(new Image("powerup/" + Converter.fromColorToLetter(powerupsHad.get(1).getColor()) + "/" + powerupsHad.get(1).getName() + ".png"));
+                firstPowerupHad.setImage(new Image("powerup/" + Converter.fromColorToLetter(powerupsHad.get(0).getColor()) + "/" + powerupsHad.get(0).getName() + ".png"));
                 firstPowerupHad.setVisible(true);
 
             }else if(powerupsHad.size() == 2){
 
-                firstPowerupHad.setImage(new Image("powerup/" + Converter.fromColorToLetter(powerupsHad.get(1).getColor()) + "/" + powerupsHad.get(1).getName() + ".png"));
-                secondPowerupHad.setImage(new Image("powerup/" + Converter.fromColorToLetter(powerupsHad.get(2).getColor()) + "/" + powerupsHad.get(2).getName() + ".png"));
+                firstPowerupHad.setImage(new Image("powerup/" + Converter.fromColorToLetter(powerupsHad.get(0).getColor()) + "/" + powerupsHad.get(0).getName() + ".png"));
+                secondPowerupHad.setImage(new Image("powerup/" + Converter.fromColorToLetter(powerupsHad.get(1).getColor()) + "/" + powerupsHad.get(1).getName() + ".png"));
                 firstPowerupHad.setVisible(true);
                 secondPowerupHad.setVisible(true);
 
             }else if(powerupsHad.size() == 3){
 
-                firstPowerupHad.setImage(new Image("powerup/" + Converter.fromColorToLetter(powerupsHad.get(1).getColor()) + "/" + powerupsHad.get(1).getName() + ".png"));
-                secondPowerupHad.setImage(new Image("powerup/" + Converter.fromColorToLetter(powerupsHad.get(2).getColor()) + "/" + powerupsHad.get(2).getName() + ".png"));
-                thirdPowerupHad.setImage(new Image("powerup/" + Converter.fromColorToLetter(powerupsHad.get(3).getColor()) + "/" + powerupsHad.get(3).getName() + ".png"));
+                firstPowerupHad.setImage(new Image("powerup/" + Converter.fromColorToLetter(powerupsHad.get(0).getColor()) + "/" + powerupsHad.get(0).getName() + ".png"));
+                secondPowerupHad.setImage(new Image("powerup/" + Converter.fromColorToLetter(powerupsHad.get(1).getColor()) + "/" + powerupsHad.get(1).getName() + ".png"));
+                thirdPowerupHad.setImage(new Image("powerup/" + Converter.fromColorToLetter(powerupsHad.get(2).getColor()) + "/" + powerupsHad.get(2).getName() + ".png"));
                 firstPowerupHad.setVisible(true);
                 secondPowerupHad.setVisible(true);
                 thirdPowerupHad.setVisible(true);
