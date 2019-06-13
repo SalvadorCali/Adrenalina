@@ -13,6 +13,8 @@ public class Data{
     private PlayerController playerController;
     private GUIHandler guiHandler;
     private String moveGrab;
+    private Integer weaponShoot;
+
 
     private Data(){
     }
@@ -78,5 +80,13 @@ public class Data{
 
     public void setMoveGrab(String moveGrab) {
         this.moveGrab = moveGrab;
+    }
+
+    public Integer getWeaponShoot() {
+        return weaponShoot;
+    }
+
+    public void setWeaponShoot(Integer weaponShoot) {
+        this.weaponShoot = weaponShoot;
     }
 }
