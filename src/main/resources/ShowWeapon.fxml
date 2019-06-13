@@ -44,8 +44,8 @@
             <Image url="@powerup/Y/NEWTON.png" />
          </image>
       </ImageView>
-      <Button fx:id="shootButton1" layoutX="58.0" layoutY="298.0" mnemonicParsing="false" text="Shoot1" />
-      <Button fx:id="shootButton2" layoutX="225.0" layoutY="298.0" mnemonicParsing="false" text="Shoot2" />
-      <Button fx:id="shootButton3" layoutX="393.0" layoutY="298.0" mnemonicParsing="false" text="Shoot3" />
+      <Button fx:id="shootButton1" layoutX="58.0" layoutY="298.0" mnemonicParsing="false" text="Shoot1" onMouseClicked="#shootFirstWeapon"/>
+      <Button fx:id="shootButton2" layoutX="225.0" layoutY="298.0" mnemonicParsing="false" text="Shoot2" onMouseClicked="#shootSecondWeapon"/>
+      <Button fx:id="shootButton3" layoutX="393.0" layoutY="298.0" mnemonicParsing="false" text="Shoot3" onMouseClicked="#shootThirdWeapon"/>
    </children>
 </AnchorPane>

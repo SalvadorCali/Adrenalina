@@ -236,6 +236,17 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     @FXML private Button shootButton2;
     @FXML private Button shootButton3;
 
+    @FXML private TextField modeTxtField;
+    @FXML private TextField firstVictimTxtField;
+    @FXML private TextField secondVictimTxtField;
+    @FXML private TextField thirdVictimTxtField;
+    @FXML private TextField directionTxtField;
+    @FXML private TextField xTxtField;
+    @FXML private TextField yTxtField;
+    @FXML private TextField basicTxtField;
+    @FXML private Button shootDataButton;
+
+
     private static final int ROWS = 3;
     private static final int COLUMNS = 4;
     private static final int NUM_SQUARES=12;
@@ -470,7 +481,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         Platform.runLater(() ->{
             switch (message){
                 case END_TURN:
-                    notifyEndTurn();
+                    //notifyEndTurn();
                     break;
                 default:
                     break;
@@ -478,6 +489,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         });
     }
 
+    @FXML
     private void notifyEndTurn() {
         Platform.runLater(() ->{
 
@@ -511,7 +523,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                     notifyGrab(outcome);
                     break;
                 case SHOOT:
-                    //notifyShoot(outcome);
+                    notifyShoot(outcome);
                     break;
                 case POWERUP:
                     //notifyPowerup(outcome);
@@ -520,6 +532,23 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                     break;
             }
         });
+    }
+
+    private void notifyShoot(Outcome outcome) {
+        switch(outcome){
+            case RIGHT:
+                Printer.println("shoot");
+                break;
+            case ALL:
+                Printer.println("shoot");
+                break;
+            case WRONG:
+                Printer.println("didn't shoot");
+                break;
+            default:
+                Printer.println("didn't shoot");
+                break;
+        }
     }
 
     private void notifyGrab(Outcome outcome) {
@@ -819,6 +848,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         });
     }
 
+    @FXML
     private void setPowerupImage(List<Card> powerup) {
         Platform.runLater(() -> {
             for (int i = 0; i < powerup.size(); i++) {
@@ -843,13 +873,14 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
     }
 
+    @FXML
     private void checkPosition() {
         while(checkTurn){
             Platform.runLater(() -> {
 
-
                 guiHandler = Data.getInstance().getGuiHandler();
                 playerController = Data.getInstance().getPlayerController();
+                guiHandler.setLabelTurn();
                 guiHandler.placePlayers(playerController.getGameBoard().getArena());
                 guiHandler.removeImg();
                 guiHandler.addAmmo();
@@ -865,6 +896,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         }
     }
 
+    @FXML
     private void addAmmo() {
         playerController = Data.getInstance().getPlayerController();
         arena = playerController.getGameBoard().getArena();
@@ -921,6 +953,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
     }
 
+    @FXML
     private void addWeapon() {
         playerController = Data.getInstance().getPlayerController();
         arena = playerController.getGameBoard().getArena();
@@ -966,6 +999,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         }
     }
 
+    @FXML
     private void removeImg() {
 
         for(int i = 0; i< grid00.getChildren().size(); i++){
@@ -1010,6 +1044,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         Platform.runLater(() -> {
 
             playerController = Data.getInstance().getPlayerController();
+            playerTurnLabel.setVisible(true);
             playerTurnLabel.setText(playerController.getCurrentPlayer());
         });
     }
@@ -1486,6 +1521,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         });
     }
 
+    @FXML
     private void setWeaponImage(List<WeaponCard> weapon) {
         Platform.runLater(() ->{
             firstWeapon.setImage(new Image("weapon/" + Converter.weaponNameInvert(weapon.get(0).getName()) + ".png"));
@@ -1634,6 +1670,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         });
     }
 
+    @FXML
     private void setPlayerBoardImage() {
         Platform.runLater(() ->{
 
@@ -1678,6 +1715,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         });
     }
 
+    @FXML
     private void setPowerupHad() {
         Platform.runLater(() -> {
             playerController = Data.getInstance().getPlayerController();
@@ -1707,6 +1745,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         });
     }
 
+    @FXML
     private void setWeaponHad() {
         Platform.runLater(() ->{
 
@@ -1736,11 +1775,109 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         });
     }
 
+
     public void shoot(MouseEvent mouseEvent) {
         Platform.runLater(() ->{
 
             guiHandler = Data.getInstance().getGuiHandler();
             guiHandler.showWeapon(mouseEvent);
+        });
+    }
+
+    public void shootFirstWeapon(MouseEvent mouseEvent) {
+        Platform.runLater(() ->{
+            Data.getInstance().setWeaponShoot(0);
+            launchDataShoot();
+        });
+    }
+
+    public void shootSecondWeapon(MouseEvent mouseEvent) {
+        Platform.runLater(() ->{
+            Data.getInstance().setWeaponShoot(1);
+            launchDataShoot();
+        });
+    }
+
+    public void shootThirdWeapon(MouseEvent mouseEvent) {
+        Platform.runLater(() ->{
+            Data.getInstance().setWeaponShoot(2);
+            launchDataShoot();
+        });
+    }
+
+    @FXML
+    private void launchDataShoot() {
+        Platform.runLater(() -> {
+
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("DataShoot.fxml"));
+            Parent root = null;
+            try {
+                root = loader.load();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root, 522, 339));
+            stage.setTitle("Data Shoot");
+            stage.show();
+        });
+    }
+
+    public void setShoot(MouseEvent mouseEvent) {
+        Platform.runLater(() -> {
+
+            client = Data.getInstance().getClient();
+            playerController = Data.getInstance().getPlayerController();
+            Integer weaponNum = Data.getInstance().getWeaponShoot();
+
+            boolean basicFirst = true;
+            String firstVictim = null;
+            String secondVictim = null;
+            String thirdVictim = null;
+            Direction direction = null;
+            Integer x = -1;
+            Integer y = -1;
+            Integer mode = 1;
+
+
+            if(!modeTxtField.getText().isEmpty()) {
+                mode = Integer.valueOf(modeTxtField.getText());
+            }
+
+            if(!basicTxtField.getText().isEmpty()) {
+                basicFirst = Boolean.parseBoolean(basicTxtField.getText());
+            }
+
+            if (!firstVictimTxtField.getText().isEmpty()) {
+                firstVictim = firstVictimTxtField.getText();
+            }
+
+            if (!secondVictimTxtField.getText().isEmpty()) {
+                secondVictim = secondVictimTxtField.getText();
+            }
+
+            if(!thirdVictimTxtField.getText().isEmpty()) {
+                thirdVictim = thirdVictimTxtField.getText();
+            }
+
+            if(!directionTxtField.getText().isEmpty()) {
+                direction = Converter.fromStringToDirection(directionTxtField.getText());
+            }
+
+            if(!xTxtField.getText().isEmpty() && !yTxtField.getText().isEmpty()) {
+                x = Integer.valueOf(xTxtField.getText());
+                y = Integer.valueOf(yTxtField.getText());
+            }
+
+            try {
+                client.shoot(playerController.getWeapons().get(weaponNum).getName(), mode, basicFirst, Converter.fromStringToTokenColor(firstVictim), Converter.fromStringToTokenColor(secondVictim), Converter.fromStringToTokenColor(thirdVictim), x, y, direction);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            Stage stage = (Stage) modeTxtField.getScene().getWindow();
+            stage.close();
         });
     }
 }
