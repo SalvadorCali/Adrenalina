@@ -13,6 +13,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * class which represents one of the players present in the game.
+ */
 public class Player implements Serializable {
     private static final int AMMOBOXLIMIT = 3;
     private TokenColor color;
@@ -42,6 +45,10 @@ public class Player implements Serializable {
     private boolean moveAndReload;
     private static final long serialVersionUID = 1L;
 
+    /**
+     * Player class constructor.
+     * @param color color of the player to construct at the beginning of the game.
+     */
     public Player(TokenColor color){
         this.color = color;
         weapons = new ArrayList<>();
