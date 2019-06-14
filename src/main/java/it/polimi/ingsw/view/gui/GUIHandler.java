@@ -1682,8 +1682,10 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         List<Token> marks = playerController.getPlayerBoard().getRevengeMarks();
 
         for(int i = 0, row = 0; i < marks.size(); i++){
-            Image image = new Image("colorPlayer/" + Converter.fromTokenColorToString(marks.get(i).getFirstColor()) + ".jpg");
-            marksGrid.add(new ImageView(image), i, row);
+            if(!marks.get(i).getFirstColor().equals(TokenColor.NONE)) {
+                Image image = new Image("colorPlayer/" + Converter.fromTokenColorToString(marks.get(i).getFirstColor()) + ".jpg");
+                marksGrid.add(new ImageView(image), i, row);
+            }
         }
     }
 
@@ -1693,8 +1695,10 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         Token[] damageBoard = playerController.getPlayerBoard().getDamageBoard();
 
         for(int i = 0, row = 0; i < damageBoard.length; i++){
-            Image image = new Image("colorPlayer/" + Converter.fromTokenColorToString(damageBoard[i].getFirstColor()) + ".jpg");
-            firstDamageGrid.add(new ImageView(image), i, row);
+            if(!damageBoard[i].getFirstColor().equals(TokenColor.NONE)) {
+                Image image = new Image("colorPlayer/" + Converter.fromTokenColorToString(damageBoard[i].getFirstColor()) + ".jpg");
+                firstDamageGrid.add(new ImageView(image), i, row);
+            }
         }
     }
 
@@ -1704,11 +1708,13 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         List<Ammo> ammobox = playerController.getPlayer().getAmmoBox();
 
         for(int i = 0, row = 0; i < ammobox.size(); i++){
-            Image image = new Image("singleAmmo/" + Converter.fromColorToLetter(ammobox.get(i).getColor()) + ".jpg");
-            ammoBoxGrid.add(new ImageView(image), i, row);
-            if (i == 2) {
-                row++;
-                i = 0;
+            if(!ammobox.get(i).getColor().equals(TokenColor.NONE)) {
+                Image image = new Image("singleAmmo/" + Converter.fromColorToLetter(ammobox.get(i).getColor()) + ".jpg");
+                ammoBoxGrid.add(new ImageView(image), i, row);
+                if (i == 2) {
+                    row++;
+                    i = 0;
+                }
             }
         }
     }
@@ -1719,11 +1725,14 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         List<Ammo> ammoReserve = playerController.getPlayer().getAmmoReserve();
 
         for(int i = 0, row = 0; i < ammoReserve.size(); i++){
-            Image image = new Image("singleAmmo/" + Converter.fromColorToLetter(ammoReserve.get(i).getColor()) + ".jpg");
-            ammoReserveGrid.add(new ImageView(image), i, row);
-            if (i == 2) {
-                row++;
-                i = 0;
+            if(!ammoReserve.get(i).getColor().equals(TokenColor.NONE)) {
+
+                Image image = new Image("singleAmmo/" + Converter.fromColorToLetter(ammoReserve.get(i).getColor()) + ".jpg");
+                ammoReserveGrid.add(new ImageView(image), i, row);
+                if (i == 2) {
+                    row++;
+                    i = 0;
+                }
             }
         }
     }
