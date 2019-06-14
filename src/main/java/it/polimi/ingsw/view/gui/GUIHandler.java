@@ -44,6 +44,7 @@ import java.io.IOException;
 
 import java.net.URL;
 import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -626,8 +627,12 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
     private void notifyNewTurn(Outcome outcome) throws Exception {
         Platform.runLater(() -> {
+
             if(outcome.equals(Outcome.RIGHT)) {
+
                 if(startedGame == 0) {
+                    Stage stagelogin = (Stage) loginButton.getScene().getWindow();
+                    stagelogin.close();
                     FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("MapGUI.fxml"));
 
                     Parent root = null;
@@ -664,6 +669,8 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
             }else{
                 if(startedGame == 0) {
+                    Stage stagelogin = (Stage) loginButton.getScene().getWindow();
+                    stagelogin.close();
                     FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("MapGUI.fxml"));
 
                     Parent root = null;
@@ -1525,6 +1532,9 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     @FXML
     private void setWeaponImage(List<WeaponCard> weapon) {
         Platform.runLater(() ->{
+            firstWeapon.setVisible(true);
+            secondWeapon.setVisible(true);
+            thirdWeapon.setVisible(true);
             firstWeapon.setImage(new Image("weapon/" + Converter.weaponNameInvert(weapon.get(0).getName()) + ".png"));
             secondWeapon.setImage(new Image("weapon/" + Converter.weaponNameInvert(weapon.get(1).getName()) + ".png"));
             thirdWeapon.setImage(new Image("weapon/" + Converter.weaponNameInvert(weapon.get(2).getName()) + ".png"));
@@ -1677,85 +1687,113 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     }
 
     private void setMarksGrid() {
+        Platform.runLater(() -> {
 
-        playerController = Data.getInstance().getPlayerController();
-        List<Token> marks = playerController.getPlayerBoard().getRevengeMarks();
+            playerController = Data.getInstance().getPlayerController();
+            List<Token> marks = playerController.getPlayerBoard().getRevengeMarks();
 
-        for(int i = 0, row = 0; i < marks.size(); i++){
-            if(!marks.get(i).getFirstColor().equals(TokenColor.NONE)) {
-                Image image = new Image("colorPlayer/" + Converter.fromTokenColorToString(marks.get(i).getFirstColor()) + ".jpg");
-                marksGrid.add(new ImageView(image), i, row);
+            for (int i = 0, row = 0; i < marks.size(); i++) {
+                if (!marks.get(i).getFirstColor().equals(TokenColor.NONE)) {
+                    Image image = new Image("colorPlayer/" + Converter.fromTokenColorToString(marks.get(i).getFirstColor()) + ".jpg");
+                    marksGrid.add(new ImageView(image), i, row);
+                }
             }
-        }
+        });
     }
 
     public void setFirstDamageGrid(){
+        Platform.runLater(() -> {
 
-        playerController = Data.getInstance().getPlayerController();
-        Token[] damageBoard = playerController.getPlayerBoard().getDamageBoard();
+            playerController = Data.getInstance().getPlayerController();
+            Token[] damageBoard = playerController.getPlayerBoard().getDamageBoard();
 
-        for(int i = 0, row = 0; i < damageBoard.length; i++){
-            if(!damageBoard[i].getFirstColor().equals(TokenColor.NONE)) {
-                Image image = new Image("colorPlayer/" + Converter.fromTokenColorToString(damageBoard[i].getFirstColor()) + ".jpg");
-                firstDamageGrid.add(new ImageView(image), i, row);
+            for (int i = 0, row = 0; i < damageBoard.length; i++) {
+                if (!damageBoard[i].getFirstColor().equals(TokenColor.NONE)) {
+                    Image image = new Image("colorPlayer/" + Converter.fromTokenColorToString(damageBoard[i].getFirstColor()) + ".jpg");
+                    firstDamageGrid.add(new ImageView(image), i, row);
+                }
             }
-        }
+        });
     }
 
     public void setAmmoBoxGrid(){
+        Platform.runLater(() -> {
 
-        playerController = Data.getInstance().getPlayerController();
-        List<Ammo> ammobox = playerController.getPlayer().getAmmoBox();
+            playerController = Data.getInstance().getPlayerController();
+            List<Ammo> ammobox = playerController.getPlayer().getAmmoBox();
 
-        for(int i = 0, row = 0; i < ammobox.size(); i++){
-            if(!ammobox.get(i).getColor().equals(TokenColor.NONE)) {
-                Image image = new Image("singleAmmo/" + Converter.fromColorToString(ammobox.get(i).getColor()) + ".jpg");
-                ammoBoxGrid.add(new ImageView(image), i, row);
-                if (i == 2) {
-                    row++;
-                    i = 0;
+            for (int i = 0, row = 0; i < ammobox.size(); i++) {
+                if (!ammobox.get(i).getColor().equals(TokenColor.NONE)) {
+                    Image image = new Image("singleAmmo/" + Converter.fromColorToString(ammobox.get(i).getColor()) + ".jpg");
+                    ammoBoxGrid.add(new ImageView(image), i, row);
+                    if (i == 2) {
+                        row++;
+                        i = 0;
+                    }
                 }
             }
-        }
+        });
     }
 
     public void setAmmoReserveGrid(){
+        Platform.runLater(() -> {
 
-        playerController = Data.getInstance().getPlayerController();
-        List<Ammo> ammoReserve = playerController.getPlayer().getAmmoReserve();
+            playerController = Data.getInstance().getPlayerController();
+            List<Ammo> ammoReserve = playerController.getPlayer().getAmmoReserve();
 
-        for(int i = 0, row = 0; i < ammoReserve.size(); i++){
-            if(!ammoReserve.get(i).getColor().equals(TokenColor.NONE)) {
+            for (int i = 0, row = 0; i < ammoReserve.size(); i++) {
+                if (!ammoReserve.get(i).getColor().equals(TokenColor.NONE)) {
 
-                Image image = new Image("singleAmmo/" + Converter.fromColorToString(ammoReserve.get(i).getColor()) + ".jpg");
-                ammoReserveGrid.add(new ImageView(image), i, row);
-                if (i == 2) {
-                    row++;
-                    i = 0;
+                    Image image = new Image("singleAmmo/" + Converter.fromColorToString(ammoReserve.get(i).getColor()) + ".jpg");
+                    ammoReserveGrid.add(new ImageView(image), i, row);
+                    if (i == 2) {
+                        row++;
+                        i = 0;
+                    }
                 }
             }
-        }
+        });
     }
 
 
     public void setPlayerBoardImage() {
         Platform.runLater(() ->{
-            
+
             playerController = Data.getInstance().getPlayerController();
-            firstBoard.setImage(new Image("playerBoard/" + Converter.fromTokenColorToString(playerController.getPlayer().getColor()) + ".jpg"));
+            firstPlayerBoard.setImage(new Image("playerBoard/" + Converter.fromTokenColorToString(playerController.getPlayer().getColor()) + ".jpg"));
 
             List<Player> otherPlayers = playerController.getOtherPlayers();
             if(otherPlayers.size() == 1){
 
-                secondBoard.setImage(new Image("playerBoard/" + Converter.fromTokenColorToString(otherPlayers.get(0).getColor()) + ".jpg"));
-                secondBoard.setVisible(true);
+                secondPlayerBoard.setImage(new Image("playerBoard/" + Converter.fromTokenColorToString(otherPlayers.get(0).getColor()) + ".jpg"));
+                secondPlayerBoard.setVisible(true);
 
-            }else if(otherPlayers.size() == 2){
+            }else if (otherPlayers.size() == 2) {
 
-                secondBoard.setImage(new Image("playerBoard/" + Converter.fromTokenColorToString(otherPlayers.get(0).getColor()) + ".jpg"));
-                thirdBoard.setImage(new Image("playerBoard/" + Converter.fromTokenColorToString(otherPlayers.get(1).getColor()) + ".jpg"));
-                secondBoard.setVisible(true);
-                thirdBoard.setVisible(true);
+                secondPlayerBoard.setImage(new Image("playerBoard/" + Converter.fromTokenColorToString(otherPlayers.get(0).getColor()) + ".jpg"));
+                thirdPlayerBoard.setImage(new Image("playerBoard/" + Converter.fromTokenColorToString(otherPlayers.get(1).getColor()) + ".jpg"));
+                secondPlayerBoard.setVisible(true);
+                thirdPlayerBoard.setVisible(true);
+
+            } else if (otherPlayers.size() == 3) {
+
+                secondPlayerBoard.setImage(new Image("playerBoard/" + Converter.fromTokenColorToString(otherPlayers.get(0).getColor()) + ".jpg"));
+                thirdPlayerBoard.setImage(new Image("playerBoard/" + Converter.fromTokenColorToString(otherPlayers.get(1).getColor()) + ".jpg"));
+                fourthPlayerBoard.setImage(new Image("playerBoard/" + Converter.fromTokenColorToString(otherPlayers.get(2).getColor()) + ".jpg"));
+                secondPlayerBoard.setVisible(true);
+                thirdPlayerBoard.setVisible(true);
+                fourthPlayerBoard.setVisible(true);
+
+            } else {
+
+                secondPlayerBoard.setImage(new Image("playerBoard/" + Converter.fromTokenColorToString(otherPlayers.get(0).getColor()) + ".jpg"));
+                thirdPlayerBoard.setImage(new Image("playerBoard/" + Converter.fromTokenColorToString(otherPlayers.get(1).getColor()) + ".jpg"));
+                fourthPlayerBoard.setImage(new Image("playerBoard/" + Converter.fromTokenColorToString(otherPlayers.get(2).getColor()) + ".jpg"));
+                fifthPlayerBoard.setImage(new Image("playerBoard/" + Converter.fromTokenColorToString(otherPlayers.get(3).getColor()) + ".jpg"));
+                secondPlayerBoard.setVisible(true);
+                thirdPlayerBoard.setVisible(true);
+                fourthPlayerBoard.setVisible(true);
+                fifthPlayerBoard.setVisible(true);
             }
         });
     }
@@ -1945,6 +1983,18 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
             Stage stage = (Stage) modeTxtField.getScene().getWindow();
             stage.close();
+        });
+    }
+
+    public void disconnect(MouseEvent mouseEvent) {
+        Platform.runLater(()->{
+
+            client = Data.getInstance().getClient();
+            try {
+                client.disconnect();
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
         });
     }
 }

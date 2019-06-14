@@ -292,12 +292,12 @@
             <Font size="20.0" />
          </font>
       </Label>
-      <ImageView fx:id="bannerDisconnect" fitHeight="64.0" fitWidth="200.0" layoutX="972.0" layoutY="610.0">
+      <ImageView fx:id="bannerDisconnect" fitHeight="64.0" fitWidth="200.0" layoutX="972.0" layoutY="610.0" onMouseClicked="#disconnect">
          <image>
             <Image url="@boardElem/banner.png" />
          </image>
       </ImageView>
-      <Label fx:id="labelDisconnect" layoutX="999.0" layoutY="627.0" mouseTransparent="true" text="Disconnect" textFill="WHITE">
+      <Label fx:id="labelDisconnect" layoutX="999.0" layoutY="627.0" mouseTransparent="true" text="Disconnect" textFill="WHITE" onMouseClicked="#disconnect">
          <font>
             <Font name="Alien League Regular" size="30.0" />
          </font>
