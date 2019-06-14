@@ -1663,41 +1663,17 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
             guiHandler = Data.getInstance().getGuiHandler();
             guiHandler.setPlayerBoardImage();
+            guiHandler.setFirstDamageGrid();
+            guiHandler.setAmmoBoxGrid();
+            guiHandler.setAmmoReserveGrid();
+            guiHandler.setMarksGrid();
 
             Stage stage = new Stage();
             stage.setScene(new Scene(root, 1218, 755));
-            stage.setTitle("asda    ");
+            stage.setTitle("PlayerBoards");
             stage.show();
 
-
-            Thread thread1 = new Thread(this::checkPlayerBoards);
-            thread1.setDaemon(true);
-            thread1.start();
         });
-    }
-
-    @FXML
-    private void checkPlayerBoards() {
-        while(checkTurn){
-            Platform.runLater(() -> {
-
-                guiHandler = Data.getInstance().getGuiHandler();
-                playerController = Data.getInstance().getPlayerController();
-
-                guiHandler.setFirstDamageGrid();
-                guiHandler.setAmmoBoxGrid();
-                guiHandler.setAmmoReserveGrid();
-                guiHandler.setMarksGrid();
-            });
-
-            try{
-
-                Thread.sleep(7000);
-
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
     }
 
     private void setMarksGrid() {

@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="474.0" prefWidth="600.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.gui.GUIHandler">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="474.0" prefWidth="600.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.gui.GUIHandler">
    <children>
       <Label layoutX="209.0" layoutY="14.0" text="Click one BoardType" textFill="WHITE">
          <font>
@@ -20,12 +20,12 @@
             <Image url="@boardImg/0.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="secondBoard" fitHeight="112.0" fitWidth="149.0" layoutX="378.0" layoutY="79.0" onMouseClicked="#chooseBoard1" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="secondBoard" fitHeight="112.0" fitWidth="149.0" layoutX="378.0" layoutY="79.0" onMouseClicked="#chooseBoard2" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@boardImg/2.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="thirdBoard" fitHeight="112.0" fitWidth="149.0" layoutX="82.0" layoutY="238.0" onMouseClicked="#chooseBoard2" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="thirdBoard" fitHeight="112.0" fitWidth="149.0" layoutX="82.0" layoutY="238.0" onMouseClicked="#chooseBoard1" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@boardImg/1.png" />
          </image>
