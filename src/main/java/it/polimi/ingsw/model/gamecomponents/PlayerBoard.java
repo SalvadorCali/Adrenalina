@@ -353,5 +353,4 @@ public class PlayerBoard implements Serializable {
     public void setScoreList(Map<TokenColor, Score> scoreList) {
         this.scoreList = scoreList;
     }
-
 }
