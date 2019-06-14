@@ -374,4 +374,17 @@ public class Converter {
                 return null;
         }
     }
+
+    public static String fromColorToString(Color color){
+        switch (color){
+            case BLUE:
+                return "blue";
+            case RED:
+                return "red";
+            case YELLOW:
+                return "yellow";
+            default:
+                return "none";
+        }
+    }
 }

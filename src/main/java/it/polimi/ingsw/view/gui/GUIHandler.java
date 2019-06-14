@@ -1709,7 +1709,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
         for(int i = 0, row = 0; i < ammobox.size(); i++){
             if(!ammobox.get(i).getColor().equals(TokenColor.NONE)) {
-                Image image = new Image("singleAmmo/" + Converter.fromColorToLetter(ammobox.get(i).getColor()) + ".jpg");
+                Image image = new Image("singleAmmo/" + Converter.fromColorToString(ammobox.get(i).getColor()) + ".jpg");
                 ammoBoxGrid.add(new ImageView(image), i, row);
                 if (i == 2) {
                     row++;
@@ -1727,7 +1727,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         for(int i = 0, row = 0; i < ammoReserve.size(); i++){
             if(!ammoReserve.get(i).getColor().equals(TokenColor.NONE)) {
 
-                Image image = new Image("singleAmmo/" + Converter.fromColorToLetter(ammoReserve.get(i).getColor()) + ".jpg");
+                Image image = new Image("singleAmmo/" + Converter.fromColorToString(ammoReserve.get(i).getColor()) + ".jpg");
                 ammoReserveGrid.add(new ImageView(image), i, row);
                 if (i == 2) {
                     row++;
@@ -1738,10 +1738,9 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     }
 
 
-    @FXML
-    private void setPlayerBoardImage() {
+    public void setPlayerBoardImage() {
         Platform.runLater(() ->{
-
+            
             playerController = Data.getInstance().getPlayerController();
             firstBoard.setImage(new Image("playerBoard/" + Converter.fromTokenColorToString(playerController.getPlayer().getColor()) + ".jpg"));
 
