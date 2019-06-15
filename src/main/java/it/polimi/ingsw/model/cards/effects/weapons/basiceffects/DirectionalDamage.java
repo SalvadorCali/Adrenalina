@@ -37,7 +37,7 @@ public class DirectionalDamage extends BasicEffect {
     public boolean canUseEffect(ActionInterface actionInterface) {
 
         setData(actionInterface);
-        canUse = ammoControl(redAmmos, blueAmmos, yellowAmmos, actionInterface);
+        canUse = ammoControl(redAmmos, blueAmmos, yellowAmmos, actionInterface) && noAutoShoot(actionInterface);
         if(effectName.equals("Sledgehammer"))
             actionInterface.generatePlayer(victim, player);
         else
@@ -70,8 +70,13 @@ public class DirectionalDamage extends BasicEffect {
             actionInterface.playerDamage(secondVictim.getColor(), damagePower);
         if(effectName.equals("Power Glove2"))
             actionInterface.move(player.getPosition().getX(), player.getPosition().getY(), currentPlayer);
-        if(effectName.equals("Sledgehammer"))
+        if(effectName.equals("Sledgehammer")) {
             actionInterface.move(player.getPosition().getX(), player.getPosition().getY(), victim);
+            if(actionInterface.getClientData().getSecondMove() == null)
+                actionInterface.move(firstSquare.getX(), firstSquare.getY(), victim);
+            else
+                actionInterface.move(player.getPosition().getX(), player.getPosition().getY(), victim);
+        }
         if(effectName.equals("Flamethrower2")){
             actionInterface.squareDamage(firstSquare.getX(), firstSquare.getY(), damagePower, 0);
             if (squares == 2)

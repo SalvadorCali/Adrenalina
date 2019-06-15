@@ -39,7 +39,7 @@ public class SquareDamageEffect extends BasicEffect {
     public boolean canUseEffect(ActionInterface actionInterface) {
 
         setData(actionInterface);
-        canUse = actionInterface.ammoControl(redAmmos, blueAmmos, yellowAmmos);// Electroscythe
+        canUse = actionInterface.ammoControl(redAmmos, blueAmmos, yellowAmmos) && noAutoShoot(actionInterface);// Electroscythe
         if(canUse) {
             if (effectName.equals("Hellion"))
                 canUse = actionInterface.isVisible(currentPlayer,victim) && (actionInterface.distanceControl(victim.getPosition().getX(),victim.getPosition().getY())>= 1);

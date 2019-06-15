@@ -72,7 +72,7 @@ public class WeaponCard extends Card{
                 effects.add(tractorBeam1);
                 effects.add(tractorBeam2);
                 break;
-            case ("T.H.O.R"):
+            case ("T.H.O.R."):
                 Effect thor = new DamageMarkEffect("T.H.O.R.",2,0,0,0,0);
                 Effect thorAdd = new AdditionalTarget("T.H.O.R. Single",1,0,0,1,0, thor);
                 Effect thorAdd2 = new AdditionalTarget("T.H.O.R. Double",2,0,0,1,0, thorAdd);

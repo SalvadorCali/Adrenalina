@@ -34,7 +34,7 @@ public class DamageMarkEffect extends BasicEffect {
     public boolean canUseEffect(ActionInterface actionInterface) {
 
         setData(actionInterface);
-        canUse = actionInterface.ammoControl(redAmmos, blueAmmos, yellowAmmos);
+        canUse = actionInterface.ammoControl(redAmmos, blueAmmos, yellowAmmos) && noAutoShoot(actionInterface);
         if (canUse) {
             if (effectName.equals("Cyberblade") || effectName.equals("Sledgehammer"))
                 canUse = actionInterface.sameSquare(currentPlayer, victim);

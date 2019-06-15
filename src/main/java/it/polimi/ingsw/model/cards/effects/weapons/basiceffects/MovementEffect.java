@@ -41,7 +41,7 @@ public class MovementEffect extends BasicEffect {
 
         setData(actionInterface);
 
-        canUse = ammoControl(redAmmos, blueAmmos, yellowAmmos, actionInterface);
+        canUse = ammoControl(redAmmos, blueAmmos, yellowAmmos, actionInterface) && noAutoShoot(actionInterface);
         if(canUse) {
             actionInterface.generatePlayer(victim, player);
             if(effectName.equals("Tractor Beam1")  || effectName.equals("Tractor Beam2")) {
