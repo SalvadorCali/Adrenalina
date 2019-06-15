@@ -1671,19 +1671,40 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                 e.printStackTrace();
             }
 
-            guiHandler = Data.getInstance().getGuiHandler();
-            guiHandler.setPlayerBoardImage();
-            guiHandler.setFirstDamageGrid();
-            guiHandler.setAmmoBoxGrid();
-            guiHandler.setAmmoReserveGrid();
-            guiHandler.setMarksGrid();
 
             Stage stage = new Stage();
             stage.setScene(new Scene(root, 1218, 755));
             stage.setTitle("PlayerBoards");
             stage.show();
 
+
+            Thread thread1 = new Thread(this::checkPlayerBoard);
+            thread1.setDaemon(true);
+            thread1.start();
+
         });
+    }
+
+    private void checkPlayerBoard() {
+        while(checkTurn){
+            Platform.runLater(() -> {
+
+                guiHandler = Data.getInstance().getGuiHandler();
+                guiHandler.setPlayerBoardImage();
+                guiHandler.setFirstDamageGrid();
+                guiHandler.setAmmoBoxGrid();
+                guiHandler.setAmmoReserveGrid();
+                guiHandler.setMarksGrid();
+            });
+
+            try{
+
+                Thread.sleep(5000);
+
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     private void setMarksGrid() {
@@ -1809,15 +1830,36 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                 e.printStackTrace();
             }
 
-            guiHandler = Data.getInstance().getGuiHandler();
-            guiHandler.setWeaponHad();
-            guiHandler.setPowerupHad();
-
             Stage stage = new Stage();
             stage.setScene(new Scene(root, 522, 518));
             stage.setTitle("Weapons");
             stage.show();
+
+
+            Thread thread1 = new Thread(this::checkWeapon);
+            thread1.setDaemon(true);
+            thread1.start();
+
         });
+    }
+
+    private void checkWeapon() {
+        while(checkTurn){
+            Platform.runLater(() -> {
+
+                guiHandler = Data.getInstance().getGuiHandler();
+                guiHandler.setWeaponHad();
+                guiHandler.setPowerupHad();
+            });
+
+            try{
+
+                Thread.sleep(5000);
+
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @FXML
