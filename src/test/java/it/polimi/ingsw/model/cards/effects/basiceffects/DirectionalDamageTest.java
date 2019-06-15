@@ -56,7 +56,7 @@ public class DirectionalDamageTest {
         gameController.getGame().getBoard().move(2,2,secondVictim);
         assertFalse(flameThrower1.canUseEffect(gameController.getActionInterface()));
     }
-    
+
      */
 
     @Test

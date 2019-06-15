@@ -44,13 +44,18 @@ public class AdditionalSquareDamage extends SingleAddictionEffect{
             if (canUse && !effectName.equals("Rocket Launcher") && !effectName.equals("Vortex Cannon"))
                 canUse = actionInterface.isVisibleDifferentSquare(x, y);
             if(canUse && effectName.equals("Vortex Cannon")) {
-                if(actionInterface.distanceControl(actionInterface.getClientData().getSecondVictim(), x, y)  > 1 && actionInterface.distanceControl(actionInterface.getClientData().getThirdVictim(), x, y) > 1)
+                if(actionInterface.distanceControl(actionInterface.getClientData().getSecondVictim(), x, y)  >= 2)
                     canUse = false;
                 if(actionInterface.distanceControl(actionInterface.getClientData().getSecondVictim(), x, y)  < 2)
                     victim1 = true;
-                if(actionInterface.distanceControl(actionInterface.getClientData().getThirdVictim(), x, y)  < 2)
-                    victim2 = true;
-            }
+                if(actionInterface.getClientData().getThirdVictim()!= null){
+                    if(actionInterface.distanceControl(actionInterface.getClientData().getThirdVictim(), x, y)  < 2)
+                        victim2 = true;
+                    else
+                        canUse = false;
+                }
+
+        }
 
 
         } else {
