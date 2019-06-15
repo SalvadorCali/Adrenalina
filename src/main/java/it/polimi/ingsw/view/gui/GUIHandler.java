@@ -976,9 +976,9 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                         String url2 = "weapon/" + Converter.weaponNameInvert(arena[i][j].getWeapons().get(1).getName()) + ".png";
                         String url3 = "weapon/" + Converter.weaponNameInvert(arena[i][j].getWeapons().get(2).getName()) + ".png";
 
-                        weaponBlue1.setImage(new Image(url1));
-                        weaponBlue2.setImage(new Image(url2));
-                        weaponBlue3.setImage(new Image(url3));
+                        this.weaponBlue1.setImage(new Image(url1));
+                        this.weaponBlue2.setImage(new Image(url2));
+                        this.weaponBlue3.setImage(new Image(url3));
                     }
 
                     if(arena[i][j].getColor().equals(TokenColor.RED)){
@@ -987,9 +987,9 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                         String url2 = "weapon/" + Converter.weaponNameInvert(arena[i][j].getWeapons().get(1).getName()) + ".png";
                         String url3 = "weapon/" + Converter.weaponNameInvert(arena[i][j].getWeapons().get(2).getName()) + ".png";
 
-                        weaponRed1.setImage(new Image(url1));
-                        weaponRed2.setImage(new Image(url2));
-                        weaponRed3.setImage(new Image(url3));
+                        this.weaponRed1.setImage(new Image(url1));
+                        this.weaponRed2.setImage(new Image(url2));
+                        this.weaponRed3.setImage(new Image(url3));
                     }
 
                     if(arena[i][j].getColor().equals(TokenColor.YELLOW)){
@@ -998,9 +998,9 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                         String url2 = "weapon/" + Converter.weaponNameInvert(arena[i][j].getWeapons().get(1).getName()) + ".png";
                         String url3 = "weapon/" + Converter.weaponNameInvert(arena[i][j].getWeapons().get(2).getName()) + ".png";
 
-                        weaponYellow1.setImage(new Image(url1));
-                        weaponYellow2.setImage(new Image(url2));
-                        weaponYellow3.setImage(new Image(url3));
+                        this.weaponYellow1.setImage(new Image(url1));
+                        this.weaponYellow2.setImage(new Image(url2));
+                        this.weaponYellow3.setImage(new Image(url3));
                     }
                 }
             }
@@ -1052,8 +1052,8 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         Platform.runLater(() -> {
 
             playerController = Data.getInstance().getPlayerController();
-            playerTurnLabel.setVisible(true);
-            playerTurnLabel.setText(playerController.getCurrentPlayer());
+            this.playerTurnLabel.setVisible(true);
+            this.playerTurnLabel.setText(playerController.getCurrentPlayer());
         });
     }
 
@@ -1063,7 +1063,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
             try {
                 client = Data.getInstance().getClient();
                 System.out.println(Data.getInstance().getBoardType());
-                client.board(Data.getInstance().getBoardType() + 1, Data.getInstance().getSkull());
+                this.client.board(Data.getInstance().getBoardType() + 1, Data.getInstance().getSkull());
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -1080,8 +1080,8 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     public void setPowerup() throws IOException{
         Platform.runLater(() ->{
             try {
-                client = Data.getInstance().getClient();
-                client.choose(Data.getInstance().getPowerup());
+                this.client = Data.getInstance().getClient();
+                this.client.choose(Data.getInstance().getPowerup());
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -1119,8 +1119,8 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     public void saveMovement(String move){
         if(countMove < MAX_MOVEMENT) {
 
-            movement[countMove] = move;
-            countMove++;
+            this.movement[countMove] = move;
+            this.countMove++;
         }
     }
 
@@ -1139,13 +1139,13 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
             labelStatusPlayer.setText("Player didn't move");
 
         }else if(movement[1] == null){
-            client.move(Converter.fromStringToDirection(movement[0]));
+            this.client.move(Converter.fromStringToDirection(movement[0]));
 
         }else if(movement[2] == null){
-            client.move(Converter.fromStringToDirection(movement[0]), Converter.fromStringToDirection(movement[1]));
+            this.client.move(Converter.fromStringToDirection(movement[0]), Converter.fromStringToDirection(movement[1]));
 
         }else{
-            client.move(Converter.fromStringToDirection(movement[0]), Converter.fromStringToDirection(movement[1]), Converter.fromStringToDirection(movement[2]));
+            this.client.move(Converter.fromStringToDirection(movement[0]), Converter.fromStringToDirection(movement[1]), Converter.fromStringToDirection(movement[2]));
 
         }
 
@@ -1156,7 +1156,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
             try {
                 
                 client = Data.getInstance().getClient();
-                client.endTurn();
+                this.client.endTurn();
             } catch (IOException e1) {
                 e1.printStackTrace();
             }
@@ -1467,7 +1467,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                     if(playerController.getGameBoard().getArena()[x][y].canMove(Direction.LEFT)){
                         if(!playerController.getGameBoard().getArena()[x][y--].isSpawn()) {
                             try {
-                                client.grab(0, Direction.LEFT);
+                                this.client.grab(0, Direction.LEFT);
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
@@ -1497,7 +1497,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                     if(playerController.getGameBoard().getArena()[x][y].canMove(Direction.RIGHT)){
                         if(!playerController.getGameBoard().getArena()[x][y++].isSpawn()) {
                             try {
-                                client.grab(0, Direction.RIGHT);
+                                this.client.grab(0, Direction.RIGHT);
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
@@ -1532,12 +1532,12 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     @FXML
     private void setWeaponImage(List<WeaponCard> weapon) {
         Platform.runLater(() ->{
-            firstWeapon.setVisible(true);
-            secondWeapon.setVisible(true);
-            thirdWeapon.setVisible(true);
-            firstWeapon.setImage(new Image("weapon/" + Converter.weaponNameInvert(weapon.get(0).getName()) + ".png"));
-            secondWeapon.setImage(new Image("weapon/" + Converter.weaponNameInvert(weapon.get(1).getName()) + ".png"));
-            thirdWeapon.setImage(new Image("weapon/" + Converter.weaponNameInvert(weapon.get(2).getName()) + ".png"));
+            this.firstWeapon.setVisible(true);
+            this.secondWeapon.setVisible(true);
+            this.thirdWeapon.setVisible(true);
+            this.firstWeapon.setImage(new Image("weapon/" + Converter.weaponNameInvert(weapon.get(0).getName()) + ".png"));
+            this.secondWeapon.setImage(new Image("weapon/" + Converter.weaponNameInvert(weapon.get(1).getName()) + ".png"));
+            this.thirdWeapon.setImage(new Image("weapon/" + Converter.weaponNameInvert(weapon.get(2).getName()) + ".png"));
         });
     }
 
@@ -1548,14 +1548,14 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
             if (move != null) {
                 try {
-                    client.grab(0, Converter.fromStringToDirection(move));
+                    this.client.grab(0, Converter.fromStringToDirection(move));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
 
             } else {
                 try {
-                    client.grab(0);
+                    this.client.grab(0);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -1573,14 +1573,14 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
             if (move != null) {
                 try {
-                    client.grab(1, Converter.fromStringToDirection(move));
+                    this.client.grab(1, Converter.fromStringToDirection(move));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
 
             } else {
                 try {
-                    client.grab(1);
+                    this.client.grab(1);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -1598,14 +1598,14 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
             if (move != null) {
                 try {
-                    client.grab(2, Converter.fromStringToDirection(move));
+                    this.client.grab(2, Converter.fromStringToDirection(move));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
 
             } else {
                 try {
-                    client.grab(2);
+                    this.client.grab(2);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -1619,19 +1619,19 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         Platform.runLater(() ->{
 
             //disable move
-            guiHandler.upArrow.setDisable(true);
-            guiHandler.downArrow.setDisable(true);
-            guiHandler.rightArrow.setDisable(true);
-            guiHandler.leftArrow.setDisable(true);
-            guiHandler.enterMove.setDisable(true);
+            this.guiHandler.upArrow.setDisable(true);
+            this.guiHandler.downArrow.setDisable(true);
+            this.guiHandler.rightArrow.setDisable(true);
+            this.guiHandler.leftArrow.setDisable(true);
+            this.guiHandler.enterMove.setDisable(true);
 
             //disable grab
-            guiHandler.bannerGrab.setDisable(true);
-            guiHandler.labelGrab.setDisable(true);
+            this.guiHandler.bannerGrab.setDisable(true);
+            this.guiHandler.labelGrab.setDisable(true);
 
             //disable endturn
-            guiHandler.bannerEndTurn.setDisable(true);
-            guiHandler.labelEndTurn.setDisable(true);
+            this. guiHandler.bannerEndTurn.setDisable(true);
+            this.guiHandler.labelEndTurn.setDisable(true);
 
             //disable shoot
         });
@@ -1642,19 +1642,19 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
             guiHandler = Data.getInstance().getGuiHandler();
 
             //disable move
-            guiHandler.upArrow.setDisable(false);
-            guiHandler.downArrow.setDisable(false);
-            guiHandler.rightArrow.setDisable(false);
-            guiHandler.leftArrow.setDisable(false);
-            guiHandler.enterMove.setDisable(false);
+            this.guiHandler.upArrow.setDisable(false);
+            this.guiHandler.downArrow.setDisable(false);
+            this.guiHandler.rightArrow.setDisable(false);
+            this.guiHandler.leftArrow.setDisable(false);
+            this.guiHandler.enterMove.setDisable(false);
 
             //disable grab
-            guiHandler.bannerGrab.setDisable(false);
-            guiHandler.labelGrab.setDisable(false);
+            this.guiHandler.bannerGrab.setDisable(false);
+            this.guiHandler.labelGrab.setDisable(false);
 
             //disable endturn
-            guiHandler.bannerEndTurn.setDisable(false);
-            guiHandler.labelEndTurn.setDisable(false);
+            this.guiHandler.bannerEndTurn.setDisable(false);
+            this.guiHandler.labelEndTurn.setDisable(false);
 
             //disable shoot
         });
@@ -1689,12 +1689,12 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         while(checkTurn){
             Platform.runLater(() -> {
 
-                guiHandler = Data.getInstance().getGuiHandler();
-                guiHandler.setPlayerBoardImage();
-                guiHandler.setFirstDamageGrid();
-                guiHandler.setAmmoBoxGrid();
-                guiHandler.setAmmoReserveGrid();
-                guiHandler.setMarksGrid();
+                this.guiHandler = Data.getInstance().getGuiHandler();
+                this.guiHandler.setPlayerBoardImage();
+                this.guiHandler.setFirstDamageGrid();
+                this.guiHandler.setAmmoBoxGrid();
+                this.guiHandler.setAmmoReserveGrid();
+                this.guiHandler.setMarksGrid();
             });
 
             try{
@@ -1716,7 +1716,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
             for (int i = 0, row = 0; i < marks.size(); i++) {
                 if (!marks.get(i).getFirstColor().equals(TokenColor.NONE)) {
                     Image image = new Image("colorPlayer/" + Converter.fromTokenColorToString(marks.get(i).getFirstColor()) + ".jpg");
-                    marksGrid.add(new ImageView(image), i, row);
+                    this.marksGrid.add(new ImageView(image), i, row);
                 }
             }
         });
@@ -1731,7 +1731,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
             for (int i = 0, row = 0; i < damageBoard.length; i++) {
                 if (!damageBoard[i].getFirstColor().equals(TokenColor.NONE)) {
                     Image image = new Image("colorPlayer/" + Converter.fromTokenColorToString(damageBoard[i].getFirstColor()) + ".jpg");
-                    firstDamageGrid.add(new ImageView(image), i, row);
+                    this.firstDamageGrid.add(new ImageView(image), i, row);
                 }
             }
         });
@@ -1746,7 +1746,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
             for (int i = 0, row = 0; i < ammobox.size(); i++) {
                 if (!ammobox.get(i).getColor().equals(TokenColor.NONE)) {
                     Image image = new Image("singleAmmo/" + Converter.fromColorToString(ammobox.get(i).getColor()) + ".jpg");
-                    ammoBoxGrid.add(new ImageView(image), i, row);
+                    this.ammoBoxGrid.add(new ImageView(image), i, row);
                     if (i == 2) {
                         row++;
                         i = 0;
@@ -1766,7 +1766,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                 if (!ammoReserve.get(i).getColor().equals(TokenColor.NONE)) {
 
                     Image image = new Image("singleAmmo/" + Converter.fromColorToString(ammoReserve.get(i).getColor()) + ".jpg");
-                    ammoReserveGrid.add(new ImageView(image), i, row);
+                    this.ammoReserveGrid.add(new ImageView(image), i, row);
                     if (i == 2) {
                         row++;
                         i = 0;
@@ -1781,40 +1781,40 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         Platform.runLater(() ->{
 
             playerController = Data.getInstance().getPlayerController();
-            firstPlayerBoard.setImage(new Image("playerBoard/" + Converter.fromTokenColorToString(playerController.getPlayer().getColor()) + ".jpg"));
+            this.firstPlayerBoard.setImage(new Image("playerBoard/" + Converter.fromTokenColorToString(playerController.getPlayer().getColor()) + ".jpg"));
 
             List<Player> otherPlayers = playerController.getOtherPlayers();
             if(otherPlayers.size() == 1){
 
-                secondPlayerBoard.setImage(new Image("playerBoard/" + Converter.fromTokenColorToString(otherPlayers.get(0).getColor()) + ".jpg"));
-                secondPlayerBoard.setVisible(true);
+                this.secondPlayerBoard.setImage(new Image("playerBoard/" + Converter.fromTokenColorToString(otherPlayers.get(0).getColor()) + ".jpg"));
+                this.secondPlayerBoard.setVisible(true);
 
             }else if (otherPlayers.size() == 2) {
 
-                secondPlayerBoard.setImage(new Image("playerBoard/" + Converter.fromTokenColorToString(otherPlayers.get(0).getColor()) + ".jpg"));
-                thirdPlayerBoard.setImage(new Image("playerBoard/" + Converter.fromTokenColorToString(otherPlayers.get(1).getColor()) + ".jpg"));
-                secondPlayerBoard.setVisible(true);
-                thirdPlayerBoard.setVisible(true);
+                this.secondPlayerBoard.setImage(new Image("playerBoard/" + Converter.fromTokenColorToString(otherPlayers.get(0).getColor()) + ".jpg"));
+                this.thirdPlayerBoard.setImage(new Image("playerBoard/" + Converter.fromTokenColorToString(otherPlayers.get(1).getColor()) + ".jpg"));
+                this.secondPlayerBoard.setVisible(true);
+                this.thirdPlayerBoard.setVisible(true);
 
             } else if (otherPlayers.size() == 3) {
 
-                secondPlayerBoard.setImage(new Image("playerBoard/" + Converter.fromTokenColorToString(otherPlayers.get(0).getColor()) + ".jpg"));
-                thirdPlayerBoard.setImage(new Image("playerBoard/" + Converter.fromTokenColorToString(otherPlayers.get(1).getColor()) + ".jpg"));
-                fourthPlayerBoard.setImage(new Image("playerBoard/" + Converter.fromTokenColorToString(otherPlayers.get(2).getColor()) + ".jpg"));
-                secondPlayerBoard.setVisible(true);
-                thirdPlayerBoard.setVisible(true);
-                fourthPlayerBoard.setVisible(true);
+                this.secondPlayerBoard.setImage(new Image("playerBoard/" + Converter.fromTokenColorToString(otherPlayers.get(0).getColor()) + ".jpg"));
+                this.thirdPlayerBoard.setImage(new Image("playerBoard/" + Converter.fromTokenColorToString(otherPlayers.get(1).getColor()) + ".jpg"));
+                this.fourthPlayerBoard.setImage(new Image("playerBoard/" + Converter.fromTokenColorToString(otherPlayers.get(2).getColor()) + ".jpg"));
+                this.secondPlayerBoard.setVisible(true);
+                this.thirdPlayerBoard.setVisible(true);
+                this.fourthPlayerBoard.setVisible(true);
 
             } else {
 
-                secondPlayerBoard.setImage(new Image("playerBoard/" + Converter.fromTokenColorToString(otherPlayers.get(0).getColor()) + ".jpg"));
-                thirdPlayerBoard.setImage(new Image("playerBoard/" + Converter.fromTokenColorToString(otherPlayers.get(1).getColor()) + ".jpg"));
-                fourthPlayerBoard.setImage(new Image("playerBoard/" + Converter.fromTokenColorToString(otherPlayers.get(2).getColor()) + ".jpg"));
-                fifthPlayerBoard.setImage(new Image("playerBoard/" + Converter.fromTokenColorToString(otherPlayers.get(3).getColor()) + ".jpg"));
-                secondPlayerBoard.setVisible(true);
-                thirdPlayerBoard.setVisible(true);
-                fourthPlayerBoard.setVisible(true);
-                fifthPlayerBoard.setVisible(true);
+                this.secondPlayerBoard.setImage(new Image("playerBoard/" + Converter.fromTokenColorToString(otherPlayers.get(0).getColor()) + ".jpg"));
+                this.thirdPlayerBoard.setImage(new Image("playerBoard/" + Converter.fromTokenColorToString(otherPlayers.get(1).getColor()) + ".jpg"));
+                this.fourthPlayerBoard.setImage(new Image("playerBoard/" + Converter.fromTokenColorToString(otherPlayers.get(2).getColor()) + ".jpg"));
+                this.fifthPlayerBoard.setImage(new Image("playerBoard/" + Converter.fromTokenColorToString(otherPlayers.get(3).getColor()) + ".jpg"));
+                this.secondPlayerBoard.setVisible(true);
+                this.thirdPlayerBoard.setVisible(true);
+                this.fourthPlayerBoard.setVisible(true);
+                this.fifthPlayerBoard.setVisible(true);
             }
         });
     }
@@ -1830,15 +1830,16 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                 e.printStackTrace();
             }
 
+
             Stage stage = new Stage();
             stage.setScene(new Scene(root, 522, 518));
             stage.setTitle("Weapons");
             stage.show();
 
 
-            Thread thread1 = new Thread(this::checkWeapon);
-            thread1.setDaemon(true);
-            thread1.start();
+            Thread thread2 = new Thread(this::checkWeapon);
+            thread2.setDaemon(true);
+            thread2.start();
 
         });
     }
@@ -1847,9 +1848,9 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         while(checkTurn){
             Platform.runLater(() -> {
 
-                guiHandler = Data.getInstance().getGuiHandler();
-                guiHandler.setWeaponHad();
-                guiHandler.setPowerupHad();
+                this.guiHandler = Data.getInstance().getGuiHandler();
+                this.guiHandler.setWeaponHad();
+                this.guiHandler.setPowerupHad();
             });
 
             try{
@@ -1870,24 +1871,24 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
             if(powerupsHad.size() == 1){
 
-                firstPowerupHad.setImage(new Image("powerup/" + Converter.fromColorToLetter(powerupsHad.get(0).getColor()) + "/" + powerupsHad.get(0).getName() + ".png"));
-                firstPowerupHad.setVisible(true);
+                this.firstPowerupHad.setImage(new Image("powerup/" + Converter.fromColorToLetter(powerupsHad.get(0).getColor()) + "/" + powerupsHad.get(0).getName() + ".png"));
+                this.firstPowerupHad.setVisible(true);
 
             }else if(powerupsHad.size() == 2){
 
-                firstPowerupHad.setImage(new Image("powerup/" + Converter.fromColorToLetter(powerupsHad.get(0).getColor()) + "/" + powerupsHad.get(0).getName() + ".png"));
-                secondPowerupHad.setImage(new Image("powerup/" + Converter.fromColorToLetter(powerupsHad.get(1).getColor()) + "/" + powerupsHad.get(1).getName() + ".png"));
-                firstPowerupHad.setVisible(true);
-                secondPowerupHad.setVisible(true);
+                this.firstPowerupHad.setImage(new Image("powerup/" + Converter.fromColorToLetter(powerupsHad.get(0).getColor()) + "/" + powerupsHad.get(0).getName() + ".png"));
+                this.secondPowerupHad.setImage(new Image("powerup/" + Converter.fromColorToLetter(powerupsHad.get(1).getColor()) + "/" + powerupsHad.get(1).getName() + ".png"));
+                this.firstPowerupHad.setVisible(true);
+                this.secondPowerupHad.setVisible(true);
 
             }else if(powerupsHad.size() == 3){
 
-                firstPowerupHad.setImage(new Image("powerup/" + Converter.fromColorToLetter(powerupsHad.get(0).getColor()) + "/" + powerupsHad.get(0).getName() + ".png"));
-                secondPowerupHad.setImage(new Image("powerup/" + Converter.fromColorToLetter(powerupsHad.get(1).getColor()) + "/" + powerupsHad.get(1).getName() + ".png"));
-                thirdPowerupHad.setImage(new Image("powerup/" + Converter.fromColorToLetter(powerupsHad.get(2).getColor()) + "/" + powerupsHad.get(2).getName() + ".png"));
-                firstPowerupHad.setVisible(true);
-                secondPowerupHad.setVisible(true);
-                thirdPowerupHad.setVisible(true);
+                this.firstPowerupHad.setImage(new Image("powerup/" + Converter.fromColorToLetter(powerupsHad.get(0).getColor()) + "/" + powerupsHad.get(0).getName() + ".png"));
+                this.secondPowerupHad.setImage(new Image("powerup/" + Converter.fromColorToLetter(powerupsHad.get(1).getColor()) + "/" + powerupsHad.get(1).getName() + ".png"));
+                this.thirdPowerupHad.setImage(new Image("powerup/" + Converter.fromColorToLetter(powerupsHad.get(2).getColor()) + "/" + powerupsHad.get(2).getName() + ".png"));
+                this.firstPowerupHad.setVisible(true);
+                this.secondPowerupHad.setVisible(true);
+                this.thirdPowerupHad.setVisible(true);
             }
         });
     }
@@ -1900,24 +1901,24 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
             List<WeaponCard> weaponsHad = playerController.getWeapons();
 
             if(weaponsHad.size() == 1){
-                firstWeaponHad.setImage(new Image("weapon/" + Converter.weaponNameInvert(weaponsHad.get(0).getName()) + ".png"));
-                firstWeaponHad.setVisible(true);
+                this.firstWeaponHad.setImage(new Image("weapon/" + Converter.weaponNameInvert(weaponsHad.get(0).getName()) + ".png"));
+                this.firstWeaponHad.setVisible(true);
 
             }else if(weaponsHad.size() == 2){
 
-                firstWeaponHad.setImage(new Image("weapon/" + Converter.weaponNameInvert(weaponsHad.get(0).getName()) + ".png"));
-                secondWeaponHad.setImage(new Image("weapon/" + Converter.weaponNameInvert(weaponsHad.get(1).getName()) + ".png"));
-                firstWeaponHad.setVisible(true);
-                secondWeaponHad.setVisible(true);
+                this.firstWeaponHad.setImage(new Image("weapon/" + Converter.weaponNameInvert(weaponsHad.get(0).getName()) + ".png"));
+                this.secondWeaponHad.setImage(new Image("weapon/" + Converter.weaponNameInvert(weaponsHad.get(1).getName()) + ".png"));
+                this.firstWeaponHad.setVisible(true);
+                this.secondWeaponHad.setVisible(true);
 
             }else if(weaponsHad.size() == 3){
 
-                firstWeaponHad.setImage(new Image("weapon/" + Converter.weaponNameInvert(weaponsHad.get(0).getName()) + ".png"));
-                secondWeaponHad.setImage(new Image("weapon/" + Converter.weaponNameInvert(weaponsHad.get(1).getName()) + ".png"));
-                thirdWeaponHad.setImage(new Image("weapon/" + Converter.weaponNameInvert(weaponsHad.get(2).getName()) + ".png"));
-                firstWeaponHad.setVisible(true);
-                secondWeaponHad.setVisible(true);
-                thirdWeaponHad.setVisible(true);
+                this.firstWeaponHad.setImage(new Image("weapon/" + Converter.weaponNameInvert(weaponsHad.get(0).getName()) + ".png"));
+                this.secondWeaponHad.setImage(new Image("weapon/" + Converter.weaponNameInvert(weaponsHad.get(1).getName()) + ".png"));
+                this.thirdWeaponHad.setImage(new Image("weapon/" + Converter.weaponNameInvert(weaponsHad.get(2).getName()) + ".png"));
+                this.firstWeaponHad.setVisible(true);
+                this.secondWeaponHad.setVisible(true);
+                this.thirdWeaponHad.setVisible(true);
             }
         });
     }
@@ -1926,8 +1927,8 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     public void shoot(MouseEvent mouseEvent) {
         Platform.runLater(() ->{
 
-            guiHandler = Data.getInstance().getGuiHandler();
-            guiHandler.showWeapon(mouseEvent);
+            this.guiHandler = Data.getInstance().getGuiHandler();
+            this.guiHandler.showWeapon(mouseEvent);
         });
     }
 
@@ -2018,7 +2019,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
             }
 
             try {
-                client.shoot(playerController.getWeapons().get(weaponNum).getName(), mode, basicFirst, Converter.fromStringToTokenColor(firstVictim), Converter.fromStringToTokenColor(secondVictim), Converter.fromStringToTokenColor(thirdVictim), x, y, direction);
+                this.client.shoot(playerController.getWeapons().get(weaponNum).getName(), mode, basicFirst, Converter.fromStringToTokenColor(firstVictim), Converter.fromStringToTokenColor(secondVictim), Converter.fromStringToTokenColor(thirdVictim), x, y, direction);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -2031,9 +2032,9 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     public void disconnect(MouseEvent mouseEvent) {
         Platform.runLater(()->{
 
-            client = Data.getInstance().getClient();
+            this.client = Data.getInstance().getClient();
             try {
-                client.disconnect();
+                this. client.disconnect();
             } catch (RemoteException e) {
                 e.printStackTrace();
             }
