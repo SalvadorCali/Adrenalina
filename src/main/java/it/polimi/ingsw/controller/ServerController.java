@@ -304,6 +304,12 @@ public class ServerController {
             disconnectedUsers.put(username, users.get(username));
             //users.get(username).setDisconnected(true);
             users.remove(username);
+            /*
+            if(users.size()<Config.MIN_PLAYERS){
+                endGame();
+                return;
+            }
+             */
             Printer.println(username + " disconnected!");
             servers.remove(username);
             servers.forEach((u,s) -> {
@@ -788,22 +794,29 @@ public class ServerController {
     }
     //punteggio
     private void deathAndRespawn(){
+        timer.interrupt();
         gameController.deathAndRespawn(players);
         gameData.setPlayers(users);
         deathNumber = 0;
         for(Player player : players){
             if(player.isDead()){
-                Printer.println(player.getUsername());
-                player.setDead(false);
-                player.setRespawned(false);
-                deathNumber++;
-                try {
-                    servers.get(player.getUsername()).notify(Message.RESPAWN, Outcome.RIGHT, gameData);
-                } catch (IOException e) {
-                    Printer.err(e);
+                if(player.isDisconnected()){
+                    player.setDead(false);
+                    player.setRespawned(false);
+                    respawn(player.getUsername(), 1);
+                    deathNumber++;
+                }else{
+                    player.setDead(false);
+                    player.setRespawned(false);
+                    deathNumber++;
+                    try {
+                        servers.get(player.getUsername()).notify(Message.RESPAWN, Outcome.RIGHT, gameData);
+                    } catch (IOException e) {
+                        Printer.err(e);
+                    }
+                    RespawnTimer respawnTimer = new RespawnTimer(this, gameController, player);
+                    respawnTimer.start();
                 }
-                RespawnTimer respawnTimer = new RespawnTimer(this, gameController, player);
-                respawnTimer.start();
             }
         }
         servers.forEach((u,s)-> {
@@ -813,5 +826,9 @@ public class ServerController {
                 Printer.err(e);
             }
         });
+    }
+
+    private void endGame(){
+        Printer.println("Game end!");
     }
 }

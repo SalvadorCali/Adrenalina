@@ -366,10 +366,10 @@ public class Game implements Serializable {
                 player.setMyTurn(false);
                 player.resetPowerupAmmos();
                 player.resetActionNumber();
+                int index = i;
                 do{
-                    currentPlayer = nextPlayer(i);
-                    Printer.println(currentPlayer.getUsername());
-                    i++;
+                    index = nextPlayer(index);
+                    currentPlayer = players.get(index);
                 }while(currentPlayer.isDisconnected());
                 currentPlayer.setMyTurn(true);
                 break;
@@ -393,15 +393,15 @@ public class Game implements Serializable {
     }
 
     /**
-     * finds the player that has to play in the incoming turn.
+     * finds the index of the player that has to play in the incoming turn.
      * @param index index of the current player in the players list.
-     * @return the next player.
+     * @return the index of the next player.
      */
-    private Player nextPlayer(int index){
+    private int nextPlayer(int index){
         if(index == players.size() - 1){
-            return players.get(0);
+            return 0;
         }else{
-            return players.get(index + 1);
+            return (index + 1);
         }
     }
 
