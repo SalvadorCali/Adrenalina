@@ -1,18 +1,12 @@
 package it.polimi.ingsw.network.server;
 
-import it.polimi.ingsw.controller.CLIController;
-import it.polimi.ingsw.controller.GameController;
-import it.polimi.ingsw.controller.ServerController;
 import it.polimi.ingsw.network.ConnectionManager;
-import it.polimi.ingsw.network.ServerControllerManager;
+import it.polimi.ingsw.controller.ServerControllerManager;
 import it.polimi.ingsw.util.Connection;
 import it.polimi.ingsw.util.Printer;
 
 import java.io.IOException;
 import java.net.*;
-import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.List;
 
 public class Server {
     private ServerControllerManager serverControllerManager = new ServerControllerManager();

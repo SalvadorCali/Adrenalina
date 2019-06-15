@@ -1,4 +1,4 @@
-package it.polimi.ingsw.network;
+package it.polimi.ingsw.controller;
 
 import it.polimi.ingsw.controller.ServerController;
 
@@ -10,6 +10,17 @@ public class ServerControllerManager {
     public static int index;
 
     public static boolean containsUsername(String username){
+        for(int i=0; i<serverControllers.size(); i++){
+            for(int j=0; j<serverControllers.get(i).getPlayers().size(); j++){
+                if(username.equals(serverControllers.get(i).getPlayers().get(j).getUsername())){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public static boolean containsDisconnectedUsername(String username){
         boolean result = false;
         for(int i=0; i<serverControllers.size(); i++){
             if(serverControllers.get(i).getDisconnectedUsers().containsKey(username)){

@@ -1,9 +1,8 @@
 package it.polimi.ingsw.network;
 
-import it.polimi.ingsw.controller.GameController;
 import it.polimi.ingsw.controller.ServerController;
+import it.polimi.ingsw.controller.ServerControllerManager;
 import it.polimi.ingsw.network.client.rmi.RMIClientInterface;
-import it.polimi.ingsw.network.server.ServerInterface;
 import it.polimi.ingsw.network.server.rmi.RMIServer;
 import it.polimi.ingsw.network.server.rmi.RMIServerInterface;
 import it.polimi.ingsw.network.server.socket.SocketServer;
@@ -12,13 +11,10 @@ import it.polimi.ingsw.util.Printer;
 
 import java.io.IOException;
 import java.net.ServerSocket;
-import java.rmi.AlreadyBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 

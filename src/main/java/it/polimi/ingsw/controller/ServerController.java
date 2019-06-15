@@ -5,19 +5,15 @@ import it.polimi.ingsw.controller.timer.RespawnTimer;
 import it.polimi.ingsw.controller.timer.SpawnLocationTimer;
 import it.polimi.ingsw.controller.timer.TurnTimer;
 import it.polimi.ingsw.model.cards.Card;
-import it.polimi.ingsw.model.cards.PowerupCard;
 import it.polimi.ingsw.model.enums.Color;
 import it.polimi.ingsw.model.enums.Direction;
 import it.polimi.ingsw.model.enums.TokenColor;
 import it.polimi.ingsw.model.gamecomponents.Player;
-import it.polimi.ingsw.network.ServerControllerManager;
 import it.polimi.ingsw.network.enums.Message;
 import it.polimi.ingsw.network.server.ServerInterface;
 import it.polimi.ingsw.util.Config;
 import it.polimi.ingsw.util.Printer;
 import it.polimi.ingsw.network.enums.Outcome;
-import it.polimi.ingsw.view.KillshotTrackCLI;
-import it.polimi.ingsw.view.MapCLI;
 
 import java.io.IOException;
 import java.rmi.RemoteException;
@@ -61,12 +57,16 @@ public class ServerController {
         return disconnectedUsers;
     }
 
+    public List<Player> getPlayers() {
+        return players;
+    }
+
     public boolean isGamePhase(){
         return gameController.isGamePhase();
     }
 
     public void login(String username, TokenColor color, ServerInterface server){
-        if(ServerControllerManager.containsUsername(username)){
+        if(ServerControllerManager.containsDisconnectedUsername(username)){
             try {
                 server.setServerController(ServerControllerManager.getServerController(username));
             } catch (RemoteException e) {
@@ -76,7 +76,7 @@ public class ServerController {
             return;
         }
         if(!gameController.isGamePhase()){
-            boolean newUsername = !servers.containsKey(username) && !disconnectedUsers.containsKey(username); //contains
+            boolean newUsername = !servers.containsKey(username) && !disconnectedUsers.containsKey(username) && !ServerControllerManager.containsUsername(username); //contains
             boolean newColor = !colors.containsKey(color) && !color.equals(TokenColor.NONE); //contains
             if(newUsername && newColor){
                 addPlayer(username, color, server);
@@ -112,7 +112,7 @@ public class ServerController {
                 if(disconnectedUsers.get(username).getColor().equals(color)){
                     reconnect(username, server);
                 }
-            //}else if(ServerControllerManager.containsUsername(username)){
+            //}else if(ServerControllerManager.containsDisconnectedUsername(username)){
               //  ServerControllerManager.getServerController(username).reconnect(username, server);
             }else{
                 try {
@@ -295,12 +295,16 @@ public class ServerController {
     }
 
     public void disconnect(String username){
+        Printer.println("disconnessione" + username);
         if(users.get(username).isMyTurn()){
+            Printer.println("disconnessione2" + username);
             users.get(username).setDisconnected(true);
             endTurnDisconnected(username);
             //gameController.endTurn(users.get(username));
         }
         if(users.containsKey(username)){
+            Printer.println("disconnessione3" + username);
+            users.get(username).setDisconnected(true);
             disconnectedUsers.put(username, users.get(username));
             //users.get(username).setDisconnected(true);
             users.remove(username);
@@ -678,6 +682,7 @@ public class ServerController {
                             servers.get(username).notify(Message.END_TURN);
                         }
                         int index = nextPlayerIndex(i);
+                        Printer.println("indice " + index);
                         if(servers.containsKey(players.get(index).getUsername())){
                             gameData.setGame(gameController.getGame());
                             gameData.setPlayers(users);
@@ -752,6 +757,7 @@ public class ServerController {
                             servers.get(username).notify(Message.END_TURN);
                         }
                         int index = nextPlayerIndex(i);
+                        Printer.println("indice " + index);
                         if(servers.containsKey(players.get(index).getUsername())){
                             gameData.setGame(gameController.getGame());
                             gameData.setPlayers(users);
@@ -794,6 +800,13 @@ public class ServerController {
     }
     //punteggio
     private void deathAndRespawn(){
+        servers.forEach((u,s)-> {
+            try {
+                s.notify(Message.SCORE, Outcome.ALL, gameController.getScoreList());
+            } catch (IOException e) {
+                Printer.err(e);
+            }
+        });
         timer.interrupt();
         gameController.deathAndRespawn(players);
         gameData.setPlayers(users);
@@ -819,13 +832,6 @@ public class ServerController {
                 }
             }
         }
-        servers.forEach((u,s)-> {
-            try {
-                s.notify(Message.SCORE, Outcome.ALL, gameController.getScoreList());
-            } catch (IOException e) {
-                Printer.err(e);
-            }
-        });
     }
 
     private void endGame(){
