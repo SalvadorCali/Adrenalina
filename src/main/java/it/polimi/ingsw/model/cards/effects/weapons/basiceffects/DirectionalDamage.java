@@ -47,6 +47,7 @@ public class DirectionalDamage extends BasicEffect {
             canUse = actionInterface.sameSquare(currentPlayer,victim);
         if(canUse) {
             firstMoveControl(actionInterface);
+            Printer.println(canUse);
             if(canUse) {
                 actionInterface.move(direction, player);
                 victimControl(actionInterface);
@@ -67,7 +68,7 @@ public class DirectionalDamage extends BasicEffect {
     @Override
     public void useEffect(ActionInterface actionInterface) {
 
-        if(!effectName.equals("Flamethrower2"))
+        if(!effectName.equals("Flamethrower2") && victim!=null)
             actionInterface.playerDamage(victim.getColor(), damagePower);
         if(secondVictim != null && !effectName.equals("Flamethrower2"))
             actionInterface.playerDamage(secondVictim.getColor(), damagePower);

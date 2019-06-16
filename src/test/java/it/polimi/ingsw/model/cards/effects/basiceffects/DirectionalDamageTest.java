@@ -172,6 +172,22 @@ public class DirectionalDamageTest {
         dbc.printDamageBoard();
     }
 
+    @Test
+    void powergloveTest(){
+        playerSetup();
+        Effect powerglove = new DirectionalDamage("Power Glove2",2,0,1,0);
+        MapCLI mapCLI = new MapCLI(gameController.getGame().getBoard());
+        mapCLI.printMap();
+        gameController.getGame().getBoard().move(1,3,currentPlayer);
+        gameController.getGame().getBoard().move(2,3, victim);
+        mapCLI.printMap();
+        gameController.getActionInterface().getClientData().setSecondVictim(null);
+        gameController.getActionInterface().getClientData().setThirdVictim(null);
+        gameController.getActionInterface().getClientData().setFirstMove(Direction.DOWN);
+        gameController.getActionInterface().getClientData().setSecondMove(null);
+        assertTrue(powerglove.canUseEffect(gameController.getActionInterface()));
+    }
+
 
     void playerSetup(){
 

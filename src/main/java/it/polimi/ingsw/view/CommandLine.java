@@ -1077,7 +1077,7 @@ public class CommandLine implements ViewInterface {
                                 Converter.fromStringToDirection(move));
                     }else{
                         client.shoot(weapon, choice, true, Converter.fromStringToTokenColor(move), TokenColor.NONE, TokenColor.NONE,
-                                -1, -1);
+                                -1, -1, Converter.fromStringToDirection(string.nextToken()));
                     }
                     return true;
                 }else if(string.countTokens() == 3){

@@ -3,6 +3,7 @@ import it.polimi.ingsw.model.cards.effects.ActionInterface;
 import it.polimi.ingsw.model.cards.effects.Effect;
 import it.polimi.ingsw.model.enums.Color;
 import it.polimi.ingsw.model.gamecomponents.Player;
+import it.polimi.ingsw.util.Printer;
 
 public abstract class BasicEffect extends Effect {
 
@@ -14,7 +15,7 @@ public abstract class BasicEffect extends Effect {
         return (actionInterface.ammoControl(redAmmos, blueAmmos, yellowAmmos));
     }
 
-    protected boolean noAutoShoot(ActionInterface actionInterface){
+    boolean noAutoShoot(ActionInterface actionInterface){
         Player currentPlayer, victim, secondVictim, thirdVictim;
         currentPlayer = actionInterface.getClientData().getCurrentPlayer();
         victim = actionInterface.getClientData().getVictim();
@@ -22,12 +23,14 @@ public abstract class BasicEffect extends Effect {
         thirdVictim = actionInterface.getThirdVictim();
         if(victim == null)
             return true;
-        else if(thirdVictim == null && secondVictim == null)
+        else if(victim!= null && thirdVictim == null && secondVictim == null)
             return !currentPlayer.equals(victim);
-        else if(thirdVictim == null)
+        else if(victim!=null && secondVictim != null && thirdVictim == null)
             return !currentPlayer.equals(victim) && !currentPlayer.equals(secondVictim) && !secondVictim.equals(victim);
-        else
+        else if(victim!=null && secondVictim!= null && thirdVictim!=null)
             return  !currentPlayer.equals(victim) && !currentPlayer.equals(secondVictim) && !currentPlayer.equals(thirdVictim) && !secondVictim.equals(victim) && !secondVictim.equals(thirdVictim) && !thirdVictim.equals(victim);
+        else
+            return false;
     }
 
 }
