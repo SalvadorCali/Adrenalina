@@ -18,15 +18,15 @@
             <Image url="@boardImg/3.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="weaponRed1" fitHeight="100.0" fitWidth="70.0" layoutX="2.0" layoutY="245.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="weaponRed2" fitHeight="100.0" fitWidth="70.0" layoutX="2.0" layoutY="354.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="weaponRed3" fitHeight="100.0" fitWidth="70.0" layoutX="2.0" layoutY="460.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="weaponYellow1" fitHeight="100.0" fitWidth="70.0" layoutX="868.0" layoutY="392.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="weaponYellow2" fitHeight="100.0" fitWidth="70.0" layoutX="865.0" layoutY="496.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="weaponYellow3" fitHeight="100.0" fitWidth="70.0" layoutX="865.0" layoutY="609.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="weaponBlue1" fitHeight="100.0" fitWidth="70.0" layoutX="705.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="weaponBlue2" fitHeight="100.0" fitWidth="70.0" layoutX="603.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="weaponBlue3" fitHeight="100.0" fitWidth="70.0" layoutX="503.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="weaponRed1" fitHeight="144.0" fitWidth="100.0" layoutX="22.0" layoutY="223.0" pickOnBounds="true" preserveRatio="true" rotate="90.0" />
+      <ImageView fx:id="weaponRed2" fitHeight="144.0" fitWidth="100.0" layoutX="22.0" layoutY="332.0" pickOnBounds="true" preserveRatio="true" rotate="90.0" />
+      <ImageView fx:id="weaponRed3" fitHeight="144.0" fitWidth="100.0" layoutX="22.0" layoutY="438.0" pickOnBounds="true" preserveRatio="true" rotate="90.0" />
+      <ImageView fx:id="weaponYellow1" fitHeight="156.0" fitWidth="92.0" layoutX="824.0" layoutY="364.0" pickOnBounds="true" preserveRatio="true" rotate="90.0" />
+      <ImageView fx:id="weaponYellow2" fitHeight="156.0" fitWidth="100.0" layoutX="820.0" layoutY="468.0" pickOnBounds="true" preserveRatio="true" rotate="90.0" />
+      <ImageView fx:id="weaponYellow3" fitHeight="148.0" fitWidth="92.0" layoutX="824.0" layoutY="576.0" pickOnBounds="true" preserveRatio="true" rotate="90.0" />
+      <ImageView fx:id="weaponBlue1" fitHeight="136.0" fitWidth="92.0" layoutX="700.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="weaponBlue2" fitHeight="136.0" fitWidth="92.0" layoutX="595.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="weaponBlue3" fitHeight="136.0" fitWidth="92.0" layoutX="486.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="deckPowerup" fitHeight="96.0" fitWidth="70.0" layoutX="839.0" layoutY="34.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@boardElem/AD_powerups_IT_02.png" />
@@ -35,7 +35,7 @@
          <image>
             <Image url="@boardElem/AD_weapons_IT_02.png" />
          </image></ImageView>
-      <ImageView fx:id="deckAmmo" fitHeight="71.0" fitWidth="70.0" layoutX="29.0" layoutY="615.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="deckAmmo" fitHeight="71.0" fitWidth="70.0" layoutX="2.0" layoutY="639.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@boardElem/AD_ammo_04.png" />
          </image></ImageView>
@@ -93,7 +93,7 @@
             <Image url="@boardElem/banner.png" />
          </image>
       </ImageView>
-      <Label layoutX="1029.0" layoutY="31.0" mouseTransparent="true" text="Shoot" textFill="WHITE" onMouseClicked="#shoot">
+      <Label layoutX="1029.0" layoutY="31.0" mouseTransparent="true" onMouseClicked="#shoot" text="Shoot" textFill="WHITE">
          <font>
             <Font name="Alien League Regular" size="30.0" />
          </font>
@@ -113,12 +113,12 @@
             <Image url="@boardElem/banner.png" />
          </image>
       </ImageView>
-      <Label layoutX="981.0" layoutY="262.0" text="Show Weapon" textFill="WHITE" onMouseClicked="#showWeapon">
+      <Label layoutX="981.0" layoutY="262.0" onMouseClicked="#showWeapon" text="Show Weapon" textFill="WHITE">
          <font>
             <Font name="Alien League Regular" size="30.0" />
          </font>
       </Label>
-      <Label layoutX="980.0" layoutY="183.0" mouseTransparent="true" text="Show Damage" textFill="WHITE" onMouseClicked="#showDamageBoard">
+      <Label layoutX="980.0" layoutY="183.0" mouseTransparent="true" onMouseClicked="#showDamageBoard" text="Show Damage" textFill="WHITE">
          <font>
             <Font name="Alien League Regular" size="30.0" />
          </font>
@@ -128,7 +128,7 @@
             <Font name="Alien League Regular" size="30.0" />
          </font>
       </Label>
-      <Label fx:id="playerTurnLabel" layoutX="1072.0" layoutY="412.0" text="Gianni" textFill="WHITE">
+      <Label fx:id="playerTurnLabel" layoutX="1062.0" layoutY="412.0" prefHeight="39.0" prefWidth="100.0" text="Gianni" textFill="WHITE">
          <font>
             <Font name="Alien League Regular" size="30.0" />
          </font>
@@ -287,7 +287,7 @@
             <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
          </padding>
       </GridPane>
-      <Label fx:id="labelStatusPlayer" layoutX="370.0" layoutY="659.0" prefHeight="26.0" prefWidth="323.0" text="Player disconnected" textFill="WHITE" visible="false">
+      <Label fx:id="labelStatusPlayer" layoutX="259.0" layoutY="659.0" prefHeight="30.0" prefWidth="434.0" text="Player disconnected" textFill="WHITE" visible="false">
          <font>
             <Font size="20.0" />
          </font>
@@ -297,7 +297,7 @@
             <Image url="@boardElem/banner.png" />
          </image>
       </ImageView>
-      <Label fx:id="labelDisconnect" layoutX="999.0" layoutY="627.0" mouseTransparent="true" text="Disconnect" textFill="WHITE" onMouseClicked="#disconnect">
+      <Label fx:id="labelDisconnect" layoutX="999.0" layoutY="627.0" mouseTransparent="true" onMouseClicked="#disconnect" text="Disconnect" textFill="WHITE">
          <font>
             <Font name="Alien League Regular" size="30.0" />
          </font>
