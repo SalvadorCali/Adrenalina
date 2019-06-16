@@ -14,6 +14,8 @@ public class Data{
     private GUIHandler guiHandler;
     private String moveGrab;
     private Integer weaponShoot;
+    private GUIHandler guiHandlerWeapon;
+    private GUIHandler loaderPlayerboard;
 
 
     private Data(){
@@ -88,5 +90,21 @@ public class Data{
 
     public void setWeaponShoot(Integer weaponShoot) {
         this.weaponShoot = weaponShoot;
+    }
+
+    public GUIHandler getGuiHandlerWeapon() {
+        return guiHandlerWeapon;
+    }
+
+    public void setGuiHandlerWeapon(GUIHandler guiHandlerWeapon) {
+        this.guiHandlerWeapon = guiHandlerWeapon;
+    }
+
+    public GUIHandler getLoaderPlayerboard() {
+        return loaderPlayerboard;
+    }
+
+    public void setLoaderPlayerboard(GUIHandler loaderPlayerboard) {
+        this.loaderPlayerboard = loaderPlayerboard;
     }
 }

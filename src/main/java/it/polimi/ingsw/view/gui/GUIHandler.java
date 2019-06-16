@@ -1762,6 +1762,8 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                 e.printStackTrace();
             }
 
+            guiHandler = loader.getController();
+            Data.getInstance().setLoaderPlayerboard(guiHandler);
 
             Stage stage = new Stage();
             stage.setScene(new Scene(root, 1218, 755));
@@ -1777,15 +1779,16 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     }
 
     private void checkPlayerBoard() {
+        guiHandler = Data.getInstance().getLoaderPlayerboard();
+
         while(checkTurn){
             Platform.runLater(() -> {
 
-                this.guiHandler = Data.getInstance().getGuiHandler();
-                this.guiHandler.setPlayerBoardImage();
-                this.guiHandler.setFirstDamageGrid();
-                this.guiHandler.setAmmoBoxGrid();
-                this.guiHandler.setAmmoReserveGrid();
-                this.guiHandler.setMarksGrid();
+                guiHandler.setPlayerBoardImage();
+                guiHandler.setFirstDamageGrid();
+                guiHandler.setAmmoBoxGrid();
+                guiHandler.setAmmoReserveGrid();
+                guiHandler.setMarksGrid();
             });
 
             try{
@@ -1921,6 +1924,8 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                 e.printStackTrace();
             }
 
+            guiHandler = loader.getController();
+            Data.getInstance().setGuiHandlerWeapon(guiHandler);
 
             Stage stage = new Stage();
             stage.setScene(new Scene(root, 522, 518));
@@ -1936,12 +1941,13 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     }
 
     private void checkWeapon() {
+
         while(checkTurn){
             Platform.runLater(() -> {
 
-                this.guiHandler = Data.getInstance().getGuiHandler();
-                this.guiHandler.setWeaponHad();
-                this.guiHandler.setPowerupHad();
+                guiHandler = Data.getInstance().getGuiHandlerWeapon();
+                guiHandler.setWeaponHad();
+                guiHandler.setPowerupHad();
             });
 
             try{
