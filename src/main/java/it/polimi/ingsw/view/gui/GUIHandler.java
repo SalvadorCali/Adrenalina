@@ -786,6 +786,8 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                     guiHandler.setMapImage();
                     guiHandler.setSkulls();
                     guiHandler.addWeapon();
+                    guiHandler.setLabelTurn();
+
 
                     Data.getInstance().setGuiHandler(guiHandler);
 
@@ -798,9 +800,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                     thread.setDaemon(true);
                     thread.start();
 
-
-                    System.out.println(this.startedGame);
-
+                    disableButtons();
                     startedGame++;
                 }else{
                     disableButtons();
@@ -996,7 +996,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
             try{
 
-                Thread.sleep(3000);
+                Thread.sleep(5000);
 
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -1723,45 +1723,47 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     }
 
     public void disableButtons(){
+        guiHandler = Data.getInstance().getGuiHandler();
         Platform.runLater(() ->{
 
             //disable move
-            this.guiHandler.upArrow.setDisable(true);
-            this.guiHandler.downArrow.setDisable(true);
-            this.guiHandler.rightArrow.setDisable(true);
-            this.guiHandler.leftArrow.setDisable(true);
-            this.guiHandler.enterMove.setDisable(true);
+            guiHandler.upArrow.setDisable(true);
+            guiHandler.downArrow.setDisable(true);
+            guiHandler.rightArrow.setDisable(true);
+            guiHandler.leftArrow.setDisable(true);
+            guiHandler.enterMove.setDisable(true);
 
             //disable grab
-            this.guiHandler.bannerGrab.setDisable(true);
-            this.guiHandler.labelGrab.setDisable(true);
+            guiHandler.bannerGrab.setDisable(true);
+            guiHandler.labelGrab.setDisable(true);
 
             //disable endturn
-            this. guiHandler.bannerEndTurn.setDisable(true);
-            this.guiHandler.labelEndTurn.setDisable(true);
+            guiHandler.bannerEndTurn.setDisable(true);
+            guiHandler.labelEndTurn.setDisable(true);
 
             //disable shoot
         });
     }
 
     public void enableButtons(){
+        guiHandler = Data.getInstance().getGuiHandler();
+
         Platform.runLater(() ->{
-            guiHandler = Data.getInstance().getGuiHandler();
 
             //disable move
-            this.guiHandler.upArrow.setDisable(false);
-            this.guiHandler.downArrow.setDisable(false);
-            this.guiHandler.rightArrow.setDisable(false);
-            this.guiHandler.leftArrow.setDisable(false);
-            this.guiHandler.enterMove.setDisable(false);
+            guiHandler.upArrow.setDisable(false);
+            guiHandler.downArrow.setDisable(false);
+            guiHandler.rightArrow.setDisable(false);
+            guiHandler.leftArrow.setDisable(false);
+            guiHandler.enterMove.setDisable(false);
 
             //disable grab
-            this.guiHandler.bannerGrab.setDisable(false);
-            this.guiHandler.labelGrab.setDisable(false);
+            guiHandler.bannerGrab.setDisable(false);
+            guiHandler.labelGrab.setDisable(false);
 
             //disable endturn
-            this.guiHandler.bannerEndTurn.setDisable(false);
-            this.guiHandler.labelEndTurn.setDisable(false);
+            guiHandler.bannerEndTurn.setDisable(false);
+            guiHandler.labelEndTurn.setDisable(false);
 
             //disable shoot
         });
