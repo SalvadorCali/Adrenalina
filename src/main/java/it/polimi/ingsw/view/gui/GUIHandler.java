@@ -1790,8 +1790,33 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
             Thread thread1 = new Thread(this::checkPlayerBoard);
             thread1.setDaemon(true);
             thread1.start();
-            
+
+            Thread thread2 = new Thread(this::checkValuePlayerBoard);
+            thread2.setDaemon(true);
+            thread2.start();
         });
+    }
+
+    private void checkValuePlayerBoard() {
+        guiHandler = Data.getInstance().getControllerPlayerBoard();
+
+        while(checkTurn){
+            Platform.runLater(() -> {
+                
+                guiHandler.setFirstDamageGrid();
+                guiHandler.setAmmoBoxGrid();
+                guiHandler.setAmmoReserveGrid();
+                guiHandler.setMarksGrid();
+            });
+
+            try{
+
+                Thread.sleep(3000);
+
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     private void checkPlayerBoard() {
@@ -1801,15 +1826,15 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
             Platform.runLater(() -> {
 
                 guiHandler.setPlayerBoardImage();
-                guiHandler.setFirstDamageGrid();
-                guiHandler.setAmmoBoxGrid();
-                guiHandler.setAmmoReserveGrid();
-                guiHandler.setMarksGrid();
+                //guiHandler.setFirstDamageGrid();
+                //guiHandler.setAmmoBoxGrid();
+                //guiHandler.setAmmoReserveGrid();
+                //guiHandler.setMarksGrid();
             });
 
             try{
 
-                Thread.sleep(5000);
+                Thread.sleep(3000);
 
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -1894,6 +1919,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
             playerController = Data.getInstance().getPlayerController();
             guiHandler.firstPlayerBoard.setImage(new Image("playerBoard/" + Converter.fromTokenColorToString(playerController.getPlayer().getColor()) + ".jpg"));
+
 
             List<Player> otherPlayers = playerController.getOtherPlayers();
             if(otherPlayers.size() == 1){
