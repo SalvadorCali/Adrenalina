@@ -485,11 +485,33 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         Platform.runLater(() ->{
             switch (message){
                 case END_TURN:
-                    //notifyEndTurn();
+                    notifyEndTurn();
+                    break;
+                case NOT_TURN:
+                    notifyNotTurn();
+                    break;
+                case FINAL_FRENZY:
+                    notifyFinalFrenzy();
                     break;
                 default:
                     break;
             }
+        });
+    }
+
+    private void notifyFinalFrenzy() {
+        Platform.runLater(() ->{
+
+            playerController = Data.getInstance().getPlayerController();
+            setLabelStatement("final frenzy");
+        });
+    }
+
+    private void notifyNotTurn() {
+        Platform.runLater(() ->{
+
+            playerController = Data.getInstance().getPlayerController();
+            setLabelStatement("it's not your turn");
         });
     }
 
@@ -498,8 +520,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         Platform.runLater(() ->{
 
             playerController = Data.getInstance().getPlayerController();
-            Printer.print(playerController.getCurrentPlayer() + " new turn");
-            setLabelStatement(playerController.getCurrentPlayer() + " new turn");
+            setLabelStatement("your turn is ended");
         });
     }
 
@@ -530,7 +551,22 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                     notifyShoot(outcome);
                     break;
                 case POWERUP:
-                    //notifyPowerup(outcome);
+                    notifyPowerup(outcome);
+                    break;
+                case RECONNECTION:
+                    notifyReconnection(outcome);
+                    break;
+                case DISCARD_POWERUP:
+                    notifyDiscardPowerup(outcome);
+                    break;
+                case DROP_POWERUP:
+                    notifyDropPowerup(outcome);
+                    break;
+                case DROP_WEAPON:
+                    notifyDropWeapon(outcome);
+                    break;
+                case RESPAWN:
+                    //notifyRespawn(outcome);
                     break;
                 default:
                     break;
@@ -538,19 +574,74 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         });
     }
 
+
+    private void notifyDropWeapon(Outcome outcome) {
+        Platform.runLater(() ->{
+            if(outcome.equals(Outcome.RIGHT)){
+                setLabelStatement("Weapon dropped");
+            }else{
+                setLabelStatement("Weapon not dropped");
+            }
+        });
+    }
+
+    private void notifyDropPowerup(Outcome outcome) {
+        Platform.runLater(() ->{
+            if(outcome.equals(Outcome.RIGHT)){
+                setLabelStatement("Powerup dropped");
+            }else{
+                setLabelStatement("Powerup not dropped");
+            }
+        });
+    }
+
+    private void notifyDiscardPowerup(Outcome outcome) {
+        Platform.runLater(() ->{
+            if(outcome.equals(Outcome.RIGHT)){
+                setLabelStatement("Powerup discarded");
+
+            }else{
+                setLabelStatement("Powerup not discarded");
+            }
+        });
+    }
+
+    private void notifyReconnection(Outcome outcome) {
+        Platform.runLater(() ->{
+            if(outcome.equals(Outcome.RIGHT)){
+                setLabelStatement("Reconnected");
+
+            }else{
+                setLabelStatement("Reconnected");
+            }
+        });
+    }
+
+    private void notifyPowerup(Outcome outcome) {
+        playerController = Data.getInstance().getPlayerController();
+
+        Platform.runLater(() ->{
+            if(outcome.equals(Outcome.RIGHT)){
+                setLabelStatement( playerController.getPowerup() + " used!");
+            }else{
+                setLabelStatement( playerController.getPowerup() + "not used!");
+            }
+        });
+    }
+
     private void notifyShoot(Outcome outcome) {
         switch(outcome){
             case RIGHT:
-                Printer.println("shoot");
+                setLabelStatement("shoot");
                 break;
             case ALL:
-                Printer.println("shoot");
+                setLabelStatement("shoot");
                 break;
             case WRONG:
-                Printer.println("didn't shoot");
+                setLabelStatement("didn't shoot");
                 break;
             default:
-                Printer.println("didn't shoot");
+                setLabelStatement("didn't shoot");
                 break;
         }
     }
