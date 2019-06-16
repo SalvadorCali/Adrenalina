@@ -316,7 +316,13 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
                 view.notify(message, outcome);
                 break;
             case RELOAD:
-                view.notify(message, outcome, object);
+                GameData gameData10 = (GameData) object;
+                playerController.setGameBoard(gameData10.getGameBoard());
+                playerController.setKillshotTrack(gameData10.getKillshotTrack());
+                playerController.setPlayer(gameData10.getPlayer(username));
+                playerController.setOtherPlayers(gameData10.getPlayers(username));
+                playerController.setWeapon(gameData10.getWeapon());
+                view.notify(message, outcome);
                 break;
             case RECONNECTION:
                 GameData gameData5 = (GameData) object;

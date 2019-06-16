@@ -35,12 +35,13 @@ public class CommandLine implements ViewInterface {
     private DamageBoardCLI damageBoardPrinter;
     private MapCLI gameBoardPrinter;
     private KillshotTrackCLI killshotTrackPrinter;
-
+    private WeaponHandler weaponHandler;
 
 
     public CommandLine(ClientInterface client){
         this.client = client;
         this.userInputStream = new BufferedReader(new InputStreamReader(System.in));
+        this.weaponHandler = new WeaponHandler();
     }
 
     @Override
@@ -196,10 +197,10 @@ public class CommandLine implements ViewInterface {
         if(input.hasMoreTokens() && input.countTokens()==2){
             String whatToDrop = input.nextToken();
             if(whatToDrop.equals("weapon")){
-                dropWeapon(Integer.parseInt(input.nextToken()));
+                dropWeapon(Converter.fromStringToInt(input.nextToken()));
                 return true;
             }else if(whatToDrop.equals("powerup")){
-                dropPowerup(Integer.parseInt(input.nextToken()));
+                dropPowerup(Converter.fromStringToInt(input.nextToken()));
                 return true;
             }else{
                 return false;
@@ -211,7 +212,7 @@ public class CommandLine implements ViewInterface {
 
     private boolean discard(StringTokenizer input){
         if(input.hasMoreTokens() && input.countTokens()==1){
-            discardPowerup(Integer.parseInt(input.nextToken()));
+            discardPowerup(Converter.fromStringToInt(input.nextToken()));
             return true;
         }else{
             return false;
@@ -221,7 +222,7 @@ public class CommandLine implements ViewInterface {
     private boolean board(StringTokenizer input){
         if(input.countTokens() == 2){
             try {
-                client.board(Integer.parseInt(input.nextToken()), Integer.parseInt(input.nextToken()));
+                client.board(Converter.fromStringToInt(input.nextToken()), Converter.fromStringToInt(input.nextToken()));
             } catch (IOException e) {
                 Printer.err(e);
             }
@@ -234,7 +235,7 @@ public class CommandLine implements ViewInterface {
     private boolean choose(StringTokenizer input){
         boolean result = false;
         if(input.hasMoreTokens()){
-            int choice = Integer.parseInt(input.nextToken());
+            int choice = Converter.fromStringToInt(input.nextToken());
             try {
                 if(choice == 1){
                     //playerController.addPowerup();
@@ -253,7 +254,7 @@ public class CommandLine implements ViewInterface {
     private boolean respawn(StringTokenizer input){
         if(input.hasMoreTokens() && input.countTokens()==1){
             try {
-                client.respawn(Integer.parseInt(input.nextToken()));
+                client.respawn(Converter.fromStringToInt(input.nextToken()));
             } catch (IOException e) {
                 Printer.err(e);
             }
@@ -289,7 +290,7 @@ public class CommandLine implements ViewInterface {
                 case "square":
                     if(input.countTokens() == 2){
                         try {
-                            client.showSquare(Integer.parseInt(input.nextToken()), Integer.parseInt(input.nextToken()));
+                            client.showSquare(Converter.fromStringToInt(input.nextToken()), Converter.fromStringToInt(input.nextToken()));
                         } catch (IOException e) {
                             Printer.err(e);
                         }
@@ -419,10 +420,7 @@ public class CommandLine implements ViewInterface {
     }
 
     private boolean grab(StringTokenizer input) throws IOException {
-        int choice = Integer.parseInt(input.nextToken());
-        if(choice != 0){
-            handlePowerup();
-        }
+        int choice = Converter.fromStringToInt(input.nextToken());
         if(input.countTokens() == 0){
             client.grab(choice);
             return true;
@@ -510,19 +508,18 @@ public class CommandLine implements ViewInterface {
     */
 
     private boolean grabFinalFrenzy(StringTokenizer input) throws IOException {
-        handlePowerup();
         if(input.countTokens() == 1){
-            client.grab(Integer.parseInt(input.nextToken()));
+            client.grab(Converter.fromStringToInt(input.nextToken()));
             return true;
         }else if(input.countTokens() == 2){
-            client.grab(Integer.parseInt(input.nextToken()), Converter.fromStringToDirection(input.nextToken()));
+            client.grab(Converter.fromStringToInt(input.nextToken()), Converter.fromStringToDirection(input.nextToken()));
             return true;
         }else if(input.countTokens() == 3 && playerController.getFinalFrenzyActions().equals(FinalFrenzyAction.TWO_ACTIONS)){
-            client.grab(Integer.parseInt(input.nextToken()), Converter.fromStringToDirection(input.nextToken()),
+            client.grab(Converter.fromStringToInt(input.nextToken()), Converter.fromStringToDirection(input.nextToken()),
                     Converter.fromStringToDirection(input.nextToken()));
             return true;
         }else if(input.countTokens() == 4 && playerController.getFinalFrenzyActions().equals(FinalFrenzyAction.ONE_ACTION)){ //&& firstPlayer
-            client.grab(Integer.parseInt(input.nextToken()), Converter.fromStringToDirection(input.nextToken()),
+            client.grab(Converter.fromStringToInt(input.nextToken()), Converter.fromStringToDirection(input.nextToken()),
                     Converter.fromStringToDirection(input.nextToken()), Converter.fromStringToDirection(input.nextToken()));
             return true;
         }
@@ -620,557 +617,54 @@ public class CommandLine implements ViewInterface {
         }
     }
 
-    private boolean lockRifle(String weapon) throws IOException {
-        TokenColor firstVictim, secondVictim;
-        Printer.print("Please choose <1> or <2> effect:");
-        int effectNumber = Integer.parseInt(userInputStream.readLine());
-        if(effectNumber == 1){
-            Printer.print("Please choose your victim:");
-            firstVictim = Converter.fromStringToTokenColor(userInputStream.readLine());
-            client.shoot(weapon, effectNumber, true, firstVictim, TokenColor.NONE, TokenColor.NONE, -1, -1);
-            return true;
-        }else if(effectNumber == 2){
-            Printer.print("Please choose 1st victim:");
-            firstVictim = Converter.fromStringToTokenColor(userInputStream.readLine());
-            Printer.print("Please choose 2nd victim:");
-            secondVictim = Converter.fromStringToTokenColor(userInputStream.readLine());
-            client.shoot(weapon, effectNumber, true, firstVictim, secondVictim, TokenColor.NONE, -1, -1);
-            return true;
-        }else{
-            return false;
-        }
-    }
-/*
-    private boolean machineGun(String weapon) throws IOException{
-        Printer.print("Please choose <1>, <2> or <3> effect:");
-        int effectNumber = Integer.parseInt(userInputStream.readLine());
-
-    }
- */
-
-    private boolean thor(String weapon) throws IOException{
-        TokenColor firstVictim, secondVictim, thirdVictim;
-        Printer.print("Please choose <1>, <2> or <3> effect:");
-        int effectNumber = Integer.parseInt(userInputStream.readLine());
-        if(effectNumber == 1){
-            Printer.print("Please choose your victim:");
-            firstVictim = Converter.fromStringToTokenColor(userInputStream.readLine());
-            client.shoot(weapon, effectNumber, true, firstVictim, TokenColor.NONE, TokenColor.NONE, -1, -1);
-            return true;
-        }else if(effectNumber == 2){
-            Printer.print("Please choose 1st victim:");
-            firstVictim = Converter.fromStringToTokenColor(userInputStream.readLine());
-            Printer.print("Please choose 2nd victim:");
-            secondVictim = Converter.fromStringToTokenColor(userInputStream.readLine());
-            client.shoot(weapon, effectNumber, true, firstVictim, secondVictim, TokenColor.NONE, -1, -1);
-            return true;
-        }else if(effectNumber == 3){
-            Printer.print("Please choose 1st victim:");
-            firstVictim = Converter.fromStringToTokenColor(userInputStream.readLine());
-            Printer.print("Please choose 2nd victim:");
-            secondVictim = Converter.fromStringToTokenColor(userInputStream.readLine());
-            Printer.print("Please choose 3rd victim:");
-            thirdVictim = Converter.fromStringToTokenColor(userInputStream.readLine());
-            client.shoot(weapon, effectNumber, true, firstVictim, secondVictim, thirdVictim, -1, -1);
-            return true;
-        }else{
-            return false;
-        }
-    }
-
     private boolean weaponEffect(String weapon) throws IOException {
-        StringTokenizer string;
         switch(weapon){
             case "lockrifle":
-                Printer.println("Basic effect: <victim>");
-                Printer.println("With second lock: <first_victim> <second_victim>");
-                string = new StringTokenizer(userInputStream.readLine());
-                if(string.countTokens() == 1){
-                    client.shoot(weapon, 1, true, Converter.fromStringToTokenColor(string.nextToken()),
-                            TokenColor.NONE, TokenColor.NONE, -1, -1);
-                    return true;
-                }else if(string.countTokens() == 2){
-                    client.shoot(weapon, 2, true, Converter.fromStringToTokenColor(string.nextToken()),
-                            Converter.fromStringToTokenColor(string.nextToken()), TokenColor.NONE, -1, -1);
-                    return true;
-                }else{
-                    return false;
-                }
+                return weaponHandler.lockRifle(client, weapon);
             case "machinegun":
-                Printer.println("Basic effect: <1> <first_victim>");
-                Printer.println("Basic effect: <1> <first_victim> <second_victim>");
-                Printer.println("With focus shot: <2> <first_victim>");
-                Printer.println("With focus shot: <2> <first_victim> <second_victim>");
-                Printer.println("With turret tripod: <3> <victim> <victim>");
-                Printer.println("With turret tripod: <3> <victim> <victim> <victim>");
-                string = new StringTokenizer(userInputStream.readLine());
-                if(string.countTokens() == 2){
-                    client.shoot(weapon, Integer.parseInt(string.nextToken()), true, Converter.fromStringToTokenColor(string.nextToken()),
-                            TokenColor.NONE, TokenColor.NONE, -1, -1);
-                    return true;
-                }else if(string.countTokens() == 3){
-                    int choice = Integer.parseInt(string.nextToken());
-                    switch (choice){
-                        case 1:
-                        case 2:
-                            client.shoot(weapon, choice, true, Converter.fromStringToTokenColor(string.nextToken()),
-                                    Converter.fromStringToTokenColor(string.nextToken()), TokenColor.NONE, -1, -1);
-                            break;
-                        case 3:
-                            client.shoot(weapon, choice, true, Converter.fromStringToTokenColor(string.nextToken()),
-                                    TokenColor.NONE, Converter.fromStringToTokenColor(string.nextToken()), -1, -1);
-                            break;
-                        default:
-                            return false;
-                    }
-                    return true;
-                }else if(string.countTokens() == 4){
-                    client.shoot(weapon, Integer.parseInt(string.nextToken()), true, Converter.fromStringToTokenColor(string.nextToken()),
-                            Converter.fromStringToTokenColor(string.nextToken()), Converter.fromStringToTokenColor(string.nextToken()), -1, -1);
-                    return true;
-                }else{
-                    return false;
-                }
+                return weaponHandler.machineGun(client, weapon);
             case "thor":
-                Printer.println("Basic effect: <victim>");
-                Printer.println("With chain reaction: <victim> <victim>");
-                Printer.println("With high voltage: <victim> <victim> <victim>");
-                string = new StringTokenizer(userInputStream.readLine());
-                if(string.countTokens() == 1){
-                    client.shoot(weapon, 1, true, Converter.fromStringToTokenColor(string.nextToken()),
-                            TokenColor.NONE, TokenColor.NONE, -1, -1);
-                    return true;
-                }else if(string.countTokens() == 2){
-                    client.shoot(weapon, 2, true, Converter.fromStringToTokenColor(string.nextToken()),
-                            Converter.fromStringToTokenColor(string.nextToken()), TokenColor.NONE, -1, -1);
-                    return true;
-                }else if(string.countTokens() == 3) {
-                    client.shoot(weapon, 3, true, Converter.fromStringToTokenColor(string.nextToken()),
-                            Converter.fromStringToTokenColor(string.nextToken()), Converter.fromStringToTokenColor(string.nextToken()),
-                            -1, -1);
-                    return true;
-                }else{
-                    return false;
-                }
+                return weaponHandler.thor(client, weapon);
             case "plasmagun":
-                Printer.println("Basic effect: <1> <victim>");
-                Printer.println("With phase glide: <2> <victim> <direction>");
-                Printer.println("With phase glide: <2> <victim> <direction> <direction>");
-                Printer.println("With charged shot: <3> <victim>");
-                Printer.println("With charged shot: <3> <victim> <direction>");
-                Printer.println("With charged shot: <3> <victim> <direction> <direction>");
-                string = new StringTokenizer(userInputStream.readLine());
-                if(string.countTokens() == 2){
-                    client.shoot(weapon, Integer.parseInt(string.nextToken()), true, Converter.fromStringToTokenColor(string.nextToken()),
-                            TokenColor.NONE, TokenColor.NONE, -1, -1);
-                    return true;
-                }else if(string.countTokens() == 3){
-                    boolean basicFirst = basicFirst(weapon);
-                    client.shoot(weapon, Integer.parseInt(string.nextToken()), basicFirst, Converter.fromStringToTokenColor(string.nextToken()),
-                            TokenColor.NONE, TokenColor.NONE, -1, -1, Converter.fromStringToDirection(string.nextToken()));
-                    return true;
-                }else if(string.countTokens() == 4){
-                    boolean basicFirst = basicFirst(weapon);
-                    client.shoot(weapon, Integer.parseInt(string.nextToken()), basicFirst, Converter.fromStringToTokenColor(string.nextToken()),
-                            TokenColor.NONE, TokenColor.NONE, -1, -1, Converter.fromStringToDirection(string.nextToken()),
-                            Converter.fromStringToDirection(string.nextToken()));
-                    return true;
-                }else{
-                    return false;
-                }
+                return weaponHandler.plasmaGun(client, weapon);
             case "whisper":
-                Printer.println("Effect: <victim>");
-                string = new StringTokenizer(userInputStream.readLine());
-                if(string.countTokens() == 1){
-                    client.shoot(weapon, 1, true, Converter.fromStringToTokenColor(string.nextToken()), TokenColor.NONE,
-                            TokenColor.NONE, -1, -1);
-                    return true;
-                }else{
-                    return false;
-                }
+                return weaponHandler.whisper(client, weapon);
             case "electroscythe":
-                Printer.println("Basic mode: <1>");
-                Printer.println("In reaper mode: <2>");
-                string = new StringTokenizer(userInputStream.readLine());
-                if(string.countTokens() == 1){
-                    client.shoot(weapon, Integer.parseInt(string.nextToken()), true, TokenColor.NONE, TokenColor.NONE,
-                            TokenColor.NONE, -1, -1);
-                    return true;
-                }else{
-                    return false;
-                }
+                return weaponHandler.electroscythe(client, weapon);
             case "tractorbeam":
-                Printer.println("Basic mode: <1> <victim> <directions...>");
-                Printer.println("In punisher mode: <2> <victim>");
-                string = new StringTokenizer(userInputStream.readLine());
-                if(string.countTokens() == 2){
-                    client.shoot(weapon, Integer.parseInt(string.nextToken()), true, Converter.fromStringToTokenColor(string.nextToken()),
-                            TokenColor.NONE, TokenColor.NONE, -1, -1);
-                    return true;
-                }else if(string.countTokens() == 3){
-                    client.shoot(weapon, Integer.parseInt(string.nextToken()), true, Converter.fromStringToTokenColor(string.nextToken()),
-                            TokenColor.NONE, TokenColor.NONE, -1, -1, Converter.fromStringToDirection(string.nextToken()));
-                    return true;
-                }else if(string.countTokens() == 4){
-                    client.shoot(weapon, Integer.parseInt(string.nextToken()), true, Converter.fromStringToTokenColor(string.nextToken()),
-                            TokenColor.NONE, TokenColor.NONE, -1, -1, Converter.fromStringToDirection(string.nextToken()),
-                            Converter.fromStringToDirection(string.nextToken()));
-                    return true;
-                }else{
-                    return false;
-                }
+                return weaponHandler.tractorBeam(client, weapon);
             case "vortexcannon":
-                Printer.println("Basic effect: <victim> <squareX> <squareY>");
-                Printer.println("With black hole: <victim> <victim> <squareX> <squareY>");
-                Printer.println("With black hole: <victim> <victim> <victim> <squareX> <squareY>");
-                string = new StringTokenizer(userInputStream.readLine());
-                if(string.countTokens() == 3){
-                    client.shoot(weapon, 1, true, Converter.fromStringToTokenColor(string.nextToken()),
-                            TokenColor.NONE, TokenColor.NONE, Integer.parseInt(string.nextToken()), Integer.parseInt(string.nextToken()));
-                    return true;
-                }else if(string.countTokens() == 4){
-                    client.shoot(weapon, 2, true, Converter.fromStringToTokenColor(string.nextToken()),
-                            Converter.fromStringToTokenColor(string.nextToken()), TokenColor.NONE,
-                            Integer.parseInt(string.nextToken()), Integer.parseInt(string.nextToken()));
-                    return true;
-                }else if(string.countTokens() == 5){
-                    client.shoot(weapon, 2, true, Converter.fromStringToTokenColor(string.nextToken()),
-                            Converter.fromStringToTokenColor(string.nextToken()), Converter.fromStringToTokenColor(string.nextToken()),
-                            Integer.parseInt(string.nextToken()), Integer.parseInt(string.nextToken()));
-                    return true;
-                }else{
-                    return false;
-                }
+                return weaponHandler.vortexCannon(client, weapon);
             case "furnace":
-                Printer.println("Basic mode: <1> <squareX> <squareY>");
-                Printer.println("In cozy fire mode: <2> <squareX> <squareY>");
-                string = new StringTokenizer(userInputStream.readLine());
-                if(string.countTokens() == 3){
-                    client.shoot(weapon, Integer.parseInt(string.nextToken()), true, TokenColor.NONE, TokenColor.NONE, TokenColor.NONE,
-                            Integer.parseInt(string.nextToken()), Integer.parseInt(string.nextToken()));
-                    return true;
-                }else{
-                    return false;
-                }
+                return weaponHandler.furnace(client, weapon);
             case "heatseeker":
-                Printer.println("Effect: <victim>");
-                string = new StringTokenizer(userInputStream.readLine());
-                if(string.countTokens() == 1){
-                    client.shoot(weapon, 1, true, Converter.fromStringToTokenColor(string.nextToken()), TokenColor.NONE, TokenColor.NONE,
-                            -1, -1);
-                    return true;
-                }else{
-                    return false;
-                }
+                return weaponHandler.heatseeker(client, weapon);
             case "hellion":
-                Printer.println("Basic mode: <1> <victim>");
-                Printer.println("In nano-tracer mode: <2> <victim>");
-                string = new StringTokenizer(userInputStream.readLine());
-                if(string.countTokens() == 2){
-                    client.shoot(weapon, Integer.parseInt(string.nextToken()), true, Converter.fromStringToTokenColor(string.nextToken()),
-                            TokenColor.NONE, TokenColor.NONE, -1, -1);
-                    return true;
-                }else{
-                    return false;
-                }
+                return weaponHandler.hellion(client, weapon);
             case "flamethrower":
-                Printer.println("Basic mode: <victim1> <direction>");
-                Printer.println("Basic mode: <victim1> <victim2> <direction>");
-                Printer.println("In barbecue mode: <direction>");
-                string = new StringTokenizer(userInputStream.readLine());
-                if(string.countTokens() == 1){
-                    client.shoot(weapon, 2, true, TokenColor.NONE, TokenColor.NONE, TokenColor.NONE,
-                            -1, -1, Converter.fromStringToDirection(string.nextToken()));
-                    return true;
-                }else if(string.countTokens() == 2) {
-                    client.shoot(weapon, 1, true, Converter.fromStringToTokenColor(string.nextToken()), TokenColor.NONE,
-                            TokenColor.NONE, -1, -1, Converter.fromStringToDirection(string.nextToken()));
-                    return true;
-                }else if(string.countTokens() == 3){
-                    client.shoot(weapon, 1, true, Converter.fromStringToTokenColor(string.nextToken()), Converter.fromStringToTokenColor(string.nextToken()),
-                            TokenColor.NONE, -1, -1, Converter.fromStringToDirection(string.nextToken()));
-                    return true;
-                }else{
-                    return false;
-                }
+                return weaponHandler.flamethrower(client, weapon);
             case "grenadelauncher":
-                Printer.println("Basic effect: <victim>");
-                Printer.println("Basic effect: <victim> <direction>");
-                Printer.println("With extra grenade: <victim> <squareX> <squareY>");
-                Printer.println("With extra grenade: <victim> <squareX> <squareY> <direction>");
-                string = new StringTokenizer(userInputStream.readLine());
-                if(string.countTokens() == 1){
-                    client.shoot(weapon, 1, true, Converter.fromStringToTokenColor(string.nextToken()),
-                            TokenColor.NONE, TokenColor.NONE, -1, -1);
-                    return true;
-                }else if(string.countTokens() == 2){
-                    client.shoot(weapon, 1, true, Converter.fromStringToTokenColor(string.nextToken()),
-                            TokenColor.NONE, TokenColor.NONE, -1, -1, Converter.fromStringToDirection(string.nextToken()));
-                    return true;
-                }else if(string.countTokens() == 3){
-                    boolean basicFirst = basicFirst(weapon);
-                    client.shoot(weapon, 2, basicFirst, Converter.fromStringToTokenColor(string.nextToken()),
-                            TokenColor.NONE, TokenColor.NONE, Integer.parseInt(string.nextToken()), Integer.parseInt(string.nextToken()));
-                    return true;
-                }else if(string.countTokens() == 4){
-                    boolean basicFirst = basicFirst(weapon);
-                    client.shoot(weapon, 2, basicFirst, Converter.fromStringToTokenColor(string.nextToken()),
-                            TokenColor.NONE, TokenColor.NONE, Integer.parseInt(string.nextToken()), Integer.parseInt(string.nextToken()),
-                            Converter.fromStringToDirection(string.nextToken()));
-                    return true;
-                }else{
-                    return false;
-                }
+                return weaponHandler.grenadeLauncher(client, weapon);
             case "rocketlauncher":
-                Printer.println("Choose your effect: <1> or <2> or <3>");
-                int choice2 = Integer.parseInt(userInputStream.readLine());
-                if(choice2 == 1){
-                    Printer.println("Basic effect: <victim>");
-                    Printer.println("Basic effect: <victim> <victim_direction>");
-                    string = new StringTokenizer(userInputStream.readLine());
-                    if(string.countTokens()==1){
-                        client.shoot(weapon, choice2, true, Converter.fromStringToTokenColor(string.nextToken()),
-                                TokenColor.NONE, TokenColor.NONE, -1, -1);
-                        return true;
-                    }else if(string.countTokens()==2){
-                        client.shoot(weapon, choice2, true, Converter.fromStringToTokenColor(string.nextToken()),
-                                TokenColor.NONE, TokenColor.NONE, -1, -1, Converter.fromStringToDirection(string.nextToken()));
-                        return true;
-                    }else{
-                        return false;
-                    }
-                }else if(choice2 == 2 || choice2 == 3){
-                    boolean basicFirst = basicFirst(weapon);
-                    Printer.println("With rocket jump: <victim>");
-                    Printer.println("With rocket jump: <victim> <victim_direction>");
-                    string = new StringTokenizer(userInputStream.readLine());
-                    TokenColor victim = TokenColor.NONE;
-                    Direction direction1 = null;
-                    if(string.countTokens()==1){
-                        victim = Converter.fromStringToTokenColor(string.nextToken());
-                    }else if(string.countTokens()==2){
-                        victim = Converter.fromStringToTokenColor(string.nextToken());
-                        direction1 = Converter.fromStringToDirection(string.nextToken());
-                    }else{
-                        return false;
-                    }
-                    Printer.println("With rocket jump: <shooter_direction>");
-                    Printer.println("With rocket jump: <shooter_direction> <shooter_direction>");
-                    string = new StringTokenizer(userInputStream.readLine());
-                    Direction direction3 = null;
-                    Direction direction4 = null;
-                    if(string.countTokens()==1){
-                        direction3 = Converter.fromStringToDirection(string.nextToken());
-                    }else if(string.countTokens()==2){
-                        direction3 = Converter.fromStringToDirection(string.nextToken());
-                        direction4 = Converter.fromStringToDirection(string.nextToken());
-                    }else{
-                        return false;
-                    }
-                    client.shoot(weapon, choice2, basicFirst, victim, TokenColor.NONE, TokenColor.NONE, -1, -1,
-                            direction1, null, direction3, direction4);
-                    return true;
-                }else{
-                    return false;
-                }
+                return weaponHandler.rocketLauncher(client, weapon);
             case "railgun":
-                Printer.println("Basic mode: <1> <victim> <direction>");
-                Printer.println("In piercing mode: <2> <victim> <direction>"); //to test
-                Printer.println("In piercing mode: <2> <victim1> <victim2> <direction>");
-                string = new StringTokenizer(userInputStream.readLine());
-                if(string.countTokens() == 3){
-                    client.shoot(weapon, Integer.parseInt(string.nextToken()), true, Converter.fromStringToTokenColor(string.nextToken()),
-                            TokenColor.NONE, TokenColor.NONE, -1, -1, Converter.fromStringToDirection(string.nextToken()));
-                    return true;
-                }else if(string.countTokens() == 4){
-                    client.shoot(weapon, Integer.parseInt(string.nextToken()), true, Converter.fromStringToTokenColor(string.nextToken()),
-                            Converter.fromStringToTokenColor(string.nextToken()), TokenColor.NONE, -1, -1, Converter.fromStringToDirection(string.nextToken()));
-                    return true;
-                }else{
-                    return false;
-                }
+                return weaponHandler.railgun(client, weapon);
             case "cyberblade":
-                Printer.println("Basic effect: <1> <victim>");
-                Printer.println("With shadow step: <2> <victim> <direction>");
-                Printer.println("With slice and dice: <3> <victim> <victim> <direction>");
-                string = new StringTokenizer(userInputStream.readLine());
-                if(string.countTokens() == 2){
-                    client.shoot(weapon, Integer.parseInt(string.nextToken()), true, Converter.fromStringToTokenColor(string.nextToken()),
-                            TokenColor.NONE, TokenColor.NONE, -1, -1);
-                    return true;
-                }else if(string.countTokens() == 3){
-                    boolean basicFirst = basicFirst(weapon);
-                    client.shoot(weapon, Integer.parseInt(string.nextToken()), basicFirst, Converter.fromStringToTokenColor(string.nextToken()),
-                            TokenColor.NONE, TokenColor.NONE, -1, -1, Converter.fromStringToDirection(string.nextToken()));
-                    return true;
-                }else if(string.countTokens() == 4){
-                    boolean basicFirst = basicFirst(weapon + "2");
-                    client.shoot(weapon, Integer.parseInt(string.nextToken()), basicFirst, Converter.fromStringToTokenColor(string.nextToken()),
-                            TokenColor.NONE, TokenColor.NONE, -1, -1, Converter.fromStringToDirection(string.nextToken()));
-                    return true;
-                }else{
-                    return false;
-                }
+                return weaponHandler.cyberblade(client, weapon);
             case "zx-2":
-                Printer.println("Basic mode: <1> <victim>");
-                Printer.println("In scanner mode: <2> <victim>");
-                Printer.println("In scanner mode: <2> <victim> <victim>");
-                Printer.println("In scanner mode: <2> <victim> <victim> <victim>");
-                string = new StringTokenizer(userInputStream.readLine());
-                if(string.countTokens() == 2){
-                    client.shoot(weapon, Integer.parseInt(string.nextToken()), true, Converter.fromStringToTokenColor(string.nextToken()),
-                            TokenColor.NONE, TokenColor.NONE, -1, -1);
-                    return true;
-                }else if(string.countTokens() == 3){
-                    client.shoot(weapon, Integer.parseInt(string.nextToken()), true, Converter.fromStringToTokenColor(string.nextToken()),
-                            Converter.fromStringToTokenColor(string.nextToken()), TokenColor.NONE, -1, -1);
-                    return true;
-                }else if(string.countTokens() == 4){
-                    client.shoot(weapon, Integer.parseInt(string.nextToken()), true, Converter.fromStringToTokenColor(string.nextToken()),
-                            Converter.fromStringToTokenColor(string.nextToken()), Converter.fromStringToTokenColor(string.nextToken()), -1, -1);
-                    return true;
-                }else{
-                    return false;
-                }
+                return weaponHandler.zx_2(client, weapon);
             case "shotgun":
-                Printer.println("Basic mode: <1> <victim>");
-                Printer.println("Basic mode: <1> <victim> <direction>");
-                Printer.println("In long barrel mode: <2> <victim>");
-                string = new StringTokenizer(userInputStream.readLine());
-                if(string.countTokens() == 2){
-                    client.shoot(weapon, Integer.parseInt(string.nextToken()), true, Converter.fromStringToTokenColor(string.nextToken()),
-                            TokenColor.NONE, TokenColor.NONE, -1, -1);
-                    return true;
-                }else if(string.countTokens() == 3){
-                    client.shoot(weapon, Integer.parseInt(string.nextToken()), true, Converter.fromStringToTokenColor(string.nextToken()),
-                            TokenColor.NONE, TokenColor.NONE, -1, -1, Converter.fromStringToDirection(string.nextToken()));
-                    return true;
-                }else{
-                    return false;
-                }
+                return weaponHandler.shotgun(client, weapon);
             case "powerglove":
-                Printer.println("Basic mode: <1> <victim>");
-                Printer.println("In rocket fist mode: <2> <direction>");
-
-                Printer.println("In rocket fist mode: <2> <direction> <direction>");
-                Printer.println("In rocket fist mode: <2> <victim> <direction>");
-
-                Printer.println("In rocket fist mode: <2> <victim> <direction> <direction>");
-                Printer.println("In rocket fist mode: <2> <victim> <victim> <direction>");
-
-                Printer.println("In rocket fist mode: <2> <victim> <victim> <direction> <direction>");
-
-                string = new StringTokenizer(userInputStream.readLine());
-                int choice = Integer.parseInt(string.nextToken());
-                if(string.countTokens() == 1 && choice == 1){
-                    client.shoot(weapon, choice, true, Converter.fromStringToTokenColor(string.nextToken()), TokenColor.NONE,
-                            TokenColor.NONE, -1, -1);
-                    return true;
-                }else if(string.countTokens() == 1 && choice == 2){
-                    client.shoot(weapon, choice, true, TokenColor.NONE, TokenColor.NONE, TokenColor.NONE, -1, -1,
-                            Converter.fromStringToDirection(string.nextToken()));
-                    return true;
-                }else if(string.countTokens() == 2){
-                    String move = string.nextToken();
-                    if(Converter.fromStringToTokenColor(move).equals(TokenColor.NONE)){
-                        client.shoot(weapon, choice, true, TokenColor.NONE, TokenColor.NONE, TokenColor.NONE, -1, -1,
-                                Converter.fromStringToDirection(move));
-                    }else{
-                        client.shoot(weapon, choice, true, Converter.fromStringToTokenColor(move), TokenColor.NONE, TokenColor.NONE,
-                                -1, -1, Converter.fromStringToDirection(string.nextToken()));
-                    }
-                    return true;
-                }else if(string.countTokens() == 3){
-                    TokenColor firstVictim = Converter.fromStringToTokenColor(string.nextToken());
-                    String move = string.nextToken();
-                    if(Converter.fromStringToTokenColor(move).equals(TokenColor.NONE)){
-                        client.shoot(weapon, choice, true, firstVictim, TokenColor.NONE, TokenColor.NONE, -1, -1,
-                                Converter.fromStringToDirection(move), Converter.fromStringToDirection(string.nextToken()));
-                    }else{
-                        client.shoot(weapon, choice, true, firstVictim, Converter.fromStringToTokenColor(move), TokenColor.NONE,
-                                -1, -1, Converter.fromStringToDirection(string.nextToken()));
-                    }
-                    return true;
-                }else if(string.countTokens() == 4){
-                    client.shoot(weapon, choice, true, Converter.fromStringToTokenColor(string.nextToken()), Converter.fromStringToTokenColor(string.nextToken()),
-                            TokenColor.NONE, -1, -1, Converter.fromStringToDirection(string.nextToken()), Converter.fromStringToDirection(string.nextToken()));
-                    return true;
-                }else{
-                    return false;
-                }
+                return weaponHandler.powerGlove(client, weapon);
             case "shockwave":
-                Printer.println("Basic mode: <1> <victim>");
-                Printer.println("Basic mode: <1> <victim> <victim>");
-                Printer.println("Basic mode: <1> <victim> <victim> <victim>");
-                Printer.println("In tsunami mode: <2>");
-                string = new StringTokenizer(userInputStream.readLine());
-                if(string.countTokens() == 1){
-                    client.shoot(weapon, Integer.parseInt(string.nextToken()), true, TokenColor.NONE, TokenColor.NONE,
-                            TokenColor.NONE, -1, -1);
-                    return true;
-                }else if(string.countTokens() == 2){
-                    client.shoot(weapon, Integer.parseInt(string.nextToken()), true, Converter.fromStringToTokenColor(string.nextToken()),
-                            TokenColor.NONE, TokenColor.NONE, -1, -1);
-                    return true;
-                }else if(string.countTokens() == 3){
-                    client.shoot(weapon, Integer.parseInt(string.nextToken()), true, Converter.fromStringToTokenColor(string.nextToken()),
-                            Converter.fromStringToTokenColor(string.nextToken()), TokenColor.NONE, -1, -1);
-                    return true;
-                }else if(string.countTokens() == 4){
-                    client.shoot(weapon, Integer.parseInt(string.nextToken()), true, Converter.fromStringToTokenColor(string.nextToken()),
-                            Converter.fromStringToTokenColor(string.nextToken()), Converter.fromStringToTokenColor(string.nextToken()), -1, -1);
-                    return true;
-                }else{
-                    return false;
-                }
+                return weaponHandler.shockwave(client, weapon);
             case "sledgehammer":
-                Printer.println("Basic mode: <1> <victim>");
-                Printer.println("In pulverize mode: <2> <victim>");
-                Printer.println("In pulverize mode: <2> <victim> <direction>");
-                Printer.println("In pulverize mode: <2> <victim> <direction> <direction>");
-                string = new StringTokenizer(userInputStream.readLine());
-                if(string.countTokens() == 2){
-                    client.shoot(weapon, Integer.parseInt(string.nextToken()), true, Converter.fromStringToTokenColor(string.nextToken()),
-                            TokenColor.NONE, TokenColor.NONE, -1, -1);
-                    return true;
-                }else if(string.countTokens() == 3){
-                    client.shoot(weapon, Integer.parseInt(string.nextToken()), true, Converter.fromStringToTokenColor(string.nextToken()),
-                            TokenColor.NONE, TokenColor.NONE, -1, -1, Converter.fromStringToDirection(string.nextToken()));
-                    return true;
-                }else if(string.countTokens() == 4){
-                    client.shoot(weapon, Integer.parseInt(string.nextToken()), true, Converter.fromStringToTokenColor(string.nextToken()),
-                            TokenColor.NONE, TokenColor.NONE, -1, -1, Converter.fromStringToDirection(string.nextToken()), Converter.fromStringToDirection(string.nextToken()));
-                    return true;
-                }else{
-                    return false;
-                }
+                return weaponHandler.sledgehammer(client, weapon);
             default:
                 break;
         }
         return false;
-    }
-
-    private boolean basicFirst(String weapon){
-        switch(weapon){
-            case "grenadelauncher":
-                Printer.println("Do you want to use the second effect first?: <yes> <no>");
-                break;
-            case "cyberblade2":
-                Printer.println("Do you want to move after the third effect?: <yes> <no>");
-                break;
-            default:
-                Printer.println("Do you want to move first?: <yes> <no>");
-                break;
-        }
-        try {
-            String basicFirst = userInputStream.readLine();
-            if(basicFirst.equals("yes")){
-                return false;
-            }
-        } catch (IOException e) {
-            Printer.err(e);
-        }
-        return true;
     }
 
     private boolean powerup(StringTokenizer input){
@@ -1226,7 +720,7 @@ public class CommandLine implements ViewInterface {
                 Printer.println("Effect: <square_x> <square_y>");
                 string = new StringTokenizer(userInputStream.readLine());
                 if(string.countTokens() == 2){
-                    client.powerup(powerup, TokenColor.NONE, Color.NONE, Integer.parseInt(string.nextToken()), Integer.parseInt(string.nextToken()));
+                    client.powerup(powerup, TokenColor.NONE, Color.NONE, Converter.fromStringToInt(string.nextToken()), Converter.fromStringToInt(string.nextToken()));
                     return true;
                 }else{
                     return false;
@@ -1237,6 +731,8 @@ public class CommandLine implements ViewInterface {
         return false;
     }
 
+    /*
+
     public void handlePowerup() throws IOException {
         Printer.println("Do you want to discard a powerup as ammo? <yes> <no>");
         String choice = userInputStream.readLine();
@@ -1245,16 +741,17 @@ public class CommandLine implements ViewInterface {
             StringTokenizer string = new StringTokenizer(userInputStream.readLine());
             if(string.hasMoreTokens()){
                 if(string.countTokens()==1){
-                    client.powerupAmmos(Integer.parseInt(string.nextToken()));
+                    client.powerupAmmos(Converter.fromStringToInt(string.nextToken()));
                 }else if(string.countTokens()==2){
-                    client.powerupAmmos(Integer.parseInt(string.nextToken()), Integer.parseInt(string.nextToken()));
+                    client.powerupAmmos(Converter.fromStringToInt(string.nextToken()), Converter.fromStringToInt(string.nextToken()));
                 }
             }
         }
     }
 
+     */
+
     private boolean reload(StringTokenizer input) throws IOException {
-        handlePowerup();
         if(input.countTokens() == 1){
             client.reload(input.nextToken());
             return true;
@@ -1518,20 +1015,24 @@ public class CommandLine implements ViewInterface {
         }
     }
 
-    private void notifyShowSquare(SquareData squareData){
-        if(squareData.getAmmoCard() != null){
-            Printer.println("Ammos:");
-            Printer.print(squareData.getAmmoCard().getFirstAmmo().getColor() + ", " +
-                    squareData.getAmmoCard().getSecondAmmo().getColor() + ", ");
-            if(squareData.getAmmoCard().isPowerup()){
-                //Printer.println(squareData.getAmmoCard().);
-            }else{
-                Printer.println(squareData.getAmmoCard().getThirdAmmo().getColor());
+    private void notifyShowSquare(Outcome outcome, SquareData squareData){
+        if(outcome.equals(Outcome.RIGHT)){
+            if(squareData.getAmmoCard() != null){
+                Printer.println("Ammos:");
+                Printer.print(squareData.getAmmoCard().getFirstAmmo().getColor() + ", " +
+                        squareData.getAmmoCard().getSecondAmmo().getColor() + ", ");
+                if(squareData.getAmmoCard().isPowerup()){
+                    //Printer.println(squareData.getAmmoCard().);
+                }else{
+                    Printer.println(squareData.getAmmoCard().getThirdAmmo().getColor());
+                }
             }
-        }
-        if(squareData.getWeapons() != null){
-            Printer.println("Weapons:");
-            squareData.getWeapons().forEach(Printer::println);
+            if(squareData.getWeapons() != null){
+                Printer.println("Weapons:");
+                squareData.getWeapons().forEach(Printer::println);
+            }
+        }else{
+            Printer.println("Invalid square!");
         }
     }
 
@@ -1540,11 +1041,11 @@ public class CommandLine implements ViewInterface {
         scoreList.forEach((c,i)->Printer.println(c + ": " + i));
     }
 
-    private void notifyReload(Outcome outcome, String weaponName){
+    private void notifyReload(Outcome outcome){
         if(outcome.equals(Outcome.RIGHT)){
-            Printer.println(weaponName + " reloaded!");
+            Printer.println(playerController.getWeapon() + " reloaded!");
         }else{
-            Printer.println(weaponName + " not reloaded!");
+            Printer.println(playerController.getWeapon() + " not reloaded!");
         }
     }
 
@@ -1663,6 +1164,9 @@ public class CommandLine implements ViewInterface {
             case RESPAWN:
                 notifyRespawn(outcome);
                 break;
+            case RELOAD:
+                notifyReload(outcome);
+                break;
             default:
                 break;
         }
@@ -1683,13 +1187,10 @@ public class CommandLine implements ViewInterface {
                 notifySpawnLocation((List<Card>) object);
                 break;
             case SQUARE:
-                notifyShowSquare((SquareData) object);
+                notifyShowSquare(outcome, (SquareData) object);
                 break;
             case SCORE:
                 notifyScore((Map<TokenColor, Integer>) object);
-                break;
-            case RELOAD:
-                notifyReload(outcome, (String) object);
                 break;
             default:
                 break;

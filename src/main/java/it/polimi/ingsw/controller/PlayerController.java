@@ -20,6 +20,7 @@ public class PlayerController {
     private List<Player> otherPlayers;
     private int moves;
     private String powerup;
+    private String weapon;
     private String currentPlayer;
     private boolean movement;
     private boolean finalFrenzy;
@@ -110,6 +111,14 @@ public class PlayerController {
 
     public void setPowerup(String powerup) {
         this.powerup = powerup;
+    }
+
+    public String getWeapon() {
+        return weapon;
+    }
+
+    public void setWeapon(String weapon) {
+        this.weapon = weapon;
     }
 
     public String getCurrentPlayer() {

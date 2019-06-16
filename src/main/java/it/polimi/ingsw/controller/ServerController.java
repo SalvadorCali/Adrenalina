@@ -279,18 +279,34 @@ public class ServerController {
     }
 
     public void showSquare(String username){
-        try {
-            servers.get(username).notify(Message.SQUARE, Outcome.RIGHT, gameController.showSquare(users.get(username)));
-        } catch (IOException e) {
-            Printer.err(e);
+        if(gameController.canShowSquare(users.get(username))){
+            try {
+                servers.get(username).notify(Message.SQUARE, Outcome.RIGHT, gameController.showSquare(users.get(username)));
+            } catch (IOException e) {
+                Printer.err(e);
+            }
+        }else{
+            try {
+                servers.get(username).notify(Message.SQUARE, Outcome.WRONG, new SquareData());
+            } catch (IOException e) {
+                Printer.err(e);
+            }
         }
     }
 
     public void showSquare(String username, int x, int y){
-        try {
-            servers.get(username).notify(Message.SQUARE, Outcome.RIGHT, gameController.showSquare(users.get(username), x, y));
-        } catch (IOException e) {
-            Printer.err(e);
+        if(gameController.canShowSquare(users.get(username), x, y)){
+            try {
+                servers.get(username).notify(Message.SQUARE, Outcome.RIGHT, gameController.showSquare(users.get(username), x, y));
+            } catch (IOException e) {
+                Printer.err(e);
+            }
+        }else{
+            try {
+                servers.get(username).notify(Message.SQUARE, Outcome.WRONG, new SquareData());
+            } catch (IOException e) {
+                Printer.err(e);
+            }
         }
     }
 
@@ -510,18 +526,20 @@ public class ServerController {
             Player victim3 = null;
             if(!firstVictim.equals(TokenColor.NONE)){
                 victim1 = users.get(colors.get(firstVictim));
-                victims.add(victim1);
             }
             if(!secondVictim.equals(TokenColor.NONE)){
                 victim2 = users.get(colors.get(secondVictim));
-                victims.add(victim2);
             }
             if(!thirdVictim.equals(TokenColor.NONE)){
                 victim3 = users.get(colors.get(thirdVictim));
-                victims.add(victim3);
             }
             if(gameController.shoot(weaponName, effectNumber - 1, basicFirst, users.get(username), victim1, victim2, victim3, x, y, directions)){
                 try {
+                    users.forEach((u,p)->{
+                        if(p.isDamaged()){
+                            victims.add(p);
+                        }
+                    });
                     gameData.setVictims(victims);
                     if(directions.length > 0){
                         gameData.setMovement(true);
@@ -631,14 +649,20 @@ public class ServerController {
         if(users.get(username).isMyTurn()){
             if(gameController.reload(users.get(username), weaponName)){
                 try {
+                    gameData.setGame(gameController.getGame());
+                    gameData.setPlayers(users);
+                    gameData.setWeapon(weaponName);
                     users.get(username).setActionNumber(2);
-                    servers.get(username).notify(Message.RELOAD, Outcome.RIGHT, weaponName);
+                    servers.get(username).notify(Message.RELOAD, Outcome.RIGHT, gameData);
                 } catch (IOException e) {
                     Printer.err(e);
                 }
             }else{
                 try {
-                    servers.get(username).notify(Message.RELOAD, Outcome.WRONG, weaponName);
+                    gameData.setGame(gameController.getGame());
+                    gameData.setPlayers(users);
+                    gameData.setWeapon(weaponName);
+                    servers.get(username).notify(Message.RELOAD, Outcome.WRONG, gameData);
                 } catch (IOException e) {
                     Printer.err(e);
                 }
@@ -657,11 +681,9 @@ public class ServerController {
             for(Player player : players){
                 if(player.isDead()){
                     deathAndRespawn();
-                    Printer.println("proooovq");
                     return;
                 }
             }
-            Printer.println("proooove");
             if(gameController.isFinalFrenzy() && !finalFrenzy){
                 gameController.finalFrenzy();
                 finalFrenzy = true;
@@ -800,6 +822,8 @@ public class ServerController {
     }
     //punteggio
     private void deathAndRespawn(){
+        timer.interrupt();
+        gameController.deathAndRespawn(players);
         servers.forEach((u,s)-> {
             try {
                 s.notify(Message.SCORE, Outcome.ALL, gameController.getScoreList());
@@ -807,8 +831,6 @@ public class ServerController {
                 Printer.err(e);
             }
         });
-        timer.interrupt();
-        gameController.deathAndRespawn(players);
         gameData.setPlayers(users);
         deathNumber = 0;
         for(Player player : players){

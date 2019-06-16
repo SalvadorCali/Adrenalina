@@ -5,6 +5,7 @@ import it.polimi.ingsw.controller.GameController;
 import it.polimi.ingsw.model.enums.Color;
 import it.polimi.ingsw.model.enums.TokenColor;
 import it.polimi.ingsw.model.gamecomponents.Player;
+import it.polimi.ingsw.util.Converter;
 import it.polimi.ingsw.util.Printer;
 import it.polimi.ingsw.view.MapCLI;
 import org.junit.jupiter.api.Test;
@@ -50,5 +51,4 @@ public class AppTest
         playersWithoutUser.forEach((s,i)->Printer.println(i));
         players.forEach((s,i)->Printer.println(i));
     }
-
 }

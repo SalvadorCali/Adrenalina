@@ -502,8 +502,14 @@ public class SocketClient implements ClientInterface, Runnable, Serializable {
                 break;
             case RELOAD:
                 outcome = (Outcome) objectInputStream.readObject();
-                object = (String) objectInputStream.readObject();
-                view.notify(message, outcome, object);
+                object = (GameData) objectInputStream.readObject();
+                GameData gameData10 = (GameData) object;
+                playerController.setGameBoard(gameData10.getGameBoard());
+                playerController.setKillshotTrack(gameData10.getKillshotTrack());
+                playerController.setPlayer(gameData10.getPlayer(username));
+                playerController.setOtherPlayers(gameData10.getPlayers(username));
+                playerController.setWeapon(gameData10.getWeapon());
+                view.notify(message, outcome);
                 break;
             case RECONNECTION:
                 outcome = (Outcome) objectInputStream.readObject();

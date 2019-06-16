@@ -6,6 +6,15 @@ import it.polimi.ingsw.model.enums.*;
 public class Converter {
     private Converter(){}
 
+    public static int fromStringToInt(String number){
+        try{
+            Integer.parseInt(number);
+        }catch(NumberFormatException e){
+            return -1;
+        }
+        return Integer.parseInt(number);
+    }
+
     public static Direction fromDirectionToOpposite(Direction direction){
         switch(direction){
             case UP:

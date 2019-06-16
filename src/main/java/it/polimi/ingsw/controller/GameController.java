@@ -271,6 +271,10 @@ public class GameController {
         player.setMoveAndReload(true);
     }
 
+    public boolean canShowSquare(Player player){
+        return (player.getPosition().getX() >= 0 && player.getPosition().getX() <= 2) && (player.getPosition().getY() >= 0 && player.getPosition().getY() <= 3);
+    }
+
     public SquareData showSquare(Player player) {
         int x = player.getPosition().getX();
         int y = player.getPosition().getY();
@@ -278,6 +282,10 @@ public class GameController {
         squareData.setAmmoCard(game.getBoard().getArena()[x][y].getAmmoCard());
         squareData.setWeapons(game.getBoard().getArena()[x][y].getWeapons());
         return squareData;
+    }
+
+    public boolean canShowSquare(Player player, int x, int y){
+        return (x >= 0 && x <= 2) && (y >= 0 && y <= 3);
     }
 
     public SquareData showSquare(Player player, int x, int y) {
@@ -479,9 +487,7 @@ public class GameController {
     public void deathAndRespawn(List<Player> players){
         game.scoring();
         for(Player player : players){
-            Printer.println("game" + player.getUsername());
             if(player.isDead()){
-                Printer.println("gaem2" + player.getUsername());
                 game.setKillAndDoubleKill(player);
                 player.getPlayerBoard().resetBoard();
                 player.addPowerup((PowerupCard) powerups.draw());
