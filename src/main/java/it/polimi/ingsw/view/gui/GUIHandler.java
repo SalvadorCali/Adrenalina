@@ -173,6 +173,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     @FXML private ImageView secondWeapon;
     @FXML private ImageView thirdWeapon;
     @FXML private Label labelGrab;
+    @FXML private Label labelShoot;
 
 
     @FXML
@@ -1152,7 +1153,6 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         Platform.runLater(() -> {
             guiHandler = Data.getInstance().getGuiHandler();
             playerController = Data.getInstance().getPlayerController();
-            guiHandler.playerTurnLabel.setVisible(true);
             guiHandler.playerTurnLabel.setText(playerController.getCurrentPlayer());
         });
     }
@@ -1742,6 +1742,8 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
             guiHandler.labelEndTurn.setDisable(true);
 
             //disable shoot
+            guiHandler.bannerShoot.setDisable(true);
+            guiHandler.labelShoot.setDisable(true);
         });
     }
 
@@ -1750,22 +1752,24 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
         Platform.runLater(() ->{
 
-            //disable move
+            //enable move
             guiHandler.upArrow.setDisable(false);
             guiHandler.downArrow.setDisable(false);
             guiHandler.rightArrow.setDisable(false);
             guiHandler.leftArrow.setDisable(false);
             guiHandler.enterMove.setDisable(false);
 
-            //disable grab
+            //enable grab
             guiHandler.bannerGrab.setDisable(false);
             guiHandler.labelGrab.setDisable(false);
 
-            //disable endturn
+            //enable endturn
             guiHandler.bannerEndTurn.setDisable(false);
             guiHandler.labelEndTurn.setDisable(false);
 
-            //disable shoot
+            //enable shoot
+            guiHandler.bannerShoot.setDisable(false);
+            guiHandler.labelShoot.setDisable(false);
         });
     }
 

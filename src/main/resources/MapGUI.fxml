@@ -93,7 +93,7 @@
             <Image url="@boardElem/banner.png" />
          </image>
       </ImageView>
-      <Label layoutX="1029.0" layoutY="31.0" mouseTransparent="true" onMouseClicked="#shoot" text="Shoot" textFill="WHITE">
+      <Label fx:id="labelShoot" layoutX="1029.0" layoutY="31.0" mouseTransparent="true" onMouseClicked="#shoot" text="Shoot" textFill="WHITE">
          <font>
             <Font name="Alien League Regular" size="30.0" />
          </font>
