@@ -1779,7 +1779,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
             }
 
             guiHandler = loader.getController();
-            Data.getInstance().setLoaderPlayerboard(guiHandler);
+            Data.getInstance().setControllerPlayerBoard(guiHandler);
 
             Stage stage = new Stage();
             stage.setScene(new Scene(root, 1218, 755));
@@ -1790,12 +1790,12 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
             Thread thread1 = new Thread(this::checkPlayerBoard);
             thread1.setDaemon(true);
             thread1.start();
-
+            
         });
     }
 
     private void checkPlayerBoard() {
-        guiHandler = Data.getInstance().getLoaderPlayerboard();
+        guiHandler = Data.getInstance().getControllerPlayerBoard();
 
         while(checkTurn){
             Platform.runLater(() -> {
@@ -1888,43 +1888,45 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
 
     public void setPlayerBoardImage() {
+
+        guiHandler = Data.getInstance().getControllerPlayerBoard();
         Platform.runLater(() ->{
 
             playerController = Data.getInstance().getPlayerController();
-            this.firstPlayerBoard.setImage(new Image("playerBoard/" + Converter.fromTokenColorToString(playerController.getPlayer().getColor()) + ".jpg"));
+            guiHandler.firstPlayerBoard.setImage(new Image("playerBoard/" + Converter.fromTokenColorToString(playerController.getPlayer().getColor()) + ".jpg"));
 
             List<Player> otherPlayers = playerController.getOtherPlayers();
             if(otherPlayers.size() == 1){
 
-                this.secondPlayerBoard.setImage(new Image("playerBoard/" + Converter.fromTokenColorToString(otherPlayers.get(0).getColor()) + ".jpg"));
-                this.secondPlayerBoard.setVisible(true);
+                guiHandler.secondPlayerBoard.setImage(new Image("playerBoard/" + Converter.fromTokenColorToString(otherPlayers.get(0).getColor()) + ".jpg"));
+                guiHandler.secondPlayerBoard.setVisible(true);
 
             }else if (otherPlayers.size() == 2) {
 
-                this.secondPlayerBoard.setImage(new Image("playerBoard/" + Converter.fromTokenColorToString(otherPlayers.get(0).getColor()) + ".jpg"));
-                this.thirdPlayerBoard.setImage(new Image("playerBoard/" + Converter.fromTokenColorToString(otherPlayers.get(1).getColor()) + ".jpg"));
-                this.secondPlayerBoard.setVisible(true);
-                this.thirdPlayerBoard.setVisible(true);
+                guiHandler.secondPlayerBoard.setImage(new Image("playerBoard/" + Converter.fromTokenColorToString(otherPlayers.get(0).getColor()) + ".jpg"));
+                guiHandler.thirdPlayerBoard.setImage(new Image("playerBoard/" + Converter.fromTokenColorToString(otherPlayers.get(1).getColor()) + ".jpg"));
+                guiHandler.secondPlayerBoard.setVisible(true);
+                guiHandler.thirdPlayerBoard.setVisible(true);
 
             } else if (otherPlayers.size() == 3) {
 
-                this.secondPlayerBoard.setImage(new Image("playerBoard/" + Converter.fromTokenColorToString(otherPlayers.get(0).getColor()) + ".jpg"));
-                this.thirdPlayerBoard.setImage(new Image("playerBoard/" + Converter.fromTokenColorToString(otherPlayers.get(1).getColor()) + ".jpg"));
-                this.fourthPlayerBoard.setImage(new Image("playerBoard/" + Converter.fromTokenColorToString(otherPlayers.get(2).getColor()) + ".jpg"));
-                this.secondPlayerBoard.setVisible(true);
-                this.thirdPlayerBoard.setVisible(true);
-                this.fourthPlayerBoard.setVisible(true);
+                guiHandler.secondPlayerBoard.setImage(new Image("playerBoard/" + Converter.fromTokenColorToString(otherPlayers.get(0).getColor()) + ".jpg"));
+                guiHandler.thirdPlayerBoard.setImage(new Image("playerBoard/" + Converter.fromTokenColorToString(otherPlayers.get(1).getColor()) + ".jpg"));
+                guiHandler.fourthPlayerBoard.setImage(new Image("playerBoard/" + Converter.fromTokenColorToString(otherPlayers.get(2).getColor()) + ".jpg"));
+                guiHandler.secondPlayerBoard.setVisible(true);
+                guiHandler.thirdPlayerBoard.setVisible(true);
+                guiHandler.fourthPlayerBoard.setVisible(true);
 
             } else {
 
-                this.secondPlayerBoard.setImage(new Image("playerBoard/" + Converter.fromTokenColorToString(otherPlayers.get(0).getColor()) + ".jpg"));
-                this.thirdPlayerBoard.setImage(new Image("playerBoard/" + Converter.fromTokenColorToString(otherPlayers.get(1).getColor()) + ".jpg"));
-                this.fourthPlayerBoard.setImage(new Image("playerBoard/" + Converter.fromTokenColorToString(otherPlayers.get(2).getColor()) + ".jpg"));
-                this.fifthPlayerBoard.setImage(new Image("playerBoard/" + Converter.fromTokenColorToString(otherPlayers.get(3).getColor()) + ".jpg"));
-                this.secondPlayerBoard.setVisible(true);
-                this.thirdPlayerBoard.setVisible(true);
-                this.fourthPlayerBoard.setVisible(true);
-                this.fifthPlayerBoard.setVisible(true);
+                guiHandler.secondPlayerBoard.setImage(new Image("playerBoard/" + Converter.fromTokenColorToString(otherPlayers.get(0).getColor()) + ".jpg"));
+                guiHandler.thirdPlayerBoard.setImage(new Image("playerBoard/" + Converter.fromTokenColorToString(otherPlayers.get(1).getColor()) + ".jpg"));
+                guiHandler.fourthPlayerBoard.setImage(new Image("playerBoard/" + Converter.fromTokenColorToString(otherPlayers.get(2).getColor()) + ".jpg"));
+                guiHandler.fifthPlayerBoard.setImage(new Image("playerBoard/" + Converter.fromTokenColorToString(otherPlayers.get(3).getColor()) + ".jpg"));
+                guiHandler.secondPlayerBoard.setVisible(true);
+                guiHandler.thirdPlayerBoard.setVisible(true);
+                guiHandler.fourthPlayerBoard.setVisible(true);
+                guiHandler.fifthPlayerBoard.setVisible(true);
             }
         });
     }

@@ -15,7 +15,7 @@ public class Data{
     private String moveGrab;
     private Integer weaponShoot;
     private GUIHandler guiHandlerWeapon;
-    private GUIHandler loaderPlayerboard;
+    private GUIHandler controllerPlayerBoard;
 
 
     private Data(){
@@ -100,11 +100,11 @@ public class Data{
         this.guiHandlerWeapon = guiHandlerWeapon;
     }
 
-    public GUIHandler getLoaderPlayerboard() {
-        return loaderPlayerboard;
+    public GUIHandler getControllerPlayerBoard() {
+        return controllerPlayerBoard;
     }
 
-    public void setLoaderPlayerboard(GUIHandler loaderPlayerboard) {
-        this.loaderPlayerboard = loaderPlayerboard;
+    public void setControllerPlayerBoard(GUIHandler controllerPlayerBoard) {
+        this.controllerPlayerBoard = controllerPlayerBoard;
     }
 }
