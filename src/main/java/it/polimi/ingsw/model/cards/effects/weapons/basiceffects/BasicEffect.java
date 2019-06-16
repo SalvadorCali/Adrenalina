@@ -22,9 +22,9 @@ public abstract class BasicEffect extends Effect {
         thirdVictim = actionInterface.getThirdVictim();
         if(victim == null)
             return true;
-        if(thirdVictim == null && secondVictim == null)
+        else if(thirdVictim == null && secondVictim == null)
             return !currentPlayer.equals(victim);
-        if(thirdVictim == null)
+        else if(thirdVictim == null)
             return !currentPlayer.equals(victim) && !currentPlayer.equals(secondVictim) && !secondVictim.equals(victim);
         else
             return  !currentPlayer.equals(victim) && !currentPlayer.equals(secondVictim) && !currentPlayer.equals(thirdVictim) && !secondVictim.equals(victim) && !secondVictim.equals(thirdVictim) && !thirdVictim.equals(victim);

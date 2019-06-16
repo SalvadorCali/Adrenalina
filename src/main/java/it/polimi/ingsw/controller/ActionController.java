@@ -241,7 +241,8 @@ public class ActionController implements ActionInterface {
 
     @Override
     public boolean squareControl(int x, int y, Player player) {
-
+        if(player == null)
+            return true;
         return game.getBoard().getArena()[x][y].getPlayers().contains(player);
     }
 

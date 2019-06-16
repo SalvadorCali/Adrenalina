@@ -116,7 +116,7 @@ public class WeaponCard extends Card{
                 break;
             case ("FLAMETHROWER"):
                 Effect flamethrower1 = new DirectionalDamage("Flamethrower1",1,0,0,0 );
-                Effect flamethrower2 = new DirectionalDamage("Flamethrower2",1,0,0,2 );
+                Effect flamethrower2 = new DirectionalDamage("Flamethrower2",2,0,0,2 );
                 effects.add(flamethrower1);
                 effects.add(flamethrower2);
                 break;

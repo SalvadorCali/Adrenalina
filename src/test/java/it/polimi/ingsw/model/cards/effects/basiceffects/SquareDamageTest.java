@@ -132,6 +132,20 @@ public class SquareDamageTest {
         assertFalse(vortexCannon.canUseEffect(gameController.getActionInterface()));
     }
 
+    @Test
+    void furnaceTest(){
+        playerSetup();
+        MapCLI mapCLI = new MapCLI(gameController.getGame().getBoard());
+        gameController.getGame().getBoard().move(0,2,currentPlayer);
+        gameController.getGame().getBoard().move(1,1,victim);
+        gameController.getGame().getBoard().move(1,2,secondVictim);
+        gameController.getActionInterface().getClientData().setSquare(1,1);
+        mapCLI.printMap();
+        Effect furnace1 = new SquareDamageEffect("Furnace1",1,0,0,0,0);
+        assertTrue(furnace1.canUseEffect(gameController.getActionInterface()));
+        furnace1.useEffect(gameController.getActionInterface());
+    }
+
     void playerSetup(){
 
         ClientData clientData = gameController.getActionInterface().getClientData();

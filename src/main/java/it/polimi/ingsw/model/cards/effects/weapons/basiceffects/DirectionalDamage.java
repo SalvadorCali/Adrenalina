@@ -4,6 +4,7 @@ import it.polimi.ingsw.model.cards.effects.ActionInterface;
 import it.polimi.ingsw.model.enums.Direction;
 import it.polimi.ingsw.model.gamecomponents.Player;
 import it.polimi.ingsw.model.gamecomponents.Position;
+import it.polimi.ingsw.util.Printer;
 
 public class DirectionalDamage extends BasicEffect {
 
@@ -49,6 +50,7 @@ public class DirectionalDamage extends BasicEffect {
             if(canUse) {
                 actionInterface.move(direction, player);
                 victimControl(actionInterface);
+                Printer.println(canUse);
                 if (canUse && !effectName.equals("Railgun1")) {
                     secondMoveControl(actionInterface);
                     if (!effectName.equals("Flamethrower2") && !effectName.equals("Sledgehammer")&& secondVictim != null)
@@ -58,6 +60,7 @@ public class DirectionalDamage extends BasicEffect {
                 }
             }
         }
+        Printer.println("FINALE"+ canUse);
         actionInterface.removePlayer(player);
         return canUse;
     }
@@ -68,10 +71,13 @@ public class DirectionalDamage extends BasicEffect {
             actionInterface.playerDamage(victim.getColor(), damagePower);
         if(secondVictim != null && !effectName.equals("Flamethrower2"))
             actionInterface.playerDamage(secondVictim.getColor(), damagePower);
-        if(effectName.equals("Power Glove2"))
-            actionInterface.move(player.getPosition().getX(), player.getPosition().getY(), currentPlayer);
+        if(effectName.equals("Power Glove2")) {
+            if (actionInterface.getClientData().getSecondMove() == null)
+                actionInterface.move(firstSquare.getX(), firstSquare.getY(), currentPlayer);
+            else
+                actionInterface.move(player.getPosition().getX(), player.getPosition().getY(), currentPlayer);
+        }
         if(effectName.equals("Sledgehammer")) {
-            actionInterface.move(player.getPosition().getX(), player.getPosition().getY(), victim);
             if(actionInterface.getClientData().getSecondMove() == null)
                 actionInterface.move(firstSquare.getX(), firstSquare.getY(), victim);
             else

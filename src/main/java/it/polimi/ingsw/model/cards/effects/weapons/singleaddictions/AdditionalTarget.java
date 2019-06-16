@@ -38,7 +38,7 @@ public class AdditionalTarget extends SingleAddictionEffect {
         if(basicFirst) {
             Printer.println(actionInterface.ammoControl(redAmmos, blueAmmos, yellowAmmos));
             canUse = super.effect.canUseEffect(actionInterface) && actionInterface.ammoControl(redAmmos, blueAmmos, yellowAmmos);
-            if (canUse && !effectName.equals("Plasma Gun Double")) {
+            if (canUse && !effectName.equals("Plasma Gun Double") && !effectName.equals("Machine Gun")) {
                 if (effectName.equals("Lock Rifle")) {
                     canUse = actionInterface.isVisible(currentPlayer, additionalVictim);
                 } else if (effectName.equals("T.H.O.R. Single")) {
