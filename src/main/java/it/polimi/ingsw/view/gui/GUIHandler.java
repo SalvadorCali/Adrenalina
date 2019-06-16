@@ -1791,9 +1791,9 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
             thread1.setDaemon(true);
             thread1.start();
 
-            Thread thread2 = new Thread(this::checkValuePlayerBoard);
-            thread2.setDaemon(true);
-            thread2.start();
+            //Thread thread2 = new Thread(this::checkValuePlayerBoard);
+            //thread2.setDaemon(true);
+            //thread2.start();
         });
     }
 
@@ -1802,7 +1802,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
         while(checkTurn){
             Platform.runLater(() -> {
-                
+
                 guiHandler.setFirstDamageGrid();
                 guiHandler.setAmmoBoxGrid();
                 guiHandler.setAmmoReserveGrid();
