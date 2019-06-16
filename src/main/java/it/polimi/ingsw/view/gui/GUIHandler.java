@@ -501,26 +501,23 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
     private void notifyFinalFrenzy() {
         Platform.runLater(() ->{
-
-            playerController = Data.getInstance().getPlayerController();
-            setLabelStatement("final frenzy");
+            guiHandler = Data.getInstance().getGuiHandler();
+            guiHandler.setLabelStatement("final frenzy");
         });
     }
 
     private void notifyNotTurn() {
         Platform.runLater(() ->{
-
-            playerController = Data.getInstance().getPlayerController();
-            setLabelStatement("it's not your turn");
+            guiHandler = Data.getInstance().getGuiHandler();
+            guiHandler.setLabelStatement("it's not your turn");
         });
     }
 
     @FXML
     private void notifyEndTurn() {
         Platform.runLater(() ->{
-
-            playerController = Data.getInstance().getPlayerController();
-            setLabelStatement("your turn is ended");
+            guiHandler = Data.getInstance().getGuiHandler();
+            guiHandler.setLabelStatement("your turn is ended");
         });
     }
 
@@ -576,74 +573,85 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
 
     private void notifyDropWeapon(Outcome outcome) {
+        guiHandler = Data.getInstance().getGuiHandler();
         Platform.runLater(() ->{
             if(outcome.equals(Outcome.RIGHT)){
-                setLabelStatement("Weapon dropped");
+                guiHandler.setLabelStatement("Weapon dropped");
             }else{
-                setLabelStatement("Weapon not dropped");
+                guiHandler.setLabelStatement("Weapon not dropped");
             }
         });
     }
 
     private void notifyDropPowerup(Outcome outcome) {
+        guiHandler = Data.getInstance().getGuiHandler();
+
         Platform.runLater(() ->{
             if(outcome.equals(Outcome.RIGHT)){
-                setLabelStatement("Powerup dropped");
+                guiHandler.setLabelStatement("Powerup dropped");
             }else{
-                setLabelStatement("Powerup not dropped");
+                guiHandler.setLabelStatement("Powerup not dropped");
             }
         });
     }
 
     private void notifyDiscardPowerup(Outcome outcome) {
+        guiHandler = Data.getInstance().getGuiHandler();
+
         Platform.runLater(() ->{
             if(outcome.equals(Outcome.RIGHT)){
-                setLabelStatement("Powerup discarded");
+                guiHandler.setLabelStatement("Powerup discarded");
 
             }else{
-                setLabelStatement("Powerup not discarded");
+                guiHandler.setLabelStatement("Powerup not discarded");
             }
         });
     }
 
     private void notifyReconnection(Outcome outcome) {
+        guiHandler = Data.getInstance().getGuiHandler();
+
         Platform.runLater(() ->{
             if(outcome.equals(Outcome.RIGHT)){
-                setLabelStatement("Reconnected");
+                guiHandler.setLabelStatement("Reconnected");
 
             }else{
-                setLabelStatement("Reconnected");
+                guiHandler.setLabelStatement("Reconnected");
             }
         });
     }
 
     private void notifyPowerup(Outcome outcome) {
         playerController = Data.getInstance().getPlayerController();
+        guiHandler = Data.getInstance().getGuiHandler();
 
         Platform.runLater(() ->{
             if(outcome.equals(Outcome.RIGHT)){
-                setLabelStatement( playerController.getPowerup() + " used!");
+                guiHandler.setLabelStatement( playerController.getPowerup() + " used!");
             }else{
-                setLabelStatement( playerController.getPowerup() + "not used!");
+                guiHandler.setLabelStatement( playerController.getPowerup() + "not used!");
             }
         });
     }
 
     private void notifyShoot(Outcome outcome) {
-        switch(outcome){
-            case RIGHT:
-                setLabelStatement("shoot");
-                break;
-            case ALL:
-                setLabelStatement("shoot");
-                break;
-            case WRONG:
-                setLabelStatement("didn't shoot");
-                break;
-            default:
-                setLabelStatement("didn't shoot");
-                break;
-        }
+        guiHandler = Data.getInstance().getGuiHandler();
+        Platform.runLater(() -> {
+            switch(outcome){
+                case RIGHT:
+                    guiHandler.setLabelStatement("shoot");
+                    break;
+                case ALL:
+                    guiHandler.setLabelStatement("shoot");
+                    break;
+                case WRONG:
+                    guiHandler.setLabelStatement("didn't shoot");
+                    break;
+                default:
+                    guiHandler.setLabelStatement("didn't shoot");
+                    break;
+            }
+        });
     }
 
     private void notifyGrab(Outcome outcome) {
@@ -668,9 +676,10 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     }
 
     private void setLabelStatement(String move) {
+        guiHandler = Data.getInstance().getGuiHandler();
         Platform.runLater(() ->{
-            labelStatusPlayer.setVisible(true);
-            labelStatusPlayer.setText(move);
+            guiHandler.labelStatusPlayer.setVisible(true);
+            guiHandler.labelStatusPlayer.setText(move);
         });
     }
 
@@ -1141,10 +1150,10 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
     public void setLabelTurn() {
         Platform.runLater(() -> {
-
+            guiHandler = Data.getInstance().getGuiHandler();
             playerController = Data.getInstance().getPlayerController();
-            this.playerTurnLabel.setVisible(true);
-            this.playerTurnLabel.setText(playerController.getCurrentPlayer());
+            guiHandler.playerTurnLabel.setVisible(true);
+            guiHandler.playerTurnLabel.setText(playerController.getCurrentPlayer());
         });
     }
 
@@ -1482,9 +1491,12 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                         e.printStackTrace();
                     }
 
+                    guiHandler = loader.getController();
+
                     Data.getInstance().setMoveGrab(null);
 
                     List<WeaponCard> weapon = playerController.getGameBoard().getArena()[x][y].getWeapons();
+
                     guiHandler.setWeaponImage(weapon);
 
                     Stage stage = new Stage();
@@ -1512,6 +1524,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                             }
 
                             Data.getInstance().setMoveGrab("up");
+                            guiHandler = loader.getController();
 
                             List<WeaponCard> weapon = playerController.getGameBoard().getArena()[x--][y].getWeapons();
                             guiHandler.setWeaponImage(weapon);
@@ -1540,6 +1553,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
+                            guiHandler = loader.getController();
 
                             Data.getInstance().setMoveGrab("down");
 
@@ -1570,6 +1584,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
+                            guiHandler = loader.getController();
 
                             Data.getInstance().setMoveGrab("left");
 
@@ -1602,6 +1617,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                             }
 
                             Data.getInstance().setMoveGrab("right");
+                            guiHandler = loader.getController();
 
                             List<WeaponCard> weapon = playerController.getGameBoard().getArena()[x][y++].getWeapons();
                             guiHandler.setWeaponImage(weapon);
