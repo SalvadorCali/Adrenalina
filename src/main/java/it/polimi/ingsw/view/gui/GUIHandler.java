@@ -1171,17 +1171,6 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                         this.weaponBlue2.setImage(new Image(url2));
                         this.weaponBlue3.setImage(new Image(url3));
 
-                        for (; k < MAX_WEAPONS; k++){
-                            if(arena[i][j].getWeapons().get(k) == null){
-                                if (k == 0) {
-                                    weaponBlue1.setImage(null);
-                                } else if(k == 1){
-                                    weaponBlue2.setImage(null);
-                                } else if(k == 2){
-                                    weaponBlue3.setImage(null);
-                                }
-                            }
-                        }
                     }
 
                     if(arena[i][j].getColor().equals(TokenColor.RED)){
@@ -1194,17 +1183,6 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                         this.weaponRed2.setImage(new Image(url2));
                         this.weaponRed3.setImage(new Image(url3));
 
-                        for (; k < MAX_WEAPONS; k++){
-                            if(arena[i][j].getWeapons().get(k) == null){
-                                if (k == 0) {
-                                    weaponRed1.setImage(null);
-                                } else if(k == 1){
-                                    weaponRed2.setImage(null);
-                                } else if(k == 2){
-                                    weaponRed3.setImage(null);
-                                }
-                            }
-                        }
                     }
 
                     if(arena[i][j].getColor().equals(TokenColor.YELLOW)){
@@ -1217,17 +1195,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                         this.weaponYellow2.setImage(new Image(url2));
                         this.weaponYellow3.setImage(new Image(url3));
 
-                        for (; k < MAX_WEAPONS; k++) {
-                            if (arena[i][j].getWeapons().get(k) == null) {
-                                if (k == 0) {
-                                    weaponYellow1.setImage(null);
-                                } else if(k == 1){
-                                    weaponYellow2.setImage(null);
-                                } else if(k == 2){
-                                    weaponYellow3.setImage(null);
-                                }
-                            }
-                        }
+                        
                     }
                 }
             }
@@ -1396,35 +1364,36 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
             MapCLI mapCLI = new MapCLI(playerController.getGameBoard());
             mapCLI.printMap();
 
+            Platform.runLater(() -> {
+                if (!arena[0][0].getPlayers().isEmpty()) {
+                    for (int index = 0, row = 0; index < arena[0][0].getPlayers().size(); index++) {
 
-            if (!arena[0][0].getPlayers().isEmpty()) {
-                for (int index = 0, row = 0; index < arena[0][0].getPlayers().size(); index++) {
-
-                    Image image = new Image("colorPlayer/" + Converter.fromTokenColorToString(arena[0][0].getPlayers().get(index).getColor()) + ".jpg");
-                    grid00.add(new ImageView(image), index, row);
-                    if (index == 1) {
-                        row++;
-                        index = 0;
+                        Image image = new Image("colorPlayer/" + Converter.fromTokenColorToString(arena[0][0].getPlayers().get(index).getColor()) + ".jpg");
+                        grid00.add(new ImageView(image), index, row);
+                        if (index == 1) {
+                            row++;
+                            index = 0;
+                        }
                     }
                 }
-            }
+            });
 
+            Platform.runLater(() -> {
+                if (!arena[0][1].getPlayers().isEmpty()) {
+                    for (int index = 0, row = 0; index < arena[0][1].getPlayers().size(); index++) {
 
-
-            if (!arena[0][1].getPlayers().isEmpty()) {
-                for (int index = 0, row = 0; index < arena[0][1].getPlayers().size(); index++) {
-
-                    Image image = new Image("colorPlayer/" + Converter.fromTokenColorToString(arena[0][1].getPlayers().get(index).getColor()) + ".jpg");
-                    grid01.add(new ImageView(image), index, row);
-                    if (index == 1) {
-                        row++;
-                        index = 0;
+                        Image image = new Image("colorPlayer/" + Converter.fromTokenColorToString(arena[0][1].getPlayers().get(index).getColor()) + ".jpg");
+                        grid01.add(new ImageView(image), index, row);
+                        if (index == 1) {
+                            row++;
+                            index = 0;
+                        }
                     }
                 }
-            }
+            });
 
-
-            if (!arena[0][2].getPlayers().isEmpty()) {
+            Platform.runLater(() -> {
+                if (!arena[0][2].getPlayers().isEmpty()) {
                 for (int index = 0, row = 0; index < arena[0][2].getPlayers().size(); index++) {
 
 
@@ -1435,125 +1404,138 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                         index = 0;
                     }
                 }
-            }
+            }});
 
 
-            if (!arena[0][3].getPlayers().isEmpty()) {
-                for (int index = 0, row = 0; index < arena[0][3].getPlayers().size(); index++) {
+            Platform.runLater(() -> {
+                if (!arena[0][3].getPlayers().isEmpty()) {
+                    for (int index = 0, row = 0; index < arena[0][3].getPlayers().size(); index++) {
 
-                    Image image = new Image("colorPlayer/" + Converter.fromTokenColorToString(arena[0][3].getPlayers().get(index).getColor()) + ".jpg");
-                    grid03.add(new ImageView(image), index, row);
-                    if (index == 1) {
-                        row++;
-                        index = 0;
+                        Image image = new Image("colorPlayer/" + Converter.fromTokenColorToString(arena[0][3].getPlayers().get(index).getColor()) + ".jpg");
+                        grid03.add(new ImageView(image), index, row);
+                        if (index == 1) {
+                            row++;
+                            index = 0;
+                        }
                     }
                 }
-            }
+            });
 
 
-            if (!arena[1][0].getPlayers().isEmpty()) {
-                for (int index = 0, row = 0; index < arena[1][0].getPlayers().size(); index++) {
+            Platform.runLater(() -> {
+                if (!arena[1][0].getPlayers().isEmpty()) {
+                    for (int index = 0, row = 0; index < arena[1][0].getPlayers().size(); index++) {
 
 
-                    Image image = new Image("colorPlayer/" + Converter.fromTokenColorToString(arena[1][0].getPlayers().get(index).getColor()) + ".jpg");
-                    grid10.add(new ImageView(image), index, row);
-                    if (index == 1) {
-                        row++;
-                        index = 0;
+                        Image image = new Image("colorPlayer/" + Converter.fromTokenColorToString(arena[1][0].getPlayers().get(index).getColor()) + ".jpg");
+                        grid10.add(new ImageView(image), index, row);
+                        if (index == 1) {
+                            row++;
+                            index = 0;
+                        }
                     }
                 }
-            }
+            });
 
+            Platform.runLater(() -> {
+                if (!arena[1][1].getPlayers().isEmpty()) {
+                    for (int index = 0, row = 0; index < arena[1][1].getPlayers().size(); index++) {
 
-            if (!arena[1][1].getPlayers().isEmpty()) {
-                for (int index = 0, row = 0; index < arena[1][1].getPlayers().size(); index++) {
-
-                    Image image = new Image("colorPlayer/" + Converter.fromTokenColorToString(arena[1][1].getPlayers().get(index).getColor()) + ".jpg");
-                    grid11.add(new ImageView(image), index, row);
-                    if (index == 1) {
-                        row++;
-                        index = 0;
+                        Image image = new Image("colorPlayer/" + Converter.fromTokenColorToString(arena[1][1].getPlayers().get(index).getColor()) + ".jpg");
+                        grid11.add(new ImageView(image), index, row);
+                        if (index == 1) {
+                            row++;
+                            index = 0;
+                        }
                     }
                 }
-            }
+            });
 
+            Platform.runLater(() -> {
+                if (!arena[1][2].getPlayers().isEmpty()) {
+                    for (int index = 0, row = 0; index < arena[1][2].getPlayers().size(); index++) {
 
-            if (!arena[1][2].getPlayers().isEmpty()) {
-                for (int index = 0, row = 0; index < arena[1][2].getPlayers().size(); index++) {
-
-                    Image image = new Image("colorPlayer/" + Converter.fromTokenColorToString(arena[1][2].getPlayers().get(index).getColor()) + ".jpg");
-                    grid12.add(new ImageView(image), index, row);
-                    if (index == 1) {
-                        row++;
-                        index = 0;
+                        Image image = new Image("colorPlayer/" + Converter.fromTokenColorToString(arena[1][2].getPlayers().get(index).getColor()) + ".jpg");
+                        grid12.add(new ImageView(image), index, row);
+                        if (index == 1) {
+                            row++;
+                            index = 0;
+                        }
                     }
                 }
-            }
+            });
 
+            Platform.runLater(() -> {
+                if (!arena[1][3].getPlayers().isEmpty()) {
+                    for (int index = 0, row = 0; index < arena[1][3].getPlayers().size(); index++) {
 
-            if (!arena[1][3].getPlayers().isEmpty()) {
-                for (int index = 0, row = 0; index < arena[1][3].getPlayers().size(); index++) {
-
-                    Image image = new Image("colorPlayer/" + Converter.fromTokenColorToString(arena[1][3].getPlayers().get(index).getColor()) + ".jpg");
-                    grid13.add(new ImageView(image), index, row);
-                    if (index == 1) {
-                        row++;
-                        index = 0;
+                        Image image = new Image("colorPlayer/" + Converter.fromTokenColorToString(arena[1][3].getPlayers().get(index).getColor()) + ".jpg");
+                        grid13.add(new ImageView(image), index, row);
+                        if (index == 1) {
+                            row++;
+                            index = 0;
+                        }
                     }
                 }
-            }
+            });
 
 
-            if (!arena[2][0].getPlayers().isEmpty()) {
-                for (int index = 0, row = 0; index < arena[2][0].getPlayers().size(); index++) {
+            Platform.runLater(() -> {
+                if (!arena[2][0].getPlayers().isEmpty()) {
+                    for (int index = 0, row = 0; index < arena[2][0].getPlayers().size(); index++) {
 
-                    Image image = new Image("colorPlayer/" + Converter.fromTokenColorToString(arena[2][0].getPlayers().get(index).getColor()) + ".jpg");
-                    grid20.add(new ImageView(image), index, row);
-                    if (index == 1) {
-                        row++;
-                        index = 0;
+                        Image image = new Image("colorPlayer/" + Converter.fromTokenColorToString(arena[2][0].getPlayers().get(index).getColor()) + ".jpg");
+                        grid20.add(new ImageView(image), index, row);
+                        if (index == 1) {
+                            row++;
+                            index = 0;
+                        }
                     }
                 }
-            }
+            });
 
 
-            if (!arena[2][1].getPlayers().isEmpty()) {
-                for (int index = 0, row = 0; index < arena[2][1].getPlayers().size(); index++) {
+            Platform.runLater(() -> {
+                if (!arena[2][1].getPlayers().isEmpty()) {
+                    for (int index = 0, row = 0; index < arena[2][1].getPlayers().size(); index++) {
 
-                    Image image = new Image("colorPlayer/" + Converter.fromTokenColorToString(arena[2][1].getPlayers().get(index).getColor()) + ".jpg");
-                    grid21.add(new ImageView(image), index, row);
-                    if (index == 1) {
-                        row++;
-                        index = 0;
+                        Image image = new Image("colorPlayer/" + Converter.fromTokenColorToString(arena[2][1].getPlayers().get(index).getColor()) + ".jpg");
+                        grid21.add(new ImageView(image), index, row);
+                        if (index == 1) {
+                            row++;
+                            index = 0;
+                        }
                     }
                 }
-            }
+            });
 
+            Platform.runLater(() -> {
+                if (!arena[2][2].getPlayers().isEmpty()) {
+                    for (int index = 0, row = 0; index < arena[2][2].getPlayers().size(); index++) {
 
-            if (!arena[2][2].getPlayers().isEmpty()) {
-                for (int index = 0, row = 0; index < arena[2][2].getPlayers().size(); index++) {
-
-                    Image image = new Image("colorPlayer/" + Converter.fromTokenColorToString(arena[2][2].getPlayers().get(index).getColor()) + ".jpg");
-                    grid22.add(new ImageView(image), index, row);
-                    if (index == 1) {
-                        row++;
-                        index = 0;
+                        Image image = new Image("colorPlayer/" + Converter.fromTokenColorToString(arena[2][2].getPlayers().get(index).getColor()) + ".jpg");
+                        grid22.add(new ImageView(image), index, row);
+                        if (index == 1) {
+                            row++;
+                            index = 0;
+                        }
                     }
                 }
-            }
+            });
 
+            Platform.runLater(() -> {
+                if (!arena[2][3].getPlayers().isEmpty()) {
+                    for (int index = 0, row = 0; index < arena[2][3].getPlayers().size(); index++) {
 
-            if (!arena[2][3].getPlayers().isEmpty()) {
-                for (int index = 0, row = 0; index < arena[2][3].getPlayers().size(); index++) {
-
-                    Image image = new Image("colorPlayer/" + Converter.fromTokenColorToString(arena[2][3].getPlayers().get(index).getColor()) + ".jpg");
-                    grid23.add(new ImageView(image), index, row);
-                    if (index == 1) {
-                        row++;
-                        index = 0;
+                        Image image = new Image("colorPlayer/" + Converter.fromTokenColorToString(arena[2][3].getPlayers().get(index).getColor()) + ".jpg");
+                        grid23.add(new ImageView(image), index, row);
+                        if (index == 1) {
+                            row++;
+                            index = 0;
+                        }
                     }
                 }
-            }
+            });
         });
     }
 
