@@ -232,22 +232,20 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
     }
 
     @Override
-    public void notify(Message message, Outcome outcome, Object object) throws RemoteException {
+    public void notify(Message message, Outcome outcome, GameData gameData) throws RemoteException {
+        GameData gameDatas = gameData;
         switch (message){
             case PLAYER:
                 if(outcome.equals(Outcome.RIGHT)) {
-                    Player player = (Player) object;
-                    playerController.setPlayer(player);
+                    playerController.setPlayer(gameDatas.getPlayer());
                 }
                 break;
             case GAME:
                 if(outcome.equals(Outcome.ALL)){
-                    GameData gameData = (GameData) object;
-                    //GameBoard gameBoard = (GameBoard) object;
-                    playerController.setGameBoard(gameData.getGameBoard());
-                    playerController.setKillshotTrack(gameData.getKillshotTrack());
-                    playerController.setPlayer(gameData.getPlayer(username));
-                    playerController.setOtherPlayers(gameData.getPlayers(username));
+                    playerController.setGameBoard(gameDatas.getGameBoard());
+                    playerController.setKillshotTrack(gameDatas.getKillshotTrack());
+                    playerController.setPlayer(gameDatas.getPlayer(username));
+                    playerController.setOtherPlayers(gameDatas.getPlayers(username));
                 }
                 view.notify(message, outcome);
                 break;
@@ -255,103 +253,109 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
                 if(outcome.equals(Outcome.RIGHT)) {
                     connectionTimer.start();
                 }
-                view.notify(message, outcome, object);
+                view.notify(message, outcome, gameDatas.getUsername());
+                break;
+            case COLOR:
+                view.notify(message, outcome, gameDatas.getColor());
                 break;
             case NEW_TURN:
-                //if(outcome.equals(Outcome.RIGHT)){
-                    GameData gameData7 = (GameData) object;
-                    //GameBoard gameBoard = (GameBoard) object;
-                    playerController.setGameBoard(gameData7.getGameBoard());
-                    playerController.setKillshotTrack(gameData7.getKillshotTrack());
-                    playerController.setPlayer(gameData7.getPlayer(username));
-                playerController.setOtherPlayers(gameData7.getPlayers(username));
-                //}
+                playerController.setGameBoard(gameDatas.getGameBoard());
+                playerController.setKillshotTrack(gameDatas.getKillshotTrack());
+                playerController.setPlayer(gameDatas.getPlayer(username));
+                playerController.setOtherPlayers(gameDatas.getPlayers(username));
+                playerController.setCurrentPlayer(gameDatas.getCurrentPlayer());
                 view.notify(message, outcome);
                 break;
             case MOVE:
-                GameData gameData = (GameData) object;
-                //GameBoard gameBoard = (GameBoard) object;
-                playerController.setGameBoard(gameData.getGameBoard());
-                playerController.setKillshotTrack(gameData.getKillshotTrack());
-                playerController.setPlayer(gameData.getPlayer(username));
-                playerController.setOtherPlayers(gameData.getPlayers(username));
+                playerController.setGameBoard(gameDatas.getGameBoard());
+                playerController.setKillshotTrack(gameDatas.getKillshotTrack());
+                playerController.setPlayer(gameDatas.getPlayer(username));
+                playerController.setOtherPlayers(gameDatas.getPlayers(username));
+                playerController.setCurrentPlayer(gameDatas.getCurrentPlayer());
                 view.notify(message, outcome);
                 break;
             case POWERUP:
-                GameData gameData2 = (GameData) object;
-                playerController.setGameBoard(gameData2.getGameBoard());
-                playerController.setKillshotTrack(gameData2.getKillshotTrack());
-                playerController.setPlayer(gameData2.getPlayer(username));
-                playerController.setOtherPlayers(gameData2.getPlayers(username));
-                playerController.setPowerup(gameData2.getPowerup());
-                if(gameData2.getPowerup().equals("targetingscope") || gameData2.getPowerup().equals("tagbackgrenade")){
-                    playerController.setVictims(gameData2.getPlayers(username));
+                playerController.setGameBoard(gameDatas.getGameBoard());
+                playerController.setKillshotTrack(gameDatas.getKillshotTrack());
+                playerController.setPlayer(gameDatas.getPlayer(username));
+                playerController.setOtherPlayers(gameDatas.getPlayers(username));
+                playerController.setCurrentPlayer(gameDatas.getCurrentPlayer());
+                playerController.setPowerup(gameDatas.getPowerup());
+                if(gameDatas.getPowerup().equals("targetingscope") || gameDatas.getPowerup().equals("tagbackgrenade")){
+                    playerController.setVictims(gameDatas.getPlayers(username));
                 }
                 view.notify(message, outcome);
                 break;
             case GRAB:
-                GameData gameData4 = (GameData) object;
-                playerController.setGameBoard(gameData4.getGameBoard());
-                playerController.setKillshotTrack(gameData4.getKillshotTrack());
-                playerController.setPlayer(gameData4.getPlayer(username));
-                playerController.setOtherPlayers(gameData4.getPlayers(username));
-                playerController.setVictims(gameData4.getPlayers(username));
-                playerController.setCurrentPlayer(gameData4.getCurrentPlayer());
-                if(gameData4.isMovement()){
+                playerController.setGameBoard(gameDatas.getGameBoard());
+                playerController.setKillshotTrack(gameDatas.getKillshotTrack());
+                playerController.setPlayer(gameDatas.getPlayer(username));
+                playerController.setOtherPlayers(gameDatas.getPlayers(username));
+                playerController.setVictims(gameDatas.getPlayers(username));
+                playerController.setCurrentPlayer(gameDatas.getCurrentPlayer());
+                if(gameDatas.isMovement()){
                     playerController.setMovement(true);
                 }
                 view.notify(message, outcome);
                 break;
             case SHOOT:
-                GameData gameData3 = (GameData) object;
-                //GameBoard gameBoard = (GameBoard) object;
-                playerController.setGameBoard(gameData3.getGameBoard());
-                playerController.setKillshotTrack(gameData3.getKillshotTrack());
-                playerController.setPlayer(gameData3.getPlayer(username));
-                playerController.setOtherPlayers(gameData3.getPlayers(username));
-                playerController.setVictims(gameData3.getVictims());
-                if(gameData3.isMovement()){
+                playerController.setGameBoard(gameDatas.getGameBoard());
+                playerController.setKillshotTrack(gameDatas.getKillshotTrack());
+                playerController.setPlayer(gameDatas.getPlayer(username));
+                playerController.setCurrentPlayer(gameDatas.getCurrentPlayer());
+                playerController.setOtherPlayers(gameDatas.getPlayers(username));
+                playerController.setVictims(gameDatas.getVictims());
+                if(gameDatas.isMovement()){
                     playerController.setMovement(true);
                 }
                 view.notify(message, outcome);
                 break;
             case RELOAD:
-                GameData gameData10 = (GameData) object;
-                playerController.setGameBoard(gameData10.getGameBoard());
-                playerController.setKillshotTrack(gameData10.getKillshotTrack());
-                playerController.setPlayer(gameData10.getPlayer(username));
-                playerController.setOtherPlayers(gameData10.getPlayers(username));
-                playerController.setWeapon(gameData10.getWeapon());
+                playerController.setGameBoard(gameDatas.getGameBoard());
+                playerController.setKillshotTrack(gameDatas.getKillshotTrack());
+                playerController.setPlayer(gameDatas.getPlayer(username));
+                playerController.setOtherPlayers(gameDatas.getPlayers(username));
+                playerController.setWeapon(gameDatas.getWeapon());
+                playerController.setCurrentPlayer(gameDatas.getCurrentPlayer());
                 view.notify(message, outcome);
                 break;
             case RECONNECTION:
-                GameData gameData5 = (GameData) object;
-                playerController.setGameBoard(gameData5.getGameBoard());
-                playerController.setKillshotTrack(gameData5.getKillshotTrack());
-                playerController.setPlayer(gameData5.getPlayer(username));
-                playerController.setOtherPlayers(gameData5.getPlayers(username));
+                playerController.setGameBoard(gameDatas.getGameBoard());
+                playerController.setKillshotTrack(gameDatas.getKillshotTrack());
+                playerController.setPlayer(gameDatas.getPlayer(username));
+                playerController.setOtherPlayers(gameDatas.getPlayers(username));
+                playerController.setCurrentPlayer(gameDatas.getCurrentPlayer());
                 view.notify(message, outcome);
                 break;
             case FINAL_FRENZY:
-                GameData gameData6 = (GameData) object;
                 playerController.setFinalFrenzy(true);
                 view.notify(message);
                 break;
             case RESPAWN:
-                GameData gameData9 = (GameData) object;
-                playerController.setPlayer(gameData9.getPlayer(username));
+                playerController.setPlayer(gameDatas.getPlayer(username));
                 view.notify(message, outcome);
                 break;
             case DROP_POWERUP:
             case DROP_WEAPON:
             case DISCARD_POWERUP:
-                GameData gameData8 = (GameData) object;
-                playerController.setPlayer(gameData8.getPlayer(username));
-                playerController.setOtherPlayers(gameData8.getPlayers(username));
+                playerController.setPlayer(gameDatas.getPlayer(username));
+                playerController.setOtherPlayers(gameDatas.getPlayers(username));
                 view.notify(message, outcome);
                 break;
+            case SPAWN:
+                view.notify(message, outcome, gameDatas.getPowerups());
+                break;
+            case SQUARE:
+                view.notify(message, outcome, gameDatas.getSquareData());
+                break;
+            case DISCONNECT:
+                view.notify(message, outcome, gameDatas.getUsername());
+                break;
+            case SCORE:
+                view.notify(message, outcome, gameDatas.getScoreList());
+                break;
             default:
-                view.notify(message, outcome, object);
+                view.notify(message, outcome);
                 break;
         }
     }

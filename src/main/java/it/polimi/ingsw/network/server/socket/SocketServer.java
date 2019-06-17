@@ -1,5 +1,6 @@
 package it.polimi.ingsw.network.server.socket;
 
+import it.polimi.ingsw.controller.GameData;
 import it.polimi.ingsw.controller.PowerupData;
 import it.polimi.ingsw.controller.ServerController;
 import it.polimi.ingsw.controller.timer.ConnectionTimer;
@@ -493,7 +494,7 @@ public class SocketServer implements Runnable, ServerInterface {
     }
 
     @Override
-    public void notify(Message message, Outcome outcome, Object object) throws IOException {
+    public void notify(Message message, Outcome outcome, GameData gameData) throws IOException {
         objectOutputStream.reset();
         objectOutputStream.writeObject(Message.NOTIFY);
         objectOutputStream.flush();
@@ -501,7 +502,7 @@ public class SocketServer implements Runnable, ServerInterface {
         objectOutputStream.flush();
         objectOutputStream.writeObject(outcome);
         objectOutputStream.flush();
-        objectOutputStream.writeObject(object);
+        objectOutputStream.writeObject(gameData);
         objectOutputStream.flush();
     }
 }

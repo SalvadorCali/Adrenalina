@@ -1,5 +1,6 @@
 package it.polimi.ingsw.network.server.rmi;
 
+import it.polimi.ingsw.controller.GameData;
 import it.polimi.ingsw.controller.PowerupData;
 import it.polimi.ingsw.controller.ServerController;
 import it.polimi.ingsw.controller.timer.ConnectionTimer;
@@ -153,7 +154,7 @@ public class RMIServer extends UnicastRemoteObject implements RMIServerInterface
     }
 
     @Override
-    public void notify(Message message, Outcome outcome, Object object) throws RemoteException {
-        client.notify(message, outcome, object);
+    public void notify(Message message, Outcome outcome, GameData gameData) throws RemoteException {
+        client.notify(message, outcome, gameData);
     }
 }

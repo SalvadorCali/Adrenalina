@@ -1,5 +1,7 @@
 package it.polimi.ingsw.controller;
 
+import it.polimi.ingsw.model.cards.Card;
+import it.polimi.ingsw.model.enums.TokenColor;
 import it.polimi.ingsw.model.gamecomponents.Game;
 import it.polimi.ingsw.model.gamecomponents.GameBoard;
 import it.polimi.ingsw.model.gamecomponents.Player;
@@ -14,10 +16,16 @@ import java.util.Map;
 public class GameData implements Serializable {
     private Game game;
     private List<Player> victims;
+    private List<Card> powerups;
     private Map<String, Player> users;
+    private String username;
+    private TokenColor color;
     private String powerup;
     private String weapon;
     private String currentPlayer;
+    private Player player;
+    private SquareData squareData;
+    private Map<TokenColor, Integer> scoreList;
     private boolean movement;
 
     public Game getGame() {
@@ -26,6 +34,54 @@ public class GameData implements Serializable {
 
     public void setGame(Game game) {
         this.game = game;
+    }
+
+    public Map<TokenColor, Integer> getScoreList() {
+        return scoreList;
+    }
+
+    public void setScoreList(Map<TokenColor, Integer> scoreList) {
+        this.scoreList = scoreList;
+    }
+
+    public SquareData getSquareData() {
+        return squareData;
+    }
+
+    public void setSquareData(SquareData squareData) {
+        this.squareData = squareData;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public TokenColor getColor() {
+        return color;
+    }
+
+    public void setColor(TokenColor color) {
+        this.color = color;
+    }
+
+    public Player getPlayer() {
+        return player;
+    }
+
+    public void setPlayer(Player player) {
+        this.player = player;
+    }
+
+    public List<Card> getPowerups() {
+        return powerups;
+    }
+
+    public void setPowerups(List<Card> powerups) {
+        this.powerups = powerups;
     }
 
     public void setVictims(List<Player> victims){

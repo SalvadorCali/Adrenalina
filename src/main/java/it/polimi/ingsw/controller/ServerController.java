@@ -88,21 +88,24 @@ public class ServerController {
                 }
             }else if(newUsername || newColor){
                 if(!newUsername){
+                    gameData.setUsername(username);
                     try {
-                        server.notify(Message.LOGIN, Outcome.WRONG, username);
+                        server.notify(Message.LOGIN, Outcome.WRONG, gameData);
                     } catch (IOException e) {
                         Printer.err(e);
                     }
                 }else{
+                    gameData.setColor(color);
                     try {
-                        server.notify(Message.COLOR, Outcome.WRONG, color);
+                        server.notify(Message.COLOR, Outcome.WRONG, gameData);
                     } catch (IOException e) {
                         Printer.err(e);
                     }
                 }
             }else{
+                gameData.setUsername(username);
                 try {
-                    server.notify(Message.LOGIN, Outcome.WRONG, username);
+                    server.notify(Message.LOGIN, Outcome.WRONG, gameData);
                 } catch (IOException e) {
                     Printer.err(e);
                 }
@@ -129,25 +132,19 @@ public class ServerController {
         colors.put(color, username);
         //added
         Player player = new Player(color);
-        if(username.equals("cali2")){
-            player.getPlayerBoard().addDamage(TokenColor.GREY, TokenColor.GREY, TokenColor.GREY, TokenColor.GREY, TokenColor.GREY, TokenColor.GREY,
-                    TokenColor.GREY, TokenColor.GREY, TokenColor.GREY, TokenColor.GREY);
-        }
-        if(username.equals("cali3")){
-            player.getPlayerBoard().addDamage(TokenColor.GREEN, TokenColor.GREY, TokenColor.GREY, TokenColor.GREY, TokenColor.GREY, TokenColor.GREY,
-                    TokenColor.GREY, TokenColor.GREEN, TokenColor.GREEN, TokenColor.GREEN);
-        }
+        debugMode(player, username);
         player.setUsername(username);
         players.add(player);
         users.put(colors.get(color), player);
 
         Printer.println(username + " connected!");
+        gameData.setUsername(username);
         servers.forEach((u, s) -> {
             try {
                 if(u.equals(username)){
-                    s.notify(Message.LOGIN, Outcome.RIGHT, username);
+                    s.notify(Message.LOGIN, Outcome.RIGHT, gameData);
                 }else{
-                    s.notify(Message.LOGIN, Outcome.ALL, username);
+                    s.notify(Message.LOGIN, Outcome.ALL, gameData);
                 }
             } catch (IOException e) {
                 Printer.err(e);
@@ -180,8 +177,7 @@ public class ServerController {
         gameController.setGamePhase(true);
         players.get(0).setMyTurn(true);
         gameController.getGame().setCurrentPlayer(players.get(0));
-        gameData.setGame(gameController.getGame());
-        gameData.setPlayers(users);
+        setGameData();
         try {
             servers.get(players.get(0).getUsername()).notify(Message.NEW_TURN, Outcome.RIGHT, gameData);
             servers.forEach((u,s)->{
@@ -206,14 +202,14 @@ public class ServerController {
         gameController.setSpawnLocationPhase(true);
         colors.forEach((c, u) -> {
             try {
-                servers.get(u).notify(Message.PLAYER, Outcome.RIGHT, users.get(u));
+                gameData.setPlayer(users.get(u));
+                servers.get(u).notify(Message.PLAYER, Outcome.RIGHT, gameData);
             } catch (IOException e) {
                 Printer.err(e);
             }
         });
         gameController.startGame(players);
-        gameData.setGame(gameController.getGame());
-        gameData.setPlayers(users);
+        setGameDataBeforeGame();
         servers.forEach((username, server) -> {
             try {
                 server.notify(Message.GAME, Outcome.ALL, gameData);
@@ -225,8 +221,9 @@ public class ServerController {
             List<Card> powerups = new ArrayList<>();
             powerups.add(gameController.drawPowerup());
             powerups.add(gameController.drawPowerup());
+            gameData.setPowerups(powerups);
             try {
-                server.notify(Message.SPAWN, Outcome.RIGHT, powerups);
+                server.notify(Message.SPAWN, Outcome.RIGHT, gameData);
             } catch (IOException e) {
                 Printer.err(e);
             }
@@ -280,14 +277,16 @@ public class ServerController {
 
     public void showSquare(String username){
         if(gameController.canShowSquare(users.get(username))){
+            gameData.setSquareData(gameController.showSquare(users.get(username)));
             try {
-                servers.get(username).notify(Message.SQUARE, Outcome.RIGHT, gameController.showSquare(users.get(username)));
+                servers.get(username).notify(Message.SQUARE, Outcome.RIGHT, gameData);
             } catch (IOException e) {
                 Printer.err(e);
             }
         }else{
+            gameData.setSquareData(new SquareData());
             try {
-                servers.get(username).notify(Message.SQUARE, Outcome.WRONG, new SquareData());
+                servers.get(username).notify(Message.SQUARE, Outcome.WRONG, gameData);
             } catch (IOException e) {
                 Printer.err(e);
             }
@@ -296,14 +295,16 @@ public class ServerController {
 
     public void showSquare(String username, int x, int y){
         if(gameController.canShowSquare(users.get(username), x, y)){
+            gameData.setSquareData(gameController.showSquare(users.get(username), x, y));
             try {
-                servers.get(username).notify(Message.SQUARE, Outcome.RIGHT, gameController.showSquare(users.get(username), x, y));
+                servers.get(username).notify(Message.SQUARE, Outcome.RIGHT, gameData);
             } catch (IOException e) {
                 Printer.err(e);
             }
         }else{
+            gameData.setSquareData(new SquareData());
             try {
-                servers.get(username).notify(Message.SQUARE, Outcome.WRONG, new SquareData());
+                servers.get(username).notify(Message.SQUARE, Outcome.WRONG, gameData);
             } catch (IOException e) {
                 Printer.err(e);
             }
@@ -316,7 +317,6 @@ public class ServerController {
             Printer.println("disconnessione2" + username);
             users.get(username).setDisconnected(true);
             endTurnDisconnected(username);
-            //gameController.endTurn(users.get(username));
         }
         if(users.containsKey(username)){
             Printer.println("disconnessione3" + username);
@@ -332,9 +332,10 @@ public class ServerController {
              */
             Printer.println(username + " disconnected!");
             servers.remove(username);
+            gameData.setUsername(username);
             servers.forEach((u,s) -> {
                 try {
-                    s.notify(Message.DISCONNECT, Outcome.ALL, username);
+                    s.notify(Message.DISCONNECT, Outcome.ALL, gameData);
                 } catch (IOException e) {
                     Printer.err(e);
                 }
@@ -348,8 +349,7 @@ public class ServerController {
         disconnectedUsers.remove(username);
         servers.put(username, server);
         Printer.println(username + " connected!");
-        gameData.setGame(gameController.getGame());
-        gameData.setPlayers(users);
+        setGameData();
         servers.forEach((u, s) -> {
             try {
                 if(u.equals(username)){
@@ -368,8 +368,7 @@ public class ServerController {
         if(users.get(username).isMyTurn()){
             if(gameController.canMove(users.get(username), directions) && users.get(username).canUseAction()){
                 if(gameController.move(users.get(username), directions)){
-                    gameData.setGame(gameController.getGame());
-                    gameData.setPlayers(users);
+                    setGameData();
                     try {
                         servers.get(username).notify(Message.MOVE, Outcome.RIGHT, gameData);
 
@@ -386,8 +385,7 @@ public class ServerController {
                         }
                     });
                 }else{
-                    gameData.setGame(gameController.getGame());
-                    gameData.setPlayers(users);
+                    setGameData();
                     try {
                         servers.get(username).notify(Message.MOVE, Outcome.WRONG, gameData);
                     } catch (IOException e) {
@@ -395,8 +393,7 @@ public class ServerController {
                     }
                 }
             }else{
-                gameData.setGame(gameController.getGame());
-                gameData.setPlayers(users);
+                setGameData();
                 try {
                     servers.get(username).notify(Message.MOVE, Outcome.WRONG, gameData);
                 } catch (IOException e) {
@@ -418,9 +415,7 @@ public class ServerController {
                 if(directions.length > 0){
                     gameData.setMovement(true);
                 }
-                gameData.setCurrentPlayer(username);
-                gameData.setGame(gameController.getGame());
-                gameData.setPlayers(users);
+                setGameData();
                 try{
                     servers.get(username).notify(Message.GRAB, Outcome.RIGHT, gameData);
                 }catch (IOException e){
@@ -437,8 +432,7 @@ public class ServerController {
                 });
                 gameData.setMovement(false);
             }else{
-                gameData.setGame(gameController.getGame());
-                gameData.setPlayers(users);
+                setGameData();
                 try{
                     servers.get(username).notify(Message.GRAB, Outcome.WRONG, gameData);
                 }catch (IOException e){
@@ -463,14 +457,14 @@ public class ServerController {
         if(gameController.canDropPowerup(users.get(username), powerup)){
             try{
                 gameController.dropPowerup(users.get(username), powerup);
-                gameData.setPlayers(users);
+                setGameData();
                 servers.get(username).notify(Message.DROP_POWERUP, Outcome.RIGHT, gameData);
             }catch (IOException e) {
                 Printer.err(e);
             }
         }else{
             try{
-                gameData.setPlayers(users);
+                setGameData();
                 servers.get(username).notify(Message.DROP_POWERUP, Outcome.WRONG, gameData);
             }catch (IOException e) {
                 Printer.err(e);
@@ -482,14 +476,14 @@ public class ServerController {
         if(gameController.canDropWeapon(users.get(username), weapon)){
             try{
                 gameController.dropWeapon(users.get(username), weapon);
-                gameData.setPlayers(users);
+                setGameData();
                 servers.get(username).notify(Message.DROP_WEAPON, Outcome.RIGHT, gameData);
             }catch (IOException e) {
                 Printer.err(e);
             }
         }else{
             try{
-                gameData.setPlayers(users);
+                setGameData();
                 servers.get(username).notify(Message.DROP_WEAPON, Outcome.WRONG, gameData);
             }catch (IOException e) {
                 Printer.err(e);
@@ -501,14 +495,14 @@ public class ServerController {
          if(gameController.canDiscardPowerup(users.get(username), powerup)){
             try{
                 gameController.discardPowerup(users.get(username), powerup);
-                gameData.setPlayers(users);
+                setGameData();
                 servers.get(username).notify(Message.DISCARD_POWERUP, Outcome.RIGHT, gameData);
             }catch (IOException e) {
                 Printer.err(e);
             }
         }else{
              try{
-                 gameData.setPlayers(users);
+                 setGameData();
                  servers.get(username).notify(Message.DISCARD_POWERUP, Outcome.WRONG, gameData);
              }catch (IOException e) {
                  Printer.err(e);
@@ -540,6 +534,7 @@ public class ServerController {
                             victims.add(p);
                         }
                     });
+                    setGameData();
                     gameData.setVictims(victims);
                     if(directions.length > 0){
                         gameData.setMovement(true);
@@ -610,8 +605,8 @@ public class ServerController {
                 default:
                     break;
             }
+            setGameData();
             gameData.setPowerup(powerup);
-            gameData.setGame(gameController.getGame());
             servers.forEach((u,s)-> {
                 try {
                     s.notify(Message.POWERUP, Outcome.RIGHT, gameData);
@@ -620,8 +615,8 @@ public class ServerController {
                 }
             });
         }else{
+            setGameData();
             gameData.setPowerup(powerup);
-            gameData.setGame(gameController.getGame());
             try {
                 servers.get(username).notify(Message.POWERUP, Outcome.WRONG, gameData);
             } catch (IOException e) {
@@ -649,8 +644,7 @@ public class ServerController {
         if(users.get(username).isMyTurn()){
             if(gameController.reload(users.get(username), weaponName)){
                 try {
-                    gameData.setGame(gameController.getGame());
-                    gameData.setPlayers(users);
+                    setGameData();
                     gameData.setWeapon(weaponName);
                     users.get(username).setActionNumber(2);
                     servers.get(username).notify(Message.RELOAD, Outcome.RIGHT, gameData);
@@ -659,8 +653,7 @@ public class ServerController {
                 }
             }else{
                 try {
-                    gameData.setGame(gameController.getGame());
-                    gameData.setPlayers(users);
+                    setGameData();
                     gameData.setWeapon(weaponName);
                     servers.get(username).notify(Message.RELOAD, Outcome.WRONG, gameData);
                 } catch (IOException e) {
@@ -687,8 +680,7 @@ public class ServerController {
             if(gameController.isFinalFrenzy() && !finalFrenzy){
                 gameController.finalFrenzy();
                 finalFrenzy = true;
-                gameData.setGame(gameController.getGame());
-                gameData.setPlayers(users);
+                setGameData();
                 servers.forEach((u,s)-> {
                     try {
                         s.notify(Message.FINAL_FRENZY, Outcome.ALL, gameData);
@@ -706,8 +698,7 @@ public class ServerController {
                         int index = nextPlayerIndex(i);
                         Printer.println("indice " + index);
                         if(servers.containsKey(players.get(index).getUsername())){
-                            gameData.setGame(gameController.getGame());
-                            gameData.setPlayers(users);
+                            setGameData();
                             servers.get(players.get(index).getUsername()).notify(Message.NEW_TURN, Outcome.RIGHT, gameData);
                             timer.interrupt();
                             timer = new TurnTimer(this, players, players.get(index));
@@ -760,8 +751,7 @@ public class ServerController {
             if(gameController.isFinalFrenzy() && !finalFrenzy){
                 gameController.finalFrenzy();
                 finalFrenzy = true;
-                gameData.setGame(gameController.getGame());
-                gameData.setPlayers(users);
+                setGameData();
                 servers.forEach((u,s)-> {
                     try {
                         if(!u.equals(username)){
@@ -781,8 +771,7 @@ public class ServerController {
                         int index = nextPlayerIndex(i);
                         Printer.println("indice " + index);
                         if(servers.containsKey(players.get(index).getUsername())){
-                            gameData.setGame(gameController.getGame());
-                            gameData.setPlayers(users);
+                            setGameData();
                             servers.get(players.get(index).getUsername()).notify(Message.NEW_TURN, Outcome.RIGHT, gameData);
                             timer.interrupt();
                             timer = new TurnTimer(this, players, players.get(index));
@@ -824,9 +813,10 @@ public class ServerController {
     private void deathAndRespawn(){
         timer.interrupt();
         gameController.deathAndRespawn(players);
+        gameData.setScoreList(gameController.getScoreList());
         servers.forEach((u,s)-> {
             try {
-                s.notify(Message.SCORE, Outcome.ALL, gameController.getScoreList());
+                s.notify(Message.SCORE, Outcome.ALL, gameData);
             } catch (IOException e) {
                 Printer.err(e);
             }
@@ -858,5 +848,27 @@ public class ServerController {
 
     private void endGame(){
         Printer.println("Game end!");
+    }
+
+    private void setGameDataBeforeGame(){
+        gameData.setGame(gameController.getGame());
+        gameData.setPlayers(users);
+    }
+
+    private void setGameData(){
+        gameData.setGame(gameController.getGame());
+        gameData.setPlayers(users);
+        gameData.setCurrentPlayer(gameController.getGame().getCurrentPlayer().getUsername());
+    }
+
+    private void debugMode(Player player, String username){
+        if(username.equals("cali2")){
+            player.getPlayerBoard().addDamage(TokenColor.GREY, TokenColor.GREY, TokenColor.GREY, TokenColor.GREY, TokenColor.GREY, TokenColor.GREY,
+                    TokenColor.GREY, TokenColor.GREY, TokenColor.GREY, TokenColor.GREY);
+        }
+        if(username.equals("cali3")){
+            player.getPlayerBoard().addDamage(TokenColor.GREEN, TokenColor.GREY, TokenColor.GREY, TokenColor.GREY, TokenColor.GREY, TokenColor.GREY,
+                    TokenColor.GREY, TokenColor.GREEN, TokenColor.GREEN, TokenColor.GREEN);
+        }
     }
 }
