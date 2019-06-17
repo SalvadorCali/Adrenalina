@@ -420,17 +420,29 @@ public class GameController {
         actionInterface.getClientData().setSecondVictim(secondVictim);
         actionInterface.getClientData().setThirdVictim(thirdVictim);
         switch (directions.length) {
+            case 0:
+                getActionInterface().getClientData().setFirstMove(null);
+                getActionInterface().getClientData().setSecondMove(null);
+                getActionInterface().getClientData().setThirdMove(null);
+                getActionInterface().getClientData().setFourthMove(null);
+                break;
             case 1:
                 getActionInterface().getClientData().setFirstMove(directions[0]);
+                getActionInterface().getClientData().setSecondMove(null);
+                getActionInterface().getClientData().setThirdMove(null);
+                getActionInterface().getClientData().setFourthMove(null);
                 break;
             case 2:
                 getActionInterface().getClientData().setFirstMove(directions[0]);
                 getActionInterface().getClientData().setSecondMove(directions[1]);
+                getActionInterface().getClientData().setThirdMove(null);
+                getActionInterface().getClientData().setFourthMove(null);
                 break;
             case 3:
                 getActionInterface().getClientData().setFirstMove(directions[0]);
                 getActionInterface().getClientData().setSecondMove(directions[1]);
                 getActionInterface().getClientData().setThirdMove(directions[2]);
+                getActionInterface().getClientData().setFourthMove(null);
                 break;
             case 4:
                 getActionInterface().getClientData().setFirstMove(directions[0]);
