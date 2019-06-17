@@ -259,6 +259,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     private static final int MAX_MOVEMENT = 3;
     private static final double GRID_WIDTH = 25;
     private static final double GRID_HEIGHT = 25;
+    private static final int MAX_WEAPONS = 3;
 
     private GameController gameController;
     private String currentPlayer;
@@ -519,6 +520,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         Platform.runLater(() ->{
             guiHandler = Data.getInstance().getGuiHandler();
             guiHandler.setLabelStatement("your turn is ended");
+            guiHandler.disableButtons();
         });
     }
 
@@ -529,7 +531,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                 case NEW_TURN:
                     try {
                         notifyNewTurn(outcome);
-                        } catch (Exception e) {
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
                     break;
@@ -731,7 +733,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
             if(outcome.equals(Outcome.RIGHT)) {
 
-                if(startedGame == 0) {
+                if(this.startedGame == 0) {
                     Stage stagelogin = (Stage) loginButton.getScene().getWindow();
                     stagelogin.close();
                     FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("MapGUI.fxml"));
@@ -749,7 +751,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                     guiHandler.setMapImage();
                     guiHandler.setSkulls();
                     guiHandler.addWeapon();
-
+                    guiHandler.setLabelTurn();
 
                     Data.getInstance().setGuiHandler(guiHandler);
 
@@ -762,14 +764,16 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                     thread.setDaemon(true);
                     thread.start();
 
-                    startedGame++;
+                    this.startedGame++;
+
                 }else{
-                    enableButtons();
+                    guiHandler.enableButtons();
+                    guiHandler.setLabelTurn();
                 }
 
 
             }else{
-                if(startedGame == 0) {
+                if(this.startedGame == 0) {
                     Stage stagelogin = (Stage) loginButton.getScene().getWindow();
                     stagelogin.close();
                     FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("MapGUI.fxml"));
@@ -801,14 +805,17 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                     thread.setDaemon(true);
                     thread.start();
 
-                    disableButtons();
-                    startedGame++;
+                    guiHandler.disableButtons();
+                    this.startedGame++;
+
                 }else{
-                    disableButtons();
+                    guiHandler.disableButtons();
+                    guiHandler.setLabelTurn();
                 }
             }
         });
     }
+
 
     public void setSkulls() {
 
@@ -993,6 +1000,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                 guiHandler.placePlayers(playerController.getGameBoard().getArena());
                 guiHandler.removeImg();
                 guiHandler.addAmmo();
+                //guiHandler.removeWeapon();
             });
 
             try{
@@ -1057,10 +1065,92 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                 }
             }
         }
-
-
-
     }
+    /*
+    public void removeAmmo(){
+
+        playerController = Data.getInstance().getPlayerController();
+        arena = playerController.getGameBoard().getArena();
+
+        if(arena[0][0].getAmmoCard() == null){
+            grid00.getChildren().remove(1, 2);
+        }
+        if(arena[0][1].getAmmoCard() == null){
+            grid01.getChildren().remove(1, 2);
+        }
+        if(arena[0][2].getAmmoCard() == null){
+            grid02.getChildren().remove(1, 2);
+        }
+        if(arena[0][3].getAmmoCard() == null){
+            grid03.getChildren().remove(1, 2);
+        }
+        if(arena[1][0].getAmmoCard() == null){
+            grid10.getChildren().remove(1, 2);
+        }
+        if(arena[1][1].getAmmoCard() == null){
+            grid11.getChildren().remove(1, 2);
+        }
+        if(arena[1][2].getAmmoCard() == null){
+            grid12.getChildren().remove(1, 2);
+        }
+        if(arena[1][3].getAmmoCard() == null){
+            grid13.getChildren().remove(1, 2);
+        }
+        if(arena[2][0].getAmmoCard() == null){
+            grid20.getChildren().remove(1, 2);
+        }
+        if(arena[2][1].getAmmoCard() == null){
+            grid21.getChildren().remove(1, 2);
+        }
+        if(arena[2][2].getAmmoCard() == null){
+            grid22.getChildren().remove(1, 2);
+        }
+        if(arena[2][3].getAmmoCard() == null){
+            grid23.getChildren().remove(1, 2);
+        }
+    }
+
+    public void removeWeapon(){
+
+        playerController = Data.getInstance().getPlayerController();
+        arena = playerController.getGameBoard().getArena();
+
+        int k = 0;
+        for(int i = 0; i < ROWS ; i++) {
+            for (int j = 0; j < COLUMNS; j++) {
+                for (; k < MAX_WEAPONS; k++){
+                    if (arena[i][j].isSpawn() && arena[i][j].getWeapons().get(k) == null) {
+                        if (arena[i][j].equals(TokenColor.BLUE)) {
+                            if (k == 0) {
+                                weaponBlue1.setImage(null);
+                            } else if(k == 1){
+                                weaponBlue2.setImage(null);
+                            } else if(k == 2){
+                                weaponBlue3.setImage(null);
+                            }
+                        } else if (arena[i][j].equals(TokenColor.RED)) {
+                            if (k == 0) {
+                                weaponRed1.setImage(null);
+                            } else if(k == 1){
+                                weaponRed2.setImage(null);
+                            } else if(k == 2){
+                                weaponRed3.setImage(null);
+                            }
+                        } else if (arena[i][j].equals(TokenColor.YELLOW)) {
+                            if (k == 0) {
+                                weaponYellow1.setImage(null);
+                            } else if(k == 1){
+                                weaponYellow2.setImage(null);
+                            } else if(k == 2){
+                                weaponYellow3.setImage(null);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    */
 
     @FXML
     private void addWeapon() {
@@ -1080,6 +1170,18 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                         this.weaponBlue1.setImage(new Image(url1));
                         this.weaponBlue2.setImage(new Image(url2));
                         this.weaponBlue3.setImage(new Image(url3));
+
+                        for (; k < MAX_WEAPONS; k++){
+                            if(arena[i][j].getWeapons().get(k) == null){
+                                if (k == 0) {
+                                    weaponBlue1.setImage(null);
+                                } else if(k == 1){
+                                    weaponBlue2.setImage(null);
+                                } else if(k == 2){
+                                    weaponBlue3.setImage(null);
+                                }
+                            }
+                        }
                     }
 
                     if(arena[i][j].getColor().equals(TokenColor.RED)){
@@ -1091,6 +1193,18 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                         this.weaponRed1.setImage(new Image(url1));
                         this.weaponRed2.setImage(new Image(url2));
                         this.weaponRed3.setImage(new Image(url3));
+
+                        for (; k < MAX_WEAPONS; k++){
+                            if(arena[i][j].getWeapons().get(k) == null){
+                                if (k == 0) {
+                                    weaponRed1.setImage(null);
+                                } else if(k == 1){
+                                    weaponRed2.setImage(null);
+                                } else if(k == 2){
+                                    weaponRed3.setImage(null);
+                                }
+                            }
+                        }
                     }
 
                     if(arena[i][j].getColor().equals(TokenColor.YELLOW)){
@@ -1102,6 +1216,18 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                         this.weaponYellow1.setImage(new Image(url1));
                         this.weaponYellow2.setImage(new Image(url2));
                         this.weaponYellow3.setImage(new Image(url3));
+
+                        for (; k < MAX_WEAPONS; k++) {
+                            if (arena[i][j].getWeapons().get(k) == null) {
+                                if (k == 0) {
+                                    weaponYellow1.setImage(null);
+                                } else if(k == 1){
+                                    weaponYellow2.setImage(null);
+                                } else if(k == 2){
+                                    weaponYellow3.setImage(null);
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -1257,6 +1383,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                 
                 client = Data.getInstance().getClient();
                 this.client.endTurn();
+                setLabelTurn();
             } catch (IOException e1) {
                 e1.printStackTrace();
             }
@@ -1840,7 +1967,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
             try{
 
-                Thread.sleep(3000);
+                Thread.sleep(10000);
 
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -1991,23 +2118,24 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     }
 
     private void checkWeapon() {
+        Platform.runLater(() -> {
 
-        while(checkTurn){
-            Platform.runLater(() -> {
+            while (checkTurn) {
 
                 guiHandler = Data.getInstance().getGuiHandlerWeapon();
                 guiHandler.setWeaponHad();
                 guiHandler.setPowerupHad();
-            });
 
-            try{
 
-                Thread.sleep(5000);
+                try {
 
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+                    Thread.sleep(5000);
+
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
-        }
+        });
     }
 
     @FXML
@@ -2136,31 +2264,31 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
             Integer mode = 1;
 
 
-            if(!modeTxtField.getText().isEmpty()) {
+            if(!modeTxtField.getText().isEmpty() && (modeTxtField.getText().equals("0") || !modeTxtField.getText().equals("1") || !modeTxtField.getText().equals("2"))) {
                 mode = Integer.valueOf(modeTxtField.getText());
             }
 
-            if(!basicTxtField.getText().isEmpty()) {
+            if(!basicTxtField.getText().isEmpty() && (basicTxtField.getText().equals("true") || basicTxtField.getText().equals("false"))) {
                 basicFirst = Boolean.parseBoolean(basicTxtField.getText());
             }
 
-            if (!firstVictimTxtField.getText().isEmpty()) {
+            if (!firstVictimTxtField.getText().isEmpty() && (firstVictimTxtField.getText().equals("blue") || firstVictimTxtField.getText().equals("green") || firstVictimTxtField.getText().equals("purple") || firstVictimTxtField.getText().equals("grey") || firstVictimTxtField.getText().equals("yellow"))) {
                 firstVictim = firstVictimTxtField.getText();
             }
 
-            if (!secondVictimTxtField.getText().isEmpty()) {
+            if (!secondVictimTxtField.getText().isEmpty() && (secondVictimTxtField.getText().equals("blue") || secondVictimTxtField.getText().equals("green") || secondVictimTxtField.getText().equals("purple") || secondVictimTxtField.getText().equals("grey") || secondVictimTxtField.getText().equals("yellow"))) {
                 secondVictim = secondVictimTxtField.getText();
             }
 
-            if(!thirdVictimTxtField.getText().isEmpty()) {
+            if(!thirdVictimTxtField.getText().isEmpty() && (thirdVictimTxtField.getText().equals("blue") || thirdVictimTxtField.getText().equals("green") || thirdVictimTxtField.getText().equals("purple") || thirdVictimTxtField.getText().equals("grey") || thirdVictimTxtField.getText().equals("yellow"))) {
                 thirdVictim = thirdVictimTxtField.getText();
             }
 
-            if(!directionTxtField.getText().isEmpty()) {
+            if(!directionTxtField.getText().isEmpty() && (directionTxtField.getText().equals("up") || directionTxtField.getText().equals("down") || directionTxtField.getText().equals("left") || directionTxtField.getText().equals("right"))) {
                 direction = Converter.fromStringToDirection(directionTxtField.getText());
             }
 
-            if(!xTxtField.getText().isEmpty() && !yTxtField.getText().isEmpty()) {
+            if(!xTxtField.getText().isEmpty() && !yTxtField.getText().isEmpty() && !Integer.valueOf(xTxtField.getText()).equals(null) && !Integer.valueOf(yTxtField.getText()).equals(null)) {
                 x = Integer.valueOf(xTxtField.getText());
                 y = Integer.valueOf(yTxtField.getText());
             }
