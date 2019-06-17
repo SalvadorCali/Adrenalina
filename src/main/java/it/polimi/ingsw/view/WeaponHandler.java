@@ -370,7 +370,7 @@ public class WeaponHandler {
         }else if(string.countTokens() == 4){
             boolean basicFirst = basicFirst(weapon + "2");
             client.shoot(weapon, Converter.fromStringToInt(string.nextToken()), basicFirst, Converter.fromStringToTokenColor(string.nextToken()),
-                    TokenColor.NONE, TokenColor.NONE, -1, -1, Converter.fromStringToDirection(string.nextToken()));
+                    Converter.fromStringToTokenColor(string.nextToken()), TokenColor.NONE, -1, -1, Converter.fromStringToDirection(string.nextToken()));
             return true;
         }else{
             return false;
