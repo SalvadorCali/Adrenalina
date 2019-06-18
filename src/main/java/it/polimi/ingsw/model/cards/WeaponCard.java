@@ -196,15 +196,15 @@ public class WeaponCard extends Card{
     }
 
     public int getReloadRedAmmos(){
-        return grabRedAmmos;
+        return reloadRedAmmos;
     }
 
     public int getReloadBlueAmmos(){
-        return grabBlueAmmos;
+        return reloadBlueAmmos;
     }
 
     public int getReloadYellowAmmos(){
-        return grabYellowAmmos;
+        return reloadYellowAmmos;
     }
 
     public List<Effect> getEffects() {
