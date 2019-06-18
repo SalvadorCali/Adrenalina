@@ -1270,7 +1270,6 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
 
 
-
     @FXML
     private void moveUp(MouseEvent event) throws IOException {
         saveMovement("up");
@@ -1882,9 +1881,6 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
             stage.setTitle("PlayerBoards");
             stage.show();
 
-            //Thread thread2 = new Thread(this::checkValuePlayerBoard);
-            //thread2.setDaemon(true);
-            //thread2.start();
         });
     }
 
@@ -2066,7 +2062,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
             Integer mode = 1;
 
 
-            if(!modeTxtField.getText().isEmpty() && (modeTxtField.getText().equals("0") || !modeTxtField.getText().equals("1") || !modeTxtField.getText().equals("2"))) {
+            if(!modeTxtField.getText().isEmpty() && (modeTxtField.getText().equals("1") || !modeTxtField.getText().equals("2") || !modeTxtField.getText().equals("3"))) {
                 mode = Integer.valueOf(modeTxtField.getText());
             }
 
