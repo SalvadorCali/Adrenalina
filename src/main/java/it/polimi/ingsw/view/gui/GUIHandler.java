@@ -211,26 +211,6 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     @FXML private ImageView powerupImg2;
     @FXML private Label labelEndTurn;
 
-    @FXML private ImageView firstPlayerBoard;
-    @FXML private ImageView secondPlayerBoard;
-    @FXML private ImageView thirdPlayerBoard;
-    @FXML private ImageView fourthPlayerBoard;
-    @FXML private ImageView fifthPlayerBoard;
-    @FXML private GridPane firstDamageGrid;
-    @FXML private GridPane secondDamageGrid;
-    @FXML private GridPane thirdDamageGrid;
-    @FXML private GridPane fourthDamageGrid;
-    @FXML private GridPane fifthDamageGrid;
-    @FXML private GridPane ammoBoxGrid;
-    @FXML private GridPane ammoReserveGrid;
-    @FXML private GridPane firstDeathCounterGrid;
-    @FXML private GridPane secondDeathCounterGrid;
-    @FXML private GridPane thirdDeathCounterGrid;
-    @FXML private GridPane fourthDeathCounterGrid;
-    @FXML private GridPane fifthDeathCounterGrid;
-    @FXML private GridPane marksGrid;
-
-
     @FXML private ImageView firstWeaponHad;
     @FXML private ImageView secondWeaponHad;
     @FXML private ImageView thirdWeaponHad;
@@ -286,6 +266,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     private Integer powerup;
     private GUIHandler guiHandler;
     private Stage primaryStage;
+    private PlayerBoardGui playerboard;
 
     //starting methods
     //
@@ -1893,18 +1874,13 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                 e.printStackTrace();
             }
 
-            guiHandler = loader.getController();
-            Data.getInstance().setControllerPlayerBoard(guiHandler);
+            playerboard = loader.getController();
+            playerboard.setAll();
 
             Stage stage = new Stage();
             stage.setScene(new Scene(root, 1218, 755));
             stage.setTitle("PlayerBoards");
             stage.show();
-
-
-            Thread thread1 = new Thread(this::checkPlayerBoard);
-            thread1.setDaemon(true);
-            thread1.start();
 
             //Thread thread2 = new Thread(this::checkValuePlayerBoard);
             //thread2.setDaemon(true);
@@ -1912,165 +1888,9 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         });
     }
 
-    private void checkValuePlayerBoard() {
-        guiHandler = Data.getInstance().getControllerPlayerBoard();
-
-        while(checkTurn){
-            Platform.runLater(() -> {
-
-                guiHandler.setFirstDamageGrid();
-                guiHandler.setAmmoBoxGrid();
-                guiHandler.setAmmoReserveGrid();
-                guiHandler.setMarksGrid();
-            });
-
-            try{
-
-                Thread.sleep(3000);
-
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    private void checkPlayerBoard() {
-        guiHandler = Data.getInstance().getControllerPlayerBoard();
-
-        while(checkTurn){
-            Platform.runLater(() -> {
-
-                guiHandler.setPlayerBoardImage();
-                //guiHandler.setFirstDamageGrid();
-                //guiHandler.setAmmoBoxGrid();
-                //guiHandler.setAmmoReserveGrid();
-                //guiHandler.setMarksGrid();
-            });
-
-            try{
-
-                Thread.sleep(10000);
-
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    private void setMarksGrid() {
-        Platform.runLater(() -> {
-
-            playerController = Data.getInstance().getPlayerController();
-            List<Token> marks = playerController.getPlayerBoard().getRevengeMarks();
-
-            for (int i = 0, row = 0; i < marks.size(); i++) {
-                if (!marks.get(i).getFirstColor().equals(TokenColor.NONE)) {
-                    Image image = new Image("colorPlayer/" + Converter.fromTokenColorToString(marks.get(i).getFirstColor()) + ".jpg");
-                    this.marksGrid.add(new ImageView(image), i, row);
-                }
-            }
-        });
-    }
-
-    public void setFirstDamageGrid(){
-        Platform.runLater(() -> {
-
-            playerController = Data.getInstance().getPlayerController();
-            Token[] damageBoard = playerController.getPlayerBoard().getDamageBoard();
-
-            for (int i = 0, row = 0; i < damageBoard.length; i++) {
-                if (!damageBoard[i].getFirstColor().equals(TokenColor.NONE)) {
-                    Image image = new Image("colorPlayer/" + Converter.fromTokenColorToString(damageBoard[i].getFirstColor()) + ".jpg");
-                    this.firstDamageGrid.add(new ImageView(image), i, row);
-                }
-            }
-        });
-    }
-
-    public void setAmmoBoxGrid(){
-        Platform.runLater(() -> {
-
-            playerController = Data.getInstance().getPlayerController();
-            List<Ammo> ammobox = playerController.getPlayer().getAmmoBox();
-
-            for (int i = 0, row = 0; i < ammobox.size(); i++) {
-                if (!ammobox.get(i).getColor().equals(TokenColor.NONE)) {
-                    Image image = new Image("singleAmmo/" + Converter.fromColorToString(ammobox.get(i).getColor()) + ".jpg");
-                    this.ammoBoxGrid.add(new ImageView(image), i, row);
-                    if (i == 2) {
-                        row++;
-                        i = 0;
-                    }
-                }
-            }
-        });
-    }
-
-    public void setAmmoReserveGrid(){
-        Platform.runLater(() -> {
-
-            playerController = Data.getInstance().getPlayerController();
-            List<Ammo> ammoReserve = playerController.getPlayer().getAmmoReserve();
-
-            for (int i = 0, row = 0; i < ammoReserve.size(); i++) {
-                if (!ammoReserve.get(i).getColor().equals(TokenColor.NONE)) {
-
-                    Image image = new Image("singleAmmo/" + Converter.fromColorToString(ammoReserve.get(i).getColor()) + ".jpg");
-                    this.ammoReserveGrid.add(new ImageView(image), i, row);
-                    if (i == 2) {
-                        row++;
-                        i = 0;
-                    }
-                }
-            }
-        });
-    }
 
 
-    public void setPlayerBoardImage() {
 
-        guiHandler = Data.getInstance().getControllerPlayerBoard();
-        Platform.runLater(() ->{
-
-            playerController = Data.getInstance().getPlayerController();
-            guiHandler.firstPlayerBoard.setImage(new Image("playerBoard/" + Converter.fromTokenColorToString(playerController.getPlayer().getColor()) + ".jpg"));
-
-
-            List<Player> otherPlayers = playerController.getOtherPlayers();
-            if(otherPlayers.size() == 1){
-
-                guiHandler.secondPlayerBoard.setImage(new Image("playerBoard/" + Converter.fromTokenColorToString(otherPlayers.get(0).getColor()) + ".jpg"));
-                guiHandler.secondPlayerBoard.setVisible(true);
-
-            }else if (otherPlayers.size() == 2) {
-
-                guiHandler.secondPlayerBoard.setImage(new Image("playerBoard/" + Converter.fromTokenColorToString(otherPlayers.get(0).getColor()) + ".jpg"));
-                guiHandler.thirdPlayerBoard.setImage(new Image("playerBoard/" + Converter.fromTokenColorToString(otherPlayers.get(1).getColor()) + ".jpg"));
-                guiHandler.secondPlayerBoard.setVisible(true);
-                guiHandler.thirdPlayerBoard.setVisible(true);
-
-            } else if (otherPlayers.size() == 3) {
-
-                guiHandler.secondPlayerBoard.setImage(new Image("playerBoard/" + Converter.fromTokenColorToString(otherPlayers.get(0).getColor()) + ".jpg"));
-                guiHandler.thirdPlayerBoard.setImage(new Image("playerBoard/" + Converter.fromTokenColorToString(otherPlayers.get(1).getColor()) + ".jpg"));
-                guiHandler.fourthPlayerBoard.setImage(new Image("playerBoard/" + Converter.fromTokenColorToString(otherPlayers.get(2).getColor()) + ".jpg"));
-                guiHandler.secondPlayerBoard.setVisible(true);
-                guiHandler.thirdPlayerBoard.setVisible(true);
-                guiHandler.fourthPlayerBoard.setVisible(true);
-
-            } else {
-
-                guiHandler.secondPlayerBoard.setImage(new Image("playerBoard/" + Converter.fromTokenColorToString(otherPlayers.get(0).getColor()) + ".jpg"));
-                guiHandler.thirdPlayerBoard.setImage(new Image("playerBoard/" + Converter.fromTokenColorToString(otherPlayers.get(1).getColor()) + ".jpg"));
-                guiHandler.fourthPlayerBoard.setImage(new Image("playerBoard/" + Converter.fromTokenColorToString(otherPlayers.get(2).getColor()) + ".jpg"));
-                guiHandler.fifthPlayerBoard.setImage(new Image("playerBoard/" + Converter.fromTokenColorToString(otherPlayers.get(3).getColor()) + ".jpg"));
-                guiHandler.secondPlayerBoard.setVisible(true);
-                guiHandler.thirdPlayerBoard.setVisible(true);
-                guiHandler.fourthPlayerBoard.setVisible(true);
-                guiHandler.fifthPlayerBoard.setVisible(true);
-            }
-        });
-    }
 
     public void showWeapon(MouseEvent mouseEvent) {
         Platform.runLater(() ->{
