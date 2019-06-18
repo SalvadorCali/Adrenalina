@@ -162,17 +162,13 @@ public class ActionController implements ActionInterface {
 
     @Override
     public void addPowerup(){
-        game.getCurrentPlayer().addPowerup((PowerupCard) game.getPowerup().draw());
+        if(game.getCurrentPlayer().getPowerups().size() < 3){
+            game.getCurrentPlayer().addPowerup((PowerupCard) game.getPowerup().draw());
+        }
     }
 
     @Override
     public void addWeapon(WeaponCard weaponCard){
-        if(game.getCurrentPlayer() == null){
-            Printer.println("aaaaaaaa");
-        }
-        if(weaponCard == null){
-            Printer.println("bbbbbb");
-        }
         game.getCurrentPlayer().addWeapon(weaponCard);
     }
 
