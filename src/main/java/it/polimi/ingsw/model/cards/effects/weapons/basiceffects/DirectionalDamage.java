@@ -39,9 +39,12 @@ public class DirectionalDamage extends BasicEffect {
 
         setData(actionInterface);
         canUse = ammoControl(redAmmos, blueAmmos, yellowAmmos, actionInterface) && noAutoShoot(actionInterface);
-        if(effectName.equals("Sledgehammer"))
-            actionInterface.generatePlayer(victim, player);
-        else
+        if(effectName.equals("Sledgehammer")){
+            if(victim!=null)
+                actionInterface.generatePlayer(victim, player);
+            else
+                canUse = false;
+        } else
             actionInterface.generatePlayer(currentPlayer, player);
         if(canUse && effectName.equals("Sledgehammer"))
             canUse = actionInterface.sameSquare(currentPlayer,victim);

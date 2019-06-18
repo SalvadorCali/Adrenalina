@@ -93,6 +93,10 @@ public class PowerupEffect extends Effect {
 
         Direction direction = actionInterface.getClientData().getFirstMove();
         Direction secondDirection = actionInterface.getClientData().getSecondMove();
+        if(actionInterface.getClientData().getPowerupVictim() == null) {
+            canUse = false;
+            return;
+        }
         actionInterface.generatePlayer(actionInterface.getClientData().getPowerupVictim(),victim);
         canUse = ((direction.equals(secondDirection)||secondDirection == null) && actionInterface.canMove(victim, direction));
         if(canUse){
