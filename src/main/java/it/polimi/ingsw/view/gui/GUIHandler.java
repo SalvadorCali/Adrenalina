@@ -211,26 +211,6 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     @FXML private ImageView powerupImg2;
     @FXML private Label labelEndTurn;
 
-    @FXML private ImageView firstPlayerBoard;
-    @FXML private ImageView secondPlayerBoard;
-    @FXML private ImageView thirdPlayerBoard;
-    @FXML private ImageView fourthPlayerBoard;
-    @FXML private ImageView fifthPlayerBoard;
-    @FXML private GridPane firstDamageGrid;
-    @FXML private GridPane secondDamageGrid;
-    @FXML private GridPane thirdDamageGrid;
-    @FXML private GridPane fourthDamageGrid;
-    @FXML private GridPane fifthDamageGrid;
-    @FXML private GridPane ammoBoxGrid;
-    @FXML private GridPane ammoReserveGrid;
-    @FXML private GridPane firstDeathCounterGrid;
-    @FXML private GridPane secondDeathCounterGrid;
-    @FXML private GridPane thirdDeathCounterGrid;
-    @FXML private GridPane fourthDeathCounterGrid;
-    @FXML private GridPane fifthDeathCounterGrid;
-    @FXML private GridPane marksGrid;
-
-
     @FXML private ImageView firstWeaponHad;
     @FXML private ImageView secondWeaponHad;
     @FXML private ImageView thirdWeaponHad;
@@ -259,6 +239,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     private static final int MAX_MOVEMENT = 3;
     private static final double GRID_WIDTH = 25;
     private static final double GRID_HEIGHT = 25;
+    private static final int MAX_WEAPONS = 3;
 
     private GameController gameController;
     private String currentPlayer;
@@ -285,6 +266,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     private Integer powerup;
     private GUIHandler guiHandler;
     private Stage primaryStage;
+    private PlayerBoardGui playerboard;
 
     //starting methods
     //
@@ -519,6 +501,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         Platform.runLater(() ->{
             guiHandler = Data.getInstance().getGuiHandler();
             guiHandler.setLabelStatement("your turn is ended");
+            guiHandler.disableButtons();
         });
     }
 
@@ -529,7 +512,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                 case NEW_TURN:
                     try {
                         notifyNewTurn(outcome);
-                        } catch (Exception e) {
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
                     break;
@@ -731,7 +714,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
             if(outcome.equals(Outcome.RIGHT)) {
 
-                if(startedGame == 0) {
+                if(this.startedGame == 0) {
                     Stage stagelogin = (Stage) loginButton.getScene().getWindow();
                     stagelogin.close();
                     FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("MapGUI.fxml"));
@@ -749,7 +732,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                     guiHandler.setMapImage();
                     guiHandler.setSkulls();
                     guiHandler.addWeapon();
-
+                    guiHandler.setLabelTurn();
 
                     Data.getInstance().setGuiHandler(guiHandler);
 
@@ -762,14 +745,16 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                     thread.setDaemon(true);
                     thread.start();
 
-                    startedGame++;
+                    this.startedGame++;
+
                 }else{
-                    enableButtons();
+                    guiHandler.enableButtons();
+                    guiHandler.setLabelTurn();
                 }
 
 
             }else{
-                if(startedGame == 0) {
+                if(this.startedGame == 0) {
                     Stage stagelogin = (Stage) loginButton.getScene().getWindow();
                     stagelogin.close();
                     FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("MapGUI.fxml"));
@@ -801,14 +786,17 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                     thread.setDaemon(true);
                     thread.start();
 
-                    disableButtons();
-                    startedGame++;
+                    guiHandler.disableButtons();
+                    this.startedGame++;
+
                 }else{
-                    disableButtons();
+                    guiHandler.disableButtons();
+                    guiHandler.setLabelTurn();
                 }
             }
         });
     }
+
 
     public void setSkulls() {
 
@@ -993,6 +981,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                 guiHandler.placePlayers(playerController.getGameBoard().getArena());
                 guiHandler.removeImg();
                 guiHandler.addAmmo();
+                //guiHandler.removeWeapon();
             });
 
             try{
@@ -1057,10 +1046,92 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                 }
             }
         }
-
-
-
     }
+    /*
+    public void removeAmmo(){
+
+        playerController = Data.getInstance().getPlayerController();
+        arena = playerController.getGameBoard().getArena();
+
+        if(arena[0][0].getAmmoCard() == null){
+            grid00.getChildren().remove(1, 2);
+        }
+        if(arena[0][1].getAmmoCard() == null){
+            grid01.getChildren().remove(1, 2);
+        }
+        if(arena[0][2].getAmmoCard() == null){
+            grid02.getChildren().remove(1, 2);
+        }
+        if(arena[0][3].getAmmoCard() == null){
+            grid03.getChildren().remove(1, 2);
+        }
+        if(arena[1][0].getAmmoCard() == null){
+            grid10.getChildren().remove(1, 2);
+        }
+        if(arena[1][1].getAmmoCard() == null){
+            grid11.getChildren().remove(1, 2);
+        }
+        if(arena[1][2].getAmmoCard() == null){
+            grid12.getChildren().remove(1, 2);
+        }
+        if(arena[1][3].getAmmoCard() == null){
+            grid13.getChildren().remove(1, 2);
+        }
+        if(arena[2][0].getAmmoCard() == null){
+            grid20.getChildren().remove(1, 2);
+        }
+        if(arena[2][1].getAmmoCard() == null){
+            grid21.getChildren().remove(1, 2);
+        }
+        if(arena[2][2].getAmmoCard() == null){
+            grid22.getChildren().remove(1, 2);
+        }
+        if(arena[2][3].getAmmoCard() == null){
+            grid23.getChildren().remove(1, 2);
+        }
+    }
+
+    public void removeWeapon(){
+
+        playerController = Data.getInstance().getPlayerController();
+        arena = playerController.getGameBoard().getArena();
+
+        int k = 0;
+        for(int i = 0; i < ROWS ; i++) {
+            for (int j = 0; j < COLUMNS; j++) {
+                for (; k < MAX_WEAPONS; k++){
+                    if (arena[i][j].isSpawn() && arena[i][j].getWeapons().get(k) == null) {
+                        if (arena[i][j].equals(TokenColor.BLUE)) {
+                            if (k == 0) {
+                                weaponBlue1.setImage(null);
+                            } else if(k == 1){
+                                weaponBlue2.setImage(null);
+                            } else if(k == 2){
+                                weaponBlue3.setImage(null);
+                            }
+                        } else if (arena[i][j].equals(TokenColor.RED)) {
+                            if (k == 0) {
+                                weaponRed1.setImage(null);
+                            } else if(k == 1){
+                                weaponRed2.setImage(null);
+                            } else if(k == 2){
+                                weaponRed3.setImage(null);
+                            }
+                        } else if (arena[i][j].equals(TokenColor.YELLOW)) {
+                            if (k == 0) {
+                                weaponYellow1.setImage(null);
+                            } else if(k == 1){
+                                weaponYellow2.setImage(null);
+                            } else if(k == 2){
+                                weaponYellow3.setImage(null);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    */
 
     @FXML
     private void addWeapon() {
@@ -1080,6 +1151,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                         this.weaponBlue1.setImage(new Image(url1));
                         this.weaponBlue2.setImage(new Image(url2));
                         this.weaponBlue3.setImage(new Image(url3));
+
                     }
 
                     if(arena[i][j].getColor().equals(TokenColor.RED)){
@@ -1091,6 +1163,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                         this.weaponRed1.setImage(new Image(url1));
                         this.weaponRed2.setImage(new Image(url2));
                         this.weaponRed3.setImage(new Image(url3));
+
                     }
 
                     if(arena[i][j].getColor().equals(TokenColor.YELLOW)){
@@ -1102,6 +1175,8 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                         this.weaponYellow1.setImage(new Image(url1));
                         this.weaponYellow2.setImage(new Image(url2));
                         this.weaponYellow3.setImage(new Image(url3));
+
+                        
                     }
                 }
             }
@@ -1195,7 +1270,6 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
 
 
-
     @FXML
     private void moveUp(MouseEvent event) throws IOException {
         saveMovement("up");
@@ -1257,6 +1331,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                 
                 client = Data.getInstance().getClient();
                 this.client.endTurn();
+                setLabelTurn();
             } catch (IOException e1) {
                 e1.printStackTrace();
             }
@@ -1269,35 +1344,36 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
             MapCLI mapCLI = new MapCLI(playerController.getGameBoard());
             mapCLI.printMap();
 
+            Platform.runLater(() -> {
+                if (!arena[0][0].getPlayers().isEmpty()) {
+                    for (int index = 0, row = 0; index < arena[0][0].getPlayers().size(); index++) {
 
-            if (!arena[0][0].getPlayers().isEmpty()) {
-                for (int index = 0, row = 0; index < arena[0][0].getPlayers().size(); index++) {
-
-                    Image image = new Image("colorPlayer/" + Converter.fromTokenColorToString(arena[0][0].getPlayers().get(index).getColor()) + ".jpg");
-                    grid00.add(new ImageView(image), index, row);
-                    if (index == 1) {
-                        row++;
-                        index = 0;
+                        Image image = new Image("colorPlayer/" + Converter.fromTokenColorToString(arena[0][0].getPlayers().get(index).getColor()) + ".jpg");
+                        grid00.add(new ImageView(image), index, row);
+                        if (index == 1) {
+                            row++;
+                            index = 0;
+                        }
                     }
                 }
-            }
+            });
 
+            Platform.runLater(() -> {
+                if (!arena[0][1].getPlayers().isEmpty()) {
+                    for (int index = 0, row = 0; index < arena[0][1].getPlayers().size(); index++) {
 
-
-            if (!arena[0][1].getPlayers().isEmpty()) {
-                for (int index = 0, row = 0; index < arena[0][1].getPlayers().size(); index++) {
-
-                    Image image = new Image("colorPlayer/" + Converter.fromTokenColorToString(arena[0][1].getPlayers().get(index).getColor()) + ".jpg");
-                    grid01.add(new ImageView(image), index, row);
-                    if (index == 1) {
-                        row++;
-                        index = 0;
+                        Image image = new Image("colorPlayer/" + Converter.fromTokenColorToString(arena[0][1].getPlayers().get(index).getColor()) + ".jpg");
+                        grid01.add(new ImageView(image), index, row);
+                        if (index == 1) {
+                            row++;
+                            index = 0;
+                        }
                     }
                 }
-            }
+            });
 
-
-            if (!arena[0][2].getPlayers().isEmpty()) {
+            Platform.runLater(() -> {
+                if (!arena[0][2].getPlayers().isEmpty()) {
                 for (int index = 0, row = 0; index < arena[0][2].getPlayers().size(); index++) {
 
 
@@ -1308,125 +1384,138 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                         index = 0;
                     }
                 }
-            }
+            }});
 
 
-            if (!arena[0][3].getPlayers().isEmpty()) {
-                for (int index = 0, row = 0; index < arena[0][3].getPlayers().size(); index++) {
+            Platform.runLater(() -> {
+                if (!arena[0][3].getPlayers().isEmpty()) {
+                    for (int index = 0, row = 0; index < arena[0][3].getPlayers().size(); index++) {
 
-                    Image image = new Image("colorPlayer/" + Converter.fromTokenColorToString(arena[0][3].getPlayers().get(index).getColor()) + ".jpg");
-                    grid03.add(new ImageView(image), index, row);
-                    if (index == 1) {
-                        row++;
-                        index = 0;
+                        Image image = new Image("colorPlayer/" + Converter.fromTokenColorToString(arena[0][3].getPlayers().get(index).getColor()) + ".jpg");
+                        grid03.add(new ImageView(image), index, row);
+                        if (index == 1) {
+                            row++;
+                            index = 0;
+                        }
                     }
                 }
-            }
+            });
 
 
-            if (!arena[1][0].getPlayers().isEmpty()) {
-                for (int index = 0, row = 0; index < arena[1][0].getPlayers().size(); index++) {
+            Platform.runLater(() -> {
+                if (!arena[1][0].getPlayers().isEmpty()) {
+                    for (int index = 0, row = 0; index < arena[1][0].getPlayers().size(); index++) {
 
 
-                    Image image = new Image("colorPlayer/" + Converter.fromTokenColorToString(arena[1][0].getPlayers().get(index).getColor()) + ".jpg");
-                    grid10.add(new ImageView(image), index, row);
-                    if (index == 1) {
-                        row++;
-                        index = 0;
+                        Image image = new Image("colorPlayer/" + Converter.fromTokenColorToString(arena[1][0].getPlayers().get(index).getColor()) + ".jpg");
+                        grid10.add(new ImageView(image), index, row);
+                        if (index == 1) {
+                            row++;
+                            index = 0;
+                        }
                     }
                 }
-            }
+            });
 
+            Platform.runLater(() -> {
+                if (!arena[1][1].getPlayers().isEmpty()) {
+                    for (int index = 0, row = 0; index < arena[1][1].getPlayers().size(); index++) {
 
-            if (!arena[1][1].getPlayers().isEmpty()) {
-                for (int index = 0, row = 0; index < arena[1][1].getPlayers().size(); index++) {
-
-                    Image image = new Image("colorPlayer/" + Converter.fromTokenColorToString(arena[1][1].getPlayers().get(index).getColor()) + ".jpg");
-                    grid11.add(new ImageView(image), index, row);
-                    if (index == 1) {
-                        row++;
-                        index = 0;
+                        Image image = new Image("colorPlayer/" + Converter.fromTokenColorToString(arena[1][1].getPlayers().get(index).getColor()) + ".jpg");
+                        grid11.add(new ImageView(image), index, row);
+                        if (index == 1) {
+                            row++;
+                            index = 0;
+                        }
                     }
                 }
-            }
+            });
 
+            Platform.runLater(() -> {
+                if (!arena[1][2].getPlayers().isEmpty()) {
+                    for (int index = 0, row = 0; index < arena[1][2].getPlayers().size(); index++) {
 
-            if (!arena[1][2].getPlayers().isEmpty()) {
-                for (int index = 0, row = 0; index < arena[1][2].getPlayers().size(); index++) {
-
-                    Image image = new Image("colorPlayer/" + Converter.fromTokenColorToString(arena[1][2].getPlayers().get(index).getColor()) + ".jpg");
-                    grid12.add(new ImageView(image), index, row);
-                    if (index == 1) {
-                        row++;
-                        index = 0;
+                        Image image = new Image("colorPlayer/" + Converter.fromTokenColorToString(arena[1][2].getPlayers().get(index).getColor()) + ".jpg");
+                        grid12.add(new ImageView(image), index, row);
+                        if (index == 1) {
+                            row++;
+                            index = 0;
+                        }
                     }
                 }
-            }
+            });
 
+            Platform.runLater(() -> {
+                if (!arena[1][3].getPlayers().isEmpty()) {
+                    for (int index = 0, row = 0; index < arena[1][3].getPlayers().size(); index++) {
 
-            if (!arena[1][3].getPlayers().isEmpty()) {
-                for (int index = 0, row = 0; index < arena[1][3].getPlayers().size(); index++) {
-
-                    Image image = new Image("colorPlayer/" + Converter.fromTokenColorToString(arena[1][3].getPlayers().get(index).getColor()) + ".jpg");
-                    grid13.add(new ImageView(image), index, row);
-                    if (index == 1) {
-                        row++;
-                        index = 0;
+                        Image image = new Image("colorPlayer/" + Converter.fromTokenColorToString(arena[1][3].getPlayers().get(index).getColor()) + ".jpg");
+                        grid13.add(new ImageView(image), index, row);
+                        if (index == 1) {
+                            row++;
+                            index = 0;
+                        }
                     }
                 }
-            }
+            });
 
 
-            if (!arena[2][0].getPlayers().isEmpty()) {
-                for (int index = 0, row = 0; index < arena[2][0].getPlayers().size(); index++) {
+            Platform.runLater(() -> {
+                if (!arena[2][0].getPlayers().isEmpty()) {
+                    for (int index = 0, row = 0; index < arena[2][0].getPlayers().size(); index++) {
 
-                    Image image = new Image("colorPlayer/" + Converter.fromTokenColorToString(arena[2][0].getPlayers().get(index).getColor()) + ".jpg");
-                    grid20.add(new ImageView(image), index, row);
-                    if (index == 1) {
-                        row++;
-                        index = 0;
+                        Image image = new Image("colorPlayer/" + Converter.fromTokenColorToString(arena[2][0].getPlayers().get(index).getColor()) + ".jpg");
+                        grid20.add(new ImageView(image), index, row);
+                        if (index == 1) {
+                            row++;
+                            index = 0;
+                        }
                     }
                 }
-            }
+            });
 
 
-            if (!arena[2][1].getPlayers().isEmpty()) {
-                for (int index = 0, row = 0; index < arena[2][1].getPlayers().size(); index++) {
+            Platform.runLater(() -> {
+                if (!arena[2][1].getPlayers().isEmpty()) {
+                    for (int index = 0, row = 0; index < arena[2][1].getPlayers().size(); index++) {
 
-                    Image image = new Image("colorPlayer/" + Converter.fromTokenColorToString(arena[2][1].getPlayers().get(index).getColor()) + ".jpg");
-                    grid21.add(new ImageView(image), index, row);
-                    if (index == 1) {
-                        row++;
-                        index = 0;
+                        Image image = new Image("colorPlayer/" + Converter.fromTokenColorToString(arena[2][1].getPlayers().get(index).getColor()) + ".jpg");
+                        grid21.add(new ImageView(image), index, row);
+                        if (index == 1) {
+                            row++;
+                            index = 0;
+                        }
                     }
                 }
-            }
+            });
 
+            Platform.runLater(() -> {
+                if (!arena[2][2].getPlayers().isEmpty()) {
+                    for (int index = 0, row = 0; index < arena[2][2].getPlayers().size(); index++) {
 
-            if (!arena[2][2].getPlayers().isEmpty()) {
-                for (int index = 0, row = 0; index < arena[2][2].getPlayers().size(); index++) {
-
-                    Image image = new Image("colorPlayer/" + Converter.fromTokenColorToString(arena[2][2].getPlayers().get(index).getColor()) + ".jpg");
-                    grid22.add(new ImageView(image), index, row);
-                    if (index == 1) {
-                        row++;
-                        index = 0;
+                        Image image = new Image("colorPlayer/" + Converter.fromTokenColorToString(arena[2][2].getPlayers().get(index).getColor()) + ".jpg");
+                        grid22.add(new ImageView(image), index, row);
+                        if (index == 1) {
+                            row++;
+                            index = 0;
+                        }
                     }
                 }
-            }
+            });
 
+            Platform.runLater(() -> {
+                if (!arena[2][3].getPlayers().isEmpty()) {
+                    for (int index = 0, row = 0; index < arena[2][3].getPlayers().size(); index++) {
 
-            if (!arena[2][3].getPlayers().isEmpty()) {
-                for (int index = 0, row = 0; index < arena[2][3].getPlayers().size(); index++) {
-
-                    Image image = new Image("colorPlayer/" + Converter.fromTokenColorToString(arena[2][3].getPlayers().get(index).getColor()) + ".jpg");
-                    grid23.add(new ImageView(image), index, row);
-                    if (index == 1) {
-                        row++;
-                        index = 0;
+                        Image image = new Image("colorPlayer/" + Converter.fromTokenColorToString(arena[2][3].getPlayers().get(index).getColor()) + ".jpg");
+                        grid23.add(new ImageView(image), index, row);
+                        if (index == 1) {
+                            row++;
+                            index = 0;
+                        }
                     }
                 }
-            }
+            });
         });
     }
 
@@ -1784,184 +1873,20 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                 e.printStackTrace();
             }
 
-            guiHandler = loader.getController();
-            Data.getInstance().setControllerPlayerBoard(guiHandler);
+            playerboard = loader.getController();
+            playerboard.setAll();
 
             Stage stage = new Stage();
             stage.setScene(new Scene(root, 1218, 755));
             stage.setTitle("PlayerBoards");
             stage.show();
 
-
-            Thread thread1 = new Thread(this::checkPlayerBoard);
-            thread1.setDaemon(true);
-            thread1.start();
-
-            //Thread thread2 = new Thread(this::checkValuePlayerBoard);
-            //thread2.setDaemon(true);
-            //thread2.start();
-        });
-    }
-
-    private void checkValuePlayerBoard() {
-        guiHandler = Data.getInstance().getControllerPlayerBoard();
-
-        while(checkTurn){
-            Platform.runLater(() -> {
-
-                guiHandler.setFirstDamageGrid();
-                guiHandler.setAmmoBoxGrid();
-                guiHandler.setAmmoReserveGrid();
-                guiHandler.setMarksGrid();
-            });
-
-            try{
-
-                Thread.sleep(3000);
-
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    private void checkPlayerBoard() {
-        guiHandler = Data.getInstance().getControllerPlayerBoard();
-
-        while(checkTurn){
-            Platform.runLater(() -> {
-
-                guiHandler.setPlayerBoardImage();
-                //guiHandler.setFirstDamageGrid();
-                //guiHandler.setAmmoBoxGrid();
-                //guiHandler.setAmmoReserveGrid();
-                //guiHandler.setMarksGrid();
-            });
-
-            try{
-
-                Thread.sleep(3000);
-
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    private void setMarksGrid() {
-        Platform.runLater(() -> {
-
-            playerController = Data.getInstance().getPlayerController();
-            List<Token> marks = playerController.getPlayerBoard().getRevengeMarks();
-
-            for (int i = 0, row = 0; i < marks.size(); i++) {
-                if (!marks.get(i).getFirstColor().equals(TokenColor.NONE)) {
-                    Image image = new Image("colorPlayer/" + Converter.fromTokenColorToString(marks.get(i).getFirstColor()) + ".jpg");
-                    this.marksGrid.add(new ImageView(image), i, row);
-                }
-            }
-        });
-    }
-
-    public void setFirstDamageGrid(){
-        Platform.runLater(() -> {
-
-            playerController = Data.getInstance().getPlayerController();
-            Token[] damageBoard = playerController.getPlayerBoard().getDamageBoard();
-
-            for (int i = 0, row = 0; i < damageBoard.length; i++) {
-                if (!damageBoard[i].getFirstColor().equals(TokenColor.NONE)) {
-                    Image image = new Image("colorPlayer/" + Converter.fromTokenColorToString(damageBoard[i].getFirstColor()) + ".jpg");
-                    this.firstDamageGrid.add(new ImageView(image), i, row);
-                }
-            }
-        });
-    }
-
-    public void setAmmoBoxGrid(){
-        Platform.runLater(() -> {
-
-            playerController = Data.getInstance().getPlayerController();
-            List<Ammo> ammobox = playerController.getPlayer().getAmmoBox();
-
-            for (int i = 0, row = 0; i < ammobox.size(); i++) {
-                if (!ammobox.get(i).getColor().equals(TokenColor.NONE)) {
-                    Image image = new Image("singleAmmo/" + Converter.fromColorToString(ammobox.get(i).getColor()) + ".jpg");
-                    this.ammoBoxGrid.add(new ImageView(image), i, row);
-                    if (i == 2) {
-                        row++;
-                        i = 0;
-                    }
-                }
-            }
-        });
-    }
-
-    public void setAmmoReserveGrid(){
-        Platform.runLater(() -> {
-
-            playerController = Data.getInstance().getPlayerController();
-            List<Ammo> ammoReserve = playerController.getPlayer().getAmmoReserve();
-
-            for (int i = 0, row = 0; i < ammoReserve.size(); i++) {
-                if (!ammoReserve.get(i).getColor().equals(TokenColor.NONE)) {
-
-                    Image image = new Image("singleAmmo/" + Converter.fromColorToString(ammoReserve.get(i).getColor()) + ".jpg");
-                    this.ammoReserveGrid.add(new ImageView(image), i, row);
-                    if (i == 2) {
-                        row++;
-                        i = 0;
-                    }
-                }
-            }
         });
     }
 
 
-    public void setPlayerBoardImage() {
-
-        guiHandler = Data.getInstance().getControllerPlayerBoard();
-        Platform.runLater(() ->{
-
-            playerController = Data.getInstance().getPlayerController();
-            guiHandler.firstPlayerBoard.setImage(new Image("playerBoard/" + Converter.fromTokenColorToString(playerController.getPlayer().getColor()) + ".jpg"));
 
 
-            List<Player> otherPlayers = playerController.getOtherPlayers();
-            if(otherPlayers.size() == 1){
-
-                guiHandler.secondPlayerBoard.setImage(new Image("playerBoard/" + Converter.fromTokenColorToString(otherPlayers.get(0).getColor()) + ".jpg"));
-                guiHandler.secondPlayerBoard.setVisible(true);
-
-            }else if (otherPlayers.size() == 2) {
-
-                guiHandler.secondPlayerBoard.setImage(new Image("playerBoard/" + Converter.fromTokenColorToString(otherPlayers.get(0).getColor()) + ".jpg"));
-                guiHandler.thirdPlayerBoard.setImage(new Image("playerBoard/" + Converter.fromTokenColorToString(otherPlayers.get(1).getColor()) + ".jpg"));
-                guiHandler.secondPlayerBoard.setVisible(true);
-                guiHandler.thirdPlayerBoard.setVisible(true);
-
-            } else if (otherPlayers.size() == 3) {
-
-                guiHandler.secondPlayerBoard.setImage(new Image("playerBoard/" + Converter.fromTokenColorToString(otherPlayers.get(0).getColor()) + ".jpg"));
-                guiHandler.thirdPlayerBoard.setImage(new Image("playerBoard/" + Converter.fromTokenColorToString(otherPlayers.get(1).getColor()) + ".jpg"));
-                guiHandler.fourthPlayerBoard.setImage(new Image("playerBoard/" + Converter.fromTokenColorToString(otherPlayers.get(2).getColor()) + ".jpg"));
-                guiHandler.secondPlayerBoard.setVisible(true);
-                guiHandler.thirdPlayerBoard.setVisible(true);
-                guiHandler.fourthPlayerBoard.setVisible(true);
-
-            } else {
-
-                guiHandler.secondPlayerBoard.setImage(new Image("playerBoard/" + Converter.fromTokenColorToString(otherPlayers.get(0).getColor()) + ".jpg"));
-                guiHandler.thirdPlayerBoard.setImage(new Image("playerBoard/" + Converter.fromTokenColorToString(otherPlayers.get(1).getColor()) + ".jpg"));
-                guiHandler.fourthPlayerBoard.setImage(new Image("playerBoard/" + Converter.fromTokenColorToString(otherPlayers.get(2).getColor()) + ".jpg"));
-                guiHandler.fifthPlayerBoard.setImage(new Image("playerBoard/" + Converter.fromTokenColorToString(otherPlayers.get(3).getColor()) + ".jpg"));
-                guiHandler.secondPlayerBoard.setVisible(true);
-                guiHandler.thirdPlayerBoard.setVisible(true);
-                guiHandler.fourthPlayerBoard.setVisible(true);
-                guiHandler.fifthPlayerBoard.setVisible(true);
-            }
-        });
-    }
 
     public void showWeapon(MouseEvent mouseEvent) {
         Platform.runLater(() ->{
@@ -1991,23 +1916,24 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     }
 
     private void checkWeapon() {
+        Platform.runLater(() -> {
 
-        while(checkTurn){
-            Platform.runLater(() -> {
+            while (checkTurn) {
 
                 guiHandler = Data.getInstance().getGuiHandlerWeapon();
                 guiHandler.setWeaponHad();
                 guiHandler.setPowerupHad();
-            });
 
-            try{
 
-                Thread.sleep(5000);
+                try {
 
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+                    Thread.sleep(5000);
+
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
-        }
+        });
     }
 
     @FXML
@@ -2136,31 +2062,31 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
             Integer mode = 1;
 
 
-            if(!modeTxtField.getText().isEmpty()) {
+            if(!modeTxtField.getText().isEmpty() && (modeTxtField.getText().equals("1") || !modeTxtField.getText().equals("2") || !modeTxtField.getText().equals("3"))) {
                 mode = Integer.valueOf(modeTxtField.getText());
             }
 
-            if(!basicTxtField.getText().isEmpty()) {
+            if(!basicTxtField.getText().isEmpty() && (basicTxtField.getText().equals("true") || basicTxtField.getText().equals("false"))) {
                 basicFirst = Boolean.parseBoolean(basicTxtField.getText());
             }
 
-            if (!firstVictimTxtField.getText().isEmpty()) {
+            if (!firstVictimTxtField.getText().isEmpty() && (firstVictimTxtField.getText().equals("blue") || firstVictimTxtField.getText().equals("green") || firstVictimTxtField.getText().equals("purple") || firstVictimTxtField.getText().equals("grey") || firstVictimTxtField.getText().equals("yellow"))) {
                 firstVictim = firstVictimTxtField.getText();
             }
 
-            if (!secondVictimTxtField.getText().isEmpty()) {
+            if (!secondVictimTxtField.getText().isEmpty() && (secondVictimTxtField.getText().equals("blue") || secondVictimTxtField.getText().equals("green") || secondVictimTxtField.getText().equals("purple") || secondVictimTxtField.getText().equals("grey") || secondVictimTxtField.getText().equals("yellow"))) {
                 secondVictim = secondVictimTxtField.getText();
             }
 
-            if(!thirdVictimTxtField.getText().isEmpty()) {
+            if(!thirdVictimTxtField.getText().isEmpty() && (thirdVictimTxtField.getText().equals("blue") || thirdVictimTxtField.getText().equals("green") || thirdVictimTxtField.getText().equals("purple") || thirdVictimTxtField.getText().equals("grey") || thirdVictimTxtField.getText().equals("yellow"))) {
                 thirdVictim = thirdVictimTxtField.getText();
             }
 
-            if(!directionTxtField.getText().isEmpty()) {
+            if(!directionTxtField.getText().isEmpty() && (directionTxtField.getText().equals("up") || directionTxtField.getText().equals("down") || directionTxtField.getText().equals("left") || directionTxtField.getText().equals("right"))) {
                 direction = Converter.fromStringToDirection(directionTxtField.getText());
             }
 
-            if(!xTxtField.getText().isEmpty() && !yTxtField.getText().isEmpty()) {
+            if(!xTxtField.getText().isEmpty() && !yTxtField.getText().isEmpty() && !Integer.valueOf(xTxtField.getText()).equals(null) && !Integer.valueOf(yTxtField.getText()).equals(null)) {
                 x = Integer.valueOf(xTxtField.getText());
                 y = Integer.valueOf(yTxtField.getText());
             }

@@ -48,6 +48,10 @@ public class AdditionalTarget extends SingleAddictionEffect {
                 } else if (effectName.equals("T.H.O.R. Double")) {
                     canUse = actionInterface.isVisible(additionalVictim, thirdVictim);
                 } else {
+                    Printer.print("SHOOTER:" +currentPlayer.getPosition().getX());
+                    Printer.println(currentPlayer.getPosition().getX());
+                    Printer.print("VICTIM:"+additionalVictim.getPosition().getX());
+                    Printer.println(additionalVictim.getPosition().getY());
                     canUse = actionInterface.sameSquare(currentPlayer, additionalVictim);
                 }
             }

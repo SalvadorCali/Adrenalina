@@ -110,7 +110,7 @@ public class DirectionalDamage extends BasicEffect {
 
     private void firstMoveControl(ActionInterface actionInterface){
 
-        if(!effectName.equals("Railgun1") && !effectName.equals("Railgun2"))
+        if(!effectName.equals("Railgun1") && !effectName.equals("Railgun2") && direction!=null)
             canUse = actionInterface.canMove(player, direction);
         else {
             canUse = actionInterface.noOutOfBounds(player, direction);
