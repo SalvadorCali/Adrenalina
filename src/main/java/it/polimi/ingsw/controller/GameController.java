@@ -387,7 +387,7 @@ public class GameController {
             if (w.getName().equals(weaponNameUpp) && w.isLoaded() && shooter.canUseAction() && canShoot) {
                 Printer.println("sparo");
                 setData(basicfirst, shooter, firstVictim, secondVictim, thirdVictim, x, y, directions);
-                if (w.getEffects().get(mod).canUseEffect(actionInterface)) {
+                if (mod >= 0 && mod < w.getEffects().size() && w.getEffects().get(mod).canUseEffect(actionInterface)) {
                     Printer.println(weaponNameUpp + "USED");
                     w.getEffects().get(mod).useEffect(actionInterface);
                     w.unload();
