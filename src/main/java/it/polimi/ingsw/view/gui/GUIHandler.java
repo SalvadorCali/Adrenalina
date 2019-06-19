@@ -1353,14 +1353,14 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
             }
 
             Stage stage = new Stage();
-            stage.setScene(new Scene(root, 222, 256));
+            stage.setScene(new Scene(root, 338, 208));
             stage.setTitle("Reload Popup");
             stage.show();
 
             disableButtonWhenReload();
 
-            PauseTransition delay = new PauseTransition(Duration.seconds(15));
-            delay.setOnFinished( event -> reloadClient() );
+            PauseTransition delay = new PauseTransition(Duration.seconds(10));
+            delay.setOnFinished( event -> reloadClient());
             delay.play();
         });
     }
