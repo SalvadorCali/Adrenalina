@@ -53,17 +53,17 @@
             <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
          </padding>
       </GridPane>
-      <ImageView fx:id="bannerShoot" fitHeight="64.0" fitWidth="200.0" layoutX="963.0" layoutY="14.0" onMouseClicked="#shoot">
+      <ImageView fx:id="bannerShoot" fitHeight="39.0" fitWidth="200.0" layoutX="963.0" layoutY="14.0" onMouseClicked="#shoot">
          <image>
             <Image url="@boardElem/banner.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="bannerGrab" fitHeight="64.0" fitWidth="200.0" layoutX="963.0" layoutY="91.0" onMouseClicked="#grab">
+      <ImageView fx:id="bannerGrab" fitHeight="45.0" fitWidth="200.0" layoutX="962.0" layoutY="68.0" onMouseClicked="#grab">
          <image>
             <Image url="@boardElem/banner.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="bannerEndTurn" fitHeight="64.0" fitWidth="200.0" layoutX="963.0" layoutY="324.0" onMouseClicked="#endTurn">
+      <ImageView fx:id="bannerEndTurn" fitHeight="45.0" fitWidth="222.0" layoutX="953.0" layoutY="358.0" onMouseClicked="#endTurn">
          <image>
             <Image url="@boardElem/banner.png" />
          </image>
@@ -88,39 +88,39 @@
             <Image url="@boardElem/arrow.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="bannerShowWeapon" fitHeight="64.0" fitWidth="200.0" layoutX="964.0" layoutY="245.0" mouseTransparent="true" onMouseClicked="#showWeapon">
+      <ImageView fx:id="bannerShowWeapon" fitHeight="45.0" fitWidth="200.0" layoutX="962.0" layoutY="187.0" mouseTransparent="true" onMouseClicked="#showWeapon">
          <image>
             <Image url="@boardElem/banner.png" />
          </image>
       </ImageView>
-      <Label fx:id="labelShoot" layoutX="1029.0" layoutY="31.0" mouseTransparent="true" onMouseClicked="#shoot" text="Shoot" textFill="WHITE">
+      <Label fx:id="labelShoot" layoutX="1031.0" layoutY="15.0" mouseTransparent="true" onMouseClicked="#shoot" prefHeight="39.0" prefWidth="70.0" text="Shoot" textFill="WHITE">
          <font>
-            <Font name="Alien League Regular" size="30.0" />
+            <Font size="20.0" />
          </font>
       </Label>
-      <Label fx:id="labelGrab" layoutX="1035.0" layoutY="108.0" mouseTransparent="true" onMouseClicked="#grab" text="Grab" textFill="WHITE">
+      <Label fx:id="labelGrab" layoutX="1041.0" layoutY="76.0" mouseTransparent="true" onMouseClicked="#grab" text="Grab" textFill="WHITE">
          <font>
-            <Font name="Alien League Regular" size="30.0" />
+            <Font size="20.0" />
          </font>
       </Label>
-      <Label fx:id="labelEndTurn" layoutX="1009.0" layoutY="341.0" mouseTransparent="true" onMouseClicked="#endTurn" text="End Turn" textFill="WHITE">
+      <Label fx:id="labelEndTurn" layoutX="1023.0" layoutY="366.0" mouseTransparent="true" onMouseClicked="#endTurn" text="End Turn" textFill="WHITE">
          <font>
-            <Font name="Alien League Regular" size="30.0" />
+            <Font size="20.0" />
          </font>
       </Label>
-      <ImageView fx:id="bannerShowDamage1" fitHeight="64.0" fitWidth="200.0" layoutX="964.0" layoutY="166.0" onMouseClicked="#showDamageBoard">
+      <ImageView fx:id="bannerShowDamage1" fitHeight="45.0" fitWidth="200.0" layoutX="962.0" layoutY="127.0" onMouseClicked="#showDamageBoard">
          <image>
             <Image url="@boardElem/banner.png" />
          </image>
       </ImageView>
-      <Label layoutX="981.0" layoutY="262.0" onMouseClicked="#showWeapon" text="Show Weapon" textFill="WHITE">
+      <Label layoutX="998.0" layoutY="192.0" onMouseClicked="#showWeapon" text="Show Weapon" textFill="WHITE">
          <font>
-            <Font name="Alien League Regular" size="30.0" />
+            <Font size="20.0" />
          </font>
       </Label>
-      <Label layoutX="980.0" layoutY="183.0" mouseTransparent="true" onMouseClicked="#showDamageBoard" text="Show Damage" textFill="WHITE">
+      <Label layoutX="1002.0" layoutY="138.0" mouseTransparent="true" onMouseClicked="#showDamageBoard" text="Show Damage" textFill="WHITE">
          <font>
-            <Font name="Alien League Regular" size="30.0" />
+            <Font size="20.0" />
          </font>
       </Label>
       <Label layoutX="981.0" layoutY="412.0" text="Turn:" textFill="WHITE">
@@ -321,5 +321,17 @@
             <Insets bottom="10.0" left="10.0" right="10.0" top="15.0" />
          </padding>
       </GridPane>
+      <ImageView fx:id="bannerReload" fitHeight="45.0" fitWidth="200.0" layoutX="966.0" layoutY="243.0" mouseTransparent="true" onMouseClicked="#reload">
+         <image>
+            <Image url="@boardElem/banner.png" />
+         </image>
+      </ImageView>
+      <Label fx:id="labelReload" layoutX="1036.0" layoutY="251.0" onMouseClicked="#reload" text="Reload" textFill="WHITE">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="989.0" layoutY="281.0" prefHeight="45.0" prefWidth="301.0" text="Note: if you reload you won't" textFill="WHITE" />
+      <Label layoutX="989.0" layoutY="304.0" prefHeight="45.0" prefWidth="301.0" text=" be able to do other actions" textFill="WHITE" />
    </children>
 </AnchorPane>

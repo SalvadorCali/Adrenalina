@@ -15,7 +15,7 @@ public class Data{
     private String moveGrab;
     private Integer weaponShoot;
     private GUIHandler guiHandlerWeapon;
-    private PlayerBoardGui controllerPlayerBoard;
+    private String weaponReloaded;
 
 
     private Data(){
@@ -100,4 +100,11 @@ public class Data{
         this.guiHandlerWeapon = guiHandlerWeapon;
     }
 
+    public String getWeaponReloaded() {
+        return weaponReloaded;
+    }
+
+    public void setWeaponReloaded(String weaponReloaded) {
+        this.weaponReloaded = weaponReloaded;
+    }
 }

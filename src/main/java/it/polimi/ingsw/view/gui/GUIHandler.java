@@ -549,8 +549,21 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                 case RESPAWN:
                     //notifyRespawn(outcome);
                     break;
+                case RELOAD:
+                    notifyReload(outcome);
+                    break;
                 default:
                     break;
+            }
+        });
+    }
+
+    private void notifyReload(Outcome outcome) {
+        Platform.runLater(() -> {
+            if (outcome.equals(Outcome.RIGHT)) {
+                setLabelStatement("reloaded!");
+            } else {
+                setLabelStatement("not reloaded!");
             }
         });
     }
@@ -1133,54 +1146,57 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     }
     */
 
-    @FXML
-    private void addWeapon() {
-        playerController = Data.getInstance().getPlayerController();
-        arena = playerController.getGameBoard().getArena();
 
-        int k = 0;
-        for(int i = 0; i < ROWS ; i++){
-            for(int j = 0; j< COLUMNS; j++){
-                if(arena[i][j].isSpawn()){
-                    if(arena[i][j].getColor().equals(TokenColor.BLUE)){
+    public void addWeapon() {
+        Platform.runLater(() -> {
 
-                        String url1 = "weapon/" + Converter.weaponNameInvert(arena[i][j].getWeapons().get(0).getName()) + ".png";
-                        String url2 = "weapon/" + Converter.weaponNameInvert(arena[i][j].getWeapons().get(1).getName()) + ".png";
-                        String url3 = "weapon/" + Converter.weaponNameInvert(arena[i][j].getWeapons().get(2).getName()) + ".png";
+            playerController = Data.getInstance().getPlayerController();
+            arena = playerController.getGameBoard().getArena();
 
-                        this.weaponBlue1.setImage(new Image(url1));
-                        this.weaponBlue2.setImage(new Image(url2));
-                        this.weaponBlue3.setImage(new Image(url3));
+            int k = 0;
+            for (int i = 0; i < ROWS; i++) {
+                for (int j = 0; j < COLUMNS; j++) {
+                    if (arena[i][j].isSpawn()) {
+                        if (arena[i][j].getColor().equals(TokenColor.BLUE)) {
 
-                    }
+                            String url1 = "weapon/" + Converter.weaponNameInvert(arena[i][j].getWeapons().get(0).getName()) + ".png";
+                            String url2 = "weapon/" + Converter.weaponNameInvert(arena[i][j].getWeapons().get(1).getName()) + ".png";
+                            String url3 = "weapon/" + Converter.weaponNameInvert(arena[i][j].getWeapons().get(2).getName()) + ".png";
 
-                    if(arena[i][j].getColor().equals(TokenColor.RED)){
+                            this.weaponBlue1.setImage(new Image(url1));
+                            this.weaponBlue2.setImage(new Image(url2));
+                            this.weaponBlue3.setImage(new Image(url3));
 
-                        String url1 = "weapon/" + Converter.weaponNameInvert(arena[i][j].getWeapons().get(0).getName()) + ".png";
-                        String url2 = "weapon/" + Converter.weaponNameInvert(arena[i][j].getWeapons().get(1).getName()) + ".png";
-                        String url3 = "weapon/" + Converter.weaponNameInvert(arena[i][j].getWeapons().get(2).getName()) + ".png";
+                        }
 
-                        this.weaponRed1.setImage(new Image(url1));
-                        this.weaponRed2.setImage(new Image(url2));
-                        this.weaponRed3.setImage(new Image(url3));
+                        if (arena[i][j].getColor().equals(TokenColor.RED)) {
 
-                    }
+                            String url1 = "weapon/" + Converter.weaponNameInvert(arena[i][j].getWeapons().get(0).getName()) + ".png";
+                            String url2 = "weapon/" + Converter.weaponNameInvert(arena[i][j].getWeapons().get(1).getName()) + ".png";
+                            String url3 = "weapon/" + Converter.weaponNameInvert(arena[i][j].getWeapons().get(2).getName()) + ".png";
 
-                    if(arena[i][j].getColor().equals(TokenColor.YELLOW)){
+                            this.weaponRed1.setImage(new Image(url1));
+                            this.weaponRed2.setImage(new Image(url2));
+                            this.weaponRed3.setImage(new Image(url3));
 
-                        String url1 = "weapon/" + Converter.weaponNameInvert(arena[i][j].getWeapons().get(0).getName()) + ".png";
-                        String url2 = "weapon/" + Converter.weaponNameInvert(arena[i][j].getWeapons().get(1).getName()) + ".png";
-                        String url3 = "weapon/" + Converter.weaponNameInvert(arena[i][j].getWeapons().get(2).getName()) + ".png";
+                        }
 
-                        this.weaponYellow1.setImage(new Image(url1));
-                        this.weaponYellow2.setImage(new Image(url2));
-                        this.weaponYellow3.setImage(new Image(url3));
+                        if (arena[i][j].getColor().equals(TokenColor.YELLOW)) {
 
-                        
+                            String url1 = "weapon/" + Converter.weaponNameInvert(arena[i][j].getWeapons().get(0).getName()) + ".png";
+                            String url2 = "weapon/" + Converter.weaponNameInvert(arena[i][j].getWeapons().get(1).getName()) + ".png";
+                            String url3 = "weapon/" + Converter.weaponNameInvert(arena[i][j].getWeapons().get(2).getName()) + ".png";
+
+                            this.weaponYellow1.setImage(new Image(url1));
+                            this.weaponYellow2.setImage(new Image(url2));
+                            this.weaponYellow3.setImage(new Image(url3));
+
+
+                        }
                     }
                 }
             }
-        }
+        });
     }
 
     @FXML
@@ -1325,8 +1341,72 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
     }
 
+    public void reload(){
+        Platform.runLater(() ->{
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ReloadPopup.fxml"));
+
+            Parent root = null;
+            try {
+                root = loader.load();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root, 222, 256));
+            stage.setTitle("Reload Popup");
+            stage.show();
+
+            disableButtonWhenReload();
+
+            PauseTransition delay = new PauseTransition(Duration.seconds(15));
+            delay.setOnFinished( event -> reloadClient() );
+            delay.play();
+        });
+    }
+
+    private void reloadClient() {
+        Platform.runLater(() ->{
+
+            client = Data.getInstance().getClient();
+            String weaponReload = Data.getInstance().getWeaponReloaded();
+
+            if(weaponReload != null) {
+                try {
+                    client.reload(weaponReload);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+    private void disableButtonWhenReload() {
+        Platform.runLater(() ->{
+
+            guiHandler = Data.getInstance().getGuiHandler();
+
+            //disable move
+            guiHandler.upArrow.setDisable(true);
+            guiHandler.downArrow.setDisable(true);
+            guiHandler.rightArrow.setDisable(true);
+            guiHandler.leftArrow.setDisable(true);
+            guiHandler.enterMove.setDisable(true);
+
+            //disable grab
+            guiHandler.bannerGrab.setDisable(true);
+            guiHandler.labelGrab.setDisable(true);
+
+            //disable shoot
+            guiHandler.bannerShoot.setDisable(true);
+            guiHandler.labelShoot.setDisable(true);
+
+        });
+    }
+
     public void endTurn(){
         Platform.runLater(() -> {
+
             try {
                 
                 client = Data.getInstance().getClient();
