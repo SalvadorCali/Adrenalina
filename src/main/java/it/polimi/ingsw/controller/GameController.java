@@ -318,9 +318,15 @@ public class GameController {
         if(game.isFinalFrenzy()){
             if(player.canUseActionFinalFrenzy()){
                 if (directions.length > 0) {
+                    Position position = new Position(player.getPosition().getX(), player.getPosition().getY());
                     if (canMove(player, directions)) {
-                        for(Direction direction : directions){
-                            game.getBoard().move(direction, player);
+                        position.incrementPosition(directions);
+                        if(game.getBoard().getArena()[position.getX()][position.getX()].canGrab(actionInterface, choice)){
+                            for(Direction direction : directions){
+                                game.getBoard().move(direction, player);
+                            }
+                        }else{
+                            return false;
                         }
                     } else {
                         return false;
@@ -377,39 +383,37 @@ public class GameController {
     }
 
     public boolean shoot(String weaponName, int mod, boolean basicfirst, Player shooter, Player firstVictim, Player secondVictim, Player thirdVictim, int x, int y, Direction...directions) {
-
         final String weaponNameUpp;
         weaponNameUpp = Converter.weaponName(weaponName);
-        for (WeaponCard w : shooter.getWeapons()) {
-            Printer.println("carica:" + w.getName() + " " + w.isLoaded());
-            Printer.println("canuse:" + shooter.canUseAction());
-            Printer.println("canShoot:" + canShoot);
-            if (w.getName().equals(weaponNameUpp) && w.isLoaded() && shooter.canUseAction() && canShoot) {
-                Printer.println("sparo");
-                setData(basicfirst, shooter, firstVictim, secondVictim, thirdVictim, x, y, directions);
-                if (mod >= 0 && mod < w.getEffects().size() && w.getEffects().get(mod).canUseEffect(actionInterface)) {
-                    Printer.println(weaponNameUpp + "USED");
-                    w.getEffects().get(mod).useEffect(actionInterface);
-                    w.unload();
-                    shooter.increaseActionNumber();
-                    return true;
-                } else {
-                    if(shooter.isMoveAndReload()){
-                        inverseMoveAndReload(shooter);
-                        canShoot = true;
+        if(canShoot){
+            for (WeaponCard w : shooter.getWeapons()) {
+                Printer.println("carica:" + w.getName() + " " + w.isLoaded());
+                Printer.println("canuse:" + shooter.canUseAction());
+                Printer.println("canShoot:" + canShoot);
+                if (w.getName().equals(weaponNameUpp) && w.isLoaded() && shooter.canUseAction()) {
+                    Printer.println("sparo");
+                    setData(basicfirst, shooter, firstVictim, secondVictim, thirdVictim, x, y, directions);
+                    if (mod >= 0 && mod < w.getEffects().size() && w.getEffects().get(mod).canUseEffect(actionInterface)) {
+                        Printer.println(weaponNameUpp + "USED");
+                        w.getEffects().get(mod).useEffect(actionInterface);
+                        w.unload();
+                        shooter.increaseActionNumber();
+                        return true;
+                    } else {
+                        if(shooter.isMoveAndReload()){
+                            inverseMoveAndReload(shooter);
+                            canShoot = true;
+                        }
+                        Printer.println(weaponNameUpp + "NOT USED");
+                        return false;
                     }
-                    Printer.println(weaponNameUpp + "NOT USED");
-                    return false;
                 }
-            }else{
-                if(!canShoot){
-                    Printer.println("debug");
-                    canShoot = true;
-                }
-                return false;
             }
+            return false;
+        }else{
+            canShoot = true;
+            return false;
         }
-        return false;
     } //metodo completo
 
     private void setData(boolean basicfirst, Player shooter, Player firstVictim, Player secondVictim, Player thirdVictim, int x, int y, Direction...directions) {

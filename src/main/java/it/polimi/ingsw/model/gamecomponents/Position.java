@@ -1,5 +1,7 @@
 package it.polimi.ingsw.model.gamecomponents;
 
+import it.polimi.ingsw.model.enums.Direction;
+
 import java.io.Serializable;
 
 /**
@@ -49,5 +51,26 @@ public class Position implements Serializable {
      */
     public void setY(int y) {
         this.y = y;
+    }
+
+    public void incrementPosition(Direction...directions){
+        for(Direction direction : directions){
+            switch(direction){
+                case UP:
+                    x--;
+                    break;
+                case DOWN:
+                    x++;
+                    break;
+                case LEFT:
+                    y--;
+                    break;
+                case RIGHT:
+                    y++;
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 }
