@@ -547,13 +547,75 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                     notifyDropWeapon(outcome);
                     break;
                 case RESPAWN:
-                    //notifyRespawn(outcome);
+                    notifyRespawn(outcome);
                     break;
                 case RELOAD:
                     notifyReload(outcome);
                     break;
                 default:
                     break;
+            }
+        });
+    }
+
+    private void notifyRespawn(Outcome outcome) {
+        Platform.runLater(()-> {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ChoosePowerup.fxml"));
+                Parent root = loader.load();
+
+                guiHandler = loader.getController();
+                guiHandler.setPowerupImageRespawn();
+
+
+                Stage stage = new Stage();
+                stage.setScene(new Scene(root, 490, 386));
+                stage.setTitle("Choose Powerup to Discard");
+                stage.show();
+
+                PauseTransition delay = new PauseTransition(Duration.seconds(10));
+                delay.setOnFinished( event -> {
+                    respawnPlayer();
+                    stage.close();
+                } );
+                delay.play();
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
+    private void respawnPlayer() {
+        Platform.runLater(() ->{
+
+            client = Data.getInstance().getClient();
+            try {
+                client.respawn(Data.getInstance().getPowerup());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
+    private void setPowerupImageRespawn() {
+        Platform.runLater(()->{
+
+            playerController = Data.getInstance().getPlayerController();
+            List<PowerupCard> powerupRespawn = playerController.getPowerups();
+
+            for (int i = 0; i < powerupRespawn.size(); i++) {
+
+                String color = Converter.fromColorToLetter(powerupRespawn.get(i).getColor());
+                String name = powerupRespawn.get(i).getName();
+
+                Image image = new Image("powerup/" + color + "/" + name + ".png");
+
+                if(i == 0){
+                    powerupImg1.setImage(image);
+                }else{
+                    powerupImg2.setImage(image);
+                }
             }
         });
     }
