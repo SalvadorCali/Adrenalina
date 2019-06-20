@@ -354,12 +354,15 @@ public class GameController {
                         position.incrementPosition(directions);
                         Printer.println("Nuova X: " + position.getX());
                         Printer.println("Nuova Y: " + position.getY());
-                        if(game.getBoard().getArena()[position.getX()][position.getX()].canGrab(actionInterface, choice)){
+                        int x = position.getX();
+                        int y = position.getY();
+                        if(game.getBoard().getArena()[x][y].canGrab(actionInterface, choice)){
                             for(Direction direction : directions){
                                 game.getBoard().move(direction, player);
                             }
                         }
                         else{
+                            Printer.println("BELLA ZIO");
                             return false;
                         }
                     } else {
@@ -373,6 +376,7 @@ public class GameController {
                     player.increaseActionNumber();
                     return true;
                 } else {
+
                     return false;
                 }
             } else {
