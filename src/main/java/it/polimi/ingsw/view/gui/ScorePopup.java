@@ -1,10 +1,14 @@
 package it.polimi.ingsw.view.gui;
 
 import it.polimi.ingsw.model.enums.TokenColor;
+import it.polimi.ingsw.util.Converter;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public class ScorePopup {
@@ -22,32 +26,44 @@ public class ScorePopup {
 
 
     public void setScore(Map<TokenColor, Integer> score) {
+
+        List<TokenColor> colors = new ArrayList<>();
+        score.forEach((c, i) ->{
+            colors.add(c);
+        });
+
+        Integer numPlayer = score.size();
+
         Platform.runLater(() -> {
 
-            Integer numPlayer = score.size();
 
             if (numPlayer >= 2) {
 
                 firstPlayerScoreNum.setText(String.valueOf((score.keySet().toArray()[0])));
                 secondPlayerScoreNum.setText(String.valueOf((score.keySet().toArray()[1])));
+                firstScoreLabel.setText(Converter.fromTokenColorToString(colors.get(0)));
+                secondScoreLabel.setText(Converter.fromTokenColorToString(colors.get(1)));
             }
 
             if (numPlayer >= 3) {
                 thirdScoreLabel.setVisible(true);
                 thirdPlayerScoreNum.setVisible(true);
                 thirdPlayerScoreNum.setText(String.valueOf((score.keySet().toArray()[2])));
+                thirdScoreLabel.setText(Converter.fromTokenColorToString(colors.get(2)));
             }
 
             if (numPlayer >= 4) {
                 fourthScoreLabel.setVisible(true);
                 fourthPlayerScoreNum.setVisible(true);
                 fourthPlayerScoreNum.setText(String.valueOf((score.keySet().toArray()[3])));
+                fourthScoreLabel.setText(Converter.fromTokenColorToString(colors.get(3)));
             }
 
             if (numPlayer == 5) {
                 fifthScoreLabel.setVisible(true);
                 fifthPlayerScoreNum.setVisible(true);
                 fifthPlayerScoreNum.setText(String.valueOf((score.keySet().toArray()[4])));
+                fifthScoreLabel.setText(Converter.fromTokenColorToString(colors.get(4)));
             }
         });
     }
