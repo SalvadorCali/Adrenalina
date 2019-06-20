@@ -90,8 +90,7 @@ public class SocketClient implements ClientInterface, Runnable, Serializable {
                     objectOutputStream.close();
                     clientSocket.close();
                     thisThread = null;
-                    Printer.println("Server disconnesso");
-                    Printer.println("Eskereee");
+                    System.exit(1);
                 } catch (IOException e1) {
                     Printer.err(e1);
                 }
