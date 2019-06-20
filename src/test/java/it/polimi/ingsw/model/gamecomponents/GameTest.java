@@ -1,6 +1,8 @@
 package it.polimi.ingsw.model.gamecomponents;
 
+import it.polimi.ingsw.controller.ActionController;
 import it.polimi.ingsw.controller.GameController;
+import it.polimi.ingsw.model.cards.effects.ActionInterface;
 import it.polimi.ingsw.model.enums.TokenColor;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
@@ -10,15 +12,15 @@ import java.util.Map;
 
 
 public class GameTest {
-    /*
+
     @Test
     public void scoringTest(){
         Game game = createGame();
         game.scoring();
         Map<TokenColor, Integer> scoreList = game.getScoreList();
-        assertEquals(21, scoreList.get(TokenColor.BLUE).intValue());
+        assertEquals(20, scoreList.get(TokenColor.BLUE).intValue());
         assertEquals(16, scoreList.get(TokenColor.YELLOW).intValue());
-        assertEquals(15, scoreList.get(TokenColor.GREY).intValue());
+        assertEquals(14, scoreList.get(TokenColor.GREY).intValue());
         assertEquals(0, scoreList.get(TokenColor.PURPLE).intValue());
     }
 
@@ -31,7 +33,7 @@ public class GameTest {
             assertEquals(TokenColor.SKULL, game.getKillshotTrack().get(i).getFirstColor());
         }
     }
-    /*
+
     @Test
     public void fillSquaresTest(){
         Game game = createGame();
@@ -46,7 +48,6 @@ public class GameTest {
         }
         game.getBoard().getArena();
     }
-    */
 
     @Test
     public void setRevengeMarksTest(){

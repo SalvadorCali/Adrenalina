@@ -1108,7 +1108,9 @@ public class CommandLine implements ViewInterface {
 
     private void notifyFinalFrenzy(){
         Printer.println("Final Frenzy!!!");
-        damageBoardPrinter.setFinalFrenzy(true);
+        if(playerController.isPlayerBoardFinalFrenzy()){
+            damageBoardPrinter.setFinalFrenzy(true);
+        }
     }
 
     private void notifyRespawn(Outcome outcome){

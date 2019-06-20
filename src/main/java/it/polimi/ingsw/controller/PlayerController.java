@@ -24,6 +24,7 @@ public class PlayerController {
     private String currentPlayer;
     private boolean movement;
     private boolean finalFrenzy;
+    private boolean playerBoardFinalFrenzy;
 
     public List<Player> getOtherPlayers() {
         return otherPlayers;
@@ -143,6 +144,14 @@ public class PlayerController {
 
     public void setFinalFrenzy(boolean finalFrenzy) {
         this.finalFrenzy = finalFrenzy;
+    }
+
+    public boolean isPlayerBoardFinalFrenzy() {
+        return playerBoardFinalFrenzy;
+    }
+
+    public void setPlayerBoardFinalFrenzy(boolean playerBoardFinalFrenzy) {
+        this.playerBoardFinalFrenzy = playerBoardFinalFrenzy;
     }
 
     public FinalFrenzyAction getFinalFrenzyActions(){

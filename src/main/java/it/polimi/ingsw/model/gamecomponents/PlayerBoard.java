@@ -19,6 +19,7 @@ public class PlayerBoard implements Serializable {
     private AdrenalineZone adrenalineZone;
     private boolean dead;
     private boolean overkill;
+    private boolean finalFrenzy;
     private Map<TokenColor, Score> scoreList;
 
     /**
@@ -50,6 +51,14 @@ public class PlayerBoard implements Serializable {
      */
     int getDamageIndex() {
         return damageIndex;
+    }
+
+    public boolean isFinalFrenzy() {
+        return finalFrenzy;
+    }
+
+    public void setFinalFrenzy(boolean finalFrenzy) {
+        this.finalFrenzy = finalFrenzy;
     }
 
     /**
@@ -238,21 +247,26 @@ public class PlayerBoard implements Serializable {
     private ArrayList<Integer> getScoreValues(){
         ArrayList<Integer> scoreValues;
         Integer[] numbers;
-        if(deathNumber == 1){
-            numbers = new Integer[]{8,6,4,2};
-            scoreValues = new ArrayList<>(Arrays.asList(numbers));
-        }else if(deathNumber == 2){
-            numbers = new Integer[]{6,4,2,1};
-            scoreValues = new ArrayList<>(Arrays.asList(numbers));
-        }else if(deathNumber == 3){
-            numbers = new Integer[]{4,2,1,1};
-            scoreValues = new ArrayList<>(Arrays.asList(numbers));
-        }else if(deathNumber == 4){
+        if(finalFrenzy){
             numbers = new Integer[]{2,1,1,1};
             scoreValues = new ArrayList<>(Arrays.asList(numbers));
-        }else {
-            numbers = new Integer[]{1,1,1,1};
-            scoreValues = new ArrayList<>(Arrays.asList(numbers));
+        }else{
+            if(deathNumber == 1){
+                numbers = new Integer[]{8,6,4,2};
+                scoreValues = new ArrayList<>(Arrays.asList(numbers));
+            }else if(deathNumber == 2){
+                numbers = new Integer[]{6,4,2,1};
+                scoreValues = new ArrayList<>(Arrays.asList(numbers));
+            }else if(deathNumber == 3){
+                numbers = new Integer[]{4,2,1,1};
+                scoreValues = new ArrayList<>(Arrays.asList(numbers));
+            }else if(deathNumber == 4){
+                numbers = new Integer[]{2,1,1,1};
+                scoreValues = new ArrayList<>(Arrays.asList(numbers));
+            }else {
+                numbers = new Integer[]{1,1,1,1};
+                scoreValues = new ArrayList<>(Arrays.asList(numbers));
+            }
         }
         return scoreValues;
     }
