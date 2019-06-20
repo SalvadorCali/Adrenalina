@@ -105,7 +105,7 @@ public class DamageMarkEffect extends BasicEffect {
         canUse = actionInterface.isVisible(currentPlayer, victim);
         if (canUse) {
             if (effectName.equals("Whisper")) {
-                if (actionInterface.distanceControl(victim.getPosition().getX(), victim.getPosition().getY()) < 2)
+                if (actionInterface.distanceControl(victim.getPosition().getX(), victim.getPosition().getY()) > 1)
                     canUse = false;
             } else if (effectName.equals("Machine Gun") && secondVictim != null) {
                 canUse = (!secondVictim.getColor().equals(victim.getColor())) && actionInterface.isVisible(currentPlayer, secondVictim);
