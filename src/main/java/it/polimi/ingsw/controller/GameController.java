@@ -414,6 +414,12 @@ public class GameController {
                         Printer.println(weaponNameUpp + "NOT USED");
                         return false;
                     }
+                }else{
+                    if(shooter.isMoveAndReload() && w.getName().equals(weaponNameUpp)){
+                        inverseMoveAndReload(shooter);
+                        canShoot = true;
+                        return false;
+                    }
                 }
             }
             return false;
