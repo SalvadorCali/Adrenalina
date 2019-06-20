@@ -175,13 +175,22 @@ public class ServerController {
     private void startGame(){
         gameController.setSpawnLocationPhase(false);
         gameController.setGamePhase(true);
-        players.get(0).setMyTurn(true);
-        gameController.getGame().setCurrentPlayer(players.get(0));
+        int index = 0;
+        for(int i=0; i<players.size(); i++){
+            if(players.get(i).isDisconnected()){
+                index++;
+            }else{
+                break;
+            }
+        }
+        players.get(index).setMyTurn(true);
+        gameController.getGame().setCurrentPlayer(players.get(index));
         setGameData();
         try {
-            servers.get(players.get(0).getUsername()).notify(Message.NEW_TURN, Outcome.RIGHT, gameData);
+            servers.get(players.get(index).getUsername()).notify(Message.NEW_TURN, Outcome.RIGHT, gameData);
+            int index2 = index;
             servers.forEach((u,s)->{
-                if(!u.equals(players.get(0).getUsername())){
+                if(!u.equals(players.get(index2).getUsername())){
                     try {
                         s.notify(Message.NEW_TURN, Outcome.ALL, gameData);
                     } catch (IOException e) {
@@ -192,7 +201,7 @@ public class ServerController {
         } catch (IOException e) {
             Printer.err(e);
         }
-        timer = new TurnTimer(this, players, players.get(0));
+        timer = new TurnTimer(this, players, players.get(index));
         timer.start();
         Printer.println("Game iniziato!");
     }
@@ -200,10 +209,10 @@ public class ServerController {
     public void spawnLocation(){
         gameController.setBoardTypePhase(false);
         gameController.setSpawnLocationPhase(true);
-        colors.forEach((c, u) -> {
+        servers.forEach((username, server) -> {
             try {
-                gameData.setPlayer(users.get(u));
-                servers.get(u).notify(Message.PLAYER, Outcome.RIGHT, gameData);
+                gameData.setPlayer(users.get(username));
+                server.notify(Message.PLAYER, Outcome.RIGHT, gameData);
             } catch (IOException e) {
                 Printer.err(e);
             }
@@ -227,6 +236,12 @@ public class ServerController {
             } catch (IOException e) {
                 Printer.err(e);
             }
+            powerupsSpawn.put(username, powerups);
+        });
+        disconnectedUsers.forEach((username, player)->{
+            List<Card> powerups = new ArrayList<>();
+            powerups.add(gameController.drawPowerup());
+            powerups.add(gameController.drawPowerup());
             powerupsSpawn.put(username, powerups);
         });
         SpawnLocationTimer spawnLocationTimer = new SpawnLocationTimer(this, gameController);
@@ -256,19 +271,34 @@ public class ServerController {
         //users.get(username).addPowerup((PowerupCard) powerupsSpawn.get(username).get(0));
         gameController.setPlayer(users.get(username), powerupsSpawn.get(username).get(choice - 1).getColor());
         spawnedPlayers++;
-        if(spawnedPlayers == servers.size()){
+        if(spawnedPlayers == servers.size() + disconnectedUsers.size()){
             startGame();
         }
     }
 
     public void randomChoice(){
+        Printer.println("Users:");
+        users.forEach((u,p)->Printer.println(u));
+        Printer.println("Disc:");
+        disconnectedUsers.forEach((u,p)->Printer.println(u));
         users.forEach((u,p) -> {
             if(!p.isSpawned()){
                 p.setSpawned(true);
                 gameController.addPowerup(p, powerupsSpawn.get(u).get(1));
                 gameController.setPlayer(p, powerupsSpawn.get(u).get(0).getColor());
                 spawnedPlayers++;
-                if(spawnedPlayers == servers.size()){
+                if(spawnedPlayers == servers.size() + disconnectedUsers.size()){
+                    startGame();
+                }
+            }
+        });
+        disconnectedUsers.forEach((u,p)->{
+            if(!p.isSpawned()){
+                p.setSpawned(true);
+                gameController.addPowerup(p, powerupsSpawn.get(u).get(1));
+                gameController.setPlayer(p, powerupsSpawn.get(u).get(0).getColor());
+                spawnedPlayers++;
+                if(spawnedPlayers == servers.size() + disconnectedUsers.size()){
                     startGame();
                 }
             }
@@ -312,17 +342,20 @@ public class ServerController {
     }
 
     public void disconnect(String username){
-        Printer.println("disconnessione" + username);
+        /*
+        if(gameController.isBoardTypePhase() && players.get(0).getUsername().equals(username)){
+            chooseBoardType(1, 5);
+        }*/
+        if(gameController.isSpawnLocationPhase()){
+            choose(username, 1);
+        }
         if(users.get(username).isMyTurn()){
-            Printer.println("disconnessione2" + username);
             users.get(username).setDisconnected(true);
             endTurnDisconnected(username);
         }
         if(users.containsKey(username)){
-            Printer.println("disconnessione3" + username);
             users.get(username).setDisconnected(true);
             disconnectedUsers.put(username, users.get(username));
-            //users.get(username).setDisconnected(true);
             users.remove(username);
             /*
             if(users.size()<Config.MIN_PLAYERS){
@@ -340,6 +373,9 @@ public class ServerController {
                     Printer.err(e);
                 }
             });
+            if(gameController.isBoardTypePhase() && players.get(0).getUsername().equals(username)){
+                chooseBoardType(1, 5);
+            }
         }
     }
 

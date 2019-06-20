@@ -234,7 +234,7 @@ public class WeaponCard extends Card{
     @Override
     public String toString(){
         StringBuilder card = new StringBuilder();
-        card.append("Name: " + getName()).append("[Grab: " + grabBlueAmmos + "B" + grabRedAmmos + "R" + grabYellowAmmos + "Y][Reload: " + reloadBlueAmmos + "B" + reloadRedAmmos + "R" + reloadYellowAmmos + "Y]").append("\nColor: " + getColor()).append("\n" + getCardEffect());
+        card.append("Name: " + getName()).append("[Grab: " + grabBlueAmmos + "B" + grabRedAmmos + "R" + grabYellowAmmos + "Y][Reload: " + reloadBlueAmmos + "B" + reloadRedAmmos + "R" + reloadYellowAmmos + "Y]").append("\nColor: " + getColor()).append("\n" + getCardEffect()).append("\nLoaded: " + loaded);
         return card.toString();
     }
 }
