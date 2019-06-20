@@ -351,15 +351,6 @@ public class Game implements Serializable {
      * @param actionInterface used to do some actions on the game.
      */
     public void endTurn(Player player, ActionInterface actionInterface){
-        if(isFinalFrenzy()){
-            finalFrenzyTurns--;
-            if(finalFrenzyTurns == 0){
-                players.forEach(p->p.setMyTurn(false));
-                gamePhase = false;
-                endPhase = true;
-                scoring();
-            }
-        }
         refillSquares(actionInterface);
         players.forEach(p->p.setDamaged(false));
         for(int i=0; i<players.size(); i++){
@@ -560,6 +551,14 @@ public class Game implements Serializable {
                 scoreList.replace(c, actualScore);
             }
         });
+    }
+
+    public void endGame(){
+        players.forEach(p->p.setMyTurn(false));
+        gamePhase = false;
+        endPhase = true;
+        scoring();
+        Printer.println(scoreList);
     }
 
 }
