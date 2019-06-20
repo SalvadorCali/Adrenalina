@@ -577,6 +577,9 @@ public class CommandLine implements ViewInterface {
                         first = Converter.fromStringToDirection(moveAndReload.nextToken());
                         second = Converter.fromStringToDirection(moveAndReload.nextToken());
                     }
+                    else{
+                        return false;
+                    }
                     Printer.println("Do you want to reload?: <yes> <no>");
                     String reload = userInputStream.readLine();
                     if(reload.equals("yes")){
@@ -584,14 +587,13 @@ public class CommandLine implements ViewInterface {
                         moveAndReload = new StringTokenizer(userInputStream.readLine());
                         if(moveAndReload.countTokens()==1){
                             client.moveAndReload(first, second, moveAndReload.nextToken());
-                            return true;
                         }else if(moveAndReload.countTokens()==2){
                             client.moveAndReload(first, second, moveAndReload.nextToken(), moveAndReload.nextToken());
-                            return true;
                         }else if(moveAndReload.countTokens()==3){
                             client.moveAndReload(first, second, moveAndReload.nextToken(), moveAndReload.nextToken(),
                                     moveAndReload.nextToken());
-                            return true;
+                        }else{
+                            return false;
                         }
                     }
                 }else{
@@ -602,14 +604,13 @@ public class CommandLine implements ViewInterface {
                         moveAndReload = new StringTokenizer(userInputStream.readLine());
                         if(moveAndReload.countTokens()==1){
                             client.moveAndReload(first, second, moveAndReload.nextToken());
-                            return true;
                         }else if(moveAndReload.countTokens()==2){
                             client.moveAndReload(first, second, moveAndReload.nextToken(), moveAndReload.nextToken());
-                            return true;
                         }else if(moveAndReload.countTokens()==3){
                             client.moveAndReload(first, second, moveAndReload.nextToken(), moveAndReload.nextToken(),
                                     moveAndReload.nextToken());
-                            return true;
+                        }else{
+                            return false;
                         }
                     }
                 }
