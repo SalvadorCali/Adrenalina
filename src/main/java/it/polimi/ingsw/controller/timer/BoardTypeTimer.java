@@ -19,7 +19,7 @@ public class BoardTypeTimer extends Thread {
         try {
             sleep(Config.BOARD_TYPE_TIME);
             if(gameController.isBoardTypePhase()){
-                serverController.chooseBoardType(1, 8);
+                serverController.chooseBoardType(1, 1);
             }
         } catch (InterruptedException e) {
             Printer.err(e);

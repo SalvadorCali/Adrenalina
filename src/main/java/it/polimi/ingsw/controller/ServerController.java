@@ -39,6 +39,7 @@ public class ServerController {
     private TurnTimer timer;
     private int deathNumber;
     private int respawnNumber;
+    private int finalFrenzyTurns;
 
     public ServerController(){
         gameController = new GameController();
@@ -713,6 +714,12 @@ public class ServerController {
                     return;
                 }
             }
+            if(finalFrenzy){
+                finalFrenzyTurns++;
+                if(finalFrenzyTurns == servers.size() + disconnectedUsers.size()){
+                    endGame();
+                }
+            }
             if(gameController.isFinalFrenzy() && !finalFrenzy){
                 gameController.finalFrenzy();
                 finalFrenzy = true;
@@ -884,6 +891,7 @@ public class ServerController {
 
     private void endGame(){
         Printer.println("Game end!");
+        gameController.endGame();
     }
 
     private void setGameDataBeforeGame(){

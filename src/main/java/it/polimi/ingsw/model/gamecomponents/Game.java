@@ -342,6 +342,7 @@ public class Game implements Serializable {
                 }
             }
         }
+        doubleKill();
     }
 
     /**
@@ -350,15 +351,6 @@ public class Game implements Serializable {
      * @param actionInterface used to do some actions on the game.
      */
     public void endTurn(Player player, ActionInterface actionInterface){
-        if(isFinalFrenzy()){
-            finalFrenzyTurns--;
-            if(finalFrenzyTurns == 0){
-                players.forEach(p->p.setMyTurn(false));
-                gamePhase = false;
-                endPhase = true;
-                scoring();
-            }
-        }
         refillSquares(actionInterface);
         players.forEach(p->p.setDamaged(false));
         for(int i=0; i<players.size(); i++){
@@ -461,7 +453,10 @@ public class Game implements Serializable {
     public void finalFrenzy(){
         finalFrenzyTurns = players.size() + 1;
         players.forEach(p->{
-            p.getPlayerBoard().resetDamage();
+            if(p.getPlayerBoard().getDamageIndex()==0){
+                p.getPlayerBoard().setFinalFrenzy(true);
+            }
+            //p.getPlayerBoard().resetDamage();
             p.getPlayerBoard().setDead(false);
             p.getPlayerBoard().setAdrenalineZone(AdrenalineZone.DEFAULT);
         });
@@ -537,22 +532,33 @@ public class Game implements Serializable {
         return false;
     }
     public void doubleKill(){
-        List<Score> killshots = new ArrayList<>();
+        Map<TokenColor, Integer> killshots = new HashMap<>();
         for(Player player : players){
             if(player.getPlayerBoard().isDead()){
                 TokenColor tokenColor = player.getPlayerBoard().getKillshot();
-                killshots.add(new Score(tokenColor, 1));
-            }
-        }
-        if(killshots.size()>1){
-            for (Score score : killshots){
-                if(score.getScore()>1){
-                    int actualScore = scoreList.get(score.getColor());
-                    actualScore += 1;
-                    scoreList.replace(score.getColor(), actualScore);
+                if(killshots.containsKey(tokenColor)){
+                    int kills = killshots.get(tokenColor) + 1;
+                    killshots.replace(tokenColor, kills);
+                }else{
+                    killshots.put(tokenColor, 1);
                 }
             }
         }
+        killshots.forEach((c,i)->{
+            if(i>1){
+                int actualScore = scoreList.get(c);
+                actualScore += 1;
+                scoreList.replace(c, actualScore);
+            }
+        });
+    }
+
+    public void endGame(){
+        players.forEach(p->p.setMyTurn(false));
+        gamePhase = false;
+        endPhase = true;
+        scoring();
+        Printer.println(scoreList);
     }
 
 }

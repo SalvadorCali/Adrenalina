@@ -338,7 +338,14 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
                 view.notify(message, outcome);
                 break;
             case FINAL_FRENZY:
+                playerController.setGameBoard(gameData.getGameBoard());
+                playerController.setKillshotTrack(gameData.getKillshotTrack());
+                playerController.setPlayer(gameData.getPlayer(username));
+                playerController.setOtherPlayers(gameData.getPlayers(username));
+                playerController.setCurrentPlayer(gameData.getCurrentPlayer());
+                playerController.setWeapon(gameData.getWeapon());
                 playerController.setFinalFrenzy(true);
+                playerController.setPlayerBoardFinalFrenzy(gameData.getPlayer().getPlayerBoard().isFinalFrenzy());
                 view.notify(message);
                 break;
             case RESPAWN:

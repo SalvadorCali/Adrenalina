@@ -630,4 +630,8 @@ public class GameController {
         game.getBoard().setPlayer(player, color);
         player.setRespawned(true);
     }
+
+    public void endGame(){
+        game.endGame();
+    }
 }
