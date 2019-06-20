@@ -46,6 +46,7 @@ import java.net.URL;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 public class GUIHandler extends Application implements ViewInterface, Initializable {
@@ -267,6 +268,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     private GUIHandler guiHandler;
     private Stage primaryStage;
     private PlayerBoardGui playerboard;
+    private ScorePopup scorePopup;
 
     //starting methods
     //
@@ -902,10 +904,31 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                 case SPAWN:
                     notifySpawnLocation((List<Card>) object);
                     break;
+                case SCORE:
+                    try {
+                        notifyScore((Map<TokenColor, Integer>) object);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    break;
                 default:
                     break;
             }
         });
+    }
+
+    private void notifyScore(Map<TokenColor, Integer> object) throws IOException {
+
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ScorePopup.fxml"));
+        Parent root = loader.load();
+
+        scorePopup = loader.getController();
+        scorePopup.setScore(object);
+
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root, 411, 311));
+        stage.setTitle("Score");
+        stage.show();
     }
 
 
