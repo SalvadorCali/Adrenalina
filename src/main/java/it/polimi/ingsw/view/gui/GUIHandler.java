@@ -232,6 +232,9 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     @FXML private TextField basicTxtField;
     @FXML private Button shootDataButton;
 
+    @FXML private Label labelReload;
+    @FXML private ImageView bannerReload;
+
 
     private static final int ROWS = 3;
     private static final int COLUMNS = 4;
@@ -350,46 +353,34 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     //
     //
     public void chooseBoard0(){
-        Platform.runLater(() ->{
 
-            this.boardType = 0;
-            Data.getInstance().setBoardType(0);
-
-        });
+         this.boardType = 0;
+         Data.getInstance().setBoardType(0);
     }
 
     public void chooseBoard1(){
-        Platform.runLater(() ->{
 
-            this.boardType = 1;
-            Data.getInstance().setBoardType(1);
-
-        });
+        this.boardType = 1;
+        Data.getInstance().setBoardType(1);
     }
 
     public void chooseBoard2(){
-        Platform.runLater(() ->{
-            this.boardType = 2;
-            Data.getInstance().setBoardType(2);
-
-        });
+        this.boardType = 2;
+        Data.getInstance().setBoardType(2);
     }
 
     public void chooseBoard3(){
-        Platform.runLater(() ->{
-            this.boardType = 3;
-            Data.getInstance().setBoardType(3);
-        });
+        this.boardType = 3;
+        Data.getInstance().setBoardType(3);
     }
 
 
     public void chooseBoardButton(){
 
-        Platform.runLater(() -> {
+        skull = Integer.valueOf(skullText.getText());
+        Data.getInstance().setSkull(skull);
 
-            skull = Integer.valueOf(skullText.getText());
-            Data.getInstance().setSkull(skull);
-            System.out.println(Data.getInstance().getSkull());
+        Platform.runLater(() -> {
 
             if (boardType == null) {
 
@@ -417,27 +408,25 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     //
     //
     public void choosePowerup1() throws IOException {
-        Platform.runLater(() ->{
-            Data.getInstance().setPowerup(1);
-            handleCloseAction1();
-            try {
-                setPowerup();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
+
+        Data.getInstance().setPowerup(1);
+        handleCloseAction1();
+        try {
+            setPowerup();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void choosePowerup2() throws IOException {
-        Platform.runLater(() ->{
-            Data.getInstance().setPowerup(2);
-            handleCloseAction2();
-            try {
-                setPowerup();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
+
+        Data.getInstance().setPowerup(2);
+        handleCloseAction2();
+        try {
+            setPowerup();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void handleCloseAction1() {
@@ -467,21 +456,19 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
     @Override
     public void notify(Message message) {
-        Platform.runLater(() ->{
-            switch (message){
-                case END_TURN:
-                    notifyEndTurn();
-                    break;
-                case NOT_TURN:
-                    notifyNotTurn();
-                    break;
-                case FINAL_FRENZY:
-                    notifyFinalFrenzy();
-                    break;
-                default:
-                    break;
-            }
-        });
+        switch (message){
+            case END_TURN:
+                notifyEndTurn();
+                break;
+            case NOT_TURN:
+                notifyNotTurn();
+                break;
+            case FINAL_FRENZY:
+                notifyFinalFrenzy();
+                break;
+            default:
+                break;
+        }
     }
 
     private void notifyFinalFrenzy() {
@@ -509,55 +496,53 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
     @Override
     public void notify(Message message, Outcome outcome) {
-        Platform.runLater(() -> {
-            switch (message) {
-                case NEW_TURN:
-                    try {
-                        notifyNewTurn(outcome);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                    break;
-                case BOARD:
-                    notifyBoard(outcome);
-                    break;
-                case GAME:
-                    Printer.println("New Game");
-                    break;
-                case MOVE:
-                    notifyMovement(outcome);
-                    break;
-                case GRAB:
-                    notifyGrab(outcome);
-                    break;
-                case SHOOT:
-                    notifyShoot(outcome);
-                    break;
-                case POWERUP:
-                    notifyPowerup(outcome);
-                    break;
-                case RECONNECTION:
-                    notifyReconnection(outcome);
-                    break;
-                case DISCARD_POWERUP:
-                    notifyDiscardPowerup(outcome);
-                    break;
-                case DROP_POWERUP:
-                    notifyDropPowerup(outcome);
-                    break;
-                case DROP_WEAPON:
-                    notifyDropWeapon(outcome);
-                    break;
-                case RESPAWN:
-                    notifyRespawn(outcome);
-                    break;
-                case RELOAD:
-                    notifyReload(outcome);
-                    break;
-                default:
-                    break;
-            }
-        });
+        switch (message) {
+            case NEW_TURN:
+                try {
+                    notifyNewTurn(outcome);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                break;
+            case BOARD:
+                notifyBoard(outcome);
+                break;
+            case GAME:
+                Printer.println("New Game");
+                break;
+            case MOVE:
+                notifyMovement(outcome);
+                break;
+            case GRAB:
+                notifyGrab(outcome);
+                break;
+            case SHOOT:
+                notifyShoot(outcome);
+                break;
+            case POWERUP:
+                notifyPowerup(outcome);
+                break;
+            case RECONNECTION:
+                notifyReconnection(outcome);
+                break;
+            case DISCARD_POWERUP:
+                notifyDiscardPowerup(outcome);
+                break;
+            case DROP_POWERUP:
+                notifyDropPowerup(outcome);
+                break;
+            case DROP_WEAPON:
+                notifyDropWeapon(outcome);
+                break;
+            case RESPAWN:
+                notifyRespawn(outcome);
+                break;
+            case RELOAD:
+                notifyReload(outcome);
+                break;
+            default:
+                break;
+        }
     }
 
     private void notifyRespawn(Outcome outcome) {
@@ -589,15 +574,12 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     }
 
     private void respawnPlayer() {
-        Platform.runLater(() ->{
-
-            client = Data.getInstance().getClient();
-            try {
-                client.respawn(Data.getInstance().getPowerup());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
+        client = Data.getInstance().getClient();
+        try {
+            client.respawn(Data.getInstance().getPowerup());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void setPowerupImageRespawn() {
@@ -882,39 +864,39 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
         Image imageSkull = new Image("boardElem/skull.png");
 
-        for(int i = 0; i < skulls; i++) {
-            gridSkulls.add(new ImageView(imageSkull), i, 0);
-        }
+        Platform.runLater(() -> {
+            for (int i = 0; i < skulls; i++) {
+                gridSkulls.add(new ImageView(imageSkull), i, 0);
+            }
+        });
     }
 
 
     @Override
     public void notify(Message message, Outcome outcome, Object object) {
-        Platform.runLater(() ->{
-            switch(message){
-                case LOGIN:
-                    notifyLogin(outcome, (String) object);
-                    break;
-                case COLOR:
-                    notifyColor(outcome, (TokenColor) object);
-                    break;
-                case DISCONNECT:
-                    notifyDisconnection(outcome, (String) object);
-                    break;
-                case SPAWN:
-                    notifySpawnLocation((List<Card>) object);
-                    break;
-                case SCORE:
-                    try {
-                        notifyScore((Map<TokenColor, Integer>) object);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    break;
-                default:
-                    break;
-            }
-        });
+        switch(message){
+            case LOGIN:
+                notifyLogin(outcome, (String) object);
+                break;
+            case COLOR:
+                notifyColor(outcome, (TokenColor) object);
+                break;
+            case DISCONNECT:
+                notifyDisconnection(outcome, (String) object);
+                break;
+            case SPAWN:
+                notifySpawnLocation((List<Card>) object);
+                break;
+            case SCORE:
+                try {
+                    notifyScore((Map<TokenColor, Integer>) object);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                break;
+            default:
+                break;
+        }
     }
 
     private void notifyScore(Map<TokenColor, Integer> object) throws IOException {
@@ -933,40 +915,34 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
 
     private void connectToRMI(String name, String host, String color) {
-        Platform.runLater(() -> {
 
-            try {
-                client = new RMIClient(host);
-                client.setView(this);
-                playerController = client.getPlayerController();
-                client.login(name, Converter.fromStringToTokenColor(color));
-                Data.getInstance().setClient(client);
-                Data.getInstance().setPlayerController(playerController);
+        try {
+            client = new RMIClient(host);
+            client.setView(this);
+            playerController = client.getPlayerController();
+            client.login(name, Converter.fromStringToTokenColor(color));
+            Data.getInstance().setClient(client);
+            Data.getInstance().setPlayerController(playerController);
 
-            } catch (NotBoundException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
+        } catch (NotBoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void connectToSocket(String name, String host, String color) {
-        Platform.runLater(() -> {
+        try {
+            client = new SocketClient(host);
+            client.setView(this);
+            playerController = client.getPlayerController();
+            client.login(name, Converter.fromStringToTokenColor(color));
+            Data.getInstance().setClient(client);
+            Data.getInstance().setPlayerController(playerController);
 
-
-            try {
-                client = new SocketClient(host);
-                client.setView(this);
-                playerController = client.getPlayerController();
-                client.login(name, Converter.fromStringToTokenColor(color));
-                Data.getInstance().setClient(client);
-                Data.getInstance().setPlayerController(playerController);
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void notifyLogin(Outcome outcome, String object) {
@@ -996,9 +972,10 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     }
 
     private void notifyDisconnection(Outcome outcome, String object) {
-        Platform.runLater(() -> {
-            switch (outcome) {
-                case ALL:{
+
+        switch (outcome) {
+            case ALL:{
+                Platform.runLater(() -> {
                     try {
                         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("Popup.fxml"));
                         Parent root = loader.load();
@@ -1013,12 +990,12 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-                    break;
-                }
-                default:
-                    break;
+                });
+                break;
             }
-        });
+            default:
+                break;
+        }
     }
 
 
@@ -1071,10 +1048,11 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     @FXML
     private void checkPosition() {
         while(checkTurn){
+            guiHandler = Data.getInstance().getGuiHandler();
+            playerController = Data.getInstance().getPlayerController();
+
             Platform.runLater(() -> {
 
-                guiHandler = Data.getInstance().getGuiHandler();
-                playerController = Data.getInstance().getPlayerController();
                 guiHandler.setLabelTurn();
                 guiHandler.placePlayers(playerController.getGameBoard().getArena());
                 guiHandler.removeImg();
@@ -1094,6 +1072,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
     @FXML
     private void addAmmo() {
+
         playerController = Data.getInstance().getPlayerController();
         arena = playerController.getGameBoard().getArena();
         for(int i=0; i < ROWS ; i++){
@@ -1233,11 +1212,11 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
 
     public void addWeapon() {
+
+        playerController = Data.getInstance().getPlayerController();
+        arena = playerController.getGameBoard().getArena();
+
         Platform.runLater(() -> {
-
-            playerController = Data.getInstance().getPlayerController();
-            arena = playerController.getGameBoard().getArena();
-
             int k = 0;
             for (int i = 0; i < ROWS; i++) {
                 for (int j = 0; j < COLUMNS; j++) {
@@ -1335,34 +1314,30 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
 
     public void setBoard() throws IOException, InterruptedException {
-        Platform.runLater(() -> {
-            try {
-                client = Data.getInstance().getClient();
-                System.out.println(Data.getInstance().getBoardType());
-                this.client.board(Data.getInstance().getBoardType() + 1, Data.getInstance().getSkull());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
-
+        try {
+            client = Data.getInstance().getClient();
+            System.out.println(Data.getInstance().getBoardType());
+            this.client.board(Data.getInstance().getBoardType() + 1, Data.getInstance().getSkull());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void setMapImage() {
         playerController = Data.getInstance().getPlayerController();
-        Integer mapNum = Converter.fromBoardTypeToInt(playerController.getGameBoard().getType());
-        mapImage.setImage(new Image("boardImg/" + mapNum +".png"));
+        Platform.runLater(() -> {
+            Integer mapNum = Converter.fromBoardTypeToInt(playerController.getGameBoard().getType());
+            mapImage.setImage(new Image("boardImg/" + mapNum +".png"));
+        });
     }
 
     public void setPowerup() throws IOException{
-        Platform.runLater(() ->{
-            try {
-                this.client = Data.getInstance().getClient();
-                this.client.choose(Data.getInstance().getPowerup());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-        });
+        try {
+            this.client = Data.getInstance().getClient();
+            this.client.choose(Data.getInstance().getPowerup());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public static void main(String[] args) {
@@ -1451,19 +1426,16 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     }
 
     private void reloadClient() {
-        Platform.runLater(() ->{
+        client = Data.getInstance().getClient();
+        String weaponReload = Data.getInstance().getWeaponReloaded();
 
-            client = Data.getInstance().getClient();
-            String weaponReload = Data.getInstance().getWeaponReloaded();
-
-            if(weaponReload != null) {
-                try {
-                    client.reload(weaponReload);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+        if(weaponReload != null) {
+            try {
+                client.reload(weaponReload);
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-        });
+        }
     }
 
     private void disableButtonWhenReload() {
@@ -1490,17 +1462,14 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     }
 
     public void endTurn(){
-        Platform.runLater(() -> {
+        try {
 
-            try {
-                
-                client = Data.getInstance().getClient();
-                this.client.endTurn();
-                setLabelTurn();
-            } catch (IOException e1) {
-                e1.printStackTrace();
-            }
-        });
+            client = Data.getInstance().getClient();
+            this.client.endTurn();
+            setLabelTurn();
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        }
     }
 
     public void placePlayers(Square[][] arena){
@@ -1903,77 +1872,72 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     }
 
     public void grabFirstImg(MouseEvent mouseEvent) {
-        Platform.runLater(() -> {
-            client = Data.getInstance().getClient();
-            String move = Data.getInstance().getMoveGrab();
 
-            if (move != null) {
-                try {
-                    this.client.grab(0, Converter.fromStringToDirection(move));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+        client = Data.getInstance().getClient();
+        String move = Data.getInstance().getMoveGrab();
 
-            } else {
-                try {
-                    this.client.grab(0);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+        if (move != null) {
+            try {
+                this.client.grab(0, Converter.fromStringToDirection(move));
+            } catch (IOException e) {
+                e.printStackTrace();
             }
 
-            Stage stage = (Stage) firstWeapon.getScene().getWindow();
-            stage.close();
-        });
+        } else {
+            try {
+                this.client.grab(0);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        Stage stage = (Stage) firstWeapon.getScene().getWindow();
+        stage.close();
     }
 
     public void grabSecondImg(MouseEvent mouseEvent){
-        Platform.runLater(() -> {
-            client = Data.getInstance().getClient();
-            String move = Data.getInstance().getMoveGrab();
+        client = Data.getInstance().getClient();
+        String move = Data.getInstance().getMoveGrab();
 
-            if (move != null) {
-                try {
-                    this.client.grab(1, Converter.fromStringToDirection(move));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-            } else {
-                try {
-                    this.client.grab(1);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+        if (move != null) {
+            try {
+                this.client.grab(1, Converter.fromStringToDirection(move));
+            } catch (IOException e) {
+                e.printStackTrace();
             }
 
-            Stage stage = (Stage) firstWeapon.getScene().getWindow();
-            stage.close();
-        });
+        } else {
+            try {
+                this.client.grab(1);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        Stage stage = (Stage) firstWeapon.getScene().getWindow();
+        stage.close();
     }
 
     public void grabThirdImg(MouseEvent mouseEvent) {
-        Platform.runLater(() -> {
-            client = Data.getInstance().getClient();
-            String move = Data.getInstance().getMoveGrab();
+        client = Data.getInstance().getClient();
+        String move = Data.getInstance().getMoveGrab();
 
-            if (move != null) {
-                try {
-                    this.client.grab(2, Converter.fromStringToDirection(move));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-            } else {
-                try {
-                    this.client.grab(2);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+        if (move != null) {
+            try {
+                this.client.grab(2, Converter.fromStringToDirection(move));
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-            Stage stage = (Stage) firstWeapon.getScene().getWindow();
-            stage.close();
-        });
+
+        } else {
+            try {
+                this.client.grab(2);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        Stage stage = (Stage) firstWeapon.getScene().getWindow();
+        stage.close();
     }
 
     public void disableButtons(){
@@ -1998,6 +1962,10 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
             //disable shoot
             guiHandler.bannerShoot.setDisable(true);
             guiHandler.labelShoot.setDisable(true);
+
+            //disable reload
+            guiHandler.bannerReload.setDisable(true);
+            guiHandler.labelReload.setDisable(true);
         });
     }
 
@@ -2024,6 +1992,10 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
             //enable shoot
             guiHandler.bannerShoot.setDisable(false);
             guiHandler.labelShoot.setDisable(false);
+
+            //enable reload
+            guiHandler.bannerReload.setDisable(false);
+            guiHandler.labelReload.setDisable(false);
         });
     }
 
@@ -2081,24 +2053,22 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     }
 
     private void checkWeapon() {
-        Platform.runLater(() -> {
-
-            while (checkTurn) {
+        while (checkTurn) {
+            Platform.runLater(() -> {
 
                 guiHandler = Data.getInstance().getGuiHandlerWeapon();
                 guiHandler.setWeaponHad();
                 guiHandler.setPowerupHad();
+            });
 
+            try {
 
-                try {
+                Thread.sleep(5000);
 
-                    Thread.sleep(5000);
-
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
-        });
+        }
     }
 
     @FXML
@@ -2163,32 +2133,24 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
 
     public void shoot(MouseEvent mouseEvent) {
-        Platform.runLater(() ->{
 
-            this.guiHandler = Data.getInstance().getGuiHandler();
-            this.guiHandler.showWeapon(mouseEvent);
-        });
+        this.guiHandler = Data.getInstance().getGuiHandler();
+        this.guiHandler.showWeapon(mouseEvent);
     }
 
     public void shootFirstWeapon(MouseEvent mouseEvent) {
-        Platform.runLater(() ->{
-            Data.getInstance().setWeaponShoot(0);
-            launchDataShoot();
-        });
+        Data.getInstance().setWeaponShoot(0);
+        launchDataShoot();
     }
 
     public void shootSecondWeapon(MouseEvent mouseEvent) {
-        Platform.runLater(() ->{
-            Data.getInstance().setWeaponShoot(1);
-            launchDataShoot();
-        });
+        Data.getInstance().setWeaponShoot(1);
+        launchDataShoot();
     }
 
     public void shootThirdWeapon(MouseEvent mouseEvent) {
-        Platform.runLater(() ->{
-            Data.getInstance().setWeaponShoot(2);
-            launchDataShoot();
-        });
+        Data.getInstance().setWeaponShoot(2);
+        launchDataShoot();
     }
 
     @FXML
@@ -2211,71 +2173,66 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     }
 
     public void setShoot(MouseEvent mouseEvent) {
-        Platform.runLater(() -> {
+        client = Data.getInstance().getClient();
+        playerController = Data.getInstance().getPlayerController();
+        Integer weaponNum = Data.getInstance().getWeaponShoot();
 
-            client = Data.getInstance().getClient();
-            playerController = Data.getInstance().getPlayerController();
-            Integer weaponNum = Data.getInstance().getWeaponShoot();
-
-            boolean basicFirst = true;
-            String firstVictim = null;
-            String secondVictim = null;
-            String thirdVictim = null;
-            Direction direction = null;
-            Integer x = -1;
-            Integer y = -1;
-            Integer mode = 1;
+        boolean basicFirst = true;
+        String firstVictim = null;
+        String secondVictim = null;
+        String thirdVictim = null;
+        Direction direction = null;
+        Integer x = -1;
+        Integer y = -1;
+        Integer mode = 1;
 
 
-            if(!modeTxtField.getText().isEmpty() && (modeTxtField.getText().equals("1") || !modeTxtField.getText().equals("2") || !modeTxtField.getText().equals("3"))) {
-                mode = Integer.valueOf(modeTxtField.getText());
-            }
+        if(!modeTxtField.getText().isEmpty() && (modeTxtField.getText().equals("1") || !modeTxtField.getText().equals("2") || !modeTxtField.getText().equals("3"))) {
+            mode = Integer.valueOf(modeTxtField.getText());
+        }
 
-            if(!basicTxtField.getText().isEmpty() && (basicTxtField.getText().equals("true") || basicTxtField.getText().equals("false"))) {
-                basicFirst = Boolean.parseBoolean(basicTxtField.getText());
-            }
+        if(!basicTxtField.getText().isEmpty() && (basicTxtField.getText().equals("true") || basicTxtField.getText().equals("false"))) {
+            basicFirst = Boolean.parseBoolean(basicTxtField.getText());
+        }
 
-            if (!firstVictimTxtField.getText().isEmpty() && (firstVictimTxtField.getText().equals("blue") || firstVictimTxtField.getText().equals("green") || firstVictimTxtField.getText().equals("purple") || firstVictimTxtField.getText().equals("grey") || firstVictimTxtField.getText().equals("yellow"))) {
-                firstVictim = firstVictimTxtField.getText();
-            }
+        if (!firstVictimTxtField.getText().isEmpty() && (firstVictimTxtField.getText().equals("blue") || firstVictimTxtField.getText().equals("green") || firstVictimTxtField.getText().equals("purple") || firstVictimTxtField.getText().equals("grey") || firstVictimTxtField.getText().equals("yellow"))) {
+            firstVictim = firstVictimTxtField.getText();
+        }
 
-            if (!secondVictimTxtField.getText().isEmpty() && (secondVictimTxtField.getText().equals("blue") || secondVictimTxtField.getText().equals("green") || secondVictimTxtField.getText().equals("purple") || secondVictimTxtField.getText().equals("grey") || secondVictimTxtField.getText().equals("yellow"))) {
-                secondVictim = secondVictimTxtField.getText();
-            }
+        if (!secondVictimTxtField.getText().isEmpty() && (secondVictimTxtField.getText().equals("blue") || secondVictimTxtField.getText().equals("green") || secondVictimTxtField.getText().equals("purple") || secondVictimTxtField.getText().equals("grey") || secondVictimTxtField.getText().equals("yellow"))) {
+            secondVictim = secondVictimTxtField.getText();
+        }
 
-            if(!thirdVictimTxtField.getText().isEmpty() && (thirdVictimTxtField.getText().equals("blue") || thirdVictimTxtField.getText().equals("green") || thirdVictimTxtField.getText().equals("purple") || thirdVictimTxtField.getText().equals("grey") || thirdVictimTxtField.getText().equals("yellow"))) {
-                thirdVictim = thirdVictimTxtField.getText();
-            }
+        if(!thirdVictimTxtField.getText().isEmpty() && (thirdVictimTxtField.getText().equals("blue") || thirdVictimTxtField.getText().equals("green") || thirdVictimTxtField.getText().equals("purple") || thirdVictimTxtField.getText().equals("grey") || thirdVictimTxtField.getText().equals("yellow"))) {
+            thirdVictim = thirdVictimTxtField.getText();
+        }
 
-            if(!directionTxtField.getText().isEmpty() && (directionTxtField.getText().equals("up") || directionTxtField.getText().equals("down") || directionTxtField.getText().equals("left") || directionTxtField.getText().equals("right"))) {
-                direction = Converter.fromStringToDirection(directionTxtField.getText());
-            }
+        if(!directionTxtField.getText().isEmpty() && (directionTxtField.getText().equals("up") || directionTxtField.getText().equals("down") || directionTxtField.getText().equals("left") || directionTxtField.getText().equals("right"))) {
+            direction = Converter.fromStringToDirection(directionTxtField.getText());
+        }
 
-            if(!xTxtField.getText().isEmpty() && !yTxtField.getText().isEmpty() && !Integer.valueOf(xTxtField.getText()).equals(null) && !Integer.valueOf(yTxtField.getText()).equals(null)) {
-                x = Integer.valueOf(xTxtField.getText());
-                y = Integer.valueOf(yTxtField.getText());
-            }
+        if(!xTxtField.getText().isEmpty() && !yTxtField.getText().isEmpty() && !Integer.valueOf(xTxtField.getText()).equals(null) && !Integer.valueOf(yTxtField.getText()).equals(null)) {
+            x = Integer.valueOf(xTxtField.getText());
+            y = Integer.valueOf(yTxtField.getText());
+        }
 
-            try {
-                this.client.shoot(playerController.getWeapons().get(weaponNum).getName(), mode, basicFirst, Converter.fromStringToTokenColor(firstVictim), Converter.fromStringToTokenColor(secondVictim), Converter.fromStringToTokenColor(thirdVictim), x, y, direction);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        try {
+            this.client.shoot(playerController.getWeapons().get(weaponNum).getName(), mode, basicFirst, Converter.fromStringToTokenColor(firstVictim), Converter.fromStringToTokenColor(secondVictim), Converter.fromStringToTokenColor(thirdVictim), x, y, direction);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-            Stage stage = (Stage) modeTxtField.getScene().getWindow();
-            stage.close();
-        });
+        Stage stage = (Stage) modeTxtField.getScene().getWindow();
+        stage.close();
     }
 
     public void disconnect(MouseEvent mouseEvent) {
-        Platform.runLater(()->{
 
-            this.client = Data.getInstance().getClient();
-            try {
-                this. client.disconnect();
-            } catch (RemoteException e) {
-                e.printStackTrace();
-            }
-        });
+        this.client = Data.getInstance().getClient();
+        try {
+            this. client.disconnect();
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
     }
 }
