@@ -321,7 +321,9 @@ public class GameController {
                     Position position = new Position(player.getPosition().getX(), player.getPosition().getY());
                     if (canMove(player, directions)) {
                         position.incrementPosition(directions);
-                        if(game.getBoard().getArena()[position.getX()][position.getX()].canGrab(actionInterface, choice)){
+                        int x = position.getX();
+                        int y = position.getY();
+                        if(game.getBoard().getArena()[x][y].canGrab(actionInterface, choice)){
                             for(Direction direction : directions){
                                 game.getBoard().move(direction, player);
                             }
