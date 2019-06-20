@@ -345,9 +345,16 @@ public class GameController {
         }else{
             if (player.canUseAction()) {
                 if (directions.length > 0) {
+                    Position position = new Position(player.getPosition().getX(), player.getPosition().getY());
                     if (canMove(player, directions)) {
-                        for(Direction direction : directions){
-                            game.getBoard().move(direction, player);
+                        position.incrementPosition(directions);
+                        if(game.getBoard().getArena()[position.getX()][position.getX()].canGrab(actionInterface, choice)){
+                            for(Direction direction : directions){
+                                game.getBoard().move(direction, player);
+                            }
+                        }
+                        else{
+                            return false;
                         }
                     } else {
                         return false;
