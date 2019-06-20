@@ -68,17 +68,16 @@ public class Client {
             ClientInterface client = null;
 
             if(choice.equals("rmi")){
+
                 try {
                     client = new RMIClient();
-                } catch (IOException | NotBoundException e) {
+                } catch (RemoteException e) {
                     Printer.err(e);
                 }
+
             }else{
-                try {
+
                     client = new SocketClient();
-                } catch (IOException e) {
-                    Printer.err(e);
-                }
             }
 
             if(Objects.nonNull(client)){

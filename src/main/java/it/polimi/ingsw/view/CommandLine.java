@@ -127,8 +127,14 @@ public class CommandLine implements ViewInterface {
                     }
                     break;
                 case "shoot":
-                    if(!shoot(string)){
-                        Printer.print(StringCLI.INVALID_COMMAND);
+                    if(playerController.isFinalFrenzy()){
+                        if(!shootFinalFrenzy(string)){
+                            Printer.print(StringCLI.INVALID_COMMAND);
+                        }
+                    }else{
+                        if(!shoot(string)){
+                            Printer.print(StringCLI.INVALID_COMMAND);
+                        }
                     }
                     break;
                 case "powerup":

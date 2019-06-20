@@ -36,19 +36,25 @@ public class SocketClient implements ClientInterface, Runnable, Serializable {
     private Socket clientSocket;
     private String username;
 
-    public SocketClient() throws IOException {
+    public SocketClient(){
         playerController = new PlayerController(this);
         BufferedReader userInputStream = new BufferedReader(new InputStreamReader(System.in));
-        Printer.print("[CLIENT]Please, set an ip address:");
-        String host = userInputStream.readLine();
-        clientSocket = new Socket(host, Config.SOCKET_PORT);
-
-        objectOutputStream = new ObjectOutputStream(clientSocket.getOutputStream());
-        objectInputStream = new ObjectInputStream(clientSocket.getInputStream());
-
-        view = new CommandLine(this);
-        view.start();
-        view.setPlayerController(playerController);
+        boolean cycle = true;
+        while(cycle){
+            try {
+                Printer.print("[CLIENT]Please, set an ip address:");
+                String host = userInputStream.readLine();
+                clientSocket = new Socket(host, Config.SOCKET_PORT);
+                objectOutputStream = new ObjectOutputStream(clientSocket.getOutputStream());
+                objectInputStream = new ObjectInputStream(clientSocket.getInputStream());
+                view = new CommandLine(this);
+                view.start();
+                view.setPlayerController(playerController);
+                cycle = false;
+            } catch (IOException e) {
+                cycle = true;
+            }
+        }
     }
 
     public SocketClient(String host) throws IOException {

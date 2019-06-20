@@ -36,22 +36,32 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
     private ViewInterface view;
     private String username;
 
-    public RMIClient() throws IOException, NotBoundException {
+    public RMIClient() throws RemoteException {
         super(Config.RMI_FREE_PORT);
-        playerController = new PlayerController(this);
-        BufferedReader userInputStream = new BufferedReader(new InputStreamReader(System.in));
-        Printer.print("[CLIENT]Please, set an ip address:");
-        String host = userInputStream.readLine();
-        //System.setProperty("java.rmi.client.hostname", InetAddress.getLocalHost().getHostAddress());
-        //old
+        boolean cycle = true;
+        while(cycle){
+            try {
+                playerController = new PlayerController(this);
+                BufferedReader userInputStream = new BufferedReader(new InputStreamReader(System.in));
+                Printer.print("[CLIENT]Please, set an ip address:");
+                String host = userInputStream.readLine();
+                //System.setProperty("java.rmi.client.hostname", InetAddress.getLocalHost().getHostAddress());
+                //old
         /*
         ConnectionInterface connectionInterface = (ConnectionInterface) java.rmi.Naming.lookup("server");
         server = connectionInterface.enrol(this);
         */
-        //new
-        Registry registry = LocateRegistry.getRegistry(host, Config.RMI_FREE_PORT);
-        ConnectionInterface connection = (ConnectionInterface) registry.lookup("server");
-        server = connection.enrol(this);
+                //new
+                Registry registry = LocateRegistry.getRegistry(host, Config.RMI_FREE_PORT);
+                ConnectionInterface connection = (ConnectionInterface) registry.lookup("server");
+                server = connection.enrol(this);
+                cycle = false;
+            } catch (NotBoundException | IOException e) {
+                cycle = true;
+            }
+
+        }
+
         //server = connection.enrol((RMIClientInterface) UnicastRemoteObject.exportObject(this, Config.RMI_FREE_PORT));
     }
 
