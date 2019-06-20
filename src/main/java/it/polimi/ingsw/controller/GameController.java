@@ -343,11 +343,17 @@ public class GameController {
                 }
             }
         }else{
-            if (player.canUseAction()) {
+            if(player.canUseAction()) {
+                Printer.println("CanUse: " + player.canUseAction());
                 if (directions.length > 0) {
+                    Printer.println("Lunghezza: " + directions.length);
                     Position position = new Position(player.getPosition().getX(), player.getPosition().getY());
+                    Printer.println("X: " + player.getPosition().getX());
+                    Printer.println("Y: " + player.getPosition().getY());
                     if (canMove(player, directions)) {
                         position.incrementPosition(directions);
+                        Printer.println("Nuova X: " + position.getX());
+                        Printer.println("Nuova Y: " + position.getY());
                         if(game.getBoard().getArena()[position.getX()][position.getX()].canGrab(actionInterface, choice)){
                             for(Direction direction : directions){
                                 game.getBoard().move(direction, player);
