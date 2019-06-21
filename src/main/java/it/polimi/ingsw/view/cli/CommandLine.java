@@ -25,9 +25,6 @@ public class CommandLine implements ViewInterface {
     private PlayerController playerController;
     private BufferedReader userInputStream;
     private GameController game = new GameController();
-    //private MapCLI mapCLI = new MapCLI(game);
-    //private DamageBoardCLI dmgBoard = new DamageBoardCLI(game);
-    private CLIPrinter cliPrinter;
     private GameBoard gameBoard;
     private Player player;
     private AmmoBoxReserveCLI ammoPrinter;
@@ -83,7 +80,11 @@ public class CommandLine implements ViewInterface {
         if(string.hasMoreTokens()){
             switch(string.nextToken()){
                 case StringCLI.HELP:
-                    help();
+                    if(playerController.isFinalFrenzy()){
+                        helpFinalFrenzy();
+                    }else{
+                        help();
+                    }
                     break;
                 case StringCLI.LOGIN:
                     if(!login(string)){
@@ -181,13 +182,28 @@ public class CommandLine implements ViewInterface {
      */
     private void help(){
         Printer.println(StringCLI.COMMANDS_LIST);
-        Printer.println(StringCLI.HELP_COMMAND);
         Printer.println(StringCLI.LOGIN_COMMAND);
         Printer.println(StringCLI.DISCONNECT_COMMAND);
         Printer.println(StringCLI.SHOW_COMMAND);
         Printer.println(StringCLI.MOVE_COMMAND);
         Printer.println(StringCLI.GRAB_COMMAND);
         Printer.println(StringCLI.SHOOT_COMMAND);
+        Printer.println(StringCLI.END_COMMAND);
+    }
+
+    private void helpFinalFrenzy(){
+        Printer.println(StringCLI.COMMANDS_LIST);
+        Printer.println(StringCLI.DISCONNECT_COMMAND);
+        Printer.println(StringCLI.SHOW_COMMAND);
+        if(playerController.getFinalFrenzyActions().equals(FinalFrenzyAction.ONE_ACTION)){
+            Printer.println(StringCLI.MOVE_COMMAND);
+            Printer.println(StringCLI.GRAB_COMMAND);
+            Printer.println(StringCLI.SHOOT_COMMAND);
+        }else{
+            Printer.println(StringCLI.MOVE_COMMAND);
+            Printer.println(StringCLI.GRAB_COMMAND);
+            Printer.println(StringCLI.SHOOT_COMMAND);
+        }
         Printer.println(StringCLI.END_COMMAND);
     }
 
@@ -745,7 +761,7 @@ public class CommandLine implements ViewInterface {
                 break;
             case RIGHT:
             case ALL:
-                Printer.println(StringCLI.SERVER + StringCLI.SPACE + username + StringCLI.SPACE + StringCLI.CONNECTED);
+                Printer.println(StringCLI.SERVER + username + StringCLI.SPACE + StringCLI.CONNECTED);
                 break;
             default:
                 break;
@@ -766,7 +782,7 @@ public class CommandLine implements ViewInterface {
     public void notifyDisconnection(Outcome outcome, String username){
         switch (outcome){
             case ALL:
-                Printer.println(username + StringCLI.SPACE + StringCLI.DISCONNECTED);
+                Printer.println(StringCLI.SERVER + username + StringCLI.SPACE + StringCLI.DISCONNECTED);
                 break;
             default:
                 break;
@@ -809,6 +825,7 @@ public class CommandLine implements ViewInterface {
             printPlayerBoard();
             printWeaponsAndPowerups();
             printSquare();
+            Printer.println(StringCLI.NEW_LINE + StringCLI.SERVER + StringCLI.COMMANDS);
         }
 
     }
@@ -837,7 +854,7 @@ public class CommandLine implements ViewInterface {
 
     private void notifyMovement(Outcome outcome){
         if(outcome.equals(Outcome.RIGHT) || outcome.equals(Outcome.ALL)){
-            Printer.println(StringCLI.SERVER + StringCLI.MOVED);
+            Printer.println(StringCLI.SERVER + playerController.getCurrentPlayer() + StringCLI.SPACE + StringCLI.MOVED);
             printGameBoard();
             printSquare();
         }else{
@@ -867,7 +884,7 @@ public class CommandLine implements ViewInterface {
 
     private void notifyGrab(Outcome outcome){
         if(outcome.equals(Outcome.RIGHT)){
-            Printer.println(StringCLI.SERVER + StringCLI.GRABBED);
+            Printer.println(StringCLI.SERVER + playerController.getCurrentPlayer() + StringCLI.SPACE + StringCLI.GRABBED);
             printGameBoard();
             printPlayerBoard();
             printWeaponsAndPowerups();
@@ -886,7 +903,7 @@ public class CommandLine implements ViewInterface {
         switch(outcome){
             case RIGHT:
             case ALL:
-                Printer.println(StringCLI.SERVER + StringCLI.SHOT);
+                Printer.println(StringCLI.SERVER + playerController.getCurrentPlayer() + StringCLI.SPACE + StringCLI.SHOT);
                 if(playerController.isMovement()){
                     printGameBoard();
                     playerController.setMovement(false);
@@ -933,15 +950,15 @@ public class CommandLine implements ViewInterface {
         }
     }
 
-    private void notifyReconnection(Outcome outcome){
+    private void notifyReconnection(Outcome outcome, String username){
         if(outcome.equals(Outcome.RIGHT)){
-            Printer.println(StringCLI.SERVER + StringCLI.RECONNECTED);
+            Printer.println(StringCLI.SERVER + username + StringCLI.SPACE + StringCLI.RECONNECTED);
             createCliPrinters();
             killshotTrackPrinter.printKillshotTrack();
             gameBoardPrinter.printMap();
             damageBoardPrinter.printDamageBoard();
         }else{
-            Printer.println(StringCLI.SERVER + StringCLI.RECONNECTED);
+            Printer.println(StringCLI.SERVER + username + StringCLI.SPACE + StringCLI.RECONNECTED);
         }
     }
 
@@ -1024,9 +1041,6 @@ public class CommandLine implements ViewInterface {
             case POWERUP:
                 notifyPowerup(outcome);
                 break;
-            case RECONNECTION:
-                notifyReconnection(outcome);
-                break;
             case DISCARD_POWERUP:
                 notifyDiscardPowerup(outcome);
                 break;
@@ -1067,6 +1081,9 @@ public class CommandLine implements ViewInterface {
             case SCORE:
                 notifyScore((Map<TokenColor, Integer>) object);
                 break;
+            case RECONNECTION:
+                notifyReconnection(outcome, (String) object);
+                break;
             default:
                 break;
         }
@@ -1105,6 +1122,7 @@ public class CommandLine implements ViewInterface {
         if(!playerController.getWeapons().isEmpty()){
             Printer.println("Your weapons:");
             playerController.getWeapons().forEach(Printer::println);
+            Printer.print(StringCLI.NEW_LINE);
         }
     }
 
@@ -1112,6 +1130,7 @@ public class CommandLine implements ViewInterface {
         if(!playerController.getPowerups().isEmpty()){
             Printer.println("Your powerups:");
             playerController.getPowerups().forEach(Printer::println);
+            Printer.print(StringCLI.NEW_LINE);
         }
     }
 

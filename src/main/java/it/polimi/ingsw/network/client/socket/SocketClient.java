@@ -514,7 +514,7 @@ public class SocketClient implements ClientInterface, Runnable, Serializable {
                 playerController.setKillshotTrack(gameData.getKillshotTrack());
                 playerController.setPlayer(gameData.getPlayer(username));
                 playerController.setOtherPlayers(gameData.getPlayers(username));
-                view.notify(message, outcome);
+                view.notify(message, outcome, gameData.getUsername());
                 break;
             case DROP_POWERUP:
             case DROP_WEAPON:

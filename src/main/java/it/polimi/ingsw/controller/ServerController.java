@@ -387,6 +387,7 @@ public class ServerController {
         servers.put(username, server);
         Printer.println(username + " connected!");
         setGameData();
+        gameData.setUsername(username);
         servers.forEach((u, s) -> {
             try {
                 if(u.equals(username)){

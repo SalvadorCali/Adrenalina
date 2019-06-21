@@ -330,7 +330,7 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
                 playerController.setPlayer(gameDatas.getPlayer(username));
                 playerController.setOtherPlayers(gameDatas.getPlayers(username));
                 playerController.setCurrentPlayer(gameDatas.getCurrentPlayer());
-                view.notify(message, outcome);
+                view.notify(message, outcome, gameDatas.getUsername());
                 break;
             case FINAL_FRENZY:
                 playerController.setGameBoard(gameData.getGameBoard());

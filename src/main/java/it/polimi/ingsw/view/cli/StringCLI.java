@@ -31,16 +31,17 @@ public class StringCLI {
     static final String INVALID_COMMAND = "Invalid Command. Please insert a valid command:";
     static final String INSERT_COMMAND = "Please, insert the following command ->";
     static final String SERVER = "[SERVER]";
+    static final String COMMANDS = "Please, insert <help> to see a list of commands.";
 
     //insert commands
     static final String COMMANDS_LIST = "List of Commands:";
     static final String HELP_COMMAND = "help : gives you the list of commands";
-    static final String LOGIN_COMMAND = "login <username> <color> :";
-    static final String DISCONNECT_COMMAND = "disconnect :";
-    static final String SHOW_COMMAND = "show <object> :";
-    static final String MOVE_COMMAND = "move <first_direction, ..., last_direction> :";
-    static final String SHOOT_COMMAND = "shoot <victim> <weapon_name> :";
-    static final String GRAB_COMMAND = "grab <direction> <0, 1, 2, 3> :";
+    static final String LOGIN_COMMAND = "login <username> <color> : connects you to the game";
+    static final String DISCONNECT_COMMAND = "disconnect : disconnects you from the game";
+    static final String SHOW_COMMAND = "show <object> : shows you the requested object";
+    static final String MOVE_COMMAND = "move <first_direction, ..., last_direction> : moves your player";
+    static final String SHOOT_COMMAND = "shoot <weapon_name> : shoots using the requested weapon";
+    static final String GRAB_COMMAND = "grab <0, 1, 2, 3> <direction> : grabs (0 for ammos, 1-2-3 for weapons)";
     static final String END_COMMAND = "end : ends your turn";
     static final String CHOOSE_COMMAND = "choose <choosen_powerup> :";
 
@@ -73,11 +74,11 @@ public class StringCLI {
     static final String GAME_STARTED = "Game is started!";
 
     //move
-    static final String MOVED = "Moved!";
-    static final String NOT_MOVED = "Not moved!";
+    static final String MOVED = "moved!";
+    static final String NOT_MOVED = "not moved!";
 
     //grab
-    static final String GRABBED = "Grabbed!";
+    static final String GRABBED = "grabbed!";
     static final String NOT_GRABBED = "Not grabbed!";
     static final String USER_GRABBED = "grabbed!";
 
@@ -102,7 +103,7 @@ public class StringCLI {
     static final String KILLSHOT_SCORE = "Score:";
 
     //reconnection
-    static final String RECONNECTED = "Reconnected!";
+    static final String RECONNECTED = "reconnected!";
 
     //discard and drop
     static final String WEAPON_DROP = "Weapon";
