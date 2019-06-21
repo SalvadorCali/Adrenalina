@@ -3,6 +3,7 @@ package it.polimi.ingsw.model.gamecomponents;
 import it.polimi.ingsw.model.cards.PowerupCard;
 import it.polimi.ingsw.model.cards.WeaponCard;
 import it.polimi.ingsw.model.enums.Color;
+import it.polimi.ingsw.model.enums.FinalFrenzyAction;
 import it.polimi.ingsw.model.enums.TokenColor;
 import it.polimi.ingsw.util.Parser;
 import it.polimi.ingsw.util.Printer;
@@ -13,9 +14,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import static org.junit.jupiter.api.Assertions.*;
 
-
+/**
+ * Tests referring to the Player class.
+ */
 class PlayerTest {
 
+    /**
+     * Tests the setters and the getters of the Player class.
+     */
     @Test
     void playerSettersTest(){
         Player player = new Player(TokenColor.GREEN);
@@ -50,7 +56,17 @@ class PlayerTest {
         assertEquals(0, player.getBlueAmmo());
         assertEquals(0, player.getRedAmmo());
         assertEquals(0, player.getYellowAmmo());
+        player.setDead(true);
+        assertTrue(player.isDead());
+        player.setDamaged(true);
+        assertTrue(player.isDamaged());
+        player.setFinalFrenzyActions(FinalFrenzyAction.TWO_ACTIONS);
+        assertEquals(FinalFrenzyAction.TWO_ACTIONS, player.getFinalFrenzyActions());
     }
+
+    /**
+     * Tests that the ammos given by powerups correctly reset when needed.
+     */
     @Test
     void resetPowerupAmmoTest(){
         Player player = new Player(TokenColor.BLUE);
@@ -62,12 +78,20 @@ class PlayerTest {
         player.resetPowerupAmmos();
         assertFalse(player.isPowerupAsAmmo());
     }
+
+    /**
+     * Tests that the ammos are correctly added to the ammo reserve.
+     */
     @Test
     void addAmmoToReserveTest(){
         Player player = new Player(TokenColor.GREEN);
         player.addAmmoToReserve(new Ammo(Color.RED), new Ammo(Color.BLUE), new Ammo(Color.YELLOW));
         assertEquals(3,player.getAmmoReserve().size());
     }
+
+    /**
+     * Tests that the ammo control done when weapons are grabbed/reloaded.
+     */
     @Test
     void ammoControlTest(){
         Player player = new Player(TokenColor.GREEN);
@@ -78,6 +102,9 @@ class PlayerTest {
         assertFalse(player.ammoControl(1,0,2));
     }
 
+    /**
+     * Tests that the ammo box and the ammo reserve are correctly updated when a weapon is dropped.
+     */
     @Test
     void updateAmmoBoxAddTest(){
         Player player = new Player(TokenColor.GREEN);
@@ -92,6 +119,9 @@ class PlayerTest {
         assertEquals(0,player.getAmmoReserve().size());
     }
 
+    /**
+     * Tests that the ammo box and the ammo reserve are correctly updated when a weapon is grabbed.
+     */
     @Test
     void updateAmmoBoxTest(){
         Player player = new Player(TokenColor.GREEN);
@@ -108,8 +138,10 @@ class PlayerTest {
         assertEquals(1, player2.getAmmoBox().size());
         assertEquals(8, player2.getAmmoReserve().size());
     }
-    
 
+    /**
+     * Tests that weapons are correctly added to the player's weapons.
+     */
     @Test
     void addWeaponTest(){
         Player player = new Player(TokenColor.BLUE);
@@ -121,6 +153,10 @@ class PlayerTest {
         assertEquals(player.getWeapons().get(1), weaponCard2);
         assertNotEquals(player.getWeapons().get(0), weaponCard2);
     }
+
+    /**
+     * Tests that powerups are correctly added to the player's powerups.
+     */
     @Test
     void addPowerupTest(){
         Player player = new Player(TokenColor.BLUE);
@@ -132,6 +168,10 @@ class PlayerTest {
         assertEquals(player.getPowerups().get(1), powerupCard2);
         assertNotEquals(player.getPowerups().get(1), powerupCard);
     }
+
+    /**
+     * Tests that ammos are correctly added to the player's ammobox.
+     */
     @Test
     void increaseAmmoNumberAndCanAddAmmoTest(){
         Player player = new Player(TokenColor.YELLOW);
@@ -142,6 +182,10 @@ class PlayerTest {
         player.increaseAmmoNumber(Color.RED);
         assertFalse(player.canAddAmmo(Color.RED));
     }
+
+    /**
+     * Tests that ammos are correctly added to the player's ammobox.
+     */
     @Test
     void addAmmoTest(){
         Player player = new Player(TokenColor.GREY);
@@ -153,6 +197,10 @@ class PlayerTest {
         assertEquals(Color.BLUE, player.getAmmoBox().get(3).getColor());
         assertEquals(Color.YELLOW, player.getAmmoBox().get(4).getColor());
     }
+
+    /**
+     * Tests that the ammo box and the ammo reserve are correctly updated when a weapon is grabbed.
+     */
     @Test
     void correctUpdateAmmoBox(){
         Player player = new Player(TokenColor.YELLOW);
@@ -162,6 +210,10 @@ class PlayerTest {
         assertEquals(1, player.getAmmoBox().size());
         assertEquals(8, player.getAmmoReserve().size());
     }
+
+    /**
+     *Tests that the ammo box and the ammo reserve are correctly updated when a wrong action is executed.
+     */
     @Test
     void wrongUpdateAmmoBox(){
         Player player = new Player(TokenColor.GREY);
@@ -172,6 +224,10 @@ class PlayerTest {
         assertNotEquals(6, player.getAmmoReserve().size());
     }
 
+    /**
+     * Creates an arraylist of ammos to use as ammoBox in the tests.
+     * @return a List of ammos.
+     */
     private ArrayList<Ammo> createAmmoBox(){
         Ammo[] ammos = new Ammo[]{new Ammo(Color.BLUE), new Ammo(Color.BLUE), new Ammo(Color.RED)};
         ArrayList<Ammo> ammoBox = new ArrayList<>();
@@ -179,6 +235,10 @@ class PlayerTest {
         return ammoBox;
     }
 
+    /**
+     * Creates an arraylist of ammos to use as ammoReserve in the tests.
+     * @return a list of ammos.
+     */
     private ArrayList<Ammo> createAmmoReserve(){
         Ammo[] ammos = new Ammo[]{new Ammo(Color.YELLOW), new Ammo(Color.YELLOW), new Ammo(Color.YELLOW), new Ammo(Color.BLUE), new Ammo(Color.RED), new Ammo(Color.RED)};
         ArrayList<Ammo> ammoReserve = new ArrayList<>();
