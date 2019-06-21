@@ -285,25 +285,16 @@ public class CommandLine implements ViewInterface {
         if(input.hasMoreTokens()){
             String next = input.nextToken();
             switch (next){
-                case StringCLI.SCORE:
-                    Printer.println("Your score is: " + playerController.getScore());
-                    break;
                 case StringCLI.PLAYERBOARD:
-                    damageBoardPrinter.printDamageBoard();
-                    break;
-                case StringCLI.AMMOS:
-                    Printer.println("Your ammos are:");
-                    ammoPrinter.printAmmoBox();
+                    printPlayerBoard();
                     break;
                 case StringCLI.POWERUPS:
-                    Printer.println("Your powerups are:");
-                    Printer.println(playerController.getPowerups());
+                    printPowerups();
                     break;
                 case StringCLI.WEAPONS:
-                    Printer.println("Your weapons are:");
-                    Printer.println(playerController.getWeapons());
+                    printWeapons();
                     break;
-                case "square":
+                case StringCLI.SQUARE:
                     if(input.countTokens() == 2){
                         try {
                             client.showSquare(Converter.fromStringToInt(input.nextToken()), Converter.fromStringToInt(input.nextToken()));
@@ -318,9 +309,8 @@ public class CommandLine implements ViewInterface {
                         }
                     }
                     break;
-                case "map":
-                    Printer.println("The Game's Board:");
-                    gameBoardPrinter.printMap();
+                case StringCLI.BOARD:
+                    printGameBoard();
                     break;
                 default:
                     break;
@@ -548,7 +538,7 @@ public class CommandLine implements ViewInterface {
         if(input.hasMoreTokens()){
             //weapon = input.nextToken();
             if(playerController.getAdrenalineZone().equals(AdrenalineZone.SECOND)){
-                Printer.println("Do you want to move? <yes> <no>");
+                Printer.println(StringCLI.WANT_MOVE + StringCLI.SPACE + StringCLI.YES_INPUT + StringCLI.SPACE + StringCLI.NO_INPUT);
                 try {
                     String movement = userInputStream.readLine();
                     if(movement.equals("yes")){
@@ -699,7 +689,7 @@ public class CommandLine implements ViewInterface {
     private boolean powerupEffect(String powerup) throws IOException {
         StringTokenizer string;
         switch(powerup){
-            case "targetingscope":
+            case StringCLI.TARGETING_SCOPE:
                 Printer.println("Effect: <victim> <ammo>");
                 string = new StringTokenizer(userInputStream.readLine());
                 if(string.countTokens() == 2){
@@ -709,7 +699,7 @@ public class CommandLine implements ViewInterface {
                 }else{
                     return false;
                 }
-            case "newton":
+            case StringCLI.NEWTON:
                 Printer.println("Effect: <victim> <direction>");
                 Printer.println("Effect: <victim> <direction> <direction>");
                 string = new StringTokenizer(userInputStream.readLine());
@@ -724,7 +714,7 @@ public class CommandLine implements ViewInterface {
                 }else{
                     return false;
                 }
-            case "tagbackgrenade":
+            case StringCLI.TAGBACK_GRENADE:
                 Printer.println("Effect: <victim>");
                 string = new StringTokenizer(userInputStream.readLine());
                 if(string.countTokens() == 1){
@@ -733,7 +723,7 @@ public class CommandLine implements ViewInterface {
                 }else{
                     return false;
                 }
-            case "teleporter":
+            case StringCLI.TELEPORTER:
                 Printer.println("Effect: <square_x> <square_y>");
                 string = new StringTokenizer(userInputStream.readLine());
                 if(string.countTokens() == 2){
@@ -819,14 +809,14 @@ public class CommandLine implements ViewInterface {
             int i = 1;
             Printer.println(StringCLI.SERVER + StringCLI.CHOOSE_BOARD);
             for(BoardType boardType : BoardType.values()){
-                Printer.print("   " + i + ": ");
+                Printer.print(StringCLI.MULTIPLE_SPACE + i + StringCLI.COLON + StringCLI.SPACE);
                 Printer.println(boardType);
                 i++;
             }
             Printer.println(StringCLI.SERVER + StringCLI.INSERT_COMMAND);
-            Printer.print("board <choosen_board> <skulls number>: ");
+            Printer.print(StringCLI.BOARD_COMMAND);
         }else{
-            Printer.println("[SERVER]The first player is choosing the board...");
+            Printer.println(StringCLI.SERVER + StringCLI.FIRST_PLAYER_BOARD);
         }
     }
 

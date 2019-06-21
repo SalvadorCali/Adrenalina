@@ -77,7 +77,7 @@ class PlayerTest {
         assertTrue(player.ammoControl(0,0,0));
         assertFalse(player.ammoControl(1,0,2));
     }
-    /*
+
     @Test
     void updateAmmoBoxAddTest(){
         Player player = new Player(TokenColor.GREEN);
@@ -91,6 +91,7 @@ class PlayerTest {
         assertEquals(9, player.getAmmoBox().size());
         assertEquals(0,player.getAmmoReserve().size());
     }
+
     @Test
     void updateAmmoBoxTest(){
         Player player = new Player(TokenColor.GREEN);
@@ -98,10 +99,17 @@ class PlayerTest {
         player.addAmmoToReserve(new Ammo(Color.RED), new Ammo(Color.BLUE), new Ammo(Color.YELLOW), new Ammo(Color.RED), new Ammo(Color.BLUE), new Ammo(Color.YELLOW));
         player.updateAmmoBox(1,1,1);
         assertEquals(0, player.getAmmoBox().size());
-        assertEquals(6,player.getAmmoReserve().size());
+        assertEquals(9,player.getAmmoReserve().size());
+
+        Player player2 = new Player(TokenColor.GREY);
+        player2.addAmmo(new Ammo(Color.YELLOW), new Ammo(Color.YELLOW), new Ammo(Color.RED), new Ammo(Color.YELLOW));
+        player2.addAmmoToReserve(new Ammo(Color.BLUE), new Ammo(Color.RED), new Ammo(Color.BLUE), new Ammo(Color.RED), new Ammo(Color.BLUE));
+        player2.updateAmmoBox(1,0,2);
+        assertEquals(1, player2.getAmmoBox().size());
+        assertEquals(8, player2.getAmmoReserve().size());
     }
     
-     */
+
     @Test
     void addWeaponTest(){
         Player player = new Player(TokenColor.BLUE);

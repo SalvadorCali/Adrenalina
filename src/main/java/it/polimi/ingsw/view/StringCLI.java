@@ -24,6 +24,7 @@ public class StringCLI {
     static final String AMMOS = "ammos";
     static final String POWERUPS = "powerups";
     static final String WEAPONS = "weapons";
+    static final String SQUARE = "square";
 
     //messages
     static final String INVALID_COMMAND = "Invalid Command. Please insert a valid command:";
@@ -58,6 +59,8 @@ public class StringCLI {
 
     //board
     static final String CHOOSE_BOARD = "Please, choose one of these boards:";
+    static final String BOARD_COMMAND = "board <choosen_board> <skulls number>: ";
+    static final String FIRST_PLAYER_BOARD = "The first player is choosing the board...";
 
     //turn
     static final String NEW_TURN = "It's your turn!";
@@ -80,6 +83,7 @@ public class StringCLI {
     //shoot
     static final String SHOT = "Shot!";
     static final String NOT_SHOT = "Not shot!";
+    static final String WANT_MOVE = "Do you want to move?";
 
     //powerup
     static final String USED = "used!";
@@ -114,8 +118,13 @@ public class StringCLI {
     static final String RESPAWN_POWERUP = "Please, discard a powerup to respawn:";
     static final String RESPAWN_COMMAND = "respawn <powerup_number> :";
 
+    //inputs
+    static final String YES_INPUT = "<yes>";
+    static final String NO_INPUT = "<no>";
+
     //
     static final String SPACE = " ";
+    static final String MULTIPLE_SPACE = "   ";
     static final String COLON = ":";
     static final String NEW_LINE = "\n";
 }

@@ -7,6 +7,7 @@ import it.polimi.ingsw.model.enums.Direction;
 import it.polimi.ingsw.model.enums.FinalFrenzyAction;
 import it.polimi.ingsw.model.enums.TokenColor;
 import it.polimi.ingsw.util.Config;
+import it.polimi.ingsw.util.Printer;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -473,6 +474,7 @@ public class Player implements Serializable {
                         redAmmos--;
                         ammoBox.add(ammoReserve.get(i));
                         ammoReserve.remove(i);
+                        i--;
                     }
                     break;
                 case BLUE:
@@ -480,6 +482,7 @@ public class Player implements Serializable {
                         blueAmmos--;
                         ammoBox.add(ammoReserve.get(i));
                         ammoReserve.remove(i);
+                        i--;
                     }
                     break;
                 case YELLOW:
@@ -487,6 +490,7 @@ public class Player implements Serializable {
                         yellowAmmos--;
                         ammoBox.add(ammoReserve.get(i));
                         ammoReserve.remove(i);
+                        i--;
                     }
                     break;
                 default:
@@ -532,6 +536,7 @@ public class Player implements Serializable {
                         redAmmos--;
                         ammoReserve.add(ammoBox.get(i));
                         ammoBox.remove(i);
+                        i--;
                     }
                     break;
                 case BLUE:
@@ -539,6 +544,7 @@ public class Player implements Serializable {
                         blueAmmos--;
                         ammoReserve.add(ammoBox.get(i));
                         ammoBox.remove(i);
+                        i--;
                     }
                     break;
                 case YELLOW:
@@ -546,6 +552,7 @@ public class Player implements Serializable {
                         yellowAmmos--;
                         ammoReserve.add(ammoBox.get(i));
                         ammoBox.remove(i);
+                        i--;
                     }
                     break;
                 default:
