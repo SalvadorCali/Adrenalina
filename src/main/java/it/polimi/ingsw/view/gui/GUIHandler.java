@@ -1577,7 +1577,8 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     }
 
     private void addPlayer(GridPane grid, Image image, Integer index, Integer row) {
-        if(index == 1){
+        
+        if(index == 2){
             index = 0;
             row++;
         }
