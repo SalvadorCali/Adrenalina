@@ -12,8 +12,8 @@ import it.polimi.ingsw.model.enums.Direction;
 import it.polimi.ingsw.model.enums.TokenColor;
 import it.polimi.ingsw.model.gamecomponents.Ammo;
 import it.polimi.ingsw.model.gamecomponents.Player;
-import it.polimi.ingsw.view.DamageBoardCLI;
-import it.polimi.ingsw.view.MapCLI;
+import it.polimi.ingsw.view.cli.DamageBoardCLI;
+import it.polimi.ingsw.view.cli.MapCLI;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

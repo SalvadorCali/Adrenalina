@@ -1,4 +1,4 @@
-package it.polimi.ingsw.view;
+package it.polimi.ingsw.view.cli;
 
 import it.polimi.ingsw.model.enums.Color;
 import it.polimi.ingsw.model.gamecomponents.Ammo;

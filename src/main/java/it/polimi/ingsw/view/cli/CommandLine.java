@@ -1,4 +1,4 @@
-package it.polimi.ingsw.view;
+package it.polimi.ingsw.view.cli;
 
 import it.polimi.ingsw.controller.*;
 import it.polimi.ingsw.model.cards.Card;
@@ -9,6 +9,7 @@ import it.polimi.ingsw.network.enums.Message;
 import it.polimi.ingsw.network.enums.Outcome;
 import it.polimi.ingsw.util.Converter;
 import it.polimi.ingsw.util.Printer;
+import it.polimi.ingsw.view.ViewInterface;
 
 import java.io.BufferedReader;
 import java.io.IOException;

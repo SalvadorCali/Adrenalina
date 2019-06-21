@@ -3,7 +3,7 @@ package it.polimi.ingsw.model.gamecomponents;
 import it.polimi.ingsw.model.enums.Direction;
 import it.polimi.ingsw.model.enums.TokenColor;
 import it.polimi.ingsw.util.Parser;
-import it.polimi.ingsw.view.MapCLI;
+import it.polimi.ingsw.view.cli.MapCLI;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;

@@ -3,28 +3,21 @@ package it.polimi.ingsw.network.client.socket;
 import it.polimi.ingsw.controller.GameData;
 import it.polimi.ingsw.controller.PlayerController;
 import it.polimi.ingsw.controller.PowerupData;
-import it.polimi.ingsw.controller.SquareData;
 import it.polimi.ingsw.controller.timer.ConnectionTimer;
-import it.polimi.ingsw.model.cards.Card;
 import it.polimi.ingsw.model.enums.AdrenalineZone;
 import it.polimi.ingsw.model.enums.Color;
 import it.polimi.ingsw.model.enums.Direction;
 import it.polimi.ingsw.model.enums.TokenColor;
-import it.polimi.ingsw.model.gamecomponents.GameBoard;
-import it.polimi.ingsw.model.gamecomponents.Player;
 import it.polimi.ingsw.network.client.ClientInterface;
 import it.polimi.ingsw.util.Config;
 import it.polimi.ingsw.util.Printer;
-import it.polimi.ingsw.view.CommandLine;
+import it.polimi.ingsw.view.cli.CommandLine;
 import it.polimi.ingsw.network.enums.Message;
 import it.polimi.ingsw.network.enums.Outcome;
-import it.polimi.ingsw.view.MapCLI;
 import it.polimi.ingsw.view.ViewInterface;
 
 import java.io.*;
 import java.net.Socket;
-import java.util.List;
-import java.util.Map;
 
 public class SocketClient implements ClientInterface, Runnable, Serializable {
     private PlayerController playerController;

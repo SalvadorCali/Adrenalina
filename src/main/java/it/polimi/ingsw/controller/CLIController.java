@@ -1,11 +1,6 @@
 package it.polimi.ingsw.controller;
 
-import it.polimi.ingsw.model.enums.BoardType;
 import it.polimi.ingsw.model.gamecomponents.GameBoard;
-import it.polimi.ingsw.model.gamecomponents.Player;
-import it.polimi.ingsw.view.CLIPrinter;
-
-import java.util.Map;
 
 public class CLIController {
     private static CLIController instance;
