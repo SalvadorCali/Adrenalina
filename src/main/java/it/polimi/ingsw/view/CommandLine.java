@@ -58,10 +58,19 @@ public class CommandLine implements ViewInterface {
         receiveMessage.start();
     }
 
+    /**
+     * sets the player controller for the client.
+     * @param playerController that will be set.
+     */
     public void setPlayerController(PlayerController playerController){
         this.playerController = playerController;
     }
 
+    /**
+     * analyzes the user's input and calls the right method or return an error.
+     * @param message the user's input.
+     * @throws IOException caused by reading inputs.
+     */
     private void readInput(String message) throws IOException {
         StringTokenizer string = new StringTokenizer(message);
         if(string.hasMoreTokens()){
@@ -160,6 +169,9 @@ public class CommandLine implements ViewInterface {
         }
     }
 
+    /**
+     * shows the list of commands.
+     */
     private void help(){
         Printer.println(StringCLI.COMMANDS_LIST);
         Printer.println(StringCLI.HELP_COMMAND);
@@ -820,59 +832,31 @@ public class CommandLine implements ViewInterface {
 
     private void notifyNewTurn(Outcome outcome){
         if(outcome.equals(Outcome.RIGHT)){
-            Printer.println("It's your turn!");
-            killshotTrackPrinter.setKillshotTrack(playerController.getKillshotTrack());
-            killshotTrackPrinter.printKillshotTrack();
-            gameBoardPrinter.setGameBoard(playerController.getGameBoard());
-            gameBoardPrinter.printMap();
-            damageBoardPrinter.setPlayer(playerController.getPlayer());
-            damageBoardPrinter.printDamageBoard();
-            if(!playerController.getWeapons().isEmpty()){
-                Printer.println("Your weapons:");
-                playerController.getWeapons().forEach(Printer::println);
-            }
-            if(!playerController.getPowerups().isEmpty()){
-                Printer.println("Your powerups:");
-                playerController.getPowerups().forEach(Printer::println);
-            }
-            Printer.println("In your square:");
-            Square square = playerController.getGameBoard().getArena()[playerController.getPlayer().getPosition().getX()][playerController.getPlayer().getPosition().getY()];
-            if(square.getAmmoCard() != null){
-                Printer.print("AmmoCard: ");
-                Printer.print(square.getAmmoCard().getFirstAmmo().getColor() + ", " +
-                        square.getAmmoCard().getSecondAmmo().getColor() + ", ");
-                if(square.getAmmoCard().isPowerup()){
-                    Printer.println("POWERUP");
-                }else{
-                    Printer.println(square.getAmmoCard().getThirdAmmo().getColor());
-                }
-            }
-            if(square.getWeapons() != null){
-                square.getWeapons().forEach(Printer::println);
-            }
+            Printer.println(StringCLI.SERVER + StringCLI.NEW_TURN);
+            printGameBoard();
+            printPlayerBoard();
+            printWeaponsAndPowerups();
+            printSquare();
         }
 
     }
 
     private void notifyEndTurn(){
-        Printer.println("Your turn is ended!");
+        Printer.println(StringCLI.SERVER + StringCLI.END_TURN);
     }
 
     private void notifyNotTurn(){
-        Printer.println("[SERVER]It's not your turn!");
+        Printer.println(StringCLI.SERVER + StringCLI.NOT_TURN);
     }
 
     private void notifyGame(Outcome outcome){
         switch (outcome){
             case WRONG:
-                Printer.println("Game is already begun!");
+                Printer.println(StringCLI.SERVER + StringCLI.GAME_BEGUN);
                 break;
             case ALL:
-                gameBoardPrinter = new MapCLI(playerController.getGameBoard());
-                ammoPrinter = new AmmoBoxReserveCLI(playerController.getPlayer());
-                damageBoardPrinter = new DamageBoardCLI(playerController.getPlayer());
-                killshotTrackPrinter = new KillshotTrackCLI(playerController.getKillshotTrack());
-                Printer.println("Game is started!");
+                createCliPrinters();
+                Printer.println(StringCLI.SERVER + StringCLI.GAME_STARTED);
                 break;
             default:
                 break;
@@ -881,49 +865,28 @@ public class CommandLine implements ViewInterface {
 
     private void notifyMovement(Outcome outcome){
         if(outcome.equals(Outcome.RIGHT) || outcome.equals(Outcome.ALL)){
-            Printer.println("[SERVER]Moved!");
-            killshotTrackPrinter.setKillshotTrack(playerController.getKillshotTrack());
-            killshotTrackPrinter.printKillshotTrack();
-            gameBoardPrinter.setGameBoard(playerController.getGameBoard());
-            gameBoardPrinter.printMap();
-            Printer.println("In your square:");
-            Square square = playerController.getGameBoard().getArena()[playerController.getPlayer().getPosition().getX()][playerController.getPlayer().getPosition().getY()];
-            if(square.getAmmoCard() != null){
-                Printer.print("AmmoCard: ");
-                Printer.print(square.getAmmoCard().getFirstAmmo().getColor() + ", " +
-                        square.getAmmoCard().getSecondAmmo().getColor() + ", ");
-                if(square.getAmmoCard().isPowerup()){
-                    Printer.println("POWERUP");
-                }else{
-                    Printer.println(square.getAmmoCard().getThirdAmmo().getColor());
-                }
-            }
-            if(square.getWeapons() != null){
-                square.getWeapons().forEach(w->Printer.println(w.getName()));
-            }
+            Printer.println(StringCLI.SERVER + StringCLI.MOVED);
+            printGameBoard();
+            printSquare();
         }else{
-            Printer.println("[SERVER]Not moved!");
+            Printer.println(StringCLI.SERVER + StringCLI.NOT_MOVED);
         }
     }
 
     private void notifyPowerup(Outcome outcome){
         if(outcome.equals(Outcome.RIGHT)){
-            Printer.println("[SERVER]" + playerController.getPowerup() + " used!");
+            Printer.println(StringCLI.SERVER + playerController.getPowerup() + StringCLI.SPACE + StringCLI.USED);
         }else{
-            Printer.println("[SERVER]" + playerController.getPowerup() + " not used!");
+            Printer.println(StringCLI.SERVER + playerController.getPowerup() + StringCLI.SPACE + StringCLI.NOT_USED);
         }
         switch(playerController.getPowerup()){
-            case "targetingscope":
-            case "tagbackgrenade":
-                damageBoardPrinter.setVictims(playerController.getVictims());
-                damageBoardPrinter.printVictimsDamageBoard();
+            case StringCLI.TARGETING_SCOPE:
+            case StringCLI.TAGBACK_GRENADE:
+                printVictims();
                 break;
-            case "newton":
-            case "teleporter":
-                killshotTrackPrinter.setKillshotTrack(playerController.getKillshotTrack());
-                killshotTrackPrinter.printKillshotTrack();
-                gameBoardPrinter.setGameBoard(playerController.getGameBoard());
-                gameBoardPrinter.printMap();
+            case StringCLI.NEWTON:
+            case StringCLI.TELEPORTER:
+                printGameBoard();
                 break;
             default:
                 break;
@@ -932,30 +895,16 @@ public class CommandLine implements ViewInterface {
 
     private void notifyGrab(Outcome outcome){
         if(outcome.equals(Outcome.RIGHT)){
-            Printer.println("[SERVER]Grabbed!");
-            killshotTrackPrinter.setKillshotTrack(playerController.getKillshotTrack());
-            killshotTrackPrinter.printKillshotTrack();
-            gameBoardPrinter.setGameBoard(playerController.getGameBoard());
-            gameBoardPrinter.printMap();
-            damageBoardPrinter.setPlayer(playerController.getPlayer());
-            damageBoardPrinter.printDamageBoard();
-            if(!playerController.getWeapons().isEmpty()){
-                Printer.println("Your weapons:");
-                playerController.getWeapons().forEach(Printer::println);
-            }
-            if(!playerController.getPowerups().isEmpty()){
-                Printer.println("Your powerups:");
-                playerController.getPowerups().forEach(Printer::println);
-            }
+            Printer.println(StringCLI.SERVER + StringCLI.GRABBED);
+            printGameBoard();
+            printPlayerBoard();
+            printWeaponsAndPowerups();
         }else if(outcome.equals(Outcome.WRONG)){
-            Printer.println("[SERVER]Not grabbed!");
+            Printer.println(StringCLI.SERVER + StringCLI.NOT_GRABBED);
         }else{
-            Printer.println("[SERVER]" + playerController.getCurrentPlayer() + " grabbed!");
+            Printer.println(StringCLI.SERVER + playerController.getCurrentPlayer() + StringCLI.SPACE + StringCLI.USER_GRABBED);
             if(playerController.isMovement()){
-                killshotTrackPrinter.setKillshotTrack(playerController.getKillshotTrack());
-                killshotTrackPrinter.printKillshotTrack();
-                gameBoardPrinter.setGameBoard(playerController.getGameBoard());
-                gameBoardPrinter.printMap();
+                printGameBoard();
                 playerController.setMovement(false);
             }
         }
@@ -965,22 +914,15 @@ public class CommandLine implements ViewInterface {
         switch(outcome){
             case RIGHT:
             case ALL:
-                Printer.println("[SERVER]Shoot!");
+                Printer.println(StringCLI.SERVER + StringCLI.SHOT);
                 if(playerController.isMovement()){
-                    killshotTrackPrinter.setKillshotTrack(playerController.getKillshotTrack());
-                    killshotTrackPrinter.printKillshotTrack();
-                    gameBoardPrinter.setGameBoard(playerController.getGameBoard());
-                    gameBoardPrinter.printMap();
+                    printGameBoard();
                     playerController.setMovement(false);
                 }
-                damageBoardPrinter.setVictims(playerController.getVictims());
-                damageBoardPrinter.printVictimsDamageBoard();
-                break;
-            case WRONG:
-                Printer.println("[SERVER]Not shoot!");
+                printVictims();
                 break;
             default:
-                Printer.println("[SERVER]Not shoot!");
+                Printer.println(StringCLI.SERVER + StringCLI.NOT_SHOT);
                 break;
         }
     }
@@ -992,7 +934,7 @@ public class CommandLine implements ViewInterface {
                 Printer.print(squareData.getAmmoCard().getFirstAmmo().getColor() + ", " +
                         squareData.getAmmoCard().getSecondAmmo().getColor() + ", ");
                 if(squareData.getAmmoCard().isPowerup()){
-                    //Printer.println(squareData.getAmmoCard().);
+                    Printer.println("POWERUP");
                 }else{
                     Printer.println(squareData.getAmmoCard().getThirdAmmo().getColor());
                 }
@@ -1007,79 +949,68 @@ public class CommandLine implements ViewInterface {
     }
 
     private void notifyScore(Map<TokenColor, Integer> scoreList){
-        Printer.println("Score:");
-        scoreList.forEach((c,i)->Printer.println(c + ": " + i));
+        Printer.println(StringCLI.SERVER + StringCLI.KILLSHOT_SCORE);
+        scoreList.forEach((c,i)->Printer.println(c + StringCLI.COLON + StringCLI.SPACE + i));
     }
 
     private void notifyReload(Outcome outcome){
         if(outcome.equals(Outcome.RIGHT)){
-            Printer.println(playerController.getWeapon() + " reloaded!");
+            Printer.println(playerController.getWeapon() + StringCLI.SPACE + StringCLI.RELOADED);
         }else{
-            Printer.println(playerController.getWeapon() + " not reloaded!");
+            Printer.println(playerController.getWeapon() + StringCLI.SPACE + StringCLI.NOT_RELOADED);
         }
     }
 
     private void notifyReconnection(Outcome outcome){
         if(outcome.equals(Outcome.RIGHT)){
-            Printer.println("Reconnected");
-            killshotTrackPrinter = new KillshotTrackCLI(playerController.getKillshotTrack());
+            Printer.println(StringCLI.SERVER + StringCLI.RECONNECTED);
+            createCliPrinters();
             killshotTrackPrinter.printKillshotTrack();
-            gameBoardPrinter = new MapCLI(playerController.getGameBoard());
             gameBoardPrinter.printMap();
-            damageBoardPrinter = new DamageBoardCLI(playerController.getPlayer());
             damageBoardPrinter.printDamageBoard();
         }else{
-            Printer.println("Reconnected");
+            Printer.println(StringCLI.SERVER + StringCLI.RECONNECTED);
         }
     }
 
     private void notifyDiscardPowerup(Outcome outcome){
         if(outcome.equals(Outcome.RIGHT)){
-            Printer.println("Powerup discard!");
-            if(!playerController.getPowerups().isEmpty()){
-                Printer.println("Your powerups:");
-                playerController.getPowerups().forEach(Printer::println);
-            }
+            Printer.println(StringCLI.SERVER + StringCLI.POWERUP_DROP + StringCLI.SPACE + StringCLI.DISCARDED);
+            printPowerups();
         }else{
-            Printer.println("Powerup not discard!");
+            Printer.println(StringCLI.SERVER + StringCLI.POWERUP_DROP + StringCLI.SPACE + StringCLI.NOT_DISCARDED);
         }
     }
 
     private void notifyDropPowerup(Outcome outcome){
         if(outcome.equals(Outcome.RIGHT)){
-            Printer.println("Powerup drop!");
-            if(!playerController.getPowerups().isEmpty()){
-                Printer.println("Your powerups:");
-                playerController.getPowerups().forEach(Printer::println);
-            }
+            Printer.println(StringCLI.SERVER + StringCLI.POWERUP_DROP + StringCLI.SPACE + StringCLI.DROPPED);
+            printPowerups();
         }else{
-            Printer.println("Powerup not drop!");
+            Printer.println(StringCLI.SERVER + StringCLI.POWERUP_DROP + StringCLI.SPACE + StringCLI.NOT_DROPPED);
         }
     }
 
     private void notifyDropWeapon(Outcome outcome){
         if(outcome.equals(Outcome.RIGHT)){
-            Printer.println("Weapon drop!");
-            if(!playerController.getWeapons().isEmpty()){
-                Printer.println("Your weapons:");
-                playerController.getWeapons().forEach(Printer::println);
-            }
+            Printer.println(StringCLI.SERVER + StringCLI.WEAPON_DROP + StringCLI.SPACE + StringCLI.DROPPED);
+            printWeapons();
         }else{
-            Printer.println("Weapon not drop!");
+            Printer.println(StringCLI.SERVER + StringCLI.WEAPON_DROP + StringCLI.SPACE + StringCLI.NOT_DROPPED);
         }
     }
 
     private void notifyFinalFrenzy(){
-        Printer.println("Final Frenzy!!!");
+        Printer.println(StringCLI.SERVER + StringCLI.FINAL_FRENZY);
         if(playerController.isPlayerBoardFinalFrenzy()){
             damageBoardPrinter.setFinalFrenzy(true);
         }
     }
 
     private void notifyRespawn(Outcome outcome){
-        Printer.println("Please, discard a powerup to respawn:");
+        Printer.println(StringCLI.SERVER + StringCLI.RESPAWN_POWERUP);
         playerController.getPowerups().forEach(Printer::println);
-        Printer.println("respawn: <powerup_number>");
+        Printer.println(StringCLI.RESPAWN_COMMAND);
     }
 
     public void notify(Message message){
@@ -1166,6 +1097,67 @@ public class CommandLine implements ViewInterface {
                 break;
             default:
                 break;
+        }
+    }
+
+    private void createCliPrinters(){
+        gameBoardPrinter = new MapCLI(playerController.getGameBoard());
+        ammoPrinter = new AmmoBoxReserveCLI(playerController.getPlayer());
+        damageBoardPrinter = new DamageBoardCLI(playerController.getPlayer());
+        killshotTrackPrinter = new KillshotTrackCLI(playerController.getKillshotTrack());
+    }
+
+    private void printGameBoard(){
+        killshotTrackPrinter.setKillshotTrack(playerController.getKillshotTrack());
+        killshotTrackPrinter.printKillshotTrack();
+        gameBoardPrinter.setGameBoard(playerController.getGameBoard());
+        gameBoardPrinter.printMap();
+    }
+
+    private void printPlayerBoard(){
+        damageBoardPrinter.setPlayer(playerController.getPlayer());
+        damageBoardPrinter.printDamageBoard();
+    }
+
+    private void printVictims(){
+        damageBoardPrinter.setVictims(playerController.getVictims());
+        damageBoardPrinter.printVictimsDamageBoard();
+    }
+
+    private void printWeapons(){
+        if(!playerController.getWeapons().isEmpty()){
+            Printer.println("Your weapons:");
+            playerController.getWeapons().forEach(Printer::println);
+        }
+    }
+
+    private void printPowerups(){
+        if(!playerController.getPowerups().isEmpty()){
+            Printer.println("Your powerups:");
+            playerController.getPowerups().forEach(Printer::println);
+        }
+    }
+
+    private void printWeaponsAndPowerups(){
+        printWeapons();
+        printPowerups();
+    }
+
+    private void printSquare(){
+        Printer.println("In your square:");
+        Square square = playerController.getGameBoard().getArena()[playerController.getPlayer().getPosition().getX()][playerController.getPlayer().getPosition().getY()];
+        if(square.getAmmoCard() != null){
+            Printer.print("AmmoCard: ");
+            Printer.print(square.getAmmoCard().getFirstAmmo().getColor() + ", " +
+                    square.getAmmoCard().getSecondAmmo().getColor() + ", ");
+            if(square.getAmmoCard().isPowerup()){
+                Printer.println("POWERUP");
+            }else{
+                Printer.println(square.getAmmoCard().getThirdAmmo().getColor());
+            }
+        }
+        if(square.getWeapons() != null){
+            square.getWeapons().forEach(Printer::println);
         }
     }
 }
