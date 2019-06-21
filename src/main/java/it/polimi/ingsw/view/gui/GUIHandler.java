@@ -1476,8 +1476,6 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         MapCLI mapCLI = new MapCLI(playerController.getGameBoard());
         mapCLI.printMap();
 
-        int x = playerController.getPlayer().getPosition().getX();
-        int y = playerController.getPlayer().getPosition().getY();
 
         if(!arena[0][0].getPlayers().isEmpty()){
             for(int index = 0, row = 0; index <  arena[0][0].getPlayers().size(); index++){
