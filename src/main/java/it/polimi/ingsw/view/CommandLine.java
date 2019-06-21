@@ -7,14 +7,12 @@ import it.polimi.ingsw.model.gamecomponents.*;
 import it.polimi.ingsw.network.client.ClientInterface;
 import it.polimi.ingsw.network.enums.Message;
 import it.polimi.ingsw.network.enums.Outcome;
-import it.polimi.ingsw.util.Config;
 import it.polimi.ingsw.util.Converter;
 import it.polimi.ingsw.util.Printer;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.rmi.RemoteException;
 import java.util.List;
 import java.util.Map;
@@ -46,8 +44,8 @@ public class CommandLine implements ViewInterface {
 
     @Override
     public void start(){
-        Printer.println("[SERVER]Please, insert the following command ->");
-        Printer.print("login <username> <color> : ");
+        Printer.println(StringCLI.SERVER + StringCLI.INSERT_COMMAND);
+        Printer.print(StringCLI.LOGIN_COMMAND);
         Thread receiveMessage = new Thread(() -> {
             while(true){
                 try {
@@ -68,43 +66,43 @@ public class CommandLine implements ViewInterface {
         StringTokenizer string = new StringTokenizer(message);
         if(string.hasMoreTokens()){
             switch(string.nextToken()){
-                case "help":
+                case StringCLI.HELP:
                     help();
                     break;
-                case "login":
+                case StringCLI.LOGIN:
                     if(!login(string)){
                         Printer.print(StringCLI.INVALID_COMMAND);
                     }
                     break;
-                case "disconnect":
+                case StringCLI.DISCONNECT:
                     disconnect();
                     break;
-                case "board":
+                case StringCLI.BOARD:
                     if(!board(string)){
                         Printer.print(StringCLI.INVALID_COMMAND);
                     }
                     break;
-                case "drop":
+                case StringCLI.DROP:
                     if(!drop(string)){
                         Printer.print(StringCLI.INVALID_COMMAND);
                     }
                     break;
-                case "discard":
+                case StringCLI.DISCARD:
                     if(!discard(string)){
                         Printer.print(StringCLI.INVALID_COMMAND);
                     }
                     break;
-                case "choose":
+                case StringCLI.CHOOSE:
                     if(!choose(string)){
                         Printer.print(StringCLI.INVALID_COMMAND);
                     }
                     break;
-                case "show":
+                case StringCLI.SHOW:
                     if(!show(string)){
                         Printer.print(StringCLI.INVALID_COMMAND);
                     }
                     break;
-                case "move":
+                case StringCLI.MOVE:
                     if(playerController.isFinalFrenzy()){
                         if(!moveFinalFrenzy(string)){
                             Printer.print(StringCLI.INVALID_COMMAND);
@@ -115,7 +113,7 @@ public class CommandLine implements ViewInterface {
                         }
                     }
                     break;
-                case "grab":
+                case StringCLI.GRAB:
                     if(playerController.isFinalFrenzy()){
                         if(!grabFinalFrenzy(string)){
                             Printer.print(StringCLI.INVALID_COMMAND);
@@ -126,7 +124,7 @@ public class CommandLine implements ViewInterface {
                         }
                     }
                     break;
-                case "shoot":
+                case StringCLI.SHOOT:
                     if(playerController.isFinalFrenzy()){
                         if(!shootFinalFrenzy(string)){
                             Printer.print(StringCLI.INVALID_COMMAND);
@@ -137,22 +135,22 @@ public class CommandLine implements ViewInterface {
                         }
                     }
                     break;
-                case "powerup":
+                case StringCLI.POWERUP:
                     if(!powerup(string)){
                         Printer.print(StringCLI.INVALID_COMMAND);
                     }
                     break;
-                case "reload":
+                case StringCLI.RELOAD:
                     if(!reload(string)){
                         Printer.print(StringCLI.INVALID_COMMAND);
                     }
                     break;
-                case "respawn":
+                case StringCLI.RESPAWN:
                     if(!respawn(string)){
                         Printer.print(StringCLI.INVALID_COMMAND);
                     }
                     break;
-                case "end":
+                case StringCLI.END:
                     endTurn();
                     break;
                 default:
@@ -163,15 +161,15 @@ public class CommandLine implements ViewInterface {
     }
 
     private void help(){
-        Printer.println("List of Commands:");
-        Printer.println("help : gives you the list of commands");
-        Printer.println("login <username> <color>:");
-        Printer.println("disconnect :");
-        Printer.println("show <object> :");
-        Printer.println("move <first_direction, ..., last_direction> :");
-        Printer.println("grab <direction> <0, 1, 2, 3>:");
-        Printer.println("shoot <victim> <weapon_name> <weapon_effect_number...>");
-        Printer.println("end : ends your turn");
+        Printer.println(StringCLI.COMMANDS_LIST);
+        Printer.println(StringCLI.HELP_COMMAND);
+        Printer.println(StringCLI.LOGIN_COMMAND);
+        Printer.println(StringCLI.DISCONNECT_COMMAND);
+        Printer.println(StringCLI.SHOW_COMMAND);
+        Printer.println(StringCLI.MOVE_COMMAND);
+        Printer.println(StringCLI.GRAB_COMMAND);
+        Printer.println(StringCLI.SHOOT_COMMAND);
+        Printer.println(StringCLI.END_COMMAND);
     }
 
     private boolean login(StringTokenizer input){
@@ -738,26 +736,6 @@ public class CommandLine implements ViewInterface {
         return false;
     }
 
-    /*
-
-    public void handlePowerup() throws IOException {
-        Printer.println("Do you want to discard a powerup as ammo? <yes> <no>");
-        String choice = userInputStream.readLine();
-        if(choice.equals("yes")){
-            Printer.println("Please, insert powerup's number: <1> <2> <3>:");
-            StringTokenizer string = new StringTokenizer(userInputStream.readLine());
-            if(string.hasMoreTokens()){
-                if(string.countTokens()==1){
-                    client.powerupAmmos(Converter.fromStringToInt(string.nextToken()));
-                }else if(string.countTokens()==2){
-                    client.powerupAmmos(Converter.fromStringToInt(string.nextToken()), Converter.fromStringToInt(string.nextToken()));
-                }
-            }
-        }
-    }
-
-     */
-
     private boolean reload(StringTokenizer input) throws IOException {
         if(input.countTokens() == 1){
             client.reload(input.nextToken());
@@ -779,14 +757,11 @@ public class CommandLine implements ViewInterface {
     public void notifyLogin(Outcome outcome, String username){
         switch(outcome){
             case WRONG:
-                Printer.print(StringCLI.SERVER + " Username already used! Please choose another username:");
+                Printer.print(StringCLI.SERVER + StringCLI.SPACE + StringCLI.WRONG_USERNAME);
                 break;
             case RIGHT:
-                Printer.println(username + " connected!");
-                //Printer.print("[CLIENT]Please, insert a command:");
-                break;
             case ALL:
-                Printer.println(username + " connected!");
+                Printer.println(StringCLI.SERVER + StringCLI.SPACE + username + StringCLI.SPACE + StringCLI.CONNECTED);
                 break;
             default:
                 break;
@@ -794,20 +769,20 @@ public class CommandLine implements ViewInterface {
     }
 
     public void notifySpawnLocation(List<Card> powerups){
-        Printer.println("");
-        Printer.println("[SERVER]Please, choose one of these powerups:");
+        Printer.print(StringCLI.NEW_LINE);
+        Printer.println(StringCLI.SERVER + StringCLI.SPACE + StringCLI.CHOOSE_POWERUP);
         powerups.forEach(p -> {
             Printer.println(p);
-            Printer.println("");
+            Printer.print(StringCLI.NEW_LINE);
         });
-        Printer.println("[SERVER]Please, insert the following command ->");
-        Printer.print("choose <choosen_powerup> : ");
+        Printer.println(StringCLI.SERVER + StringCLI.INSERT_COMMAND);
+        Printer.print(StringCLI.CHOOSE_COMMAND);
     }
 
     public void notifyDisconnection(Outcome outcome, String username){
         switch (outcome){
             case ALL:
-                Printer.println(username + " disconnected!");
+                Printer.println(username + StringCLI.SPACE + StringCLI.DISCONNECTED);
                 break;
             default:
                 break;
@@ -817,11 +792,10 @@ public class CommandLine implements ViewInterface {
     public void notifyColor(Outcome outcome, TokenColor color){
         switch(outcome){
             case WRONG:
-                Printer.print(StringCLI.SERVER + "Invalid color! Please choose another color:");
+                Printer.print(StringCLI.SERVER + StringCLI.WRONG_COLOR);
                 break;
             case RIGHT:
-                Printer.println("Your color is " + Converter.fromTokenColorToString(color));
-                //Printer.print("[CLIENT]Please, insert a command:");
+                Printer.println(StringCLI.YOUR_COLOR + StringCLI.SPACE + Converter.fromTokenColorToString(color));
                 break;
             default:
                 break;
@@ -831,13 +805,13 @@ public class CommandLine implements ViewInterface {
     private void notifyBoard(Outcome outcome){
         if(outcome.equals(Outcome.RIGHT)){
             int i = 1;
-            Printer.println("[SERVER]Please, choose one of these boards:");
+            Printer.println(StringCLI.SERVER + StringCLI.CHOOSE_BOARD);
             for(BoardType boardType : BoardType.values()){
                 Printer.print("   " + i + ": ");
                 Printer.println(boardType);
                 i++;
             }
-            Printer.println("[SERVER]Please, insert the following command ->");
+            Printer.println(StringCLI.SERVER + StringCLI.INSERT_COMMAND);
             Printer.print("board <choosen_board> <skulls number>: ");
         }else{
             Printer.println("[SERVER]The first player is choosing the board...");
@@ -990,17 +964,6 @@ public class CommandLine implements ViewInterface {
     private void notifyShoot(Outcome outcome){
         switch(outcome){
             case RIGHT:
-                Printer.println("[SERVER]Shoot!");
-                if(playerController.isMovement()){
-                    killshotTrackPrinter.setKillshotTrack(playerController.getKillshotTrack());
-                    killshotTrackPrinter.printKillshotTrack();
-                    gameBoardPrinter.setGameBoard(playerController.getGameBoard());
-                    gameBoardPrinter.printMap();
-                    playerController.setMovement(false);
-                }
-                damageBoardPrinter.setVictims(playerController.getVictims());
-                damageBoardPrinter.printVictimsDamageBoard();
-                break;
             case ALL:
                 Printer.println("[SERVER]Shoot!");
                 if(playerController.isMovement()){
