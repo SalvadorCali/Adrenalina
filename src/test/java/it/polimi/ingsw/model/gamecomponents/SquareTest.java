@@ -3,23 +3,52 @@ package it.polimi.ingsw.model.gamecomponents;
 import it.polimi.ingsw.model.enums.Cardinal;
 import it.polimi.ingsw.model.enums.Direction;
 import it.polimi.ingsw.model.enums.TokenColor;
+import it.polimi.ingsw.util.Printer;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-
+/**
+ * Tests referring to the Square class.
+ */
 class SquareTest {
 
-    Square square = new SpawnPoint(TokenColor.BLUE, Cardinal.ROOM, Cardinal.DOOR, Cardinal.WALL, Cardinal.NONE);
-    Square square2 = new AmmoPoint(TokenColor.YELLOW, Cardinal.DOOR, Cardinal.ROOM, Cardinal.NONE, Cardinal.WALL);
-    Square square3 = new SpawnPoint(TokenColor.GREEN, Cardinal.WALL, Cardinal.NONE, Cardinal.DOOR, Cardinal.ROOM);
-    Square square4 = new AmmoPoint(TokenColor.GREY, Cardinal.NONE, Cardinal.WALL, Cardinal.ROOM, Cardinal.DOOR);
-    Position position = new Position(1,1);
-    Player player = new Player(TokenColor.GREY);
-    Player player2 = new Player(TokenColor.YELLOW);
+    private Square square = new SpawnPoint(TokenColor.BLUE, Cardinal.ROOM, Cardinal.DOOR, Cardinal.WALL, Cardinal.NONE);
+    private Square square2 = new AmmoPoint(TokenColor.YELLOW, Cardinal.DOOR, Cardinal.ROOM, Cardinal.NONE, Cardinal.WALL);
+    private Square square3 = new SpawnPoint(TokenColor.GREEN, Cardinal.WALL, Cardinal.NONE, Cardinal.DOOR, Cardinal.ROOM);
+    private Square square4 = new AmmoPoint(TokenColor.GREY, Cardinal.NONE, Cardinal.WALL, Cardinal.ROOM, Cardinal.DOOR);
+    private Position position = new Position(1,1);
+    private Player player = new Player(TokenColor.GREY);
+    private Player player2 = new Player(TokenColor.YELLOW);
 
+    /**
+     * Tests the setters of the Square class.
+     */
+    @Test
+    void squareSettersTest(){
+        square.setSpawn(true);
+        square.setColor(TokenColor.YELLOW);
+        assertEquals(TokenColor.YELLOW, square.getColor());
+        assertTrue(square.isSpawn());
+    }
+
+    /**
+     * Tests the containsPlayers control.
+     */
+    @Test
+    void containsPlayersTest(){
+        Player player = new Player(TokenColor.BLUE);
+        assertFalse(square.containsPlayer(player));
+        square.addPlayer(player);
+        assertTrue(square.containsPlayer(player));
+    }
+
+    /**
+     * Tests if a player can move in all the different directions inside a square.
+     */
     @Test
     void canMoveTest(){
 
+        assertFalse(square.canMove(null));
         assertTrue(square.canMove(Direction.UP));
         assertTrue(square.canMove(Direction.DOWN));
         assertFalse(square.canMove(Direction.RIGHT));
@@ -42,6 +71,9 @@ class SquareTest {
 
     }
 
+    /**
+     * Tests that if a player moves from the square, he's no longer contained in the square.
+     */
     @Test
     void moveTest(){
 
@@ -51,6 +83,9 @@ class SquareTest {
         assertTrue(square.getPlayers().contains(player));
     }
 
+    /**
+     * Tests that when a player is moved away from the square, he's no longer contained in the player's list of the square.
+     */
     @Test
     void moveAwayTest(){
 
@@ -60,6 +95,18 @@ class SquareTest {
         assertFalse(square.getPlayers().contains(player));
         assertTrue(square.getPlayers().contains(player2));
 
+    }
+
+    /**
+     * Tests that the noOutOfBounds method always returns false only if the player is trying to move to an Inactive point.
+     */
+    @Test
+    void noOutOfBoundsTest(){
+        assertTrue(square.noOutofBounds(null));
+        assertTrue(square.noOutofBounds(Direction.UP));
+        assertTrue(square.noOutofBounds(Direction.DOWN));
+        assertFalse(square.noOutofBounds(Direction.RIGHT));
+        assertTrue(square.noOutofBounds(Direction.LEFT));
     }
 }
 

@@ -165,12 +165,8 @@ public abstract class Square implements Serializable {
         players.add(player);
     }
 
-    public boolean containsPlayer(Player player){
-        if(players.contains(player)){
-            return true;
-        }else{
-            return false;
-        }
+    boolean containsPlayer(Player player){
+        return players.contains(player);
     }
 
     /**
