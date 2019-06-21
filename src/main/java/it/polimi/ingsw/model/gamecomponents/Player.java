@@ -101,7 +101,7 @@ public class Player implements Serializable {
      * getter of the boolean powerupAsAmmo.
      * @return the boolean powerupAsAmmo
      */
-    public boolean isPowerupAsAmmo() {
+    boolean isPowerupAsAmmo() {
         return powerupAsAmmo;
     }
 
@@ -466,7 +466,7 @@ public class Player implements Serializable {
         blueAmmo-=blueAmmos;
         yellowAmmo-=yellowAmmos;
 
-        for(int i=0; i<ammoReserve.size(); i++){
+        for(int i=0; i<ammoReserve.size();i++ ){
             switch (ammoReserve.get(i).getColor()){
                 case RED:
                     if(redAmmos > 0){
