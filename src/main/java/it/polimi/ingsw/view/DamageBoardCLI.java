@@ -432,7 +432,7 @@ public class DamageBoardCLI {
             //give name current player
             //namePlayer = currentPlayer;
 
-            //Printer.print(namePlayer + "'s damageBoard\n");
+            Printer.println(victims.get(k).getUsername() + ": " + victims.get(k).getColor());
             Printer.print("        ");
             //Printer.print("                      ");
             Printer.print(" _Ammos_ _ _ _ _ _ _ _ _Marks_\n" + RESET);

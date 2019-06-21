@@ -25,6 +25,7 @@ public class StringCLI {
     static final String POWERUPS = "powerups";
     static final String WEAPONS = "weapons";
     static final String SQUARE = "square";
+    static final String OTHERS = "others";
 
     //messages
     static final String INVALID_COMMAND = "Invalid Command. Please insert a valid command:";

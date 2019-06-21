@@ -35,13 +35,19 @@ public class CommandLine implements ViewInterface {
     private KillshotTrackCLI killshotTrackPrinter;
     private WeaponHandler weaponHandler;
 
-
+    /**
+     * Class constructor.
+     * @param client the client for which this class takes inputs.
+     */
     public CommandLine(ClientInterface client){
         this.client = client;
         this.userInputStream = new BufferedReader(new InputStreamReader(System.in));
         this.weaponHandler = new WeaponHandler();
     }
 
+    /**
+     * Creates a thread that takes inputs from the user.
+     */
     @Override
     public void start(){
         Printer.println(StringCLI.SERVER + StringCLI.INSERT_COMMAND);
@@ -184,6 +190,11 @@ public class CommandLine implements ViewInterface {
         Printer.println(StringCLI.END_COMMAND);
     }
 
+    /**
+     * Takes an username and a color for the user and calls the relative Client's method.
+     * @param input user's input.
+     * @return true if the input is correct.
+     */
     private boolean login(StringTokenizer input){
         boolean result = false;
         if(input.hasMoreTokens()){
@@ -201,6 +212,9 @@ public class CommandLine implements ViewInterface {
         return result;
     }
 
+    /**
+     * Disconnect the client from the game.
+     */
     private void disconnect(){
         try {
             client.disconnect();
@@ -209,6 +223,11 @@ public class CommandLine implements ViewInterface {
         }
     }
 
+    /**
+     * Takes an integer that represents a weapon or a powerup to drop during the turn.
+     * @param input user's input.
+     * @return true if the input is correct.
+     */
     private boolean drop(StringTokenizer input){
         if(input.hasMoreTokens() && input.countTokens()==2){
             String whatToDrop = input.nextToken();
@@ -226,6 +245,11 @@ public class CommandLine implements ViewInterface {
         }
     }
 
+    /**
+     * Takes an integer that represents a powerup to discard and using it as ammo.
+     * @param input user's input.
+     * @return true if the input is correct.
+     */
     private boolean discard(StringTokenizer input){
         if(input.hasMoreTokens() && input.countTokens()==1){
             discardPowerup(Converter.fromStringToInt(input.nextToken()));
@@ -235,6 +259,11 @@ public class CommandLine implements ViewInterface {
         }
     }
 
+    /**
+     * Takes two integers that represent the chosen game board and the number of skulls for the game and calls the relative Client's method.
+     * @param input user's input.
+     * @return true if the input is correct.
+     */
     private boolean board(StringTokenizer input){
         if(input.countTokens() == 2){
             try {
@@ -248,6 +277,11 @@ public class CommandLine implements ViewInterface {
         }
     }
 
+    /**
+     * Takes an integer that represent the first powerup's choice and calls the relative Client's method.
+     * @param input user's input.
+     * @return true if the input is correct.
+     */
     private boolean choose(StringTokenizer input){
         boolean result = false;
         if(input.hasMoreTokens()){
@@ -267,6 +301,11 @@ public class CommandLine implements ViewInterface {
         return result;
     }
 
+    /**
+     * Takes an integer that represents the chosen powerup to discard to respawn and calls the relative Cleint's method.
+     * @param input user's input.
+     * @return true if the input is correct.
+     */
     private boolean respawn(StringTokenizer input){
         if(input.hasMoreTokens() && input.countTokens()==1){
             try {
@@ -280,6 +319,11 @@ public class CommandLine implements ViewInterface {
         }
     }
 
+    /**
+     * Takes an input that represents what the Client want to see about the game, and calls the relative method that prints the choice.
+     * @param input user's input.
+     * @return true if the input is correct.
+     */
     private boolean show(StringTokenizer input){
         boolean result = false;
         if(input.hasMoreTokens()){
@@ -293,6 +337,9 @@ public class CommandLine implements ViewInterface {
                     break;
                 case StringCLI.WEAPONS:
                     printWeapons();
+                    break;
+                case StringCLI.OTHERS:
+                    printOthersPlayerBoards();
                     break;
                 case StringCLI.SQUARE:
                     if(input.countTokens() == 2){
@@ -320,6 +367,12 @@ public class CommandLine implements ViewInterface {
         return result;
     }
 
+    /**
+     * Takes 1, 2 or 3 Direction objects that represent the directions where user wants to move and calls the relative Client's method.
+     * @param input user's input.
+     * @return true if the input is correct.
+     * @throws IOException caused by input.
+     */
     private boolean move(StringTokenizer input) throws IOException {
         if(input.countTokens() == 1){
             client.move(Converter.fromStringToDirection(input.nextToken()));
@@ -335,77 +388,12 @@ public class CommandLine implements ViewInterface {
         return false;
     }
 
-    /*
-    private boolean move(StringTokenizer input){
-        boolean result = false;
-        Direction first, second, third;
-        if(input.hasMoreTokens()){
-            first = Converter.fromStringToDirection(input.nextToken());
-            if(input.hasMoreTokens()){
-                second = Converter.fromStringToDirection(input.nextToken());
-                if(input.hasMoreTokens()){
-                    third = Converter.fromStringToDirection(input.nextToken());
-                    try {
-                        client.move(first, second, third);
-                        result = true;
-                        return result;
-                    } catch (IOException e) {
-                        Printer.err(e);
-                    }
-                }else{
-                    try {
-                        client.move(first, second);
-                        result = true;
-                        return result;
-                    } catch (IOException e) {
-                        Printer.err(e);
-                    }
-                }
-            }else{
-                try {
-                    client.move(first);
-                    result = true;
-                    return result;
-                } catch (IOException e) {
-                    Printer.err(e);
-                }
-            }
-        }else{
-            return result;
-        }
-        return result;
-    }
-
+    /**
+     * Takes 1, 2, 3 or 4 Direction objects that represent the directions where the user wants to move during the final frenzy and calls the relative Client's method.
+     * @param input user's input.
+     * @return true if the input is correct.
+     * @throws IOException caused by input.
      */
-    /*
-    private boolean moveFinalFrenzy(StringTokenizer input) throws IOException {
-        Direction first, second, third, fourth;
-        if(input.hasMoreTokens()){
-            first = Converter.fromStringToDirection(input.nextToken());
-            if(input.hasMoreTokens()){
-                second = Converter.fromStringToDirection(input.nextToken());
-                if(input.hasMoreTokens()){
-                    third = Converter.fromStringToDirection(input.nextToken());
-                    if(input.hasMoreTokens()){
-                        fourth = Converter.fromStringToDirection(input.nextToken());
-                        client.move(first, second, third, fourth);
-                        return true;
-                    }else{
-                        client.move(first, second, third);
-                        return true;
-                    }
-                }else{
-                    client.move(first, second);
-                    return true;
-                }
-            }else{
-                client.move(first);
-                return true;
-            }
-        }
-        return false;
-    }
-    */
     private boolean moveFinalFrenzy(StringTokenizer input) throws IOException {
         if(input.countTokens() == 1){
             client.move(Converter.fromStringToDirection(input.nextToken()));
@@ -425,6 +413,12 @@ public class CommandLine implements ViewInterface {
         return false;
     }
 
+    /**
+     * Takes an integer and 1 or 2 Direction for the grab action and calls the relative Cleint's method.
+     * @param input user's input.
+     * @return true if the input is correct.
+     * @throws IOException caused by the input.
+     */
     private boolean grab(StringTokenizer input) throws IOException {
         int choice = Converter.fromStringToInt(input.nextToken());
         if(input.countTokens() == 0){
@@ -441,6 +435,10 @@ public class CommandLine implements ViewInterface {
         return false;
     }
 
+    /**
+     * Calls the relative Client's method that drop a weapon.
+     * @param weapon the int that represents the chosen weapon.
+     */
     private void dropWeapon(int weapon){
         try {
             client.dropWeapon(weapon);
@@ -449,6 +447,10 @@ public class CommandLine implements ViewInterface {
         }
     }
 
+    /**
+     * Calls the relative Client's method that drop a powerup.
+     * @param powerup the int that represents the chosen powerup.
+     */
     private void dropPowerup(int powerup){
         try {
             client.dropPowerup(powerup);
@@ -457,6 +459,10 @@ public class CommandLine implements ViewInterface {
         }
     }
 
+    /**
+     * Calls the relative Client's method that discard a powerup to use it as ammo.
+     * @param powerup the int that represents the chosen powerup.
+     */
     private void discardPowerup(int powerup){
         try {
             client.discardPowerup(powerup);
@@ -465,54 +471,12 @@ public class CommandLine implements ViewInterface {
         }
     }
 
-    /*
-    private boolean grab(StringTokenizer input) throws RemoteException {
-        if(input.hasMoreTokens()) {
-            String next = input.nextToken();
-            int choice = Integer.parseInt(next);
-            if (input.hasMoreTokens()) {
-                Direction firstD = Converter.fromStringToDirection(input.nextToken());
-                if (!client.getAdrenalineZone().equals(AdrenalineZone.DEFAULT)) {
-                    if (input.hasMoreTokens()) {
-                        try {
-                            Direction secondD = Converter.fromStringToDirection(input.nextToken());
-                            handlePowerup();
-                            client.grab(choice, firstD, secondD);
-                            return true;
-                        } catch (IOException e) {
-                            Printer.err(e);
-                        }
-                    } else {
-                        try {
-                            handlePowerup();
-                            client.grab(choice, firstD);
-                            return true;
-                        } catch (IOException e) {
-                            Printer.err(e);
-                        }
-                    }
-                } else {
-                    try {
-                        handlePowerup();
-                        client.grab(choice, firstD);
-                        return true;
-                    } catch (IOException e) {
-                        Printer.err(e);
-                    }
-                }
-            } else {
-                try {
-                    client.grab(choice);
-                    return true;
-                } catch (IOException e) {
-                    Printer.err(e);
-                }
-            }
-        }
-        return false;
-    }
-    */
-
+    /**
+     * Takes an integer and 1, 2, 3 or 4 Direction for the grab action during the final frenzy and calls the relative Cleint's method.
+     * @param input user's input.
+     * @return true if the input is correct.
+     * @throws IOException caused by the input.
+     */
     private boolean grabFinalFrenzy(StringTokenizer input) throws IOException {
         if(input.countTokens() == 1){
             client.grab(Converter.fromStringToInt(input.nextToken()));
@@ -532,6 +496,11 @@ public class CommandLine implements ViewInterface {
         return false;
     }
 
+    /**
+     * Takes a String that represents a weapon and calls the {@link #weaponEffect(String)} method. If the player has enough damages, it takes also a Direction and move him calling the relative Client's method.
+     * @param input user's input.
+     * @return true if the input is correct.
+     */
     private boolean shoot(StringTokenizer input){
         Printer.println(playerController.getPlayer().isMoveAndReload());
         String weapon;
@@ -560,6 +529,12 @@ public class CommandLine implements ViewInterface {
         return false;
     }
 
+    /**
+     * Takes a String that represents a weapon and calls the {@link #weaponEffect(String)} method. Then it can take also up to 2 Direction objects, and up to 3 String that represents weapons to call the {@link ClientInterface#moveAndReload(Direction, Direction, String...)} method.
+     * @param input user's input.
+     * @return true if the input is correct.
+     * @throws IOException caused by input.
+     */
     private boolean shootFinalFrenzy(StringTokenizer input) throws IOException {
         StringTokenizer moveAndReload;
         Direction first = null;
@@ -624,6 +599,12 @@ public class CommandLine implements ViewInterface {
         }
     }
 
+    /**
+     * Takes the chosen weapon and calls the relative {@link WeaponHandler} method.
+     * @param weapon the chosen weapon.
+     * @return true if the input is correct.
+     * @throws IOException caused by input.
+     */
     private boolean weaponEffect(String weapon) throws IOException {
         switch(weapon){
             case "lockrifle":
@@ -1107,6 +1088,11 @@ public class CommandLine implements ViewInterface {
     private void printPlayerBoard(){
         damageBoardPrinter.setPlayer(playerController.getPlayer());
         damageBoardPrinter.printDamageBoard();
+    }
+
+    private void printOthersPlayerBoards(){
+        damageBoardPrinter.setVictims(playerController.getOtherPlayers());
+        damageBoardPrinter.printVictimsDamageBoard();
     }
 
     private void printVictims(){
