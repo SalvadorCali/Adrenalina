@@ -10,10 +10,16 @@ import java.util.Map;
 import static org.junit.jupiter.api.Assertions.*;
 
 
+/**
+ * Tests referring to the PlayerBoard class.
+ */
+class PlayerBoardTest {
 
-public class PlayerBoardTest {
+    /**
+     * Tests the correct update/reset of the damages present on the player board.
+     */
     @Test
-    public void addAndResetDamageTest(){
+    void addAndResetDamageTest(){
         PlayerBoard playerBoard = new PlayerBoard();
         playerBoard.addDamage(TokenColor.YELLOW, TokenColor.BLUE, TokenColor.PURPLE);
         assertEquals(AdrenalineZone.FIRST, playerBoard.getAdrenalineZone());
@@ -38,8 +44,11 @@ public class PlayerBoardTest {
         }
     }
 
+    /**
+     * Tests the correct update/reset of the marks present on the player board.
+     */
     @Test
-    public void addAndResetDamageMarks(){
+    void addAndResetDamageMarks(){
         PlayerBoard playerBoard = new PlayerBoard();
 
         playerBoard.addRevengeMarks(TokenColor.BLUE);
@@ -55,8 +64,11 @@ public class PlayerBoardTest {
         assertNotEquals(2, playerBoard.getRevengeMarks().size());
     }
 
+    /**
+     * Tests the correct update of the first blood and overkill tokens on the player board.
+     */
     @Test
-    public void getFirstBloodKillshotAndOverkillTest(){
+    void getFirstBloodKillshotAndOverkillTest(){
         PlayerBoard playerBoard = new PlayerBoard();
         playerBoard.addDamage(TokenColor.YELLOW, TokenColor.BLUE, TokenColor.PURPLE,
                 TokenColor.YELLOW, TokenColor.BLUE, TokenColor.PURPLE,
@@ -71,8 +83,11 @@ public class PlayerBoardTest {
         assertNotEquals(TokenColor.NONE, playerBoard.getOverkill());
     }
 
+    /**
+     * Tests the correct reset of the board.
+     */
     @Test
-    public void resetBoardTest(){
+    void resetBoardTest(){
         PlayerBoard playerBoard = new PlayerBoard();
         playerBoard.addDamage(TokenColor.YELLOW, TokenColor.BLUE, TokenColor.PURPLE,
                 TokenColor.YELLOW, TokenColor.BLUE, TokenColor.PURPLE,
@@ -85,8 +100,11 @@ public class PlayerBoardTest {
         assertEquals(AdrenalineZone.DEFAULT, playerBoard.getAdrenalineZone());
     }
 
+    /**
+     * Tests the correct evaluation of the score of each player.
+     */
     @Test
-    public void scoringTest(){
+    void scoringTest(){
         PlayerBoard playerBoard = new PlayerBoard();
         playerBoard.addDamage(TokenColor.BLUE, TokenColor.BLUE, TokenColor.PURPLE,
                 TokenColor.YELLOW, TokenColor.BLUE, TokenColor.PURPLE,
@@ -105,8 +123,11 @@ public class PlayerBoardTest {
         assertEquals(0, newScore.get(TokenColor.GREY).getScore());
     }
 
+    /**
+     * Tests the correct evaluation of the score of each player including overkills.
+     */
     @Test
-    public void scoringWithOverkillTest(){
+    void scoringWithOverkillTest(){
         PlayerBoard playerBoard = new PlayerBoard();
         playerBoard.addDamage(TokenColor.BLUE, TokenColor.BLUE, TokenColor.PURPLE,
                 TokenColor.YELLOW, TokenColor.BLUE, TokenColor.PURPLE,
@@ -125,8 +146,11 @@ public class PlayerBoardTest {
         assertEquals(0, newScore.get(TokenColor.GREY).getScore());
     }
 
+    /**
+     * Tests the correct evaluation of the score of each player in the final frenzy.
+     */
     @Test
-    public void scoringFinalFrenzyTest(){
+    void scoringFinalFrenzyTest(){
         PlayerBoard playerBoard = new PlayerBoard();
         playerBoard.setFinalFrenzy(true);
         playerBoard.addDamage(TokenColor.BLUE, TokenColor.BLUE, TokenColor.PURPLE,
