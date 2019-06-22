@@ -57,7 +57,7 @@ public class PlayerBoard implements Serializable {
         return finalFrenzy;
     }
 
-    public void setFinalFrenzy(boolean finalFrenzy) {
+    void setFinalFrenzy(boolean finalFrenzy) {
         this.finalFrenzy = finalFrenzy;
     }
 
