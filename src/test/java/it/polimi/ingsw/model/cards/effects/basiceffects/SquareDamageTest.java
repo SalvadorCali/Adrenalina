@@ -16,14 +16,19 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 
-
-public class SquareDamageTest {
+/**
+ * Tests referring to the SquareDamageEffect class.
+ */
+class SquareDamageTest {
 
     private GameController gameController = new GameController();
     private Player currentPlayer = new Player(TokenColor.GREEN);
     private Player victim = new Player(TokenColor.BLUE);
     private Player secondVictim = new Player(TokenColor.YELLOW);
 
+    /**
+     * Tests the controls of the hellion basic effect.
+     */
     @Test
     void hellionCanUseEffectTest(){
 
@@ -39,6 +44,10 @@ public class SquareDamageTest {
         assertEquals(TokenColor.GREEN,victim.getPlayerBoard().getRevengeMarks().get(0).getFirstColor());
 
     }
+
+    /**
+     * Tests the application of the electroscythe mod 1 basic effect.
+     */
     @Test
     void electroscytheUseTest1(){
         playerSetup();
@@ -56,6 +65,10 @@ public class SquareDamageTest {
         assertEquals(TokenColor.GREEN ,victim.getPlayerBoard().getDamageBoard()[1].getFirstColor());
         assertEquals(TokenColor.GREEN ,victim.getPlayerBoard().getDamageBoard()[2].getFirstColor());
     }
+
+    /**
+     * Tests the application of the furnace mod 1 basic effect.
+     */
     @Test
     void furnace1UseTest(){
 
@@ -70,6 +83,10 @@ public class SquareDamageTest {
         assertEquals(TokenColor.GREEN, victim.getPlayerBoard().getDamageBoard()[0].getFirstColor());
         assertEquals(TokenColor.GREEN,secondVictim.getPlayerBoard().getDamageBoard()[0].getFirstColor());
     }
+
+    /**
+     * Tests the application of the furnace mod 2 basic effect.
+     */
     @Test
     void furnace2UseTest(){
         playerSetup();
@@ -87,6 +104,10 @@ public class SquareDamageTest {
         assertEquals(TokenColor.GREEN, secondVictim.getPlayerBoard().getRevengeMarks().get(0).getFirstColor());
 
     }
+
+    /**
+     * Tests the application of the shockwave mod 2 basic effect.
+     */
     @Test
     void shockwave2Test(){
         playerSetup();
@@ -109,6 +130,10 @@ public class SquareDamageTest {
         dbc.printDamageBoard();
         dbc2.printDamageBoard();
     }
+
+    /**
+     * Tests the application of the vortex cannon mod 1 basic effect.
+     */
     @Test
     void vortexCannon1Test(){
         playerSetup();
@@ -132,6 +157,9 @@ public class SquareDamageTest {
         assertFalse(vortexCannon.canUseEffect(gameController.getActionInterface()));
     }
 
+    /**
+     * Tests the application of the furnace basic effect.
+     */
     @Test
     void furnaceTest(){
         playerSetup();
@@ -146,6 +174,9 @@ public class SquareDamageTest {
         furnace1.useEffect(gameController.getActionInterface());
     }
 
+    /**
+     * Setups the components for the tests.
+     */
     void playerSetup(){
 
         ClientData clientData = gameController.getActionInterface().getClientData();
@@ -168,6 +199,5 @@ public class SquareDamageTest {
 
         //positionSetup
         clientData.setSquare(2, 1);
-
     }
 }

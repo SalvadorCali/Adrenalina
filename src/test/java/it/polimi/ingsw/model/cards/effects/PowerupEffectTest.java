@@ -13,12 +13,18 @@ import it.polimi.ingsw.view.cli.MapCLI;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Tests referring to the PowerupEffect class.
+ */
 class PowerupEffectTest {
 
     private GameController gameController = new GameController();
     private Player currentPlayer = new Player(TokenColor.GREEN);
     private Player victim = new Player(TokenColor.BLUE);
 
+    /**
+     * Tests the controls of the newton powerup.
+     */
     @Test
     void newtonCanUseTest(){
         playerSetup();
@@ -40,6 +46,10 @@ class PowerupEffectTest {
         gameController.getActionInterface().getClientData().setSecondMove(Direction.UP);
         assertFalse(newton.canUseEffect(gameController.getActionInterface()));
     }
+
+    /**
+     * Tests the controls of the teleporter powerup.
+     */
     @Test
     void teleporterCanUseTest(){
         playerSetup();
@@ -57,6 +67,10 @@ class PowerupEffectTest {
         gameController.getActionInterface().getClientData().setSquare(3,0);
         assertFalse(teleporter.canUseEffect(gameController.getActionInterface()));
     }
+
+    /**
+     * Tests the controls of the targeting scope powerup.
+     */
     @Test
     void targetingScopeCanUseTest(){
         playerSetup();
@@ -73,6 +87,9 @@ class PowerupEffectTest {
         dbc.printDamageBoard();
     }
 
+    /**
+     * Setups the components for the tests.
+     */
     void playerSetup(){
 
         ClientData clientData = gameController.getActionInterface().getClientData();

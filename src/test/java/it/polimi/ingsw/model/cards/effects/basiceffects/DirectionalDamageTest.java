@@ -15,10 +15,13 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class DirectionalDamageTest {
+/**
+ * Tests referring to the DirectionalDamage class.
+ */
+class DirectionalDamageTest {
 
     private GameController gameController = new GameController();
-    ClientData clientData = gameController.getActionInterface().getClientData();
+    private ClientData clientData = gameController.getActionInterface().getClientData();
     private Player currentPlayer = new Player(TokenColor.GREEN);
     private Player victim = new Player(TokenColor.BLUE);
     private Player secondVictim = new Player(TokenColor.PURPLE);
@@ -59,6 +62,9 @@ public class DirectionalDamageTest {
 
      */
 
+    /**
+     * Tests the application of the flamethrower mod 1 effect.
+     */
     @Test
     void flameThrowerMod2Test(){
 
@@ -97,6 +103,9 @@ public class DirectionalDamageTest {
 
     }
 
+    /**
+     * Tests the application of the railgun mod 1 effect.
+     */
     @Test
     void railgunMod1Test(){
         playerSetup();
@@ -118,6 +127,9 @@ public class DirectionalDamageTest {
         assertFalse(railgun1.canUseEffect(gameController.getActionInterface()));
     }
 
+    /**
+     * Tests the application of the railgun mod 2 effect.
+     */
     @Test
     void railgunMod2Test(){
         playerSetup();
@@ -136,6 +148,9 @@ public class DirectionalDamageTest {
 
     }
 
+    /**
+     * Tests the application of the power glove mod 2 effect.
+     */
     @Test
     void powerGloveMod2Test(){
 
@@ -155,6 +170,9 @@ public class DirectionalDamageTest {
         dbg2.printDamageBoard();
     }
 
+    /**
+     * Tests the application of the sledgehammer mod 2 effect.
+     */
     @Test
     void sledgehammerMod2Test(){
         playerSetup();
@@ -172,8 +190,11 @@ public class DirectionalDamageTest {
         dbc.printDamageBoard();
     }
 
+    /**
+     * Tests the application of the power glove mod 2 effect
+     */
     @Test
-    void powergloveTest(){
+    void powerGloveTest(){
         playerSetup();
         Effect powerglove = new DirectionalDamage("Power Glove2",2,0,1,0);
         MapCLI mapCLI = new MapCLI(gameController.getGame().getBoard());
@@ -188,9 +209,10 @@ public class DirectionalDamageTest {
         assertTrue(powerglove.canUseEffect(gameController.getActionInterface()));
     }
 
-
+    /**
+     * Setup the game components for the tests.
+     */
     void playerSetup(){
-
         //currentPlayerSetup
         gameController.getGame().getBoard().generatePlayer(0,0,currentPlayer);
         gameController.getGame().getPlayers().add(currentPlayer);

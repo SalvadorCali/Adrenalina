@@ -16,7 +16,10 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class MovementEffectTest {
+/**
+ * Tests referring to the MovementEffect class.
+ */
+class MovementEffectTest {
 
     private GameController gameController = new GameController();
     private ClientData clientData = gameController.getActionInterface().getClientData();
@@ -24,7 +27,9 @@ public class MovementEffectTest {
     private Player victim = new Player(TokenColor.BLUE);
     private Player secondVictim = new Player(TokenColor.PURPLE);
 
-
+    /**
+     * Tests the controls of the tractor beam mod 1 basic effect.
+     */
     @Test
     void tractorBeamMod1Test(){
 
@@ -41,6 +46,9 @@ public class MovementEffectTest {
         assertTrue(tractorBeamMod1.canUseEffect(gameController.getActionInterface()));
     }
 
+    /**
+     * Tests the application of  the tractor beam mod 1 basic effect.
+     */
     @Test
     void tractorBeamMod1UseTest(){
 
@@ -56,6 +64,9 @@ public class MovementEffectTest {
 
     }
 
+    /**
+     * Tests the controls of the tractor beam mod 2 basic effect.
+     */
     @Test
     void tractorBeamMod2Test(){
         playerSetup();
@@ -77,6 +88,9 @@ public class MovementEffectTest {
         assertTrue(tractorBeamMod2.canUseEffect(gameController.getActionInterface()));
     }
 
+    /**
+     * Tests the application of the tractor beam mod 2 basic effect.
+     */
     @Test
     void tractorBeamMod2UseTest(){
 
@@ -97,6 +111,9 @@ public class MovementEffectTest {
 
     }
 
+    /**
+     * Tests the controls of the power glove mod 1 basic effect.
+     */
     @Test
     void powerGloveMod1Test(){
 
@@ -119,6 +136,9 @@ public class MovementEffectTest {
         assertFalse(powerGloveMod1.canUseEffect(gameController.getActionInterface()));
     }
 
+    /**
+     * Tests the controls of the rocket launcher basic effect.
+     */
     @Test
     void rocketLauncherTest(){
 
@@ -144,6 +164,9 @@ public class MovementEffectTest {
 
     }
 
+    /**
+     * Tests the controls of the grenade launcher basic effect.
+     */
     @Test
     void grenadeLauncherTest(){
         playerSetup();
@@ -171,6 +194,9 @@ public class MovementEffectTest {
         assertFalse(grenadeLauncher.canUseEffect(gameController.getActionInterface()));
     }
 
+    /**
+     * Tests the controls of the shotgun mod 1 basic effect test.
+     */
     @Test
     void shotgunMod1Test(){
 
@@ -199,6 +225,9 @@ public class MovementEffectTest {
         assertFalse(shotgun1.canUseEffect(gameController.getActionInterface()));
     }
 
+    /**
+     * Tests the controls of the shotgun mod 2 basic effect test.
+     */
     @Test
     void shotgunMod2Test(){
 
@@ -219,6 +248,9 @@ public class MovementEffectTest {
         assertFalse(shotgun2.canUseEffect(gameController.getActionInterface()));
     }
 
+    /**
+     * Setups the game components for the tests.
+     */
     void playerSetup(){
 
         //currentPlayerSetup
