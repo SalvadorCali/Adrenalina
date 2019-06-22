@@ -9,7 +9,9 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
-
+/**
+ * Tests referring to the GameBoard class.
+ */
 class GameBoardTest {
 
     private List<GameBoard> gameBoards = Parser.createGameBoards();
@@ -17,6 +19,9 @@ class GameBoardTest {
     private Position position = new Position(1,1);
     private Player victim = new Player(TokenColor.GREY);
 
+    /**
+     * Tests the correct move of a player on the board.
+     */
     @Test
     void correctSingleMoveTest(){
         GameBoard gameBoard = gameBoards.get(3);
@@ -24,6 +29,9 @@ class GameBoardTest {
         assertTrue(gameBoard.canMove(player, Direction.DOWN));
     }
 
+    /**
+     * Tests the correct double move of a player on the board.
+     */
     @Test
     void correctDoubleMoveTest(){
 
@@ -32,6 +40,9 @@ class GameBoardTest {
         assertTrue(gameBoard.canMove(player, Direction.DOWN, Direction.RIGHT));
     }
 
+    /**
+     * Tests the correct triple move of a player on the board.
+     */
     @Test
     void correctTripleMoveTest(){
 
@@ -40,30 +51,39 @@ class GameBoardTest {
         assertTrue(gameBoard.canMove(player, Direction.DOWN, Direction.RIGHT,Direction.RIGHT ));
     }
 
+    /**
+     * Tests the correct quadruple move of a player on the board.
+     */
     @Test
     void correctQuadrupleMoveTest(){
-
         GameBoard gameBoard = gameBoards.get(3);
         player.setPosition(position);
         assertTrue(gameBoard.canMove(player, Direction.DOWN, Direction.RIGHT,Direction.RIGHT, Direction.UP ));
     }
 
+    /**
+     * Tests the wrong move of a player on the board.
+     */
     @Test
     void firstMoveErrorTest(){
-
         GameBoard gameBoard = gameBoards.get(3);
         player.setPosition(position);
         assertFalse(gameBoard.canMove(player, Direction.RIGHT));
     }
 
+    /**
+     * Tests the wrong double move of a player on the board.
+     */
     @Test
     void doubleMoveErrorTest(){
-
         GameBoard gameBoard = gameBoards.get(3);
         player.setPosition(position);
         assertFalse(gameBoard.canMove(player, Direction.DOWN, Direction.DOWN));
     }
 
+    /**
+     * Tests the wrong triple move of a player on the board.
+     */
     @Test
     void tripleMoveErrorTest(){
 
@@ -72,14 +92,19 @@ class GameBoardTest {
         assertFalse(gameBoard.canMove(player, Direction.DOWN, Direction.RIGHT, Direction.DOWN));
     }
 
+    /**
+     * Tests the wrong quadruple move of a player on the board.
+     */
     @Test
     void quadrupleMoveErrorTest(){
-
         GameBoard gameBoard = gameBoards.get(3);
         player.setPosition(position);
         assertFalse(gameBoard.canMove(player, Direction.DOWN, Direction.RIGHT, Direction.UP,Direction.LEFT));
     }
 
+    /**
+     * Tests the visibility of a victim in the same room of the shooter.
+     */
     @Test
     void isVisibleSameRoomTest(){
         GameBoard gameBoard = gameBoards.get(0);
@@ -88,6 +113,9 @@ class GameBoardTest {
         assertTrue(gameBoard.isVisible(player, victim));
     }
 
+    /**
+     * Tests the visibility of a victim throughout the board.
+     */
     @Test
     void isVisibleTest(){
 
@@ -139,6 +167,9 @@ class GameBoardTest {
 
     }
 
+    /**
+     * Tests the visibility of a victim who isn't in the same room of the shooter.
+     */
     @Test
     void isVisibleThroughDoorTest(){
         GameBoard gameBoard = gameBoards.get(0);
@@ -151,6 +182,9 @@ class GameBoardTest {
         assertTrue(gameBoard.isVisible(player, victim));
     }
 
+    /**
+     * Tests the non-visibility of a victim.
+     */
     @Test
     void isVisibleErrorTest(){
         GameBoard gameBoard = gameBoards.get(0);
@@ -164,6 +198,9 @@ class GameBoardTest {
         assertFalse(gameBoard.isVisible(player, victim));
     }
 
+    /**
+     * Tests that a player is correctly removed from the board.
+     */
     @Test
     void removePlayerTest(){
         Parser.createGameBoards();
