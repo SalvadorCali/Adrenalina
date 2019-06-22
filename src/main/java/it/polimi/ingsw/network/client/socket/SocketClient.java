@@ -8,6 +8,7 @@ import it.polimi.ingsw.model.enums.AdrenalineZone;
 import it.polimi.ingsw.model.enums.Color;
 import it.polimi.ingsw.model.enums.Direction;
 import it.polimi.ingsw.model.enums.TokenColor;
+import it.polimi.ingsw.network.NetworkString;
 import it.polimi.ingsw.network.client.ClientInterface;
 import it.polimi.ingsw.util.Config;
 import it.polimi.ingsw.util.Printer;
@@ -35,7 +36,7 @@ public class SocketClient implements ClientInterface, Runnable, Serializable {
         boolean cycle = true;
         while(cycle){
             try {
-                Printer.print("[CLIENT]Please, set an ip address:");
+                Printer.print(NetworkString.IP_MESSAGE);
                 String host = userInputStream.readLine();
                 clientSocket = new Socket(host, Config.SOCKET_PORT);
                 objectOutputStream = new ObjectOutputStream(clientSocket.getOutputStream());
@@ -373,33 +374,21 @@ public class SocketClient implements ClientInterface, Runnable, Serializable {
         objectOutputStream.flush();
     }
 
-    public void notifyMessage() throws IOException, ClassNotFoundException {
+    private void notifyMessage() throws IOException, ClassNotFoundException {
         Message message = (Message) objectInputStream.readObject();
         Outcome outcome;
         GameData gameData;
         switch(message){
-            case NEW_TURN:
-                outcome = (Outcome) objectInputStream.readObject();
-                gameData = (GameData) objectInputStream.readObject();
-                playerController.setGameBoard(gameData.getGameBoard());
-                playerController.setKillshotTrack(gameData.getKillshotTrack());
-                playerController.setPlayer(gameData.getPlayer(username));
-                playerController.setOtherPlayers(gameData.getPlayers(username));
-                playerController.setCurrentPlayer(gameData.getCurrentPlayer());
-                view.notify(message, outcome);
-                break;
             case END_TURN:
             case NOT_TURN:
                 view.notify(message);
                 break;
             case GAME:
                 outcome = (Outcome) objectInputStream.readObject();
-                gameData = (GameData) objectInputStream.readObject();
-                playerController.setGameBoard(gameData.getGameBoard());
-                playerController.setKillshotTrack(gameData.getKillshotTrack());
-                playerController.setPlayer(gameData.getPlayer(username));
-                playerController.setCurrentPlayer(gameData.getCurrentPlayer());
-                playerController.setOtherPlayers(gameData.getPlayers(username));
+                if(outcome.equals(Outcome.ALL)){
+                    gameData = (GameData) objectInputStream.readObject();
+                    playerControllerSetter(gameData);
+                }
                 view.notify(message, outcome);
                 break;
             case LOGIN:
@@ -430,41 +419,20 @@ public class SocketClient implements ClientInterface, Runnable, Serializable {
                 gameData = (GameData) objectInputStream.readObject();
                 view.notify(message, outcome, gameData.getPowerups());
                 break;
+            case NEW_TURN:
             case MOVE:
                 outcome = (Outcome) objectInputStream.readObject();
                 gameData = (GameData) objectInputStream.readObject();
-                playerController.setGameBoard(gameData.getGameBoard());
-                playerController.setKillshotTrack(gameData.getKillshotTrack());
-                playerController.setPlayer(gameData.getPlayer(username));
-                playerController.setCurrentPlayer(gameData.getCurrentPlayer());
-                playerController.setOtherPlayers(gameData.getPlayers(username));
+                playerControllerSetterWithCurrentPlayer(gameData);
                 view.notify(message, outcome);
                 break;
             case POWERUP:
                 outcome = (Outcome) objectInputStream.readObject();
                 gameData = (GameData) objectInputStream.readObject();
-                playerController.setGameBoard(gameData.getGameBoard());
-                playerController.setKillshotTrack(gameData.getKillshotTrack());
-                playerController.setPlayer(gameData.getPlayer(username));
-                playerController.setCurrentPlayer(gameData.getCurrentPlayer());
-                playerController.setOtherPlayers(gameData.getPlayers(username));
+                playerControllerSetterWithCurrentPlayer(gameData);
                 playerController.setPowerup(gameData.getPowerup());
-                if(gameData.getPowerup().equals("targetingscope") || gameData.getPowerup().equals("tagbackgrenade")){
+                if(gameData.getPowerup().equals(NetworkString.TARGETING_SCOPE) || gameData.getPowerup().equals(NetworkString.TAGBACK_GRENADE)){
                     playerController.setVictims(gameData.getPlayers(username));
-                }
-                view.notify(message, outcome);
-                break;
-            case GRAB:
-                outcome = (Outcome) objectInputStream.readObject();
-                gameData = (GameData) objectInputStream.readObject();
-                playerController.setGameBoard(gameData.getGameBoard());
-                playerController.setKillshotTrack(gameData.getKillshotTrack());
-                playerController.setPlayer(gameData.getPlayer(username));
-                playerController.setVictims(gameData.getPlayers(username));
-                playerController.setOtherPlayers(gameData.getPlayers(username));
-                playerController.setCurrentPlayer(gameData.getCurrentPlayer());
-                if(gameData.isMovement()){
-                    playerController.setMovement(true);
                 }
                 view.notify(message, outcome);
                 break;
@@ -473,15 +441,11 @@ public class SocketClient implements ClientInterface, Runnable, Serializable {
                 gameData = (GameData) objectInputStream.readObject();
                 view.notify(message, outcome, gameData.getSquareData());
                 break;
+            case GRAB:
             case SHOOT:
                 outcome = (Outcome) objectInputStream.readObject();
                 gameData = (GameData) objectInputStream.readObject();
-                playerController.setGameBoard(gameData.getGameBoard());
-                playerController.setKillshotTrack(gameData.getKillshotTrack());
-                playerController.setPlayer(gameData.getPlayer(username));
-                playerController.setCurrentPlayer(gameData.getCurrentPlayer());
-                playerController.setVictims(gameData.getVictims());
-                playerController.setOtherPlayers(gameData.getPlayers(username));
+                playerControllerSetterWithCurrentPlayerAndVictims(gameData);
                 if(gameData.isMovement()){
                     playerController.setMovement(true);
                 }
@@ -499,21 +463,14 @@ public class SocketClient implements ClientInterface, Runnable, Serializable {
             case RELOAD:
                 outcome = (Outcome) objectInputStream.readObject();
                 gameData = (GameData) objectInputStream.readObject();
-                playerController.setGameBoard(gameData.getGameBoard());
-                playerController.setKillshotTrack(gameData.getKillshotTrack());
-                playerController.setPlayer(gameData.getPlayer(username));
-                playerController.setOtherPlayers(gameData.getPlayers(username));
-                playerController.setCurrentPlayer(gameData.getCurrentPlayer());
+                playerControllerSetterWithCurrentPlayer(gameData);
                 playerController.setWeapon(gameData.getWeapon());
                 view.notify(message, outcome);
                 break;
             case RECONNECTION:
                 outcome = (Outcome) objectInputStream.readObject();
                 gameData = (GameData) objectInputStream.readObject();
-                playerController.setGameBoard(gameData.getGameBoard());
-                playerController.setKillshotTrack(gameData.getKillshotTrack());
-                playerController.setPlayer(gameData.getPlayer(username));
-                playerController.setOtherPlayers(gameData.getPlayers(username));
+                playerControllerSetter(gameData);
                 view.notify(message, outcome, gameData.getUsername());
                 break;
             case DROP_POWERUP:
@@ -534,11 +491,7 @@ public class SocketClient implements ClientInterface, Runnable, Serializable {
             case FINAL_FRENZY:
                 outcome = (Outcome) objectInputStream.readObject();
                 gameData = (GameData) objectInputStream.readObject();
-                playerController.setGameBoard(gameData.getGameBoard());
-                playerController.setKillshotTrack(gameData.getKillshotTrack());
-                playerController.setPlayer(gameData.getPlayer(username));
-                playerController.setOtherPlayers(gameData.getPlayers(username));
-                playerController.setCurrentPlayer(gameData.getCurrentPlayer());
+                playerControllerSetterWithCurrentPlayer(gameData);
                 playerController.setWeapon(gameData.getWeapon());
                 playerController.setFinalFrenzy(true);
                 playerController.setPlayerBoardFinalFrenzy(gameData.getPlayer().getPlayerBoard().isFinalFrenzy());
@@ -550,10 +503,29 @@ public class SocketClient implements ClientInterface, Runnable, Serializable {
     }
 
     @Override
-    public void testConnection(){}
+    public void testConnection(){
+        //tests the connection
+    }
 
     @Override
     public AdrenalineZone getAdrenalineZone(){
         return playerController.getAdrenalineZone();
+    }
+
+    private void playerControllerSetter(GameData gameData){
+        playerController.setGameBoard(gameData.getGameBoard());
+        playerController.setKillshotTrack(gameData.getKillshotTrack());
+        playerController.setPlayer(gameData.getPlayer(username));
+        playerController.setOtherPlayers(gameData.getPlayers(username));
+    }
+
+    private void playerControllerSetterWithCurrentPlayer(GameData gameData){
+        playerControllerSetter(gameData);
+        playerController.setCurrentPlayer(gameData.getCurrentPlayer());
+    }
+
+    private void playerControllerSetterWithCurrentPlayerAndVictims(GameData gameData){
+        playerControllerSetterWithCurrentPlayer(gameData);
+        playerController.setVictims(gameData.getVictims());
     }
 }

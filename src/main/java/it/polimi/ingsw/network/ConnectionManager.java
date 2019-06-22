@@ -26,27 +26,13 @@ public class ConnectionManager implements ConnectionInterface, Runnable {
     private ServerControllerManager serverControllerManager = new ServerControllerManager();
 
     public ConnectionManager() throws IOException {
-        //super(Config.RMI_FREE_PORT);
-        //this.serverController = serverController;
-
         //socket
         serverSocket = new ServerSocket(Config.SOCKET_PORT);
         pool = Executors.newFixedThreadPool(Config.EXECUTOR_SIZE);
 
-        //rmi extends UnicastRemoteObject
-        /*
-        LocateRegistry.createRegistry(Config.RMI_PORT);
-        java.rmi.Naming.rebind("server", this);
-        */
-
-        //rmi new
+        //rmi
         Registry registry = LocateRegistry.createRegistry(Config.RMI_PORT);
-        //ConnectionInterface server = (ConnectionInterface) UnicastRemoteObject.exportObject(this, Config.RMI_PORT);
-        //try {
-            registry.rebind("server", (ConnectionInterface) UnicastRemoteObject.exportObject(this, Config.RMI_FREE_PORT));
-        //} catch (AlreadyBoundException e) {
-          //  Printer.err(e);
-        //}
+        registry.rebind(NetworkString.REGISTRY_NAME, (ConnectionInterface) UnicastRemoteObject.exportObject(this, Config.RMI_FREE_PORT));
     }
 
     public void start(){
@@ -68,7 +54,6 @@ public class ConnectionManager implements ConnectionInterface, Runnable {
 
     @Override
     public RMIServerInterface enrol(RMIClientInterface client) throws RemoteException {
-        //return (RMIServerInterface) UnicastRemoteObject.exportObject(new RMIServer(client, serverController), Config.RMI_FREE_PORT);
         return new RMIServer(client, ServerControllerManager.getServerController());
     }
 }

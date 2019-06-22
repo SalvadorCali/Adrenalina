@@ -9,6 +9,7 @@ import it.polimi.ingsw.model.enums.Color;
 import it.polimi.ingsw.model.enums.Direction;
 import it.polimi.ingsw.model.enums.TokenColor;
 import it.polimi.ingsw.network.ConnectionInterface;
+import it.polimi.ingsw.network.NetworkString;
 import it.polimi.ingsw.network.enums.Message;
 import it.polimi.ingsw.network.server.rmi.RMIServerInterface;
 import it.polimi.ingsw.util.Config;
@@ -38,33 +39,23 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
             try {
                 playerController = new PlayerController(this);
                 BufferedReader userInputStream = new BufferedReader(new InputStreamReader(System.in));
-                Printer.print("[CLIENT]Please, set an ip address:");
+                Printer.print(NetworkString.IP_MESSAGE);
                 String host = userInputStream.readLine();
-                //System.setProperty("java.rmi.client.hostname", InetAddress.getLocalHost().getHostAddress());
-                //old
-        /*
-        ConnectionInterface connectionInterface = (ConnectionInterface) java.rmi.Naming.lookup("server");
-        server = connectionInterface.enrol(this);
-        */
-                //new
                 Registry registry = LocateRegistry.getRegistry(host, Config.RMI_FREE_PORT);
-                ConnectionInterface connection = (ConnectionInterface) registry.lookup("server");
+                ConnectionInterface connection = (ConnectionInterface) registry.lookup(NetworkString.REGISTRY_NAME);
                 server = connection.enrol(this);
                 cycle = false;
             } catch (NotBoundException | IOException e) {
                 cycle = true;
             }
-
         }
-
-        //server = connection.enrol((RMIClientInterface) UnicastRemoteObject.exportObject(this, Config.RMI_FREE_PORT));
     }
 
     public RMIClient(String host) throws RemoteException, NotBoundException {
         super(Config.RMI_FREE_PORT);
         playerController = new PlayerController(this);
         Registry registry = LocateRegistry.getRegistry(host, Config.RMI_FREE_PORT);
-        ConnectionInterface connection = (ConnectionInterface) registry.lookup("server");
+        ConnectionInterface connection = (ConnectionInterface) registry.lookup(NetworkString.REGISTRY_NAME);
         server = connection.enrol(this);
     }
 
@@ -216,19 +207,6 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
     @Override
     public void notify(Message message) throws RemoteException{
         view.notify(message);
-        /*
-        switch (message){
-            case BOARD:
-                view.notify(message);
-                break;
-            case END_TURN:
-                view.notify(message);
-                break;
-            default:
-                break;
-        }
-
-         */
     }
 
     @Override
@@ -238,19 +216,15 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
 
     @Override
     public void notify(Message message, Outcome outcome, GameData gameData) throws RemoteException {
-        GameData gameDatas = gameData;
         switch (message){
             case PLAYER:
                 if(outcome.equals(Outcome.RIGHT)) {
-                    playerController.setPlayer(gameDatas.getPlayer());
+                    playerController.setPlayer(gameData.getPlayer());
                 }
                 break;
             case GAME:
                 if(outcome.equals(Outcome.ALL)){
-                    playerController.setGameBoard(gameDatas.getGameBoard());
-                    playerController.setKillshotTrack(gameDatas.getKillshotTrack());
-                    playerController.setPlayer(gameDatas.getPlayer(username));
-                    playerController.setOtherPlayers(gameDatas.getPlayers(username));
+                    playerControllerSetter(gameData);
                 }
                 view.notify(message, outcome);
                 break;
@@ -258,113 +232,70 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
                 if(outcome.equals(Outcome.RIGHT)) {
                     connectionTimer.start();
                 }
-                view.notify(message, outcome, gameDatas.getUsername());
+                view.notify(message, outcome, gameData.getUsername());
                 break;
             case COLOR:
-                view.notify(message, outcome, gameDatas.getColor());
+                view.notify(message, outcome, gameData.getColor());
                 break;
             case NEW_TURN:
-                playerController.setGameBoard(gameDatas.getGameBoard());
-                playerController.setKillshotTrack(gameDatas.getKillshotTrack());
-                playerController.setPlayer(gameDatas.getPlayer(username));
-                playerController.setOtherPlayers(gameDatas.getPlayers(username));
-                playerController.setCurrentPlayer(gameDatas.getCurrentPlayer());
-                view.notify(message, outcome);
-                break;
             case MOVE:
-                playerController.setGameBoard(gameDatas.getGameBoard());
-                playerController.setKillshotTrack(gameDatas.getKillshotTrack());
-                playerController.setPlayer(gameDatas.getPlayer(username));
-                playerController.setOtherPlayers(gameDatas.getPlayers(username));
-                playerController.setCurrentPlayer(gameDatas.getCurrentPlayer());
+                playerControllerSetterWithCurrentPlayer(gameData);
                 view.notify(message, outcome);
                 break;
             case POWERUP:
-                playerController.setGameBoard(gameDatas.getGameBoard());
-                playerController.setKillshotTrack(gameDatas.getKillshotTrack());
-                playerController.setPlayer(gameDatas.getPlayer(username));
-                playerController.setOtherPlayers(gameDatas.getPlayers(username));
-                playerController.setCurrentPlayer(gameDatas.getCurrentPlayer());
-                playerController.setPowerup(gameDatas.getPowerup());
-                if(gameDatas.getPowerup().equals("targetingscope") || gameDatas.getPowerup().equals("tagbackgrenade")){
-                    playerController.setVictims(gameDatas.getPlayers(username));
+                playerControllerSetterWithCurrentPlayer(gameData);
+                playerController.setPowerup(gameData.getPowerup());
+                if(gameData.getPowerup().equals(NetworkString.TARGETING_SCOPE) || gameData.getPowerup().equals(NetworkString.TAGBACK_GRENADE)){
+                    playerController.setVictims(gameData.getPlayers(username));
                 }
                 view.notify(message, outcome);
                 break;
             case GRAB:
-                playerController.setGameBoard(gameDatas.getGameBoard());
-                playerController.setKillshotTrack(gameDatas.getKillshotTrack());
-                playerController.setPlayer(gameDatas.getPlayer(username));
-                playerController.setOtherPlayers(gameDatas.getPlayers(username));
-                playerController.setVictims(gameDatas.getPlayers(username));
-                playerController.setCurrentPlayer(gameDatas.getCurrentPlayer());
-                if(gameDatas.isMovement()){
-                    playerController.setMovement(true);
-                }
-                view.notify(message, outcome);
-                break;
             case SHOOT:
-                playerController.setGameBoard(gameDatas.getGameBoard());
-                playerController.setKillshotTrack(gameDatas.getKillshotTrack());
-                playerController.setPlayer(gameDatas.getPlayer(username));
-                playerController.setCurrentPlayer(gameDatas.getCurrentPlayer());
-                playerController.setOtherPlayers(gameDatas.getPlayers(username));
-                playerController.setVictims(gameDatas.getVictims());
-                if(gameDatas.isMovement()){
+                playerControllerSetterWithCurrentPlayerAndVictims(gameData);
+                if(gameData.isMovement()){
                     playerController.setMovement(true);
                 }
                 view.notify(message, outcome);
                 break;
             case RELOAD:
-                playerController.setGameBoard(gameDatas.getGameBoard());
-                playerController.setKillshotTrack(gameDatas.getKillshotTrack());
-                playerController.setPlayer(gameDatas.getPlayer(username));
-                playerController.setOtherPlayers(gameDatas.getPlayers(username));
-                playerController.setWeapon(gameDatas.getWeapon());
-                playerController.setCurrentPlayer(gameDatas.getCurrentPlayer());
+                playerControllerSetterWithCurrentPlayer(gameData);
+                playerController.setWeapon(gameData.getWeapon());
                 view.notify(message, outcome);
                 break;
             case RECONNECTION:
-                playerController.setGameBoard(gameDatas.getGameBoard());
-                playerController.setKillshotTrack(gameDatas.getKillshotTrack());
-                playerController.setPlayer(gameDatas.getPlayer(username));
-                playerController.setOtherPlayers(gameDatas.getPlayers(username));
-                playerController.setCurrentPlayer(gameDatas.getCurrentPlayer());
-                view.notify(message, outcome, gameDatas.getUsername());
+                playerControllerSetterWithCurrentPlayer(gameData);
+                view.notify(message, outcome, gameData.getUsername());
                 break;
             case FINAL_FRENZY:
-                playerController.setGameBoard(gameData.getGameBoard());
-                playerController.setKillshotTrack(gameData.getKillshotTrack());
-                playerController.setPlayer(gameData.getPlayer(username));
-                playerController.setOtherPlayers(gameData.getPlayers(username));
-                playerController.setCurrentPlayer(gameData.getCurrentPlayer());
+                playerControllerSetterWithCurrentPlayer(gameData);
                 playerController.setWeapon(gameData.getWeapon());
                 playerController.setFinalFrenzy(true);
                 playerController.setPlayerBoardFinalFrenzy(gameData.getPlayer().getPlayerBoard().isFinalFrenzy());
                 view.notify(message);
                 break;
             case RESPAWN:
-                playerController.setPlayer(gameDatas.getPlayer(username));
+                playerController.setPlayer(gameData.getPlayer(username));
                 view.notify(message, outcome);
                 break;
             case DROP_POWERUP:
             case DROP_WEAPON:
             case DISCARD_POWERUP:
-                playerController.setPlayer(gameDatas.getPlayer(username));
-                playerController.setOtherPlayers(gameDatas.getPlayers(username));
+                playerController.setPlayer(gameData.getPlayer(username));
+                playerController.setOtherPlayers(gameData.getPlayers(username));
                 view.notify(message, outcome);
                 break;
             case SPAWN:
-                view.notify(message, outcome, gameDatas.getPowerups());
+                view.notify(message, outcome, gameData.getPowerups());
                 break;
             case SQUARE:
-                view.notify(message, outcome, gameDatas.getSquareData());
+                view.notify(message, outcome, gameData.getSquareData());
                 break;
             case DISCONNECT:
-                view.notify(message, outcome, gameDatas.getUsername());
+                view.notify(message, outcome, gameData.getUsername());
                 break;
             case SCORE:
-                view.notify(message, outcome, gameDatas.getScoreList());
+                view.notify(message, outcome, gameData.getScoreList());
                 break;
             default:
                 view.notify(message, outcome);
@@ -373,10 +304,29 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
     }
 
     @Override
-    public void testConnection(){}
+    public void testConnection(){
+        //tests the rmi connection
+    }
 
     @Override
     public AdrenalineZone getAdrenalineZone(){
         return playerController.getAdrenalineZone();
+    }
+
+    public void playerControllerSetter(GameData gameData){
+        playerController.setGameBoard(gameData.getGameBoard());
+        playerController.setKillshotTrack(gameData.getKillshotTrack());
+        playerController.setPlayer(gameData.getPlayer(username));
+        playerController.setOtherPlayers(gameData.getPlayers(username));
+    }
+
+    public void playerControllerSetterWithCurrentPlayer(GameData gameData){
+        playerControllerSetter(gameData);
+        playerController.setCurrentPlayer(gameData.getCurrentPlayer());
+    }
+
+    public void playerControllerSetterWithCurrentPlayerAndVictims(GameData gameData){
+        playerControllerSetterWithCurrentPlayer(gameData);
+        playerController.setVictims(gameData.getVictims());
     }
 }

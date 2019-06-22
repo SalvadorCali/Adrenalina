@@ -278,10 +278,6 @@ public class ServerController {
     }
 
     public void randomChoice(){
-        Printer.println("Users:");
-        users.forEach((u,p)->Printer.println(u));
-        Printer.println("Disc:");
-        disconnectedUsers.forEach((u,p)->Printer.println(u));
         users.forEach((u,p) -> {
             if(!p.isSpawned()){
                 p.setSpawned(true);
@@ -740,7 +736,6 @@ public class ServerController {
                             servers.get(username).notify(Message.END_TURN);
                         }
                         int index = nextPlayerIndex(i);
-                        Printer.println("indice " + index);
                         if(servers.containsKey(players.get(index).getUsername())){
                             setGameData();
                             servers.get(players.get(index).getUsername()).notify(Message.NEW_TURN, Outcome.RIGHT, gameData);
@@ -813,7 +808,6 @@ public class ServerController {
                             servers.get(username).notify(Message.END_TURN);
                         }
                         int index = nextPlayerIndex(i);
-                        Printer.println("indice " + index);
                         if(servers.containsKey(players.get(index).getUsername())){
                             setGameData();
                             servers.get(players.get(index).getUsername()).notify(Message.NEW_TURN, Outcome.RIGHT, gameData);

@@ -191,6 +191,9 @@ public class CommandLine implements ViewInterface {
         Printer.println(StringCLI.END_COMMAND);
     }
 
+    /**
+     * shows the list of commands during final frenzy.
+     */
     private void helpFinalFrenzy(){
         Printer.println(StringCLI.COMMANDS_LIST);
         Printer.println(StringCLI.DISCONNECT_COMMAND);

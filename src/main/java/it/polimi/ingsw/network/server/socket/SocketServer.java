@@ -44,8 +44,6 @@ public class SocketServer implements Runnable, ServerInterface {
             try {
                 Message message = (Message) objectInputStream.readObject();
                 readRequest(message);
-                //int val = objectInputStream.readInt();
-                //handle the message
             } catch (IOException e) {
                 try {
                     objectInputStream.close();
@@ -53,12 +51,11 @@ public class SocketServer implements Runnable, ServerInterface {
                     socket.close();
                     thisThread = null;
                     serverController.disconnect(clientName);
-                    Printer.println("disconnnesss");
                 } catch (IOException e1) {
-                    e1.printStackTrace();
+                    Printer.err(e1);
                 }
             } catch (ClassNotFoundException e) {
-                e.printStackTrace();
+                Printer.err(e);
             }
         }
     }
@@ -68,7 +65,7 @@ public class SocketServer implements Runnable, ServerInterface {
         this.serverController = serverController;
     }
 
-    public void readRequest(Message message){
+    private void readRequest(Message message){
         switch (message){
             case LOGIN:
                 login();
@@ -181,11 +178,11 @@ public class SocketServer implements Runnable, ServerInterface {
         }
     }
 
-    public void showSquare(){
+    private void showSquare(){
         serverController.showSquare(clientName);
     }
 
-    public void showOtherSquare(){
+    private void showOtherSquare(){
         try {
             int x = objectInputStream.readInt();
             int y = objectInputStream.readInt();
@@ -254,7 +251,7 @@ public class SocketServer implements Runnable, ServerInterface {
         }
     }
 
-    public void dropPowerup(){
+    private void dropPowerup(){
         try {
             int powerup = objectInputStream.readInt();
             serverController.dropPowerup(clientName, powerup);
@@ -263,7 +260,7 @@ public class SocketServer implements Runnable, ServerInterface {
         }
     }
 
-    public void dropWeapon(){
+    private void dropWeapon(){
         try {
             int weapon = objectInputStream.readInt();
             serverController.dropWeapon(clientName, weapon);
@@ -272,7 +269,7 @@ public class SocketServer implements Runnable, ServerInterface {
         }
     }
 
-    public void discardPowerup(){
+    private void discardPowerup(){
         try {
             int powerup = objectInputStream.readInt();
             serverController.discardPowerup(clientName, powerup);
@@ -328,7 +325,7 @@ public class SocketServer implements Runnable, ServerInterface {
         }
     }
 
-    public void moveAndReloadOneDirection(){
+    private void moveAndReloadOneDirection(){
         try {
             String firstWeapon, secondWeapon, thirdWeapon;
             Direction firstDirection = (Direction) objectInputStream.readObject();
@@ -352,13 +349,15 @@ public class SocketServer implements Runnable, ServerInterface {
                     thirdWeapon = objectInputStream.readUTF();
                     serverController.moveAndReload(clientName, firstDirection, firstWeapon, secondWeapon, thirdWeapon);
                     break;
+                default:
+                    break;
             }
         } catch (IOException | ClassNotFoundException e) {
             Printer.err(e);
         }
     }
 
-    public void moveAndReloadTwoDirections(){
+    private void moveAndReloadTwoDirections(){
         try {
             String firstWeapon, secondWeapon, thirdWeapon;
             Direction firstDirection = (Direction) objectInputStream.readObject();
@@ -382,6 +381,8 @@ public class SocketServer implements Runnable, ServerInterface {
                     secondWeapon = objectInputStream.readUTF();
                     thirdWeapon = objectInputStream.readUTF();
                     serverController.moveAndReload(clientName, firstDirection, secondDirection, firstWeapon, secondWeapon, thirdWeapon);
+                    break;
+                default:
                     break;
             }
         } catch (IOException | ClassNotFoundException e) {
@@ -431,7 +432,7 @@ public class SocketServer implements Runnable, ServerInterface {
 
     }
 
-    public void powerupAmmos(){
+    private void powerupAmmos(){
         int firstPowerup, secondPowerup;
         try {
             int powerupSize = objectInputStream.readInt();
