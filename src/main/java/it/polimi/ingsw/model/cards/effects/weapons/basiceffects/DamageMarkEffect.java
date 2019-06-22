@@ -3,6 +3,9 @@ package it.polimi.ingsw.model.cards.effects.weapons.basiceffects;
 import it.polimi.ingsw.model.cards.effects.ActionInterface;
 import it.polimi.ingsw.model.gamecomponents.Player;
 
+/**
+ * Basic effects of the cards that are giving damages and marks to specific victims.
+ */
 public class DamageMarkEffect extends BasicEffect {
 
     private String effectName;
@@ -19,8 +22,16 @@ public class DamageMarkEffect extends BasicEffect {
 
     private boolean canUse;
 
+    /**
+     * Class constructor.
+     * @param effectName name of the card.
+     * @param damagePower number of damages to add to the victims.
+     * @param markPower number of marks to add to the victims.
+     * @param redAmmos red ammos cost to use the effect.
+     * @param blueAmmos blue ammos cost to use the effect.
+     * @param yellowAmmos yellow ammos cost to use the effect.
+     */
     public DamageMarkEffect(String effectName, int damagePower, int markPower, int redAmmos, int blueAmmos, int yellowAmmos) {
-
         this.effectName = effectName;
         this.damagePower = damagePower;
         this.markPower = markPower;
@@ -30,6 +41,11 @@ public class DamageMarkEffect extends BasicEffect {
         this.canUse = true;
     }
 
+    /**
+     * Controls if the player can use the effect without errors.
+     * @param actionInterface give access to some restricted methods of the game/clientData to the card controls.
+     * @return the result of the evaluation.
+     */
     @Override
     public boolean canUseEffect(ActionInterface actionInterface) {
 
@@ -73,6 +89,11 @@ public class DamageMarkEffect extends BasicEffect {
         }
         return canUse;
     }
+
+    /**
+     * Apply the effect.
+     * @param actionInterface give access to some restricted methods of the game/clientData to the card controls.
+     */
     @Override
     public void useEffect(ActionInterface actionInterface) {
 
@@ -100,6 +121,10 @@ public class DamageMarkEffect extends BasicEffect {
         actionInterface.updateAmmoBox(redAmmos, blueAmmos, yellowAmmos);
     }
 
+    /**
+     * Checks if the victims are/aren't visible from the shooter.
+     * @param actionInterface give access to some restricted methods of the game/clientData to the card controls.
+     */
     private void visibilityCheck(ActionInterface actionInterface) {
 
         canUse = actionInterface.isVisible(currentPlayer, victim);
@@ -113,8 +138,11 @@ public class DamageMarkEffect extends BasicEffect {
         }
     }
 
+    /**
+     * Sets the data getting them from the ClientData class.
+     * @param actionInterface give access to some restricted methods of the game/clientData to the card controls.
+     */
     private void setData(ActionInterface actionInterface){
-
         if(actionInterface.basicFirst()) {
             currentPlayer = actionInterface.getClientData().getCurrentPlayer();
             actionInterface.getClientData().setAmmos();

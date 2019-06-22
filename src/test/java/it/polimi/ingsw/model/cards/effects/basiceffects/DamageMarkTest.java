@@ -14,8 +14,10 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-
-public class DamageMarkTest {
+/**
+ * Test referring to the DamageMarkEffect class.
+ */
+class DamageMarkTest {
 
     private GameController gameController = new GameController();
     private Player currentPlayer = new Player(TokenColor.GREEN);
@@ -23,7 +25,9 @@ public class DamageMarkTest {
     private Player secondVictim = new Player(TokenColor.PURPLE);
     private Player thirdVictim = new Player(TokenColor.YELLOW);
 
-
+    /**
+     * Tests the controls of the lockrifle basic effect.
+     */
     @Test
     void lockRifleCanUseEffectTest() {
 
@@ -48,6 +52,9 @@ public class DamageMarkTest {
         assertFalse(lockRifle.canUseEffect(gameController.getActionInterface()));
     }
 
+    /**
+     * Tests the application of the lockrifle basic effect.
+     */
     @Test
     void lockRifleUseTest(){
 
@@ -60,6 +67,9 @@ public class DamageMarkTest {
         assertEquals(TokenColor.GREEN, victim.getPlayerBoard().getRevengeMarks().get(0).getFirstColor());
     }
 
+    /**
+     * Tests the controls of the cyberblade basic effect.
+     */
     @Test
     void cyberbladeCanUseEffectTest(){
 
@@ -135,6 +145,9 @@ public class DamageMarkTest {
     
      */
 
+    /**
+     * Tests the controls of the machine gun basic effect.
+     */
     @Test
     void machineGunCanUseEffectTest(){
 
@@ -149,6 +162,9 @@ public class DamageMarkTest {
 
     }
 
+    /**
+     * Tests the application of the machine gun basic effect.
+     */
     @Test
     void machineGunUseTest(){
 
@@ -160,6 +176,9 @@ public class DamageMarkTest {
         assertEquals(TokenColor.GREEN, secondVictim.getPlayerBoard().getDamageBoard()[0].getFirstColor());
     }
 
+    /**
+     * Tests the controls of the heetseeker basic effect.
+     */
     @Test
     void heatseekerCanUseEffectTest(){
 
@@ -205,9 +224,10 @@ public class DamageMarkTest {
         assertEquals(TokenColor.GREEN, victim.getPlayerBoard().getDamageBoard()[1].getFirstColor());
         assertEquals(TokenColor.GREEN, victim.getPlayerBoard().getDamageBoard()[2].getFirstColor());
     }
-    
 
-
+    /**
+     * Tests the application of the second mod zx2 effect.
+     */
     @Test
     void zx2SecondMode(){
 
@@ -248,6 +268,9 @@ public class DamageMarkTest {
 
     }
 
+    /**
+     * Tests the application of the first mod of the shockwave effect.
+     */
     @Test
     void shockwave1Test(){
         playerSetup();
@@ -269,6 +292,9 @@ public class DamageMarkTest {
 
     }
 
+    /**
+     * Setups the conditions to execute the tests of this class.
+     */
     void playerSetup(){
 
         ClientData clientData = gameController.getActionInterface().getClientData();
