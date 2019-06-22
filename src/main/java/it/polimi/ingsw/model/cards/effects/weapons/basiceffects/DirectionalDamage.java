@@ -6,6 +6,9 @@ import it.polimi.ingsw.model.gamecomponents.Player;
 import it.polimi.ingsw.model.gamecomponents.Position;
 import it.polimi.ingsw.util.Printer;
 
+/**
+ * Basic effects of the cards that are giving damages to victims setted in a single direction.
+ */
 public class DirectionalDamage extends BasicEffect {
 
     private String effectName;
@@ -24,8 +27,15 @@ public class DirectionalDamage extends BasicEffect {
 
     private boolean canUse;
 
+    /**
+     * Class constructor.
+     * @param effectName name of the card.
+     * @param damagePower number of damages to give to the victims.
+     * @param redAmmos number or red ammos required to use the effect.
+     * @param blueAmmos number of blue ammos required to use the effect.
+     * @param yellowAmmos number of yellow ammos required to use the effect.
+     */
     public DirectionalDamage(String effectName, int damagePower, int redAmmos, int blueAmmos, int yellowAmmos){
-
         this.effectName = effectName;
         this.damagePower = damagePower;
         this.redAmmos = redAmmos;
@@ -34,6 +44,11 @@ public class DirectionalDamage extends BasicEffect {
         canUse = true;
     }
 
+    /**
+     * Controls if the player can use the effect without errors.
+     * @param actionInterface give access to some restricted methods of the game/clientData to the card controls.
+     * @return the result of the evaluation.
+     */
     @Override
     public boolean canUseEffect(ActionInterface actionInterface) {
 
@@ -68,6 +83,11 @@ public class DirectionalDamage extends BasicEffect {
         actionInterface.removePlayer(player);
         return canUse;
     }
+
+    /**
+     * Apply the effect.
+     * @param actionInterface give access to some restricted methods of the game/clientData to the card controls.
+     */
     @Override
     public void useEffect(ActionInterface actionInterface) {
 
@@ -95,6 +115,10 @@ public class DirectionalDamage extends BasicEffect {
         actionInterface.updateAmmoBox(redAmmos,blueAmmos,yellowAmmos);
     }
 
+    /**
+     * Sets the data getting them from the ClientData class.
+     * @param actionInterface give access to some restricted methods of the game/clientData to the card controls.
+     */
     private void setData(ActionInterface actionInterface){
         currentPlayer = actionInterface.getClientData().getCurrentPlayer();
         actionInterface.getClientData().setAmmos();
@@ -104,15 +128,21 @@ public class DirectionalDamage extends BasicEffect {
         direction = actionInterface.getFirstMove();
     }
 
+    /**
+     * Controls that the victim are present in the selected squares.
+     * @param actionInterface give access to some restricted methods of the game/clientData to the card controls.
+     */
     private void victimControl(ActionInterface actionInterface){
-
         firstSquare = new Position(player.getPosition().getX(), player.getPosition().getY());
         if ((!effectName.equals("Flamethrower2")) && !effectName.equals("Sledgehammer"))
             canUse = actionInterface.squareControl(player.getPosition().getX(), player.getPosition().getY(), victim);
     }
 
+    /**
+     * Controls if the first move is a legal move.
+     * @param actionInterface give access to some restricted methods of the game/clientData to the card controls.
+     */
     private void firstMoveControl(ActionInterface actionInterface){
-
         if(!effectName.equals("Railgun1") && !effectName.equals("Railgun2") && direction!=null)
             canUse = actionInterface.canMove(player, direction);
         else {
@@ -120,8 +150,11 @@ public class DirectionalDamage extends BasicEffect {
         }
     }
 
+    /**
+     * Controls if the second move in the same direction is a legal move.
+     * @param actionInterface give access to some restricted methods of the game/clientData to the card controls.
+     */
     private void secondMoveControl(ActionInterface actionInterface){
-
         if((!effectName.equals("Railgun1")) && !effectName.equals("Railgun2")){
             if(actionInterface.canMove(player, direction))
                 actionInterface.move(direction, player);

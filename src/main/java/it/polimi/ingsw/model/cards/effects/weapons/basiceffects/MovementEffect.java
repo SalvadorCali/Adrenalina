@@ -3,8 +3,10 @@ package it.polimi.ingsw.model.cards.effects.weapons.basiceffects;
 import it.polimi.ingsw.model.cards.effects.ActionInterface;
 import it.polimi.ingsw.model.enums.Direction;
 import it.polimi.ingsw.model.gamecomponents.Player;
-import it.polimi.ingsw.util.Printer;
 
+/**
+ * Class referring to the basic effects which involve shooter/victim movement.
+ */
 public class MovementEffect extends BasicEffect {
 
     private String effectName;
@@ -24,8 +26,16 @@ public class MovementEffect extends BasicEffect {
     private Player player;
 
 
+    /**
+     * Class constructor.
+     * @param effectName name of the card.
+     * @param damagePower number of damages to add to the victims.
+     * @param markPower number of marks to add to the victims.
+     * @param redAmmos red ammos cost to use the effect.
+     * @param blueAmmos blue ammos cost to use the effect.
+     * @param yellowAmmos yellow ammos cost to use the effect.
+     */
     public MovementEffect(String effectName, int damagePower, int markPower, int redAmmos, int blueAmmos, int yellowAmmos ){
-
         this.effectName = effectName;
         this.damagePower = damagePower;
         this.markPower = markPower;
@@ -33,14 +43,17 @@ public class MovementEffect extends BasicEffect {
         this.blueAmmos = blueAmmos;
         this.yellowAmmos = yellowAmmos;
         this.canUse = true;
-
     }
 
+    /**
+     * Controls if the player can use the effect without errors.
+     * @param actionInterface give access to some restricted methods of the game/clientData to the card controls.
+     * @return the result of the evaluation.
+     */
     @Override
     public boolean canUseEffect(ActionInterface actionInterface) {
 
         setData(actionInterface);
-
         canUse = ammoControl(redAmmos, blueAmmos, yellowAmmos, actionInterface) && noAutoShoot(actionInterface) && victim!=null;
         if(canUse) {
             actionInterface.generatePlayer(victim, player);
@@ -61,6 +74,11 @@ public class MovementEffect extends BasicEffect {
         actionInterface.removePlayer(player);
         return canUse;
     }
+
+    /**
+     * Apply the effect.
+     * @param actionInterface give access to some restricted methods of the game/clientData to the card controls.
+     */
     @Override
     public void useEffect(ActionInterface actionInterface) {
 
@@ -72,6 +90,11 @@ public class MovementEffect extends BasicEffect {
         actionInterface.playerMark(victim, markPower);
     }
 
+    /**
+     * Controls if the player can do the first move.
+     * @param actionInterface give access to some restricted methods of the game/clientData to the card controls.
+     * @param player player who executes the move.
+     */
     private void oneMovementControl(ActionInterface actionInterface, Player player){
 
         if(firstMove != null && secondMove == null) {
@@ -83,6 +106,10 @@ public class MovementEffect extends BasicEffect {
         }
     }
 
+    /**
+     * Sets the data getting them from the ClientData class.
+     * @param actionInterface give access to some restricted methods of the game/clientData to the card controls.
+     */
     private void setData(ActionInterface actionInterface){
 
         victim = actionInterface.getVictim();
@@ -98,8 +125,11 @@ public class MovementEffect extends BasicEffect {
         secondMove = actionInterface.getSecondMove();
     }
 
+    /**
+     * Controls that have to be done to use the tractor beam basic effect.
+     * @param actionInterface give access to some restricted methods of the game/clientData to the card controls.
+     */
     private void tractorBeam(ActionInterface actionInterface){
-
         if (firstMove != null && secondMove != null) {
             canUse = actionInterface.canMove(player, firstMove, secondMove);
             actionInterface.move(firstMove, player);
@@ -116,6 +146,10 @@ public class MovementEffect extends BasicEffect {
         }
     }
 
+    /**
+     * Controls that have to be done to use the Grenade/Rocket Launcher basic effects.
+     * @param actionInterface give access to some restricted methods of the game/clientData to the card controls.
+     */
     private void launchers (ActionInterface actionInterface) {
 
         canUse = actionInterface.isVisible(currentPlayer, player);
@@ -127,6 +161,10 @@ public class MovementEffect extends BasicEffect {
         }
     }
 
+    /**
+     * Controls that have to be done to use the shotgun first mod basic effect.
+     * @param actionInterface give access to some restricted methods of the game/clientData to the card controls.
+     */
     private void shotgun1 (ActionInterface actionInterface){
 
         canUse = actionInterface.sameSquare(currentPlayer, player);

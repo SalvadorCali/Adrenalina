@@ -4,8 +4,10 @@ import it.polimi.ingsw.model.cards.effects.ActionInterface;
 import it.polimi.ingsw.model.enums.Direction;
 import it.polimi.ingsw.model.gamecomponents.Player;
 import it.polimi.ingsw.model.gamecomponents.Position;
-import it.polimi.ingsw.util.Printer;
 
+/**
+ * Class representing the basic effects which damage all the players in a square/room.
+ */
 public class SquareDamageEffect extends BasicEffect {
 
     private String effectName;
@@ -24,8 +26,16 @@ public class SquareDamageEffect extends BasicEffect {
 
     private boolean canUse;
 
+    /**
+     * Class constructor.
+     * @param effectName name of the card.
+     * @param damagePower number of damages to add to the victims.
+     * @param markPower number of marks to add to the victims.
+     * @param redAmmos red ammos cost to use the effect.
+     * @param blueAmmos blue ammos cost to use the effect.
+     * @param yellowAmmos yellow ammos cost to use the effect.
+     */
     public SquareDamageEffect(String effectName, int damagePower, int markPower, int redAmmos, int blueAmmos, int yellowAmmos){
-
         this.effectName = effectName;
         this.damagePower = damagePower;
         this.markPower = markPower;
@@ -35,6 +45,11 @@ public class SquareDamageEffect extends BasicEffect {
         this.canUse = true;
     }
 
+    /**
+     * Controls if the player can use the effect without errors.
+     * @param actionInterface give access to some restricted methods of the game/clientData to the card controls.
+     * @return the result of the evaluation.
+     */
     @Override
     public boolean canUseEffect(ActionInterface actionInterface) {
 
@@ -63,6 +78,11 @@ public class SquareDamageEffect extends BasicEffect {
         }
         return canUse;
     }
+
+    /**
+     * Apply the effect.
+     * @param actionInterface give access to some restricted methods of the game/clientData to the card controls.
+     */
     @Override
     public void useEffect(ActionInterface actionInterface) {
 
@@ -94,6 +114,10 @@ public class SquareDamageEffect extends BasicEffect {
         actionInterface.updateAmmoBox(redAmmos, blueAmmos, yellowAmmos);
     }
 
+    /**
+     * Sets the data getting them from the ClientData class.
+     * @param actionInterface give access to some restricted methods of the game/clientData to the card controls.
+     */
     private void setData(ActionInterface actionInterface){
         actionInterface.getClientData().setAmmos();
         currentPlayer = actionInterface.getClientData().getCurrentPlayer();
@@ -105,6 +129,4 @@ public class SquareDamageEffect extends BasicEffect {
             actionInterface.getClientData().setSquare(currentPlayer.getPosition().getX(), currentPlayer.getPosition().getY());
 
     }
-
-
 }
