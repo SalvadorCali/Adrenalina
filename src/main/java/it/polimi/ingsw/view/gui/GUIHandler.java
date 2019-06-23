@@ -2233,15 +2233,15 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
             basicFirst = Boolean.parseBoolean(basicTxtField.getText());
         }
 
-        if (!firstVictimTxtField.getText().isEmpty() && (firstVictimTxtField.getText().equals("blue") || firstVictimTxtField.getText().equals("green") || firstVictimTxtField.getText().equals("purple") || firstVictimTxtField.getText().equals("grey") || firstVictimTxtField.getText().equals("yellow"))) {
+        if (firstVictimTxtField.getText().equals("blue") || firstVictimTxtField.getText().equals("green") || firstVictimTxtField.getText().equals("purple") || firstVictimTxtField.getText().equals("grey") || firstVictimTxtField.getText().equals("yellow")) {
             firstVictim = firstVictimTxtField.getText();
         }
 
-        if (!secondVictimTxtField.getText().isEmpty() && (secondVictimTxtField.getText().equals("blue") || secondVictimTxtField.getText().equals("green") || secondVictimTxtField.getText().equals("purple") || secondVictimTxtField.getText().equals("grey") || secondVictimTxtField.getText().equals("yellow"))) {
+        if (secondVictimTxtField.getText().equals("blue") || secondVictimTxtField.getText().equals("green") || secondVictimTxtField.getText().equals("purple") || secondVictimTxtField.getText().equals("grey") || secondVictimTxtField.getText().equals("yellow")) {
             secondVictim = secondVictimTxtField.getText();
         }
 
-        if(!thirdVictimTxtField.getText().isEmpty() && (thirdVictimTxtField.getText().equals("blue") || thirdVictimTxtField.getText().equals("green") || thirdVictimTxtField.getText().equals("purple") || thirdVictimTxtField.getText().equals("grey") || thirdVictimTxtField.getText().equals("yellow"))) {
+        if(thirdVictimTxtField.getText().equals("blue") || thirdVictimTxtField.getText().equals("green") || thirdVictimTxtField.getText().equals("purple") || thirdVictimTxtField.getText().equals("grey") || thirdVictimTxtField.getText().equals("yellow")) {
             thirdVictim = thirdVictimTxtField.getText();
         }
 
@@ -2249,13 +2249,26 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
             direction = Converter.fromStringToDirection(directionTxtField.getText());
         }
 
-        if(!xTxtField.getText().isEmpty() && !yTxtField.getText().isEmpty() && !Integer.valueOf(xTxtField.getText()).equals(null) && !Integer.valueOf(yTxtField.getText()).equals(null)) {
+        if(!xTxtField.getText().isEmpty() && !yTxtField.getText().isEmpty()) {
             x = Integer.valueOf(xTxtField.getText());
             y = Integer.valueOf(yTxtField.getText());
         }
 
         try {
-            this.client.shoot(playerController.getWeapons().get(weaponNum).getName(), mode, basicFirst, Converter.fromStringToTokenColor(firstVictim), Converter.fromStringToTokenColor(secondVictim), Converter.fromStringToTokenColor(thirdVictim), x, y, direction);
+            if(firstVictim != null && secondVictim != null && thirdVictim != null) {
+                client.shoot(playerController.getWeapons().get(weaponNum).getName(), mode, basicFirst, Converter.fromStringToTokenColor(firstVictim), Converter.fromStringToTokenColor(secondVictim), Converter.fromStringToTokenColor(thirdVictim), x, y, direction);
+
+            } else if(firstVictim != null && secondVictim != null && thirdVictim == null){
+                client.shoot(playerController.getWeapons().get(weaponNum).getName(), mode, basicFirst, Converter.fromStringToTokenColor(firstVictim), Converter.fromStringToTokenColor(secondVictim), TokenColor.NONE, x, y, direction);
+
+            } else if(firstVictim != null && secondVictim == null && thirdVictim == null) {
+                client.shoot(playerController.getWeapons().get(weaponNum).getName(), mode, basicFirst, Converter.fromStringToTokenColor(firstVictim), TokenColor.NONE, TokenColor.NONE, x, y, direction);
+
+            } else if(firstVictim == null && secondVictim == null && thirdVictim == null){
+                client.shoot(playerController.getWeapons().get(weaponNum).getName(), mode, basicFirst, TokenColor.NONE, TokenColor.NONE, TokenColor.NONE, x, y, direction);
+
+            }
+
         } catch (IOException e) {
             e.printStackTrace();
         }
