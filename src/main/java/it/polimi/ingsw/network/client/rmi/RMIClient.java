@@ -32,6 +32,10 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
     private ViewInterface view;
     private String username;
 
+    /**
+     * Class constructor. Creates the connection. If the requested connection is not found, the while cycle will be repeted.
+     * @throws RemoteException thrown by the remote method.
+     */
     public RMIClient() throws RemoteException {
         super(Config.RMI_FREE_PORT);
         boolean cycle = true;
@@ -51,6 +55,12 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
         }
     }
 
+    /**
+     * Class constructor used by the gui.
+     * @param host the requested host.
+     * @throws RemoteException caused by the remote method.
+     * @throws NotBoundException caused by the registry.
+     */
     public RMIClient(String host) throws RemoteException, NotBoundException {
         super(Config.RMI_FREE_PORT);
         playerController = new PlayerController(this);
@@ -59,16 +69,27 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
         server = connection.enrol(this);
     }
 
+    /**
+     * Sets the view for the user.
+     * @param view the object that will bet set as view.
+     */
     @Override
     public void setView(ViewInterface view){
         this.view = view;
     }
 
+    /**
+     * Getter the playerController.
+     * @return the user's playerController.
+     */
     @Override
     public PlayerController getPlayerController() {
         return playerController;
     }
 
+    /**
+     * Creates the ui and runs it.
+     */
     @Override
     public void start() {
         view = new CommandLine(this);
@@ -76,6 +97,11 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
         view.setPlayerController(playerController);
     }
 
+    /**
+     * Takes the username and the color of the user and then sends them to the server.
+     * @param username the username of the player.
+     * @param color the color chosen by the player.
+     */
     @Override
     public void login(String username, TokenColor color){
         connectionTimer = new ConnectionTimer(this);
@@ -87,6 +113,9 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
         }
     }
 
+    /**
+     * Disconnects the Client.
+     */
     @Override
     public void disconnect(){
         try {
@@ -97,11 +126,21 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
         System.exit(1);
     }
 
+    /**
+     * Takes the board and the number of skulls chosen by the first player for the game and sends them to the server.
+     * @param boardType the chosen board.
+     * @param skulls the number of skulls for the game.
+     * @throws IOException caused by the remote method.
+     */
     @Override
     public void board(int boardType, int skulls) throws IOException {
         server.board(boardType, skulls);
     }
 
+    /**
+     * Takes the powerup chosen by the player during the first choice before the game.
+     * @param choice the chosen powerup.
+     */
     @Override
     public void choose(int choice){
         try {
@@ -111,6 +150,9 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
         }
     }
 
+    /**
+     * Takes the message from the user and sends it to the Server.
+     */
     @Override
     public void showSquare(){
         try {
@@ -120,6 +162,11 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
         }
     }
 
+    /**
+     * Takes the coordinates of the square that the user wants to see and sends them to te Server.
+     * @param x the square's abscissa.
+     * @param y the square's ordinate.
+     */
     @Override
     public void showSquare(int x, int y){
         try {
@@ -129,91 +176,169 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
         }
     }
 
+    /**
+     * Takes the directions where the user wants to move and sends them to the Server.
+     * @param directions the directions where the user wants to move.
+     */
     @Override
     public void move(Direction... directions) throws RemoteException {
         server.move(directions);
     }
 
-    @Override
-    public void drop(String weaponName) throws RemoteException {
-        server.drop(weaponName);
-    }
-
+    /**
+     * Takes the name of the powerup that the user will drop and sends it to the the Server.
+     * @param powerup the chosen powerup.
+     * @throws IOException caused by the remote method.
+     */
     @Override
     public void dropPowerup(int powerup) throws IOException {
         server.dropPowerup(powerup);
     }
 
+    /**
+     * Takes the name of the weapon that the user will drop and sends it to the Server.
+     * @param weapon the chosen weapon.
+     * @throws IOException caused by the remote method.
+     */
     @Override
     public void dropWeapon(int weapon) throws IOException {
         server.dropWeapon(weapon);
     }
 
+    /**
+     * Takes the name of the powerup that the user will discard to use it as ammos and sends it to the Server.
+     * @param powerup the chosen powerup.
+     * @throws IOException caused by the remote method.
+     */
     @Override
     public void discardPowerup(int powerup) throws IOException {
         server.discardPowerup(powerup);
     }
 
+    /**
+     * Takes the choice for the object that will be grabbed and directions where the player will be moved before the grab action.
+     * @param choice the object that will be grabbed.
+     * @param directions the directions where user will be moved.
+     * @throws RemoteException caused by the remote method.
+     */
     @Override
     public void grab(int choice, Direction...directions) throws RemoteException {
         server.grab(choice, directions);
     }
 
+    /**
+     * Takes all the paramethers for the shoot action and sends hem to the Server.
+     * @param weaponName the chosen weapon.
+     * @param effectNumber the number of the effect.
+     * @param basicFirst true if the user wants to use first the basic effect.
+     * @param firstVictim the first victim.
+     * @param secondVictim the second victim.
+     * @param thirdVictim the third victim.
+     * @param x the square's abscissa.
+     * @param y the square's ordinate.
+     * @param directions the directions chosen by the user.
+     * @throws IOException caused by the remote method.
+     */
     @Override
     public void shoot(String weaponName, int effectNumber, boolean basicFirst, TokenColor firstVictim, TokenColor secondVictim, TokenColor thirdVictim, int x, int y, Direction... directions) throws IOException {
         server.shoot(weaponName, effectNumber, basicFirst, firstVictim, secondVictim, thirdVictim, x, y, directions);
     }
 
+    /**
+     * Takes a direction and an array of weapon's names that represents the movement and the weapons that will be reload.
+     * @param firstDirection the direction where the player wants to move.
+     * @param weapons the weapons that the user wants to reload.
+     * @throws IOException caused by the remote method.
+     */
     @Override
     public void moveAndReload(Direction firstDirection, String... weapons) throws IOException {
         server.moveAndReload(firstDirection, weapons);
     }
 
+    /**
+     * Takes two directions and an array of weapon's names that represents the movement and the weapons that will be reload.
+     * @param firstDirection the first direction where the player wants to move.
+     * @param secondDirection the second direction where the player wants to move.
+     * @param weapons the weapons that the user wants to reload.
+     * @throws IOException caused by the remote method.
+     */
     @Override
     public void moveAndReload(Direction firstDirection, Direction secondDirection, String... weapons) throws IOException {
         server.moveAndReload(firstDirection, secondDirection, weapons);
     }
 
+    /**
+     * Takes the parameters to use powerups during the game.
+     * @param powerup the chosen powerup.
+     * @param victim the chosen victim.
+     * @param ammo the color of the ammo.
+     * @param x the square's abscissa.
+     * @param y the square's ordinate.
+     * @param directions the directions chosen by the user.
+     * @throws IOException caused by the remote method.
+     */
     @Override
     public void powerup(String powerup, TokenColor victim, Color ammo, int x, int y, Direction... directions) throws IOException {
         server.powerup(powerup, victim, ammo, x, y, directions);
     }
 
-    @Override
-    public void powerupAmmos(PowerupData...powerups) throws RemoteException{
-        server.powerupAmmos(powerups);
-    }
-
-    @Override
-    public void powerupAmmos(int... powerups) throws IOException {
-        server.powerupAmmos(powerups);
-    }
-
+    /**
+     * Takes the name of the weapon that will be reloaded and sends it to the Server.
+     * @param weaponName the chosen weapon.
+     * @throws RemoteException caused by the remote method.
+     */
     @Override
     public void reload(String weaponName) throws RemoteException{
         server.reload(weaponName);
     }
 
+    /**
+     * Takes the chosen powerup to discard to respawn.
+     * @param powerup the chosen powerup.
+     * @throws IOException caused by the remote method..
+     */
     @Override
     public void respawn(int powerup) throws IOException {
         server.respawn(powerup);
     }
 
+    /**
+     * Calls the {@link RMIServerInterface#endTurn()} method.
+     * @throws RemoteException caused by the remote method.
+     */
     @Override
     public void endTurn() throws RemoteException{
         server.endTurn();
     }
 
+    /**
+     * Notify a message to the view.
+     * @param message the message sent by the Server.
+     * @throws RemoteException caused by the remote method.
+     */
     @Override
     public void notify(Message message) throws RemoteException{
         view.notify(message);
     }
 
+    /**
+     * Notify a message and an outcome to the view.
+     * @param message the message sent by the Server.
+     * @param outcome the outcome of the action.
+     * @throws RemoteException caused by the remote method.
+     */
     @Override
     public void notify(Message message, Outcome outcome) throws RemoteException{
         view.notify(message, outcome);
     }
 
+    /**
+     * Notify a message, and outcome an object to the Server.
+     * @param message the message sent by the Server.
+     * @param outcome the outcome of the action.
+     * @param gameData datas sent by the Server.
+     * @throws RemoteException caused by the remote method.
+     */
     @Override
     public void notify(Message message, Outcome outcome, GameData gameData) throws RemoteException {
         switch (message){
@@ -303,29 +428,39 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
         }
     }
 
+    /**
+     * Tests the connection.
+     */
     @Override
     public void testConnection(){
         //tests the rmi connection
     }
 
-    @Override
-    public AdrenalineZone getAdrenalineZone(){
-        return playerController.getAdrenalineZone();
-    }
-
-    public void playerControllerSetter(GameData gameData){
+    /**
+     * Sets parameters for the player.
+     * @param gameData datas from the Server.
+     */
+    private void playerControllerSetter(GameData gameData){
         playerController.setGameBoard(gameData.getGameBoard());
         playerController.setKillshotTrack(gameData.getKillshotTrack());
         playerController.setPlayer(gameData.getPlayer(username));
         playerController.setOtherPlayers(gameData.getPlayers(username));
     }
 
-    public void playerControllerSetterWithCurrentPlayer(GameData gameData){
+    /**
+     * Sets parameters for the player and also the current player.
+     * @param gameData datas from the Server.
+     */
+    private void playerControllerSetterWithCurrentPlayer(GameData gameData){
         playerControllerSetter(gameData);
         playerController.setCurrentPlayer(gameData.getCurrentPlayer());
     }
 
-    public void playerControllerSetterWithCurrentPlayerAndVictims(GameData gameData){
+    /**
+     * Sets parameters for the player and also his victims.
+     * @param gameData datas from the Server.
+     */
+    private void playerControllerSetterWithCurrentPlayerAndVictims(GameData gameData){
         playerControllerSetterWithCurrentPlayer(gameData);
         playerController.setVictims(gameData.getVictims());
     }

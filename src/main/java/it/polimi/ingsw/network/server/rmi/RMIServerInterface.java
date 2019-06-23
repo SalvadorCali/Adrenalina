@@ -19,7 +19,6 @@ public interface RMIServerInterface extends ServerInterface, Remote {
     void showSquare() throws RemoteException;
     void showSquare(int x, int y) throws RemoteException;
     void move(Direction...directions) throws RemoteException;
-    void drop(String weaponName) throws RemoteException;
     void dropPowerup(int powerup) throws RemoteException;
     void dropWeapon(int weapon) throws RemoteException;
     void discardPowerup(int powerup) throws RemoteException;
@@ -28,8 +27,6 @@ public interface RMIServerInterface extends ServerInterface, Remote {
     void moveAndReload(Direction firstDirection, String... weapons) throws RemoteException;
     void moveAndReload(Direction firstDirection, Direction secondDirection, String... weapons) throws RemoteException;
     void powerup(String powerup, TokenColor victim, Color ammo, int x, int y, Direction...directions) throws RemoteException;
-    void powerupAmmos(PowerupData...powerups) throws RemoteException;
-    void powerupAmmos(int...powerups) throws RemoteException;
     void reload(String weaponName) throws RemoteException;
     void respawn(int powerup) throws RemoteException;
     void endTurn() throws RemoteException;

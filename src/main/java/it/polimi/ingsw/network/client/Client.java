@@ -22,6 +22,11 @@ public class Client {
     private static final String RMI = "rmi";
     private static final String SOCKET = "socket";
 
+    /**
+     * Asks to the user the kind of connection and ui and then creates a Client object.
+     * @param args parameters passed by command line.
+     * @throws SocketException caused by sockets.
+     */
     public static void main(String[] args) throws SocketException {
         BufferedReader userInputStream = new BufferedReader(new InputStreamReader(System.in));
         InetAddress address = Connection.getAddress();

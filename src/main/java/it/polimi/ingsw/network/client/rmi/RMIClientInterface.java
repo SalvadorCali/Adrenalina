@@ -9,7 +9,27 @@ import java.rmi.Remote;
 import java.rmi.RemoteException;
 
 public interface RMIClientInterface extends ClientInterface, Remote {
+    /**
+     * Notify method for the view.
+     * @param message the message sent from the Server.
+     * @throws RemoteException caused by the remote method.
+     */
     void notify(Message message) throws RemoteException;
+
+    /**
+     * Notify method for the view, with outcome.
+     * @param message the message sent from the Server.
+     * @param outcome the outcome of the action.
+     * @throws RemoteException caused by the remote method.
+     */
     void notify(Message message, Outcome outcome) throws RemoteException;
+
+    /**
+     * Notify method for the view, with outcome and datas.
+     * @param message the message sent from the Server.
+     * @param outcome the outcome of the action.
+     * @param gameData datas of the game.
+     * @throws RemoteException caused by the remote method.
+     */
     void notify(Message message, Outcome outcome, GameData gameData) throws RemoteException;
 }

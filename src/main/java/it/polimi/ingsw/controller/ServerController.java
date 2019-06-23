@@ -482,11 +482,6 @@ public class ServerController {
         }
     }
 
-
-    public void drop(String username, String weapon){
-        gameController.drop(users.get(username), weapon);
-    }
-
     public void dropPowerup(String username, int powerup){
         if(gameController.canDropPowerup(users.get(username), powerup)){
             try{
@@ -657,16 +652,6 @@ public class ServerController {
                 Printer.err(e);
             }
         }
-    }
-
-    public void powerupAmmos(String username, PowerupData ...powerups){
-        for(PowerupData powerup : powerups){
-            users.get(username).increasePowerupAmmoNumber(powerup.getColor());
-        }
-    }
-
-    public void powerupAmmos(String username, int...powerups){
-        gameController.powerupAmmos(users.get(username), powerups);
     }
 
     public void resetPowerupAmmos(String username){

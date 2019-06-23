@@ -30,6 +30,9 @@ public class SocketClient implements ClientInterface, Runnable, Serializable {
     private Socket clientSocket;
     private String username;
 
+    /**
+     * Class constructor. Creates the connection and open the ui. If the requested connection is not found, the while cycle will be repeted.
+     */
     public SocketClient(){
         playerController = new PlayerController(this);
         BufferedReader userInputStream = new BufferedReader(new InputStreamReader(System.in));
@@ -51,6 +54,11 @@ public class SocketClient implements ClientInterface, Runnable, Serializable {
         }
     }
 
+    /**
+     * Class constructor used by the gui.
+     * @param host the requested host.
+     * @throws IOException caused by the streams.
+     */
     public SocketClient(String host) throws IOException {
         playerController = new PlayerController(this);
         clientSocket = new Socket(host, Config.SOCKET_PORT);
@@ -62,21 +70,35 @@ public class SocketClient implements ClientInterface, Runnable, Serializable {
         thisThread.start();
     }
 
+    /**
+     * Sets the view for the user.
+     * @param view the object that will bet set as view.
+     */
     @Override
     public void setView(ViewInterface view){
         this.view = view;
     }
 
+    /**
+     * Getter the playerController.
+     * @return the user's playerController.
+     */
     @Override
     public PlayerController getPlayerController() {
         return playerController;
     }
 
+    /**
+     * Creates a thread and runs it.
+     */
     public void start() {
         thisThread = new Thread(this);
         thisThread.start();
     }
 
+    /**
+     * Reads message from the server and calls the {@link #readRequest(Message)} method to handle them.
+     */
     @Override
     public void run() {
         Thread currentThread = Thread.currentThread();
@@ -98,20 +120,25 @@ public class SocketClient implements ClientInterface, Runnable, Serializable {
         }
     }
 
-    public void readRequest(Message message){
-        switch(message){
-            case NOTIFY:
-                try {
-                    notifyMessage();
-                } catch (IOException | ClassNotFoundException e) {
-                    Printer.err(e);
-                }
-                break;
-            default:
-                break;
+    /**
+     * Receives a message and if it's a NOTIFY message, calls the {@link #notifyMessage()} method.
+     * @param message the message received by the server.
+     */
+    private void readRequest(Message message){
+        if (message == Message.NOTIFY) {
+            try {
+                notifyMessage();
+            } catch (IOException | ClassNotFoundException e) {
+                Printer.err(e);
+            }
         }
     }
 
+    /**
+     * Takes the username and the color of the user and then sends them to the server.
+     * @param username the username of the player.
+     * @param color the color chosen by the player.
+     */
     @Override
     public void login(String username, TokenColor color){
         try {
@@ -130,6 +157,9 @@ public class SocketClient implements ClientInterface, Runnable, Serializable {
         }
     }
 
+    /**
+     * Closes the streams and disconnect the Client.
+     */
     @Override
     public void disconnect(){
         try {
@@ -143,6 +173,12 @@ public class SocketClient implements ClientInterface, Runnable, Serializable {
         }
     }
 
+    /**
+     * Takes the board and the number of skulls chosen by the first player for the game and sends them to the server.
+     * @param boardType the chosen board.
+     * @param skulls the number of skulls for the game.
+     * @throws IOException caused by the streams.
+     */
     @Override
     public void board(int boardType, int skulls) throws IOException {
         objectOutputStream.writeObject(Message.BOARD);
@@ -153,6 +189,11 @@ public class SocketClient implements ClientInterface, Runnable, Serializable {
         objectOutputStream.flush();
     }
 
+    /**
+     * Takes the powerup chosen by the player during the first choice before the game.
+     * @param choice the chosen powerup.
+     * @throws IOException caused by the streams.
+     */
     @Override
     public void choose(int choice) throws IOException {
         objectOutputStream.writeObject(Message.SPAWN);
@@ -161,15 +202,25 @@ public class SocketClient implements ClientInterface, Runnable, Serializable {
         objectOutputStream.flush();
     }
 
+    /**
+     * Takes the message from the user and sends it to the Server.
+     * @throws IOException caused by the streams.
+     */
     @Override
     public void showSquare() throws IOException{
         objectOutputStream.writeObject(Message.SQUARE);
         objectOutputStream.flush();
     }
 
+    /**
+     * Takes the coordinates of the square that the user wants to see and sends them to te Server.
+     * @param x the square's abscissa.
+     * @param y the square's ordinate.
+     * @throws IOException caused by the streams.
+     */
     @Override
     public void showSquare(int x, int y) throws IOException{
-        objectOutputStream.writeObject(Message.SQUARE_2);
+        objectOutputStream.writeObject(Message.SQUARE_XY);
         objectOutputStream.flush();
         objectOutputStream.writeInt(x);
         objectOutputStream.flush();
@@ -177,6 +228,11 @@ public class SocketClient implements ClientInterface, Runnable, Serializable {
         objectOutputStream.flush();
     }
 
+    /**
+     * Takes the directions where the user wants to move and sends them to the Server.
+     * @param directions the directions where the user wants to move.
+     * @throws IOException caused by the streams.
+     */
     @Override
     public void move(Direction... directions) throws IOException {
         objectOutputStream.writeObject(Message.MOVE);
@@ -190,6 +246,12 @@ public class SocketClient implements ClientInterface, Runnable, Serializable {
         }
     }
 
+    /**
+     * Takes the choice for the object that will be grabbed and directions where the player will be moved before the grab action.
+     * @param choice the object that will be grabbed.
+     * @param directions the directions where user will be moved.
+     * @throws IOException caused by the streams.
+     */
     @Override
     public void grab(int choice, Direction...directions) throws IOException {
         int directionsSize = directions.length;
@@ -199,21 +261,17 @@ public class SocketClient implements ClientInterface, Runnable, Serializable {
         objectOutputStream.flush();
         objectOutputStream.writeInt(directionsSize);
         objectOutputStream.flush();
-        Printer.println(directionsSize);
         for (Direction direction : directions) {
             objectOutputStream.writeObject(direction);
             objectOutputStream.flush();
         }
     }
 
-    @Override
-    public void drop(String weaponName) throws IOException {
-        objectOutputStream.writeObject(Message.DROP);
-        objectOutputStream.flush();
-        objectOutputStream.writeUTF(weaponName);
-        objectOutputStream.flush();
-    }
-
+    /**
+     * Takes the name of the powerup that the user will drop and sends it to the the Server.
+     * @param powerup the chosen powerup.
+     * @throws IOException caused by the streams.
+     */
     @Override
     public void dropPowerup(int powerup) throws IOException {
         objectOutputStream.writeObject(Message.DROP_POWERUP);
@@ -222,6 +280,11 @@ public class SocketClient implements ClientInterface, Runnable, Serializable {
         objectOutputStream.flush();
     }
 
+    /**
+     * Takes the name of the weapon that the user will drop and sends it to the Server.
+     * @param weapon the chosen weapon.
+     * @throws IOException caused by the streams.
+     */
     @Override
     public void dropWeapon(int weapon) throws IOException {
         objectOutputStream.writeObject(Message.DROP_WEAPON);
@@ -230,6 +293,11 @@ public class SocketClient implements ClientInterface, Runnable, Serializable {
         objectOutputStream.flush();
     }
 
+    /**
+     * Takes the name of the powerup that the user will discard to use it as ammos and sends it to the Server.
+     * @param powerup the chosen powerup.
+     * @throws IOException caused by the streams.
+     */
     @Override
     public void discardPowerup(int powerup) throws IOException {
         objectOutputStream.writeObject(Message.DISCARD_POWERUP);
@@ -238,6 +306,19 @@ public class SocketClient implements ClientInterface, Runnable, Serializable {
         objectOutputStream.flush();
     }
 
+    /**
+     * Takes all the paramethers for the shoot action and sends hem to the Server.
+     * @param weaponName the chosen weapon.
+     * @param effectNumber the number of the effect.
+     * @param basicFirst true if the user wants to use first the basic effect.
+     * @param firstVictim the first victim.
+     * @param secondVictim the second victim.
+     * @param thirdVictim the third victim.
+     * @param x the square's abscissa.
+     * @param y the square's ordinate.
+     * @param directions the directions chosen by the user.
+     * @throws IOException caused by the streams.
+     */
     @Override
     public void shoot(String weaponName, int effectNumber, boolean basicFirst, TokenColor firstVictim, TokenColor secondVictim, TokenColor thirdVictim, int x, int y, Direction... directions) throws IOException {
         objectOutputStream.writeObject(Message.SHOOT);
@@ -266,6 +347,12 @@ public class SocketClient implements ClientInterface, Runnable, Serializable {
         }
     }
 
+    /**
+     * Takes a direction and an array of weapon's names that represents the movement and the weapons that will be reload.
+     * @param firstDirection the direction where the player wants to move.
+     * @param weapons the weapons that the user wants to reload.
+     * @throws IOException caused by the streams.
+     */
     @Override
     public void moveAndReload(Direction firstDirection, String... weapons) throws IOException {
         objectOutputStream.writeObject(Message.MOVE_RELOAD_1);
@@ -280,6 +367,13 @@ public class SocketClient implements ClientInterface, Runnable, Serializable {
         }
     }
 
+    /**
+     * Takes two directions and an array of weapon's names that represents the movement and the weapons that will be reload.
+     * @param firstDirection the first direction where the player wants to move.
+     * @param secondDirection the second direction where the player wants to move.
+     * @param weapons the weapons that the user wants to reload.
+     * @throws IOException caused by the streams.
+     */
     @Override
     public void moveAndReload(Direction firstDirection, Direction secondDirection, String... weapons) throws IOException {
         objectOutputStream.writeObject(Message.MOVE_RELOAD_2);
@@ -296,6 +390,16 @@ public class SocketClient implements ClientInterface, Runnable, Serializable {
         }
     }
 
+    /**
+     * Takes the parameters to use powerups during the game.
+     * @param powerup the chosen powerup.
+     * @param victim the chosen victim.
+     * @param ammo the color of the ammo.
+     * @param x the square's abscissa.
+     * @param y the square's ordinate.
+     * @param directions the directions chosen by the user.
+     * @throws IOException caused by the streams.
+     */
     @Override
     public void powerup(String powerup, TokenColor victim, Color ammo, int x, int y, Direction... directions) throws IOException {
         objectOutputStream.writeObject(Message.POWERUP);
@@ -312,46 +416,17 @@ public class SocketClient implements ClientInterface, Runnable, Serializable {
         objectOutputStream.flush();
         objectOutputStream.writeInt(directions.length);
         objectOutputStream.flush();
-        switch(directions.length){
-            case 1:
-                objectOutputStream.writeObject(directions[0]);
-                objectOutputStream.flush();
-                break;
-            case 2:
-                objectOutputStream.writeObject(directions[0]);
-                objectOutputStream.flush();
-                objectOutputStream.writeObject(directions[1]);
-                objectOutputStream.flush();
-                break;
-            default:
-                break;
-        }
-    }
-
-    @Override
-    public void powerupAmmos(PowerupData...powerups) throws IOException{
-        objectOutputStream.writeObject(Message.POWERUP_AMMOS);
-        objectOutputStream.flush();
-        objectOutputStream.writeInt(powerups.length);
-        objectOutputStream.flush();
-        for(PowerupData powerup : powerups){
-            objectOutputStream.writeObject(powerup);
+        for(Direction direction : directions){
+            objectOutputStream.writeObject(direction);
             objectOutputStream.flush();
         }
     }
 
-    @Override
-    public void powerupAmmos(int... powerups) throws IOException {
-        objectOutputStream.writeObject(Message.POWERUP_AMMOS);
-        objectOutputStream.flush();
-        objectOutputStream.writeInt(powerups.length);
-        objectOutputStream.flush();
-        for(int powerup : powerups){
-            objectOutputStream.writeInt(powerup);
-            objectOutputStream.flush();
-        }
-    }
-
+    /**
+     * Takes the name of the weapon that will be reloaded and sends it to the Server.
+     * @param weaponName the chosen weapon.
+     * @throws IOException caused by the streams.
+     */
     @Override
     public void reload(String weaponName) throws IOException {
         objectOutputStream.writeObject(Message.RELOAD);
@@ -360,6 +435,11 @@ public class SocketClient implements ClientInterface, Runnable, Serializable {
         objectOutputStream.flush();
     }
 
+    /**
+     * Takes the chosen powerup to discard to respawn.
+     * @param powerup the chosen powerup.
+     * @throws IOException caused by the streams.
+     */
     @Override
     public void respawn(int powerup) throws IOException {
         objectOutputStream.writeObject(Message.RESPAWN);
@@ -368,12 +448,21 @@ public class SocketClient implements ClientInterface, Runnable, Serializable {
         objectOutputStream.flush();
     }
 
+    /**
+     * Sends the END_TURN message to the Server.
+     * @throws IOException caused by the streams.
+     */
     @Override
     public void endTurn() throws IOException {
         objectOutputStream.writeObject(Message.END_TURN);
         objectOutputStream.flush();
     }
 
+    /**
+     * Reads the message and sends to the view the parameters to notify the action.
+     * @throws IOException caused by the streams.
+     * @throws ClassNotFoundException thrown if the class is not found.
+     */
     private void notifyMessage() throws IOException, ClassNotFoundException {
         Message message = (Message) objectInputStream.readObject();
         Outcome outcome;
@@ -502,16 +591,18 @@ public class SocketClient implements ClientInterface, Runnable, Serializable {
         }
     }
 
+    /**
+     * Tests the connection.
+     */
     @Override
     public void testConnection(){
         //tests the connection
     }
 
-    @Override
-    public AdrenalineZone getAdrenalineZone(){
-        return playerController.getAdrenalineZone();
-    }
-
+    /**
+     * Sets parameters for the player.
+     * @param gameData datas from the Server.
+     */
     private void playerControllerSetter(GameData gameData){
         playerController.setGameBoard(gameData.getGameBoard());
         playerController.setKillshotTrack(gameData.getKillshotTrack());
@@ -519,11 +610,19 @@ public class SocketClient implements ClientInterface, Runnable, Serializable {
         playerController.setOtherPlayers(gameData.getPlayers(username));
     }
 
+    /**
+     * Sets parameters for the player and also the current player.
+     * @param gameData datas from the Server.
+     */
     private void playerControllerSetterWithCurrentPlayer(GameData gameData){
         playerControllerSetter(gameData);
         playerController.setCurrentPlayer(gameData.getCurrentPlayer());
     }
 
+    /**
+     * Sets parameters for the player and also his victims.
+     * @param gameData datas from the Server.
+     */
     private void playerControllerSetterWithCurrentPlayerAndVictims(GameData gameData){
         playerControllerSetterWithCurrentPlayer(gameData);
         playerController.setVictims(gameData.getVictims());

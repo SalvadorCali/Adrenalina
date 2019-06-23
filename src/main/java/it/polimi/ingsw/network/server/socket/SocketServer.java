@@ -7,7 +7,6 @@ import it.polimi.ingsw.controller.timer.ConnectionTimer;
 import it.polimi.ingsw.model.enums.Color;
 import it.polimi.ingsw.model.enums.Direction;
 import it.polimi.ingsw.model.enums.TokenColor;
-import it.polimi.ingsw.model.gamecomponents.Token;
 import it.polimi.ingsw.network.server.ServerInterface;
 import it.polimi.ingsw.util.Printer;
 import it.polimi.ingsw.network.enums.Message;
@@ -82,7 +81,7 @@ public class SocketServer implements Runnable, ServerInterface {
             case SQUARE:
                 showSquare();
                 break;
-            case SQUARE_2:
+            case SQUARE_XY:
                 showOtherSquare();
                 break;
             case USERNAME:
