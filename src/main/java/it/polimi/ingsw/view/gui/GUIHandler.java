@@ -2111,23 +2111,27 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
     @FXML
     private void setPowerupHad() {
-        Platform.runLater(() -> {
-            playerController = Data.getInstance().getPlayerController();
-            List<PowerupCard> powerupsHad = playerController.getPowerups();
+        playerController = Data.getInstance().getPlayerController();
+        List<PowerupCard> powerupsHad = playerController.getPowerups();
 
-            if(powerupsHad.size() == 1){
+        if(powerupsHad.size() == 1){
+            Platform.runLater(() -> {
 
                 this.firstPowerupHad.setImage(new Image("powerup/" + Converter.fromColorToLetter(powerupsHad.get(0).getColor()) + "/" + powerupsHad.get(0).getName() + ".png"));
                 this.firstPowerupHad.setVisible(true);
+            });
 
-            }else if(powerupsHad.size() == 2){
+        }else if(powerupsHad.size() == 2){
+            Platform.runLater(() -> {
 
                 this.firstPowerupHad.setImage(new Image("powerup/" + Converter.fromColorToLetter(powerupsHad.get(0).getColor()) + "/" + powerupsHad.get(0).getName() + ".png"));
                 this.secondPowerupHad.setImage(new Image("powerup/" + Converter.fromColorToLetter(powerupsHad.get(1).getColor()) + "/" + powerupsHad.get(1).getName() + ".png"));
                 this.firstPowerupHad.setVisible(true);
                 this.secondPowerupHad.setVisible(true);
+            });
 
-            }else if(powerupsHad.size() == 3){
+        }else if(powerupsHad.size() == 3){
+            Platform.runLater(() -> {
 
                 this.firstPowerupHad.setImage(new Image("powerup/" + Converter.fromColorToLetter(powerupsHad.get(0).getColor()) + "/" + powerupsHad.get(0).getName() + ".png"));
                 this.secondPowerupHad.setImage(new Image("powerup/" + Converter.fromColorToLetter(powerupsHad.get(1).getColor()) + "/" + powerupsHad.get(1).getName() + ".png"));
@@ -2135,29 +2139,34 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                 this.firstPowerupHad.setVisible(true);
                 this.secondPowerupHad.setVisible(true);
                 this.thirdPowerupHad.setVisible(true);
-            }
-        });
+            });
+        }
     }
 
     @FXML
     private void setWeaponHad() {
-        Platform.runLater(() ->{
 
-            playerController = Data.getInstance().getPlayerController();
-            List<WeaponCard> weaponsHad = playerController.getWeapons();
+        playerController = Data.getInstance().getPlayerController();
+        List<WeaponCard> weaponsHad = playerController.getWeapons();
 
-            if(weaponsHad.size() == 1){
+        if(weaponsHad.size() == 1){
+            Platform.runLater(() -> {
+
                 this.firstWeaponHad.setImage(new Image("weapon/" + Converter.weaponNameInvert(weaponsHad.get(0).getName()) + ".png"));
                 this.firstWeaponHad.setVisible(true);
+            });
 
-            }else if(weaponsHad.size() == 2){
+        }else if(weaponsHad.size() == 2){
+            Platform.runLater(() -> {
 
                 this.firstWeaponHad.setImage(new Image("weapon/" + Converter.weaponNameInvert(weaponsHad.get(0).getName()) + ".png"));
                 this.secondWeaponHad.setImage(new Image("weapon/" + Converter.weaponNameInvert(weaponsHad.get(1).getName()) + ".png"));
                 this.firstWeaponHad.setVisible(true);
                 this.secondWeaponHad.setVisible(true);
+            });
 
-            }else if(weaponsHad.size() == 3){
+        }else if(weaponsHad.size() == 3){
+            Platform.runLater(() -> {
 
                 this.firstWeaponHad.setImage(new Image("weapon/" + Converter.weaponNameInvert(weaponsHad.get(0).getName()) + ".png"));
                 this.secondWeaponHad.setImage(new Image("weapon/" + Converter.weaponNameInvert(weaponsHad.get(1).getName()) + ".png"));
@@ -2165,8 +2174,8 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                 this.firstWeaponHad.setVisible(true);
                 this.secondWeaponHad.setVisible(true);
                 this.thirdWeaponHad.setVisible(true);
-            }
-        });
+            });
+        }
     }
 
 
@@ -2279,9 +2288,9 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
     public void disconnect(MouseEvent mouseEvent) {
 
-        this.client = Data.getInstance().getClient();
+        client = Data.getInstance().getClient();
         try {
-            this. client.disconnect();
+            client.disconnect();
         } catch (RemoteException e) {
             e.printStackTrace();
         }
