@@ -842,6 +842,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                     thread.setDaemon(true);
                     thread.start();
 
+
                     guiHandler.disableButtons();
                     this.startedGame++;
 
@@ -1052,14 +1053,35 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
                 guiHandler.setLabelTurn();
                 guiHandler.placePlayers(playerController.getGameBoard().getArena());
-                guiHandler.removeImg();
                 guiHandler.addAmmo();
+                guiHandler.removeImg();
                 //guiHandler.removeWeapon();
             });
 
             try{
 
                 Thread.sleep(5000);
+
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @FXML
+    private void checkAmmo() {
+        while(checkTurn){
+            guiHandler = Data.getInstance().getGuiHandler();
+            playerController = Data.getInstance().getPlayerController();
+
+            Platform.runLater(() -> {
+
+                guiHandler.removeAmmo();
+            });
+
+            try{
+
+                Thread.sleep(10000);
 
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -1082,88 +1104,138 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                     imageView.setFitWidth(GRID_WIDTH);
 
                     if(i == 0 && j == 0){
-                        grid00.add(imageView, 1, 2);
+                        Platform.runLater(() ->{
+                            grid00.add(imageView, 1, 2);
+                        });
 
                     } else if(i == 0 && j == 1){
-                        grid01.add(imageView, 1, 2);
+                        Platform.runLater(() -> {
+                            grid01.add(imageView, 1, 2);
+                        });
 
                     }else if(i == 0 && j == 2){
-                        grid02.add(imageView, 1, 2);
+                        Platform.runLater(() -> {
+                            grid02.add(imageView, 1, 2);
+                        });
 
                     }else if(i == 0 && j == 3){
-                        grid03.add(imageView, 1, 2);
+                        Platform.runLater(() -> {
+                            grid03.add(imageView, 1, 2);
+                        });
 
                     }else if(i == 1 && j == 0){
-                        grid10.add(imageView, 1, 2);
+                        Platform.runLater(() -> {
+                            grid10.add(imageView, 1, 2);
+                        });
 
                     }else if(i == 1 && j == 1){
-                        grid11.add(imageView, 1, 2);
+                        Platform.runLater(() -> {
+                            grid11.add(imageView, 1, 2);
+                        });
 
                     }else if(i == 1 && j == 2){
-                        grid12.add(imageView, 1, 2);
+                        Platform.runLater(() -> {
+                            grid12.add(imageView, 1, 2);
+                        });
 
                     }else if(i == 1 && j == 3){
-                        grid13.add(imageView, 1, 2);
+                        Platform.runLater(() -> {
+                            grid13.add(imageView, 1, 2);
+                        });
 
                     }else if(i == 2 && j == 0){
-                        grid20.add(imageView, 1, 2);
+                        Platform.runLater(() -> {
+                            grid20.add(imageView, 1, 2);
+                        });
 
                     }else if(i == 2 && j == 1){
-                        grid21.add(imageView, 1, 2);
+                        Platform.runLater(() -> {
+                            grid21.add(imageView, 1, 2);
+                        });
 
                     }else if(i == 2 && j == 2){
-                        grid22.add(imageView, 1, 2);
+                        Platform.runLater(() -> {
+                            grid22.add(imageView, 1, 2);
+                        });
 
                     }else if(i == 2 && j == 3){
-                        grid23.add(imageView, 1, 2);
+                        Platform.runLater(() -> {
+                            grid23.add(imageView, 1, 2);
+                        });
                     }
                 }
             }
         }
     }
-    /*
+
+
     public void removeAmmo(){
 
         playerController = Data.getInstance().getPlayerController();
         arena = playerController.getGameBoard().getArena();
 
         if(arena[0][0].getAmmoCard() == null){
-            grid00.getChildren().remove(1, 2);
+            Platform.runLater(() -> {
+                grid00.getChildren().remove(6);
+            });
         }
         if(arena[0][1].getAmmoCard() == null){
-            grid01.getChildren().remove(1, 2);
+            Platform.runLater(() -> {
+                grid01.getChildren().remove(6);
+            });
         }
         if(arena[0][2].getAmmoCard() == null){
-            grid02.getChildren().remove(1, 2);
+            Platform.runLater(() -> {
+                grid02.getChildren().remove(6);
+            });
         }
         if(arena[0][3].getAmmoCard() == null){
-            grid03.getChildren().remove(1, 2);
+            Platform.runLater(() -> {
+                grid03.getChildren().remove(6);
+            });
         }
         if(arena[1][0].getAmmoCard() == null){
-            grid10.getChildren().remove(1, 2);
+            Platform.runLater(() -> {
+                grid10.getChildren().remove(6);
+            });
         }
         if(arena[1][1].getAmmoCard() == null){
-            grid11.getChildren().remove(1, 2);
+            Platform.runLater(() -> {
+                grid11.getChildren().remove(6);
+            });
         }
         if(arena[1][2].getAmmoCard() == null){
-            grid12.getChildren().remove(1, 2);
+            Platform.runLater(() -> {
+                grid12.getChildren().remove(6);
+            });
         }
         if(arena[1][3].getAmmoCard() == null){
-            grid13.getChildren().remove(1, 2);
+            Platform.runLater(() -> {
+                grid13.getChildren().remove(6);
+            });
         }
         if(arena[2][0].getAmmoCard() == null){
-            grid20.getChildren().remove(1, 2);
+            Platform.runLater(() -> {
+                grid20.getChildren().remove(6);
+            });
         }
         if(arena[2][1].getAmmoCard() == null){
-            grid21.getChildren().remove(1, 2);
+            Platform.runLater(() -> {
+                grid21.getChildren().remove(6);
+            });
         }
         if(arena[2][2].getAmmoCard() == null){
-            grid22.getChildren().remove(1, 2);
+            Platform.runLater(() -> {
+                grid22.getChildren().remove(6);
+            });
         }
         if(arena[2][3].getAmmoCard() == null){
-            grid23.getChildren().remove(1, 2);
+            Platform.runLater(() -> {
+                grid23.getChildren().remove(6);
+            });
         }
     }
+
 
     public void removeWeapon(){
 
@@ -1177,27 +1249,45 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                     if (arena[i][j].isSpawn() && arena[i][j].getWeapons().get(k) == null) {
                         if (arena[i][j].equals(TokenColor.BLUE)) {
                             if (k == 0) {
-                                weaponBlue1.setImage(null);
+                                Platform.runLater(() -> {
+                                    weaponBlue1.setImage(null);
+                                });
                             } else if(k == 1){
-                                weaponBlue2.setImage(null);
+                                Platform.runLater(() -> {
+                                    weaponBlue2.setImage(null);
+                                });
                             } else if(k == 2){
-                                weaponBlue3.setImage(null);
+                                Platform.runLater(() -> {
+                                    weaponBlue3.setImage(null);
+                                });
                             }
                         } else if (arena[i][j].equals(TokenColor.RED)) {
                             if (k == 0) {
-                                weaponRed1.setImage(null);
+                                Platform.runLater(() -> {
+                                    weaponRed1.setImage(null);
+                                });
                             } else if(k == 1){
-                                weaponRed2.setImage(null);
+                                Platform.runLater(() -> {
+                                    weaponRed2.setImage(null);
+                                });
                             } else if(k == 2){
-                                weaponRed3.setImage(null);
+                                Platform.runLater(() -> {
+                                    weaponRed3.setImage(null);
+                                });
                             }
                         } else if (arena[i][j].equals(TokenColor.YELLOW)) {
                             if (k == 0) {
-                                weaponYellow1.setImage(null);
+                                Platform.runLater(() -> {
+                                    weaponYellow1.setImage(null);
+                                });
                             } else if(k == 1){
-                                weaponYellow2.setImage(null);
+                                Platform.runLater(() -> {
+                                    weaponYellow2.setImage(null);
+                                });
                             } else if(k == 2){
-                                weaponYellow3.setImage(null);
+                                Platform.runLater(() -> {
+                                    weaponYellow3.setImage(null);
+                                });
                             }
                         }
                     }
@@ -1205,7 +1295,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
             }
         }
     }
-    */
+
 
 
     public void addWeapon() {
@@ -1799,37 +1889,20 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
             this.firstWeapon.setVisible(true);
             this.secondWeapon.setVisible(true);
             this.thirdWeapon.setVisible(true);
-            this.firstWeapon.setImage(new Image("weapon/" + Converter.weaponNameInvert(weapon.get(0).getName()) + ".png"));
-            this.secondWeapon.setImage(new Image("weapon/" + Converter.weaponNameInvert(weapon.get(1).getName()) + ".png"));
-            this.thirdWeapon.setImage(new Image("weapon/" + Converter.weaponNameInvert(weapon.get(2).getName()) + ".png"));
+            if(weapon.get(0) != null) {
+                this.firstWeapon.setImage(new Image("weapon/" + Converter.weaponNameInvert(weapon.get(0).getName()) + ".png"));
+            }
+            if(weapon.get(1) != null) {
+                this.secondWeapon.setImage(new Image("weapon/" + Converter.weaponNameInvert(weapon.get(1).getName()) + ".png"));
+            }
+            if(weapon.get(2) != null) {
+                this.thirdWeapon.setImage(new Image("weapon/" + Converter.weaponNameInvert(weapon.get(2).getName()) + ".png"));
+            }
         });
     }
 
     public void grabFirstImg(MouseEvent mouseEvent) {
 
-        client = Data.getInstance().getClient();
-        String move = Data.getInstance().getMoveGrab();
-
-        if (move != null) {
-            try {
-                this.client.grab(0, Converter.fromStringToDirection(move));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-        } else {
-            try {
-                this.client.grab(0);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
-        Stage stage = (Stage) firstWeapon.getScene().getWindow();
-        stage.close();
-    }
-
-    public void grabSecondImg(MouseEvent mouseEvent){
         client = Data.getInstance().getClient();
         String move = Data.getInstance().getMoveGrab();
 
@@ -1852,7 +1925,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         stage.close();
     }
 
-    public void grabThirdImg(MouseEvent mouseEvent) {
+    public void grabSecondImg(MouseEvent mouseEvent){
         client = Data.getInstance().getClient();
         String move = Data.getInstance().getMoveGrab();
 
@@ -1866,6 +1939,29 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         } else {
             try {
                 this.client.grab(2);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        Stage stage = (Stage) firstWeapon.getScene().getWindow();
+        stage.close();
+    }
+
+    public void grabThirdImg(MouseEvent mouseEvent) {
+        client = Data.getInstance().getClient();
+        String move = Data.getInstance().getMoveGrab();
+
+        if (move != null) {
+            try {
+                this.client.grab(3, Converter.fromStringToDirection(move));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        } else {
+            try {
+                this.client.grab(3);
             } catch (IOException e) {
                 e.printStackTrace();
             }
