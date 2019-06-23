@@ -1889,15 +1889,23 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
             this.firstWeapon.setVisible(true);
             this.secondWeapon.setVisible(true);
             this.thirdWeapon.setVisible(true);
-            if(weapon.get(0) != null) {
-                this.firstWeapon.setImage(new Image("weapon/" + Converter.weaponNameInvert(weapon.get(0).getName()) + ".png"));
+
+            if(weapon.size() >= 1) {
+                if (weapon.get(0) != null) {
+                    this.firstWeapon.setImage(new Image("weapon/" + Converter.weaponNameInvert(weapon.get(0).getName()) + ".png"));
+                }
             }
-            if(weapon.get(1) != null) {
-                this.secondWeapon.setImage(new Image("weapon/" + Converter.weaponNameInvert(weapon.get(1).getName()) + ".png"));
+            if(weapon.size() >= 2) {
+                if (weapon.get(1) != null) {
+                    this.secondWeapon.setImage(new Image("weapon/" + Converter.weaponNameInvert(weapon.get(1).getName()) + ".png"));
+                }
             }
-            if(weapon.get(2) != null) {
-                this.thirdWeapon.setImage(new Image("weapon/" + Converter.weaponNameInvert(weapon.get(2).getName()) + ".png"));
+            if(weapon.size() >= 3) {
+                if (weapon.get(2) != null) {
+                    this.thirdWeapon.setImage(new Image("weapon/" + Converter.weaponNameInvert(weapon.get(2).getName()) + ".png"));
+                }
             }
+
         });
     }
 
