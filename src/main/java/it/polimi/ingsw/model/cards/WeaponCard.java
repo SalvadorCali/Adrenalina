@@ -11,10 +11,12 @@ import it.polimi.ingsw.model.enums.Color;
 import it.polimi.ingsw.model.cards.effects.Effect;
 import it.polimi.ingsw.model.gamecomponents.Player;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Class representing the weapon cards in the game.
+ */
 public class WeaponCard extends Card{
 
     private int weaponId;
@@ -27,8 +29,19 @@ public class WeaponCard extends Card{
 
     private List<Effect> effects = new ArrayList<>();
 
+    /**
+     * Class constructor.
+     * @param name name of the weapon.
+     * @param color color of the weapon.
+     * @param effect effect of the weapon.
+     * @param grabRedAmmos red ammos required to grab the weapon.
+     * @param grabBlueAmmos blue ammos required to grab the weapon.
+     * @param grabYellowAmmos yellow ammos required to grab the weapon.
+     * @param reloadRedAmmos red ammos required to reload the weapon.
+     * @param reloadBlueAmmos blue ammos required to reload the weapon.
+     * @param reloadYellowAmmos yellow ammos required to reload the weapon.
+     */
     public WeaponCard(String name, Color color, String effect, int grabRedAmmos, int grabBlueAmmos, int grabYellowAmmos, int reloadRedAmmos, int reloadBlueAmmos, int reloadYellowAmmos) {
-
         super(name, color, effect);
         this.grabRedAmmos = grabRedAmmos;
         this.grabBlueAmmos = grabBlueAmmos;
@@ -39,10 +52,19 @@ public class WeaponCard extends Card{
         setEffects(name);
     }
 
+    /**
+     * Constructor of the class.
+     * @param name name of the weapon.
+     * @param color color of the weapon.
+     */
     public WeaponCard(String name, Color color){
         super(name,color);
     }
 
+    /**
+     * Sets the effects contained in the weapon.
+     * @param name name of the weapon.
+     */
     private void setEffects(String name){
 
         switch (name){
@@ -183,54 +205,106 @@ public class WeaponCard extends Card{
         }
     }
 
+    /**
+     * Getter of the red ammos required to grab the weapon.
+     * @return the red ammos required to grab the weapon.
+     */
     public int getGrabRedAmmos(){
         return grabRedAmmos;
     }
 
+    /**
+     * Getter of the blue ammos required to grab the weapon.
+     * @return the blue ammos required to grab the weapon.
+     */
     public int getGrabBlueAmmos(){
         return grabBlueAmmos;
     }
 
+    /**
+     * Getter of the yellow ammos required to grab the weapon.
+     * @return the yellow ammos required to grab the weapon.
+     */
     public int getGrabYellowAmmos(){
         return grabYellowAmmos;
     }
 
+    /**
+     * Getter of the red ammos required to reload the weapon.
+     * @return the red ammos required to reload the weapon.
+     */
     public int getReloadRedAmmos(){
         return reloadRedAmmos;
     }
 
+    /**
+     * Getter of the blue ammos required to reload the weapon.
+     * @return blue ammos required to reload the weapon.
+     */
     public int getReloadBlueAmmos(){
         return reloadBlueAmmos;
     }
 
+    /**
+     * Getter of the yellow ammos required to reload the weapon.
+     * @return yellow ammos required to reload the weapon.
+     */
     public int getReloadYellowAmmos(){
         return reloadYellowAmmos;
     }
 
+    /**
+     * Getter of the list of the effects contained in the weapon card.
+     * @return the Effects contained in the weapon card.
+     */
     public List<Effect> getEffects() {
         return effects;
     }
 
+    /**
+     * Positive setter of the boolean loaded.
+     */
     public void load(){
         loaded = true;
     }
 
+    /**
+     * Negative setter of the boolean loaded.
+     */
     public void unload(){
         loaded = false;
     }
 
+    /**
+     * Getter of the boolean loaded.
+     * @return the boolean loaded.
+     */
     public boolean isLoaded(){
         return loaded;
     }
 
+    /**
+     * Controls that the weapon can be grabbed by the player.
+     * @param currentPlayer player that is trying to grab the weapon.
+     * @return the result of the control.
+     */
     public boolean ammoControl(Player currentPlayer){
         return grabRedAmmos <= currentPlayer.getRedAmmo() && grabBlueAmmos <= currentPlayer.getBlueAmmo()&& grabYellowAmmos <= currentPlayer.getYellowAmmo();
     }
 
+    /**
+     * Controls that the weapon can be reloaded by the player.
+     * @param currentPlayer player who is trying to reload the weapon.
+     * @return the result of the control.
+     */
     public boolean reloadAmmoControl(Player currentPlayer){
         return reloadRedAmmos <= currentPlayer.getRedAmmo() && reloadBlueAmmos <= currentPlayer.getBlueAmmo() && reloadYellowAmmos <= currentPlayer.getYellowAmmo();
     }
 
+    /**
+     * toString.
+     * @return the string.
+     */
     @Override
     public String toString(){
         StringBuilder card = new StringBuilder();
