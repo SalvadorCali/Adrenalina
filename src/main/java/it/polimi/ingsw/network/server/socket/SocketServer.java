@@ -95,9 +95,6 @@ public class SocketServer implements Runnable, ServerInterface {
             case POWERUP:
                 powerup();
                 break;
-            case POWERUP_AMMOS:
-                powerupAmmos();
-                break;
             case RELOAD:
                 reload();
                 break;
@@ -106,9 +103,6 @@ public class SocketServer implements Runnable, ServerInterface {
                 break;
             case SHOOT:
                 shoot();
-                break;
-            case DROP:
-                drop();
                 break;
             case DROP_POWERUP:
                 dropPowerup();
@@ -237,15 +231,6 @@ public class SocketServer implements Runnable, ServerInterface {
                 serverController.grab(clientName, choice, first, second);
             }
         } catch (IOException | ClassNotFoundException e) {
-            Printer.err(e);
-        }
-    }
-
-    public void drop(){
-        try {
-            String weaponName = objectInputStream.readUTF();
-            serverController.drop(clientName, weaponName);
-        } catch (IOException e) {
             Printer.err(e);
         }
     }
@@ -409,44 +394,6 @@ public class SocketServer implements Runnable, ServerInterface {
                 serverController.powerup(clientName, powerup, victim, ammo, x, y);
             }
         } catch (IOException | ClassNotFoundException e) {
-            Printer.err(e);
-        }
-    }
-
-    public void powerupAmmos(int i) {
-        PowerupData first, second;
-        try {
-            int powerupsSize = objectInputStream.readInt();
-            if (powerupsSize == 1) {
-                first = (PowerupData) objectInputStream.readObject();
-                serverController.powerupAmmos(clientName, first);
-            } else if (powerupsSize == 2) {
-                first = (PowerupData) objectInputStream.readObject();
-                second = (PowerupData) objectInputStream.readObject();
-                serverController.powerupAmmos(clientName, first, second);
-            }
-        } catch (IOException | ClassNotFoundException e) {
-            Printer.err(e);
-        }
-
-    }
-
-    private void powerupAmmos(){
-        int firstPowerup, secondPowerup;
-        try {
-            int powerupSize = objectInputStream.readInt();
-            switch(powerupSize){
-                case 1:
-                    firstPowerup = objectInputStream.readInt();
-                    serverController.powerupAmmos(clientName, firstPowerup);
-                    break;
-                case 2:
-                    firstPowerup = objectInputStream.readInt();
-                    secondPowerup = objectInputStream.readInt();
-                    serverController.powerupAmmos(clientName, firstPowerup, secondPowerup);
-                    break;
-            }
-        } catch (IOException e) {
             Printer.err(e);
         }
     }

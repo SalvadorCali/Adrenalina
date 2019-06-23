@@ -11,6 +11,13 @@ import java.net.*;
 
 public class Server {
     private ServerControllerManager serverControllerManager = new ServerControllerManager();
+
+    /**
+     * Creates a Server and starts the {@link ConnectionManager}.
+     * @param args parameters passed by command line.
+     * @throws UnknownHostException caused by the ip address.
+     * @throws SocketException caused by sockets.
+     */
     public static void main(String[] args) throws UnknownHostException, SocketException {
         InetAddress address = Connection.getAddress();
         Printer.println(NetworkString.IP_SERVER);
