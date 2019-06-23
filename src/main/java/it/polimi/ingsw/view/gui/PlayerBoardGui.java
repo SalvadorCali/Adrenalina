@@ -64,14 +64,17 @@ public class PlayerBoardGui extends Application {
         playerController = Data.getInstance().getPlayerController();
         List<Token> marks = playerController.getPlayerBoard().getRevengeMarks();
 
-        Platform.runLater(() -> {
-
-            for (int i = 0, row = 0; i < marks.size(); i++) {
-                if (!marks.get(i).getFirstColor().equals(TokenColor.NONE)) {
-                    Image image = new Image("colorPlayer/" + Converter.fromTokenColorToString(marks.get(i).getFirstColor()) + ".jpg");
-                    this.marksGrid.add(new ImageView(image), i, row);
-                }
+        for (int i = 0, row = 0; i < marks.size(); i++) {
+            if (!marks.get(i).getFirstColor().equals(TokenColor.NONE)) {
+                Image image = new Image("colorPlayer/" + Converter.fromTokenColorToString(marks.get(i).getFirstColor()) + ".jpg");
+                addMarkGrid(image, marksGrid, i, row);
             }
+        }
+    }
+
+    private void addMarkGrid(Image image, GridPane marksGrid, int i, int row) {
+        Platform.runLater(() ->{
+            marksGrid.add(new ImageView(image), i, row);
         });
     }
 
@@ -80,14 +83,17 @@ public class PlayerBoardGui extends Application {
         playerController = Data.getInstance().getPlayerController();
         Token[] damageBoard = playerController.getPlayerBoard().getDamageBoard();
 
-        Platform.runLater(() -> {
-
-            for (int i = 0, row = 0; i < damageBoard.length; i++) {
-                if (!damageBoard[i].getFirstColor().equals(TokenColor.NONE)) {
-                    Image image = new Image("colorPlayer/" + Converter.fromTokenColorToString(damageBoard[i].getFirstColor()) + ".jpg");
-                    this.firstDamageGrid.add(new ImageView(image), i, row);
-                }
+        for (int i = 0, row = 0; i < damageBoard.length; i++) {
+            if (!damageBoard[i].getFirstColor().equals(TokenColor.NONE)) {
+                Image image = new Image("colorPlayer/" + Converter.fromTokenColorToString(damageBoard[i].getFirstColor()) + ".jpg");
+                addDamageOnGrid(firstDamageGrid, image, i, row);
             }
+        }
+    }
+
+    private void addDamageOnGrid(GridPane damageGrid, Image image, int i, int row) {
+        Platform.runLater(() ->{
+            damageGrid.add(new ImageView(image), i, row);
         });
     }
 
@@ -96,18 +102,22 @@ public class PlayerBoardGui extends Application {
         playerController = Data.getInstance().getPlayerController();
         List<Ammo> ammobox = playerController.getPlayer().getAmmoBox();
 
-        Platform.runLater(() -> {
+        for (int i = 0, row = 0; i < ammobox.size(); i++) {
+            if (!ammobox.get(i).getColor().equals(Color.NONE)) {
+                Image image = new Image("singleAmmo/" + Converter.fromColorToString(ammobox.get(i).getColor()) + ".jpg");
+                addAmmoToBox(image, i, row, ammoBoxGrid);
 
-            for (int i = 0, row = 0; i < ammobox.size(); i++) {
-                if (!ammobox.get(i).getColor().equals(Color.NONE)) {
-                    Image image = new Image("singleAmmo/" + Converter.fromColorToString(ammobox.get(i).getColor()) + ".jpg");
-                    this.ammoBoxGrid.add(new ImageView(image), i, row);
-                    if (i == 2) {
-                        row++;
-                        i = 0;
-                    }
+                if (i == 2) {
+                    row++;
+                    i = 0;
                 }
             }
+        }
+    }
+
+    private void addAmmoToBox(Image image, int i, int row, GridPane ammoGrid) {
+        Platform.runLater(() ->{
+            ammoGrid.add(new ImageView(image), i, row);
         });
     }
 
@@ -116,78 +126,63 @@ public class PlayerBoardGui extends Application {
         playerController = Data.getInstance().getPlayerController();
         List<Ammo> ammoReserve = playerController.getPlayer().getAmmoReserve();
 
-        Platform.runLater(() -> {
+        for (int i = 0, row = 0; i < ammoReserve.size(); i++) {
+            if (!ammoReserve.get(i).getColor().equals(Color.NONE)) {
+                Image image = new Image("singleAmmo/" + Converter.fromColorToString(ammoReserve.get(i).getColor()) + ".jpg");
+                addAmmoToBox(image, i, row, ammoReserveGrid);
 
-            for (int i = 0, row = 0; i < ammoReserve.size(); i++) {
-                if (!ammoReserve.get(i).getColor().equals(Color.NONE)) {
-
-                    Image image = new Image("singleAmmo/" + Converter.fromColorToString(ammoReserve.get(i).getColor()) + ".jpg");
-                    this.ammoReserveGrid.add(new ImageView(image), i, row);
-                    if (i == 2) {
-                        row++;
-                        i = 0;
-                    }
+                if (i == 2) {
+                    row++;
+                    i = 0;
                 }
             }
-        });
+        }
     }
 
     public void setOthersDamage(){
-            playerController = Data.getInstance().getPlayerController();
 
-            this.numOtherPlayers = playerController.getOtherPlayers().size();
+        playerController = Data.getInstance().getPlayerController();
+        this.numOtherPlayers = playerController.getOtherPlayers().size();
 
-            if(numOtherPlayers >= 1){
-                Platform.runLater(() -> {
-
-                    Token[] damageBoard = playerController.getOtherPlayers().get(1).getPlayerBoard().getDamageBoard();
-                    for (int i = 0, row = 0; i < damageBoard.length; i++) {
-                        if (!damageBoard[i].getFirstColor().equals(TokenColor.NONE)) {
-                            Image image = new Image("colorPlayer/" + Converter.fromTokenColorToString(damageBoard[i].getFirstColor()) + ".jpg");
-                            this.secondDamageGrid.add(new ImageView(image), i, row);
-                        }
-                    }
-                });
+        if(numOtherPlayers >= 1){
+            Token[] damageBoard = playerController.getOtherPlayers().get(0).getPlayerBoard().getDamageBoard();
+            for (int i = 0, row = 0; i < damageBoard.length; i++) {
+                if (!damageBoard[i].getFirstColor().equals(TokenColor.NONE)) {
+                    Image image = new Image("colorPlayer/" + Converter.fromTokenColorToString(damageBoard[i].getFirstColor()) + ".jpg");
+                    addDamageOnGrid(secondDamageGrid, image, i, row);
+                }
             }
+        }
 
-            if(numOtherPlayers >= 2){
-                Platform.runLater(() -> {
-
-                    Token[] damageBoard = playerController.getOtherPlayers().get(2).getPlayerBoard().getDamageBoard();
-                    for (int i = 0, row = 0; i < damageBoard.length; i++) {
-                        if (!damageBoard[i].getFirstColor().equals(TokenColor.NONE)) {
-                            Image image = new Image("colorPlayer/" + Converter.fromTokenColorToString(damageBoard[i].getFirstColor()) + ".jpg");
-                            this.thirdDamageGrid.add(new ImageView(image), i, row);
-                        }
-                    }
-                });
+        if(numOtherPlayers >= 2){
+            Token[] damageBoard = playerController.getOtherPlayers().get(1).getPlayerBoard().getDamageBoard();
+            for (int i = 0, row = 0; i < damageBoard.length; i++) {
+                if (!damageBoard[i].getFirstColor().equals(TokenColor.NONE)) {
+                    Image image = new Image("colorPlayer/" + Converter.fromTokenColorToString(damageBoard[i].getFirstColor()) + ".jpg");
+                    addDamageOnGrid(thirdDamageGrid, image, i, row);
+                }
             }
+        }
 
-            if(numOtherPlayers >= 3){
-                Platform.runLater(() -> {
-
-                    Token[] damageBoard = playerController.getOtherPlayers().get(3).getPlayerBoard().getDamageBoard();
-                    for (int i = 0, row = 0; i < damageBoard.length; i++) {
-                        if (!damageBoard[i].getFirstColor().equals(TokenColor.NONE)) {
-                            Image image = new Image("colorPlayer/" + Converter.fromTokenColorToString(damageBoard[i].getFirstColor()) + ".jpg");
-                            this.fourthDamageGrid.add(new ImageView(image), i, row);
-                        }
-                    }
-                });
+        if(numOtherPlayers >= 3){
+            Token[] damageBoard = playerController.getOtherPlayers().get(2).getPlayerBoard().getDamageBoard();
+            for (int i = 0, row = 0; i < damageBoard.length; i++) {
+                if (!damageBoard[i].getFirstColor().equals(TokenColor.NONE)) {
+                    Image image = new Image("colorPlayer/" + Converter.fromTokenColorToString(damageBoard[i].getFirstColor()) + ".jpg");
+                    addDamageOnGrid(fourthDamageGrid, image, i, row);
+                }
             }
+        }
 
-            if(numOtherPlayers >= 4){
-                Platform.runLater(() -> {
-
-                    Token[] damageBoard = playerController.getOtherPlayers().get(4).getPlayerBoard().getDamageBoard();
-                    for (int i = 0, row = 0; i < damageBoard.length; i++) {
-                        if (!damageBoard[i].getFirstColor().equals(TokenColor.NONE)) {
-                            Image image = new Image("colorPlayer/" + Converter.fromTokenColorToString(damageBoard[i].getFirstColor()) + ".jpg");
-                            this.fifthDamageGrid.add(new ImageView(image), i, row);
-                        }
-                    }
-                });
+        if(numOtherPlayers >= 4){
+            Token[] damageBoard = playerController.getOtherPlayers().get(3).getPlayerBoard().getDamageBoard();
+            for (int i = 0, row = 0; i < damageBoard.length; i++) {
+                if (!damageBoard[i].getFirstColor().equals(TokenColor.NONE)) {
+                    Image image = new Image("colorPlayer/" + Converter.fromTokenColorToString(damageBoard[i].getFirstColor()) + ".jpg");
+                    addDamageOnGrid(fifthDamageGrid, image, i, row);
+                }
             }
+        }
     }
 
 
