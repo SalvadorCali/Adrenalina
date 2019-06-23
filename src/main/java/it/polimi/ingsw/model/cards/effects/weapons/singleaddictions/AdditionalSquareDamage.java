@@ -2,8 +2,10 @@ package it.polimi.ingsw.model.cards.effects.weapons.singleaddictions;
 
 import it.polimi.ingsw.model.cards.effects.ActionInterface;
 import it.polimi.ingsw.model.cards.effects.Effect;
-import it.polimi.ingsw.util.Printer;
 
+/**
+ * Class representing the additional damages involving squares/rooms.
+ */
 public class AdditionalSquareDamage extends SingleAddictionEffect{
 
     private String effectName;
@@ -21,24 +23,33 @@ public class AdditionalSquareDamage extends SingleAddictionEffect{
     private boolean canUse;
 
 
+    /**
+     * Class constructor.
+     * @param effectName name of the effect.
+     * @param damagePower number of damages to add to the victims on the square.
+     * @param redAmmos red ammos required to apply the additional effect.
+     * @param blueAmmos blue ammos required to apply the additional effect.
+     * @param yellowAmmos yellow ammos required to apply the additional effect.
+     * @param effect basic effect that is completed by the additional effect
+     */
     public AdditionalSquareDamage(String effectName, int damagePower, int redAmmos, int blueAmmos, int yellowAmmos, Effect effect){
-
         this.effectName = effectName;
         this.damagePower = damagePower;
         this.redAmmos = redAmmos;
         this.blueAmmos = blueAmmos;
         this.yellowAmmos = yellowAmmos;
         super.effect = effect;
-
     }
 
-
+    /**
+     * Controls that the additional square damage can be applied.
+     * @param actionInterface give access to some restricted methods of the game/clientData to the card controls.
+     * @return the result of the control.
+     */
     @Override
     public boolean canUseEffect(ActionInterface actionInterface) {
 
         setData(actionInterface);
-
-
         if (basicFirst) {
             canUse = super.effect.canUseEffect(actionInterface) && actionInterface.ammoControl(redAmmos, blueAmmos, yellowAmmos);
             if (canUse && !effectName.equals("Rocket Launcher") && !effectName.equals("Vortex Cannon"))
@@ -54,10 +65,7 @@ public class AdditionalSquareDamage extends SingleAddictionEffect{
                     else
                         canUse = false;
                 }
-
-        }
-
-
+            }
         } else {
             canUse = actionInterface.ammoControl(redAmmos, blueAmmos, yellowAmmos);
             if (canUse) {
@@ -71,6 +79,10 @@ public class AdditionalSquareDamage extends SingleAddictionEffect{
         return canUse;
     }
 
+    /**
+     * Applies the additional and the basic effect.
+     * @param actionInterface give access to some restricted methods of the game/clientData to the card controls.
+     */
     @Override
     public void useEffect(ActionInterface actionInterface) {
 
@@ -94,6 +106,10 @@ public class AdditionalSquareDamage extends SingleAddictionEffect{
         actionInterface.updateAmmoBox(redAmmos, blueAmmos, yellowAmmos);
     }
 
+    /**
+     * Sets the data getting them from the ClientData class.
+     * @param actionInterface give access to some restricted methods of the game/clientData to the card controls.
+     */
     private void setData(ActionInterface actionInterface){
         if(effectName.equals("Rocket Launcher")){
             actionInterface.getClientData().setSquare(actionInterface.getClientData().getVictim().getPosition().getX(), actionInterface.getClientData().getVictim().getPosition().getY());

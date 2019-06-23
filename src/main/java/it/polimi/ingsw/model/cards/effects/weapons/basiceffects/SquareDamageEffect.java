@@ -80,7 +80,7 @@ public class SquareDamageEffect extends BasicEffect {
     }
 
     /**
-     * Apply the effect.
+     * Applies the effect.
      * @param actionInterface give access to some restricted methods of the game/clientData to the card controls.
      */
     @Override
