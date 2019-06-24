@@ -1476,12 +1476,6 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                 this.movement[countMove] = move;
                 this.countMove++;
             }
-        } else if(this.finalFrenzy == 1 && playerController.getFinalFrenzyActions().equals(FinalFrenzyAction.TWO_ACTIONS)){
-            if (countMove < MAX_MOVEMENT + 1) {
-
-                this.movement[countMove] = move;
-                this.countMove++;
-            }
         }
     }
 
@@ -1508,10 +1502,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         }else if(movement[3] == null){
             this.client.move(Converter.fromStringToDirection(movement[0]), Converter.fromStringToDirection(movement[1]), Converter.fromStringToDirection(movement[2]));
 
-        }else {
-            this.client.move(Converter.fromStringToDirection(movement[0]), Converter.fromStringToDirection(movement[1]), Converter.fromStringToDirection(movement[2]), Converter.fromStringToDirection(movement[3]));
         }
-
     }
 
     public void reload(){
