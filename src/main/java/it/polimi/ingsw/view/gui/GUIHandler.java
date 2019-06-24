@@ -7,6 +7,7 @@ import it.polimi.ingsw.model.cards.Card;
 import it.polimi.ingsw.model.cards.PowerupCard;
 import it.polimi.ingsw.model.cards.WeaponCard;
 import it.polimi.ingsw.model.enums.Direction;
+import it.polimi.ingsw.model.enums.FinalFrenzyAction;
 import it.polimi.ingsw.model.enums.TokenColor;
 import it.polimi.ingsw.model.gamecomponents.Square;
 import it.polimi.ingsw.network.client.ClientInterface;
@@ -249,7 +250,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     private boolean disconnected = false;
     private ChoosePowerup choosePowerup = new ChoosePowerup();
     private Popup popup = new Popup();
-    private String movement[] = new String[MAX_MOVEMENT];
+    private String movement[] = new String[MAX_MOVEMENT + 1];
     private Integer countMove = 0;
     private PlayerController playerController;
     private ClientInterface client;
@@ -269,6 +270,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     private Stage primaryStage;
     private PlayerBoardGui playerboard;
     private ScorePopup scorePopup;
+    private Integer finalFrenzy = 0;
 
     //starting methods
     //
@@ -472,6 +474,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         Platform.runLater(() ->{
             guiHandler = Data.getInstance().getGuiHandler();
             guiHandler.setLabelStatement("final frenzy");
+            this.finalFrenzy = 1;
         });
     }
 
@@ -1453,10 +1456,20 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     }
 
     public void saveMovement(String move){
-        if(countMove < MAX_MOVEMENT) {
+        playerController = Data.getInstance().getPlayerController();
 
-            this.movement[countMove] = move;
-            this.countMove++;
+        if(this.finalFrenzy == 0) {
+            if (countMove < MAX_MOVEMENT) {
+
+                this.movement[countMove] = move;
+                this.countMove++;
+            }
+        } else if(this.finalFrenzy == 1 && playerController.getFinalFrenzyActions() == FinalFrenzyAction.TWO_ACTIONS){
+            if (countMove < MAX_MOVEMENT + 1) {
+
+                this.movement[countMove] = move;
+                this.countMove++;
+            }
         }
     }
 
@@ -1480,9 +1493,11 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         }else if(movement[2] == null){
             this.client.move(Converter.fromStringToDirection(movement[0]), Converter.fromStringToDirection(movement[1]));
 
-        }else{
+        }else if(movement[3] == null){
             this.client.move(Converter.fromStringToDirection(movement[0]), Converter.fromStringToDirection(movement[1]), Converter.fromStringToDirection(movement[2]));
 
+        }else {
+            this.client.move(Converter.fromStringToDirection(movement[0]), Converter.fromStringToDirection(movement[1]), Converter.fromStringToDirection(movement[2]), Converter.fromStringToDirection(movement[3]));
         }
 
     }
