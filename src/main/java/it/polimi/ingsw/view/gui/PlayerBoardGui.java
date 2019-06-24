@@ -251,11 +251,11 @@ public class PlayerBoardGui extends Application {
         while(true) {
             Platform.runLater(() -> {
                 setPlayerBoardImage();
+
                 setFirstDamageGrid();
                 //setAmmoBoxGrid();
                 setOthersDamage();
                 //setAmmoReserveGrid();
-                //setFirstDamageGrid();
                 //setMarksGrid();
             });
 
