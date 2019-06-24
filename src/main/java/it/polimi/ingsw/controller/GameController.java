@@ -29,6 +29,7 @@ public class GameController {
     private Game game;
     private ActionInterface actionInterface;
     private boolean canShoot = true;
+    Card droppedWeapon = null;
 
     public GameController() {
         weapons = Parser.createWeapons();
@@ -338,6 +339,9 @@ public class GameController {
                 int y = player.getPosition().getY();
                 if (game.getBoard().getArena()[x][y].canGrab(actionInterface, choice)) {
                     game.getBoard().getArena()[x][y].grab(actionInterface, choice);
+                    if(choice != 0 && droppedWeapon != null){
+                        game.getBoard().getArena()[x][y].drop(droppedWeapon);
+                    }
                     player.increaseActionNumber();
                     return true;
                 } else {
@@ -364,7 +368,6 @@ public class GameController {
                             }
                         }
                         else{
-                            Printer.println("BELLA ZIO");
                             return false;
                         }
                     } else {
@@ -375,6 +378,9 @@ public class GameController {
                 int y = player.getPosition().getY();
                 if (game.getBoard().getArena()[x][y].canGrab(actionInterface, choice)) {
                     game.getBoard().getArena()[x][y].grab(actionInterface, choice);
+                    if(choice != 0 && droppedWeapon != null){
+                        game.getBoard().getArena()[x][y].drop(droppedWeapon);
+                    }
                     player.increaseActionNumber();
                     return true;
                 } else {
@@ -540,6 +546,7 @@ public class GameController {
 
     public void endTurn(Player player){
         player.resetActionNumber();
+        droppedWeapon = null;
         game.endTurn(player, actionInterface);
     }
 
@@ -597,10 +604,11 @@ public class GameController {
     }
 
     public boolean canDropWeapon(Player player, int weapon){
-        return weapon <= player.getWeapons().size() && weapon > 0;
+        return weapon <= player.getWeapons().size() && weapon > 0 && game.getBoard().getArena()[player.getPosition().getX()][player.getPosition().getY()].isSpawn();
     }
 
     public void dropWeapon(Player player, int weapon){
+        droppedWeapon = player.getWeapons().get(weapon - 1);
         player.getWeapons().remove(weapon - 1);
     }
 

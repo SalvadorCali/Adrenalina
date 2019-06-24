@@ -39,7 +39,8 @@ public class StringCLI {
     //insert commands
     static final String COMMANDS_LIST = "List of Commands:";
     static final String HELP_COMMAND = "help : gives you the list of commands";
-    static final String LOGIN_COMMAND = "login <username> <color> : connects you to the game";
+    static final String LOGIN_COMMAND = "login <username> <color> :";
+    static final String LOGIN_COMMAND_2 = "login <username> <color> : connects you to the game";
     static final String DISCONNECT_COMMAND = "disconnect : disconnects you from the game";
     static final String SHOW_COMMAND = "show <object> : shows you the requested object";
     static final String MOVE_COMMAND = "move <first_direction, ..., last_direction> : moves your player";

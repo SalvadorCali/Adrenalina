@@ -205,7 +205,7 @@ public class CommandLine implements ViewInterface {
      */
     private void help(){
         Printer.println(StringCLI.COMMANDS_LIST);
-        Printer.println(StringCLI.LOGIN_COMMAND);
+        Printer.println(StringCLI.LOGIN_COMMAND_2);
         Printer.println(StringCLI.DISCONNECT_COMMAND);
         Printer.println(StringCLI.SHOW_COMMAND);
         Printer.println(StringCLI.MOVE_COMMAND);

@@ -389,7 +389,7 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
                 playerControllerSetterWithCurrentPlayer(gameData);
                 playerController.setPowerup(gameData.getPowerup());
                 if(gameData.getPowerup().equals(NetworkString.TARGETING_SCOPE) || gameData.getPowerup().equals(NetworkString.TAGBACK_GRENADE)){
-                    playerController.setVictims(gameData.getPlayers(username));
+                    playerController.setVictims(gameData.getVictims());
                 }
                 view.notify(message, outcome);
                 break;
