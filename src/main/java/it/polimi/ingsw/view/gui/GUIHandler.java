@@ -1070,6 +1070,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                 guiHandler.placePlayers(playerController.getGameBoard().getArena());
                 guiHandler.addAmmo();
                 guiHandler.removeImg();
+                guiHandler.removeAmmo();
                 //guiHandler.removeWeapon();
             });
 
@@ -1189,64 +1190,64 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         playerController = Data.getInstance().getPlayerController();
         arena = playerController.getGameBoard().getArena();
 
-        if(arena[0][0].getAmmoCard() == null){
+        if(arena[0][0].getAmmoCard() == null && !arena[0][0].isSpawn() && arena[0][0].isActive()){
             Platform.runLater(() -> {
-                grid00.getChildren().remove(6);
+                this.grid00.getChildren().remove(6);
             });
         }
-        if(arena[0][1].getAmmoCard() == null){
+        if(arena[0][1].getAmmoCard() == null && !arena[0][1].isSpawn() && arena[0][1].isActive()){
             Platform.runLater(() -> {
-                grid01.getChildren().remove(6);
+                this.grid01.getChildren().remove(6);
             });
         }
-        if(arena[0][2].getAmmoCard() == null){
+        if(arena[0][2].getAmmoCard() == null && !arena[0][2].isSpawn() && arena[0][2].isActive()){
             Platform.runLater(() -> {
-                grid02.getChildren().remove(6);
+                this.grid02.getChildren().remove(6);
             });
         }
-        if(arena[0][3].getAmmoCard() == null){
+        if(arena[0][3].getAmmoCard() == null && !arena[0][3].isSpawn() && arena[0][3].isActive()){
             Platform.runLater(() -> {
-                grid03.getChildren().remove(6);
+                this.grid03.getChildren().remove(6);
             });
         }
-        if(arena[1][0].getAmmoCard() == null){
+        if(arena[1][0].getAmmoCard() == null && !arena[1][0].isSpawn() && arena[1][0].isActive()){
             Platform.runLater(() -> {
-                grid10.getChildren().remove(6);
+                this.grid10.getChildren().remove(6);
             });
         }
-        if(arena[1][1].getAmmoCard() == null){
+        if(arena[1][1].getAmmoCard() == null && !arena[1][1].isSpawn() && arena[1][1].isActive()){
             Platform.runLater(() -> {
-                grid11.getChildren().remove(6);
+                this.grid11.getChildren().remove(6);
             });
         }
-        if(arena[1][2].getAmmoCard() == null){
+        if(arena[1][2].getAmmoCard() == null && !arena[1][2].isSpawn() && arena[1][2].isActive()){
             Platform.runLater(() -> {
-                grid12.getChildren().remove(6);
+                this.grid12.getChildren().remove(6);
             });
         }
-        if(arena[1][3].getAmmoCard() == null){
+        if(arena[1][3].getAmmoCard() == null && !arena[1][3].isSpawn() && arena[1][3].isActive()){
             Platform.runLater(() -> {
-                grid13.getChildren().remove(6);
+                this.grid13.getChildren().remove(6);
             });
         }
-        if(arena[2][0].getAmmoCard() == null){
+        if(arena[2][0].getAmmoCard() == null && !arena[2][0].isSpawn() && arena[2][0].isActive()){
             Platform.runLater(() -> {
-                grid20.getChildren().remove(6);
+                this.grid20.getChildren().remove(6);
             });
         }
-        if(arena[2][1].getAmmoCard() == null){
+        if(arena[2][1].getAmmoCard() == null && !arena[2][1].isSpawn() && arena[2][1].isActive()){
             Platform.runLater(() -> {
-                grid21.getChildren().remove(6);
+                this.grid21.getChildren().remove(6);
             });
         }
-        if(arena[2][2].getAmmoCard() == null){
+        if(arena[2][2].getAmmoCard() == null && !arena[2][2].isSpawn() && arena[2][2].isActive()){
             Platform.runLater(() -> {
-                grid22.getChildren().remove(6);
+                this.grid22.getChildren().remove(6);
             });
         }
-        if(arena[2][3].getAmmoCard() == null){
+        if(arena[2][3].getAmmoCard() == null && !arena[2][3].isSpawn() && arena[2][3].isActive()){
             Platform.runLater(() -> {
-                grid23.getChildren().remove(6);
+                this.grid23.getChildren().remove(6);
             });
         }
     }
