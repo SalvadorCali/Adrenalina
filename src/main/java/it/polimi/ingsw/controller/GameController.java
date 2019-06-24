@@ -195,7 +195,7 @@ public class GameController {
     public boolean canMoveAndReload(Player player, Direction firstDirection, String...weapons){
         boolean[] reload = new boolean[weapons.length];
         boolean canReload = true;
-        if(canMove(player, firstDirection)){
+        if(canMove(player, firstDirection) || firstDirection == null){
             if(weapons.length > 0){
                 for(int i=0; i<weapons.length; i++){
                     String weaponNameUpp;

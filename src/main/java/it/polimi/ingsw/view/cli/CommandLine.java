@@ -581,12 +581,25 @@ public class CommandLine implements ViewInterface {
                         Printer.println("Choose weapon to reload:");
                         moveAndReload = new StringTokenizer(userInputStream.readLine());
                         if(moveAndReload.countTokens()==1){
-                            client.moveAndReload(first, second, moveAndReload.nextToken());
+                            if(second != null){
+                                client.moveAndReload(first, second, moveAndReload.nextToken());
+                            }else{
+                                client.moveAndReload(first, moveAndReload.nextToken());
+                            }
                         }else if(moveAndReload.countTokens()==2){
-                            client.moveAndReload(first, second, moveAndReload.nextToken(), moveAndReload.nextToken());
+                            if(second != null){
+                                client.moveAndReload(first, second, moveAndReload.nextToken(), moveAndReload.nextToken());
+                            }else{
+                                client.moveAndReload(first, moveAndReload.nextToken(), moveAndReload.nextToken());
+                            }
                         }else if(moveAndReload.countTokens()==3){
-                            client.moveAndReload(first, second, moveAndReload.nextToken(), moveAndReload.nextToken(),
-                                    moveAndReload.nextToken());
+                            if(second != null){
+                                client.moveAndReload(first, second, moveAndReload.nextToken(), moveAndReload.nextToken(),
+                                        moveAndReload.nextToken());
+                            }else{
+                                client.moveAndReload(first, moveAndReload.nextToken(), moveAndReload.nextToken(),
+                                        moveAndReload.nextToken());
+                            }
                         }else{
                             return false;
                         }
@@ -598,11 +611,11 @@ public class CommandLine implements ViewInterface {
                         Printer.println("Choose weapon to reload:");
                         moveAndReload = new StringTokenizer(userInputStream.readLine());
                         if(moveAndReload.countTokens()==1){
-                            client.moveAndReload(first, second, moveAndReload.nextToken());
+                            client.moveAndReload(first, moveAndReload.nextToken());
                         }else if(moveAndReload.countTokens()==2){
-                            client.moveAndReload(first, second, moveAndReload.nextToken(), moveAndReload.nextToken());
+                            client.moveAndReload(first, moveAndReload.nextToken(), moveAndReload.nextToken());
                         }else if(moveAndReload.countTokens()==3){
-                            client.moveAndReload(first, second, moveAndReload.nextToken(), moveAndReload.nextToken(),
+                            client.moveAndReload(first, moveAndReload.nextToken(), moveAndReload.nextToken(),
                                     moveAndReload.nextToken());
                         }else{
                             return false;
@@ -660,7 +673,7 @@ public class CommandLine implements ViewInterface {
             case "cyberblade":
                 return weaponHandler.cyberblade(client, weapon);
             case "zx-2":
-                return weaponHandler.zx_2(client, weapon);
+                return weaponHandler.zx2(client, weapon);
             case "shotgun":
                 return weaponHandler.shotgun(client, weapon);
             case "powerglove":

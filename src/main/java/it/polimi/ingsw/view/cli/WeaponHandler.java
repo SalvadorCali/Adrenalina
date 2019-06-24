@@ -11,10 +11,26 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
+/**
+ * This class handles the input for the weapons.
+ */
 public class WeaponHandler {
+    /**
+     * The user input stream.
+     */
     private BufferedReader userInputStream = new BufferedReader(new InputStreamReader(System.in));
+    /**
+     * A StringTokenizer object.
+     */
     private StringTokenizer string;
 
+    /**
+     * Method for Lock Rifle. Takes the parameters to shoot with the StringTokenizer and in the basis of the number of tokens call the relative shoot method.
+     * @param client the Client.
+     * @param weapon the weapon.
+     * @return true if the parameters are correct.
+     * @throws IOException caused by the streams.
+     */
     public boolean lockRifle(ClientInterface client, String weapon) throws IOException {
         Printer.println("Basic effect: <victim>");
         Printer.println("With second lock: <first_victim> <second_victim>");
@@ -32,6 +48,13 @@ public class WeaponHandler {
         }
     }
 
+    /**
+     * Method for Machine Gun. Takes the parameters to shoot with the StringTokenizer and in the basis of the number of tokens call the relative shoot method.
+     * @param client the Client.
+     * @param weapon the weapon.
+     * @return true if the parameters are correct.
+     * @throws IOException caused by the streams.
+     */
     public boolean machineGun(ClientInterface client, String weapon) throws IOException{
         Printer.println("Basic effect: <1> <first_victim>");
         Printer.println("Basic effect: <1> <first_victim> <second_victim>");
@@ -69,6 +92,13 @@ public class WeaponHandler {
         }
     }
 
+    /**
+     * Method for T.H.O.R. Takes the parameters to shoot with the StringTokenizer and in the basis of the number of tokens call the relative shoot method.
+     * @param client the Client.
+     * @param weapon the weapon.
+     * @return true if the parameters are correct.
+     * @throws IOException caused by the streams.
+     */
     public boolean thor(ClientInterface client, String weapon) throws IOException{
         Printer.println("Basic effect: <victim>");
         Printer.println("With chain reaction: <victim> <victim>");
@@ -92,6 +122,13 @@ public class WeaponHandler {
         }
     }
 
+    /**
+     * Method for Plasma Gun. Takes the parameters to shoot with the StringTokenizer and in the basis of the number of tokens call the relative shoot method.
+     * @param client the Client.
+     * @param weapon the weapon.
+     * @return true if the parameters are correct.
+     * @throws IOException caused by the streams.
+     */
     public boolean plasmaGun(ClientInterface client, String weapon) throws IOException{
         Printer.println("Basic effect: <1> <victim>");
         Printer.println("With phase glide: <2> <victim> <direction>");
@@ -120,6 +157,13 @@ public class WeaponHandler {
         }
     }
 
+    /**
+     * Method for Whisper. Takes the parameters to shoot with the StringTokenizer and in the basis of the number of tokens call the relative shoot method.
+     * @param client the Client.
+     * @param weapon the weapon.
+     * @return true if the parameters are correct.
+     * @throws IOException caused by the streams.
+     */
     public boolean whisper(ClientInterface client, String weapon) throws IOException{
         Printer.println("Effect: <victim>");
         string = new StringTokenizer(userInputStream.readLine());
@@ -132,6 +176,13 @@ public class WeaponHandler {
         }
     }
 
+    /**
+     * Method for Electroscythe. Takes the parameters to shoot with the StringTokenizer and in the basis of the number of tokens call the relative shoot method.
+     * @param client the Client.
+     * @param weapon the weapon.
+     * @return true if the parameters are correct.
+     * @throws IOException caused by the streams.
+     */
     public boolean electroscythe(ClientInterface client, String weapon) throws IOException{
         Printer.println("Basic mode: <1>");
         Printer.println("In reaper mode: <2>");
@@ -145,6 +196,13 @@ public class WeaponHandler {
         }
     }
 
+    /**
+     * Method for Tractor Beam. Takes the parameters to shoot with the StringTokenizer and in the basis of the number of tokens call the relative shoot method.
+     * @param client the Client.
+     * @param weapon the weapon.
+     * @return true if the parameters are correct.
+     * @throws IOException caused by the streams.
+     */
     public boolean tractorBeam(ClientInterface client, String weapon) throws IOException{
         Printer.println("Basic mode: <1> <victim> <directions...>");
         Printer.println("In punisher mode: <2> <victim>");
@@ -167,6 +225,13 @@ public class WeaponHandler {
         }
     }
 
+    /**
+     * Method for Vortex Cannon. Takes the parameters to shoot with the StringTokenizer and in the basis of the number of tokens call the relative shoot method.
+     * @param client the Client.
+     * @param weapon the weapon.
+     * @return true if the parameters are correct.
+     * @throws IOException caused by the streams.
+     */
     public boolean vortexCannon(ClientInterface client, String weapon) throws IOException{
         Printer.println("Basic effect: <victim> <squareX> <squareY>");
         Printer.println("With black hole: <victim> <victim> <squareX> <squareY>");
@@ -191,6 +256,13 @@ public class WeaponHandler {
         }
     }
 
+    /**
+     * Method for Furnace. Takes the parameters to shoot with the StringTokenizer and in the basis of the number of tokens call the relative shoot method.
+     * @param client the Client.
+     * @param weapon the weapon.
+     * @return true if the parameters are correct.
+     * @throws IOException caused by the streams.
+     */
     public boolean furnace(ClientInterface client, String weapon) throws IOException{
         Printer.println("Basic mode: <1> <squareX> <squareY>");
         Printer.println("In cozy fire mode: <2> <squareX> <squareY>");
@@ -204,6 +276,13 @@ public class WeaponHandler {
         }
     }
 
+    /**
+     * Method for Heatseeker. Takes the parameters to shoot with the StringTokenizer and in the basis of the number of tokens call the relative shoot method.
+     * @param client the Client.
+     * @param weapon the weapon.
+     * @return true if the parameters are correct.
+     * @throws IOException caused by the streams.
+     */
     public boolean heatseeker(ClientInterface client, String weapon) throws IOException{
         Printer.println("Effect: <victim>");
         string = new StringTokenizer(userInputStream.readLine());
@@ -216,6 +295,13 @@ public class WeaponHandler {
         }
     }
 
+    /**
+     * Method for Hellion. Takes the parameters to shoot with the StringTokenizer and in the basis of the number of tokens call the relative shoot method.
+     * @param client the Client.
+     * @param weapon the weapon.
+     * @return true if the parameters are correct.
+     * @throws IOException caused by the streams.
+     */
     public boolean hellion(ClientInterface client, String weapon) throws IOException{
         Printer.println("Basic mode: <1> <victim>");
         Printer.println("In nano-tracer mode: <2> <victim>");
@@ -229,6 +315,13 @@ public class WeaponHandler {
         }
     }
 
+    /**
+     * Method for Flamethrower. Takes the parameters to shoot with the StringTokenizer and in the basis of the number of tokens call the relative shoot method.
+     * @param client the Client.
+     * @param weapon the weapon.
+     * @return true if the parameters are correct.
+     * @throws IOException caused by the streams.
+     */
     public boolean flamethrower(ClientInterface client, String weapon) throws IOException{
         Printer.println("Basic mode: <victim1> <direction>");
         Printer.println("Basic mode: <victim1> <victim2> <direction>");
@@ -251,6 +344,13 @@ public class WeaponHandler {
         }
     }
 
+    /**
+     * Method for Grenade Launcher. Takes the parameters to shoot with the StringTokenizer and in the basis of the number of tokens call the relative shoot method.
+     * @param client the Client.
+     * @param weapon the weapon.
+     * @return true if the parameters are correct.
+     * @throws IOException caused by the streams.
+     */
     public boolean grenadeLauncher(ClientInterface client, String weapon) throws IOException{
         Printer.println("Basic effect: <victim>");
         Printer.println("Basic effect: <victim> <direction>");
@@ -281,6 +381,13 @@ public class WeaponHandler {
         }
     }
 
+    /**
+     * Method for Rocket Launcher. Takes the parameters to shoot with the StringTokenizer and in the basis of the number of tokens call the relative shoot method.
+     * @param client the Client.
+     * @param weapon the weapon.
+     * @return true if the parameters are correct.
+     * @throws IOException caused by the streams.
+     */
     public boolean rocketLauncher(ClientInterface client, String weapon) throws IOException{
         Printer.println("Choose your effect: <1> or <2> or <3>");
         int choice2 = Converter.fromStringToInt(userInputStream.readLine());
@@ -335,6 +442,13 @@ public class WeaponHandler {
         }
     }
 
+    /**
+     * Method for Railgun. Takes the parameters to shoot with the StringTokenizer and in the basis of the number of tokens call the relative shoot method.
+     * @param client the Client.
+     * @param weapon the weapon.
+     * @return true if the parameters are correct.
+     * @throws IOException caused by the streams.
+     */
     public boolean railgun(ClientInterface client, String weapon) throws IOException{
         Printer.println("Basic mode: <1> <victim> <direction>");
         Printer.println("In piercing mode: <2> <victim> <direction>"); //to test
@@ -353,6 +467,13 @@ public class WeaponHandler {
         }
     }
 
+    /**
+     * Method for Cyberblade. Takes the parameters to shoot with the StringTokenizer and in the basis of the number of tokens call the relative shoot method.
+     * @param client the Client.
+     * @param weapon the weapon.
+     * @return true if the parameters are correct.
+     * @throws IOException caused by the streams.
+     */
     public boolean cyberblade(ClientInterface client, String weapon) throws IOException{
         Printer.println("Basic effect: <1> <victim>");
         Printer.println("With shadow step: <2> <victim> <direction>");
@@ -377,7 +498,14 @@ public class WeaponHandler {
         }
     }
 
-    public boolean zx_2(ClientInterface client, String weapon) throws IOException{
+    /**
+     * Method for ZX-2. Takes the parameters to shoot with the StringTokenizer and in the basis of the number of tokens call the relative shoot method.
+     * @param client the Client.
+     * @param weapon the weapon.
+     * @return true if the parameters are correct.
+     * @throws IOException caused by the streams.
+     */
+    public boolean zx2(ClientInterface client, String weapon) throws IOException{
         Printer.println("Basic mode: <1> <victim>");
         Printer.println("In scanner mode: <2> <victim>");
         Printer.println("In scanner mode: <2> <victim> <victim>");
@@ -400,6 +528,13 @@ public class WeaponHandler {
         }
     }
 
+    /**
+     * Method for Shotgun. Takes the parameters to shoot with the StringTokenizer and in the basis of the number of tokens call the relative shoot method.
+     * @param client the Client.
+     * @param weapon the weapon.
+     * @return true if the parameters are correct.
+     * @throws IOException caused by the streams.
+     */
     public boolean shotgun(ClientInterface client, String weapon) throws IOException{
         Printer.println("Basic mode: <1> <victim>");
         Printer.println("Basic mode: <1> <victim> <direction>");
@@ -418,6 +553,13 @@ public class WeaponHandler {
         }
     }
 
+    /**
+     * Method for Power Glove. Takes the parameters to shoot with the StringTokenizer and in the basis of the number of tokens call the relative shoot method.
+     * @param client the Client.
+     * @param weapon the weapon.
+     * @return true if the parameters are correct.
+     * @throws IOException caused by the streams.
+     */
     public boolean powerGlove(ClientInterface client, String weapon) throws IOException{
         Printer.println("Basic mode: <1> <victim>");
         Printer.println("In rocket fist mode: <2> <direction>");
@@ -470,6 +612,13 @@ public class WeaponHandler {
         }
     }
 
+    /**
+     * Method for Shockwave. Takes the parameters to shoot with the StringTokenizer and in the basis of the number of tokens call the relative shoot method.
+     * @param client the Client.
+     * @param weapon the weapon.
+     * @return true if the parameters are correct.
+     * @throws IOException caused by the streams.
+     */
     public boolean shockwave(ClientInterface client, String weapon) throws IOException{
         Printer.println("Basic mode: <1> <victim>");
         Printer.println("Basic mode: <1> <victim> <victim>");
@@ -497,6 +646,13 @@ public class WeaponHandler {
         }
     }
 
+    /**
+     * Method for Sledgehammer. Takes the parameters to shoot with the StringTokenizer and in the basis of the number of tokens call the relative shoot method.
+     * @param client the Client.
+     * @param weapon the weapon.
+     * @return true if the parameters are correct.
+     * @throws IOException caused by the streams.
+     */
     public boolean sledgehammer(ClientInterface client, String weapon) throws IOException{
         Printer.println("Basic mode: <1> <victim>");
         Printer.println("In pulverize mode: <2> <victim>");
@@ -520,6 +676,11 @@ public class WeaponHandler {
         }
     }
 
+    /**
+     * On the basis of the weapon name, it sets the basicFirst value and returns it.
+     * @param weapon the name of the weapon.
+     * @return a boolean value, true if the user wants to use the basic effect first.
+     */
     private boolean basicFirst(String weapon){
         switch(weapon){
             case "grenadelauncher":

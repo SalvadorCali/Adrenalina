@@ -14,11 +14,13 @@ import it.polimi.ingsw.util.Printer;
 
 import java.util.List;
 
+/**
+ * This class prints the game board for the CLI.
+ */
 public class MapCLI {
 
     // Reset
     public static final String RESET = "\033[0m";  // Text Reset
-
     public static final String BLACK = "\033[0;30m";   // BLACK
     public static final String RED = "\033[0;31m";     // RED
     public static final String GREEN = "\033[0;32m";   // GREEN
@@ -34,23 +36,44 @@ public class MapCLI {
     private static final int NUM_SQUARES=12;
     private static final int MAX_NUM_PLAYER=5;
 
+    /**
+     * The matrix of square of the board.
+     */
     private Square[][] arena = new Square[ROWS][COLUMNS];
+    /**
+     * The board that will be printed.
+     */
     private GameBoard gameBoard;
-    public GameBoard getGameBoard(){
-        return gameBoard;
-    }
 
-    public void setGameBoard(GameBoard gameBoard){
-        this.gameBoard = gameBoard;
-    }
-
-
+    /**
+     * Class constructor.
+     * @param gameBoard
+     */
     public MapCLI(GameBoard gameBoard){
 
         this.gameBoard = gameBoard;
     }
 
+    /**
+     * Getter for the game board.
+     * @return the game board.
+     */
+    public GameBoard getGameBoard(){
+        return gameBoard;
+    }
 
+    /**
+     * Setter for the game board.
+     * @param gameBoard the game board that will be set.
+     */
+    public void setGameBoard(GameBoard gameBoard){
+        this.gameBoard = gameBoard;
+    }
+
+    /**
+     * Main method of this class. Prints each square with its color and an "A" or an "*" inside it. "A" represents an ammo point and "*" represents a spawn point.
+     * Players are represented by an "X" of their color.
+     */
     public void printMap(){
 
         String color = BLACK;

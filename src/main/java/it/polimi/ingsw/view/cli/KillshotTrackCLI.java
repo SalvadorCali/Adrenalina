@@ -7,6 +7,9 @@ import it.polimi.ingsw.util.Printer;
 
 import java.util.List;
 
+/**
+ * This class prints the killshot track for the CLI.
+ */
 public class KillshotTrackCLI {
     public static final String SPACE = " ";  // Space
     public static final String RESET = "\033[0m";  // Text Reset
@@ -21,18 +24,32 @@ public class KillshotTrackCLI {
     public static final String GREY = "\033[0;37m";   // WHITE
     private final static String MARK = "M";
 
+    /**
+     * The killshot track that will be printed.
+     */
     private List<Token> killshotTrack;
 
+    /**
+     * Class constructor. It sets the killshot track.
+     * @param killshotTrack the killshot track that will be printed.
+     */
     public KillshotTrackCLI(List<Token> killshotTrack){
         this.killshotTrack = killshotTrack;
 
     }
 
+    /**
+     * Setter for the killshot track.
+     * @param killshotTrack
+     */
     public void setKillshotTrack(List<Token> killshotTrack){
         this.killshotTrack = killshotTrack;
     }
 
-
+    /**
+     * Main method of this class. It initializes a rectangle full of "_", and on the basis of number of skulls, it substitutes them with "S".
+     * When a player is killed it substitutes the "S" with an "X" colored as the shooter.
+     */
     public void printKillshotTrack() {
 
         String damage[] = new String[MAX_SKULLS];

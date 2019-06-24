@@ -1,5 +1,8 @@
 package it.polimi.ingsw.view.cli;
 
+/**
+ * This class contains Strings used by the Command Line Interface.
+ */
 public class StringCLI {
     //commands
     static final String HELP = "help";

@@ -11,8 +11,10 @@ import it.polimi.ingsw.util.Printer;
 
 import java.util.List;
 
+/**
+ * This class prints the playerboard for the CLI.
+ */
 public class DamageBoardCLI {
-
     public static final String SPACE = " ";  // Space
     public static final String RESET = "\033[0m";  // Text Reset
     public static final Integer MAX_DAMAGE = 12;
@@ -30,9 +32,21 @@ public class DamageBoardCLI {
     public static final String AMMO = "A";
     public static final Integer POINTS_LENGTH = 6;
 
+    /**
+     * An array of damages.
+     */
     private Token[] damageBoard;
+    /**
+     * The number of death of the player.
+     */
     private int deathNumber;
+    /**
+     * A list of marks.
+     */
     private List<Token> markBoard;
+    /**
+     * A list of ammos.
+     */
     private List<Ammo> ammoBox;
     private boolean finalFrenzy;
 
