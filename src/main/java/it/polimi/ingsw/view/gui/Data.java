@@ -16,6 +16,7 @@ public class Data{
     private Integer weaponShoot;
     private GUIHandler guiHandlerWeapon;
     private String weaponReloaded;
+    private Integer numPowerup;
 
 
     private Data(){
@@ -106,5 +107,13 @@ public class Data{
 
     public void setWeaponReloaded(String weaponReloaded) {
         this.weaponReloaded = weaponReloaded;
+    }
+
+    public Integer getNumPowerup() {
+        return numPowerup;
+    }
+
+    public void setNumPowerup(Integer numPowerup) {
+        this.numPowerup = numPowerup;
     }
 }

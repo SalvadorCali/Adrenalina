@@ -239,6 +239,9 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     @FXML private ImageView downArrowMoveReload;
     @FXML private Button enterMoveReload;
 
+    @FXML private Button usePowerup1;
+    @FXML private Button usePowerup2;
+    @FXML private Button usePowerup3;
 
     private static final int ROWS = 3;
     private static final int COLUMNS = 4;
@@ -1070,8 +1073,8 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                 guiHandler.placePlayers(playerController.getGameBoard().getArena());
                 guiHandler.addAmmo();
                 guiHandler.removeImg();
-                guiHandler.removeAmmo();
-                //guiHandler.removeWeapon();
+                //guiHandler.removeAmmo();
+                guiHandler.removeWeapon();
             });
 
             try{
@@ -2437,4 +2440,18 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         this.guiHandler = Data.getInstance().getGuiHandler();
         this.guiHandler.showWeapon(mouseEvent);
     }
+
+    public void useThirdPowerup(MouseEvent mouseEvent) {
+        Data.getInstance().setNumPowerup(2);
+    }
+
+    public void useSecondPowerup(MouseEvent mouseEvent) {
+        Data.getInstance().setNumPowerup(1);
+    }
+
+    public void useFirstPowerup(MouseEvent mouseEvent) {
+        Data.getInstance().setNumPowerup(0);
+    }
+
+
 }
