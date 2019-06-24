@@ -8,12 +8,29 @@ import it.polimi.ingsw.util.Printer;
 
 import java.util.List;
 
+/**
+ * This class represents a timer for each player's turn.
+ */
 public class TurnTimer extends Thread {
+    /**
+     * The ServerController that handles the game.
+     */
     private ServerController serverController;
-    private GameController gameController;
+    /**
+     * The players of the game.
+     */
     private List<Player> players;
+    /**
+     * The current player.
+     */
     private Player player;
 
+    /**
+     * Class constructor.
+     * @param serverController the ServerController that handles the game.
+     * @param players the players of the game.
+     * @param player the current player.
+     */
     public TurnTimer(ServerController serverController, List<Player> players, Player player){
         this.serverController = serverController;
         this.players = players;
@@ -30,25 +47,5 @@ public class TurnTimer extends Thread {
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
-        /*
-        while(gameController.isGamePhase()){
-            for(int i = 0; i<players.size(); i++){
-                players.get(i).setMyTurn(true);
-                try {
-                    sleep(Config.TURN_TIME);
-                    if(players.get(i).isMyTurn()){
-                        serverController.endTurn(players.get(i).getUsername());
-                    }
-
-                    if(i == players.size() - 1){
-                        i = -1;
-                    }
-                } catch (InterruptedException e) {
-                    Printer.err(e);
-                    Thread.currentThread().interrupt(); //to handle
-                }
-            }
-        }
-        */
     }
 }
