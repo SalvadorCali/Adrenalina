@@ -11,6 +11,9 @@ import it.polimi.ingsw.view.ViewInterface;
 import java.io.IOException;
 import java.rmi.RemoteException;
 
+/**
+ * Contains methods that will be implemented by {@link it.polimi.ingsw.network.client.rmi.RMIClient} and {@link it.polimi.ingsw.network.client.socket.SocketClient}.
+ */
 public interface ClientInterface {
     /**
      * Getter for the playerController.

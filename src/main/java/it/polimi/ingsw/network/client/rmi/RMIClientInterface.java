@@ -8,6 +8,9 @@ import it.polimi.ingsw.network.enums.Outcome;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 
+/**
+ * This class contains remote method that will be implemented by the {@link RMIClient}.
+ */
 public interface RMIClientInterface extends ClientInterface, Remote {
     /**
      * Notify method for the view.

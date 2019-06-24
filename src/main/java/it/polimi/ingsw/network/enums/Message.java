@@ -1,5 +1,8 @@
 package it.polimi.ingsw.network.enums;
 
+/**
+ * This class contains the messages that Client and Server use to talk.
+ */
 public enum Message {
     LOGIN, DISCONNECT, MOVE, GRAB, SHOOT, NOTIFY, COLOR, USERNAME, PLAYER, END_TURN, NEW_TURN, GAME, RECONNECTION,
     SPAWN, SQUARE, POWERUP, POWERUP_AMMOS, RELOAD, SQUARE_XY, BOARD, SCORE, DROP, FINAL_FRENZY, MOVE_RELOAD_1,

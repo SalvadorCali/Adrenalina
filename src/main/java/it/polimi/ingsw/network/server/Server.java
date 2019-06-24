@@ -9,7 +9,13 @@ import it.polimi.ingsw.util.Printer;
 import java.io.IOException;
 import java.net.*;
 
+/**
+ * Represents the Server that will be launched to start the game.
+ */
 public class Server {
+    /**
+     * The ServerController that handles the game.
+     */
     private ServerControllerManager serverControllerManager = new ServerControllerManager();
 
     /**

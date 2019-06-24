@@ -11,7 +11,9 @@ import java.io.IOException;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 
-
+/**
+ * This class contains the remote method for the rmi connection.
+ */
 public interface RMIServerInterface extends ServerInterface, Remote {
     /**
      * Method for the login.

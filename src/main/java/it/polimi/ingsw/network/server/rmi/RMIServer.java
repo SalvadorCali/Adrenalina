@@ -17,10 +17,25 @@ import java.io.IOException;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
+/**
+ * Implements the {@link RMIServerInterface} and represents the Server for the rmi connection.
+ */
 public class RMIServer extends UnicastRemoteObject implements RMIServerInterface {
+    /**
+     * The relative Client.
+     */
     private RMIClientInterface client;
+    /**
+     * The ServerController that handles the game.
+     */
     private ServerController serverController;
+    /**
+     * A timer to handles the connection of the Client.
+     */
     private ConnectionTimer connectionTimer;
+    /**
+     * The username of the relative Client.
+     */
     private String clientName;
 
     /**

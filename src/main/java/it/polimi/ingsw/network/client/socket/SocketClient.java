@@ -20,14 +20,41 @@ import it.polimi.ingsw.view.ViewInterface;
 import java.io.*;
 import java.net.Socket;
 
+/**
+ * This class represents the Client for the socket connection.
+ */
 public class SocketClient implements ClientInterface, Runnable, Serializable {
+    /**
+     * An object that contains player's datas.
+     */
     private PlayerController playerController;
+    /**
+     * A Thread object that represents this thread.
+     */
     private Thread thisThread;
+    /**
+     * The input stream.
+     */
     private ObjectInputStream objectInputStream;
+    /**
+     * The output stream.
+     */
     private ObjectOutputStream objectOutputStream;
+    /**
+     * A timer to handle the connection.
+     */
     private ConnectionTimer connectionTimer;
+    /**
+     * The relative ui.
+     */
     private ViewInterface view;
+    /**
+     * The socket to talk to the server.
+     */
     private Socket clientSocket;
+    /**
+     * The username.
+     */
     private String username;
 
     /**

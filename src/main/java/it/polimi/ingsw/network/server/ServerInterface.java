@@ -8,6 +8,9 @@ import it.polimi.ingsw.network.enums.Outcome;
 import java.io.IOException;
 import java.rmi.RemoteException;
 
+/**
+ * This interface contains method that will be implemented by {@link it.polimi.ingsw.network.server.rmi.RMIServer} and {@link it.polimi.ingsw.network.server.socket.SocketServer}.
+ */
 public interface ServerInterface {
     /**
      * Method for the disconnection.

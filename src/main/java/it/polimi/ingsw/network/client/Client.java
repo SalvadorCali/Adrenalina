@@ -15,11 +15,29 @@ import java.net.*;
 import java.rmi.RemoteException;
 import java.util.Objects;
 
+/**
+ * This class will be launched to create the Client for the user.
+ */
 public class Client {
+    /**
+     * A String.
+     */
     private static final String DEFAULT = "default";
+    /**
+     * A String for the cli.
+     */
     private static final String CLI = "cli";
+    /**
+     * A String for the gui.
+     */
     private static final String GUI = "gui";
+    /**
+     * A String for the rmi connection.
+     */
     private static final String RMI = "rmi";
+    /**
+     * A String for the socket connection.
+     */
     private static final String SOCKET = "socket";
 
     /**

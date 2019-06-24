@@ -2,6 +2,10 @@ package it.polimi.ingsw.network;
 
 public class NetworkString {
     /**
+     * Class constructor.
+     */
+    private NetworkString(){}
+    /**
      * Represents the choice between cli and gui.
      */
     public static final String UI_CHOOSE = "[CLIENT]Choose 'cli' or 'gui':";

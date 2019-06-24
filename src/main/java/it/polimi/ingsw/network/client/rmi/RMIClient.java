@@ -25,11 +25,29 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 
+/**
+ * This class implements the remote method of {@link RMIClientInterface} and represents the Client for the rmi connection.
+ */
 public class RMIClient extends UnicastRemoteObject implements RMIClientInterface {
+    /**
+     * The relative Server.
+     */
     private RMIServerInterface server;
+    /**
+     * A timer to handle the connection.
+     */
     private ConnectionTimer connectionTimer;
+    /**
+     * An object that contains player's datas.
+     */
     private PlayerController playerController;
+    /**
+     * The relative ui.
+     */
     private ViewInterface view;
+    /**
+     * The username.
+     */
     private String username;
 
     /**

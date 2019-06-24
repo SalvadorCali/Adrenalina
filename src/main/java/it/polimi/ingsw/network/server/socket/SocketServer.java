@@ -18,13 +18,37 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.rmi.RemoteException;
 
+/**
+ * The Server for the socket connection.
+ */
 public class SocketServer implements Runnable, ServerInterface {
+    /**
+     * A Thread object that represents this thread.
+     */
     private Thread thisThread;
+    /**
+     * The socket for the connection.
+     */
     private Socket socket;
+    /**
+     * A timer to handle the Client connection.
+     */
     private ConnectionTimer connectionTimer;
+    /**
+     * The input stream.
+     */
     private ObjectInputStream objectInputStream;
+    /**
+     * The output stream.
+     */
     private ObjectOutputStream objectOutputStream;
+    /**
+     * The ServerController that handles the game.
+     */
     private ServerController serverController;
+    /**
+     * The username of the relative Client.
+     */
     private String clientName;
 
     /**
