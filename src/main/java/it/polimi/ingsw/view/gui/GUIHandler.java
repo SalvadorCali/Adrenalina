@@ -233,6 +233,12 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     @FXML private Label labelReload;
     @FXML private ImageView bannerReload;
 
+    @FXML private ImageView upArrowMoveReload;
+    @FXML private ImageView leftArrowMoveReload;
+    @FXML private ImageView rightArrowMoveReload;
+    @FXML private ImageView downArrowMoveReload;
+    @FXML private Button enterMoveReload;
+
 
     private static final int ROWS = 3;
     private static final int COLUMNS = 4;
@@ -275,6 +281,8 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     private String moveFrenzyTwoActions[] = new String[MAX_MOVEMENT - 1];
     private Integer countMovementOneAction = 0;
     private String moveFrenzyOneActions[] = new String[MAX_MOVEMENT];
+    private String moveReload[] = new String[MAX_MOVEMENT -1];
+    private Integer countMoveRel = 0;
 
     //starting methods
     //
@@ -1944,6 +1952,9 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                 client.grab(0, Converter.fromStringToDirection(moveFrenzyTwoActions[0]), Converter.fromStringToDirection(moveFrenzyTwoActions[1]));
             }
 
+            Stage stage = (Stage) upArrowGrab.getScene().getWindow();
+            stage.close();
+
         } else if(this.finalFrenzy == 1 && playerController.getFinalFrenzyActions().equals(FinalFrenzyAction.ONE_ACTION)){
             if(moveFrenzyOneActions[0] == null) {
                 client.grab(0);
@@ -1954,6 +1965,9 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
             } else{
                 client.grab(0, Converter.fromStringToDirection(moveFrenzyOneActions[0]), Converter.fromStringToDirection(moveFrenzyOneActions[1]), Converter.fromStringToDirection(moveFrenzyOneActions[2]));
             }
+
+            Stage stage = (Stage) upArrowGrab.getScene().getWindow();
+            stage.close();
         }
     }
 
@@ -2260,13 +2274,26 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
             this.guiHandler = Data.getInstance().getGuiHandler();
             this.guiHandler.showWeapon(mouseEvent);
 
-        } else if(this.finalFrenzy == 1 && playerController.getFinalFrenzyActions().equals(FinalFrenzyAction.ONE_ACTION)){
-            //fill muovi 2 quadrati, ricarica, spara
+        } else if(this.finalFrenzy == 1) {
+            Platform.runLater(() -> {
+                FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("MoveAndReload.fxml"));
 
-        } else if(this.finalFrenzy == 1 && playerController.getFinalFrenzyActions().equals(FinalFrenzyAction.TWO_ACTIONS)){
-            //fill muovi 1 quadrato, ricarica, spara
+                Parent root = null;
+                try {
+                    root = loader.load();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                Stage stage = new Stage();
+                stage.setScene(new Scene(root, 222, 256));
+                stage.setTitle("Move and Reload Popup");
+                stage.show();
+            });
         }
     }
+
+
 
     public void shootFirstWeapon(MouseEvent mouseEvent) {
         Data.getInstance().setWeaponShoot(0);
@@ -2377,5 +2404,45 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         } catch (RemoteException e) {
             e.printStackTrace();
         }
+    }
+
+    public void upMoveRel(MouseEvent mouseEvent){
+        setMoveRel("up");
+    }
+
+    public void rightMoveRel(MouseEvent mouseEvent){
+        setMoveRel("right");
+    }
+
+    public void downMoveRel(MouseEvent mouseEvent){
+        setMoveRel("down");
+    }
+
+    public void leftMoveRel(MouseEvent mouseEvent){
+        setMoveRel("left");
+    }
+
+    private void setMoveRel(String move) {
+        if(this.countMoveRel < MAX_MOVEMENT-1) {
+            this.moveReload[0] = move;
+            this.countMoveRel ++;
+        }
+    }
+
+    public void confirmMoveRel(MouseEvent mouseEvent) throws IOException {
+        client = Data.getInstance().getClient();
+        playerController = Data.getInstance().getPlayerController();
+
+        if(playerController.getFinalFrenzyActions().equals(FinalFrenzyAction.TWO_ACTIONS)){
+            client.moveAndReload(Converter.fromStringToDirection(moveReload[0]));
+        } else{
+            client.moveAndReload(Converter.fromStringToDirection(moveReload[0]), Converter.fromStringToDirection(moveReload[1]));
+        }
+
+        Stage stage = (Stage) enterMoveReload.getScene().getWindow();
+        stage.close();
+
+        this.guiHandler = Data.getInstance().getGuiHandler();
+        this.guiHandler.showWeapon(mouseEvent);
     }
 }
