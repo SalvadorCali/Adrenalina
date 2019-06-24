@@ -48,15 +48,36 @@ public class DamageBoardCLI {
      * A list of ammos.
      */
     private List<Ammo> ammoBox;
+    /**
+     * A boolean value, true if the player is in his final frenzy.
+     */
     private boolean finalFrenzy;
 
+    /**
+     * A list of victims.
+     */
     private List<Player> victims;
+    /**
+     * A list that contains victim's damages.
+     */
     private Token[] victimDamageBoard;
+    /**
+     * Victim's number of deaths.
+     */
     private int victimDeathNumber;
+    /**
+     * Victim's list of marks.
+     */
     private List<Token> victimMarkBoard;
+    /**
+     * Victim's list of ammos.
+     */
     private List<Ammo> victimAmmoBox;
 
-
+    /**
+     * Class constructor.
+     * @param player the player whose playerboard will be printed.
+     */
     public DamageBoardCLI(Player player){
 
         damageBoard = player.getPlayerBoard().getDamageBoard();
@@ -70,6 +91,10 @@ public class DamageBoardCLI {
         //markBoard = gameController.getGame().getCurrentPlayer().getPlayerBoard().getRevengeMarks();
     }
 
+    /**
+     * Setter for player.
+     * @param player the player whose playerboard will be printed.
+     */
     public void setPlayer(Player player){
         damageBoard = player.getPlayerBoard().getDamageBoard();
         markBoard = player.getPlayerBoard().getRevengeMarks();
@@ -77,14 +102,25 @@ public class DamageBoardCLI {
         deathNumber = player.getPlayerBoard().getDeathNumber();
     }
 
+    /**
+     * Setter for the victims.
+     * @param victims
+     */
     public void setVictims(List<Player> victims){
         this.victims = victims;
     }
 
+    /**
+     * Setter for the final frenzy boolean.
+     * @param finalFrenzy a boolean value.
+     */
     public void setFinalFrenzy(boolean finalFrenzy){
         this.finalFrenzy = finalFrenzy;
     }
 
+    /**
+     * Main method of this class. Prints the player's playerboard, with ammos, damages and marks of the right color.
+     */
     public void printDamageBoard() {
 
         Integer damage[] = new Integer[MAX_DAMAGE];
@@ -282,6 +318,9 @@ public class DamageBoardCLI {
 */
     }
 
+    /**
+     * Main method of this class. Prints the victim's playerboard, with ammos, damages and marks of the right color.
+     */
     public void printVictimsDamageBoard() {
         for(int k = 0; k<victims.size(); k++){
             Integer damage[] = new Integer[MAX_DAMAGE];

@@ -53,7 +53,8 @@ public class Connection {
             Enumeration<InetAddress> addresses = networkInterface.getInetAddresses();
             while(addresses.hasMoreElements()){
                 InetAddress address = addresses.nextElement();
-                if(address instanceof Inet4Address && !address.isLoopbackAddress() && address.isSiteLocalAddress()){
+                //if(address instanceof Inet4Address && !address.isLoopbackAddress() && address.isSiteLocalAddress()){
+                if(address instanceof Inet4Address && !address.isLoopbackAddress()){
                     addressesList.add(address);
                 }
             }
@@ -61,7 +62,11 @@ public class Connection {
         //&& addressesList.size() < 4
         if(addressesList.size() > 1){
             addressesList.forEach(a->Printer.println(a.toString()));
-            return addressesList.get(1);
+            if(addressesList.get(0).toString().contains("169.")){
+                return addressesList.get(0);
+            }else{
+                return addressesList.get(1);
+            }
         //}
         //else if(addressesList.size() > 3) {
             //return addressesList.get(3);

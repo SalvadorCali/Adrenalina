@@ -19,18 +19,41 @@ import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
 
+/**
+ * This is the main class of the CLI. It takes inputs and prints information about the game.
+ */
 public class CommandLine implements ViewInterface {
+    /**
+     * The relative Client.
+     */
     private ClientInterface client;
+    /**
+     * The username of the player.
+     */
     private String username;
+    /**
+     * The PlayerController that contains datas about the player.
+     */
     private PlayerController playerController;
+    /**
+     * The user input stream.
+     */
     private BufferedReader userInputStream;
-    private GameController game = new GameController();
-    private GameBoard gameBoard;
-    private Player player;
-    private AmmoBoxReserveCLI ammoPrinter;
+    /**
+     * The playerboard's printer.
+     */
     private DamageBoardCLI damageBoardPrinter;
+    /**
+     * The gameboard's printer.
+     */
     private MapCLI gameBoardPrinter;
+    /**
+     * The killshot track's printer.
+     */
     private KillshotTrackCLI killshotTrackPrinter;
+    /**
+     * The weapon's handler.
+     */
     private WeaponHandler weaponHandler;
 
     /**
@@ -63,7 +86,7 @@ public class CommandLine implements ViewInterface {
     }
 
     /**
-     * sets the player controller for the client.
+     * Sets the player controller for the client.
      * @param playerController that will be set.
      */
     public void setPlayerController(PlayerController playerController){
@@ -71,7 +94,7 @@ public class CommandLine implements ViewInterface {
     }
 
     /**
-     * analyzes the user's input and calls the right method or return an error.
+     * Analyzes the user's input and calls the right method or return an error.
      * @param message the user's input.
      * @throws IOException caused by reading inputs.
      */
@@ -178,7 +201,7 @@ public class CommandLine implements ViewInterface {
     }
 
     /**
-     * shows the list of commands.
+     * Shows the list of commands.
      */
     private void help(){
         Printer.println(StringCLI.COMMANDS_LIST);
@@ -192,7 +215,7 @@ public class CommandLine implements ViewInterface {
     }
 
     /**
-     * shows the list of commands during final frenzy.
+     * Shows the list of commands during final frenzy.
      */
     private void helpFinalFrenzy(){
         Printer.println(StringCLI.COMMANDS_LIST);
@@ -1107,7 +1130,6 @@ public class CommandLine implements ViewInterface {
 
     private void createCliPrinters(){
         gameBoardPrinter = new MapCLI(playerController.getGameBoard());
-        ammoPrinter = new AmmoBoxReserveCLI(playerController.getPlayer());
         damageBoardPrinter = new DamageBoardCLI(playerController.getPlayer());
         killshotTrackPrinter = new KillshotTrackCLI(playerController.getKillshotTrack());
     }
