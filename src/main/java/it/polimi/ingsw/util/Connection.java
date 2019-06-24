@@ -8,7 +8,15 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
 
+/**
+ * Class that generates the Server's ip adresses and give them to it.
+ */
 public class Connection {
+    /**
+     * Class constructor.
+     */
+    private Connection(){}
+
     public static List<InetAddress> getAddresses() throws SocketException {
         Enumeration<NetworkInterface> networkInterfaces = NetworkInterface.getNetworkInterfaces();
         List<InetAddress> addressesList = new ArrayList<>();
@@ -32,6 +40,11 @@ public class Connection {
         return addressesList;
     }
 
+    /**
+     * Finds the ip addresses and return the correct one.
+     * @return the correct ip address.
+     * @throws SocketException caused by socket.
+     */
     public static InetAddress getAddress() throws SocketException {
         Enumeration<NetworkInterface> networkInterfaces = NetworkInterface.getNetworkInterfaces();
         List<InetAddress> addressesList = new ArrayList<>();

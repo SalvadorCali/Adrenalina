@@ -27,6 +27,12 @@ public class SocketServer implements Runnable, ServerInterface {
     private ServerController serverController;
     private String clientName;
 
+    /**
+     * Class constructor.
+     * @param socket the relative socket.
+     * @param serverController the ServerController of the game.
+     * @throws IOException caused by the streams.
+     */
     public SocketServer(Socket socket, ServerController serverController) throws IOException {
         this.socket = socket;
         this.objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
@@ -36,6 +42,9 @@ public class SocketServer implements Runnable, ServerInterface {
         thisThread.start();
     }
 
+    /**
+     * Waits for messages and then handle them, with the {@link #readRequest(Message)} method.
+     */
     @Override
     public void run() {
         Thread currentThread = Thread.currentThread();
@@ -59,11 +68,20 @@ public class SocketServer implements Runnable, ServerInterface {
         }
     }
 
+    /**
+     * Setter for the ServerController.
+     * @param serverController the ServerController that will be set.
+     * @throws RemoteException caused by the remote method.
+     */
     @Override
     public void setServerController(ServerController serverController) throws RemoteException {
         this.serverController = serverController;
     }
 
+    /**
+     * Reads the message sent by the Client and the calls the relative method to handle it.
+     * @param message the message sent by the Client.
+     */
     private void readRequest(Message message){
         switch (message){
             case LOGIN:
@@ -127,6 +145,9 @@ public class SocketServer implements Runnable, ServerInterface {
         }
     }
 
+    /**
+     * Saves the username and the color of the Client and sends them to the ServerController.
+     */
     public void login(){
         TokenColor color = TokenColor.NONE;
         try{
@@ -141,6 +162,9 @@ public class SocketServer implements Runnable, ServerInterface {
         serverController.login(clientName, color, this);
     }
 
+    /**
+     * Calls the relative ServerController's method to disconnect the Client.
+     */
     public void disconnect(){
         serverController.disconnect(clientName);
         try {
@@ -152,6 +176,9 @@ public class SocketServer implements Runnable, ServerInterface {
         }
     }
 
+    /**
+     * Saves the board and the number of the skulls and sends them to the ServerController.
+     */
     public void board(){
         try {
             int boardType = objectInputStream.readInt();
@@ -162,6 +189,9 @@ public class SocketServer implements Runnable, ServerInterface {
         }
     }
 
+    /**
+     * Saves the powerup chosen by the Client and sends it to the ServerController.
+     */
     public void choose(){
         try {
             int choice = objectInputStream.readInt();
@@ -171,10 +201,16 @@ public class SocketServer implements Runnable, ServerInterface {
         }
     }
 
+    /**
+     * Calls the relative ServerController's method to show the square to the Client.
+     */
     private void showSquare(){
         serverController.showSquare(clientName);
     }
 
+    /**
+     * Saves the square's coordinates and sends them to the ServerController to show to the Client a square.
+     */
     private void showOtherSquare(){
         try {
             int x = objectInputStream.readInt();
@@ -185,8 +221,14 @@ public class SocketServer implements Runnable, ServerInterface {
         }
     }
 
+    /**
+     * Saves the directions where the Client wants to move and then sends them to the ServerController.
+     */
     public void move(){
-        Direction first, second, third, fourth;
+        Direction first;
+        Direction second;
+        Direction third;
+        Direction fourth;
         try {
             int directionsSize = objectInputStream.readInt();
             if(directionsSize == 1){
@@ -213,9 +255,13 @@ public class SocketServer implements Runnable, ServerInterface {
         }
     }
 
+    /**
+     * Saves the object to grab and the directions for the grab action and sends them to the ServerController.
+     */
     public void grab(){
         int choice = 0;
-        Direction first, second;
+        Direction first;
+        Direction second;
         try {
             choice = objectInputStream.readInt();
             int directionsSize = objectInputStream.readInt();
@@ -235,6 +281,9 @@ public class SocketServer implements Runnable, ServerInterface {
         }
     }
 
+    /**
+     * Takes the powerup to drop and sends it to the ServerController.
+     */
     private void dropPowerup(){
         try {
             int powerup = objectInputStream.readInt();
@@ -244,6 +293,9 @@ public class SocketServer implements Runnable, ServerInterface {
         }
     }
 
+    /**
+     * Takes the weapon to drop and sends it to the ServerController.
+     */
     private void dropWeapon(){
         try {
             int weapon = objectInputStream.readInt();
@@ -253,6 +305,9 @@ public class SocketServer implements Runnable, ServerInterface {
         }
     }
 
+    /**
+     * Takes the powerup to discard and use as ammo and sends it to the ServerController.
+     */
     private void discardPowerup(){
         try {
             int powerup = objectInputStream.readInt();
@@ -262,6 +317,9 @@ public class SocketServer implements Runnable, ServerInterface {
         }
     }
 
+    /**
+     * Takes the parameters to shoot and sends them to the ServerController.
+     */
     public void shoot(){
         try {
             Direction first, second, third, fourth;
@@ -309,9 +367,14 @@ public class SocketServer implements Runnable, ServerInterface {
         }
     }
 
+    /**
+     * Takes a direction and up to three strings and sends them to the ServerController for the move and reload action.
+     */
     private void moveAndReloadOneDirection(){
         try {
-            String firstWeapon, secondWeapon, thirdWeapon;
+            String firstWeapon;
+            String secondWeapon;
+            String thirdWeapon;
             Direction firstDirection = (Direction) objectInputStream.readObject();
             int weaponsSize = objectInputStream.readInt();
             switch (weaponsSize){
@@ -341,9 +404,14 @@ public class SocketServer implements Runnable, ServerInterface {
         }
     }
 
+    /**
+     * Takes two directions and up to three strings and sends them to the ServerController for the move and reload action.
+     */
     private void moveAndReloadTwoDirections(){
         try {
-            String firstWeapon, secondWeapon, thirdWeapon;
+            String firstWeapon;
+            String secondWeapon;
+            String thirdWeapon;
             Direction firstDirection = (Direction) objectInputStream.readObject();
             Direction secondDirection = (Direction) objectInputStream.readObject();
             int weaponsSize = objectInputStream.readInt();
@@ -374,6 +442,9 @@ public class SocketServer implements Runnable, ServerInterface {
         }
     }
 
+    /**
+     * Takes the parameters to use powerups during the game and sends them to the ServerController.
+     */
     public void powerup(){
         try {
             Direction first, second;
@@ -398,6 +469,9 @@ public class SocketServer implements Runnable, ServerInterface {
         }
     }
 
+    /**
+     * Takes the name of the weapon to reload and sends it to the ServerController.
+     */
     public void reload(){
         try {
             String weaponName = objectInputStream.readUTF();
@@ -407,6 +481,9 @@ public class SocketServer implements Runnable, ServerInterface {
         }
     }
 
+    /**
+     * Takes the powerup chosen by the user for the respawn and sends it to the ServerController.
+     */
     public void respawn(){
         try {
             int powerup = objectInputStream.readInt();
@@ -416,10 +493,18 @@ public class SocketServer implements Runnable, ServerInterface {
         }
     }
 
+    /**
+     * Calls the relative ServerController method to end the turn.
+     */
     public void endTurn(){
         serverController.endTurn(clientName);
     }
 
+    /**
+     * Writes a message to the Client to notify it an action.
+     * @param message the message sent by the ServerController.
+     * @throws IOException caused by the streams.
+     */
     @Override
     public void notify(Message message) throws IOException {
         objectOutputStream.reset();
@@ -429,6 +514,12 @@ public class SocketServer implements Runnable, ServerInterface {
         objectOutputStream.flush();
     }
 
+    /**
+     * Writes a message and an outcome to the Client to notify it an action.
+     * @param message the message sent by the ServerController.
+     * @param outcome the outcome of the action.
+     * @throws IOException caused by the streams.
+     */
     @Override
     public void notify(Message message, Outcome outcome) throws IOException {
         objectOutputStream.reset();
@@ -440,6 +531,13 @@ public class SocketServer implements Runnable, ServerInterface {
         objectOutputStream.flush();
     }
 
+    /**
+     * Writes a message, an outcome and a GameData object to the Client to notify it an action.
+     * @param message the message sent by the ServerController.
+     * @param outcome the outcome of the action.
+     * @param gameData datas of the game.
+     * @throws IOException caused by the streams.
+     */
     @Override
     public void notify(Message message, Outcome outcome, GameData gameData) throws IOException {
         objectOutputStream.reset();

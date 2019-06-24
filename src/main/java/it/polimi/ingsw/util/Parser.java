@@ -23,10 +23,19 @@ import java.util.List;
 
 import static it.polimi.ingsw.util.Converter.*;
 
+/**
+ * This class contains method to initialize the game from json files.
+ */
 public class Parser {
-
+    /**
+     * Class constructor.
+     */
     private Parser(){}
 
+    /**
+     * Reads the cards from the file and the creates them. Then creates a deck and shuffles it.
+     * @return the weapon's deck.
+     */
     public static Deck createWeapons(){
         Deck weapons = new Deck();
         String cardName;
@@ -72,6 +81,10 @@ public class Parser {
         return weapons;
     }
 
+    /**
+     * Reads the ammocards from the file and creates them. Then creates a list of them and shuffles it.
+     * @return a list of ammocards.
+     */
     public static List<AmmoCard> createAmmos(){
         List<AmmoCard> ammos = new ArrayList<>();
         String combination;
@@ -103,6 +116,10 @@ public class Parser {
         return ammos;
     }
 
+    /**
+     * Reads powerup card from the file and creates them. Then creates a deck and shuffles it.
+     * @return the powerup's deck.
+     */
     public static Deck createPowerups(){
         Deck powerups = new Deck();
         String cardName;
@@ -112,9 +129,7 @@ public class Parser {
             Object reader = null;
             try {
                 reader = new JSONParser().parse(new InputStreamReader(input));
-            } catch (ParseException e) {
-                Printer.err(e);
-            } catch (IOException e) {
+            } catch (ParseException | IOException e) {
                 Printer.err(e);
             }
             JSONObject firstObject = (JSONObject) reader;
@@ -137,6 +152,10 @@ public class Parser {
         return powerups;
     }
 
+    /**
+     * Reads the boards from the file and creates them. Then creates a list of them and returns it.
+     * @return a list of boards.
+     */
     public static List<GameBoard> createGameBoards(){
         List<GameBoard> gameBoards = new ArrayList<>();
         BoardType boardType;
@@ -147,9 +166,7 @@ public class Parser {
         Object reader = null;
         try {
             reader = new JSONParser().parse(new InputStreamReader(input));
-        } catch (ParseException e) {
-            Printer.err(e);
-        } catch (IOException e) {
+        } catch (ParseException | IOException e) {
             Printer.err(e);
         }
         JSONObject firstObject = (JSONObject) reader;
@@ -191,6 +208,11 @@ public class Parser {
         return gameBoards;
     }
 
+    /**
+     * Takes a combination of colors and creates the relative ammocard.
+     * @param combination a String of colors.
+     * @return the relative ammocard.
+     */
     private static AmmoCard generateAmmoCard(String combination){
         switch(combination){
             case "YBB":

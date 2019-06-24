@@ -19,6 +19,9 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class ConnectionManager implements ConnectionInterface, Runnable {
+    /**
+     *
+     */
     private ServerSocket serverSocket;
     private Thread thisThread;
     private final ExecutorService pool;

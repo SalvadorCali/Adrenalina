@@ -3,9 +3,20 @@ package it.polimi.ingsw.util;
 import it.polimi.ingsw.model.cards.AmmoCard;
 import it.polimi.ingsw.model.enums.*;
 
+/**
+ * This class has methods that takes an object and returns another type of object.
+ */
 public class Converter {
+    /**
+     * Class constructor.
+     */
     private Converter(){}
 
+    /**
+     * Takes a string and converts it to an integer.
+     * @param number a string that will be converted.
+     * @return an integer.
+     */
     public static int fromStringToInt(String number){
         try{
             Integer.parseInt(number);
@@ -15,6 +26,11 @@ public class Converter {
         return Integer.parseInt(number);
     }
 
+    /**
+     * Takes a direction and returns the opposite direction.
+     * @param direction a direction that will be converted.
+     * @return the opposite direction.
+     */
     public static Direction fromDirectionToOpposite(Direction direction){
         switch(direction){
             case UP:
@@ -30,8 +46,12 @@ public class Converter {
         }
     }
 
+    /**
+     * Takes an ammo card and returns a String that represents the ammos.
+     * @param ammoCard the ammo card that will be converted.
+     * @return a string of letters that represent the ammo card.
+     */
     public static String fromAmmoCardToString(AmmoCard ammoCard){
-
         String first = new String();
         String second = new String();
         String third = new String();
@@ -85,6 +105,11 @@ public class Converter {
         return first+second+third;
     }
 
+    /**
+     * Takes a String and return the relative Direction.
+     * @param direction a String that will be converted.
+     * @return a Direction.
+     */
     public static Direction fromStringToDirection(String direction){
         switch(direction){
             case "up":
@@ -100,6 +125,11 @@ public class Converter {
         }
     }
 
+    /**
+     * Takes a TokenColor and returns a String that represents it.
+     * @param tokenColor a TokenColor.
+     * @return a String.
+     */
     public static String fromTokenColorToString(TokenColor tokenColor){
         switch(tokenColor){
             case NONE:
@@ -123,6 +153,11 @@ public class Converter {
         }
     }
 
+    /**
+     * Takes a String and returns a Color.
+     * @param color a String.
+     * @return a Color.
+     */
     public static Color fromStringToColor(String color){
         switch(color){
             case "B":
@@ -142,6 +177,11 @@ public class Converter {
         }
     }
 
+    /**
+     * Takes a Color and returns the relative String.
+     * @param color a String.
+     * @return a Color.
+     */
     public static TokenColor fromStringToTokenColor(String color){
         switch(color){
             case "blue":
@@ -161,6 +201,11 @@ public class Converter {
         }
     }
 
+    /**
+     * Takes a String and returns the relative BoardType.
+     * @param boardType a String.
+     * @return the relative BoardType.
+     */
     public static BoardType fromStringToBoardType(String boardType){
         switch(boardType){
             case "basic":
@@ -176,6 +221,11 @@ public class Converter {
         }
     }
 
+    /**
+     * Takes a BoardType and returns a number.
+     * @param boardType a BoardType.
+     * @return a number that represents the BoardType object.
+     */
     public static Integer fromBoardTypeToInt(BoardType boardType){
         switch (boardType){
             case BASIC:
@@ -191,7 +241,11 @@ public class Converter {
         }
     }
 
-
+    /**
+     * Takes a String and returns the relative Cardinal object.
+     * @param cardinal a String.
+     * @return the relative Cardinal object.
+     */
     public static Cardinal fromStringToCardinal(String cardinal){
         switch (cardinal){
             case "door":
@@ -205,6 +259,11 @@ public class Converter {
         }
     }
 
+    /**
+     * Takes a Color and returns the relative letter.
+     * @param color a Color.
+     * @return the relative letter.
+     */
     public static String fromColorToLetter(Color color){
         switch (color){
             case BLUE:
@@ -218,6 +277,11 @@ public class Converter {
         }
     }
 
+    /**
+     * Takes a TokenColor and returns the relative ANSI String.
+     * @param tokenColor a TokenColor.
+     * @return the relative ANSI String.
+     */
     public static String fromTokenColorToCLIColor(TokenColor tokenColor){
 
         switch (tokenColor){
@@ -251,6 +315,11 @@ public class Converter {
         }
     }
 
+    /**
+     * Takes a Color and returns the relative ANSI String.
+     * @param color a Color.
+     * @return an ANSI String.
+     */
     public static String fromColorToCLIColor(Color color){
 
         switch (color){
@@ -271,6 +340,11 @@ public class Converter {
         }
     }
 
+    /**
+     * Takes a powerup name and convert it to uppercase.
+     * @param powerup a powerup name.
+     * @return the name in uppercase.
+     */
     public static String powerupName(String powerup){
         switch (powerup){
             case "targetingscope":
@@ -286,6 +360,11 @@ public class Converter {
         }
     }
 
+    /**
+     * Takes a weapon name and converts it to uppercase.
+     * @param weapon a weapon name.
+     * @return the name in uppercase.
+     */
     public static String weaponName(String weapon){
         switch (weapon){
             case "lockrifle":
@@ -335,6 +414,11 @@ public class Converter {
         }
     }
 
+    /**
+     * Takes a weapon name in uppercase and returns it in lowercase.
+     * @param weapon a weapon name.
+     * @return the name in lowercase.
+     */
     public static String weaponNameInvert(String weapon){
         switch (weapon){
             case "LOCK RIFLE":
@@ -384,6 +468,11 @@ public class Converter {
         }
     }
 
+    /**
+     * Takes a Color and returns the relative String.
+     * @param color a Color.
+     * @return the relative String.
+     */
     public static String fromColorToString(Color color){
         switch (color){
             case BLUE:
