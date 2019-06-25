@@ -2494,22 +2494,22 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         String secondDir = null;
         String namePowerup = playerController.getPowerups().get(Data.getInstance().getNumPowerup()).getName();
 
-        if(victimTxtFieldPowerUp.getText()!= null){
+        if(victimTxtFieldPowerUp.getText().isEmpty()){
             victim = victimTxtFieldPowerUp.getText();
         }
-        if(ammoTxtFieldPowerUp.getText() != null){
+        if(ammoTxtFieldPowerUp.getText().isEmpty()){
             colorAmmo = ammoTxtFieldPowerUp.getText();
         }
-        if(firstDirTxtFieldPowerUp.getText() != null){
+        if(firstDirTxtFieldPowerUp.getText().isEmpty()){
             firstDir = firstDirTxtFieldPowerUp.getText();
         }
-        if(secondDirTxtFieldPowerUp.getText() != null){
+        if(secondDirTxtFieldPowerUp.getText().isEmpty()){
             secondDir = secondDirTxtFieldPowerUp.getText();
         }
-        if(xTxtFieldPowerUp.getText() != null){
+        if(xTxtFieldPowerUp.getText().isEmpty()){
             x = Integer.valueOf(xTxtFieldPowerUp.getText());
         }
-        if(yTxtFieldPowerUp.getText() != null){
+        if(yTxtFieldPowerUp.getText().isEmpty()){
             y = Integer.valueOf(yTxtFieldPowerUp.getText());
         }
 
