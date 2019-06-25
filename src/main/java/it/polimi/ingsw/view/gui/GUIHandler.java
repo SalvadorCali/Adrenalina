@@ -2513,7 +2513,11 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
             y = Integer.valueOf(yTxtFieldPowerUp.getText());
         }
 
-        client.powerup(namePowerup, Converter.fromStringToTokenColor(victim), Converter.fromStringToColor(colorAmmo), x, y, Converter.fromStringToDirection(firstDir), Converter.fromStringToDirection(secondDir));
+        try {
+            client.powerup(namePowerup, Converter.fromStringToTokenColor(victim), Converter.fromStringToColor(colorAmmo), x, y, Converter.fromStringToDirection(firstDir), Converter.fromStringToDirection(secondDir));
+        } catch (IOException e){
+            e.printStackTrace();
+        }
 
         Stage stage = (Stage) xTxtFieldPowerUp.getScene().getWindow();
         stage.close();
