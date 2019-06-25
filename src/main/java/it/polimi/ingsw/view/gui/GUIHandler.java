@@ -2164,7 +2164,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
             Data.getInstance().setGuiHandlerWeapon(guiHandler);
 
             Stage stage = new Stage();
-            stage.setScene(new Scene(root, 522, 518));
+            stage.setScene(new Scene(root, 522, 554));
             stage.setTitle("Weapons");
             stage.show();
 
@@ -2325,7 +2325,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
             }
 
             Stage stage = new Stage();
-            stage.setScene(new Scene(root, 522, 339));
+            stage.setScene(new Scene(root, 522, 454));
             stage.setTitle("Data Shoot");
             stage.show();
         });
