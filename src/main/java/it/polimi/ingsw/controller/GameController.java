@@ -33,123 +33,145 @@ public class GameController {
     private boolean canShoot = true;
     Card droppedWeapon = null;
 
+    /**
+     * Class constructor.
+     */
     public GameController() {
         weapons = Parser.createWeapons();
         powerups = Parser.createPowerups();
         ammoCards = Parser.createAmmos();
         gameBoards = Parser.createGameBoards();
-        /*
-        int gameBoardIndex = (int)(Math.random() * 4);
-        game = new Game(gameBoards.get(gameBoardIndex), weapons, powerups, ammoCards);
-        */
-        game = new Game(gameBoards.get(0), weapons, powerups, ammoCards);
-        actionInterface = new ActionController(game);
-        canShoot = true;
-    }
-
-    public GameController(int board) {
-        weapons = Parser.createWeapons();
-        powerups = Parser.createPowerups();
-        ammoCards = Parser.createAmmos();
-        gameBoards = Parser.createGameBoards();
-        /*
-        int gameBoardIndex = (int)(Math.random() * 4);
-        game = new Game(gameBoards.get(gameBoardIndex), weapons, powerups, ammoCards);
-        */
         game = new Game(gameBoards.get(0), weapons, powerups, ammoCards);
         actionInterface = new ActionController(game);
     }
 
-    //getters and setters
+    /**
+     * Getter of the current game.
+     * @return the current game.
+     */
     public Game getGame() {
         return game;
     }
 
+    /**
+     * Getter of the action interface.
+     * @return the action interface.
+     */
     public ActionInterface getActionInterface() {
         return actionInterface;
     }
 
-    //methods
-    public void startGame(List<Player> players) {
-        game.setPlayers(players);
-        //game.setGamePhase(true);
-        game.giveAmmos();
-        //game.createKillshotTrack(8);
-        game.fillSquares(actionInterface);
-        game.createScoreList();
-    }
-
-    public void startGame(List<Player> players, int board, int skulls) {
-        game.setPlayers(players);
-        game.giveAmmos();
-        game.createKillshotTrack(skulls);
-        game.setBoard(gameBoards.get(board - 1));
-        game.fillSquares(actionInterface);
-        game.createScoreList();
-    }
-    public void setRespawnPhase(boolean respawnPhase) {
+    /**
+     * Setter of the boolean respawnPhase.
+     * @param respawnPhase chosen value for respawnPhase.
+     */
+    void setRespawnPhase(boolean respawnPhase) {
         game.setRespawnPhase(respawnPhase);
     }
 
+    /**
+     * Getter of the boolean respawnPhase.
+     * @return the value of respawnPhase.
+     */
     public boolean isRespawnPhase() {
         return game.isRespawnPhase();
     }
 
-    public void setGamePhase(boolean gamePhase) {
+    /**
+     * Starts the game, adds the players to it and sets their ammos. Creates the gameboard.
+     * @param players list of players to add to the game.
+     */
+    void startGame(List<Player> players) {
+        game.setPlayers(players);
+        game.giveAmmos();
+        game.fillSquares(actionInterface);
+        game.createScoreList();
+    }
+
+    /**
+     * Setter of the boolean gamePhase.
+     * @param gamePhase chosen value for gamePhase.
+     */
+    void setGamePhase(boolean gamePhase) {
         game.setGamePhase(gamePhase);
     }
 
-    public boolean isGamePhase() {
+    /**
+     * Getter of the boolean gamePhase.
+     * @return the value of gamePhase.
+     */
+    boolean isGamePhase() {
         return game.isGamePhase();
     }
 
-    public void setSpawnLocationPhase(boolean spawnLocationPhase) {
+    /**
+     * Setter of the boolean spawnLocationPhase.
+     * @param spawnLocationPhase chosen value for spawnLocationPhase.
+     */
+    void setSpawnLocationPhase(boolean spawnLocationPhase) {
         game.setSpawnLocationPhase(spawnLocationPhase);
     }
 
+    /**
+     * Getter of the boolean spawnLocationPhase.
+     * @return the value of spawnLocationPhase.
+     */
     public boolean isSpawnLocationPhase() {
         return game.isSpawnLocationPhase();
     }
 
-    public void setBoardTypePhase(boolean boardTypePhase){
+    /**
+     * Setter of the boolean boardTypePhase.
+     * @param boardTypePhase chosen value for boardTypePhase.
+     */
+    void setBoardTypePhase(boolean boardTypePhase){
         game.setBoardTypePhase(boardTypePhase);
     }
 
+    /**
+     * Getter of the boolean boardTypePhase.
+     * @return the value of the boolean boardTypePhase.
+     */
     public boolean isBoardTypePhase(){
         return game.isBoardTypePhase();
     }
 
-    public void setColorSelection(boolean colorSelection) {
-        game.setColorSelection(colorSelection);
-    }
-
-    public boolean isColorSelection() {
-        return game.isColorSelection();
-    }
-
-    public void addPlayer(Player player) {
-        game.addPlayer(player);
-    }
-
-    public void setBoard(int boardType, int skulls){
+    /**
+     * Sets the board and the number of skulls after the first player's choice.
+     * @param boardType chosen board.
+     * @param skulls number of the chosen skulls.
+     */
+    void setBoard(int boardType, int skulls){
         game.setBoard(gameBoards.get(boardType - 1));
         game.createKillshotTrack(skulls);
     }
 
+    /**
+     * Calls the game board move control.
+     * @param player player who wants to move.
+     * @param directions directions of the moves.
+     * @return the result of the evaluation, true if the player can move, false if can't.
+     */
     public boolean canMove(Player player, Direction... directions) {
         return game.getBoard().canMove(player, directions);
     }
 
-
+    /**
+     * Calls the game board move to a square control.
+     * @param x row of the selected square.
+     * @param y column of the selected square.
+     * @return the result of the control.
+     */
     public boolean canMove(int x, int y) {
         return game.getBoard().canMove(x, y);
     }
 
-
-    public ArrayList<TokenColor> getPlayerColors() {
-        return game.getPlayerColors();
-    }
-
+    /**
+     * Controls if the player can move in different consecutive directions on the board.
+     * @param player the player who wants to move
+     * @param directions directions of the movement.
+     * @return the result of the control.
+     */
     public boolean move(Player player, Direction... directions) {
         if(game.isFinalFrenzy()){
             if(player.canUseActionFinalFrenzy()){
