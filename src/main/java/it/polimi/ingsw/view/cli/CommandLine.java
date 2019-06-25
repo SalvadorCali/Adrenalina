@@ -711,6 +711,11 @@ public class CommandLine implements ViewInterface {
         return false;
     }
 
+    /**
+     * Takes a StringTokenizer and then calls the {@link #powerupEffect(String)} method that handles the powerup.
+     * @param input a powerup name.
+     * @return true if the input is correct.
+     */
     private boolean powerup(StringTokenizer input){
         if(input.hasMoreTokens()) {
             String powerup = input.nextToken();
@@ -723,6 +728,12 @@ public class CommandLine implements ViewInterface {
         return false;
     }
 
+    /**
+     * Takes a powerup name and handles it. It takes the parameters for the action an then calls the {@link ClientInterface#powerup(String, TokenColor, Color, int, int, Direction...)} method.
+     * @param powerup the chosen powerup.
+     * @return if the inputs are correct.
+     * @throws IOException caused by the streams.
+     */
     private boolean powerupEffect(String powerup) throws IOException {
         StringTokenizer string;
         switch(powerup){
@@ -775,6 +786,12 @@ public class CommandLine implements ViewInterface {
         return false;
     }
 
+    /**
+     * Takes a weapon name and then calls the relative Client method to reload a weapon.
+     * @param input a weapon name.
+     * @return true if the input is correct.
+     * @throws IOException caused by the streams.
+     */
     private boolean reload(StringTokenizer input) throws IOException {
         if(input.countTokens() == 1){
             client.reload(input.nextToken());
@@ -782,9 +799,11 @@ public class CommandLine implements ViewInterface {
         }else{
             return false;
         }
-
     }
 
+    /**
+     * Calls the relative Client method to end the turn.
+     */
     private void endTurn(){
         try {
             client.endTurn();
@@ -793,7 +812,12 @@ public class CommandLine implements ViewInterface {
         }
     }
 
-    public void notifyLogin(Outcome outcome, String username){
+    /**
+     * Prints the result of the login action.
+     * @param outcome the result of the action.
+     * @param username the username of the player who tried to login.
+     */
+    private void notifyLogin(Outcome outcome, String username){
         switch(outcome){
             case WRONG:
                 Printer.print(StringCLI.SERVER + StringCLI.SPACE + StringCLI.WRONG_USERNAME);
@@ -807,7 +831,11 @@ public class CommandLine implements ViewInterface {
         }
     }
 
-    public void notifySpawnLocation(List<Card> powerups){
+    /**
+     * Prints a list of two powerups that the Client could choice for the spawn.
+     * @param powerups two powerups.
+     */
+    private void notifySpawnLocation(List<Card> powerups){
         Printer.print(StringCLI.NEW_LINE);
         Printer.println(StringCLI.SERVER + StringCLI.SPACE + StringCLI.CHOOSE_POWERUP);
         powerups.forEach(p -> {
@@ -818,17 +846,23 @@ public class CommandLine implements ViewInterface {
         Printer.print(StringCLI.CHOOSE_COMMAND);
     }
 
-    public void notifyDisconnection(Outcome outcome, String username){
-        switch (outcome){
-            case ALL:
-                Printer.println(StringCLI.SERVER + username + StringCLI.SPACE + StringCLI.DISCONNECTED);
-                break;
-            default:
-                break;
+    /**
+     * Prints the username of the player who is disconnected.
+     * @param outcome the result of the action.
+     * @param username the username of the disconnected player.
+     */
+    private void notifyDisconnection(Outcome outcome, String username){
+        if (outcome == Outcome.ALL) {
+            Printer.println(StringCLI.SERVER + username + StringCLI.SPACE + StringCLI.DISCONNECTED);
         }
     }
 
-    public void notifyColor(Outcome outcome, TokenColor color){
+    /**
+     * Prints to the user the result of the choice of the color.
+     * @param outcome the result of the action.
+     * @param color the chosen color.
+     */
+    private void notifyColor(Outcome outcome, TokenColor color){
         switch(outcome){
             case WRONG:
                 Printer.print(StringCLI.SERVER + StringCLI.WRONG_COLOR);
@@ -841,6 +875,10 @@ public class CommandLine implements ViewInterface {
         }
     }
 
+    /**
+     * Shows to the first player the boards and he has to choice one of them.
+     * @param outcome the result of the action.
+     */
     private void notifyBoard(Outcome outcome){
         if(outcome.equals(Outcome.RIGHT)){
             int i = 1;
@@ -857,6 +895,10 @@ public class CommandLine implements ViewInterface {
         }
     }
 
+    /**
+     * Shows the information about the new turn, like the board and the playerboard.
+     * @param outcome the result of the action.
+     */
     private void notifyNewTurn(Outcome outcome){
         if(outcome.equals(Outcome.RIGHT)){
             Printer.println(StringCLI.SERVER + StringCLI.NEW_TURN);
@@ -866,17 +908,26 @@ public class CommandLine implements ViewInterface {
             printSquare();
             Printer.println(StringCLI.NEW_LINE + StringCLI.SERVER + StringCLI.COMMANDS);
         }
-
     }
 
+    /**
+     * Shows to the user that his turn is end.
+     */
     private void notifyEndTurn(){
         Printer.println(StringCLI.SERVER + StringCLI.END_TURN);
     }
 
+    /**
+     * Shows to the user that is not his turn.
+     */
     private void notifyNotTurn(){
         Printer.println(StringCLI.SERVER + StringCLI.NOT_TURN);
     }
 
+    /**
+     * Notify the beginning of the game or that it's already begun.
+     * @param outcome the result of the action.
+     */
     private void notifyGame(Outcome outcome){
         switch (outcome){
             case WRONG:
@@ -891,6 +942,10 @@ public class CommandLine implements ViewInterface {
         }
     }
 
+    /**
+     * Notify the result of the movement action, showing the board.
+     * @param outcome the result of the action.
+     */
     private void notifyMovement(Outcome outcome){
         if(outcome.equals(Outcome.RIGHT) || outcome.equals(Outcome.ALL)){
             Printer.println(StringCLI.SERVER + playerController.getCurrentPlayer() + StringCLI.SPACE + StringCLI.MOVED);
@@ -901,6 +956,10 @@ public class CommandLine implements ViewInterface {
         }
     }
 
+    /**
+     * Notify to the user the use of a powerup.
+     * @param outcome the result of the action.
+     */
     private void notifyPowerup(Outcome outcome){
         if(outcome.equals(Outcome.RIGHT)){
             Printer.println(StringCLI.SERVER + playerController.getPowerup() + StringCLI.SPACE + StringCLI.USED);
@@ -921,6 +980,10 @@ public class CommandLine implements ViewInterface {
         }
     }
 
+    /**
+     * Notify the grab action to the user, showing the updated playerboard.
+     * @param outcome the result of the action.
+     */
     private void notifyGrab(Outcome outcome){
         if(outcome.equals(Outcome.RIGHT)){
             Printer.println(StringCLI.SERVER + playerController.getCurrentPlayer() + StringCLI.SPACE + StringCLI.GRABBED);
@@ -938,6 +1001,10 @@ public class CommandLine implements ViewInterface {
         }
     }
 
+    /**
+     * Notify the shoot action, showing the playerboard of the victims.
+     * @param outcome the result of the action.
+     */
     private void notifyShoot(Outcome outcome){
         switch(outcome){
             case RIGHT:
@@ -955,6 +1022,11 @@ public class CommandLine implements ViewInterface {
         }
     }
 
+    /**
+     * Shows the cards that are inside a square.
+     * @param outcome the result of the action.
+     * @param squareData the datas of the square.
+     */
     private void notifyShowSquare(Outcome outcome, SquareData squareData){
         if(outcome.equals(Outcome.RIGHT)){
             if(squareData.getAmmoCard() != null){
@@ -976,11 +1048,19 @@ public class CommandLine implements ViewInterface {
         }
     }
 
+    /**
+     * Prints the score.
+     * @param scoreList the score of the game.
+     */
     private void notifyScore(Map<TokenColor, Integer> scoreList){
         Printer.println(StringCLI.SERVER + StringCLI.KILLSHOT_SCORE);
         scoreList.forEach((c,i)->Printer.println(c + StringCLI.COLON + StringCLI.SPACE + i));
     }
 
+    /**
+     * Notify the reload action, showing if a weapon card was reloaded or not.
+     * @param outcome the result of the action.
+     */
     private void notifyReload(Outcome outcome){
         if(outcome.equals(Outcome.RIGHT)){
             Printer.println(playerController.getWeapon() + StringCLI.SPACE + StringCLI.RELOADED);
@@ -989,6 +1069,11 @@ public class CommandLine implements ViewInterface {
         }
     }
 
+    /**
+     * Prints to the user the name of the reconnected player and the game datas.
+     * @param outcome the result of the action.
+     * @param username the name of the player.
+     */
     private void notifyReconnection(Outcome outcome, String username){
         if(outcome.equals(Outcome.RIGHT)){
             Printer.println(StringCLI.SERVER + username + StringCLI.SPACE + StringCLI.RECONNECTED);
@@ -1001,6 +1086,10 @@ public class CommandLine implements ViewInterface {
         }
     }
 
+    /**
+     * Notify the discard action.
+     * @param outcome the result of the action.
+     */
     private void notifyDiscardPowerup(Outcome outcome){
         if(outcome.equals(Outcome.RIGHT)){
             Printer.println(StringCLI.SERVER + StringCLI.POWERUP_DROP + StringCLI.SPACE + StringCLI.DISCARDED);
@@ -1010,6 +1099,10 @@ public class CommandLine implements ViewInterface {
         }
     }
 
+    /**
+     * Notify the drop action.
+     * @param outcome the result of the action.
+     */
     private void notifyDropPowerup(Outcome outcome){
         if(outcome.equals(Outcome.RIGHT)){
             Printer.println(StringCLI.SERVER + StringCLI.POWERUP_DROP + StringCLI.SPACE + StringCLI.DROPPED);
@@ -1019,6 +1112,10 @@ public class CommandLine implements ViewInterface {
         }
     }
 
+    /**
+     * Notify the drop action.
+     * @param outcome the result of the action.
+     */
     private void notifyDropWeapon(Outcome outcome){
         if(outcome.equals(Outcome.RIGHT)){
             Printer.println(StringCLI.SERVER + StringCLI.WEAPON_DROP + StringCLI.SPACE + StringCLI.DROPPED);
@@ -1028,6 +1125,9 @@ public class CommandLine implements ViewInterface {
         }
     }
 
+    /**
+     * Notify the beginning of the final frenzy.
+     */
     private void notifyFinalFrenzy(){
         Printer.println(StringCLI.SERVER + StringCLI.FINAL_FRENZY);
         if(playerController.isPlayerBoardFinalFrenzy()){
@@ -1035,12 +1135,20 @@ public class CommandLine implements ViewInterface {
         }
     }
 
+    /**
+     * Shows to the player his powerup for the respawn.
+     * @param outcome the result of the action.
+     */
     private void notifyRespawn(Outcome outcome){
         Printer.println(StringCLI.SERVER + StringCLI.RESPAWN_POWERUP);
         playerController.getPowerups().forEach(Printer::println);
         Printer.println(StringCLI.RESPAWN_COMMAND);
     }
 
+    /**
+     * Handles the messages from the Client to notify actions.
+     * @param message a message.
+     */
     public void notify(Message message){
         switch (message){
             case END_TURN:
@@ -1057,6 +1165,11 @@ public class CommandLine implements ViewInterface {
         }
     }
 
+    /**
+     * Handles the messagers from the Client to notify actions.
+     * @param message a message.
+     * @param outcome the outcome of the action.
+     */
     public void notify(Message message, Outcome outcome){
         switch (message){
             case NEW_TURN:
@@ -1100,6 +1213,12 @@ public class CommandLine implements ViewInterface {
         }
     }
 
+    /**
+     * Handles the messagers from the Client to notify actions.
+     * @param message a message.
+     * @param outcome the outcome of the action.
+     * @param object an object.
+     */
     public void notify(Message message, Outcome outcome, Object object){
         switch(message){
             case LOGIN:
@@ -1128,12 +1247,18 @@ public class CommandLine implements ViewInterface {
         }
     }
 
+    /**
+     * Creates the objects that print the game board, the playerboard and the killshot track.
+     */
     private void createCliPrinters(){
         gameBoardPrinter = new MapCLI(playerController.getGameBoard());
         damageBoardPrinter = new DamageBoardCLI(playerController.getPlayer());
         killshotTrackPrinter = new KillshotTrackCLI(playerController.getKillshotTrack());
     }
 
+    /**
+     * Prints the game board with the killshot track.
+     */
     private void printGameBoard(){
         killshotTrackPrinter.setKillshotTrack(playerController.getKillshotTrack());
         killshotTrackPrinter.printKillshotTrack();
@@ -1141,21 +1266,33 @@ public class CommandLine implements ViewInterface {
         gameBoardPrinter.printMap();
     }
 
+    /**
+     * Prints the playerboard.
+     */
     private void printPlayerBoard(){
         damageBoardPrinter.setPlayer(playerController.getPlayer());
         damageBoardPrinter.printDamageBoard();
     }
 
+    /**
+     * Prints the playerboard of the other players.
+     */
     private void printOthersPlayerBoards(){
         damageBoardPrinter.setVictims(playerController.getOtherPlayers());
         damageBoardPrinter.printVictimsDamageBoard();
     }
 
+    /**
+     * Prints the victims' playerboards.
+     */
     private void printVictims(){
         damageBoardPrinter.setVictims(playerController.getVictims());
         damageBoardPrinter.printVictimsDamageBoard();
     }
 
+    /**
+     * Prints the user's weapons.
+     */
     private void printWeapons(){
         if(!playerController.getWeapons().isEmpty()){
             Printer.println("Your weapons:");
@@ -1164,6 +1301,9 @@ public class CommandLine implements ViewInterface {
         }
     }
 
+    /**
+     * Prints the user's powerups.
+     */
     private void printPowerups(){
         if(!playerController.getPowerups().isEmpty()){
             Printer.println("Your powerups:");
@@ -1172,11 +1312,17 @@ public class CommandLine implements ViewInterface {
         }
     }
 
+    /**
+     * Prints the user's weapons and powerups.
+     */
     private void printWeaponsAndPowerups(){
         printWeapons();
         printPowerups();
     }
 
+    /**
+     * Prints a square, with weapons or ammo cards.
+     */
     private void printSquare(){
         Printer.println("In your square:");
         Square square = playerController.getGameBoard().getArena()[playerController.getPlayer().getPosition().getX()][playerController.getPlayer().getPosition().getY()];

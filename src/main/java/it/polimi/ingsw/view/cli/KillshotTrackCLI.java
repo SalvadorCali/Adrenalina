@@ -14,7 +14,8 @@ public class KillshotTrackCLI {
     public static final String SPACE = " ";  // Space
     public static final String RESET = "\033[0m";  // Text Reset
     public static final Integer MAX_SKULLS = 8;
-    public static final String BLACK = "\033[0;30m";   // BLACK
+    //public static final String BLACK = "\033[0;30m";   // BLACK
+    public static final String BLACK = "\u001b[30;1m";   // BLACK
     public static final String RED = "\033[0;31m";     // RED
     public static final String GREEN = "\033[0;32m";   // GREEN
     public static final String YELLOW = "\033[0;33m";  // YELLOW
@@ -141,7 +142,7 @@ public class KillshotTrackCLI {
                 }
             }
         }
-
+        /**
         Printer.print(" _ _ _ _ _ _ _ _\n" + RESET);
         Printer.print("|" + colorDamage[0] + damage[0] + SPACE + colorDamage[1] + damage[1] + SPACE + colorDamage[2] + damage[2] + SPACE + colorDamage[3] + damage[3] + SPACE + colorDamage[4] + damage[4] + SPACE + colorDamage[5] + damage[5] + SPACE + colorDamage[6] + damage[6] + SPACE + colorDamage[7] + damage[7] + RESET + "|" + "\n");
         //Printer.print(" ¯ ¯ ¯ ¯ ¯ ¯ ¯ ¯\n" + RESET);
@@ -149,6 +150,15 @@ public class KillshotTrackCLI {
         //Printer.print(" _ _ _ _ _ _ _ _\n" + RESET);
         Printer.print("|" + colorOverkill[0] + overkill[0] + SPACE + colorOverkill[1] + overkill[1] + SPACE + colorOverkill[2] + overkill[2] + SPACE + colorOverkill[3] + overkill[3] + SPACE + colorOverkill[4] + overkill[4] + SPACE + colorOverkill[5] + overkill[5] + SPACE + colorOverkill[6] + overkill[6] + SPACE + colorOverkill[7] + overkill[7] + RESET + "|" + "\n");
         Printer.print(" ¯ ¯ ¯ ¯ ¯ ¯ ¯ ¯\n" + RESET);
+        */
+
+        Printer.print(" - - - - - - - -\n" + RESET);
+        Printer.print("|" + colorDamage[0] + damage[0] + SPACE + colorDamage[1] + damage[1] + SPACE + colorDamage[2] + damage[2] + SPACE + colorDamage[3] + damage[3] + SPACE + colorDamage[4] + damage[4] + SPACE + colorDamage[5] + damage[5] + SPACE + colorDamage[6] + damage[6] + SPACE + colorDamage[7] + damage[7] + RESET + "|" + "\n");
+        //Printer.print(" ¯ ¯ ¯ ¯ ¯ ¯ ¯ ¯\n" + RESET);
+        //Printer.print("| | | | | | | | |\n" + RESET);
+        //Printer.print(" _ _ _ _ _ _ _ _\n" + RESET);
+        Printer.print("|" + colorOverkill[0] + overkill[0] + SPACE + colorOverkill[1] + overkill[1] + SPACE + colorOverkill[2] + overkill[2] + SPACE + colorOverkill[3] + overkill[3] + SPACE + colorOverkill[4] + overkill[4] + SPACE + colorOverkill[5] + overkill[5] + SPACE + colorOverkill[6] + overkill[6] + SPACE + colorOverkill[7] + overkill[7] + RESET + "|" + "\n");
+        Printer.print(" - - - - - - - -\n" + RESET);
 
     }
 }
