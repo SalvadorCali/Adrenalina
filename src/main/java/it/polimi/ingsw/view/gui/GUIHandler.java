@@ -6,6 +6,7 @@ import it.polimi.ingsw.model.cards.AmmoCard;
 import it.polimi.ingsw.model.cards.Card;
 import it.polimi.ingsw.model.cards.PowerupCard;
 import it.polimi.ingsw.model.cards.WeaponCard;
+import it.polimi.ingsw.model.enums.Color;
 import it.polimi.ingsw.model.enums.Direction;
 import it.polimi.ingsw.model.enums.FinalFrenzyAction;
 import it.polimi.ingsw.model.enums.TokenColor;
@@ -2488,37 +2489,47 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
         String victim = null;
         String colorAmmo = null;
-        Integer x = -1;
-        Integer y = -1;
+        String x = "-1";
+        String y = "-1";
         String firstDir = null;
         String secondDir = null;
         String namePowerup = playerController.getPowerups().get(Data.getInstance().getNumPowerup()).getName();
 
-        if(victimTxtFieldPowerUp.getText().isEmpty()){
+        if(victimTxtFieldPowerUp.getText().equals("blue") || victimTxtFieldPowerUp.getText().equals("green") || victimTxtFieldPowerUp.getText().equals("purple") || victimTxtFieldPowerUp.getText().equals("grey") || victimTxtFieldPowerUp.getText().equals("yellow")){
             victim = victimTxtFieldPowerUp.getText();
         }
-        if(ammoTxtFieldPowerUp.getText().isEmpty()){
+        if(ammoTxtFieldPowerUp.getText().equals("blue") || ammoTxtFieldPowerUp.getText().equals("red") || ammoTxtFieldPowerUp.getText().equals("yellow")){
             colorAmmo = ammoTxtFieldPowerUp.getText();
         }
-        if(firstDirTxtFieldPowerUp.getText().isEmpty()){
+        if(firstDirTxtFieldPowerUp.getText().equals("up") || firstDirTxtFieldPowerUp.getText().equals("down") || firstDirTxtFieldPowerUp.getText().equals("left") || firstDirTxtFieldPowerUp.getText().equals("right")){
             firstDir = firstDirTxtFieldPowerUp.getText();
         }
-        if(secondDirTxtFieldPowerUp.getText().isEmpty()){
+        if(secondDirTxtFieldPowerUp.getText().equals("up") || secondDirTxtFieldPowerUp.getText().equals("down") || secondDirTxtFieldPowerUp.getText().equals("left") || secondDirTxtFieldPowerUp.getText().equals("right")){
             secondDir = secondDirTxtFieldPowerUp.getText();
         }
-        if(xTxtFieldPowerUp.getText().isEmpty()){
-            x = Integer.valueOf(xTxtFieldPowerUp.getText());
+        if(!xTxtFieldPowerUp.getText().isEmpty()){
+            x = xTxtFieldPowerUp.getText();
         }
-        if(yTxtFieldPowerUp.getText().isEmpty()){
-            y = Integer.valueOf(yTxtFieldPowerUp.getText());
-        }
-
-        try {
-            client.powerup(namePowerup, Converter.fromStringToTokenColor(victim), Converter.fromStringToColor(colorAmmo), x, y, Converter.fromStringToDirection(firstDir), Converter.fromStringToDirection(secondDir));
-        } catch (IOException e){
-            e.printStackTrace();
+        if(!yTxtFieldPowerUp.getText().isEmpty()){
+            y = yTxtFieldPowerUp.getText();
         }
 
+        switch (namePowerup){
+            case "TARGETING SCOPE":
+                client.powerup(namePowerup, Converter.fromStringToTokenColor(victim), Converter.fromStringToColor(colorAmmo), -1, -1);
+            case "NEWTON":
+                if(secondDir == null) {
+                    client.powerup(namePowerup, Converter.fromStringToTokenColor(victim), Color.NONE, -1, -1, Converter.fromStringToDirection(firstDir));
+                } else{
+                    client.powerup(namePowerup, Converter.fromStringToTokenColor(victim), Color.NONE, -1, -1, Converter.fromStringToDirection(firstDir), Converter.fromStringToDirection(secondDir));
+                }
+            case "TAGBACK GRENADE":
+                client.powerup(namePowerup, Converter.fromStringToTokenColor(victim), Color.NONE, -1, -1);
+            case "TELEPORTER":
+                client.powerup(namePowerup, TokenColor.NONE, Color.NONE, Integer.valueOf(x), Integer.valueOf(y));
+            default:
+                break;
+        }
         Stage stage = (Stage) xTxtFieldPowerUp.getScene().getWindow();
         stage.close();
     }
