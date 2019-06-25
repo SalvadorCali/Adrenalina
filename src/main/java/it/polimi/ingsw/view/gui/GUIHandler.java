@@ -701,7 +701,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
             if(outcome.equals(Outcome.RIGHT)){
                 guiHandler.setLabelStatement( playerController.getPowerup() + " used!");
             }else{
-                guiHandler.setLabelStatement( playerController.getPowerup() + "not used!");
+                guiHandler.setLabelStatement( playerController.getPowerup() + " not used!");
             }
         });
     }
