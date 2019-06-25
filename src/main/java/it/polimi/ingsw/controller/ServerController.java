@@ -27,22 +27,70 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * This class is the main controller of the game. It receives actions by Servers and sends them the result of the action.
+ */
 public class ServerController {
+    /**
+     * The number of spawned players.
+     */
     private int spawnedPlayers;
+    /**
+     * The current game controller.
+     */
     private GameController gameController;
+    /**
+     * A map of Servers.
+     */
     private Map<String, ServerInterface> servers;
+    /**
+     * A map of players' colors.
+     */
     private Map<TokenColor, String> colors;
+    /**
+     * A map of the players that are currently playing.
+     */
     private Map<String, Player> users;
+    /**
+     * A map of disconnected players.
+     */
     private Map<String, Player> disconnectedUsers;
+    /**
+     * A map of powerups, using for the spawn action.
+     */
     private Map<String, List<Card>> powerupsSpawn;
+    /**
+     * The list of players that are currently playing.
+     */
     private List<Player> players;
+    /**
+     * The data of the game that will be sent to the Servers.
+     */
     private GameData gameData;
+    /**
+     * A boolean value, true if the game is in his final frenzy phase.
+     */
     private boolean finalFrenzy;
+    /**
+     * A timer for the turn.
+     */
     private TurnTimer timer;
+    /**
+     * A number that represents the number of deaths.
+     */
     private int deathNumber;
+    /**
+     * The number of respawns after a death.
+     */
     private int respawnNumber;
+    /**
+     * The number of turns of final frenzy.
+     */
     private int finalFrenzyTurns;
 
+    /**
+     * Class constructor. Creates the GameController.
+     */
     public ServerController(){
         gameController = new GameController();
         servers = new HashMap<>();
@@ -56,18 +104,36 @@ public class ServerController {
         finalFrenzy = false;
     }
 
+    /**
+     * Getter for the disconnected users.
+     * @return the disconnected users.
+     */
     public Map<String, Player> getDisconnectedUsers() {
         return disconnectedUsers;
     }
 
+    /**
+     * Getter for the players.
+     * @return the players.
+     */
     public List<Player> getPlayers() {
         return players;
     }
 
+    /**
+     * Returns true if the game is in its game phase.
+     * @return a boolean value.
+     */
     public boolean isGamePhase(){
         return gameController.isGamePhase();
     }
 
+    /**
+     * The login method.
+     * @param username
+     * @param color
+     * @param server
+     */
     public void login(String username, TokenColor color, ServerInterface server){
         if(ServerControllerManager.containsDisconnectedUsername(username)){
             try {
