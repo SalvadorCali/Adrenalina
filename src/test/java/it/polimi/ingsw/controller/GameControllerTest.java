@@ -96,6 +96,9 @@ class GameControllerTest {
         gameController.move(gameController.getGame().getCurrentPlayer(), 0, 1);
     }
 
+    /**
+     * Tests the shoot action, and the inverse move and reload.
+     */
     @Test
     void shootTest(){
         GameController gameController = new GameController();
@@ -126,10 +129,40 @@ class GameControllerTest {
         gameController.moveAndReload(gameController.getGame().getCurrentPlayer(),Direction.RIGHT, "lockrifle");
         gameController.shoot("lockrifle",0,true,gameController.getGame().getCurrentPlayer(),gameController.getGame().getPlayers().get(1),null,null,-1,-1);
         mapCLI.printMap();
+        assertFalse(lockrifle.isLoaded());
 
+        gameController.getGame().getCurrentPlayer().resetActionNumber();
+        lockrifle.load();
+        gameController.moveAndReload(gameController.getGame().getCurrentPlayer(),Direction.RIGHT, Direction.DOWN);
+        gameController.shoot("lockrifle",1,true,gameController.getGame().getCurrentPlayer(),gameController.getGame().getPlayers().get(1),null,null,-1,-1);
+        mapCLI.printMap();
 
+        gameController.moveAndReload(gameController.getGame().getCurrentPlayer(),Direction.RIGHT, Direction.DOWN);
+        gameController.shoot("lockrifle",0,true,gameController.getGame().getCurrentPlayer(),gameController.getGame().getPlayers().get(1),null,null,-1,-1);
+        mapCLI.printMap();
     }
 
+    @Test
+    void moveAndReloadTest(){
+        GameController gameController = new GameController();
+        playerSetup();
+        gameController.startGame(playerList);
+        gameController.getGame().setCurrentPlayer(gameController.getGame().getPlayers().get(0));
+        gameController.setBoard(1, 5);
+        gameController.getGame().setFinalFrenzy(false);
+        gameController.getGame().getCurrentPlayer().resetActionNumber();
+        WeaponCard lockrifle = new WeaponCard("LOCK RIFLE", Color.BLUE, null, 0,0,0,0,0,0);
+        gameController.getGame().getCurrentPlayer().addWeapon(lockrifle);
+        gameController.getGame().getBoard().generatePlayer(0,0, gameController.getGame().getCurrentPlayer());
+        gameController.getGame().getBoard().generatePlayer(0,1, gameController.getGame().getPlayers().get(1));
+        assertFalse(gameController.canMoveAndReload(gameController.getGame().getCurrentPlayer(), Direction.UP, "lockrifle"));
+        lockrifle.unload();
+        assertTrue(gameController.canMoveAndReload(gameController.getGame().getCurrentPlayer(), Direction.RIGHT, "lockrifle"));
+        lockrifle.unload();
+
+        assertFalse(gameController.canMoveAndReload(gameController.getGame().getCurrentPlayer(), Direction.RIGHT,Direction.UP, "lockrifle"));
+        assertTrue(gameController.canMoveAndReload(gameController.getGame().getCurrentPlayer(), Direction.RIGHT, Direction.DOWN, "lockrifle"));
+    }
 
 
 
