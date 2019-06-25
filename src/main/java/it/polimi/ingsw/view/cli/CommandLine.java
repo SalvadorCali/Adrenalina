@@ -1,6 +1,7 @@
 package it.polimi.ingsw.view.cli;
 
 import it.polimi.ingsw.controller.*;
+import it.polimi.ingsw.controller.datas.SquareData;
 import it.polimi.ingsw.model.cards.Card;
 import it.polimi.ingsw.model.enums.*;
 import it.polimi.ingsw.model.gamecomponents.*;

@@ -1,4 +1,4 @@
-package it.polimi.ingsw.controller;
+package it.polimi.ingsw.controller.datas;
 
 import it.polimi.ingsw.model.enums.Direction;
 

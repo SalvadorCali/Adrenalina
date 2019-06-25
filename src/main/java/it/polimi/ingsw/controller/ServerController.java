@@ -1,5 +1,7 @@
 package it.polimi.ingsw.controller;
 
+import it.polimi.ingsw.controller.datas.GameData;
+import it.polimi.ingsw.controller.datas.SquareData;
 import it.polimi.ingsw.controller.timer.BoardTypeTimer;
 import it.polimi.ingsw.controller.timer.RespawnTimer;
 import it.polimi.ingsw.controller.timer.SpawnLocationTimer;

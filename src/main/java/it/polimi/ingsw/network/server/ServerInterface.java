@@ -1,6 +1,6 @@
 package it.polimi.ingsw.network.server;
 
-import it.polimi.ingsw.controller.GameData;
+import it.polimi.ingsw.controller.datas.GameData;
 import it.polimi.ingsw.controller.ServerController;
 import it.polimi.ingsw.network.enums.Message;
 import it.polimi.ingsw.network.enums.Outcome;

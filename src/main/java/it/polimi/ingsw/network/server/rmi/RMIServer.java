@@ -1,7 +1,6 @@
 package it.polimi.ingsw.network.server.rmi;
 
-import it.polimi.ingsw.controller.GameData;
-import it.polimi.ingsw.controller.PowerupData;
+import it.polimi.ingsw.controller.datas.GameData;
 import it.polimi.ingsw.controller.ServerController;
 import it.polimi.ingsw.controller.timer.ConnectionTimer;
 import it.polimi.ingsw.model.enums.Color;
@@ -11,9 +10,7 @@ import it.polimi.ingsw.network.client.rmi.RMIClientInterface;
 import it.polimi.ingsw.network.enums.Message;
 import it.polimi.ingsw.network.enums.Outcome;
 import it.polimi.ingsw.util.Config;
-import it.polimi.ingsw.util.Printer;
 
-import java.io.IOException;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 

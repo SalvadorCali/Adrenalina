@@ -1,7 +1,6 @@
 package it.polimi.ingsw.network.server.socket;
 
-import it.polimi.ingsw.controller.GameData;
-import it.polimi.ingsw.controller.PowerupData;
+import it.polimi.ingsw.controller.datas.GameData;
 import it.polimi.ingsw.controller.ServerController;
 import it.polimi.ingsw.controller.timer.ConnectionTimer;
 import it.polimi.ingsw.model.enums.Color;

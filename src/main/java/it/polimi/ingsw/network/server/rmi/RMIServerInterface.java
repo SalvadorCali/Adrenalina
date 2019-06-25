@@ -1,13 +1,11 @@
 package it.polimi.ingsw.network.server.rmi;
 
-import it.polimi.ingsw.controller.PowerupData;
 import it.polimi.ingsw.controller.timer.ConnectionTimer;
 import it.polimi.ingsw.model.enums.Color;
 import it.polimi.ingsw.model.enums.Direction;
 import it.polimi.ingsw.model.enums.TokenColor;
 import it.polimi.ingsw.network.server.ServerInterface;
 
-import java.io.IOException;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 
