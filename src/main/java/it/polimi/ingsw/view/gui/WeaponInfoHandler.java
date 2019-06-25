@@ -4,66 +4,66 @@ public class WeaponInfoHandler {
 
     public String getInfoWeapon(String nameWeapon){
         switch(nameWeapon){
-            case "lockrifle":
+            case "LOCK RIFLE":
                 return "Basic effect: 1 victim \n With second lock: 1 or 2 victims";
-            case "machinegun":
+            case "MACHINE GUN":
                 return "Basic effect: 1 or 2 victims \n With focus shot: 1 or 2 victims \n With turret tripod: 2 or 3 victims";
-            case "thor":
+            case "T.H.O.R.":
                 return "Basic effect: 1 victim \n With chain reaction: 2 victims \n With high voltage: 3 victims";
-            case "plasmagun":
+            case "PLASMA GUN":
                 return "Basic effect: 1 victim \n With phase glide: 1 victim, 1 or 2 directions \n With charged shot: 1 victim, from 0 to 2 directions";
-            case "whisper":
+            case "WHISPER":
                 return "Effect: 1 victim";
-            case "electroscythe":
+            case "ELECTROSCYTHE":
                 return "Only effect";
-            case "tractorbeam":
+            case "TRACTOR BEAM":
                 return "Basic mode: 1 victim, from 0 to 2 directions \n In punisher mode: 1 victim";
-            case "vortexcannon":
+            case "VORTEX CANNON":
                 return "Basic effect: 1 victim, square position \n With black hole: 2 or 3 victims, square position";
-            case "furnace":
+            case "FURNACE":
                 return "Basic mode: square position \n In cozy fire mode: square position";
-            case "heatseeker":
+            case "HEATSEEKER":
                 return "Effect: 1 victim";
-            case "hellion":
+            case "HELLION":
                 return "Basic mode: 1 victim \n In nano-tracer mode: 1 victim";
-            case "flamethrower":
+            case "FLAMETHROWER":
                 return "Basic mode: 1 or 2 victim, 1 direction \n In barbecue mode: 1 direction";
-            case "grenadelauncher":
+            case "GRENADE LAUNCHER":
                 return "Basic effect: 1 victim, 0 or 1 direction \n With extra grenade: 1 victim, 0 or 1 direction, square position";
-            case "rocketlauncher":
+            case "ROCKET LAUNCHER":
                 return "Basic effect: 1 victim, 0 or 1 direction \n With rocket jump: 1 victim, 0 or 1 direction, \n With rocket jump: 1 or 2 directions";
-            case "railgun":
+            case "RAILGUN":
                 return "Basic mode: 1 victim, 1 direction \n In piercing mode: 1 or 2 victims, 1 direction";
-            case "cyberblade":
+            case "CYBERBLADE":
                 return "Basic effect: 1 victim \n With shadow step: 1 victim, 1 direction \n With slice and dice: 2 victim, 1 direction";
-            case "zx-2":
+            case "ZX-2":
                 return "Basic mode: 1 victim \n In scanner mode: from 1 to 3 victims";
-            case "shotgun":
+            case "SHOTGUN":
                 return "Basic mode: 1 victim, 0 or 1 direction \n In long barrel mode: 1 victim";
-            case "powerglove":
+            case "POWER GLOVE":
                 return "Basic mode: 1 victim \n In rocket fist mode: from 0 to 2 victims, 1 or 2 directions";
-            case "shockwave":
+            case "SHOCKWAVE":
                 return "Basic mode: from 0 to 3 victims \n In tsunami mode: only effect";
-            case "sledgehammer":
+            case "SLEDGEHAMMER":
                 return "Basic mode: victim \n In pulverize mode: 1 victim, from 0 to 2 directions";
             default:
-                return "no Weapon";
+                return "Wrong Name";
         }
     }
 
 
     public String getInfoPowerUp(String namePowerup){
         switch (namePowerup){
-            case "Targeting Scope":
+            case "TARGETING SCOPE":
                 return "1 victim, 1 ammo";
-            case "Newton":
+            case "NEWTON":
                 return "1 victim, 1 or 2 directions";
-            case "Tagback Grenade":
+            case "TAGBACK GRENADE":
                 return "1 victim";
-            case "Teleporter":
+            case "TELEPORTER":
                 return "square position";
             default:
-                return "no Powerup";
+                return "Wrong Name";
         }
     }
 }
