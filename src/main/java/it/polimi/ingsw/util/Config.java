@@ -33,11 +33,29 @@ public class Config {
     /**
      * Time for the turn of each user.
      */
-    public static final int TURN_TIME = 500000;
+    public static int TURN_TIME = 500000;
+
+    /**
+     * Setter for the turn time.
+     * @param turnTime the time that will be set.
+     */
+    public static void setTurnTime(int turnTime){
+        TURN_TIME = turnTime;
+    }
+
     /**
      * Time for the begin of the game.
      */
-    public static final int START_TIME = 1000;
+    public static int START_TIME = 1000;
+
+    /**
+     * Setter for the start time.
+     * @param startTime the time that will be set.
+     */
+    public static void setStartTime(int startTime){
+        START_TIME = startTime;
+    }
+
     /**
      * Time to handle a disconnection.
      */
@@ -45,11 +63,27 @@ public class Config {
     /**
      * Time for the choice of the board.
      */
-    public static final int BOARD_TYPE_TIME = 1000;
+    public static int BOARD_TYPE_TIME = 1000;
+
+    /**
+     * Setter for the board type time.
+     * @param boardTypeTime the time that will be set.
+     */
+    public static void setBoardTypeTime(int boardTypeTime){
+        BOARD_TYPE_TIME = boardTypeTime;
+    }
     /**
      * Time for the choice of the spawn.
      */
-    public static final int SPAWN_LOCATION_TIME = 1000;
+    public static int SPAWN_LOCATION_TIME = 1000;
+
+    /**
+     * Setter for the spawn location time.
+     * @param spawnLocationTime the time that will be set.
+     */
+    public static void setSpawnLocationTime(int spawnLocationTime){
+        SPAWN_LOCATION_TIME = spawnLocationTime;
+    }
     /**
      * Time to choose where respawn.
      */
