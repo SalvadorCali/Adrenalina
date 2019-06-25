@@ -159,6 +159,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
     @FXML
     private Label labelStatusPlayer;
+    @FXML private ImageView imageWeapon;
 
     @FXML private Label labelDisconnect;
     @FXML private ImageView bannerDisconnect;
@@ -2467,4 +2468,126 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     }
 
 
+    public void showWeaponRed1(MouseEvent mouseEvent) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("WeaponDetail.fxml"));
+        Parent root = loader.load();
+
+        guiHandler = loader.getController();
+        guiHandler.setImageWeapon(weaponRed1.getImage());
+
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root, 188, 319));
+        stage.setTitle("Weapon Popup");
+        stage.show();
+    }
+
+    public void showWeaponRed2(MouseEvent mouseEvent) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("WeaponDetail.fxml"));
+        Parent root = loader.load();
+
+        guiHandler = loader.getController();
+        guiHandler.setImageWeapon(weaponRed2.getImage());
+
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root, 188, 319));
+        stage.setTitle("Weapon Popup");
+        stage.show();
+    }
+
+    public void showWeaponRed3(MouseEvent mouseEvent) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("WeaponDetail.fxml"));
+        Parent root = loader.load();
+
+        guiHandler = loader.getController();
+        guiHandler.setImageWeapon(weaponRed3.getImage());
+
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root, 188, 319));
+        stage.setTitle("Weapon Popup");
+        stage.show();
+    }
+
+    public void showWeaponYellow1(MouseEvent mouseEvent) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("WeaponDetail.fxml"));
+        Parent root = loader.load();
+
+        guiHandler = loader.getController();
+        guiHandler.setImageWeapon(weaponYellow1.getImage());
+
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root, 188, 319));
+        stage.setTitle("Weapon Popup");
+        stage.show();
+    }
+
+    public void showWeaponYellow2(MouseEvent mouseEvent) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("WeaponDetail.fxml"));
+        Parent root = loader.load();
+
+        guiHandler = loader.getController();
+        guiHandler.setImageWeapon(weaponYellow2.getImage());
+
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root, 188, 319));
+        stage.setTitle("Weapon Popup");
+        stage.show();
+    }
+
+    public void showWeaponYellow3(MouseEvent mouseEvent) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("WeaponDetail.fxml"));
+        Parent root = loader.load();
+
+        guiHandler = loader.getController();
+        guiHandler.setImageWeapon(weaponYellow3.getImage());
+
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root, 188, 319));
+        stage.setTitle("Weapon Popup");
+        stage.show();
+    }
+
+    public void showWeaponBlue1(MouseEvent mouseEvent) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("WeaponDetail.fxml"));
+        Parent root = loader.load();
+
+        guiHandler = loader.getController();
+        guiHandler.setImageWeapon(weaponBlue1.getImage());
+
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root, 188, 319));
+        stage.setTitle("Weapon Popup");
+        stage.show();
+    }
+
+    public void showWeaponBlue2(MouseEvent mouseEvent) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("WeaponDetail.fxml"));
+        Parent root = loader.load();
+
+        guiHandler = loader.getController();
+        guiHandler.setImageWeapon(weaponBlue2.getImage());
+
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root, 188, 319));
+        stage.setTitle("Weapon Popup");
+        stage.show();
+    }
+
+    public void showWeaponBlue3(MouseEvent mouseEvent) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("WeaponDetail.fxml"));
+        Parent root = loader.load();
+
+        guiHandler = loader.getController();
+        guiHandler.setImageWeapon(weaponBlue3.getImage());
+
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root, 188, 319));
+        stage.setTitle("Weapon Popup");
+        stage.show();
+    }
+
+    public void setImageWeapon(Image image){
+        Platform.runLater(() ->{
+            this.imageWeapon.setImage(image);
+        });
+    }
 }
