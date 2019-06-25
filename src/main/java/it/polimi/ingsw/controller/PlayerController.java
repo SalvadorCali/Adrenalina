@@ -124,106 +124,209 @@ public class PlayerController {
         this.gameBoard = gameBoard;
     }
 
+    /**
+     * Getter for the killshot track.
+     * @return the killshot track.
+     */
     public List<Token> getKillshotTrack() {
         return killshotTrack;
     }
 
+    /**
+     * Setter for the killshot track.
+     * @param killshotTrack the killshot track that will be set.
+     */
     public void setKillshotTrack(List<Token> killshotTrack) {
         this.killshotTrack = killshotTrack;
     }
 
+    /**
+     * Getter for the score of the player.
+     * @return the score of the player.
+     */
     public int getScore(){
         return player.getScore();
     }
 
+    /**
+     * Getter for the playerboard.
+     * @return the playerboard.
+     */
     public PlayerBoard getPlayerBoard(){
         return player.getPlayerBoard();
     }
 
+    /**
+     * Getter for the ammos of the player.
+     * @return the ammos of the player.
+     */
     public List<Ammo> getAmmos(){
         return player.getAmmoBox();
     }
 
+    /**
+     * Getter for the player's powerups.
+     * @return the player's powerups.
+     */
     public List<PowerupCard> getPowerups(){
         return player.getPowerups();
     }
 
+    /**
+     * Getter for the player's weapons.
+     * @return the player's weapons.
+     */
     public List<WeaponCard> getWeapons(){
         return player.getWeapons();
     }
 
+    /**
+     * Getter for the player's adrenaline zone.
+     * @return the player's adrenaline zone.
+     */
     public AdrenalineZone getAdrenalineZone(){
         return player.getPlayerBoard().getAdrenalineZone();
     }
 
+    /**
+     * Adds a powerup to the player.
+     * @param powerup the powerup card that will be added.
+     */
     public void addPowerup(PowerupCard powerup){
         player.addPowerup(powerup);
     }
 
+    /**
+     * Increments the player's moves.
+     */
     public void incrementMoves(){
         moves++;
     }
 
+    /**
+     * True if the player can use actions.
+     * @return a boolean value, true if the player can use actions.
+     */
     public boolean canUseAction(){
         return moves < Config.MAX_ACTIONS;
     }
 
+    /**
+     * Getter for the victims.
+     * @return the victims.
+     */
     public List<Player> getVictims() {
         return victims;
     }
 
+    /**
+     * Setter for the victims.
+     * @param victims the victims that will be set.
+     */
     public void setVictims(List<Player> victims) {
         this.victims = victims;
     }
 
+    /**
+     * Getter fot the powerup.
+     * @return the powerup.
+     */
     public String getPowerup() {
         return powerup;
     }
 
+    /**
+     * Setter for the powerup.
+     * @param powerup the powerup that will be set.
+     */
     public void setPowerup(String powerup) {
         this.powerup = powerup;
     }
 
+    /**
+     * Getter for the weapon.
+     * @return the weapon.
+     */
     public String getWeapon() {
         return weapon;
     }
 
+    /**
+     * Setter for the weapon.
+     * @param weapon the weapon that will be set.
+     */
     public void setWeapon(String weapon) {
         this.weapon = weapon;
     }
 
+    /**
+     * Getter for the name of the current player.
+     * @return the current player's name.
+     */
     public String getCurrentPlayer() {
         return currentPlayer;
     }
 
+    /**
+     * Setter for the current player's name.
+     * @param currentPlayer the current player's name that will be set.
+     */
     public void setCurrentPlayer(String currentPlayer) {
         this.currentPlayer = currentPlayer;
     }
 
+    /**
+     * Getter for the movement value.
+     * @return the movement value.
+     */
     public boolean isMovement() {
         return movement;
     }
 
+    /**
+     * Setter for the movement value.
+     * @param movement the boolean that will be set.
+     */
     public void setMovement(boolean movement) {
         this.movement = movement;
     }
 
+    /**
+     * Getter for the final frenzy.
+     * @return the final frenzy.
+     */
     public boolean isFinalFrenzy() {
         return finalFrenzy;
     }
 
+    /**
+     * Setter for the final frenzy.
+     * @param finalFrenzy the boolean value that will be set.
+     */
     public void setFinalFrenzy(boolean finalFrenzy) {
         this.finalFrenzy = finalFrenzy;
     }
 
+    /**
+     * Getter for the value that is true if the playerboard was flipped during the final frenzy.
+     * @return a boolean value.
+     */
     public boolean isPlayerBoardFinalFrenzy() {
         return playerBoardFinalFrenzy;
     }
 
+    /**
+     * Setter for the boolean value.
+     * @param playerBoardFinalFrenzy the boolean value that will be set.
+     */
     public void setPlayerBoardFinalFrenzy(boolean playerBoardFinalFrenzy) {
         this.playerBoardFinalFrenzy = playerBoardFinalFrenzy;
     }
 
+    /**
+     * Getter for the current player's final frenzy action.
+     * @return the final frenzy action of the player.
+     */
     public FinalFrenzyAction getFinalFrenzyActions(){
         return player.getFinalFrenzyActions();
     }
