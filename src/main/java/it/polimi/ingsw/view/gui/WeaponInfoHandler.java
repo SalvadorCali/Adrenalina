@@ -50,4 +50,20 @@ public class WeaponInfoHandler {
                 return "no Weapon";
         }
     }
+
+
+    public String getInfoPowerUp(String namePowerup){
+        switch (namePowerup){
+            case "Targeting Scope":
+                return "1 victim, 1 ammo";
+            case "Newton":
+                return "1 victim, 1 or 2 directions";
+            case "Tagback Grenade":
+                return "1 victim";
+            case "Teleporter":
+                return "square position";
+            default:
+                return "no Powerup";
+        }
+    }
 }

@@ -245,6 +245,16 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     @FXML private Button usePowerup2;
     @FXML private Button usePowerup3;
 
+    @FXML private TextField victimTxtFieldPowerUp;
+    @FXML private TextField ammoTxtFieldPowerUp;
+    @FXML private TextField yTxtFieldPowerUp;
+    @FXML private TextField firstDirTxtFieldPowerUp;
+    @FXML private TextField secondDirTxtFieldPowerUp;
+    @FXML private TextField xTxtFieldPowerUp;
+    @FXML private Label labelInfoPowerup;
+    @FXML private Button buttonUsePowerUpData;
+
+
     private static final int ROWS = 3;
     private static final int COLUMNS = 4;
     private static final int NUM_SQUARES=12;
@@ -2312,7 +2322,6 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     private void launchDataShoot() {
         playerController = Data.getInstance().getPlayerController();
         Integer weaponNum = Data.getInstance().getWeaponShoot();
-        setLabelWeapon(playerController.getWeapons().get(weaponNum).getName());
 
         Platform.runLater(() -> {
 
@@ -2323,6 +2332,9 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
             } catch (IOException e) {
                 e.printStackTrace();
             }
+
+            guiHandler = loader.getController();
+            guiHandler.setLabelWeapon(playerController.getWeapons().get(weaponNum).getName());
 
             Stage stage = new Stage();
             stage.setScene(new Scene(root, 522, 454));
@@ -2455,16 +2467,79 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         this.guiHandler.showWeapon(mouseEvent);
     }
 
-    public void useThirdPowerup(MouseEvent mouseEvent) {
+    public void useThirdPowerup(MouseEvent mouseEvent) throws IOException {
         Data.getInstance().setNumPowerup(2);
+        launchPowerupData();
     }
 
-    public void useSecondPowerup(MouseEvent mouseEvent) {
+    public void useSecondPowerup(MouseEvent mouseEvent) throws IOException {
         Data.getInstance().setNumPowerup(1);
+        launchPowerupData();
     }
 
-    public void useFirstPowerup(MouseEvent mouseEvent) {
+    public void useFirstPowerup(MouseEvent mouseEvent) throws IOException {
         Data.getInstance().setNumPowerup(0);
+        launchPowerupData();
+    }
+
+    public void usePowerup(MouseEvent mouseEvent) throws IOException {
+        client = Data.getInstance().getClient();
+        playerController = Data.getInstance().getPlayerController();
+
+        String victim = null;
+        String colorAmmo = null;
+        Integer x = -1;
+        Integer y = -1;
+        String firstDir = null;
+        String secondDir = null;
+        String namePowerup = playerController.getPowerups().get(Data.getInstance().getNumPowerup()).getName();
+
+        if(victimTxtFieldPowerUp.getText()!= null){
+            victim = victimTxtFieldPowerUp.getText();
+        }
+        if(ammoTxtFieldPowerUp.getText() != null){
+            colorAmmo = ammoTxtFieldPowerUp.getText();
+        }
+        if(firstDirTxtFieldPowerUp.getText() != null){
+            firstDir = firstDirTxtFieldPowerUp.getText();
+        }
+        if(secondDirTxtFieldPowerUp.getText() != null){
+            secondDir = secondDirTxtFieldPowerUp.getText();
+        }
+        if(xTxtFieldPowerUp.getText() != null){
+            x = Integer.valueOf(xTxtFieldPowerUp.getText());
+        }
+        if(yTxtFieldPowerUp.getText() != null){
+            y = Integer.valueOf(yTxtFieldPowerUp.getText());
+        }
+
+        client.powerup(namePowerup, Converter.fromStringToTokenColor(victim), Converter.fromStringToColor(colorAmmo), x, y, Converter.fromStringToDirection(firstDir), Converter.fromStringToDirection(secondDir));
+
+        Stage stage = (Stage) xTxtFieldPowerUp.getScene().getWindow();
+        stage.close();
+    }
+
+    private void launchPowerupData() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("DataPowerUp.fxml"));
+        Parent root = loader.load();
+
+        guiHandler = loader.getController();
+        guiHandler.setLabelPowerup();
+
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root, 469, 379));
+        stage.setTitle("Data PowerUp");
+        stage.show();
+    }
+
+    private void setLabelPowerup() {
+        playerController = Data.getInstance().getPlayerController();
+        String namePowerup = playerController.getPowerups().get(Data.getInstance().getNumPowerup()).getName();
+        String infoPowerup = weaponInfoHandler.getInfoPowerUp(namePowerup);
+
+        Platform.runLater(() ->{
+            labelInfoPowerup.setText(infoPowerup);
+        });
     }
 
 
@@ -2590,4 +2665,6 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
             this.imageWeapon.setImage(image);
         });
     }
+
+
 }

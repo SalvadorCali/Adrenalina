@@ -30,6 +30,7 @@
       <TextField fx:id="yTxtField" layoutX="405.0" layoutY="245.0" prefHeight="25.0" prefWidth="43.0" />
       <Label layoutX="139.0" layoutY="76.0" text="BasicFirst:" textFill="WHITE" />
       <TextField fx:id="basicTxtField" layoutX="139.0" layoutY="99.0" prefHeight="25.0" prefWidth="67.0" promptText="true/false" />
-      <Label fx:id="labelInfoWeapon" layoutX="40.0" layoutY="323.0" prefHeight="117.0" prefWidth="442.0" textFill="WHITE" wrapText="true" />
+      <Label fx:id="labelInfoWeapon" layoutX="41.0" layoutY="329.0" prefHeight="117.0" prefWidth="442.0" textFill="WHITE" wrapText="true" />
+      <Label layoutX="40.0" layoutY="307.0" prefHeight="32.0" prefWidth="111.0" text="what to specify:" textFill="WHITE" wrapText="true" />
    </children>
 </AnchorPane>
