@@ -1,8 +1,12 @@
 package it.polimi.ingsw.controller;
+import it.polimi.ingsw.model.cards.Card;
+import it.polimi.ingsw.model.cards.WeaponCard;
 import it.polimi.ingsw.model.enums.BoardType;
+import it.polimi.ingsw.model.enums.Color;
 import it.polimi.ingsw.model.enums.Direction;
 import it.polimi.ingsw.model.enums.TokenColor;
 import it.polimi.ingsw.model.gamecomponents.Player;
+import it.polimi.ingsw.util.Parser;
 import it.polimi.ingsw.util.Printer;
 import it.polimi.ingsw.view.cli.MapCLI;
 import org.junit.jupiter.api.Test;
@@ -73,6 +77,59 @@ class GameControllerTest {
         gameController.getGame().setFinalFrenzy(true);
         assertFalse(gameController.move(gameController.getGame().getCurrentPlayer(),Direction.UP));
     }
+
+    /**
+     * Tests the movement of a player in a different square of the board.
+     */
+    @Test
+    void moveInSquareTest(){
+        GameController gameController = new GameController();
+        playerSetup();
+        gameController.startGame(playerList);
+        gameController.getGame().setCurrentPlayer(gameController.getGame().getPlayers().get(0));
+        gameController.setBoard(1, 5);
+        gameController.getGame().setFinalFrenzy(false);
+        gameController.getGame().getCurrentPlayer().resetActionNumber();
+        MapCLI mapCLI = new MapCLI(gameController.getGame().getBoard());
+        gameController.getGame().getBoard().generatePlayer(0,0, gameController.getGame().getCurrentPlayer());
+        mapCLI.printMap();
+        gameController.move(gameController.getGame().getCurrentPlayer(), 0, 1);
+    }
+
+    @Test
+    void shootTest(){
+        GameController gameController = new GameController();
+        playerSetup();
+        gameController.startGame(playerList);
+        gameController.getGame().setCurrentPlayer(gameController.getGame().getPlayers().get(0));
+        gameController.setBoard(1, 5);
+        gameController.getGame().setFinalFrenzy(false);
+        gameController.getGame().getCurrentPlayer().resetActionNumber();
+        gameController.getGame().getBoard().generatePlayer(0,0, gameController.getGame().getCurrentPlayer());
+        gameController.getGame().getBoard().generatePlayer(0,1, gameController.getGame().getPlayers().get(1));
+        assertFalse(gameController.shoot("lockrifle",1,true,gameController.getGame().getCurrentPlayer(),null,null,null,-1,-1));
+        WeaponCard lockrifle = new WeaponCard("LOCK RIFLE", Color.BLUE, null, 0,0,0,0,0,0);
+        gameController.getGame().getCurrentPlayer().addWeapon(lockrifle);
+        lockrifle.unload();
+        assertFalse(gameController.shoot("lockrifle",1,true,gameController.getGame().getCurrentPlayer(),null,null,null,-1,-1));
+        lockrifle.load();
+        assertFalse(gameController.shoot("lockrifle",0,true,gameController.getGame().getCurrentPlayer(),null,null,null,-1,-1));
+        assertTrue(gameController.shoot("lockrifle",0,true, gameController.getGame().getCurrentPlayer(), gameController.getGame().getPlayers().get(1),null,null,-1,-1));
+        MapCLI mapCLI = new MapCLI(gameController.getGame().getBoard());
+        mapCLI.printMap();
+        assertFalse(lockrifle.isLoaded());
+
+        gameController.getGame().getCurrentPlayer().setMoveAndReload(true);
+        gameController.moveAndReload(gameController.getGame().getCurrentPlayer(),Direction.RIGHT, "lockrifle");
+        gameController.shoot("lockrifle",1,true,gameController.getGame().getCurrentPlayer(),null,null,null,-1,-1);
+        mapCLI.printMap();
+        gameController.moveAndReload(gameController.getGame().getCurrentPlayer(),Direction.RIGHT, "lockrifle");
+        gameController.shoot("lockrifle",0,true,gameController.getGame().getCurrentPlayer(),gameController.getGame().getPlayers().get(1),null,null,-1,-1);
+        mapCLI.printMap();
+
+
+    }
+
 
 
 

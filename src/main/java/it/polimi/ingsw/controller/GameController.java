@@ -167,8 +167,8 @@ public class GameController {
     }
 
     /**
-     * Controls if the player can move in different consecutive directions on the board.
-     * @param player the player who wants to move
+     * Controls if the player can move in different consecutive directions on the board, and moves him if he can.
+     * @param player the player who wants to move.
      * @param directions directions of the movement.
      * @return the result of the control.
      */
@@ -194,11 +194,21 @@ public class GameController {
         }
     }
 
+    /**
+     * Moves a player to a different square on the board.
+     * @param player the player who wants to move.
+     * @param x row of the square where the player wants to move to.
+     * @param y column of the square where the player wants to move to.
+     */
     public void move(Player player, int x, int y) {
         game.getBoard().move(x, y, player);
     }
 
-    public void inverseMoveAndReload(Player player){
+    /**
+     * Moves the player back to his previous position and unloads his weapons if the can shoot control fails.
+     * @param player the player who wants to do the action.
+     */
+    private void inverseMoveAndReload(Player player){
         if(moveAndReloadData.getSecondDirection() != null){
             game.getBoard().move(Converter.fromDirectionToOpposite(moveAndReloadData.getSecondDirection()), player);
         }
@@ -210,14 +220,14 @@ public class GameController {
             for(WeaponCard w : player.getWeapons()){
                 if(w.getName().equals(weapon)){
                     player.updateAmmoBoxAdd(w.getReloadRedAmmos(), w.getReloadBlueAmmos(), w.getReloadYellowAmmos());
-                    w.unload(); //da controllare
+                    w.unload();
                 }
             }
         }
         player.setMoveAndReload(false);
     }
 
-    public boolean canMoveAndReload(Player player, Direction firstDirection, String...weapons){
+    boolean canMoveAndReload(Player player, Direction firstDirection, String...weapons){
         boolean[] reload = new boolean[weapons.length];
         boolean canReload = true;
         if(canMove(player, firstDirection) || firstDirection == null){
@@ -247,7 +257,7 @@ public class GameController {
         }
     }
 
-    public boolean canMoveAndReload(Player player, Direction firstDirection, Direction secondDirection, String...weapons){
+    boolean canMoveAndReload(Player player, Direction firstDirection, Direction secondDirection, String...weapons){
         boolean[] reload = new boolean[weapons.length];
         boolean canReload = true;
         if(canMove(player, firstDirection, secondDirection)){
