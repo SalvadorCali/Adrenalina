@@ -142,6 +142,9 @@ class GameControllerTest {
         mapCLI.printMap();
     }
 
+    /**
+     * Tests the move and reload action.
+     */
     @Test
     void moveAndReloadTest(){
         GameController gameController = new GameController();
@@ -159,11 +162,25 @@ class GameControllerTest {
         lockrifle.unload();
         assertTrue(gameController.canMoveAndReload(gameController.getGame().getCurrentPlayer(), Direction.RIGHT, "lockrifle"));
         lockrifle.unload();
-
         assertFalse(gameController.canMoveAndReload(gameController.getGame().getCurrentPlayer(), Direction.RIGHT,Direction.UP, "lockrifle"));
         assertTrue(gameController.canMoveAndReload(gameController.getGame().getCurrentPlayer(), Direction.RIGHT, Direction.DOWN, "lockrifle"));
     }
 
+    @Test
+    void reloadTest(){
+        GameController gameController = new GameController();
+        playerSetup();
+        gameController.startGame(playerList);
+        gameController.getGame().setCurrentPlayer(gameController.getGame().getPlayers().get(0));
+        gameController.setBoard(1, 5);
+        gameController.getGame().setFinalFrenzy(false);
+        gameController.getGame().getCurrentPlayer().resetActionNumber();
+        assertFalse(gameController.reload(gameController.getGame().getCurrentPlayer(), "lockrifle"));
+        WeaponCard lockrifle = new WeaponCard("LOCK RIFLE", Color.BLUE, null, 0,0,0,3,0,0);
+        gameController.getGame().getCurrentPlayer().addWeapon(lockrifle);
+        lockrifle.unload();
+        assertFalse(gameController.reload(gameController.getGame().getCurrentPlayer(), "lockrifle"));
+    }
 
 
     private void playerSetup(){

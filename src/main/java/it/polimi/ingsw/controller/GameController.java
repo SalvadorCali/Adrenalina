@@ -227,6 +227,13 @@ public class GameController {
         player.setMoveAndReload(false);
     }
 
+    /**
+     * Controls if the player can move one direction and reload his weapons.
+     * @param player player who wants to move and reload.
+     * @param firstDirection direction of the move.
+     * @param weapons list of weapons that the player wants to reload.
+     * @return the result of the control.
+     */
     boolean canMoveAndReload(Player player, Direction firstDirection, String...weapons){
         boolean[] reload = new boolean[weapons.length];
         boolean canReload = true;
@@ -257,6 +264,14 @@ public class GameController {
         }
     }
 
+    /**
+     * Controls if the player can move two directions and reload his weapons.
+     * @param player the player who wants to move.
+     * @param firstDirection first move.
+     * @param secondDirection second move.
+     * @param weapons weapons to reload.
+     * @return the result of the control.
+     */
     boolean canMoveAndReload(Player player, Direction firstDirection, Direction secondDirection, String...weapons){
         boolean[] reload = new boolean[weapons.length];
         boolean canReload = true;
@@ -287,6 +302,12 @@ public class GameController {
         }
     }
 
+    /**
+     * Moves the player in a direction and reloads the selected weapons.
+     * @param player the player who wants to move and reload.
+     * @param firstDirection direction of the movement.
+     * @param weapons weapons to reload.
+     */
     public void moveAndReload(Player player, Direction firstDirection, String...weapons){
         game.getBoard().move(firstDirection, player);
         for(String weapon : weapons){
@@ -296,6 +317,13 @@ public class GameController {
         player.setMoveAndReload(true);
     }
 
+    /**
+     * Moves the player in two consecutive directions and reloads the selected weapons.
+     * @param player player who wants to move.
+     * @param firstDirection first direction of the movement.
+     * @param secondDirection second direction of the movement.
+     * @param weapons weapons to reload.
+     */
     public void moveAndReload(Player player, Direction firstDirection, Direction secondDirection, String...weapons){
         game.getBoard().move(firstDirection, player);
         game.getBoard().move(secondDirection, player);
@@ -306,11 +334,21 @@ public class GameController {
         player.setMoveAndReload(true);
     }
 
-    public boolean canShowSquare(Player player){
+    /**
+     * Controls if the square info can be shown or not.
+     * @param player player who wants to see the info.
+     * @return the result of the control.
+     */
+    boolean canShowSquare(Player player){
         return (player.getPosition().getX() >= 0 && player.getPosition().getX() <= 2) && (player.getPosition().getY() >= 0 && player.getPosition().getY() <= 3);
     }
 
-    public SquareData showSquare(Player player) {
+    /**
+     * Shows to the player the square info.
+     * @param player the player who wants to see the info.
+     * @return the info of the square.
+     */
+    SquareData showSquare(Player player) {
         int x = player.getPosition().getX();
         int y = player.getPosition().getY();
         SquareData squareData = new SquareData();
@@ -319,17 +357,37 @@ public class GameController {
         return squareData;
     }
 
-    public boolean canShowSquare(Player player, int x, int y){
+    /**
+     * ???
+     * @param player
+     * @param x
+     * @param y
+     * @return
+     */
+    boolean canShowSquare(Player player, int x, int y){
         return (x >= 0 && x <= 2) && (y >= 0 && y <= 3);
     }
 
-    public SquareData showSquare(Player player, int x, int y) {
+    /**
+     * ???
+     * @param player
+     * @param x
+     * @param y
+     * @return
+     */
+    SquareData showSquare(Player player, int x, int y) {
         SquareData squareData = new SquareData();
         squareData.setAmmoCard(game.getBoard().getArena()[x][y].getAmmoCard());
         squareData.setWeapons(game.getBoard().getArena()[x][y].getWeapons());
         return squareData;
     }
 
+    /**
+     * Reloads the weapon chosen by the player.
+     * @param player the player who wants to reload his weapon.
+     * @param weaponName the weapon that the player wants to reload.
+     * @return true if the weapon was reloaded, false if wasn't.
+     */
     public boolean reload(Player player, String weaponName) {
         final String weaponNameUpp;
         weaponNameUpp = Converter.weaponName(weaponName);
@@ -349,6 +407,13 @@ public class GameController {
         return false;
     }
 
+    /**
+     * Controls if the player can grab a weapon/ammo card from the board.
+     * @param player player who wants to grab.
+     * @param choice chosen weapon/ammo card.
+     * @param directions directions of the movement that the player wants to do before grabbing.
+     * @return true if the card was grabbed, false if wasn't.
+     */
     public boolean grab(Player player, int choice, Direction... directions) {
         if(game.isFinalFrenzy()){
             if(player.canUseActionFinalFrenzy()){
@@ -428,6 +493,11 @@ public class GameController {
         return false;
     }
 
+    /**
+     * Drops a weapon.
+     * @param player player who wants to drop a weapon.
+     * @param weapon weapon that the player wants to drop.
+     */
     public void drop(Player player, String weapon){
         final String weaponNameUpp;
         weaponNameUpp = Converter.weaponName(weapon);
@@ -441,6 +511,20 @@ public class GameController {
         }
     }
 
+    /**
+     * Controls if the player has the chosen weapon, if its loaded and if the effect can be applied, it then shoots.
+     * @param weaponName name of the weapon the player wants to use.
+     * @param mod represents the effect that the player wants to apply.
+     * @param basicfirst is true if the player wants to apply the basic effect first.
+     * @param shooter player who wants to shoot.
+     * @param firstVictim first victim of the weapon.
+     * @param secondVictim second victim of the weapon.
+     * @param thirdVictim third victim of the weapon.
+     * @param x row of the square in which the player wants to apply the effect.
+     * @param y column of the square in which the player wants to apply the effect.
+     * @param directions directions needed to apply certain effects.
+     * @return the result of the control: true if the player can shoot, false if can't.
+     */
     public boolean shoot(String weaponName, int mod, boolean basicfirst, Player shooter, Player firstVictim, Player secondVictim, Player thirdVictim, int x, int y, Direction...directions) {
         final String weaponNameUpp;
         weaponNameUpp = Converter.weaponName(weaponName);
@@ -481,6 +565,17 @@ public class GameController {
         }
     } //metodo completo
 
+    /**
+     * Sets the data given from the client in ClientData.
+     * @param basicfirst is true if the player wants to apply the basic effect first.
+     * @param shooter player who wants to shoot.
+     * @param firstVictim first victim of the weapon.
+     * @param secondVictim second victim of the weapon.
+     * @param thirdVictim third victim of the weapon.
+     * @param x row of the square in which the player wants to apply the effect.
+     * @param y column of the square in which the player wants to apply the effect.
+     * @param directions directions needed to apply certain effects.
+     */
     private void setData(boolean basicfirst, Player shooter, Player firstVictim, Player secondVictim, Player thirdVictim, int x, int y, Direction...directions) {
 
         actionInterface.getClientData().setBasicFirst(basicfirst);
@@ -525,7 +620,18 @@ public class GameController {
         actionInterface.getClientData().setSquare(x, y);
     }
 
-    public boolean usePowerup(String powerupName, Player shooter, Player victim, Color ammo, int x, int y, Direction...directions){
+    /**
+     *
+     * @param powerupName
+     * @param shooter
+     * @param victim
+     * @param ammo
+     * @param x
+     * @param y
+     * @param directions
+     * @return
+     */
+    boolean usePowerup(String powerupName, Player shooter, Player victim, Color ammo, int x, int y, Direction...directions){
 
         final String powerupNameUpp;
         powerupNameUpp = Converter.powerupName(powerupName);
