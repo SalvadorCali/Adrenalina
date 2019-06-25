@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="339.0" prefWidth="522.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.gui.GUIHandler">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="454.0" prefWidth="522.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.gui.GUIHandler">
    <children>
       <Label layoutX="148.0" layoutY="14.0" text="Insert Data for Shooting" textFill="WHITE">
          <font>
@@ -30,5 +30,6 @@
       <TextField fx:id="yTxtField" layoutX="405.0" layoutY="245.0" prefHeight="25.0" prefWidth="43.0" />
       <Label layoutX="139.0" layoutY="76.0" text="BasicFirst:" textFill="WHITE" />
       <TextField fx:id="basicTxtField" layoutX="139.0" layoutY="99.0" prefHeight="25.0" prefWidth="67.0" promptText="true/false" />
+      <Label fx:id="labelInfoWeapon" layoutX="40.0" layoutY="323.0" prefHeight="117.0" prefWidth="442.0" textFill="WHITE" wrapText="true" />
    </children>
 </AnchorPane>

@@ -229,6 +229,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     @FXML private TextField yTxtField;
     @FXML private TextField basicTxtField;
     @FXML private Button shootDataButton;
+    @FXML private Label labelInfoWeapon;
 
     @FXML private Label labelReload;
     @FXML private ImageView bannerReload;
@@ -286,6 +287,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     private String moveFrenzyOneActions[] = new String[MAX_MOVEMENT];
     private String moveReload[] = new String[MAX_MOVEMENT -1];
     private Integer countMoveRel = 0;
+    private WeaponInfoHandler weaponInfoHandler = new WeaponInfoHandler();
 
     //starting methods
     //
@@ -2307,6 +2309,10 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
     @FXML
     private void launchDataShoot() {
+        playerController = Data.getInstance().getPlayerController();
+        Integer weaponNum = Data.getInstance().getWeaponShoot();
+        setLabelWeapon(playerController.getWeapons().get(weaponNum).getName());
+
         Platform.runLater(() -> {
 
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("DataShoot.fxml"));
@@ -2321,6 +2327,13 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
             stage.setScene(new Scene(root, 522, 339));
             stage.setTitle("Data Shoot");
             stage.show();
+        });
+    }
+
+    private void setLabelWeapon(String name) {
+        String textWeapon = weaponInfoHandler.getInfoWeapon(name);
+        Platform.runLater(() ->{
+            labelInfoWeapon.setText(textWeapon);
         });
     }
 
