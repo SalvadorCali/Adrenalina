@@ -48,4 +48,10 @@ public interface ServerInterface {
      * @throws IOException caused by the remote method or by the streams.
      */
     void notify(Message message, Outcome outcome, GameData gameData) throws IOException;
+
+    /**
+     * Tests the connection.
+     * @throws RemoteException caused by the remote method.
+     */
+    void testConnection() throws RemoteException;
 }

@@ -573,4 +573,13 @@ public class SocketServer implements Runnable, ServerInterface {
         objectOutputStream.writeObject(gameData);
         objectOutputStream.flush();
     }
+
+    /**
+     * Tests the connection with an empty method.
+     * @throws RemoteException caused by the remote method.
+     */
+    @Override
+    public void testConnection() throws RemoteException {
+        //tests the connection.
+    }
 }

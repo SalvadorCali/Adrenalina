@@ -3,12 +3,14 @@ package it.polimi.ingsw.network.client.rmi;
 import it.polimi.ingsw.controller.datas.GameData;
 import it.polimi.ingsw.controller.PlayerController;
 import it.polimi.ingsw.controller.timer.ConnectionTimer;
+import it.polimi.ingsw.controller.timer.ServerConnectionTimer;
 import it.polimi.ingsw.model.enums.Color;
 import it.polimi.ingsw.model.enums.Direction;
 import it.polimi.ingsw.model.enums.TokenColor;
 import it.polimi.ingsw.network.ConnectionInterface;
 import it.polimi.ingsw.network.NetworkString;
 import it.polimi.ingsw.network.enums.Message;
+import it.polimi.ingsw.network.server.rmi.RMIServer;
 import it.polimi.ingsw.network.server.rmi.RMIServerInterface;
 import it.polimi.ingsw.util.Config;
 import it.polimi.ingsw.util.Printer;
@@ -35,6 +37,10 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
      * A timer to handle the connection.
      */
     private ConnectionTimer connectionTimer;
+    /**
+     * A timer to handle the server connection.
+     */
+    private ServerConnectionTimer serverConnectionTimer;
     /**
      * An object that contains player's datas.
      */
@@ -372,6 +378,8 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
             case LOGIN:
                 if(outcome.equals(Outcome.RIGHT)) {
                     connectionTimer.start();
+                    serverConnectionTimer = new ServerConnectionTimer(this, server);
+                    serverConnectionTimer.start();
                 }
                 view.notify(message, outcome, gameData.getUsername());
                 break;

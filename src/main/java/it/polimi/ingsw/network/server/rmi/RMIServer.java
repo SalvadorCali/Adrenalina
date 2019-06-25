@@ -285,4 +285,13 @@ public class RMIServer extends UnicastRemoteObject implements RMIServerInterface
     public void notify(Message message, Outcome outcome, GameData gameData) throws RemoteException {
         client.notify(message, outcome, gameData);
     }
+
+    /**
+     * Tests the connection with an empty method.
+     * @throws RemoteException caused by the remote method.
+     */
+    @Override
+    public void testConnection() throws RemoteException {
+        //tests the connection.
+    }
 }
