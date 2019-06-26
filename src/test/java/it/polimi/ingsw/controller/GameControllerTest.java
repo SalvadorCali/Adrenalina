@@ -1,11 +1,14 @@
 package it.polimi.ingsw.controller;
 import it.polimi.ingsw.model.cards.Card;
+import it.polimi.ingsw.model.cards.PowerupCard;
 import it.polimi.ingsw.model.cards.WeaponCard;
 import it.polimi.ingsw.model.enums.BoardType;
 import it.polimi.ingsw.model.enums.Color;
 import it.polimi.ingsw.model.enums.Direction;
 import it.polimi.ingsw.model.enums.TokenColor;
+import it.polimi.ingsw.model.gamecomponents.Game;
 import it.polimi.ingsw.model.gamecomponents.Player;
+import it.polimi.ingsw.model.gamecomponents.Position;
 import it.polimi.ingsw.util.Parser;
 import it.polimi.ingsw.util.Printer;
 import it.polimi.ingsw.view.cli.MapCLI;
@@ -166,6 +169,9 @@ class GameControllerTest {
         assertTrue(gameController.canMoveAndReload(gameController.getGame().getCurrentPlayer(), Direction.RIGHT, Direction.DOWN, "lockrifle"));
     }
 
+    /**
+     * Tests the canReload and reload methods.
+     */
     @Test
     void reloadTest(){
         GameController gameController = new GameController();
@@ -180,6 +186,52 @@ class GameControllerTest {
         gameController.getGame().getCurrentPlayer().addWeapon(lockrifle);
         lockrifle.unload();
         assertFalse(gameController.reload(gameController.getGame().getCurrentPlayer(), "lockrifle"));
+    }
+
+    /**
+     * Tests the canRespawn control and the respawn of a player.
+     */
+    @Test
+    void respawnTest(){
+        GameController gameController = new GameController();
+        playerSetup();
+        gameController.startGame(playerList);
+        gameController.getGame().setCurrentPlayer(gameController.getGame().getPlayers().get(0));
+        gameController.setBoard(1, 5);
+        gameController.getGame().getBoard().generatePlayer(0,0,gameController.getGame().getCurrentPlayer());
+        PowerupCard p = new PowerupCard("TELEPORTER",Color.YELLOW, "Teleporter");
+        gameController.getGame().getCurrentPlayer().addPowerup(p);
+        MapCLI mapCLI = new MapCLI(gameController.getGame().getBoard());
+        mapCLI.printMap();
+        assertFalse(gameController.canRespawn(gameController.getGame().getCurrentPlayer(), 2));
+        assertTrue(gameController.canRespawn(gameController.getGame().getCurrentPlayer(), 1));
+        gameController.respawn(gameController.getGame().getCurrentPlayer(),1);
+        assertEquals(2 , gameController.getGame().getCurrentPlayer().getPosition().getX());
+        assertEquals(3, gameController.getGame().getCurrentPlayer().getPosition().getY());
+        assertTrue(gameController.getGame().getCurrentPlayer().isRespawned());
+        mapCLI.printMap();
+    }
+
+    /**
+     * Tests that the player datas are correct
+     */
+    @Test
+    void discardPowerupTest(){
+        GameController gameController = new GameController();
+        playerSetup();
+        gameController.startGame(playerList);
+        gameController.getGame().setCurrentPlayer(gameController.getGame().getPlayers().get(0));
+        gameController.setBoard(1, 5);
+        gameController.getGame().getBoard().generatePlayer(0,0,gameController.getGame().getCurrentPlayer());
+        PowerupCard p = new PowerupCard("TELEPORTER",Color.YELLOW, "Teleporter");
+        gameController.getGame().getCurrentPlayer().addPowerup(p);
+        assertFalse(gameController.canDiscardPowerup(gameController.getGame().getCurrentPlayer(),0));
+        assertFalse(gameController.canDiscardPowerup(gameController.getGame().getCurrentPlayer(),2));
+        assertTrue(gameController.canDiscardPowerup(gameController.getGame().getCurrentPlayer(),1));
+        assertEquals(1 ,gameController.getGame().getCurrentPlayer().getPowerups().size());
+        gameController.discardPowerup(gameController.getGame().getCurrentPlayer(), 1);
+        assertEquals(0 ,gameController.getGame().getCurrentPlayer().getPowerups().size());
+        assertTrue(gameController.getGame().getCurrentPlayer().canUsePowerupAmmos());
     }
 
 
