@@ -15,23 +15,50 @@ import it.polimi.ingsw.util.Converter;
 import it.polimi.ingsw.util.Parser;
 import it.polimi.ingsw.util.Printer;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Class which represents the controller of an entire game.
+ */
 public class GameController {
 
-    public int timerTurn;
-    public int numPlayers;
-    Deck weapons;
-    Deck powerups;
-    List<AmmoCard> ammoCards;
-    List<GameBoard> gameBoards;
+    /**
+     * Weapons present in the game.
+     */
+    private Deck weapons;
+    /**
+     * Powerups present in the game.
+     */
+    private Deck powerups;
+    /**
+     * Ammo cards present in the game.
+     */
+    private List<AmmoCard> ammoCards;
+    /**
+     * All the game boards.
+     */
+    private List<GameBoard> gameBoards;
+    /**
+     * Database of the infos needed from the client to move and reload.
+     */
     private MoveAndReloadData moveAndReloadData;
+    /**
+     * Current game.
+     */
     private Game game;
+    /**
+     * Gives access to some restricted methods of the game/clientData to the card controls.
+     */
     private ActionInterface actionInterface;
+    /**
+     * Boolean which indicates if the player can shoot or can't.
+     */
     private boolean canShoot = true;
-    Card droppedWeapon = null;
+    /**
+     * List of dropped weapons.
+     */
+    private Card droppedWeapon = null;
 
     /**
      * Class constructor.
@@ -358,31 +385,6 @@ public class GameController {
     }
 
     /**
-     * ???
-     * @param player
-     * @param x
-     * @param y
-     * @return
-     */
-    boolean canShowSquare(Player player, int x, int y){
-        return (x >= 0 && x <= 2) && (y >= 0 && y <= 3);
-    }
-
-    /**
-     * ???
-     * @param player
-     * @param x
-     * @param y
-     * @return
-     */
-    SquareData showSquare(Player player, int x, int y) {
-        SquareData squareData = new SquareData();
-        squareData.setAmmoCard(game.getBoard().getArena()[x][y].getAmmoCard());
-        squareData.setWeapons(game.getBoard().getArena()[x][y].getWeapons());
-        return squareData;
-    }
-
-    /**
      * Reloads the weapon chosen by the player.
      * @param player the player who wants to reload his weapon.
      * @param weaponName the weapon that the player wants to reload.
@@ -621,18 +623,17 @@ public class GameController {
     }
 
     /**
-     *
-     * @param powerupName
-     * @param shooter
-     * @param victim
-     * @param ammo
-     * @param x
-     * @param y
-     * @param directions
-     * @return
+     * Controls if the player can use a powerup, and use it if he can.
+     * @param powerupName name of the powerup that the player wants to play.
+     * @param shooter player who wants to play the powerup.
+     * @param victim victim of the powerup.
+     * @param ammo color of the powerup.
+     * @param x row where the player wants to move when using Teleporter.
+     * @param y column where the player wants to move when using Teleporter.
+     * @param directions directions of the movement in Newton.
+     * @return The result of the control.
      */
     boolean usePowerup(String powerupName, Player shooter, Player victim, Color ammo, int x, int y, Direction...directions){
-
         final String powerupNameUpp;
         powerupNameUpp = Converter.powerupName(powerupName);
         for (PowerupCard p : shooter.getPowerups()) {
@@ -652,6 +653,15 @@ public class GameController {
         return false;
     }
 
+    /**
+     * Sets the data chosen by the client in the class ClientData.
+     * @param shooter player who uses the powerup.
+     * @param victim victim of the powerup.
+     * @param x row of the teleporter powerup.
+     * @param y column of the teleporter powerup.
+     * @param ammo color of the powerup.
+     * @param directions directions of the newton powerup.
+     */
     private void setData(Player shooter, Player victim, int x, int y, Color ammo, Direction...directions){
         getActionInterface().getClientData().setCurrentPlayer(shooter);
         getActionInterface().getClientData().setPowerupVictim(victim);
@@ -670,8 +680,11 @@ public class GameController {
 
     }
 
-
-    public void deathAndRespawn(List<Player> players){
+    /**
+     * Respawns every dead player and gives him a new powerup.
+     * @param players list of the players to respawn.
+     */
+    void deathAndRespawn(List<Player> players){
         game.scoring();
         for(Player player : players){
             if(player.isDead()){
@@ -684,93 +697,141 @@ public class GameController {
         game.setRespawnPhase(true);
     }
 
+    /**
+     * Resets the action number of the current player and ends the turn.
+     * @param player the current player.
+     */
     public void endTurn(Player player){
         player.resetActionNumber();
         droppedWeapon = null;
         game.endTurn(player, actionInterface);
     }
 
-    public boolean havePowerup(Player player, String powerup){
-        String powerupName = Converter.powerupName(powerup);
-        List<PowerupCard> powerupCards = player.getPowerups();
-        for(int i=0; i<powerupCards.size(); i++){
-            if(powerupCards.get(i).getName().equals(powerupName)){
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public Card drawPowerup(){
+    /**
+     * Draws a powerup.
+     * @return the Drawn powerup.
+     */
+    Card drawPowerup(){
         return game.drawPowerup();
     }
 
+    /**
+     * Sets a player on the game board.
+     * @param player player who needs to be setted.
+     * @param color color of the player.
+     */
     public void setPlayer(Player player, Color color){
         game.getBoard().setPlayer(player, color);
     }
 
-    public Map<TokenColor, Integer> getScoreList(){
+    /**
+     * Getter of the score list.
+     * @return the score list.
+     */
+    Map<TokenColor, Integer> getScoreList(){
         return game.getScoreList();
     }
 
-    public boolean isFinalFrenzy(){
+    /**
+     * Getter of the boolean isFinalFrenzy.
+     * @return the value of the boolean isFinalFrenzy.
+     */
+    boolean isFinalFrenzy(){
         return game.isFinalFrenzy();
     }
-    public void finalFrenzy(){
+
+    /**
+     * Sets the final frenzy stage.
+     */
+    void finalFrenzy(){
         game.finalFrenzy();
     }
 
-    public void addPowerup(Player player, Card powerupCard){
+    /**
+     * Adds a powerup to the powerups of a player.
+     * @param player player who wants to add the powerup.
+     * @param powerupCard the chosen powerup to add.
+     */
+    void addPowerup(Player player, Card powerupCard){
         player.addPowerup((PowerupCard) powerupCard);
     }
 
-    public void powerupAmmos(Player player, int...powerups){
-        for(int powerup : powerups){
-            if(powerup - 1 < player.getPowerups().size()){
-                Color color = player.getPowerups().get(powerup - 1).getColor();
-                player.increasePowerupAmmoNumber(color);
-                player.getPowerups().remove(powerup - 1);
-                player.setPowerupAsAmmo(true);
-            }
-        }
-    }
-
-    public boolean canDropPowerup(Player player, int powerup){
+    /**
+     * Controls that a player can drop a certain powerup.
+     * @param player the player who wants to drop a powerup.
+     * @param powerup the index of the powerup that the player wants to drop.
+     * @return the result of the control.
+     */
+    boolean canDropPowerup(Player player, int powerup){
         return powerup <= player.getPowerups().size() && powerup > 0;
     }
 
-    public void dropPowerup(Player player, int powerup){
+    /**
+     * Drops a powerup.
+     * @param player player who wants to drop the powerup.
+     * @param powerup index of the powerup to drop.
+     */
+    void dropPowerup(Player player, int powerup){
         player.getPowerups().remove(powerup - 1);
     }
 
-    public boolean canDropWeapon(Player player, int weapon){
+    /**
+     * Controls if a player can drop one of his weapons.
+     * @param player player who wants to drop his weapons.
+     * @param weapon weapons that the player wants to drop.
+     * @return the result of the control.
+     */
+    boolean canDropWeapon(Player player, int weapon){
         return weapon <= player.getWeapons().size() && weapon > 0 && game.getBoard().getArena()[player.getPosition().getX()][player.getPosition().getY()].isSpawn();
     }
 
-    public void dropWeapon(Player player, int weapon){
+    /**
+     * Drops a weapon.
+     * @param player player who wants to drop the weapon.
+     * @param weapon weapon that the player wants to drop.
+     */
+    void dropWeapon(Player player, int weapon){
         droppedWeapon = player.getWeapons().get(weapon - 1);
         player.getWeapons().remove(weapon - 1);
     }
 
-    public boolean canDiscardPowerup(Player player, int powerup){
+    /**
+     * Controls if a player can discard a powerup and convert it in an ammo.
+     * @param player player who wants to discard the powerup.
+     * @param powerup index of the powerup to discard.
+     * @return the result of the control.
+     */
+    boolean canDiscardPowerup(Player player, int powerup){
         return powerup <= player.getPowerups().size() && powerup > 0;
     }
 
-    public void discardPowerup(Player player, int powerup){
+    /**
+     * Discards a powerup and adds an ammo to the player's ammo box.
+     * @param player player who wants to discard the powerup.
+     * @param powerup index of the powerup to discard.
+     */
+    void discardPowerup(Player player, int powerup){
         Color color = player.getPowerups().get(powerup - 1).getColor();
         player.increasePowerupAmmoNumber(color);
         player.getPowerups().remove(powerup - 1);
         player.setPowerupAsAmmo(true);
     }
 
-    public boolean canRespawn(Player player, int powerup){
-        if(player.getPowerups().size() >= powerup){
-            return true;
-        }else{
-            return false;
-        }
+    /**
+     * Control if the player can respawn.
+     * @param player player who wants to respawn.
+     * @param powerup index of the powerup to control.
+     * @return the result of the control.
+     */
+    boolean canRespawn(Player player, int powerup){
+        return player.getPowerups().size() >= powerup;
     }
 
+    /**
+     * Respawns a player in a new spawn point.
+     * @param player player to respawn.
+     * @param powerup index of the powerup.
+     */
     public void respawn(Player player, int powerup){
         Color color = player.getPowerups().get(powerup - 1).getColor();
         player.getPowerups().remove(powerup - 1);
@@ -779,7 +840,35 @@ public class GameController {
         player.setRespawned(true);
     }
 
-    public void endGame(){
+    /**
+     * Ends the game.
+     */
+    void endGame(){
         game.endGame();
+    }
+
+    /**
+     * ???
+     * @param player
+     * @param x
+     * @param y
+     * @return
+     */
+    boolean canShowSquare(Player player, int x, int y){
+        return (x >= 0 && x <= 2) && (y >= 0 && y <= 3);
+    }
+
+    /**
+     * ???
+     * @param player
+     * @param x
+     * @param y
+     * @return
+     */
+    SquareData showSquare(Player player, int x, int y) {
+        SquareData squareData = new SquareData();
+        squareData.setAmmoCard(game.getBoard().getArena()[x][y].getAmmoCard());
+        squareData.setWeapons(game.getBoard().getArena()[x][y].getWeapons());
+        return squareData;
     }
 }
