@@ -18,15 +18,15 @@
             <Image url="@boardImg/3.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="weaponRed1" fitHeight="144.0" fitWidth="100.0" layoutX="22.0" layoutY="223.0" pickOnBounds="true" preserveRatio="true" rotate="90.0" onMouseClicked="#showWeaponRed1"/>
-      <ImageView fx:id="weaponRed2" fitHeight="144.0" fitWidth="100.0" layoutX="22.0" layoutY="332.0" pickOnBounds="true" preserveRatio="true" rotate="90.0" onMouseClicked="#showWeaponRed2"/>
-      <ImageView fx:id="weaponRed3" fitHeight="144.0" fitWidth="100.0" layoutX="22.0" layoutY="438.0" pickOnBounds="true" preserveRatio="true" rotate="90.0" onMouseClicked="#showWeaponRed3"/>
-      <ImageView fx:id="weaponYellow1" fitHeight="156.0" fitWidth="92.0" layoutX="824.0" layoutY="364.0" pickOnBounds="true" preserveRatio="true" rotate="90.0" onMouseClicked="#showWeaponYellow1"/>
-      <ImageView fx:id="weaponYellow2" fitHeight="156.0" fitWidth="100.0" layoutX="820.0" layoutY="468.0" pickOnBounds="true" preserveRatio="true" rotate="90.0" onMouseClicked="#showWeaponYellow2"/>
-      <ImageView fx:id="weaponYellow3" fitHeight="148.0" fitWidth="92.0" layoutX="824.0" layoutY="576.0" pickOnBounds="true" preserveRatio="true" rotate="90.0" onMouseClicked="#showWeaponYellow3"/>
-      <ImageView fx:id="weaponBlue1" fitHeight="136.0" fitWidth="92.0" layoutX="700.0" pickOnBounds="true" preserveRatio="true" onMouseClicked="#showWeaponBlue1"/>
-      <ImageView fx:id="weaponBlue2" fitHeight="136.0" fitWidth="92.0" layoutX="595.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true" onMouseClicked="#showWeaponBlue2"/>
-      <ImageView fx:id="weaponBlue3" fitHeight="136.0" fitWidth="92.0" layoutX="486.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true" onMouseClicked="#showWeaponBlue3"/>
+      <ImageView fx:id="weaponRed1" fitHeight="144.0" fitWidth="100.0" layoutX="22.0" layoutY="223.0" onMouseClicked="#showWeaponRed1" pickOnBounds="true" preserveRatio="true" rotate="90.0" />
+      <ImageView fx:id="weaponRed2" fitHeight="144.0" fitWidth="100.0" layoutX="22.0" layoutY="332.0" onMouseClicked="#showWeaponRed2" pickOnBounds="true" preserveRatio="true" rotate="90.0" />
+      <ImageView fx:id="weaponRed3" fitHeight="144.0" fitWidth="100.0" layoutX="22.0" layoutY="438.0" onMouseClicked="#showWeaponRed3" pickOnBounds="true" preserveRatio="true" rotate="90.0" />
+      <ImageView fx:id="weaponYellow1" fitHeight="156.0" fitWidth="92.0" layoutX="824.0" layoutY="364.0" onMouseClicked="#showWeaponYellow1" pickOnBounds="true" preserveRatio="true" rotate="90.0" />
+      <ImageView fx:id="weaponYellow2" fitHeight="156.0" fitWidth="100.0" layoutX="820.0" layoutY="468.0" onMouseClicked="#showWeaponYellow2" pickOnBounds="true" preserveRatio="true" rotate="90.0" />
+      <ImageView fx:id="weaponYellow3" fitHeight="148.0" fitWidth="92.0" layoutX="824.0" layoutY="576.0" onMouseClicked="#showWeaponYellow3" pickOnBounds="true" preserveRatio="true" rotate="90.0" />
+      <ImageView fx:id="weaponBlue1" fitHeight="136.0" fitWidth="92.0" layoutX="700.0" onMouseClicked="#showWeaponBlue1" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="weaponBlue2" fitHeight="136.0" fitWidth="92.0" layoutX="595.0" layoutY="4.0" onMouseClicked="#showWeaponBlue2" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="weaponBlue3" fitHeight="136.0" fitWidth="92.0" layoutX="486.0" layoutY="4.0" onMouseClicked="#showWeaponBlue3" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="deckPowerup" fitHeight="96.0" fitWidth="70.0" layoutX="839.0" layoutY="34.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@boardElem/AD_powerups_IT_02.png" />
@@ -63,7 +63,7 @@
             <Image url="@boardElem/banner.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="bannerEndTurn" fitHeight="45.0" fitWidth="222.0" layoutX="953.0" layoutY="358.0" onMouseClicked="#endTurn">
+      <ImageView fx:id="bannerEndTurn" fitHeight="45.0" fitWidth="222.0" layoutX="953.0" layoutY="388.0" onMouseClicked="#endTurn">
          <image>
             <Image url="@boardElem/banner.png" />
          </image>
@@ -103,7 +103,7 @@
             <Font size="20.0" />
          </font>
       </Label>
-      <Label fx:id="labelEndTurn" layoutX="1023.0" layoutY="366.0" mouseTransparent="true" onMouseClicked="#endTurn" text="End Turn" textFill="WHITE">
+      <Label fx:id="labelEndTurn" layoutX="1023.0" layoutY="396.0" mouseTransparent="true" onMouseClicked="#endTurn" text="End Turn" textFill="WHITE">
          <font>
             <Font size="20.0" />
          </font>
@@ -123,12 +123,12 @@
             <Font size="20.0" />
          </font>
       </Label>
-      <Label layoutX="981.0" layoutY="412.0" text="Turn:" textFill="WHITE">
+      <Label layoutX="982.0" layoutY="427.0" text="Turn:" textFill="WHITE">
          <font>
             <Font name="Alien League Regular" size="30.0" />
          </font>
       </Label>
-      <Label fx:id="playerTurnLabel" layoutX="1062.0" layoutY="412.0" prefHeight="39.0" prefWidth="100.0" text="Gianni" textFill="WHITE">
+      <Label fx:id="playerTurnLabel" layoutX="1076.0" layoutY="427.0" prefHeight="39.0" prefWidth="100.0" text="Gianni" textFill="WHITE">
          <font>
             <Font name="Alien League Regular" size="30.0" />
          </font>
@@ -321,17 +321,27 @@
             <Insets bottom="10.0" left="10.0" right="10.0" top="15.0" />
          </padding>
       </GridPane>
-      <ImageView fx:id="bannerReload" fitHeight="45.0" fitWidth="200.0" layoutX="966.0" layoutY="243.0" mouseTransparent="true" onMouseClicked="#reload">
+      <ImageView fx:id="bannerReload" fitHeight="45.0" fitWidth="200.0" layoutX="962.0" layoutY="300.0" mouseTransparent="true" onMouseClicked="#reload">
          <image>
             <Image url="@boardElem/banner.png" />
          </image>
       </ImageView>
-      <Label fx:id="labelReload" layoutX="1036.0" layoutY="251.0" onMouseClicked="#reload" text="Reload" textFill="WHITE">
+      <Label fx:id="labelReload" layoutX="1032.0" layoutY="308.0" onMouseClicked="#reload" text="Reload" textFill="WHITE">
          <font>
             <Font size="20.0" />
          </font>
       </Label>
-      <Label layoutX="989.0" layoutY="281.0" prefHeight="45.0" prefWidth="301.0" text="Note: if you reload you won't" textFill="WHITE" />
-      <Label layoutX="989.0" layoutY="304.0" prefHeight="45.0" prefWidth="301.0" text=" be able to do other actions" textFill="WHITE" />
+      <Label layoutX="990.0" layoutY="340.0" prefHeight="39.0" prefWidth="301.0" text="Note: if you reload you won't" textFill="WHITE" />
+      <Label layoutX="990.0" layoutY="356.0" prefHeight="30.0" prefWidth="214.0" text=" be able to do other actions" textFill="WHITE" />
+      <ImageView fx:id="bannerAmmo" fitHeight="45.0" fitWidth="200.0" layoutX="962.0" layoutY="245.0" mouseTransparent="true" onMouseClicked="#launchAmmo">
+         <image>
+            <Image url="@boardElem/banner.png" />
+         </image>
+      </ImageView>
+      <Label fx:id="labelAmmo" layoutX="1006.0" layoutY="253.0" onMouseClicked="#launchAmmo" text="Show Ammo" textFill="WHITE">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

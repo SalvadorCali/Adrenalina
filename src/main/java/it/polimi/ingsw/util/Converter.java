@@ -485,4 +485,19 @@ public class Converter {
                 return "none";
         }
     }
+
+    public static javafx.scene.paint.Color fromColorEnumsToColorJFX(Color color){
+        switch (color){
+            case BLUE:
+                return javafx.scene.paint.Color.BLUE;
+            case RED:
+                return javafx.scene.paint.Color.RED;
+            case YELLOW:
+                return javafx.scene.paint.Color.YELLOW;
+            case NONE:
+                return javafx.scene.paint.Color.TRANSPARENT;
+            default:
+                return javafx.scene.paint.Color.TRANSPARENT;
+        }
+    }
 }

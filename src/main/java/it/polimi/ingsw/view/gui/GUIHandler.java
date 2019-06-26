@@ -300,6 +300,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     private String moveReload[] = new String[MAX_MOVEMENT -1];
     private Integer countMoveRel = 0;
     private WeaponInfoHandler weaponInfoHandler = new WeaponInfoHandler();
+    private AmmoGUI ammoGUI;
 
     //starting methods
     //
@@ -2681,5 +2682,21 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         });
     }
 
+    public void launchAmmo(){
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("AmmoGrids.fxml"));
+        Parent root = null;
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
+        ammoGUI = loader.getController();
+        ammoGUI.setAmmo();
+
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root, 608, 266));
+        stage.setTitle("Ammo");
+        stage.show();
+    }
 }
