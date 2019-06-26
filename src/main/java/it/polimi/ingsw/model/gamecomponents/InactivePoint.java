@@ -11,12 +11,12 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * class which represents an inactive square of the arena.
+ * Class which represents an inactive square of the arena.
  */
 public class InactivePoint extends Square implements Serializable {
 
     /**
-     * constructor of the InactivePoint.
+     * Constructor of the InactivePoint.
      * @param color indicates the color chosen to construct the inactive point.
      * @param north indicates the Cardinal in the upper side of the inactive point.
      * @param south indicates the Cardinal in the lower side of the inactive point.
@@ -28,7 +28,7 @@ public class InactivePoint extends Square implements Serializable {
     }
 
     /**
-     * returns if the player can grab something from the inactive point (Never used).
+     * Returns if the player can grab something from the inactive point (Never used).
      * @param actionInterface contains the methods to access the game.
      * @param choice int which indicates the choice of the player.
      * @return always false.
@@ -39,7 +39,7 @@ public class InactivePoint extends Square implements Serializable {
     }
 
     /**
-     * method to grab something from the inactive point(Never used).
+     * Method to grab something from the inactive point(Never used).
      * @param actionInterface contains the methods to access the game.
      * @param choice int which indicates the choice of the player.
      */
@@ -48,7 +48,7 @@ public class InactivePoint extends Square implements Serializable {
     }
 
     /**
-     * method to fill the inactive point(Never used).
+     * Method to fill the inactive point(Never used).
      * @param actionInterface contains the methods to access the game.
      */
     @Override
@@ -56,7 +56,7 @@ public class InactivePoint extends Square implements Serializable {
     }
 
     /**
-     * method to get the ammo card present in the inactive point(Never Used).
+     * Method to get the ammo card present in the inactive point(Never Used).
      * @return always null.
      */
     @Override
@@ -65,7 +65,7 @@ public class InactivePoint extends Square implements Serializable {
     }
 
     /**
-     * method to get the list of the weapon cards present in the inactive point(Never Used).
+     * Method to get the list of the weapon cards present in the inactive point(Never Used).
      * @return always null.
      */
     @Override
@@ -74,7 +74,7 @@ public class InactivePoint extends Square implements Serializable {
     }
 
     /**
-     * method to control if the square is an active point.
+     * Method to control if the square is an active point.
      * @return false, cause the Inactive point is not an active point.
      */
     @Override

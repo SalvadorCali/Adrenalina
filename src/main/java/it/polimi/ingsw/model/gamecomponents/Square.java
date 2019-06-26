@@ -13,21 +13,45 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * abstract class that represents a square in the arena.
+ * Abstract class that represents a square in the arena.
  */
 public abstract class Square implements Serializable {
+    /**
+     * Color of the square.
+     */
     private TokenColor color;
+    /**
+     * Limit present in the upper direction.
+     */
     private Cardinal north;
+    /**
+     * Limit present in the downer direction.
+     */
     private Cardinal south;
+    /**
+     * Limit present in the left direction.
+     */
     private Cardinal west;
+    /**
+     * Limit present in the right direction.
+     */
     private Cardinal east;
+    /**
+     * List of players located in the square.
+     */
     private List<Player> players;
+    /**
+     * Boolean that is true when the square is empty.
+     */
     private boolean empty;
+    /**
+     * Boolean that is true when the square is a spawn point.
+     */
     private boolean spawn;
     private static final long serialVersionUID = 1L;
 
     /**
-     * constructor of the Square class.
+     * Constructor of the Square class.
      * @param color color of the square.
      * @param north entity of the upper side of the square.
      * @param south entity of the lower side of the square.
@@ -47,7 +71,7 @@ public abstract class Square implements Serializable {
     }
 
     /**
-     * getter of the upper side of the square.
+     * Getter of the upper side of the square.
      * @return the cardinal of the upper side of the square.
      */
     public Cardinal getNorth() {
@@ -55,7 +79,7 @@ public abstract class Square implements Serializable {
     }
 
     /**
-     * getter of the lower side of the square.
+     * Getter of the lower side of the square.
      * @return the cardinal of the lower side of the square.
      */
     public Cardinal getSouth() {
@@ -63,7 +87,7 @@ public abstract class Square implements Serializable {
     }
 
     /**
-     * getter of the left side of the square.
+     * Getter of the left side of the square.
      * @return the cardinal of the left side of the square.
      */
     public Cardinal getWest() {
@@ -71,7 +95,7 @@ public abstract class Square implements Serializable {
     }
 
     /**
-     * getter of the right side of the square.
+     * Getter of the right side of the square.
      * @return the cardinal of the right side of the square.
      */
     public Cardinal getEast() {
@@ -79,7 +103,7 @@ public abstract class Square implements Serializable {
     }
 
     /**
-     * getter of the color of the square.
+     * Getter of the color of the square.
      * @return the tokenColor of the square.
      */
     public TokenColor getColor() {
@@ -87,7 +111,7 @@ public abstract class Square implements Serializable {
     }
 
     /**
-     * setter of the color of the square.
+     * Setter of the color of the square.
      * @param color indicates the chosen color of the square.
      */
     public void setColor(TokenColor color) {
@@ -95,7 +119,7 @@ public abstract class Square implements Serializable {
     }
 
     /**
-     * getter of the boolean spawn.
+     * Getter of the boolean spawn.
      * @return the boolean spawn: true if the square if a spawn point, false if isn't.
      */
     public boolean isSpawn() {
@@ -103,7 +127,7 @@ public abstract class Square implements Serializable {
     }
 
     /**
-     * setter of the boolean spawn.
+     * Setter of the boolean spawn.
      * @param spawn indicates the chosen boolean.
      */
     public void setSpawn(boolean spawn) {
@@ -111,7 +135,7 @@ public abstract class Square implements Serializable {
     }
 
     /**
-     * getter of the boolean empty.
+     * Getter of the boolean empty.
      * @return the boolean empty.
      */
     public boolean isEmpty() {
@@ -119,7 +143,7 @@ public abstract class Square implements Serializable {
     }
 
     /**
-     * setter of the boolean empty.
+     * Setter of the boolean empty.
      * @param empty indicates the chosen boolean.
      */
     void setEmpty(boolean empty) {
@@ -127,7 +151,7 @@ public abstract class Square implements Serializable {
     }
 
     /**
-     * getter of the list of players that are located in the square.
+     * Getter of the list of players that are located in the square.
      * @return the list that indicates the players that are located in the square.
      */
     public List<Player> getPlayers(){
@@ -135,7 +159,7 @@ public abstract class Square implements Serializable {
     }
 
     /**
-     * evaluates if is possible to move in the chosen direction.
+     * Evaluates if is possible to move in the chosen direction.
      * @param direction indicates the chosen direction.
      * @return the result of the control: true if the movement is possible, false if isn't.
      */
@@ -158,23 +182,27 @@ public abstract class Square implements Serializable {
     }
 
     /**
-     * add a chosen player to the list of the players present in the square.
+     * Add a chosen player to the list of the players present in the square.
      * @param player indicates the chosen player.
      */
     public void move(Player player) {
         players.add(player);
     }
 
+    /**
+     * Controls if the square contains a certain player.
+     * @param player the player to check.
+     * @return the result of the control.
+     */
     boolean containsPlayer(Player player){
         return players.contains(player);
     }
 
     /**
-     * remove a chosen player from the list of the players present in the square.
+     * Remove a chosen player from the list of the players present in the square.
      * @param player indicates the chosen player.
      */
     void moveAway(Player player) {
-
         for(int i = 0 ; i < players.size(); i++){
             if(players.get(i).equals(player))
                 players.remove(i);
@@ -182,7 +210,7 @@ public abstract class Square implements Serializable {
     }
 
     /**
-     * adds damages and marks of the chosen color to all the players in the square.
+     * Adds damages and marks of the chosen color to all the players in the square.
      * @param damagePower int which indicates the number of damages to add to each player in the square.
      * @param markPower int which indicates the number of marks to add to each player in the square.
      * @param color tokenColor that indicates the color of the damages/marks to add to each player in the square.
@@ -203,7 +231,7 @@ public abstract class Square implements Serializable {
     }
 
     /**
-     * adds the chosen player to the list of the players present in the square.
+     * Adds the chosen player to the list of the players present in the square.
      * @param player indicates the chosen player.
      */
     void addPlayer(Player player){
@@ -211,7 +239,7 @@ public abstract class Square implements Serializable {
     }
 
     /**
-     * evaluates if a card in the square can be grabbed by a player.
+     * Evaluates if a card in the square can be grabbed by a player.
      * @param actionInterface contains the methods to access the game.
      * @param choice int which indicates the choice of the player.
      * @return the result of the control.
@@ -219,44 +247,44 @@ public abstract class Square implements Serializable {
     public abstract boolean canGrab(ActionInterface actionInterface, int choice);
 
     /**
-     * grabs the card in the square in the chosen position.
+     * Grabs the card in the square in the chosen position.
      * @param actionInterface contains the methods to access the game.
      * @param choice int which indicates the choice of the player.
      */
     public abstract void grab(ActionInterface actionInterface, int choice);
 
     /**
-     * fills the square with the missing cards.
+     * Fills the square with the missing cards.
      * @param actionInterface contains the methods to access the game.
      */
     public abstract void fill(ActionInterface actionInterface);
 
     /**
-     * drops the chosen card.
+     * Drops the chosen card.
      * @param card indicates the chosen card.
      */
     public abstract void drop(Card card);
 
     /**
-     * getter of the ammo card present in the square.
+     * Getter of the ammo card present in the square.
      * @return the ammo card present in the square.
      */
     public abstract AmmoCard getAmmoCard();
 
     /**
-     * getter of the weapon cards present in the square.
+     * Getter of the weapon cards present in the square.
      * @return the list of weapons present in the square.
      */
     public abstract List<WeaponCard> getWeapons();
 
     /**
-     * evaluates if the square is an active point.
+     * Evaluates if the square is an active point.
      * @return the result of the control, true if the square is a spawn point or an ammo point, false if isn't.
      */
     public abstract boolean isActive();
 
     /**
-     * evaluates if a move in the chosen direction brings a player out of the arena.
+     * Evaluates if a move in the chosen direction brings a player out of the arena.
      * @param direction indicates the chosen direction to control.
      * @return the result of the control, true if the player is still in the arena, false if is out of bounds.
      */

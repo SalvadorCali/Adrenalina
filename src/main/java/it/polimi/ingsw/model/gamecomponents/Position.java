@@ -5,15 +5,20 @@ import it.polimi.ingsw.model.enums.Direction;
 import java.io.Serializable;
 
 /**
- * class which represents the position of a player in the arena.
+ * Class which represents the position of a player in the arena.
  */
-
 public class Position implements Serializable {
+    /**
+     * Row of the position.
+     */
     private int x;
+    /**
+     * Column of the position.
+     */
     private int y;
 
     /**
-     * constructor of the Position class.
+     * Constructor of the Position class.
      * @param x represents the row.
      * @param y represents the column.
      */
@@ -23,14 +28,14 @@ public class Position implements Serializable {
     }
 
     /**
-     *  getter of the row.
+     *  Getter of the row.
      */
     public int getX() {
         return x;
     }
 
     /**
-     * setter of the row
+     * Setter of the row
      * @param x indicates the chosen row to set.
      */
     public void setX(int x) {
@@ -38,7 +43,7 @@ public class Position implements Serializable {
     }
 
     /**
-     * getter of the column.
+     * Getter of the column.
      * @return the column
      */
     public int getY() {
@@ -46,13 +51,17 @@ public class Position implements Serializable {
     }
 
     /**
-     * setter of the column.
+     * Setter of the column.
      * @param y indicates the chosen column.
      */
     public void setY(int y) {
         this.y = y;
     }
 
+    /**
+     * Modifies a position after some moves.
+     * @param directions directions of the move.
+     */
     public void incrementPosition(Direction...directions){
         for(Direction direction : directions){
             switch(direction){

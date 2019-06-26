@@ -12,14 +12,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * class which represents the spawn point squares in the arena.
+ * Class which represents the spawn point squares in the arena.
  */
 public class SpawnPoint extends Square implements Serializable {
 
+    /**
+     * List of weapons present on the spawn point.
+     */
     private List<WeaponCard> weapons;
 
     /**
-     * constructor of the SpawnPoint class.
+     * Constructor of the SpawnPoint class.
      * @param color indicates the color of the spawn point.
      * @param north indicates the cardinal on the upper side of the square.
      * @param south indicates the cardinal on the lower side of the square.
@@ -32,7 +35,7 @@ public class SpawnPoint extends Square implements Serializable {
     }
 
     /**
-     * getter for the list of weapons present in the spawn point.
+     * Getter for the list of weapons present in the spawn point.
      * @return the list of weapons present in the spawn point.
      */
     @Override
@@ -41,7 +44,7 @@ public class SpawnPoint extends Square implements Serializable {
     }
 
     /**
-     * setter for the list of weapons present in the spawn point.
+     * Setter for the list of weapons present in the spawn point.
      * @param weapons chosen weapons to set in the spawn point.
      */
     public void setWeapons(List<WeaponCard> weapons) {
@@ -49,7 +52,7 @@ public class SpawnPoint extends Square implements Serializable {
     }
 
     /**
-     * verifies if a weapon in the spawn point can be grabbed.
+     * Verifies if a weapon in the spawn point can be grabbed.
      * @param actionInterface contains the methods to access the game.
      * @param choice int which indicates the choice of the player.
      * @return the result of the control, true if the weapon can be grabbed, false if can't.
@@ -61,7 +64,7 @@ public class SpawnPoint extends Square implements Serializable {
     }
 
     /**
-     * grabs the chosen weapon from the spawn point.
+     * Grabs the chosen weapon from the spawn point.
      * @param actionInterface contains the methods to access the game.
      * @param choice int which indicates the choice of the player.
      */
@@ -75,7 +78,7 @@ public class SpawnPoint extends Square implements Serializable {
     }
 
     /**
-     * fills the spawn point with new weapons.
+     * Fills the spawn point with new weapons.
      * @param actionInterface contains the methods to access the game.
      */
     @Override
@@ -90,7 +93,7 @@ public class SpawnPoint extends Square implements Serializable {
     }
 
     /**
-     * fills the spawn point with a new weapon
+     * Fills the spawn point with a new weapon
      * @param weapon indicates the weapon to add in the spawn point
      */
     @Override
@@ -99,7 +102,7 @@ public class SpawnPoint extends Square implements Serializable {
     }
 
     /**
-     * getter of the ammo card present in the square(Never Used)
+     * Getter of the ammo card present in the square(Never Used)
      * @return always null
      */
     @Override
@@ -108,7 +111,7 @@ public class SpawnPoint extends Square implements Serializable {
     }
 
     /**
-     * controls it the square is an active square.
+     * Controls it the square is an active square.
      * @return true, cause the spawn point is an active square.
      */
     @Override

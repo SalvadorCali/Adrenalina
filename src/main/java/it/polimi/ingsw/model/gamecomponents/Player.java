@@ -15,34 +15,112 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * class which represents one of the players present in the game.
+ * Class which represents one of the players present in the game.
  */
 public class Player implements Serializable {
+    /**
+     * Max number of ammos of each color in the ammo box.
+     */
     private static final int AMMOBOXLIMIT = 3;
+    /**
+     * Color of the player.
+     */
     private TokenColor color;
+    /**
+     * Score of the player.
+     */
     private int score;
+    /**
+     * List of weapons of the player.
+     */
     private List<WeaponCard> weapons;
+    /**
+     * List of powerups of the player.
+     */
     private List<PowerupCard> powerups;
+    /**
+     * List of ammos that the player can use.
+     */
     private List<Ammo> ammoBox;
+    /**
+     * Number of yellow ammos that the player can use.
+     */
     private int yellowAmmo;
+    /**
+     * Number of blue ammos that the player can use.
+     */
     private int blueAmmo;
+    /**
+     * Number of red ammos that the player can use.
+     */
     private int redAmmo;
+    /**
+     * Yellow ammos given by powerups.
+     */
     private int powerupYellowAmmo;
+    /**
+     * Blue ammos given by powerups.
+     */
     private int powerupBlueAmmo;
+    /**
+     * Red ammos given by the powerups.
+     */
     private int powerupRedAmmo;
+    /**
+     * Ammo reserve List.
+     */
     private List<Ammo> ammoReserve;
+    /**
+     * Personal board of the player.
+     */
     private PlayerBoard playerBoard;
+    /**
+     * Position of the player on the game board.
+     */
     private Position position;
+    /**
+     * Number of actions executed by the player.
+     */
     private int actionNumber;
+    /**
+     * Number of actions executed by the player in the final frenzy.
+     */
     private int finalFrenzyActionsNumber;
+    /**
+     * Final frenzy actions of the player.
+     */
     private FinalFrenzyAction finalFrenzyActions;
+    /**
+     * Boolean that is true if it's the player's turn.
+     */
     private boolean myTurn;
+    /**
+     * Username of the player.
+     */
     private String username;
+    /**
+     * Boolean that is true if the player is disconnected.
+     */
     private boolean disconnected;
+    /**
+     * Boolean that is true if the player is spawned.
+     */
     private boolean spawned;
+    /**
+     * Boolean that is true if the player is respawned.
+     */
     private boolean respawned;
+    /**
+     * Boolean that is true if the player is damaged.
+     */
     private boolean damaged;
+    /**
+     * Boolean that is true if the player converted a powerup to an ammo.
+     */
     private boolean powerupAsAmmo;
+    /**
+     * Boolean that is true if the player is moving and reloading.
+     */
     private boolean moveAndReload;
     private static final long serialVersionUID = 1L;
 
@@ -67,7 +145,7 @@ public class Player implements Serializable {
 
 
     /**
-     * getter of the boolean respawned.
+     * Getter of the boolean respawned.
      * @return the boolean respawned.
      */
     public boolean isRespawned() {
@@ -75,7 +153,7 @@ public class Player implements Serializable {
     }
 
     /**
-     * setter of the boolean respawned
+     * Setter of the boolean respawned
      * @param respawned chosen value for the boolean respawned.
      */
     public void setRespawned(boolean respawned) {
@@ -83,7 +161,7 @@ public class Player implements Serializable {
     }
 
     /**
-     * getter of the boolean moveAndReload.
+     * Getter of the boolean moveAndReload.
      * @return the boolean moveAndReload.
      */
     public boolean isMoveAndReload() {
@@ -91,7 +169,7 @@ public class Player implements Serializable {
     }
 
     /**
-     * setter of the boolean moveAndReload
+     * Setter of the boolean moveAndReload
      * @param moveAndReload chosen value for the boolean moveAndReload.
      */
     public void setMoveAndReload(boolean moveAndReload) {
@@ -99,7 +177,7 @@ public class Player implements Serializable {
     }
 
     /**
-     * getter of the boolean powerupAsAmmo.
+     * Getter of the boolean powerupAsAmmo.
      * @return the boolean powerupAsAmmo
      */
     boolean isPowerupAsAmmo() {
@@ -107,7 +185,7 @@ public class Player implements Serializable {
     }
 
     /**
-     * setter of the boolean powerupAsAmmo.
+     * Setter of the boolean powerupAsAmmo.
      * @param powerupAsAmmo chosen value for the boolean powerupAsAmmo.
      */
     public void setPowerupAsAmmo(boolean powerupAsAmmo) {
@@ -115,7 +193,7 @@ public class Player implements Serializable {
     }
 
     /**
-     * getter of the boolean spawned.
+     * Getter of the boolean spawned.
      * @return the boolean spawned.
      */
     public boolean isSpawned() {
@@ -123,7 +201,7 @@ public class Player implements Serializable {
     }
 
     /**
-     * setter of the boolean spawned.
+     * Setter of the boolean spawned.
      * @param spawned chosen value for the boolean spawned.
      */
     public void setSpawned(boolean spawned) {
@@ -131,7 +209,7 @@ public class Player implements Serializable {
     }
 
     /**
-     * getter of the player's color.
+     * Getter of the player's color.
      * @return the color of the player.
      */
     public TokenColor getColor() {
@@ -139,7 +217,7 @@ public class Player implements Serializable {
     }
 
     /**
-     * setter of the player's color.
+     * Setter of the player's color.
      * @param color chosen color of the player.
      */
     public void setColor(TokenColor color) {
@@ -147,7 +225,7 @@ public class Player implements Serializable {
     }
 
     /**
-     * getter of the player's score.
+     * Getter of the player's score.
      * @return the player's score.
      */
     public int getScore() {
@@ -155,7 +233,7 @@ public class Player implements Serializable {
     }
 
     /**
-     * setter of the player's score.
+     * Setter of the player's score.
      * @param score chosen value for the player's score.
      */
     public void setScore(int score) {
@@ -163,7 +241,7 @@ public class Player implements Serializable {
     }
 
     /**
-     * getter of the player's position.
+     * Getter of the player's position.
      * @return the player's position.
      */
     public Position getPosition() {
@@ -171,7 +249,7 @@ public class Player implements Serializable {
     }
 
     /**
-     * setter of the player's position.
+     * Setter of the player's position.
      * @param position chosen position of the player.
      */
     public void setPosition(Position position) {
@@ -179,7 +257,7 @@ public class Player implements Serializable {
     }
 
     /**
-     * setter of the player's position.
+     * Setter of the player's position.
      * @param x int that indicates the chosen row of the player's position.
      * @param y int that indicates the chosen column of the player's position.
      */
@@ -189,7 +267,7 @@ public class Player implements Serializable {
     }
 
     /**
-     * getter of the player's personal board.
+     * Getter of the player's personal board.
      * @return the player's personal board.
      */
     public PlayerBoard getPlayerBoard() {
@@ -197,7 +275,7 @@ public class Player implements Serializable {
     }
 
     /**
-     * setter of the player's personal board.
+     * Setter of the player's personal board.
      * @param playerBoard chosen board to set.
      */
     public void setPlayerBoard(PlayerBoard playerBoard) {
@@ -205,7 +283,7 @@ public class Player implements Serializable {
     }
 
     /**
-     * getter of the player's ammo box.
+     * Getter of the player's ammo box.
      * @return the player's ammo box.
      */
     public List<Ammo> getAmmoBox() {
@@ -213,7 +291,7 @@ public class Player implements Serializable {
     }
 
     /**
-     * getter of the number of the player's blue ammos.
+     * Getter of the number of the player's blue ammos.
      * @return the number of the player's blue ammos.
      */
     public int getBlueAmmo() {
@@ -221,7 +299,7 @@ public class Player implements Serializable {
     }
 
     /**
-     * getter of the number of the player's yellow ammos.
+     * Getter of the number of the player's yellow ammos.
      * @return the number of the player's yellow ammos.
      */
     public int getYellowAmmo(){
@@ -229,7 +307,7 @@ public class Player implements Serializable {
     }
 
     /**
-     * getter of the number of the player's red ammos.
+     * Getter of the number of the player's red ammos.
      * @return the number of the player's red ammos.
      */
     public int getRedAmmo() {
@@ -237,7 +315,7 @@ public class Player implements Serializable {
     }
 
     /**
-     * getter of the player's ammo reserve.
+     * Getter of the player's ammo reserve.
      * @return the player's ammo reserve.
      */
     public List<Ammo> getAmmoReserve() {
@@ -245,7 +323,7 @@ public class Player implements Serializable {
     }
 
     /**
-     * setter of the player's ammo box.
+     * Setter of the player's ammo box.
      * @param ammoBox the chosen list to set as ammo box.
      */
     void setAmmoBox(List<Ammo> ammoBox) {
@@ -253,7 +331,7 @@ public class Player implements Serializable {
     }
 
     /**
-     * setter of the player's ammo reserve.
+     * Setter of the player's ammo reserve.
      * @param ammoReserve the chosen list to set as ammo reserve.
      */
     void setAmmoReserve(List<Ammo> ammoReserve) {
@@ -261,7 +339,7 @@ public class Player implements Serializable {
     }
 
     /**
-     * getter of the player's list of powerups.
+     * Getter of the player's list of powerups.
      * @return the list of the player's powerups.
      */
     public List<PowerupCard> getPowerups() {
@@ -269,7 +347,7 @@ public class Player implements Serializable {
     }
 
     /**
-     * getter of the player's list of weapons.
+     * Getter of the player's list of weapons.
      * @return the player's list of weapons.
      */
     public List<WeaponCard> getWeapons() {
@@ -277,7 +355,7 @@ public class Player implements Serializable {
     }
 
     /**
-     * setter of the player's list of weapons.
+     * Setter of the player's list of weapons.
      * @param weapons the list of weapons to set.
      */
     public void setWeapons(List<WeaponCard> weapons) {
@@ -285,7 +363,7 @@ public class Player implements Serializable {
     }
 
     /**
-     * setter of the player's executed actions
+     * Setter of the player's executed actions
      * @param actionNumber number of actions executed by the player.
      */
     public void setActionNumber(int actionNumber) {
@@ -293,7 +371,7 @@ public class Player implements Serializable {
     }
 
     /**
-     * getter of the boolean myTurn.
+     * Getter of the boolean myTurn.
      * @return true if is the player's turn, false if isn't.
      */
     public boolean isMyTurn() {
@@ -301,7 +379,7 @@ public class Player implements Serializable {
     }
 
     /**
-     * setter of the boolean myTurn.
+     * Setter of the boolean myTurn.
      * @param myTurn chosen value for the boolean myTurn.
      */
     public void setMyTurn(boolean myTurn) {
@@ -309,7 +387,7 @@ public class Player implements Serializable {
     }
 
     /**
-     * getter of the player's username.
+     * Getter of the player's username.
      * @return the player's username
      */
     public String getUsername() {
@@ -317,7 +395,7 @@ public class Player implements Serializable {
     }
 
     /**
-     * setter of the player's username.
+     * Setter of the player's username.
      * @param username chosen name of the player.
      */
     public void setUsername(String username) {
@@ -325,7 +403,7 @@ public class Player implements Serializable {
     }
 
     /**
-     * getter of the boolean disconnected.
+     * Getter of the boolean disconnected.
      * @return true if the player is disconnected, false if isn't.
      */
     public boolean isDisconnected() {
@@ -333,7 +411,7 @@ public class Player implements Serializable {
     }
 
     /**
-     * setter of the boolean disconnected.
+     * Setter of the boolean disconnected.
      * @param disconnected chosen value of the boolean disconnected.
      */
     public void setDisconnected(boolean disconnected) {
@@ -341,7 +419,7 @@ public class Player implements Serializable {
     }
 
     /**
-     * adds a chosen weapon to the player's list of weapons.
+     * Adds a chosen weapon to the player's list of weapons.
      * @param weapon indicates the chosen weapon.
      */
     public void addWeapon(WeaponCard weapon){
@@ -349,7 +427,7 @@ public class Player implements Serializable {
     }
 
     /**
-     * adds a chosen powerup to the player's list of powerups.
+     * Adds a chosen powerup to the player's list of powerups.
      * @param powerup indicates the chosen powerup.
      */
     public void addPowerup(PowerupCard powerup){
@@ -357,7 +435,7 @@ public class Player implements Serializable {
     }
 
     /**
-     * adds multiple ammos to the player's ammo box.
+     * Adds multiple ammos to the player's ammo box.
      * @param ammos indicates the chosen ammos to add to the player's ammo box.
      */
     public void addAmmo(Ammo...ammos){
@@ -370,7 +448,7 @@ public class Player implements Serializable {
     }
 
     /**
-     * adds multiple ammos to the player's ammo reserve.
+     * Adds multiple ammos to the player's ammo reserve.
      * @param ammos indicates the chosen ammos to add to the player's ammo reserve.
      */
     void addAmmoToReserve(Ammo... ammos){
@@ -378,7 +456,7 @@ public class Player implements Serializable {
     }
 
     /**
-     * verifies if an ammo of a certain color can be added to the player's ammo box.
+     * Verifies if an ammo of a certain color can be added to the player's ammo box.
      * @param color indicates the color of the ammo that the player wants to add.
      * @return the result of the control: true if the ammo can be added, false if can't.
      */
@@ -396,7 +474,7 @@ public class Player implements Serializable {
     }
 
     /**
-     * resets the ammo added using powerups to zero, it's used at the end of every turn.
+     * Resets the ammo added using powerups to zero, it's used at the end of every turn.
      */
     public void resetPowerupAmmos(){
         powerupBlueAmmo = 0;
@@ -406,7 +484,7 @@ public class Player implements Serializable {
     }
 
     /**
-     * increases the number of red/blue/yellow powerup ammos.
+     * Increases the number of red/blue/yellow powerup ammos.
      * @param color indicates the color of the ammos to increment.
      */
     public void increasePowerupAmmoNumber(Color color){
@@ -426,7 +504,7 @@ public class Player implements Serializable {
     }
 
     /**
-     * increases the number of red/blue/yellow ammos.
+     * Increases the number of red/blue/yellow ammos.
      * @param color indicates the color of the ammos to increment.
      */
     public void increaseAmmoNumber(Color color){
@@ -446,7 +524,7 @@ public class Player implements Serializable {
     }
 
     /**
-     * verifies that the player has enough ammos of every color to perform an action.
+     * Verifies that the player has enough ammos of every color to perform an action.
      * @param redAmmos indicates the number of red ammos required by the action.
      * @param blueAmmos indicates the number of blue ammos required by the action.
      * @param yellowAmmos indicates the number of yellow ammos required by the action.
@@ -457,7 +535,7 @@ public class Player implements Serializable {
     }
 
     /**
-     * updates the ammoBox after the execution of an action that increases ammos.
+     * Updates the ammoBox after the execution of an action that increases ammos.
      * @param redAmmos red ammos required by the executed action.
      * @param blueAmmos blue ammos required by the executed action.
      * @param yellowAmmos yellow ammos required by the executed action.
@@ -500,7 +578,7 @@ public class Player implements Serializable {
     }
 
     /**
-     * updates the ammoBox after the execution of an action that decreases ammos.
+     * Updates the ammoBox after the execution of an action that decreases ammos.
      * @param redAmmos red ammos required by the executed action.
      * @param blueAmmos blue ammos required by the executed action.
      * @param yellowAmmos yellow ammos required by the executed action.
@@ -562,21 +640,21 @@ public class Player implements Serializable {
     }
 
     /**
-     * increases the player's number of executed actions.
+     * Increases the player's number of executed actions.
      */
     public void increaseActionNumber(){
         actionNumber++;
     }
 
     /**
-     * resets the player's number of executed actions to zero at the end of his turn.
+     * Resets the player's number of executed actions to zero at the end of his turn.
      */
     public void resetActionNumber(){
         actionNumber = 0;
     }
 
     /**
-     * controls if the player can perform an action or if he already performed all the possible actions in his turn.
+     * Controls if the player can perform an action or if he already performed all the possible actions in his turn.
      * @return the result of the control: true if the player can execute another action, false if can't.
      */
     public boolean canUseAction(){
@@ -584,7 +662,7 @@ public class Player implements Serializable {
     }
 
     /**
-     * controls if the player can perform an action or if he already performed all the possible actions in his final frenzy turn.
+     * Controls if the player can perform an action or if he already performed all the possible actions in his final frenzy turn.
      * @return the result of the control: true if the player can execute another action, false if can't.
      */
     public boolean canUseActionFinalFrenzy(){
@@ -592,7 +670,7 @@ public class Player implements Serializable {
     }
 
     /**
-     * verifies if the player is still alive.
+     * Verifies if the player is still alive.
      * @return the result of the control: true if the player is dead, false if he's still alive.
      */
     public boolean isDead(){
@@ -600,7 +678,7 @@ public class Player implements Serializable {
     }
 
     /**
-     * sets the player to dead or alive.
+     * Sets the player to dead or alive.
      * @param dead chosen boolean to set.
      */
     public void setDead(boolean dead){
@@ -608,7 +686,7 @@ public class Player implements Serializable {
     }
 
     /**
-     * getter of the boolean damaged.
+     * Getter of the boolean damaged.
      * @return the value of the boolean isDamaged: true if the player has been damaged during the turn, false if isn't.
      */
     public boolean isDamaged(){
@@ -616,7 +694,7 @@ public class Player implements Serializable {
     }
 
     /**
-     * setter of the boolean damaged.
+     * Setter of the boolean damaged.
      * @param damaged indicates the chosen value to set.
      */
     public void setDamaged(boolean damaged) {
@@ -624,7 +702,7 @@ public class Player implements Serializable {
     }
 
     /**
-     * setter of the number of actions that can be performed by the player in the final frenzy turn.
+     * Setter of the number of actions that can be performed by the player in the final frenzy turn.
      * @param finalFrenzyActionsNumber indicates the chosen number of actions to set.
      */
     void setFinalFrenzyActionsNumber(int finalFrenzyActionsNumber) {
@@ -632,7 +710,7 @@ public class Player implements Serializable {
     }
 
     /**
-     * getter of the number of actions that can be performed by the player in the final frenzy turn.
+     * Getter of the number of actions that can be performed by the player in the final frenzy turn.
      * @return the number of actions.
      */
     public FinalFrenzyAction getFinalFrenzyActions() {

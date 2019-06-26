@@ -7,23 +7,56 @@ import java.io.Serializable;
 import java.util.*;
 
 /**
- * class which represents the personal information regarding damages and marks of every player in the game.
+ * Class which represents the personal information regarding damages and marks of every player in the game.
  */
 public class PlayerBoard implements Serializable {
+    /**
+     * Array of damages from other players.
+     */
     private Token[] damageBoard;
+    /**
+     * Max number of damages on the player board.
+     */
     private static final int MAX_DAMAGE = 12;
+    /**
+     * Max damage.
+     */
     private int maxDamage;
+    /**
+     * Number of damages on the player board.
+     */
     private int damageIndex;
+    /**
+     * Number of deaths
+     */
     private int deathNumber;
+    /**
+     * List of revenge marks present on the player board.
+     */
     private List<Token> revengeMarks;
+    /**
+     * Adrenaline zone.
+     */
     private AdrenalineZone adrenalineZone;
+    /**
+     * Boolean which is true when the player is dead.
+     */
     private boolean dead;
+    /**
+     * Boolean which is ture when the player has been overkilled.
+     */
     private boolean overkill;
+    /**
+     * Boolean which is true when the player is in final frenzy.
+     */
     private boolean finalFrenzy;
+    /**
+     * Standings.
+     */
     private Map<TokenColor, Score> scoreList;
 
     /**
-     * constructor of the playerBoard class.
+     * Constructor of the playerBoard class.
      */
     public PlayerBoard(){
         damageBoard = new Token[MAX_DAMAGE];
@@ -38,7 +71,7 @@ public class PlayerBoard implements Serializable {
     }
 
     /**
-     * getter of the player's damageboard.
+     * Getter of the player's damageboard.
      * @return the player's damageboard.
      */
     public Token[] getDamageBoard() {
@@ -46,23 +79,31 @@ public class PlayerBoard implements Serializable {
     }
 
     /**
-     * getter of the int damageIndex.
+     * Getter of the int damageIndex.
      * @return the value of the int damageIndex.
      */
     int getDamageIndex() {
         return damageIndex;
     }
 
+    /**
+     * Getter of the boolean finalFrenzy.
+     * @return the value of the boolean finalFrenzy.
+     */
     public boolean isFinalFrenzy() {
         return finalFrenzy;
     }
 
+    /**
+     * Setter of the finalFrenzy.
+     * @param finalFrenzy chosen value.
+     */
     void setFinalFrenzy(boolean finalFrenzy) {
         this.finalFrenzy = finalFrenzy;
     }
 
     /**
-     * getter of the list of revenge marks on the player's damage board.
+     * Getter of the list of revenge marks on the player's damage board.
      * @return the list of revenge marks on the player's damage board.
      */
     public List<Token> getRevengeMarks() {
@@ -70,7 +111,7 @@ public class PlayerBoard implements Serializable {
     }
 
     /**
-     * getter of the number of deaths collected by the player.
+     * Getter of the number of deaths collected by the player.
      * @return the number of deaths collected by the player.
      */
     public int getDeathNumber() {
@@ -78,7 +119,7 @@ public class PlayerBoard implements Serializable {
     }
 
     /**
-     * set the number of deaths collected by the player.
+     * Set the number of deaths collected by the player.
      * @param deathNumber the chosen value to set.
      */
     public void setDeathNumber(int deathNumber) {
@@ -86,7 +127,7 @@ public class PlayerBoard implements Serializable {
     }
 
     /**
-     * getter of the adrenalineZone.
+     * Getter of the adrenalineZone.
      * @return the adrenalineZone.
      */
     public AdrenalineZone getAdrenalineZone(){
@@ -94,7 +135,7 @@ public class PlayerBoard implements Serializable {
     }
 
     /**
-     * setter of the adrenalineZone.
+     * Setter of the adrenalineZone.
      * @param adrenalineZone chosen value to set the adrenalineZone.
      */
     void setAdrenalineZone(AdrenalineZone adrenalineZone) {
@@ -102,7 +143,7 @@ public class PlayerBoard implements Serializable {
     }
 
     /**
-     * getter of the boolean dead.
+     * Getter of the boolean dead.
      * @return the value of the boolean dead: true if the player is dead, false if he's alive.
      */
     boolean isDead() {
@@ -110,7 +151,7 @@ public class PlayerBoard implements Serializable {
     }
 
     /**
-     * setter of the boolean dead.
+     * Setter of the boolean dead.
      * @param dead chosen value to set the boolean dead.
      */
     void setDead(boolean dead) {
@@ -118,7 +159,7 @@ public class PlayerBoard implements Serializable {
     }
 
     /**
-     * getter of the boolean overkill.
+     * Getter of the boolean overkill.
      * @return the value of the boolean overkill.
      */
     boolean isOverkill() {
@@ -126,7 +167,7 @@ public class PlayerBoard implements Serializable {
     }
 
     /**
-     * adds a revenge mark to the player's list of revenge marks.
+     * Adds a revenge mark to the player's list of revenge marks.
      * @param color indicates the color of the player who inflicted the mark.
      */
     public void addRevengeMarks(TokenColor color){
@@ -134,14 +175,14 @@ public class PlayerBoard implements Serializable {
     }
 
     /**
-     * reset the mark on the damage board to zero.
+     * Reset the mark on the damage board to zero.
      */
     void resetRevengeMarks(){
         revengeMarks.clear();
     }
 
     /**
-     * adds a damage to the player's array of damages.
+     * Adds a damage to the player's array of damages.
      * @param colors indicates the color of the player who inflicted the damage.
      */
     public void addDamage(TokenColor...colors){
@@ -170,7 +211,7 @@ public class PlayerBoard implements Serializable {
     }
 
     /**
-     * finds if the player has marks of a certain color, and adds the same number of damages to the player's damageboard.
+     * Finds if the player has marks of a certain color, and adds the same number of damages to the player's damageboard.
      * @param color color of the player who inflicted the damage.
      * @param damageIndex indicates the position where to put the new damages.
      * @return the damage index.
@@ -189,7 +230,7 @@ public class PlayerBoard implements Serializable {
     }
 
     /**
-     * resets the damages present in the damage board to zero.
+     * Resets the damages present in the damage board to zero.
      */
     void resetDamage(){
         for(int i=0; i<MAX_DAMAGE; i++){
@@ -199,7 +240,7 @@ public class PlayerBoard implements Serializable {
     }
 
     /**
-     * getter of the color of the token present in the first position of the damage board.
+     * Getter of the color of the token present in the first position of the damage board.
      * @return the color of the first token in the damage board.
      */
     TokenColor getFirstBlood(){
@@ -207,7 +248,7 @@ public class PlayerBoard implements Serializable {
     }
 
     /**
-     * getter of the color of the token present in the tenth position of the damage board.
+     * Getter of the color of the token present in the tenth position of the damage board.
      * @return the color of the tenth token in the damage board.
      */
     TokenColor getKillshot(){
@@ -215,7 +256,7 @@ public class PlayerBoard implements Serializable {
     }
 
     /**
-     * getter of the color of the token present in the last position of the damage board.
+     * Getter of the color of the token present in the last position of the damage board.
      * @return the color of the last token in the damage board.
      */
     TokenColor getOverkill(){
@@ -223,7 +264,7 @@ public class PlayerBoard implements Serializable {
     }
 
     /**
-     * creates the standing of the players at the end of the game.
+     * Creates the standing of the players at the end of the game.
      * @param playerColors indicates the list of the colors of the players that played the game.
      * @return a score list representing the final standing.
      */
@@ -348,23 +389,5 @@ public class PlayerBoard implements Serializable {
         resetDamage();
         adrenalineZone = AdrenalineZone.DEFAULT;
         dead = false;
-    }
-    public void setDamageBoard(Token[] damageBoard) {
-        this.damageBoard = damageBoard;
-    }
-    public void setDamageIndex(int damageIndex) {
-        this.damageIndex = damageIndex;
-    }
-    public void setRevengeMarks(List<Token> revengeMarks) {
-        this.revengeMarks = revengeMarks;
-    }
-    public void setOverkill(boolean overkill) {
-        this.overkill = overkill;
-    }
-    public Map<TokenColor, Score> getScoreList() {
-        return scoreList;
-    }
-    public void setScoreList(Map<TokenColor, Score> scoreList) {
-        this.scoreList = scoreList;
     }
 }
