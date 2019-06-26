@@ -213,7 +213,7 @@ class GameControllerTest {
     }
 
     /**
-     * Tests that the player datas are correct
+     * Tests that the player datas are correct after he discarded a powerup.
      */
     @Test
     void discardPowerupTest(){
@@ -232,6 +232,50 @@ class GameControllerTest {
         gameController.discardPowerup(gameController.getGame().getCurrentPlayer(), 1);
         assertEquals(0 ,gameController.getGame().getCurrentPlayer().getPowerups().size());
         assertTrue(gameController.getGame().getCurrentPlayer().canUsePowerupAmmos());
+    }
+
+    /**
+     * Tests that the player can drop a weapon only on a spawn point.
+     */
+    @Test
+    void dropWeaponTest(){
+        GameController gameController = new GameController();
+        playerSetup();
+        gameController.startGame(playerList);
+        gameController.getGame().setCurrentPlayer(gameController.getGame().getPlayers().get(0));
+        gameController.setBoard(1, 5);
+        gameController.getGame().getBoard().generatePlayer(0,0,gameController.getGame().getCurrentPlayer());
+        WeaponCard weaponCard = new WeaponCard("LOCK RIFLE", Color.BLUE, null,0,0,0,0,0,0);
+        gameController.getGame().getCurrentPlayer().addWeapon(weaponCard);
+        assertFalse(gameController.canDropWeapon(gameController.getGame().getCurrentPlayer(),0));
+        assertFalse(gameController.canDropWeapon(gameController.getGame().getCurrentPlayer(),2));
+        assertFalse(gameController.canDropWeapon(gameController.getGame().getCurrentPlayer(),1));
+        assertEquals(1 ,gameController.getGame().getCurrentPlayer().getWeapons().size());
+        gameController.getGame().getBoard().move(1,0,gameController.getGame().getCurrentPlayer());
+        assertTrue(gameController.canDropWeapon(gameController.getGame().getCurrentPlayer(),1));
+        gameController.dropWeapon(gameController.getGame().getCurrentPlayer(), 1);
+        assertEquals(0 ,gameController.getGame().getCurrentPlayer().getWeapons().size());
+    }
+
+    /**
+     * Tests that the player can drop a powerup if the index is correct.
+     */
+    @Test
+    void dropPowerupTest(){
+        GameController gameController = new GameController();
+        playerSetup();
+        gameController.startGame(playerList);
+        gameController.getGame().setCurrentPlayer(gameController.getGame().getPlayers().get(0));
+        gameController.setBoard(1, 5);
+        gameController.getGame().getBoard().generatePlayer(0,0,gameController.getGame().getCurrentPlayer());
+        PowerupCard p = new PowerupCard("TELEPORTER",Color.YELLOW, "Teleporter");
+        gameController.addPowerup(gameController.getGame().getCurrentPlayer(), p);
+        assertFalse(gameController.canDropPowerup(gameController.getGame().getCurrentPlayer(),0));
+        assertFalse(gameController.canDropPowerup(gameController.getGame().getCurrentPlayer(),2));
+        assertTrue(gameController.canDropPowerup(gameController.getGame().getCurrentPlayer(),1));
+        assertEquals(1 ,gameController.getGame().getCurrentPlayer().getPowerups().size());
+        gameController.dropPowerup(gameController.getGame().getCurrentPlayer(), 1);
+        assertEquals(0 ,gameController.getGame().getCurrentPlayer().getPowerups().size());
     }
 
 
