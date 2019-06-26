@@ -5,12 +5,24 @@ import it.polimi.ingsw.model.enums.*;
 import java.io.Serializable;
 
 /**
- * class which represents the game board of the game.
+ * Class which represents the game board of the game.
  */
 public class GameBoard implements Serializable {
+    /**
+     * Type of the board.
+     */
     private BoardType type;
+    /**
+     * The structure of the board.
+     */
     private Square[][] arena;
+    /**
+     * Number of rows in the arena.
+     */
     private static final int ROWS = 3;
+    /**
+     * Number of columns in the arena.
+     */
     private static final int COLUMNS = 4;
     private static final long serialVersionUID = 1L;
 
@@ -25,7 +37,7 @@ public class GameBoard implements Serializable {
     }
 
     /**
-     * getter of the type of the board.
+     * Getter of the type of the board.
      * @return the type of the board.
      */
     public BoardType getType() {
@@ -33,7 +45,7 @@ public class GameBoard implements Serializable {
     }
 
     /**
-     * getter of the structure of the arena.
+     * Getter of the structure of the arena.
      * @return the structure of the arena.
      */
     public Square[][] getArena() {
@@ -41,7 +53,7 @@ public class GameBoard implements Serializable {
     }
 
     /**
-     * verifies if the player can move in consecutive directions.
+     * Verifies if the player can move in consecutive directions.
      * @param player the player which moves are controlled.
      * @param directions the directions of the moves that need to be checked.
      * @return the result of the movement control.
@@ -77,7 +89,7 @@ public class GameBoard implements Serializable {
     }
 
     /**
-     * generates the player in a square of the arena.
+     * Generates the player in a square of the arena.
      * @param x int which indicates the row of the square.
      * @param y int which indicates the column of the square.
      * @param player player which is generated.
@@ -88,7 +100,7 @@ public class GameBoard implements Serializable {
     }
 
     /**
-     * generates the player in the spawn point of the selected color.
+     * Generates the player in the spawn point of the selected color.
      * @param player player which is generated in the spawn point.
      * @param color color of the spawn point where the player is generated.
      */
@@ -105,6 +117,10 @@ public class GameBoard implements Serializable {
         }
     }
 
+    /**
+     * Remove a player from the board.
+     * @param player chosen player to be removed from the board.
+     */
     public void removePlayer(Player player){
         for(int i=0; i<3; i++){
             for(int j=0; j<4; j++){
@@ -117,7 +133,7 @@ public class GameBoard implements Serializable {
     }
 
     /**
-     * moves the player in a choosen direction.
+     * Moves the player in a choosen direction.
      * @param direction direction of the move applied to the player.
      * @param shooter player which is moved.
      */
@@ -145,7 +161,7 @@ public class GameBoard implements Serializable {
     }
 
     /**
-     * moves the player in a square of the arena.
+     * Moves the player in a square of the arena.
      * @param x int that indicates the row of the square.
      * @param y int that indicates the column of the square.
      * @param player player wich is moved in the choosen square.
@@ -157,7 +173,7 @@ public class GameBoard implements Serializable {
     }
 
     /**
-     * evaluates if the victim is visible from the shooter.
+     * Evaluates if the victim is visible from the shooter.
      * @param shooter player that is shooting.
      * @param victim player that is attempted to be shooted.
      * @return return the result of the visibility control.
@@ -173,7 +189,7 @@ public class GameBoard implements Serializable {
     }
 
     /**
-     * evaluates if a square is visible from the shooter who isn't located in that square.
+     * Evaluates if a square is visible from the shooter who isn't located in that square.
      * @param shooter player that is shooting.
      * @param x_2 int that indicates the row of the square.
      * @param y_2 int that indicates the column of the square.
@@ -186,7 +202,7 @@ public class GameBoard implements Serializable {
     }
 
     /**
-     * evaluates the distance between the shooter and a choosen square.
+     * Evaluates the distance between the shooter and a choosen square.
      * @param shooter Player which distance from the square is evaluated.
      * @param x_2 int which indicates the row of the choosen square.
      * @param y_2 int which indicates the column of the choosen square.
@@ -195,7 +211,6 @@ public class GameBoard implements Serializable {
     public int distance(Player shooter, int x_2, int y_2) {
         Position position = new Position(shooter.getPosition().getX(), shooter.getPosition().getY());
         Position secondPosition = new Position(shooter.getPosition().getX(), shooter.getPosition().getY());
-
 
         if (shooter.getPosition().getX() == x_2 && shooter.getPosition().getY() == y_2)
             return 0;
@@ -232,7 +247,7 @@ public class GameBoard implements Serializable {
     }
 
     /**
-     * gives damages and marks of the shooter's color to all the players in the room of the choosen square.
+     * Gives damages and marks of the shooter's color to all the players in the room of the choosen square.
      * @param x int which indicates the row of the choosen square.
      * @param y int which indicates the column of the choosen square.
      * @param damagePower int which indicates the number of damages to give to all the players in the room.
@@ -260,7 +275,7 @@ public class GameBoard implements Serializable {
     }
 
     /**
-     * evaluates if the two selected squares are in the same room.
+     * Evaluates if the two selected squares are in the same room.
      * @param x int which indicates the row of the first selected square.
      * @param y int which indicates the column of the first selected square.
      * @param x_2 int which indicates the row of the second selected square.
@@ -272,7 +287,7 @@ public class GameBoard implements Serializable {
     }
 
     /**
-     * evaluate if the second selected square is visible from the first square which isn't in the same room.
+     * Evaluate if the second selected square is visible from the first square which isn't in the same room.
      * @param x int which indicates the row of the first square.
      * @param y int which indicates the column of the first square.
      * @param x_2 int which indicates the row of the second square.
@@ -297,7 +312,7 @@ public class GameBoard implements Serializable {
     }
 
     /**
-     * converts a color into a tokencolor
+     * Converts a color into a tokencolor
      * @param color color that needs to be converted.
      * @return the tokencolor that corresponds to the selected color.
      */
@@ -315,7 +330,7 @@ public class GameBoard implements Serializable {
     }
 
     /**
-     * evaluates if the player isn't going out of the arena if moved in the chosen direction.
+     * Evaluates if the player isn't going out of the arena if moved in the chosen direction.
      * @param player player which move is evaluated.
      * @param direction direction of the move that needs to be evaluated.
      * @return the result of the evaluation.

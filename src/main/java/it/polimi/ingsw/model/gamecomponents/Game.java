@@ -11,32 +11,99 @@ import java.io.Serializable;
 import java.util.*;
 
 public class Game implements Serializable {
-    public static final int  ROWS = 3;
-    public static final int COLUMNS = 4;
+
+    /**
+     * Number of rows in the board.
+     */
+    private static final int  ROWS = 3;
+    /**
+     * Number of columns in the board.
+     */
+    private static final int COLUMNS = 4;
+    /**
+     * The board of the game.
+     */
     private GameBoard board;
+    /**
+     * The player who's playing the turn.
+     */
     private Player currentPlayer;
+    /**
+     * List of players who are joining the game.
+     */
     private List<Player> players;
+    /**
+     * List of the players' colors.
+     */
     private ArrayList<TokenColor> playerColors;
+    /**
+     * Maps of players and relative colors.
+     */
     private Map<String, TokenColor> playersMap;
+    /**
+     * List of skulls that determines the lenght of the game.
+     */
     private List<Token> killshotTrack;
+    /**
+     * Index of the killshot track.
+     */
     private int killshotIndex;
+    /**
+     * Number of skulls chosen for the game.
+     */
     private int skullsNumber;
+    /**
+     * Deck of weapons
+     */
     private Deck weapons;
+    /**
+     * Deck of powerups.
+     */
     private Deck powerups;
+    /**
+     * List of ammo cards in the game.
+     */
     private List<AmmoCard> ammos;
+    /**
+     * Turns of final frenzy.
+     */
     private int finalFrenzyTurns;
+    /**
+     * Boolean which is true if the game is in the final frenzy stage.
+     */
     private boolean finalFrenzy;
+    /**
+     * Boolean which is true if the game is in game phase.
+     */
     private boolean gamePhase;
+    /**
+     * Boolean which is true if the game is in the color selection phase.
+     */
     private boolean colorSelection;
+    /**
+     * Boolean which is true if the game is in the login phase.
+     */
     private boolean loginPhase;
+    /**
+     * Boolean which is true if the game is in the spawn location phase.
+     */
     private boolean spawnLocationPhase;
+    /**
+     * Boolean which is true if the game is in the board type phase.
+     */
     private boolean boardTypePhase;
+    /**
+     * Boolean which is true if the game is in the respawn phase.
+     */
     private boolean respawnPhase;
+    /**
+     * Boolean which is true if the game is in the end phase.
+     */
     private boolean endPhase;
     private Map<TokenColor, Integer> scoreList;
 
     /**
-     * constructor of the Game class.
+     * Constructor of the Game class.
      * @param board the arena that was chosen for the game.
      * @param weapons the weapons present in the game.
      * @param powerups the powerups present in the game.
@@ -58,7 +125,7 @@ public class Game implements Serializable {
     }
 
     /**
-     * getter of the boolean respawnPhase.
+     * Getter of the boolean respawnPhase.
      * @return the value of the boolean respawnPhase.
      */
     public boolean isRespawnPhase() {
@@ -66,7 +133,7 @@ public class Game implements Serializable {
     }
 
     /**
-     * setter of the boolean respawnPhase.
+     * Setter of the boolean respawnPhase.
      * @param respawnPhase chosen value of the boolean respawnPhase.
      */
     public void setRespawnPhase(boolean respawnPhase) {
@@ -74,7 +141,7 @@ public class Game implements Serializable {
     }
 
     /**
-     * getter of the boolean gamePhase.
+     * Getter of the boolean gamePhase.
      * @return the value of the boolean gamePhase.
      */
     public boolean isGamePhase() {
@@ -82,7 +149,7 @@ public class Game implements Serializable {
     }
 
     /**
-     * setter of the boolean gamePhase.
+     * Setter of the boolean gamePhase.
      * @param gamePhase chosen value of the boolean gamePhase.
      */
     public void setGamePhase(boolean gamePhase) {
@@ -90,7 +157,7 @@ public class Game implements Serializable {
     }
 
     /**
-     * getter of the boolean spawnLocationPhase.
+     * Getter of the boolean spawnLocationPhase.
      * @return the value of the boolean spawnLocationPhase.
      */
     public boolean isSpawnLocationPhase() {
@@ -98,7 +165,7 @@ public class Game implements Serializable {
     }
 
     /**
-     * setter of the boolean spawnLocationPhase.
+     * Setter of the boolean spawnLocationPhase.
      * @param spawnLocationPhase chosen value of the boolean spawnLocationPhase.
      */
     public void setSpawnLocationPhase(boolean spawnLocationPhase) {
@@ -106,7 +173,7 @@ public class Game implements Serializable {
     }
 
     /**
-     * getter of the boolean boardTypePhase.
+     * Getter of the boolean boardTypePhase.
      * @return the value of the boolean boardTypePhase.
      */
     public boolean isBoardTypePhase() {
@@ -114,7 +181,7 @@ public class Game implements Serializable {
     }
 
     /**
-     * setter of the boolean boardTypePhase.
+     * Setter of the boolean boardTypePhase.
      * @param boardTypePhase chosen value of the boolean boardTypePhase.
      */
     public void setBoardTypePhase(boolean boardTypePhase) {
@@ -122,23 +189,23 @@ public class Game implements Serializable {
     }
 
     /**
-     * getter of the boolean colorSelection.
+     * Getter of the boolean colorSelection.
      * @return the value of the boolean colorSelection.
      */
-    public boolean isColorSelection() {
+    boolean isColorSelection() {
         return colorSelection;
     }
 
     /**
-     * setter of the boolean colorSelection.
+     * Setter of the boolean colorSelection.
      * @param colorSelection chosen value for the boolean colorSelection.
      */
-    public void setColorSelection(boolean colorSelection) {
+    void setColorSelection(boolean colorSelection) {
         this.colorSelection = colorSelection;
     }
 
     /**
-     * getter of the board of the game.
+     * Getter of the board of the game.
      * @return the board of the game.
      */
     public GameBoard getBoard() {
@@ -146,7 +213,7 @@ public class Game implements Serializable {
     }
 
     /**
-     * setter of the board of the game.
+     * Setter of the board of the game.
      * @param board chosen board to set as the board of the game.
      */
     public void setBoard(GameBoard board) {
@@ -154,7 +221,7 @@ public class Game implements Serializable {
     }
 
     /**
-     * getter of the player that is currently playing.
+     * Getter of the player that is currently playing.
      * @return the current player.
      */
     public Player getCurrentPlayer() {
@@ -162,7 +229,7 @@ public class Game implements Serializable {
     }
 
     /**
-     * setter of the player that is currently playing.
+     * Setter of the player that is currently playing.
      * @param currentPlayer chosen player to set as current player.
      */
     public void setCurrentPlayer(Player currentPlayer) {
@@ -170,7 +237,7 @@ public class Game implements Serializable {
     }
 
     /**
-     * getter of the deck of weapons present in the game.
+     * Getter of the deck of weapons present in the game.
      * @return the deck of weapons present in the game.
      */
     public Deck getWeapons() {
@@ -178,7 +245,7 @@ public class Game implements Serializable {
     }
 
     /**
-     * setter of the deck of weapons present in the game.
+     * Setter of the deck of weapons present in the game.
      * @param weapons the deck of weapons to set in the game.
      */
     public void setWeapons(Deck weapons) {
@@ -186,7 +253,7 @@ public class Game implements Serializable {
     }
 
     /**
-     * getter of the deck of powerups present in the game.
+     * Getter of the deck of powerups present in the game.
      * @return the deck of powerups present in the game.
      */
     public Deck getPowerup() {
@@ -194,7 +261,7 @@ public class Game implements Serializable {
     }
 
     /**
-     * setter of the deck of powerups present in the game.
+     * Setter of the deck of powerups present in the game.
      * @param powerups the deck of powerup to set in the game.
      */
     public void setPowerup(Deck powerups) {
@@ -202,7 +269,7 @@ public class Game implements Serializable {
     }
 
     /**
-     * getter of the ammo cards present in the game.
+     * Getter of the ammo cards present in the game.
      * @return the ammo cards present in the game.
      */
     public List<AmmoCard> getAmmos() {
@@ -210,7 +277,7 @@ public class Game implements Serializable {
     }
 
     /**
-     * getter of the boolean finalFrenzy.
+     * Getter of the boolean finalFrenzy.
      * @return the value of the boolean finalFrenzy: true if the game is in the final frenzy phase, false if isn't.
      */
     public boolean isFinalFrenzy() {
@@ -218,7 +285,7 @@ public class Game implements Serializable {
     }
 
     /**
-     * getter of the final standing of the game.
+     * Getter of the final standing of the game.
      * @return the final standing of the game.
      */
     public Map<TokenColor, Integer> getScoreList() {
@@ -226,7 +293,7 @@ public class Game implements Serializable {
     }
 
     /**
-     * getter of the list of players that are playing the game.
+     * Getter of the list of players that are playing the game.
      * @return the list of players that are playing the game.
      */
     public List<Player> getPlayers() {
@@ -234,7 +301,7 @@ public class Game implements Serializable {
     }
 
     /**
-     * setter of the list of players that are going to play the game.
+     * Setter of the list of players that are going to play the game.
      * @param players list of players that are going to play the game.
      */
     public void setPlayers(List<Player> players) {
@@ -242,7 +309,7 @@ public class Game implements Serializable {
     }
 
     /**
-     * getter of the killshot track.
+     * Getter of the killshot track.
      * @return the killshot track of the game.
      */
     public List<Token> getKillshotTrack() {
@@ -250,15 +317,15 @@ public class Game implements Serializable {
     }
 
     /**
-     * getter of the list of colors of the players that are playing the game.
+     * Getter of the list of colors of the players that are playing the game.
      * @return the list of colors of the players that are playing the game.
      */
-    public ArrayList<TokenColor> getPlayerColors() {
+    ArrayList<TokenColor> getPlayerColors() {
         return playerColors;
     }
 
     /**
-     * sets the skulls present in the killshot track, that corresponds to the lenght of the game.
+     * Sets the skulls present in the killshot track, that corresponds to the lenght of the game.
      * @param skulls indicates the number of skulls to set in the killshot track.
      */
     public void createKillshotTrack(int skulls){
@@ -272,7 +339,7 @@ public class Game implements Serializable {
     }
 
     /**
-     * fills the squares of the game board with cards when the game starts.
+     * Fills the squares of the game board with cards when the game starts.
      * @param actionInterface used to do some restricted actions in other parts of the model.
      */
     public void fillSquares(ActionInterface actionInterface){
@@ -287,7 +354,7 @@ public class Game implements Serializable {
     }
 
     /**
-     * creates the standing of the game.
+     * Creates the standing of the game.
      */
     public void createScoreList(){
         for(Player player : players){
@@ -297,18 +364,18 @@ public class Game implements Serializable {
     }
 
     /**
-     * adds a player to the game.
+     * Adds a player to the game.
      * @param player to add to the game.
      */
-    public void addPlayer(Player player){
+    void addPlayer(Player player){
         players.add(player);
         if(players.size() == Config.MIN_PLAYERS){
             gamePhase = true;
         }
     }
 
-    /***
-     * sets the ammo box and the ammo reserve of every player at the beginning of the game.
+    /**
+     * Sets the ammo box and the ammo reserve of every player at the beginning of the game.
      */
     public void giveAmmos(){
         for(Player player : players){
@@ -319,7 +386,7 @@ public class Game implements Serializable {
     }
 
     /**
-     * update the standing of the players in the game.
+     * Update the standing of the players in the game.
      */
     public void scoring(){
         Map<TokenColor, Score> tmpScoreList;
@@ -346,7 +413,7 @@ public class Game implements Serializable {
     }
 
     /**
-     * update the game status at the end of the turn.
+     * Update the game status at the end of the turn.
      * @param player finishing the turn.
      * @param actionInterface used to do some actions on the game.
      */
@@ -370,7 +437,7 @@ public class Game implements Serializable {
     }
 
     /**
-     * refills the squares of the game board with cards at the end of the turn.
+     * Refills the squares of the game board with cards at the end of the turn.
      * @param actionInterface used to do some restricted actions in other parts of the model.
      */
     private void refillSquares(ActionInterface actionInterface){
@@ -385,7 +452,7 @@ public class Game implements Serializable {
     }
 
     /**
-     * finds the index of the player that has to play in the incoming turn.
+     * Finds the index of the player that has to play in the incoming turn.
      * @param index index of the current player in the players list.
      * @return the index of the next player.
      */
@@ -398,7 +465,7 @@ public class Game implements Serializable {
     }
 
     /**
-     * controls if the current player can move in one or more consecutive directions.
+     * Controls if the current player can move in one or more consecutive directions.
      * @param directions directions of the move to control.
      * @return the result of the control: true if the player can move, false if can't.
      */
@@ -407,7 +474,7 @@ public class Game implements Serializable {
     }
 
     /**
-     * finds a player in the players list searching his color.
+     * Finds a player in the players list searching his color.
      * @param color indicates the color of the player to search.
      * @return the player with the chosen color.
      */
@@ -420,7 +487,7 @@ public class Game implements Serializable {
     }
 
     /**
-     * controls if the victim is visible from the current player.
+     * Controls if the victim is visible from the current player.
      * @param victim player that is the victim of the control.
      * @return the result of the control: true if the current player can see the victim, false if can't.
      */
@@ -429,7 +496,7 @@ public class Game implements Serializable {
     }
 
     /**
-     * controls if the shooter and the victim are in the same square.
+     * Controls if the shooter and the victim are in the same square.
      * @param shooter indicates the shooter.
      * @param victim indicates the victim.
      * @return the result of the control: true if the victim and the shooter are in the same square, false if they aren't.
@@ -439,7 +506,7 @@ public class Game implements Serializable {
     }
 
     /**
-     * draws a random powerup from the powerup deck.
+     * Draws a random powerup from the powerup deck.
      * @return a random powerup.
      */
     public Card drawPowerup(){
@@ -448,7 +515,7 @@ public class Game implements Serializable {
     }
 
     /**
-     * sets up the final frenzy mod.
+     * Sets up the final frenzy mod.
      */
     public void finalFrenzy(){
         finalFrenzyTurns = players.size() + 1;
@@ -531,7 +598,7 @@ public class Game implements Serializable {
         }
         return false;
     }
-    public void doubleKill(){
+    void doubleKill(){
         Map<TokenColor, Integer> killshots = new HashMap<>();
         for(Player player : players){
             if(player.getPlayerBoard().isDead()){

@@ -8,22 +8,28 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * class which represents the decks of cards present in the game.
+ * Class which represents the decks of cards present in the game.
  */
 public class Deck implements Serializable {
 
+    /**
+     * List of cards present in the deck.
+     */
     private List<Card> cards = new ArrayList<>();
+    /**
+     * List of cards to add to the deck when it turns empty.
+     */
     private List<Card> reserve = new ArrayList<>();
 
     /**
-     * shuffles the cards present in the deck.
+     * Shuffles the cards present in the deck.
      */
     public void shuffle(){
         Collections.shuffle(cards);
     }
 
     /**
-     * draws a card from the deck.
+     * Draws a card from the deck.
      * @return the drawn card.
      */
     public Card draw(){
@@ -37,7 +43,7 @@ public class Deck implements Serializable {
     }
 
     /**
-     * adds a card to the deck.
+     * Adds a card to the deck.
      * @param card indicates the chosen card to add to the deck.
      */
     public void addCard(Card card){
@@ -45,7 +51,7 @@ public class Deck implements Serializable {
     }
 
     /**
-     * returns the size of the deck.
+     * Returns the size of the deck.
      * @return the size of the deck
      */
     public int size(){
@@ -53,7 +59,7 @@ public class Deck implements Serializable {
     }
 
     /**
-     * getter of a card in a position of the deck.
+     * Getter of a card in a position of the deck.
      * @param i indicates the chosen position.
      * @return the card at the chosen position of the deck.
      */

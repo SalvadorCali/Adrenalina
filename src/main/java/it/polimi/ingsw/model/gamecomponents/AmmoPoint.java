@@ -33,7 +33,7 @@ public class AmmoPoint extends Square implements Serializable {
     }
 
     /**
-     * getter of the ammo card present in the square.
+     * Getter of the ammo card present in the square.
      * @return the ammo card present in the square.
      */
     public AmmoCard getAmmoCard() {
@@ -41,7 +41,7 @@ public class AmmoPoint extends Square implements Serializable {
     }
 
     /**
-     * getter of the List of weapons present in the square
+     * Getter of the List of weapons present in the square
      * @return null: no Weapons are present in ammo points.
      */
     @Override
@@ -50,7 +50,7 @@ public class AmmoPoint extends Square implements Serializable {
     }
 
     /**
-     * setter of the ammo card present in the square.
+     * Setter of the ammo card present in the square.
      * @param ammoCard ammo card to set in the ammo point.
      */
     void setAmmoCard(AmmoCard ammoCard) {
@@ -58,7 +58,7 @@ public class AmmoPoint extends Square implements Serializable {
     }
 
     /**
-     * verifies if the ammo card present in the square can be grabbed by a player.
+     * Verifies if the ammo card present in the square can be grabbed by a player.
      * @param actionInterface contains the methods to access the game.
      * @param choice int which indicates the choice of the player.
      * @return the result of the control: true if the player can grab, false if he can't.
@@ -69,7 +69,7 @@ public class AmmoPoint extends Square implements Serializable {
     }
 
     /**
-     * grabs the ammo card present in the ammo point.
+     * Grabs the ammo card present in the ammo point.
      * @param actionInterface contains the methods to access the game.
      * @param choice int which indicates the choice of the player.
      */
@@ -87,7 +87,7 @@ public class AmmoPoint extends Square implements Serializable {
     }
 
     /**
-     * fills the ammo point with a new ammo card.
+     * Fills the ammo point with a new ammo card.
      * @param actionInterface contains the methods to access the game.
      */
     @Override
@@ -97,7 +97,7 @@ public class AmmoPoint extends Square implements Serializable {
     }
 
     /**
-     * controls if the Square is an active square.
+     * Controls if the Square is an active square.
      * @return always true, cause the ammo point is an active square.
      */
     @Override

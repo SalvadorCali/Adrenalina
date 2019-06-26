@@ -9,10 +9,13 @@ import java.io.Serializable;
  * class that represents the ammo components
  */
 public class Ammo implements Serializable {
+    /**
+     * Color of the ammo.
+     */
     private Color color;
 
     /**
-     * constructor of the ammo class
+     * Constructor of the ammo class
      * @param color indicates the color chosen to construct the Ammo
      */
     public Ammo(Color color){
@@ -20,7 +23,7 @@ public class Ammo implements Serializable {
     }
 
     /**
-     * setter of the ammo color.
+     * Setter of the ammo color.
      * @param color indicates the color chosen to set the ammo color.
      */
     public void setColor(Color color) {
@@ -28,7 +31,7 @@ public class Ammo implements Serializable {
     }
 
     /**
-     * getter of the ammo color.
+     * Getter of the ammo color.
      * @return the color of the ammo.
      */
     public Color getColor() {
@@ -36,7 +39,7 @@ public class Ammo implements Serializable {
     }
 
     /**
-     * toString of the Color class.
+     * ToString of the Color class.
      * @return the printable string.
      */
     public String toString(){
