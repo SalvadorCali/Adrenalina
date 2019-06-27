@@ -30,6 +30,7 @@ public class MapCLI {
     public static final String CYAN = "\033[0;36m";    // CYAN
     public static final String GREY = "\033[0;37m";   // WHITE
     public static final String SPACE = " ";
+    public static final String PLAYER = "X";
 
     private static final int ROWS = 3;
     private static final int COLUMNS = 4;
@@ -269,7 +270,7 @@ public class MapCLI {
             for(int index = 0; index < arena[0][0].getPlayers().size(); index ++){
 
                 color = Converter.fromTokenColorToCLIColor(arena[0][0].getPlayers().get(index).getColor());
-                 player = color + "X";
+                 player = color + PLAYER;
                  spacePlayer1[index] = player;
             }
         }
@@ -278,7 +279,7 @@ public class MapCLI {
             for(int index = 0; index < arena[0][1].getPlayers().size(); index ++){
 
                 color = Converter.fromTokenColorToCLIColor(arena[0][1].getPlayers().get(index).getColor());
-                player = color + "X";
+                player = color + PLAYER;
                 spacePlayer2[index] = player;
             }
         }
@@ -287,7 +288,7 @@ public class MapCLI {
             for(int index = 0; index < arena[0][2].getPlayers().size(); index ++){
 
                 color = Converter.fromTokenColorToCLIColor(arena[0][2].getPlayers().get(index).getColor());
-                player = color + "X";
+                player = color + PLAYER;
                 spacePlayer3[index] = player;
             }
         }
@@ -296,7 +297,7 @@ public class MapCLI {
             for(int index = 0; index < arena[0][3].getPlayers().size(); index ++){
 
                 color = Converter.fromTokenColorToCLIColor(arena[0][3].getPlayers().get(index).getColor());
-                player = color + "X";
+                player = color + PLAYER;
                 spacePlayer4[index] = player;
             }
         }
@@ -305,7 +306,7 @@ public class MapCLI {
             for(int index = 0; index < arena[1][0].getPlayers().size(); index ++){
 
                 color = Converter.fromTokenColorToCLIColor(arena[1][0].getPlayers().get(index).getColor());
-                player = color + "X";
+                player = color + PLAYER;
                 spacePlayer5[index] = player;
             }
         }
@@ -314,7 +315,7 @@ public class MapCLI {
             for(int index = 0; index < arena[1][1].getPlayers().size(); index ++){
 
                 color = Converter.fromTokenColorToCLIColor(arena[1][1].getPlayers().get(index).getColor());
-                player = color + "X";
+                player = color + PLAYER;
                 spacePlayer6[index] = player;
             }
         }
@@ -323,7 +324,7 @@ public class MapCLI {
             for(int index = 0; index < arena[1][2].getPlayers().size(); index ++){
 
                 color = Converter.fromTokenColorToCLIColor(arena[1][2].getPlayers().get(index).getColor());
-                player = color + "X";
+                player = color + PLAYER;
                 spacePlayer7[index] = player;
             }
         }
@@ -332,7 +333,7 @@ public class MapCLI {
             for(int index = 0; index < arena[1][3].getPlayers().size(); index ++){
 
                 color = Converter.fromTokenColorToCLIColor(arena[1][3].getPlayers().get(index).getColor());
-                player = color + "X";
+                player = color + PLAYER;
                 spacePlayer8[index] = player;
             }
         }
@@ -341,7 +342,7 @@ public class MapCLI {
             for(int index = 0; index < arena[2][0].getPlayers().size(); index ++){
 
                 color = Converter.fromTokenColorToCLIColor(arena[2][0].getPlayers().get(index).getColor());
-                player = color + "X";
+                player = color + PLAYER;
                 spacePlayer9[index] = player;
             }
         }
@@ -350,7 +351,7 @@ public class MapCLI {
             for(int index = 0; index < arena[2][1].getPlayers().size(); index ++){
 
                 color = Converter.fromTokenColorToCLIColor(arena[2][1].getPlayers().get(index).getColor());
-                player = color + "X";
+                player = color + PLAYER;
                 spacePlayer10[index] = player;
             }
         }
@@ -360,7 +361,7 @@ public class MapCLI {
             for(int index = 0; index < arena[2][2].getPlayers().size(); index ++){
 
                 color = Converter.fromTokenColorToCLIColor(arena[2][2].getPlayers().get(index).getColor());
-                player = color + "X";
+                player = color + PLAYER;
                 spacePlayer11[index] = player;
             }
         }
@@ -370,7 +371,7 @@ public class MapCLI {
             for(int index = 0; index < arena[2][3].getPlayers().size(); index ++){
 
                 color = Converter.fromTokenColorToCLIColor(arena[2][3].getPlayers().get(index).getColor());
-                player = color + "X";
+                player = color + PLAYER;
                 spacePlayer12[index] = player;
             }
         }

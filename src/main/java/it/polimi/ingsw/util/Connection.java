@@ -13,6 +13,11 @@ import java.util.List;
  */
 public class Connection {
     /**
+     * Lan address.
+     */
+    private static final String ETHERNET = "169.";
+
+    /**
      * Class constructor.
      */
     private Connection(){}
@@ -62,7 +67,7 @@ public class Connection {
         //&& addressesList.size() < 4
         if(addressesList.size() > 1){
             addressesList.forEach(a->Printer.println(a.toString()));
-            if(addressesList.get(0).toString().contains("169.")){
+            if(addressesList.get(0).toString().contains(ETHERNET)){
                 return addressesList.get(0);
             }else{
                 return addressesList.get(1);
