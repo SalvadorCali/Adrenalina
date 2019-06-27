@@ -18,20 +18,25 @@ import java.util.List;
  * This class prints the game board for the CLI.
  */
 public class MapCLI {
+    private static final String RESET = "\033[0m";
+    private static final String SPACE = " ";
 
-    // Reset
-    public static final String RESET = "\033[0m";  // Text Reset
-    public static final String BLACK = "\033[0;30m";   // BLACK
-    public static final String RED = "\033[0;31m";     // RED
-    public static final String GREEN = "\033[0;32m";   // GREEN
-    public static final String YELLOW = "\033[0;33m";  // YELLOW
-    public static final String BLUE = "\033[0;34m";    // BLUE
-    public static final String PURPLE = "\033[0;35m";  // PURPLE
-    public static final String CYAN = "\033[0;36m";    // CYAN
-    public static final String GREY = "\033[0;37m";   // WHITE
-    public static final String SPACE = " ";
-    public static final String PLAYER = "X";
+    //colors
+    private static final String BLACK = "\033[0;30m";
+    private static final String RED = "\033[0;31m";
+    private static final String GREEN = "\033[0;32m";
+    private static final String YELLOW = "\033[0;33m";
+    private static final String BLUE = "\033[0;34m";
+    private static final String PURPLE = "\033[0;35m";
+    private static final String CYAN = "\033[0;36m";
+    private static final String GREY = "\033[0;37m";
 
+    //letters
+    private static final String PLAYER = "X";
+    private static final String SPAWN_POINT = "*";
+    private static final String AMMO_POINT = "A";
+
+    //size
     private static final int ROWS = 3;
     private static final int COLUMNS = 4;
     private static final int NUM_SQUARES=12;
@@ -48,10 +53,9 @@ public class MapCLI {
 
     /**
      * Class constructor.
-     * @param gameBoard
+     * @param gameBoard the game board.
      */
     public MapCLI(GameBoard gameBoard){
-
         this.gameBoard = gameBoard;
     }
 
@@ -76,10 +80,9 @@ public class MapCLI {
      * Players are represented by an "X" of their color.
      */
     public void printMap(){
-
         String color = BLACK;
-        String spawnPoint = "*";
-        String ammo = "A";
+        String spawnPoint = SPAWN_POINT;
+        String ammo = AMMO_POINT;
         String player;
         List<Player> genericPlayer;
 
@@ -94,54 +97,34 @@ public class MapCLI {
         String []wallSouth = new String[NUM_SQUARES];
         String []wallEast = new String[NUM_SQUARES];
         String []wallWest = new String[NUM_SQUARES];
-        String spaceSpawnPoint[] = new String[NUM_SQUARES];
+        String[] spaceSpawnPoint = new String[NUM_SQUARES];
         String space = SPACE;
         String[] spaceAmmoPoint = new String[20];
 
         //first square
-        String spacePlayer1[] = new String[MAX_NUM_PLAYER];
-
-
+        String[] spacePlayer1 = new String[MAX_NUM_PLAYER];
         //second square
-        String spacePlayer2[] = new String[MAX_NUM_PLAYER];
-
-
+        String[] spacePlayer2 = new String[MAX_NUM_PLAYER];
         //third square
-        String spacePlayer3[] = new String[MAX_NUM_PLAYER];
-
-
+        String[] spacePlayer3 = new String[MAX_NUM_PLAYER];
         //fourth square
-        String spacePlayer4[] = new String[MAX_NUM_PLAYER];
-
-
+        String[] spacePlayer4 = new String[MAX_NUM_PLAYER];
         //fifth square
-        String spacePlayer5[] = new String[MAX_NUM_PLAYER];
-
-
+        String[] spacePlayer5 = new String[MAX_NUM_PLAYER];
         //sixth square
-        String spacePlayer6[] = new String[MAX_NUM_PLAYER];
-
-
+        String[] spacePlayer6 = new String[MAX_NUM_PLAYER];
         //seventh square
-        String spacePlayer7[] = new String[MAX_NUM_PLAYER];
-
-
+        String[] spacePlayer7 = new String[MAX_NUM_PLAYER];
         //eighth square
-        String spacePlayer8[] = new String[MAX_NUM_PLAYER];
-
-
+        String[] spacePlayer8 = new String[MAX_NUM_PLAYER];
         //ninth square
-        String spacePlayer9[] = new String[MAX_NUM_PLAYER];
-
+        String[] spacePlayer9 = new String[MAX_NUM_PLAYER];
         //tenth square
-        String spacePlayer10[] = new String[MAX_NUM_PLAYER];
-
-
+        String[] spacePlayer10 = new String[MAX_NUM_PLAYER];
         //eleventh square
-        String spacePlayer11[] = new String[MAX_NUM_PLAYER];
-
+        String[] spacePlayer11 = new String[MAX_NUM_PLAYER];
         //twelfth square
-        String spacePlayer12[] = new String[MAX_NUM_PLAYER];
+        String[] spacePlayer12 = new String[MAX_NUM_PLAYER];
 
         //initialize players on squares
         for(int i = 0; i < MAX_NUM_PLAYER; i++){
@@ -162,9 +145,7 @@ public class MapCLI {
         //initialize arena, walls and colorSquare
         arena = gameBoard.getArena();
         String [][]colorSquare = new String[ROWS][COLUMNS];
-
         for(int i = 0; i < NUM_SQUARES; i++){
-
             wallNorth[i] = wallStandardNorth;
             wallSouth[i] = wallStandardSouth;
             wallEast[i] = wallVertical;
@@ -174,35 +155,27 @@ public class MapCLI {
         //give color to squares
        for (int i = 0; i < ROWS; i++){
            for (int j = 0; j < COLUMNS; j++){
-
                if(arena[i][j].getColor().equals(TokenColor.NONE)){
                    colorSquare[i][j] = BLACK;
                }
-
                if(arena[i][j].getColor().equals(TokenColor.BLUE)){
                    colorSquare[i][j] = BLUE;
                }
-
                if(arena[i][j].getColor().equals(TokenColor.RED)){
                    colorSquare[i][j] = RED;
                }
-
                if(arena[i][j].getColor().equals(TokenColor.GREY)){
                    colorSquare[i][j] = GREY;
                }
-
                if(arena[i][j].getColor().equals(TokenColor.GREEN)){
                    colorSquare[i][j] = GREEN;
                }
-
                if(arena[i][j].getColor().equals(TokenColor.PURPLE)){
                    colorSquare[i][j] = PURPLE;
                }
-
                if(arena[i][j].getColor().equals(TokenColor.YELLOW)){
                    colorSquare[i][j] = YELLOW;
                }
-
                if(arena[i][j].getColor().equals(TokenColor.SKULL)){
                    colorSquare[i][j] = CYAN;
                }
@@ -213,169 +186,126 @@ public class MapCLI {
        int k = 0;
        for(int i = 0; i < ROWS; i++){
            for (int j = 0; j < COLUMNS; j++){
-
                if(arena[i][j].getNorth().equals(Cardinal.DOOR)){
                    wallNorth[k] = door;
                }
-
                if(arena[i][j].getEast().equals(Cardinal.DOOR)){
                    wallEast[k] = door;
                }
-
                if(arena[i][j].getWest().equals(Cardinal.DOOR)){
                    wallWest[k] = door;
                }
-
                if(arena[i][j].getSouth().equals(Cardinal.DOOR)){
                    wallSouth[k] = door;
                }
-
                if(arena[i][j].getEast().equals(Cardinal.ROOM))
                    wallEast[k] = door;
-
                if(arena[i][j].getWest().equals(Cardinal.ROOM))
                    wallWest[k] = door;
-
                if(arena[i][j].getSouth().equals(Cardinal.ROOM))
                    wallSouth[k] = door;
-
                if(arena[i][j].getNorth().equals(Cardinal.ROOM))
                    wallNorth[k] = door;
-               
                if(arena[i][j].isSpawn()){
-
                    spaceSpawnPoint[k] = spawnPoint;
                    spaceAmmoPoint[k] = SPACE;
-
                }
-
                if(!arena[i][j].isSpawn()) {
-
                    spaceSpawnPoint[k] = SPACE;
                    spaceAmmoPoint[k] = ammo;
                }
-
                if(colorSquare[i][j] == BLACK){
-
                    spaceAmmoPoint[k] = SPACE;
                }
-
                k++;
            }
        }
 
         //put players on the CLI
-
         if(!arena[0][0].getPlayers().isEmpty()){
             for(int index = 0; index < arena[0][0].getPlayers().size(); index ++){
-
                 color = Converter.fromTokenColorToCLIColor(arena[0][0].getPlayers().get(index).getColor());
                  player = color + PLAYER;
                  spacePlayer1[index] = player;
             }
         }
-
         if(!arena[0][1].getPlayers().isEmpty()){
             for(int index = 0; index < arena[0][1].getPlayers().size(); index ++){
-
                 color = Converter.fromTokenColorToCLIColor(arena[0][1].getPlayers().get(index).getColor());
                 player = color + PLAYER;
                 spacePlayer2[index] = player;
             }
         }
-
         if(!arena[0][2].getPlayers().isEmpty()){
             for(int index = 0; index < arena[0][2].getPlayers().size(); index ++){
-
                 color = Converter.fromTokenColorToCLIColor(arena[0][2].getPlayers().get(index).getColor());
                 player = color + PLAYER;
                 spacePlayer3[index] = player;
             }
         }
-
         if(!arena[0][3].getPlayers().isEmpty()){
             for(int index = 0; index < arena[0][3].getPlayers().size(); index ++){
-
                 color = Converter.fromTokenColorToCLIColor(arena[0][3].getPlayers().get(index).getColor());
                 player = color + PLAYER;
                 spacePlayer4[index] = player;
             }
         }
-
         if(!arena[1][0].getPlayers().isEmpty()){
             for(int index = 0; index < arena[1][0].getPlayers().size(); index ++){
-
                 color = Converter.fromTokenColorToCLIColor(arena[1][0].getPlayers().get(index).getColor());
                 player = color + PLAYER;
                 spacePlayer5[index] = player;
             }
         }
-
         if(!arena[1][1].getPlayers().isEmpty()){
             for(int index = 0; index < arena[1][1].getPlayers().size(); index ++){
-
                 color = Converter.fromTokenColorToCLIColor(arena[1][1].getPlayers().get(index).getColor());
                 player = color + PLAYER;
                 spacePlayer6[index] = player;
             }
         }
-
         if(!arena[1][2].getPlayers().isEmpty()){
             for(int index = 0; index < arena[1][2].getPlayers().size(); index ++){
-
                 color = Converter.fromTokenColorToCLIColor(arena[1][2].getPlayers().get(index).getColor());
                 player = color + PLAYER;
                 spacePlayer7[index] = player;
             }
         }
-
         if(!arena[1][3].getPlayers().isEmpty()){
             for(int index = 0; index < arena[1][3].getPlayers().size(); index ++){
-
                 color = Converter.fromTokenColorToCLIColor(arena[1][3].getPlayers().get(index).getColor());
                 player = color + PLAYER;
                 spacePlayer8[index] = player;
             }
         }
-
         if(!arena[2][0].getPlayers().isEmpty()){
             for(int index = 0; index < arena[2][0].getPlayers().size(); index ++){
-
                 color = Converter.fromTokenColorToCLIColor(arena[2][0].getPlayers().get(index).getColor());
                 player = color + PLAYER;
                 spacePlayer9[index] = player;
             }
         }
-
         if(!arena[2][1].getPlayers().isEmpty()){
             for(int index = 0; index < arena[2][1].getPlayers().size(); index ++){
-
                 color = Converter.fromTokenColorToCLIColor(arena[2][1].getPlayers().get(index).getColor());
                 player = color + PLAYER;
                 spacePlayer10[index] = player;
             }
         }
-
-
         if(!arena[2][2].getPlayers().isEmpty()){
             for(int index = 0; index < arena[2][2].getPlayers().size(); index ++){
-
                 color = Converter.fromTokenColorToCLIColor(arena[2][2].getPlayers().get(index).getColor());
                 player = color + PLAYER;
                 spacePlayer11[index] = player;
             }
         }
-
-
         if(!arena[2][3].getPlayers().isEmpty()){
             for(int index = 0; index < arena[2][3].getPlayers().size(); index ++){
-
                 color = Converter.fromTokenColorToCLIColor(arena[2][3].getPlayers().get(index).getColor());
                 player = color + PLAYER;
                 spacePlayer12[index] = player;
             }
         }
-
         
         /*
         //first row
