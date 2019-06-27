@@ -31,9 +31,9 @@ public class WeaponHandler {
      * @return true if the parameters are correct.
      * @throws IOException caused by the streams.
      */
-    public boolean lockRifle(ClientInterface client, String weapon) throws IOException {
-        Printer.println("Basic effect: <victim>");
-        Printer.println("With second lock: <first_victim> <second_victim>");
+    boolean lockRifle(ClientInterface client, String weapon) throws IOException {
+        Printer.println(StringCLI.BASIC_EFFECT + StringCLI.SPACE + StringCLI.VICTIM);
+        Printer.println(StringCLI.WITH_SECOND_LOCK + StringCLI.SPACE + StringCLI.FIRST_VICTIM + StringCLI.SPACE + StringCLI.SECOND_VICTIM);
         string = new StringTokenizer(userInputStream.readLine());
         if(string.countTokens() == 1){
             client.shoot(weapon, 1, true, Converter.fromStringToTokenColor(string.nextToken()),
@@ -55,13 +55,13 @@ public class WeaponHandler {
      * @return true if the parameters are correct.
      * @throws IOException caused by the streams.
      */
-    public boolean machineGun(ClientInterface client, String weapon) throws IOException{
-        Printer.println("Basic effect: <1> <first_victim>");
-        Printer.println("Basic effect: <1> <first_victim> <second_victim>");
-        Printer.println("With focus shot: <2> <first_victim>");
-        Printer.println("With focus shot: <2> <first_victim> <second_victim>");
-        Printer.println("With turret tripod: <3> <victim> <victim>");
-        Printer.println("With turret tripod: <3> <victim> <victim> <victim>");
+    boolean machineGun(ClientInterface client, String weapon) throws IOException{
+        Printer.println(StringCLI.BASIC_EFFECT + StringCLI.SPACE + StringCLI.ONE + StringCLI.SPACE + StringCLI.FIRST_VICTIM);
+        Printer.println(StringCLI.BASIC_EFFECT + StringCLI.SPACE + StringCLI.ONE + StringCLI.SPACE + StringCLI.FIRST_VICTIM + StringCLI.SPACE + StringCLI.SECOND_VICTIM);
+        Printer.println(StringCLI.WITH_FOCUS_SHOT + StringCLI.SPACE + StringCLI.TWO + StringCLI.SPACE + StringCLI.FIRST_VICTIM);
+        Printer.println(StringCLI.WITH_FOCUS_SHOT + StringCLI.SPACE + StringCLI.TWO + StringCLI.SPACE + StringCLI.FIRST_VICTIM + StringCLI.SPACE + StringCLI.SECOND_VICTIM);
+        Printer.println(StringCLI.WITH_TURRET_TRIPOD + StringCLI.SPACE + StringCLI.THREE + StringCLI.SPACE + StringCLI.VICTIM + StringCLI.SPACE + StringCLI.VICTIM);
+        Printer.println(StringCLI.WITH_TURRET_TRIPOD + StringCLI.SPACE + StringCLI.THREE + StringCLI.SPACE + StringCLI.VICTIM + StringCLI.SPACE + StringCLI.VICTIM + StringCLI.SPACE + StringCLI.VICTIM);
         string = new StringTokenizer(userInputStream.readLine());
         if(string.countTokens() == 2){
             client.shoot(weapon, Converter.fromStringToInt(string.nextToken()), true, Converter.fromStringToTokenColor(string.nextToken()),
@@ -99,10 +99,10 @@ public class WeaponHandler {
      * @return true if the parameters are correct.
      * @throws IOException caused by the streams.
      */
-    public boolean thor(ClientInterface client, String weapon) throws IOException{
-        Printer.println("Basic effect: <victim>");
-        Printer.println("With chain reaction: <victim> <victim>");
-        Printer.println("With high voltage: <victim> <victim> <victim>");
+    boolean thor(ClientInterface client, String weapon) throws IOException{
+        Printer.println(StringCLI.BASIC_EFFECT + StringCLI.SPACE + StringCLI.VICTIM);
+        Printer.println(StringCLI.WITH_CHAIN_REACTION + StringCLI.SPACE + StringCLI.FIRST_VICTIM + StringCLI.SPACE + StringCLI.SECOND_VICTIM);
+        Printer.println(StringCLI.WITH_HIGH_VOLTAGE + StringCLI.SPACE + StringCLI.FIRST_VICTIM + StringCLI.SPACE + StringCLI.SECOND_VICTIM + StringCLI.SPACE + StringCLI.THIRD_VICTIM);
         string = new StringTokenizer(userInputStream.readLine());
         if(string.countTokens() == 1){
             client.shoot(weapon, 1, true, Converter.fromStringToTokenColor(string.nextToken()),
@@ -129,13 +129,13 @@ public class WeaponHandler {
      * @return true if the parameters are correct.
      * @throws IOException caused by the streams.
      */
-    public boolean plasmaGun(ClientInterface client, String weapon) throws IOException{
-        Printer.println("Basic effect: <1> <victim>");
-        Printer.println("With phase glide: <2> <victim> <direction>");
-        Printer.println("With phase glide: <2> <victim> <direction> <direction>");
-        Printer.println("With charged shot: <3> <victim>");
-        Printer.println("With charged shot: <3> <victim> <direction>");
-        Printer.println("With charged shot: <3> <victim> <direction> <direction>");
+    boolean plasmaGun(ClientInterface client, String weapon) throws IOException{
+        Printer.println(StringCLI.BASIC_EFFECT + StringCLI.SPACE + StringCLI.ONE + StringCLI.SPACE + StringCLI.VICTIM);
+        Printer.println(StringCLI.WITH_PHASE_GLIDE + StringCLI.SPACE + StringCLI.TWO + StringCLI.SPACE + StringCLI.VICTIM + StringCLI.SPACE + StringCLI.FIRST_DIRECTION);
+        Printer.println(StringCLI.WITH_PHASE_GLIDE + StringCLI.SPACE + StringCLI.TWO + StringCLI.SPACE + StringCLI.VICTIM + StringCLI.SPACE + StringCLI.FIRST_DIRECTION + StringCLI.SPACE + StringCLI.SECOND_DIRECTION);
+        Printer.println(StringCLI.WITH_CHARGED_SHOT + StringCLI.SPACE + StringCLI.THREE + StringCLI.SPACE + StringCLI.VICTIM);
+        Printer.println(StringCLI.WITH_CHARGED_SHOT + StringCLI.SPACE + StringCLI.THREE + StringCLI.SPACE + StringCLI.VICTIM + StringCLI.SPACE + StringCLI.FIRST_DIRECTION);
+        Printer.println(StringCLI.WITH_CHARGED_SHOT + StringCLI.SPACE + StringCLI.THREE + StringCLI.SPACE + StringCLI.VICTIM + StringCLI.SPACE + StringCLI.FIRST_DIRECTION + StringCLI.SPACE + StringCLI.SECOND_DIRECTION);
         string = new StringTokenizer(userInputStream.readLine());
         if(string.countTokens() == 2){
             client.shoot(weapon, Converter.fromStringToInt(string.nextToken()), true, Converter.fromStringToTokenColor(string.nextToken()),
@@ -164,8 +164,8 @@ public class WeaponHandler {
      * @return true if the parameters are correct.
      * @throws IOException caused by the streams.
      */
-    public boolean whisper(ClientInterface client, String weapon) throws IOException{
-        Printer.println("Effect: <victim>");
+    boolean whisper(ClientInterface client, String weapon) throws IOException{
+        Printer.println(StringCLI.EFFECT + StringCLI.SPACE + StringCLI.VICTIM);
         string = new StringTokenizer(userInputStream.readLine());
         if(string.countTokens() == 1){
             client.shoot(weapon, 1, true, Converter.fromStringToTokenColor(string.nextToken()), TokenColor.NONE,
@@ -183,9 +183,9 @@ public class WeaponHandler {
      * @return true if the parameters are correct.
      * @throws IOException caused by the streams.
      */
-    public boolean electroscythe(ClientInterface client, String weapon) throws IOException{
-        Printer.println("Basic mode: <1>");
-        Printer.println("In reaper mode: <2>");
+    boolean electroscythe(ClientInterface client, String weapon) throws IOException{
+        Printer.println(StringCLI.BASIC_MODE + StringCLI.SPACE + StringCLI.ONE);
+        Printer.println(StringCLI.IN_REAPER_MODE + StringCLI.SPACE + StringCLI.TWO);
         string = new StringTokenizer(userInputStream.readLine());
         if(string.countTokens() == 1){
             client.shoot(weapon, Converter.fromStringToInt(string.nextToken()), true, TokenColor.NONE, TokenColor.NONE,
@@ -203,9 +203,11 @@ public class WeaponHandler {
      * @return true if the parameters are correct.
      * @throws IOException caused by the streams.
      */
-    public boolean tractorBeam(ClientInterface client, String weapon) throws IOException{
-        Printer.println("Basic mode: <1> <victim> <directions...>");
-        Printer.println("In punisher mode: <2> <victim>");
+    boolean tractorBeam(ClientInterface client, String weapon) throws IOException{
+        Printer.println(StringCLI.BASIC_MODE + StringCLI.SPACE + StringCLI.ONE + StringCLI.SPACE + StringCLI.VICTIM);
+        Printer.println(StringCLI.BASIC_MODE + StringCLI.SPACE + StringCLI.ONE + StringCLI.SPACE + StringCLI.VICTIM + StringCLI.SPACE + StringCLI.FIRST_DIRECTION);
+        Printer.println(StringCLI.BASIC_MODE + StringCLI.SPACE + StringCLI.ONE + StringCLI.SPACE + StringCLI.VICTIM + StringCLI.SPACE + StringCLI.FIRST_DIRECTION + StringCLI.SPACE + StringCLI.SECOND_DIRECTION);
+        Printer.println(StringCLI.IN_PUNISHER_MODE + StringCLI.SPACE + StringCLI.TWO + StringCLI.SPACE + StringCLI.VICTIM);
         string = new StringTokenizer(userInputStream.readLine());
         if(string.countTokens() == 2){
             client.shoot(weapon, Converter.fromStringToInt(string.nextToken()), true, Converter.fromStringToTokenColor(string.nextToken()),
@@ -232,10 +234,10 @@ public class WeaponHandler {
      * @return true if the parameters are correct.
      * @throws IOException caused by the streams.
      */
-    public boolean vortexCannon(ClientInterface client, String weapon) throws IOException{
-        Printer.println("Basic effect: <victim> <squareX> <squareY>");
-        Printer.println("With black hole: <victim> <victim> <squareX> <squareY>");
-        Printer.println("With black hole: <victim> <victim> <victim> <squareX> <squareY>");
+    boolean vortexCannon(ClientInterface client, String weapon) throws IOException{
+        Printer.println(StringCLI.BASIC_EFFECT + StringCLI.SPACE + StringCLI.VICTIM + StringCLI.SPACE + StringCLI.SQUARE_X + StringCLI.SPACE + StringCLI.SQUARE_Y);
+        Printer.println(StringCLI.WITH_BLACK_HOLE + StringCLI.SPACE + StringCLI.FIRST_VICTIM + StringCLI.SPACE + StringCLI.SECOND_VICTIM + StringCLI.SPACE + StringCLI.SQUARE_X + StringCLI.SPACE + StringCLI.SQUARE_Y);
+        Printer.println(StringCLI.WITH_BLACK_HOLE + StringCLI.SPACE + StringCLI.FIRST_VICTIM + StringCLI.SPACE + StringCLI.SECOND_VICTIM + StringCLI.SPACE + StringCLI.THIRD_VICTIM + StringCLI.SPACE + StringCLI.SQUARE_X + StringCLI.SPACE + StringCLI.SQUARE_Y);
         string = new StringTokenizer(userInputStream.readLine());
         if(string.countTokens() == 3){
             client.shoot(weapon, 1, true, Converter.fromStringToTokenColor(string.nextToken()),
@@ -263,9 +265,9 @@ public class WeaponHandler {
      * @return true if the parameters are correct.
      * @throws IOException caused by the streams.
      */
-    public boolean furnace(ClientInterface client, String weapon) throws IOException{
-        Printer.println("Basic mode: <1> <squareX> <squareY>");
-        Printer.println("In cozy fire mode: <2> <squareX> <squareY>");
+    boolean furnace(ClientInterface client, String weapon) throws IOException{
+        Printer.println(StringCLI.BASIC_MODE + StringCLI.SPACE + StringCLI.ONE + StringCLI.SPACE + StringCLI.SQUARE_X + StringCLI.SPACE + StringCLI.SQUARE_Y);
+        Printer.println(StringCLI.IN_COZY_FIRE_MODE + StringCLI.SPACE + StringCLI.TWO + StringCLI.SPACE + StringCLI.SQUARE_X + StringCLI.SPACE + StringCLI.SQUARE_Y);
         string = new StringTokenizer(userInputStream.readLine());
         if(string.countTokens() == 3){
             client.shoot(weapon, Converter.fromStringToInt(string.nextToken()), true, TokenColor.NONE, TokenColor.NONE, TokenColor.NONE,
@@ -283,8 +285,8 @@ public class WeaponHandler {
      * @return true if the parameters are correct.
      * @throws IOException caused by the streams.
      */
-    public boolean heatseeker(ClientInterface client, String weapon) throws IOException{
-        Printer.println("Effect: <victim>");
+    boolean heatseeker(ClientInterface client, String weapon) throws IOException{
+        Printer.println(StringCLI.EFFECT + StringCLI.SPACE + StringCLI.VICTIM);
         string = new StringTokenizer(userInputStream.readLine());
         if(string.countTokens() == 1){
             client.shoot(weapon, 1, true, Converter.fromStringToTokenColor(string.nextToken()), TokenColor.NONE, TokenColor.NONE,
@@ -302,9 +304,9 @@ public class WeaponHandler {
      * @return true if the parameters are correct.
      * @throws IOException caused by the streams.
      */
-    public boolean hellion(ClientInterface client, String weapon) throws IOException{
-        Printer.println("Basic mode: <1> <victim>");
-        Printer.println("In nano-tracer mode: <2> <victim>");
+    boolean hellion(ClientInterface client, String weapon) throws IOException{
+        Printer.println(StringCLI.BASIC_MODE + StringCLI.SPACE + StringCLI.ONE + StringCLI.SPACE + StringCLI.VICTIM);
+        Printer.println(StringCLI.IN_NANO_TRACER_MODE + StringCLI.SPACE + StringCLI.TWO + StringCLI.SPACE + StringCLI.VICTIM);
         string = new StringTokenizer(userInputStream.readLine());
         if(string.countTokens() == 2){
             client.shoot(weapon, Converter.fromStringToInt(string.nextToken()), true, Converter.fromStringToTokenColor(string.nextToken()),
@@ -322,10 +324,10 @@ public class WeaponHandler {
      * @return true if the parameters are correct.
      * @throws IOException caused by the streams.
      */
-    public boolean flamethrower(ClientInterface client, String weapon) throws IOException{
-        Printer.println("Basic mode: <victim1> <direction>");
-        Printer.println("Basic mode: <victim1> <victim2> <direction>");
-        Printer.println("In barbecue mode: <direction>");
+    boolean flamethrower(ClientInterface client, String weapon) throws IOException{
+        Printer.println(StringCLI.BASIC_MODE + StringCLI.SPACE + StringCLI.FIRST_VICTIM + StringCLI.SPACE + StringCLI.DIRECTION);
+        Printer.println(StringCLI.BASIC_MODE + StringCLI.SPACE + StringCLI.FIRST_VICTIM + StringCLI.SPACE + StringCLI.SECOND_VICTIM + StringCLI.SPACE + StringCLI.DIRECTION);
+        Printer.println(StringCLI.IN_BARBECUE_MODE + StringCLI.SPACE + StringCLI.DIRECTION);
         string = new StringTokenizer(userInputStream.readLine());
         if(string.countTokens() == 1){
             client.shoot(weapon, 2, true, TokenColor.NONE, TokenColor.NONE, TokenColor.NONE,
@@ -351,11 +353,11 @@ public class WeaponHandler {
      * @return true if the parameters are correct.
      * @throws IOException caused by the streams.
      */
-    public boolean grenadeLauncher(ClientInterface client, String weapon) throws IOException{
-        Printer.println("Basic effect: <victim>");
-        Printer.println("Basic effect: <victim> <direction>");
-        Printer.println("With extra grenade: <victim> <squareX> <squareY>");
-        Printer.println("With extra grenade: <victim> <squareX> <squareY> <direction>");
+    boolean grenadeLauncher(ClientInterface client, String weapon) throws IOException{
+        Printer.println(StringCLI.BASIC_EFFECT + StringCLI.SPACE + StringCLI.VICTIM);
+        Printer.println(StringCLI.BASIC_EFFECT + StringCLI.SPACE + StringCLI.VICTIM + StringCLI.SPACE + StringCLI.DIRECTION);
+        Printer.println(StringCLI.WITH_EXTRA_GRENADE + StringCLI.SPACE + StringCLI.VICTIM + StringCLI.SPACE + StringCLI.SQUARE_X + StringCLI.SPACE + StringCLI.SQUARE_Y);
+        Printer.println(StringCLI.WITH_EXTRA_GRENADE + StringCLI.SPACE + StringCLI.VICTIM + StringCLI.SPACE + StringCLI.SQUARE_X + StringCLI.SPACE + StringCLI.SQUARE_Y + StringCLI.SPACE + StringCLI.DIRECTION);
         string = new StringTokenizer(userInputStream.readLine());
         if(string.countTokens() == 1){
             client.shoot(weapon, 1, true, Converter.fromStringToTokenColor(string.nextToken()),
@@ -388,12 +390,12 @@ public class WeaponHandler {
      * @return true if the parameters are correct.
      * @throws IOException caused by the streams.
      */
-    public boolean rocketLauncher(ClientInterface client, String weapon) throws IOException{
-        Printer.println("Choose your effect: <1> or <2> or <3>");
+    boolean rocketLauncher(ClientInterface client, String weapon) throws IOException{
+        Printer.println(StringCLI.CHOOSE_EFFECT + StringCLI.SPACE + StringCLI.ONE + StringCLI.SPACE + StringCLI.OR + StringCLI.SPACE + StringCLI.TWO + StringCLI.SPACE + StringCLI.THREE);
         int choice2 = Converter.fromStringToInt(userInputStream.readLine());
         if(choice2 == 1){
-            Printer.println("Basic effect: <victim>");
-            Printer.println("Basic effect: <victim> <victim_direction>");
+            Printer.println(StringCLI.BASIC_EFFECT + StringCLI.SPACE + StringCLI.VICTIM);
+            Printer.println(StringCLI.BASIC_EFFECT + StringCLI.SPACE + StringCLI.VICTIM + StringCLI.SPACE + StringCLI.VICTIM_DIRECTION);
             string = new StringTokenizer(userInputStream.readLine());
             if(string.countTokens()==1){
                 client.shoot(weapon, choice2, true, Converter.fromStringToTokenColor(string.nextToken()),
@@ -408,8 +410,8 @@ public class WeaponHandler {
             }
         }else if(choice2 == 2 || choice2 == 3){
             boolean basicFirst = basicFirst(weapon);
-            Printer.println("With rocket jump: <victim>");
-            Printer.println("With rocket jump: <victim> <victim_direction>");
+            Printer.println(StringCLI.WITH_ROCKET_JUMP + StringCLI.SPACE + StringCLI.VICTIM);
+            Printer.println(StringCLI.WITH_ROCKET_JUMP + StringCLI.SPACE + StringCLI.VICTIM + StringCLI.SPACE + StringCLI.VICTIM_DIRECTION);
             string = new StringTokenizer(userInputStream.readLine());
             TokenColor victim = TokenColor.NONE;
             Direction direction1 = null;
@@ -421,8 +423,8 @@ public class WeaponHandler {
             }else{
                 return false;
             }
-            Printer.println("With rocket jump: <shooter_direction>");
-            Printer.println("With rocket jump: <shooter_direction> <shooter_direction>");
+            Printer.println(StringCLI.WITH_ROCKET_JUMP + StringCLI.SPACE + StringCLI.SHOOTER_DIRECTION);
+            Printer.println(StringCLI.WITH_ROCKET_JUMP + StringCLI.SPACE + StringCLI.SHOOTER_DIRECTION + StringCLI.SPACE + StringCLI.SHOOTER_DIRECTION);
             string = new StringTokenizer(userInputStream.readLine());
             Direction direction3 = null;
             Direction direction4 = null;
@@ -449,10 +451,10 @@ public class WeaponHandler {
      * @return true if the parameters are correct.
      * @throws IOException caused by the streams.
      */
-    public boolean railgun(ClientInterface client, String weapon) throws IOException{
-        Printer.println("Basic mode: <1> <victim> <direction>");
-        Printer.println("In piercing mode: <2> <victim> <direction>"); //to test
-        Printer.println("In piercing mode: <2> <victim1> <victim2> <direction>");
+    boolean railgun(ClientInterface client, String weapon) throws IOException{
+        Printer.println(StringCLI.BASIC_MODE + StringCLI.SPACE + StringCLI.ONE + StringCLI.SPACE + StringCLI.VICTIM + StringCLI.SPACE + StringCLI.DIRECTION);
+        Printer.println(StringCLI.IN_PIERCING_MODE + StringCLI.SPACE + StringCLI.TWO + StringCLI.SPACE + StringCLI.VICTIM + StringCLI.SPACE + StringCLI.DIRECTION); //to test
+        Printer.println(StringCLI.IN_PIERCING_MODE + StringCLI.SPACE + StringCLI.TWO + StringCLI.SPACE + StringCLI.FIRST_VICTIM + StringCLI.SPACE + StringCLI.SECOND_VICTIM + StringCLI.SPACE + StringCLI.DIRECTION);
         string = new StringTokenizer(userInputStream.readLine());
         if(string.countTokens() == 3){
             client.shoot(weapon, Converter.fromStringToInt(string.nextToken()), true, Converter.fromStringToTokenColor(string.nextToken()),
@@ -474,10 +476,10 @@ public class WeaponHandler {
      * @return true if the parameters are correct.
      * @throws IOException caused by the streams.
      */
-    public boolean cyberblade(ClientInterface client, String weapon) throws IOException{
-        Printer.println("Basic effect: <1> <victim>");
-        Printer.println("With shadow step: <2> <victim> <direction>");
-        Printer.println("With slice and dice: <3> <victim> <victim> <direction>");
+    boolean cyberblade(ClientInterface client, String weapon) throws IOException{
+        Printer.println(StringCLI.BASIC_EFFECT + StringCLI.SPACE + StringCLI.ONE + StringCLI.SPACE + StringCLI.VICTIM);
+        Printer.println(StringCLI.WITH_SHADOW_STEP + StringCLI.SPACE + StringCLI.TWO + StringCLI.SPACE + StringCLI.VICTIM + StringCLI.SPACE + StringCLI.DIRECTION);
+        Printer.println(StringCLI.WITH_SLICE_AND_DICE + StringCLI.SPACE + StringCLI.THREE + StringCLI.SPACE + StringCLI.FIRST_VICTIM + StringCLI.SPACE + StringCLI.SECOND_VICTIM + StringCLI.SPACE + StringCLI.DIRECTION);
         string = new StringTokenizer(userInputStream.readLine());
         if(string.countTokens() == 2){
             client.shoot(weapon, Converter.fromStringToInt(string.nextToken()), true, Converter.fromStringToTokenColor(string.nextToken()),
@@ -505,11 +507,11 @@ public class WeaponHandler {
      * @return true if the parameters are correct.
      * @throws IOException caused by the streams.
      */
-    public boolean zx2(ClientInterface client, String weapon) throws IOException{
-        Printer.println("Basic mode: <1> <victim>");
-        Printer.println("In scanner mode: <2> <victim>");
-        Printer.println("In scanner mode: <2> <victim> <victim>");
-        Printer.println("In scanner mode: <2> <victim> <victim> <victim>");
+    boolean zx2(ClientInterface client, String weapon) throws IOException{
+        Printer.println(StringCLI.BASIC_MODE + StringCLI.SPACE + StringCLI.ONE + StringCLI.SPACE + StringCLI.VICTIM);
+        Printer.println(StringCLI.IN_SCANNER_MODE + StringCLI.SPACE + StringCLI.TWO + StringCLI.SPACE + StringCLI.FIRST_VICTIM);
+        Printer.println(StringCLI.IN_SCANNER_MODE + StringCLI.SPACE + StringCLI.TWO + StringCLI.SPACE + StringCLI.FIRST_VICTIM + StringCLI.SPACE + StringCLI.SECOND_VICTIM);
+        Printer.println(StringCLI.IN_SCANNER_MODE + StringCLI.SPACE + StringCLI.TWO + StringCLI.SPACE + StringCLI.FIRST_VICTIM + StringCLI.SPACE + StringCLI.SECOND_VICTIM + StringCLI.SPACE + StringCLI.THIRD_VICTIM);
         string = new StringTokenizer(userInputStream.readLine());
         if(string.countTokens() == 2){
             client.shoot(weapon, Converter.fromStringToInt(string.nextToken()), true, Converter.fromStringToTokenColor(string.nextToken()),
@@ -535,10 +537,10 @@ public class WeaponHandler {
      * @return true if the parameters are correct.
      * @throws IOException caused by the streams.
      */
-    public boolean shotgun(ClientInterface client, String weapon) throws IOException{
-        Printer.println("Basic mode: <1> <victim>");
-        Printer.println("Basic mode: <1> <victim> <direction>");
-        Printer.println("In long barrel mode: <2> <victim>");
+    boolean shotgun(ClientInterface client, String weapon) throws IOException{
+        Printer.println(StringCLI.BASIC_MODE + StringCLI.SPACE + StringCLI.ONE + StringCLI.SPACE + StringCLI.VICTIM);
+        Printer.println(StringCLI.BASIC_MODE + StringCLI.SPACE + StringCLI.ONE + StringCLI.SPACE + StringCLI.VICTIM + StringCLI.SPACE + StringCLI.DIRECTION);
+        Printer.println(StringCLI.IN_LONG_BARREL_MODE + StringCLI.SPACE + StringCLI.TWO + StringCLI.SPACE + StringCLI.VICTIM);
         string = new StringTokenizer(userInputStream.readLine());
         if(string.countTokens() == 2){
             client.shoot(weapon, Converter.fromStringToInt(string.nextToken()), true, Converter.fromStringToTokenColor(string.nextToken()),
@@ -560,17 +562,14 @@ public class WeaponHandler {
      * @return true if the parameters are correct.
      * @throws IOException caused by the streams.
      */
-    public boolean powerGlove(ClientInterface client, String weapon) throws IOException{
-        Printer.println("Basic mode: <1> <victim>");
-        Printer.println("In rocket fist mode: <2> <direction>");
-
-        Printer.println("In rocket fist mode: <2> <direction> <direction>");
-        Printer.println("In rocket fist mode: <2> <victim> <direction>");
-
-        Printer.println("In rocket fist mode: <2> <victim> <direction> <direction>");
-        Printer.println("In rocket fist mode: <2> <victim> <victim> <direction>");
-
-        Printer.println("In rocket fist mode: <2> <victim> <victim> <direction> <direction>");
+    boolean powerGlove(ClientInterface client, String weapon) throws IOException{
+        Printer.println(StringCLI.BASIC_MODE + StringCLI.SPACE + StringCLI.ONE + StringCLI.SPACE + StringCLI.VICTIM);
+        Printer.println(StringCLI.IN_ROCKET_FIST_MODE + StringCLI.SPACE + StringCLI.TWO + StringCLI.SPACE + StringCLI.DIRECTION);
+        Printer.println(StringCLI.IN_ROCKET_FIST_MODE + StringCLI.SPACE + StringCLI.TWO + StringCLI.SPACE + StringCLI.FIRST_DIRECTION + StringCLI.SPACE + StringCLI.SECOND_DIRECTION);
+        Printer.println(StringCLI.IN_ROCKET_FIST_MODE + StringCLI.SPACE + StringCLI.TWO + StringCLI.SPACE + StringCLI.VICTIM + StringCLI.SPACE + StringCLI.DIRECTION);
+        Printer.println(StringCLI.IN_ROCKET_FIST_MODE + StringCLI.SPACE + StringCLI.TWO + StringCLI.SPACE + StringCLI.VICTIM + StringCLI.SPACE + StringCLI.FIRST_DIRECTION + StringCLI.SPACE + StringCLI.SECOND_DIRECTION);
+        Printer.println(StringCLI.IN_ROCKET_FIST_MODE + StringCLI.SPACE + StringCLI.TWO + StringCLI.SPACE + StringCLI.FIRST_VICTIM + StringCLI.SPACE + StringCLI.SECOND_VICTIM + StringCLI.SPACE + StringCLI.DIRECTION);
+        Printer.println(StringCLI.IN_ROCKET_FIST_MODE + StringCLI.SPACE + StringCLI.TWO + StringCLI.SPACE + StringCLI.FIRST_VICTIM + StringCLI.SPACE + StringCLI.SECOND_VICTIM + StringCLI.SPACE + StringCLI.FIRST_DIRECTION + StringCLI.SPACE + StringCLI.SECOND_DIRECTION);
 
         string = new StringTokenizer(userInputStream.readLine());
         int choice = Converter.fromStringToInt(string.nextToken());
@@ -619,11 +618,11 @@ public class WeaponHandler {
      * @return true if the parameters are correct.
      * @throws IOException caused by the streams.
      */
-    public boolean shockwave(ClientInterface client, String weapon) throws IOException{
-        Printer.println("Basic mode: <1> <victim>");
-        Printer.println("Basic mode: <1> <victim> <victim>");
-        Printer.println("Basic mode: <1> <victim> <victim> <victim>");
-        Printer.println("In tsunami mode: <2>");
+    boolean shockwave(ClientInterface client, String weapon) throws IOException{
+        Printer.println(StringCLI.BASIC_MODE + StringCLI.SPACE + StringCLI.ONE + StringCLI.SPACE + StringCLI.FIRST_VICTIM);
+        Printer.println(StringCLI.BASIC_MODE + StringCLI.SPACE + StringCLI.ONE + StringCLI.SPACE + StringCLI.FIRST_VICTIM + StringCLI.SPACE + StringCLI.SECOND_VICTIM);
+        Printer.println(StringCLI.BASIC_MODE + StringCLI.SPACE + StringCLI.ONE + StringCLI.SPACE + StringCLI.FIRST_VICTIM + StringCLI.SPACE + StringCLI.SECOND_VICTIM + StringCLI.SPACE + StringCLI.THIRD_VICTIM);
+        Printer.println(StringCLI.IN_TSUNAMI_MODE + StringCLI.SPACE + StringCLI.TWO);
         string = new StringTokenizer(userInputStream.readLine());
         if(string.countTokens() == 1){
             client.shoot(weapon, Converter.fromStringToInt(string.nextToken()), true, TokenColor.NONE, TokenColor.NONE,
@@ -653,11 +652,11 @@ public class WeaponHandler {
      * @return true if the parameters are correct.
      * @throws IOException caused by the streams.
      */
-    public boolean sledgehammer(ClientInterface client, String weapon) throws IOException{
-        Printer.println("Basic mode: <1> <victim>");
-        Printer.println("In pulverize mode: <2> <victim>");
-        Printer.println("In pulverize mode: <2> <victim> <direction>");
-        Printer.println("In pulverize mode: <2> <victim> <direction> <direction>");
+    boolean sledgehammer(ClientInterface client, String weapon) throws IOException{
+        Printer.println(StringCLI.BASIC_MODE + StringCLI.SPACE + StringCLI.ONE + StringCLI.SPACE + StringCLI.VICTIM);
+        Printer.println(StringCLI.IN_PULVERIZE_MODE + StringCLI.SPACE + StringCLI.TWO + StringCLI.SPACE + StringCLI.VICTIM);
+        Printer.println(StringCLI.IN_PULVERIZE_MODE + StringCLI.SPACE + StringCLI.TWO + StringCLI.SPACE + StringCLI.VICTIM + StringCLI.SPACE + StringCLI.DIRECTION);
+        Printer.println(StringCLI.IN_PULVERIZE_MODE + StringCLI.SPACE + StringCLI.TWO + StringCLI.SPACE + StringCLI.VICTIM + StringCLI.SPACE + StringCLI.FIRST_DIRECTION + StringCLI.SPACE + StringCLI.SECOND_DIRECTION);
         string = new StringTokenizer(userInputStream.readLine());
         if(string.countTokens() == 2){
             client.shoot(weapon, Converter.fromStringToInt(string.nextToken()), true, Converter.fromStringToTokenColor(string.nextToken()),
@@ -683,19 +682,19 @@ public class WeaponHandler {
      */
     private boolean basicFirst(String weapon){
         switch(weapon){
-            case "grenadelauncher":
-                Printer.println("Do you want to use the second effect first?: <yes> <no>");
+            case StringCLI.GRENADE_LAUNCHER:
+                Printer.println(StringCLI.SECOND_EFFECT_FIRST + StringCLI.SPACE + StringCLI.YES_INPUT + StringCLI.SPACE + StringCLI.NO_INPUT);
                 break;
-            case "cyberblade2":
-                Printer.println("Do you want to move after the third effect?: <yes> <no>");
+            case StringCLI.CYBERBLADE_2:
+                Printer.println(StringCLI.MOVE_AFTER_THIRD + StringCLI.SPACE + StringCLI.YES_INPUT + StringCLI.SPACE + StringCLI.NO_INPUT);
                 break;
             default:
-                Printer.println("Do you want to move first?: <yes> <no>");
+                Printer.println(StringCLI.MOVE_FIRST + StringCLI.SPACE + StringCLI.YES_INPUT + StringCLI.SPACE + StringCLI.NO_INPUT);
                 break;
         }
         try {
             String basicFirst = userInputStream.readLine();
-            if(basicFirst.equals("yes")){
+            if(basicFirst.equals(StringCLI.YES)){
                 return false;
             }
         } catch (IOException e) {

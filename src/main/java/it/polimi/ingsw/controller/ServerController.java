@@ -87,6 +87,14 @@ public class ServerController {
      * The number of turns of final frenzy.
      */
     private int finalFrenzyTurns;
+    private static final String CONNECTED = " connected!";
+    private static final String DISCONNECTED = " disconnected!";
+    private static final String GAME_START = "Game start!";
+    private static final String GAME_END = "Game end!";
+    private static final String TARGETING_SCOPE = "targetingscope";
+    private static final String TAGBACK_GRENADE = "tagbackgrenade";
+    private static final String DEBUG_1 = "cali2";
+    private static final String DEBUG_2 = "cali3";
 
     /**
      * Class constructor. Creates the GameController.
@@ -213,7 +221,7 @@ public class ServerController {
         players.add(player);
         users.put(colors.get(color), player);
 
-        Printer.println(username + " connected!");
+        Printer.println(username + CONNECTED);
         gameData.setUsername(username);
         servers.forEach((u, s) -> {
             try {
@@ -290,7 +298,7 @@ public class ServerController {
         }
         timer = new TurnTimer(this, players, players.get(index));
         timer.start();
-        Printer.println("Game iniziato!");
+        Printer.println(GAME_START);
     }
 
     /**
@@ -476,7 +484,7 @@ public class ServerController {
                 return;
             }
              */
-            Printer.println(username + " disconnected!");
+            Printer.println(username + DISCONNECTED);
             servers.remove(username);
             gameData.setUsername(username);
             servers.forEach((u,s) -> {
@@ -502,7 +510,7 @@ public class ServerController {
         users.get(username).setDisconnected(false);
         disconnectedUsers.remove(username);
         servers.put(username, server);
-        Printer.println(username + " connected!");
+        Printer.println(username + CONNECTED);
         setGameData();
         gameData.setUsername(username);
         servers.forEach((u, s) -> {
@@ -804,8 +812,8 @@ public class ServerController {
         if(gameController.usePowerup(powerup, users.get(username), users.get(colors.get(victim)), ammo, x, y, directions)){
             List<Player> victims = new ArrayList<>();
             switch(powerup){
-                case "targetingscope":
-                case "tagbackgrenade":
+                case TARGETING_SCOPE:
+                case TAGBACK_GRENADE:
                     Player victim1 = users.get(colors.get(victim));
                     victims.add(victim1);
                     gameData.setVictims(victims);
@@ -1076,7 +1084,7 @@ public class ServerController {
      * Ends the game.
      */
     private void endGame(){
-        Printer.println("Game end!");
+        Printer.println(GAME_END);
         gameController.endGame();
     }
 
@@ -1103,11 +1111,11 @@ public class ServerController {
      * @param username the username of the player.
      */
     private void debugMode(Player player, String username){
-        if(username.equals("cali2")){
+        if(username.equals(DEBUG_1)){
             player.getPlayerBoard().addDamage(TokenColor.GREY, TokenColor.GREY, TokenColor.GREY, TokenColor.GREY, TokenColor.GREY, TokenColor.GREY,
                     TokenColor.GREY, TokenColor.GREY, TokenColor.GREY, TokenColor.GREY);
         }
-        if(username.equals("cali3")){
+        if(username.equals(DEBUG_2)){
             player.getPlayerBoard().addDamage(TokenColor.GREEN, TokenColor.GREY, TokenColor.GREY, TokenColor.GREY, TokenColor.GREY, TokenColor.GREY,
                     TokenColor.GREY, TokenColor.GREEN, TokenColor.GREEN, TokenColor.GREEN);
         }
