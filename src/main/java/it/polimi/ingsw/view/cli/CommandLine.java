@@ -275,10 +275,10 @@ public class CommandLine implements ViewInterface {
     private boolean drop(StringTokenizer input){
         if(input.hasMoreTokens() && input.countTokens()==2){
             String whatToDrop = input.nextToken();
-            if(whatToDrop.equals("weapon")){
+            if(whatToDrop.equals(StringCLI.WEAPON)){
                 dropWeapon(Converter.fromStringToInt(input.nextToken()));
                 return true;
-            }else if(whatToDrop.equals("powerup")){
+            }else if(whatToDrop.equals(StringCLI.POWERUP)){
                 dropPowerup(Converter.fromStringToInt(input.nextToken()));
                 return true;
             }else{
@@ -554,8 +554,8 @@ public class CommandLine implements ViewInterface {
                 Printer.println(StringCLI.WANT_MOVE + StringCLI.SPACE + StringCLI.YES_INPUT + StringCLI.SPACE + StringCLI.NO_INPUT);
                 try {
                     String movement = userInputStream.readLine();
-                    if(movement.equals("yes")){
-                        Printer.print("Choose a direction: ");
+                    if(movement.equals(StringCLI.YES)){
+                        Printer.print(StringCLI.CHOOSE_DIRECTION + StringCLI.SPACE);
                         Direction direction = Converter.fromStringToDirection(userInputStream.readLine());
                         client.moveAndReload(direction);
                     }
@@ -584,11 +584,11 @@ public class CommandLine implements ViewInterface {
         Direction first = null;
         Direction second = null;
         if(input.countTokens()==1){
-            Printer.println("Do you want to move?: <yes> <no>");
+            Printer.println(StringCLI.WANT_MOVE + StringCLI.COLON + StringCLI.SPACE + StringCLI.YES_INPUT + StringCLI.SPACE + StringCLI.NO_INPUT);
             try {
                 String movement = userInputStream.readLine();
-                if(movement.equals("yes")){
-                    Printer.println("Choose up to 2 directions: <direction> <direction>");
+                if(movement.equals(StringCLI.YES)){
+                    Printer.println(StringCLI.CHOOSE_DIRECTIONS + StringCLI.SPACE + StringCLI.FIRST_DIRECTION + StringCLI.SPACE + StringCLI.SECOND_DIRECTION);
                     moveAndReload = new StringTokenizer(userInputStream.readLine());
                     if(moveAndReload.countTokens()==1){
                         first = Converter.fromStringToDirection(moveAndReload.nextToken());
@@ -599,10 +599,10 @@ public class CommandLine implements ViewInterface {
                     else{
                         return false;
                     }
-                    Printer.println("Do you want to reload?: <yes> <no>");
+                    Printer.println(StringCLI.WANT_RELOAD + StringCLI.SPACE + StringCLI.YES_INPUT + StringCLI.SPACE + StringCLI.NO_INPUT);
                     String reload = userInputStream.readLine();
-                    if(reload.equals("yes")){
-                        Printer.println("Choose weapon to reload:");
+                    if(reload.equals(StringCLI.YES)){
+                        Printer.println(StringCLI.CHOOSE_WEAPON);
                         moveAndReload = new StringTokenizer(userInputStream.readLine());
                         if(moveAndReload.countTokens()==1){
                             if(second != null){
@@ -629,10 +629,10 @@ public class CommandLine implements ViewInterface {
                         }
                     }
                 }else{
-                    Printer.println("Do you want to reload?: <yes> <no>");
+                    Printer.println(StringCLI.WANT_RELOAD + StringCLI.SPACE + StringCLI.YES_INPUT + StringCLI.SPACE + StringCLI.NO_INPUT);
                     String reload = userInputStream.readLine();
-                    if(reload.equals("yes")){
-                        Printer.println("Choose weapon to reload:");
+                    if(reload.equals(StringCLI.YES)){
+                        Printer.println(StringCLI.CHOOSE_WEAPON);
                         moveAndReload = new StringTokenizer(userInputStream.readLine());
                         if(moveAndReload.countTokens()==1){
                             client.moveAndReload(first, moveAndReload.nextToken());
@@ -739,7 +739,7 @@ public class CommandLine implements ViewInterface {
         StringTokenizer string;
         switch(powerup){
             case StringCLI.TARGETING_SCOPE:
-                Printer.println("Effect: <victim> <ammo>");
+                Printer.println(StringCLI.EFFECT + StringCLI.SPACE + StringCLI.VICTIM + StringCLI.SPACE + StringCLI.AMMO);
                 string = new StringTokenizer(userInputStream.readLine());
                 if(string.countTokens() == 2){
                     client.powerup(powerup, Converter.fromStringToTokenColor(string.nextToken()), Converter.fromStringToColor(string.nextToken()),
@@ -749,8 +749,8 @@ public class CommandLine implements ViewInterface {
                     return false;
                 }
             case StringCLI.NEWTON:
-                Printer.println("Effect: <victim> <direction>");
-                Printer.println("Effect: <victim> <direction> <direction>");
+                Printer.println(StringCLI.EFFECT + StringCLI.SPACE + StringCLI.VICTIM + StringCLI.SPACE + StringCLI.FIRST_DIRECTION);
+                Printer.println(StringCLI.EFFECT + StringCLI.SPACE + StringCLI.VICTIM + StringCLI.SPACE + StringCLI.FIRST_DIRECTION + StringCLI.SPACE + StringCLI.SECOND_DIRECTION);
                 string = new StringTokenizer(userInputStream.readLine());
                 if(string.countTokens() == 2){
                     client.powerup(powerup, Converter.fromStringToTokenColor(string.nextToken()), Color.NONE, -1, -1,
@@ -764,7 +764,7 @@ public class CommandLine implements ViewInterface {
                     return false;
                 }
             case StringCLI.TAGBACK_GRENADE:
-                Printer.println("Effect: <victim>");
+                Printer.println(StringCLI.EFFECT + StringCLI.SPACE + StringCLI.VICTIM);
                 string = new StringTokenizer(userInputStream.readLine());
                 if(string.countTokens() == 1){
                     client.powerup(powerup, Converter.fromStringToTokenColor(string.nextToken()), Color.NONE, -1, -1);
@@ -773,7 +773,7 @@ public class CommandLine implements ViewInterface {
                     return false;
                 }
             case StringCLI.TELEPORTER:
-                Printer.println("Effect: <square_x> <square_y>");
+                Printer.println(StringCLI.EFFECT + StringCLI.SPACE + StringCLI.SQUARE_X + StringCLI.SPACE + StringCLI.SQUARE_Y);
                 string = new StringTokenizer(userInputStream.readLine());
                 if(string.countTokens() == 2){
                     client.powerup(powerup, TokenColor.NONE, Color.NONE, Converter.fromStringToInt(string.nextToken()), Converter.fromStringToInt(string.nextToken()));
@@ -1031,21 +1031,21 @@ public class CommandLine implements ViewInterface {
     private void notifyShowSquare(Outcome outcome, SquareData squareData){
         if(outcome.equals(Outcome.RIGHT)){
             if(squareData.getAmmoCard() != null){
-                Printer.println("Ammos:");
+                Printer.println(StringCLI.AMMOS_SQUARE);
                 Printer.print(squareData.getAmmoCard().getFirstAmmo().getColor() + ", " +
                         squareData.getAmmoCard().getSecondAmmo().getColor() + ", ");
                 if(squareData.getAmmoCard().isPowerup()){
-                    Printer.println("POWERUP");
+                    Printer.println(StringCLI.POWERUP_CAPS);
                 }else{
                     Printer.println(squareData.getAmmoCard().getThirdAmmo().getColor());
                 }
             }
             if(squareData.getWeapons() != null){
-                Printer.println("Weapons:");
+                Printer.println(StringCLI.WEAPONS_SQUARE);
                 squareData.getWeapons().forEach(Printer::println);
             }
         }else{
-            Printer.println("Invalid square!");
+            Printer.println(StringCLI.INVALID_SQUARE);
         }
     }
 
@@ -1296,7 +1296,7 @@ public class CommandLine implements ViewInterface {
      */
     private void printWeapons(){
         if(!playerController.getWeapons().isEmpty()){
-            Printer.println("Your weapons:");
+            Printer.println(StringCLI.YOUR_WEAPONS);
             playerController.getWeapons().forEach(Printer::println);
             Printer.print(StringCLI.NEW_LINE);
         }
@@ -1307,7 +1307,7 @@ public class CommandLine implements ViewInterface {
      */
     private void printPowerups(){
         if(!playerController.getPowerups().isEmpty()){
-            Printer.println("Your powerups:");
+            Printer.println(StringCLI.YOUR_POWERUPS);
             playerController.getPowerups().forEach(Printer::println);
             Printer.print(StringCLI.NEW_LINE);
         }
@@ -1325,14 +1325,14 @@ public class CommandLine implements ViewInterface {
      * Prints a square, with weapons or ammo cards.
      */
     private void printSquare(){
-        Printer.println("In your square:");
+        Printer.println(StringCLI.YOUR_SQUARE);
         Square square = playerController.getGameBoard().getArena()[playerController.getPlayer().getPosition().getX()][playerController.getPlayer().getPosition().getY()];
         if(square.getAmmoCard() != null){
-            Printer.print("AmmoCard: ");
+            Printer.print(StringCLI.AMMO_CARD + StringCLI.SPACE);
             Printer.print(square.getAmmoCard().getFirstAmmo().getColor() + ", " +
                     square.getAmmoCard().getSecondAmmo().getColor() + ", ");
             if(square.getAmmoCard().isPowerup()){
-                Printer.println("POWERUP");
+                Printer.println(StringCLI.POWERUP_CAPS);
             }else{
                 Printer.println(square.getAmmoCard().getThirdAmmo().getColor());
             }

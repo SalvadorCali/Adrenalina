@@ -27,6 +27,7 @@ public class StringCLI {
     static final String AMMOS = "ammos";
     static final String POWERUPS = "powerups";
     static final String WEAPONS = "weapons";
+    static final String WEAPON = "weapon";
     static final String SQUARE = "square";
     static final String OTHERS = "others";
 
@@ -35,6 +36,7 @@ public class StringCLI {
     static final String INSERT_COMMAND = "Please, insert the following command ->";
     static final String SERVER = "[SERVER]";
     static final String COMMANDS = "Please, insert <help> to see a list of commands.";
+    static final String CHOOSE_DIRECTION = "Choose a direction:";
 
     //insert commands
     static final String COMMANDS_LIST = "List of Commands:";
@@ -63,6 +65,14 @@ public class StringCLI {
     static final String WRONG_COLOR = "Invalid color! Please choose another color:";
     static final String YOUR_COLOR = "Your color is";
 
+    //square
+    static final String YOUR_SQUARE = "In your square:";
+    static final String WEAPONS_SQUARE = "Weapons:";
+    static final String AMMOS_SQUARE = "Ammos:";
+    static final String AMMO_CARD = "AmmoCard:";
+    static final String POWERUP_CAPS = "POWERUP";
+    static final String INVALID_SQUARE = "Invalid square!";
+
     //board
     static final String CHOOSE_BOARD = "Please, choose one of these boards:";
     static final String BOARD_COMMAND = "board <choosen_board> <skulls number>: ";
@@ -90,6 +100,9 @@ public class StringCLI {
     static final String SHOT = "Shot!";
     static final String NOT_SHOT = "Not shot!";
     static final String WANT_MOVE = "Do you want to move?";
+    static final String CHOOSE_DIRECTIONS = "Choose up to 2 directions:";
+    static final String WANT_RELOAD = "Do you want to reload?:";
+    static final String CHOOSE_WEAPON = "Choose weapon to reload:";
 
     //powerup
     static final String USED = "used!";
@@ -123,6 +136,10 @@ public class StringCLI {
     //respawn
     static final String RESPAWN_POWERUP = "Please, discard a powerup to respawn:";
     static final String RESPAWN_COMMAND = "respawn <powerup_number> :";
+
+    //yours
+    static final String YOUR_WEAPONS = "Your weapons:";
+    static final String YOUR_POWERUPS = "Your powerups:";
 
     //inputs
     static final String YES = "yes";
@@ -198,6 +215,7 @@ public class StringCLI {
     static final String SQUARE_Y = "<squareY>";
     static final String VICTIM_DIRECTION = "<victim_direction>";
     static final String SHOOTER_DIRECTION = "<shooter_direction>";
+    static final String AMMO = "<ammo>";
 
     //do you want
     static final String CHOOSE_EFFECT = "Choose your effect:";
