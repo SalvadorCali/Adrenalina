@@ -129,10 +129,11 @@ public class ServerController {
     }
 
     /**
-     * The login method.
-     * @param username
-     * @param color
-     * @param server
+     * The login method. It controls if there is another player with the same username in this or in another game, then adds the player to the game.
+     * If the number of players connected is equals to the minimum number for a game, it starts a new game.
+     * @param username the username chosen by the player.
+     * @param color the color chosen by the player.
+     * @param server the relative server.
      */
     public void login(String username, TokenColor color, ServerInterface server){
         if(ServerControllerManager.containsDisconnectedUsername(username)){
@@ -196,6 +197,12 @@ public class ServerController {
         }
     }
 
+    /**
+     * Add a new player to the list of players and notify this to other playes.
+     * @param username the username of the new player.
+     * @param color the color of the new player.
+     * @param server the player's Server.
+     */
     private void addPlayer(String username, TokenColor color, ServerInterface server){
         servers.put(username, server);
         colors.put(color, username);
@@ -221,6 +228,9 @@ public class ServerController {
         });
     }
 
+    /**
+     * Notify to the players the choice of the board and creates a timer for this phase of the game.
+     */
     private void boardTypePhase(){
         gameController.setBoardTypePhase(true);
         try {
@@ -235,12 +245,20 @@ public class ServerController {
         boardTypeTimer.start();
     }
 
+    /**
+     * Sets the board and the number of skulls chosen by the first player.
+     * @param boardType the type of the board.
+     * @param skulls the number of skulls of the killshot track.
+     */
     public void chooseBoardType(int boardType, int skulls){
         gameController.setBoardTypePhase(false);
         gameController.setBoard(boardType, skulls);
         spawnLocation();
     }
 
+    /**
+     * Starts the game and sets the first player. Then creates a timer for the turn of the players.
+     */
     private void startGame(){
         gameController.setSpawnLocationPhase(false);
         gameController.setGamePhase(true);
@@ -275,6 +293,9 @@ public class ServerController {
         Printer.println("Game iniziato!");
     }
 
+    /**
+     * Start the phase where players have to choose a powerup to spawn. It draws 2 powerups for each player and sends them. Then create a timer for this phase of the game.
+     */
     public void spawnLocation(){
         gameController.setBoardTypePhase(false);
         gameController.setSpawnLocationPhase(true);
@@ -317,6 +338,11 @@ public class ServerController {
         spawnLocationTimer.start();
     }
 
+    /**
+     * Generates a player in a spawn point after his death, on the basis of his choice.
+     * @param username the username of the dead player.
+     * @param choice the powerup chosen for the respawn.
+     */
     public void respawn(String username, int choice){
         if(gameController.canRespawn(users.get(username), choice)){
             gameController.respawn(users.get(username), choice);
@@ -330,6 +356,11 @@ public class ServerController {
         }
     }
 
+    /**
+     * Adds the chosen powerup to the player and generate him in the correct spawn point. Then, if the number of spawned players is equals to the number of players, starts the game.
+     * @param username the username of the player.
+     * @param choice the choosen powerup.
+     */
     public void choose(String username, int choice){
         users.get(username).setSpawned(true);
         if(choice == 1){
@@ -345,6 +376,9 @@ public class ServerController {
         }
     }
 
+    /**
+     * Makes a random choice for a player that didn't choose his powerup before the timeout.
+     */
     public void randomChoice(){
         users.forEach((u,p) -> {
             if(!p.isSpawned()){
@@ -370,6 +404,10 @@ public class ServerController {
         });
     }
 
+    /**
+     * Sends to the user the requested square's data.
+     * @param username the username of the player who wants to see a square.
+     */
     public void showSquare(String username){
         if(gameController.canShowSquare(users.get(username))){
             gameData.setSquareData(gameController.showSquare(users.get(username)));
@@ -388,6 +426,12 @@ public class ServerController {
         }
     }
 
+    /**
+     * Sends to the user the requested square's data.
+     * @param username the username of the player who wants to see a square.
+     * @param x the square's abscissa.
+     * @param y the square's ordinate.
+     */
     public void showSquare(String username, int x, int y){
         if(gameController.canShowSquare(users.get(username), x, y)){
             gameData.setSquareData(gameController.showSquare(users.get(username), x, y));
@@ -406,6 +450,10 @@ public class ServerController {
         }
     }
 
+    /**
+     * On the basis of the phase of the game, disconnects the player. Put out him from the users and servers, and add him to the disconnectedUsers.
+     * @param username the username of the disconnected player.
+     */
     public void disconnect(String username){
         /*
         if(gameController.isBoardTypePhase() && players.get(0).getUsername().equals(username)){
@@ -444,6 +492,11 @@ public class ServerController {
         }
     }
 
+    /**
+     * Reconnects a player that was disconnected. Adds him to the user and servers.
+     * @param username the username of the player who wants to reconnects himself to the game.
+     * @param server the player's Server.
+     */
     private void reconnect(String username, ServerInterface server){
         users.put(username, disconnectedUsers.get(username));
         users.get(username).setDisconnected(false);
@@ -465,7 +518,11 @@ public class ServerController {
         });
     }
 
-    //board a tutti
+    /**
+     * If the player can move, moves him and sends to the players the result of the action.
+     * @param username the username of the player who wants to move himself.
+     * @param directions the directions where the player wants to move.
+     */
     public void move(String username, Direction...directions){
         if(users.get(username).isMyTurn()){
             if(gameController.canMove(users.get(username), directions) && users.get(username).canUseAction()){
@@ -510,7 +567,13 @@ public class ServerController {
             }
         }
     }
-    //board a tutti e playerBoard del grabber
+
+    /**
+     * If the player can grab, grabs in the correct square and sends to the other players the result of the action.
+     * @param username the username of the player who wants to grab.
+     * @param choice what the player wants to grab.
+     * @param directions the directions where the player wants to move before the grab action.
+     */
     public void grab(String username, int choice, Direction...directions){
         if(users.get(username).isMyTurn()){
             if(gameController.grab(users.get(username), choice, directions)){
@@ -550,6 +613,11 @@ public class ServerController {
         }
     }
 
+    /**
+     * Drops a powerup.
+     * @param username the username of the player who wants to drop a powerup.
+     * @param powerup the powerup that the player wants to drop.
+     */
     public void dropPowerup(String username, int powerup){
         if(gameController.canDropPowerup(users.get(username), powerup)){
             try{
@@ -569,6 +637,11 @@ public class ServerController {
         }
     }
 
+    /**
+     * Drops a weapon.
+     * @param username the username of the player who wants to drop a weapon.
+     * @param weapon the weapon that the player wants to drop.
+     */
     public void dropWeapon(String username, int weapon){
         if(gameController.canDropWeapon(users.get(username), weapon)){
             try{
@@ -588,6 +661,11 @@ public class ServerController {
         }
     }
 
+    /**
+     * Discards a powerup and add it as ammo.
+     * @param username the username of the player who wants to discard a powerup.
+     * @param powerup the powerup that the player wants to discard.
+     */
     public void discardPowerup(String username, int powerup){
          if(gameController.canDiscardPowerup(users.get(username), powerup)){
             try{
@@ -607,8 +685,19 @@ public class ServerController {
         }
     }
 
-    //metodo completo
-    //playerBoard delle vittime
+    /**
+     * Calls the relative {@link GameController#shoot(String, int, boolean, Player, Player, Player, Player, int, int, Direction...)} method and sends to the other players the result of the action.
+     * @param weaponName the name of the weapon.
+     * @param effectNumber the number of the effect.
+     * @param basicFirst true if the player wants to use the basic effect first.
+     * @param username the username of the shooter.
+     * @param firstVictim the first victim.
+     * @param secondVictim the second victim.
+     * @param thirdVictim the third victim.
+     * @param x the square's abscissa.
+     * @param y the square's ordinate.
+     * @param directions the directions.
+     */
     public void shoot(String weaponName, int effectNumber, boolean basicFirst, String username, TokenColor firstVictim, TokenColor secondVictim, TokenColor thirdVictim, int x, int y, Direction...directions){
         if(users.get(username).isMyTurn()){
             List<Player> victims = new ArrayList<>();
@@ -676,19 +765,41 @@ public class ServerController {
         }
     }
 
+    /**
+     * If the player can move and reload, calls the relative {@link GameController} method.
+     * @param username the username of the player.
+     * @param firstDirection the first direction where the player wants to move.
+     * @param weapons the weapons to reload.
+     */
     public void moveAndReload(String username, Direction firstDirection, String...weapons){
         if(gameController.canMoveAndReload(users.get(username), firstDirection, weapons)){
             gameController.moveAndReload(users.get(username), firstDirection, weapons);
         }
     }
 
+    /**
+     * If the player can move and reload, calls the relative {@link GameController} method.
+     * @param username the username of the player.
+     * @param firstDirection the first direction where the player wants to move.
+     * @param secondDirection the second direction where the player wants to move.
+     * @param weapons the weapons to reload.
+     */
     public void moveAndReload(String username, Direction firstDirection, Direction secondDirection, String...weapons){
         if(gameController.canMoveAndReload(users.get(username), firstDirection, secondDirection, weapons)){
             gameController.moveAndReload(users.get(username), firstDirection, secondDirection, weapons);
         }
     }
 
-    //in base al powerup
+    /**
+     * Takes the parameters to use a powerup and calls the relative {@link GameController} method and sends to the other players the result of the action.
+     * @param username the username of the player.
+     * @param powerup the powerup to use.
+     * @param victim the victim of the powerup.
+     * @param ammo the color of the ammo to discard.
+     * @param x the square's abscissa.
+     * @param y the square's ordinate.
+     * @param directions the directions.
+     */
     public void powerup(String username, String powerup, TokenColor victim, Color ammo, int x, int y, Direction...directions){
         if(gameController.usePowerup(powerup, users.get(username), users.get(colors.get(victim)), ammo, x, y, directions)){
             List<Player> victims = new ArrayList<>();
@@ -722,11 +833,19 @@ public class ServerController {
         }
     }
 
+    /**
+     * Resets the ammos given by powerup.
+     * @param username the username of the player.
+     */
     public void resetPowerupAmmos(String username){
         users.get(username).resetPowerupAmmos();
     }
 
-    //nome arma e playerboard al solo reloader
+    /**
+     * Takes the name of the weapon to reload and calls the relative {@link GameController} method.
+     * @param username the username of the player.
+     * @param weaponName the name of the weapon to reload.
+     */
     public void reload(String username, String weaponName){
         if(users.get(username).isMyTurn()){
             if(gameController.reload(users.get(username), weaponName)){
@@ -755,7 +874,11 @@ public class ServerController {
             }
         }
     }
-    //tutti i dati
+
+    /**
+     * Ends the turn of the player. If one of the players is dead it calls the {@link #deathAndRespawn()} method. If the final frenzy is end, stop the game.
+     * @param username the username of the player.
+     */
     public void endTurn(String username){
         if(users.get(username).isMyTurn()){
             for(Player player : players){
@@ -832,6 +955,10 @@ public class ServerController {
         }
     }
 
+    /**
+     * Ends the turn for disconnected players.
+     * @param username the username of the player.
+     */
     public void endTurnDisconnected(String username){
         if(users.get(username).isMyTurn()){
             for(Player player : players){
@@ -883,6 +1010,11 @@ public class ServerController {
         }
     }
 
+    /**
+     * Finds the index of the next player.
+     * @param index the current index.
+     * @return the index of the next player.
+     */
     private int nextPlayerIndex(int index){
         boolean cycle = true;
         while(cycle){
@@ -900,7 +1032,10 @@ public class ServerController {
         }
         return index;
     }
-    //punteggio
+
+    /**
+     * Set the score after a death and then notifies to the death players the choice for the respawn.
+     */
     private void deathAndRespawn(){
         timer.interrupt();
         gameController.deathAndRespawn(players);
@@ -937,22 +1072,36 @@ public class ServerController {
         }
     }
 
+    /**
+     * Ends the game.
+     */
     private void endGame(){
         Printer.println("Game end!");
         gameController.endGame();
     }
 
+    /**
+     * Sets the data to send to the players before the beginning of the game.
+     */
     private void setGameDataBeforeGame(){
         gameData.setGame(gameController.getGame());
         gameData.setPlayers(users);
     }
 
+    /**
+     * Sets the data to send to the players.
+     */
     private void setGameData(){
         gameData.setGame(gameController.getGame());
         gameData.setPlayers(users);
         gameData.setCurrentPlayer(gameController.getGame().getCurrentPlayer().getUsername());
     }
 
+    /**
+     * Creates players with some features for the debug.
+     * @param player the player.
+     * @param username the username of the player.
+     */
     private void debugMode(Player player, String username){
         if(username.equals("cali2")){
             player.getPlayerBoard().addDamage(TokenColor.GREY, TokenColor.GREY, TokenColor.GREY, TokenColor.GREY, TokenColor.GREY, TokenColor.GREY,
