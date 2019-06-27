@@ -40,7 +40,7 @@ public class GameController {
      */
     private List<GameBoard> gameBoards;
     /**
-     * Database of the infos needed from the client to move and reload.
+     * Database of the info needed from the client to move and reload.
      */
     private MoveAndReloadData moveAndReloadData;
     /**
