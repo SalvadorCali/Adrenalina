@@ -8,8 +8,17 @@ import java.io.Serializable;
  * Abstract class representing the cards of the game.
  */
 public abstract class Card implements Serializable {
+    /**
+     * Name of the card.
+     */
     private String name;
+    /**
+     * Color of the card.
+     */
     private Color color;
+    /**
+     * Effect of the card.
+     */
     private String effect;
 
     /**
@@ -67,18 +76,10 @@ public abstract class Card implements Serializable {
     }
 
     /**
-     * getter of the effect of the card.
+     * Getter of the effect of the card.
      * @return the effect of the card.
      */
     String getCardEffect() {
         return effect;
     }
-
-    /*
-    public String toString(){
-        StringBuilder card = new StringBuilder();
-        card.append("Name: " + this.name).append("\nColor: " + this.color).append("\n" + this.effect);
-        return card.toString();
-    }
-     */
 }

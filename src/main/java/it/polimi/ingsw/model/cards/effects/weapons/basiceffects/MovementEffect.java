@@ -9,20 +9,44 @@ import it.polimi.ingsw.model.gamecomponents.Player;
  */
 public class MovementEffect extends BasicEffect {
 
+    /**
+     * Name of the effect.
+     */
     private String effectName;
 
+    /**
+     * Number of damages given by the effect.
+     */
     private int damagePower;
 
+    /**
+     * Number of marks given by the effect.
+     */
     private int markPower;
 
+    /**
+     * Cost of the effect.
+     */
     private int redAmmos, blueAmmos, yellowAmmos;
 
+    /**
+     * Indicates if the player can use the effect.
+     */
     private boolean canUse;
 
+    /**
+     * Directions of the moves.
+     */
     private Direction firstMove, secondMove;
 
+    /**
+     * Players involved in the effect.
+     */
     private Player currentPlayer, victim;
 
+    /**
+     * Fake player to simulate the moves.
+     */
     private Player player;
 
 
@@ -76,7 +100,7 @@ public class MovementEffect extends BasicEffect {
     }
 
     /**
-     * Apply the effect.
+     * Applies the effect.
      * @param actionInterface give access to some restricted methods of the game/clientData to the card controls.
      */
     @Override

@@ -10,39 +10,52 @@ import it.polimi.ingsw.model.gamecomponents.Player;
  */
 public class AdditionalMove extends SingleAddictionEffect {
 
+    /**
+     * Name of the effect.
+     */
     private String effectName;
 
-    private int damagePower;
-
-    private int markPower;
-
+    /**
+     * Cost of the effect.
+     */
     private int redAmmos, blueAmmos, yellowAmmos;
 
+    /**
+     * Indicates if the player can use the effect.
+     */
     private boolean canUse;
 
+    /**
+     * Fake player used to simulate the moves.
+     */
     private Player player;
 
+    /**
+     * Current player.
+     */
     private Player currentPlayer;
 
+    /**
+     * Indicates if the player wants to move before the basic effect.
+     */
     private boolean basicFirst;
 
+    /**
+     * Directions of the moves.
+     */
     private Direction firstMove, secondMove;
 
 
     /**
      * Class constructor.
      * @param effectName name of the effect.
-     * @param damagePower number of damages that the effect gives to the victims.
-     * @param markPower number of marks that the effect gives to the victims.
      * @param redAmmos red ammos required to apply the effect.
      * @param blueAmmos blue ammos required to apply the effect.
      * @param yellowAmmos yellow ammos required to apply the effect.
      * @param effect basic effect that is completed by the additional effect.
      */
-    public AdditionalMove(String effectName, int damagePower, int markPower, int redAmmos, int blueAmmos, int yellowAmmos, Effect effect){
+    public AdditionalMove(String effectName, int redAmmos, int blueAmmos, int yellowAmmos, Effect effect){
         this.effectName = effectName;
-        this.damagePower = damagePower;
-        this.markPower = markPower;
         this.redAmmos = redAmmos;
         this.blueAmmos = blueAmmos;
         this.yellowAmmos = yellowAmmos;
@@ -60,7 +73,6 @@ public class AdditionalMove extends SingleAddictionEffect {
 
         setData(actionInterface);
         actionInterface.generatePlayer(currentPlayer, player);
-
         if(basicFirst) {
             canUse = super.effect.canUseEffect(actionInterface) && actionInterface.ammoControl(redAmmos, blueAmmos, yellowAmmos);
             if (canUse){
@@ -111,7 +123,6 @@ public class AdditionalMove extends SingleAddictionEffect {
             firstMove = actionInterface.getThirdMove();
             secondMove = actionInterface.getFourthMove();
         }
-
     }
 
     /**

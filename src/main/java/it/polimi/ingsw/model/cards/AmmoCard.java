@@ -8,9 +8,21 @@ import java.io.Serializable;
  */
 public class AmmoCard implements Serializable {
 
+    /**
+     * First ammo contained in the card.
+     */
     private Ammo firstAmmo;
+    /**
+     * Second ammo contained in the card.
+     */
     private Ammo secondAmmo;
+    /**
+     * Third ammo contained in the card.
+     */
     private Ammo thirdAmmo;
+    /**
+     * Indicates if the ammo card contains a powerup.
+     */
     private boolean powerup;
 
     /**

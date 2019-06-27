@@ -16,7 +16,7 @@ public abstract class BasicEffect extends Effect {
     public abstract boolean canUseEffect(ActionInterface actionInterface);
 
     /**
-     * Apply the effect.
+     * Applies the effect.
      * @param actionInterface give access to some restricted methods of the game/clientData to the card controls.
      */
     public abstract void useEffect(ActionInterface actionInterface);

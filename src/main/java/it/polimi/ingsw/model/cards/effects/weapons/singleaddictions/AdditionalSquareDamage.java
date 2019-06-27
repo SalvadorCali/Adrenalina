@@ -8,18 +8,39 @@ import it.polimi.ingsw.model.cards.effects.Effect;
  */
 public class AdditionalSquareDamage extends SingleAddictionEffect{
 
+    /**
+     * Name of the effect.
+     */
     private String effectName;
 
+    /**
+     * Additional square to damage.
+     */
     private int x, y;
 
+    /**
+     * Number of damages given by the effect.
+     */
     private int damagePower;
 
+    /**
+     * Cost of the effect.
+     */
     private int redAmmos, blueAmmos, yellowAmmos;
 
+    /**
+     * Indicates if the player wants to use the additional effect before the basic one.
+     */
     private boolean basicFirst;
 
+    /**
+     * Victims of the effect.
+     */
     private boolean victim1, victim2;
 
+    /**
+     * Indicates if the effect can be used.
+     */
     private boolean canUse;
 
 

@@ -74,7 +74,7 @@ public class AdditionalSquareDamageTest {
     void rocketLauncherDoubleAddTest(){
         playerSetup();
         Effect rocketLauncher = new MovementEffect("Rocket Launcher",2,0,0,0,0);
-        Effect rocketLauncherAdd = new AdditionalMove("Rocket Launcher",0,0,0,1,0,rocketLauncher);
+        Effect rocketLauncherAdd = new AdditionalMove("Rocket Launcher",0,0,0,rocketLauncher);
         Effect rocketLauncherDouble = new AdditionalSquareDamage("Rocket Launcher",1,0,0,1,rocketLauncherAdd);
         gameController.getActionInterface().getClientData().setBasicFirst(true);
         MapCLI mapCLI = new MapCLI(gameController.getGame().getBoard());
@@ -100,7 +100,7 @@ public class AdditionalSquareDamageTest {
     void rocketLauncherDoubleAdd2Test(){
         playerSetup();
         Effect rocketLauncher = new MovementEffect("Rocket Launcher",2,0,0,0,0);
-        Effect rocketLauncherAdd = new AdditionalMove("Rocket Launcher",0,0,0,1,0,rocketLauncher);
+        Effect rocketLauncherAdd = new AdditionalMove("Rocket Launcher",0,0,0,rocketLauncher);
         Effect rocketLauncherDouble = new AdditionalSquareDamage("Rocket Launcher",1,0,0,1,rocketLauncherAdd);
         gameController.getActionInterface().getClientData().setBasicFirst(false);
         MapCLI mapCLI = new MapCLI(gameController.getGame().getBoard());

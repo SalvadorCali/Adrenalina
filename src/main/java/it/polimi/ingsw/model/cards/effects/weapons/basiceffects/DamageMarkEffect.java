@@ -8,18 +8,39 @@ import it.polimi.ingsw.model.gamecomponents.Player;
  */
 public class DamageMarkEffect extends BasicEffect {
 
+    /**
+     * Name of the effect.
+     */
     private String effectName;
 
+    /**
+     * Number of damages given by the effect.
+     */
     private int damagePower;
 
+    /**
+     * Number of marks given by the effect.
+     */
     private int markPower;
 
+    /**
+     * Booleans which indicate if the victims are visible.
+     */
     private boolean visible1, visible2, visible3;
 
+    /**
+     * Cost of the effect.
+     */
     private int redAmmos, blueAmmos, yellowAmmos;
 
+    /**
+     * Players involved in the effect.
+     */
     private Player currentPlayer, victim, secondVictim, thirdVictim;
 
+    /**
+     * Boolean which indicates if the player can use the effect.
+     */
     private boolean canUse;
 
     /**
@@ -48,7 +69,6 @@ public class DamageMarkEffect extends BasicEffect {
      */
     @Override
     public boolean canUseEffect(ActionInterface actionInterface) {
-
         setData(actionInterface);
         canUse = actionInterface.ammoControl(redAmmos, blueAmmos, yellowAmmos) && noAutoShoot(actionInterface);
         if (canUse) {
@@ -91,7 +111,7 @@ public class DamageMarkEffect extends BasicEffect {
     }
 
     /**
-     * Apply the effect.
+     * Applies the effect.
      * @param actionInterface give access to some restricted methods of the game/clientData to the card controls.
      */
     @Override

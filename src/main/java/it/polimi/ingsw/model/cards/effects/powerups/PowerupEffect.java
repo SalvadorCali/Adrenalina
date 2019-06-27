@@ -7,26 +7,48 @@ import it.polimi.ingsw.model.enums.Direction;
 import it.polimi.ingsw.model.enums.TokenColor;
 import it.polimi.ingsw.model.gamecomponents.Player;
 import it.polimi.ingsw.model.gamecomponents.Position;
-import it.polimi.ingsw.util.Printer;
 
+/**
+ * Class representing the effects of the powerup cards.
+ */
 public class PowerupEffect extends Effect {
 
+    /**
+     * Name of the effect.
+     */
     private String powerupName;
 
+    /**
+     * Boolean which indicates if the effect can be used.
+     */
     private boolean canUse;
 
+    /**
+     * Player representing the victim of the powerup.
+     */
     private Player victim = new Player(TokenColor.NONE);
 
+    /**
+     * Position of the square in which the player wants to move.
+     */
     private Position square;
 
+    /**
+     * Class constructor.
+     * @param powerupName name of the powerup.
+     */
     public PowerupEffect(String powerupName){
         this.powerupName = powerupName;
         this.canUse = true;
     }
 
+    /**
+     * Controls if the effect of the powerup can be applied.
+     * @param actionInterface give access to some restricted methods of the game/clientData to the card controls.
+     * @return the result of the control.
+     */
     @Override
     public boolean canUseEffect(ActionInterface actionInterface) {
-
         switch (powerupName) {
             case ("Targeting Scope"):
                 targetingScope(actionInterface);
@@ -45,6 +67,11 @@ public class PowerupEffect extends Effect {
         }
         return  canUse;
     }
+
+    /**
+     * Applies the effect of the powerup.
+     * @param actionInterface give access to some restricted methods of the game/clientData to the card controls.
+     */
     @Override
     public void useEffect(ActionInterface actionInterface) {
 
@@ -66,6 +93,10 @@ public class PowerupEffect extends Effect {
         }
     }
 
+    /**
+     * Controls to apply the targeting scope powerup.
+     * @param actionInterface give access to some restricted methods of the game/clientData to the card controls.
+     */
     private void targetingScope(ActionInterface actionInterface){
         actionInterface.getClientData().setAmmos();
         canUse = !actionInterface.getClientData().getAmmoColor().equals(Color.NONE) && actionInterface.isDamaged();
@@ -79,6 +110,10 @@ public class PowerupEffect extends Effect {
         }
     }
 
+    /**
+     * Applies the targeting scope powerup.
+     * @param actionInterface give access to some restricted methods of the game/clientData to the card controls.
+     */
     private void targetingScopeUse(ActionInterface actionInterface){
         actionInterface.playerDamage(actionInterface.getClientData().getPowerupVictim(), 1);
         if (actionInterface.getClientData().getAmmoColor().equals(Color.RED))
@@ -89,8 +124,11 @@ public class PowerupEffect extends Effect {
             actionInterface.updateAmmoBox(0, 0, 1);
     }
 
+    /**
+     * Controls to apply the newton powerup.
+     * @param actionInterface give access to some restricted methods of the game/clientData to the card controls.
+     */
     private void newton(ActionInterface actionInterface){
-
         Direction direction = actionInterface.getClientData().getFirstMove();
         Direction secondDirection = actionInterface.getClientData().getSecondMove();
         if(actionInterface.getClientData().getPowerupVictim() == null) {
@@ -109,10 +147,18 @@ public class PowerupEffect extends Effect {
         actionInterface.removePlayer(victim);
     }
 
+    /**
+     * Applies the newton powerup.
+     * @param actionInterface give access to some restricted methods of the game/clientData to the card controls.
+     */
     private void newtonUse(ActionInterface actionInterface){
         actionInterface.move(victim.getPosition().getX(),victim.getPosition().getY(), actionInterface.getClientData().getPowerupVictim());
     }
 
+    /**
+     * Controls to apply the tagback grenade powerup.
+     * @param actionInterface give access to some restricted methods of the game/clientData to the card controls.
+     */
     private void tagbackGrenade(ActionInterface actionInterface){
         victim = actionInterface.getClientData().getPowerupVictim();
         int count = -1;
@@ -125,15 +171,27 @@ public class PowerupEffect extends Effect {
         canUse = count!= -1 && actionInterface.getClientData().getCurrentPlayer().isDamaged() && actionInterface.getClientData().getCurrentPlayer().getPlayerBoard().getDamageBoard()[count].getFirstColor().equals(victim.getColor());
     }
 
+    /**
+     * Applies the tagback grenade powerup.
+     * @param actionInterface give access to some restricted methods of the game/clientData to the card controls.
+     */
     private void tagbackGrenadeUse(ActionInterface actionInterface){
         actionInterface.playerMark(actionInterface.getClientData().getCurrentPlayer(),victim);
     }
 
+    /**
+     * Controls to apply the teleporter powerup.
+     * @param actionInterface give access to some restricted methods of the game/clientData to the card controls.
+     */
     private void teleporter(ActionInterface actionInterface){
         square = actionInterface.getClientData().getSquare();
         canUse = (square.getX() >= 0 && square.getX() < 3) && (square.getY() >= 0 && square.getY() < 4) && actionInterface.isActive(square);
     }
 
+    /**
+     * Applies the teleporter powerup.
+     * @param actionInterface give access to some restricted methods of the game/clientData to the card controls.
+     */
     private void teleporterUse(ActionInterface actionInterface){
         actionInterface.move(square.getX(), square.getY(), actionInterface.getCurrentPlayer());
     }

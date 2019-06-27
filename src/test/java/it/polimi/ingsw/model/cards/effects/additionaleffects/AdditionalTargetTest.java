@@ -156,7 +156,7 @@ public class AdditionalTargetTest {
     void plasmaGunDoubleTest(){
         playerSetup();
         Effect plasmaGun = new DamageMarkEffect("Plasma Gun", 2,0,0,0,0);
-        Effect plasmaGunAdd = new AdditionalMove("Plasma Gun", 0,0,0,0,0, plasmaGun);
+        Effect plasmaGunAdd = new AdditionalMove("Plasma Gun", 0,0,0, plasmaGun);
         Effect plasmaGunDouble = new AdditionalTarget("Plasma Gun Double", 1,0,0,1,0,plasmaGunAdd);
         gameController.getGame().getBoard().move(1,1, victim);
         mapCLI.printMap();
@@ -185,7 +185,7 @@ public class AdditionalTargetTest {
     void cyberbladeDoubleTest(){
         playerSetup();
         Effect cyberblade = new DamageMarkEffect("Cyberblade",2,0,0,0,0);
-        Effect cyberbladeAdd = new AdditionalMove("Cyberblade",0,0,0,0,0, cyberblade);
+        Effect cyberbladeAdd = new AdditionalMove("Cyberblade",0,0,0, cyberblade);
         Effect cyberbladeAdd2 = new AdditionalTarget("Cyberblade",2,0,0,0,1,cyberbladeAdd);
         currentPlayer.addAmmo(new Ammo(Color.YELLOW));
         gameController.getGame().getBoard().move(0,0,victim);

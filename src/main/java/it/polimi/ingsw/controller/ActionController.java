@@ -104,8 +104,6 @@ public class ActionController implements ActionInterface {
                 game.findPlayer(color).setDamaged(true);
             }
         }
-
-
     }
 
     @Override
@@ -144,7 +142,6 @@ public class ActionController implements ActionInterface {
 
     @Override
     public boolean isVisible(TokenColor color) {
-
         return game.isVisible(game.findPlayer(color));
     }
 
@@ -204,7 +201,6 @@ public class ActionController implements ActionInterface {
 
     @Override
     public void squareDamage(int x, int y, int damagePower, int markPower) {
-
         game.getBoard().getArena()[x][y].squareDamage(damagePower, markPower, game.getCurrentPlayer().getColor());
     }
 
@@ -242,7 +238,6 @@ public class ActionController implements ActionInterface {
 
     @Override
     public Player getVictim() {
-
         return clientData.getVictim();
     }
 

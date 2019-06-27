@@ -30,7 +30,7 @@ public class AdditionalMoveTest {
 
         playerSetup();
         Effect plasmaGun = new DamageMarkEffect("Plasma Gun", 0,0,0,0,0);
-        Effect plasmaGunAdd = new AdditionalMove("Plasma Gun", 0,0,0,2,0, plasmaGun);
+        Effect plasmaGunAdd = new AdditionalMove("Plasma Gun", 0,0,0,plasmaGun);
         gameController.getGame().getBoard().move(1,1, victim);
         gameController.getActionInterface().getClientData().setBasicFirst(false);
         gameController.getActionInterface().getClientData().setFirstMove(Direction.RIGHT);
@@ -62,7 +62,7 @@ public class AdditionalMoveTest {
     void plasmaGunAdditionalUseTest(){
         playerSetup();
         Effect plasmaGun = new DamageMarkEffect("Plasma Gun", 1,0,0,0,0);
-        Effect plasmaGunAdd = new AdditionalMove("Plasma Gun", 0,0,0,0,0, plasmaGun);
+        Effect plasmaGunAdd = new AdditionalMove("Plasma Gun", 0,0,0, plasmaGun);
         gameController.getGame().getBoard().move(1,1, victim);
         mapCLI.printMap();
         gameController.getActionInterface().getClientData().setBasicFirst(false);
@@ -78,7 +78,7 @@ public class AdditionalMoveTest {
     void rocketLauncherAdditionalMoveTest(){
         playerSetup();
         Effect rocketLauncher = new MovementEffect("Rocket Launcher", 2,0,0,0,0);
-        Effect rocketLauncherAdd = new AdditionalMove("Rocket Launcher", 0,0,0,1,0, rocketLauncher);
+        Effect rocketLauncherAdd = new AdditionalMove("Rocket Launcher", 0,0,0, rocketLauncher);
 
         gameController.getActionInterface().getClientData().setBasicFirst(true);
         gameController.getActionInterface().getClientData().setFirstMove(Direction.DOWN);

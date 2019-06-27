@@ -10,20 +10,44 @@ import it.polimi.ingsw.model.gamecomponents.Position;
  */
 public class SquareDamageEffect extends BasicEffect {
 
+    /**
+     * Name of the effect.
+     */
     private String effectName;
 
+    /**
+     * Number of damages given by the effect.
+     */
     private int damagePower;
 
+    /**
+     * Number of marks given by the effect.
+     */
     private int markPower;
 
+    /**
+     * Cost of the effect.
+     */
     private int redAmmos, blueAmmos, yellowAmmos;
 
+    /**
+     * Square that the player wants to damage.
+     */
     private Position square;
 
+    /**
+     * Players involved in the effect.
+     */
     private Player currentPlayer, victim;
 
+    /**
+     * Booleans to control which squares to damage.
+     */
     private boolean up, down, right, left;
 
+    /**
+     * Indicates if the player can use the effect.
+     */
     private boolean canUse;
 
     /**

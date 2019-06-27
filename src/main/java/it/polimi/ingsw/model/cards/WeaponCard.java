@@ -116,7 +116,7 @@ public class WeaponCard extends Card{
                 break;
             case("PLASMA GUN"):
                 Effect plasmaGun = new DamageMarkEffect("Plasma Gun",2,0,0,0,0);
-                Effect plasmaGunAdd = new AdditionalMove("Plasma Gun",0,0,0,0,0, plasmaGun);
+                Effect plasmaGunAdd = new AdditionalMove("Plasma Gun",0,0,0, plasmaGun);
                 Effect plasmaGunAdd2 = new AdditionalTarget("Plasma Gun Double",1,0,0,1,0, plasmaGunAdd);
                 effects.add(plasmaGun);
                 effects.add(plasmaGunAdd);
@@ -162,7 +162,7 @@ public class WeaponCard extends Card{
                 break;
             case("ROCKET LAUNCHER"):
                 Effect rocketLauncher = new MovementEffect("Rocket Launcher",2,0,0,0,0);
-                Effect rocketLauncherAdd = new AdditionalMove("Rocket Launcher",0,0,0,1,0, rocketLauncher);
+                Effect rocketLauncherAdd = new AdditionalMove("Rocket Launcher",0,0,0, rocketLauncher);
                 Effect rocketLauncherAdd2 = new AdditionalSquareDamage("Rocket Launcher",1,0,0,1, rocketLauncherAdd);
                 effects.add(rocketLauncher);
                 effects.add(rocketLauncherAdd);
@@ -182,7 +182,7 @@ public class WeaponCard extends Card{
                 break;
             case("CYBERBLADE"):
                 Effect cyberblade = new DamageMarkEffect("Cyberblade",2,0,0,0,0);
-                Effect cyberbladeAdd = new AdditionalMove("Cyberblade",0,0,0,0,0, cyberblade);
+                Effect cyberbladeAdd = new AdditionalMove("Cyberblade",0,0,0, cyberblade);
                 Effect cyberbladeAdd2 = new AdditionalTarget("Cyberblade",2,0,0,0,1,cyberbladeAdd);
                 effects.add(cyberblade);
                 effects.add(cyberbladeAdd);

@@ -11,20 +11,44 @@ import it.polimi.ingsw.util.Printer;
  */
 public class DirectionalDamage extends BasicEffect {
 
+    /**
+     * Name of the effect.
+     */
     private String effectName;
 
+    /**
+     * Players involved in the effect.
+     */
     private Player currentPlayer, victim, secondVictim, player;
 
+    /**
+     * Direction of the movement/directional shot.
+     */
     private Direction direction;
 
+    /**
+     * Position after the first move in the direction.
+     */
     private Position firstSquare;
 
+    /**
+     * Identifies how many square have to be damaged in some effects.
+     */
     private int squares;
 
+    /**
+     * Number of damages to give to the victims.
+     */
     private int damagePower;
 
+    /**
+     * Cost of the effect.
+     */
     private int redAmmos, blueAmmos, yellowAmmos;
 
+    /**
+     * Indicates if the player can use the effect.
+     */
     private boolean canUse;
 
     /**
@@ -85,7 +109,7 @@ public class DirectionalDamage extends BasicEffect {
     }
 
     /**
-     * Apply the effect.
+     * Applies the effect.
      * @param actionInterface give access to some restricted methods of the game/clientData to the card controls.
      */
     @Override

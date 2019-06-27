@@ -8,6 +8,9 @@ import it.polimi.ingsw.model.cards.effects.Effect;
  */
 public abstract class DecoratedEffect extends Effect {
 
+    /**
+     * Basic effect inside the Decorated effect.
+     */
     protected Effect effect;
 
     /**

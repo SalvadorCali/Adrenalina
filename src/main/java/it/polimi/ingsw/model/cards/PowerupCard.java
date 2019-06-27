@@ -8,8 +8,9 @@ import it.polimi.ingsw.model.cards.effects.Effect;
  * Class representing the Powerup Cards in the game.
  */
 public class PowerupCard extends Card{
-
-    private int powerupId;
+    /**
+     * Effect of the powerup.
+     */
     private Effect effect;
 
     /**

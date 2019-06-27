@@ -1,5 +1,8 @@
 package it.polimi.ingsw.model.enums;
 
+/**
+ * Enum representing the type of the board.
+ */
 public enum BoardType {
     BASIC,
     GENERIC,

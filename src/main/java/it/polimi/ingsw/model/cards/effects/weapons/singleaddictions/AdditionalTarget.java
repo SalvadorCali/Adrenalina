@@ -10,16 +10,34 @@ import it.polimi.ingsw.util.Printer;
  */
 public class AdditionalTarget extends SingleAddictionEffect {
 
+    /**
+     * Name of the effect.
+     */
     private String effectName;
 
+    /**
+     * Number of damages given by the effect.
+     */
     private int damagePower;
 
+    /**
+     * Number of marks given by the effect.
+     */
     private int markPower;
 
+    /**
+     * Players involved in the effect.
+     */
     private Player currentPlayer, victim, additionalVictim, thirdVictim;
 
+    /**
+     * Cost of the effect.
+     */
     private int redAmmos, blueAmmos, yellowAmmos;
 
+    /**
+     * Indicates if the player can use the effect and if he wants to use the basic effect first.
+     */
     private boolean canUse, basicFirst;
 
     /**
