@@ -1,5 +1,6 @@
 package it.polimi.ingsw.util;
 
+import com.sun.org.apache.regexp.internal.RE;
 import it.polimi.ingsw.model.cards.AmmoCard;
 import it.polimi.ingsw.model.cards.Card;
 import it.polimi.ingsw.model.cards.PowerupCard;
@@ -27,6 +28,32 @@ import static it.polimi.ingsw.util.Converter.*;
  * This class contains method to initialize the game from json files.
  */
 public class Parser {
+    private static final String CARD_FILE = "cardconfig.json";
+    private static final String CARD_CONFIG = "cardconfig";
+    private static final String ELEMENTS = "elements";
+    private static final String ELEMENT = "element";
+    private static final String NAME = "name";
+    private static final String COLOUR = "colour";
+    private static final String COLOR = "color";
+    private static final String EFFECT = "effect";
+    private static final String GRAB_AMMOS = "grabAmmos";
+    private static final String RELOAD_AMMOS = "reloadAmmos";
+    private static final String BLUE = "blue";
+    private static final String RED = "red";
+    private static final String YELLOW = "yellow";
+    private static final String VALUE = "value";
+    private static final String INFO_CARD_EFFECT = "info_card_effect";
+    private static final String BOARD_FILE = "gameboard.json";
+    private static final String GAMEBOARD = "gameboard";
+    private static final String TYPE = "type";
+    private static final String SQUARES = "squares";
+    private static final String NORTH = "north";
+    private static final String SOUTH = "south";
+    private static final String EAST = "east";
+    private static final String WEST = "west";
+    private static final String AMMO = "ammo";
+    private static final String SPAWN = "spawn";
+
     /**
      * Class constructor.
      */
@@ -43,7 +70,7 @@ public class Parser {
         String cardEffect;
         int grabBlueAmmos, grabRedAmmos, grabYellowAmmos, reloadBlueAmmos, reloadRedAmmos, reloadYellowAmmos;
         for(int i=0; i < 21; i++){
-            InputStream input = Parser.class.getClassLoader().getResourceAsStream("cardconfig.json");
+            InputStream input = Parser.class.getClassLoader().getResourceAsStream(CARD_FILE);
             Object reader = null;
             try {
                 reader = new JSONParser().parse(new InputStreamReader(input));
@@ -53,27 +80,27 @@ public class Parser {
                 Printer.err(e);
             }
             JSONObject firstObject = (JSONObject) reader;
-            firstObject = (JSONObject)firstObject.get("cardconfig");
-            JSONArray firstArray = (JSONArray) firstObject.get("elements");
+            firstObject = (JSONObject)firstObject.get(CARD_CONFIG);
+            JSONArray firstArray = (JSONArray) firstObject.get(ELEMENTS);
             JSONObject secondObject = (JSONObject) firstArray.get(0);
-            JSONArray secondArray = (JSONArray) secondObject.get("element");
+            JSONArray secondArray = (JSONArray) secondObject.get(ELEMENT);
             JSONObject thirdObject = (JSONObject) secondArray.get(i);
 
-            cardName = (String) thirdObject.get("name");
-            cardColor = fromStringToColor((String) thirdObject.get("colour"));
-            cardEffect = (String) thirdObject.get("effect");
-            JSONArray grabAmmos = (JSONArray) thirdObject.get("grabAmmos");
+            cardName = (String) thirdObject.get(NAME);
+            cardColor = fromStringToColor((String) thirdObject.get(COLOUR));
+            cardEffect = (String) thirdObject.get(EFFECT);
+            JSONArray grabAmmos = (JSONArray) thirdObject.get(GRAB_AMMOS);
             JSONObject grabAmmosObject = (JSONObject) grabAmmos.get(0);
             //JSONObject grabAmmos = (JSONObject) thirdObject.get("grabAmmos");
-            grabBlueAmmos = (int)(long) grabAmmosObject.get("blue");
-            grabRedAmmos = (int)(long) grabAmmosObject.get("red");
-            grabYellowAmmos = (int)(long) grabAmmosObject.get("yellow");
-            JSONArray reloadAmmos = (JSONArray) thirdObject.get("reloadAmmos");
+            grabBlueAmmos = (int)(long) grabAmmosObject.get(BLUE);
+            grabRedAmmos = (int)(long) grabAmmosObject.get(RED);
+            grabYellowAmmos = (int)(long) grabAmmosObject.get(YELLOW);
+            JSONArray reloadAmmos = (JSONArray) thirdObject.get(RELOAD_AMMOS);
             JSONObject reloadAmmosObject = (JSONObject) reloadAmmos.get(0);
             //JSONObject reloadAmmos = (JSONObject) thirdObject.get("reloadAmmos");
-            reloadBlueAmmos = (int)(long) reloadAmmosObject.get("blue");
-            reloadRedAmmos = (int)(long) reloadAmmosObject.get("red");
-            reloadYellowAmmos = (int)(long) reloadAmmosObject.get("yellow");
+            reloadBlueAmmos = (int)(long) reloadAmmosObject.get(BLUE);
+            reloadRedAmmos = (int)(long) reloadAmmosObject.get(RED);
+            reloadYellowAmmos = (int)(long) reloadAmmosObject.get(YELLOW);
             Card card = new WeaponCard(cardName, cardColor, cardEffect, grabRedAmmos, grabBlueAmmos, grabYellowAmmos, reloadRedAmmos, reloadBlueAmmos, reloadYellowAmmos);
             weapons.addCard(card);
         }
@@ -90,7 +117,7 @@ public class Parser {
         String combination;
         AmmoCard ammoCard;
         for(int i=0; i < 12; i++) {
-            InputStream input = Parser.class.getClassLoader().getResourceAsStream("cardconfig.json");
+            InputStream input = Parser.class.getClassLoader().getResourceAsStream(CARD_FILE);
             Object reader = null;
             try {
                 reader = new JSONParser().parse(new InputStreamReader(input));
@@ -100,14 +127,14 @@ public class Parser {
                 Printer.err(e);
             }
             JSONObject firstObject = (JSONObject) reader;
-            firstObject = (JSONObject) firstObject.get("cardconfig");
-            JSONArray firstArray = (JSONArray) firstObject.get("elements");
+            firstObject = (JSONObject) firstObject.get(CARD_CONFIG);
+            JSONArray firstArray = (JSONArray) firstObject.get(ELEMENTS);
             JSONObject secondObject = (JSONObject) firstArray.get(1);
-            JSONArray secondArray = (JSONArray) secondObject.get("element");
+            JSONArray secondArray = (JSONArray) secondObject.get(ELEMENT);
             JSONObject thirdObject = (JSONObject) secondArray.get(i);
 
             for(int j=0; j<3; j++){
-                combination = (String) thirdObject.get("value");
+                combination = (String) thirdObject.get(VALUE);
                 ammoCard = generateAmmoCard(combination);
                 ammos.add(ammoCard);
             }
@@ -125,7 +152,7 @@ public class Parser {
         String cardName;
         String cardEffect;
         for(int i=0; i < 4; i++){
-            InputStream input = Parser.class.getClassLoader().getResourceAsStream("cardconfig.json");
+            InputStream input = Parser.class.getClassLoader().getResourceAsStream(CARD_FILE);
             Object reader = null;
             try {
                 reader = new JSONParser().parse(new InputStreamReader(input));
@@ -133,14 +160,14 @@ public class Parser {
                 Printer.err(e);
             }
             JSONObject firstObject = (JSONObject) reader;
-            firstObject = (JSONObject)firstObject.get("cardconfig");
-            JSONArray firstArray = (JSONArray) firstObject.get("elements");
+            firstObject = (JSONObject)firstObject.get(CARD_CONFIG);
+            JSONArray firstArray = (JSONArray) firstObject.get(ELEMENTS);
             JSONObject secondObject = (JSONObject) firstArray.get(2);
-            JSONArray secondArray = (JSONArray) secondObject.get("element");
+            JSONArray secondArray = (JSONArray) secondObject.get(ELEMENT);
             JSONObject thirdObject = (JSONObject) secondArray.get(i);
 
-            cardName = (String) thirdObject.get("name");
-            cardEffect = (String) thirdObject.get("info_card_effect");
+            cardName = (String) thirdObject.get(NAME);
+            cardEffect = (String) thirdObject.get(INFO_CARD_EFFECT);
             Card card = new PowerupCard(cardName, Color.BLUE, cardEffect);
             powerups.addCard(card);
             card = new PowerupCard(cardName, Color.YELLOW, cardEffect);
@@ -162,7 +189,7 @@ public class Parser {
         TokenColor color;
         Cardinal north, south, east, west;
 
-        InputStream input = Parser.class.getClassLoader().getResourceAsStream("gameboard.json");
+        InputStream input = Parser.class.getClassLoader().getResourceAsStream(BOARD_FILE);
         Object reader = null;
         try {
             reader = new JSONParser().parse(new InputStreamReader(input));
@@ -170,30 +197,30 @@ public class Parser {
             Printer.err(e);
         }
         JSONObject firstObject = (JSONObject) reader;
-        firstObject = (JSONObject)firstObject.get("gameboard");
-        JSONArray firstArray = (JSONArray) firstObject.get("elements");
+        firstObject = (JSONObject)firstObject.get(GAMEBOARD);
+        JSONArray firstArray = (JSONArray) firstObject.get(ELEMENTS);
 
 
         for(int i=0; i < 4; i++){
             Square[][] arena = new Square[3][4];
             JSONObject secondObject = (JSONObject) firstArray.get(i);
-            boardType = fromStringToBoardType((String) secondObject.get("type"));
-            JSONArray secondArray = (JSONArray) secondObject.get("squares");
+            boardType = fromStringToBoardType((String) secondObject.get(TYPE));
+            JSONArray secondArray = (JSONArray) secondObject.get(SQUARES);
 
             int l = 0;
             for(int j=0; j < 3; j++){
                 for(int k=0; k < 4; k++){
                     JSONObject thirdObject = (JSONObject) secondArray.get(l);
-                    color = fromStringToTokenColor((String) thirdObject.get("color"));
-                    north = fromStringToCardinal((String) thirdObject.get("north"));
-                    south = fromStringToCardinal((String) thirdObject.get("south"));
-                    east = fromStringToCardinal((String) thirdObject.get("east"));
-                    west = fromStringToCardinal((String) thirdObject.get("west"));
-                    switch((String) thirdObject.get("type")){
-                        case "ammo":
+                    color = fromStringToTokenColor((String) thirdObject.get(COLOR));
+                    north = fromStringToCardinal((String) thirdObject.get(NORTH));
+                    south = fromStringToCardinal((String) thirdObject.get(SOUTH));
+                    east = fromStringToCardinal((String) thirdObject.get(EAST));
+                    west = fromStringToCardinal((String) thirdObject.get(WEST));
+                    switch((String) thirdObject.get(TYPE)){
+                        case AMMO:
                             arena[j][k] = new AmmoPoint(color, north, south, west, east);
                             break;
-                        case "spawn":
+                        case SPAWN:
                             arena[j][k] = new SpawnPoint(color, north, south, west, east);
                             break;
                         default:
