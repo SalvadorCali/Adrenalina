@@ -31,6 +31,13 @@ public class DamageBoardCLI {
     public static final Integer RESERVE_LENGTH = 9;
     public static final String AMMO = "A";
     public static final Integer POINTS_LENGTH = 6;
+    public static final String DEATH = "X";
+    private static final String EIGHT = "8";
+    private static final String SIX = "6";
+    private static final String FOUR = "4";
+    private static final String TWO = "2";
+    private static final String ONE = "1";
+
 
     /**
      * An array of damages.
@@ -258,25 +265,24 @@ public class DamageBoardCLI {
             }
         }
 
-        points[0] = "8";
-        points[1] = "6";
-        points[2] = "4";
-        points[3] = "2";
-        points[4] = "1";
-        points[5] = "1";
+        points[0] = EIGHT;
+        points[1] = SIX;
+        points[2] = FOUR;
+        points[3] = TWO;
+        points[4] = ONE;
+        points[5] = ONE;
 
         for(int i=0; i<deathNumber; i++){
-            points[i] = "X";
+            points[i] = DEATH;
         }
 
         if(finalFrenzy){
-            Printer.println("Frenesia");
-            points[0] = " ";
-            points[1] = "2";
-            points[2] = "1";
-            points[3] = "1";
-            points[4] = "1";
-            points[5] = " ";
+            points[0] = SPACE;
+            points[1] = TWO;
+            points[2] = ONE;
+            points[3] = ONE;
+            points[4] = ONE;
+            points[5] = SPACE;
         }
 
         //give name current player
@@ -482,24 +488,24 @@ public class DamageBoardCLI {
                 }
             }
 
-            points[0] = "8";
-            points[1] = "6";
-            points[2] = "4";
-            points[3] = "2";
-            points[4] = "1";
-            points[5] = "1";
+            points[0] = EIGHT;
+            points[1] = SIX;
+            points[2] = FOUR;
+            points[3] = TWO;
+            points[4] = ONE;
+            points[5] = ONE;
 
             for(int i=0; i<victimDeathNumber; i++){
-                points[i] = "X";
+                points[i] = DEATH;
             }
 
             if(finalFrenzy){
-                points[0] = " ";
-                points[1] = "2";
-                points[2] = "1";
-                points[3] = "1";
-                points[4] = "1";
-                points[5] = " ";
+                points[0] = SPACE;
+                points[1] = TWO;
+                points[2] = ONE;
+                points[3] = ONE;
+                points[4] = ONE;
+                points[5] = SPACE;
             }
 
             //give name current player

@@ -24,6 +24,9 @@ public class KillshotTrackCLI {
     public static final String CYAN = "\033[0;36m";    // CYAN
     public static final String GREY = "\033[0;37m";   // WHITE
     private final static String MARK = "M";
+    private static final String SKULL = "S";
+    private static final String NOT_SKULL = "-";
+    private static final String KILLSHOT = "X";
 
     /**
      * The killshot track that will be printed.
@@ -60,13 +63,13 @@ public class KillshotTrackCLI {
 
         //initialize damage and colorDamage
         for(int i = 0; i < MAX_SKULLS; i++){
-            damage[i] = "-";
+            damage[i] = NOT_SKULL;
             colorDamage[i] = BLACK;
         }
 
         //
         for(int i = 0; i < MAX_SKULLS; i++){
-            overkill[i] = " ";
+            overkill[i] = SPACE;
             colorOverkill[i] = BLACK;
         }
 
@@ -76,7 +79,7 @@ public class KillshotTrackCLI {
 
                 if (killshotTrack.get(i).getFirstColor() != TokenColor.NONE) {
 
-                    damage[i] = "S";
+                    damage[i] = SKULL;
 
                     if (killshotTrack.get(i).getFirstColor().equals(TokenColor.BLUE))
                         colorDamage[i] = BLUE;
@@ -104,12 +107,12 @@ public class KillshotTrackCLI {
 
                     if(colorDamage[i] != BLACK){
                         //damage[i] = Converter.fromTokenColorToCLIColor(killshotTrack.get(i).getFirstColor());
-                        damage[i] = "X";
+                        damage[i] = KILLSHOT;
                     }
                 }
                 if (killshotTrack.get(i).getSecondColor() != TokenColor.NONE) {
 
-                    overkill[i] = "X";
+                    overkill[i] = KILLSHOT;
 
                     if (killshotTrack.get(i).getSecondColor().equals(TokenColor.BLUE))
                         colorOverkill[i] = BLUE;
@@ -137,7 +140,7 @@ public class KillshotTrackCLI {
 
                     if(colorDamage[i] != BLACK){
                         //damage[i] = Converter.fromTokenColorToCLIColor(killshotTrack.get(i).getFirstColor());
-                        overkill[i] = "X";
+                        overkill[i] = KILLSHOT;
                     }
                 }
             }
