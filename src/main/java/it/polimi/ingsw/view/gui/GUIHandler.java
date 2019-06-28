@@ -1770,7 +1770,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
             }
 
             Stage stage = new Stage();
-            stage.setScene(new Scene(root, 222, 256));
+            stage.setScene(new Scene(root, 256, 222));
             stage.setTitle("Grab Popup");
             stage.show();
         });
