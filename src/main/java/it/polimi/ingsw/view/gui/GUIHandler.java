@@ -700,7 +700,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         guiHandler = Data.getInstance().getGuiHandler();
 
         Platform.runLater(() ->{
-            if(outcome.equals(Outcome.RIGHT)){
+            if(outcome.equals(Outcome.RIGHT) || outcome.equals(Outcome.ALL)){
                 guiHandler.setLabelStatement( playerController.getPowerup() + " used!");
             }else if(outcome.equals(Outcome.WRONG)){
                 guiHandler.setLabelStatement( playerController.getPowerup() + " not used!");
