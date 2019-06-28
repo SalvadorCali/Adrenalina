@@ -12,10 +12,10 @@
             <Font size="20.0" />
          </font>
       </Label>
-      <HBox fx:id="redHBox" layoutX="97.0" layoutY="56.0" prefHeight="46.0" prefWidth="200.0" />
+      <HBox fx:id="redHBox" layoutX="104.0" layoutY="56.0" prefHeight="46.0" prefWidth="200.0" />
       <HBox fx:id="blueHBox" layoutX="104.0" layoutY="123.0" prefHeight="46.0" prefWidth="200.0" />
       <HBox fx:id="yellowHBox" layoutX="104.0" layoutY="193.0" prefHeight="46.0" prefWidth="200.0" />
-      <Label layoutX="20.0" layoutY="66.0" text="Red" textFill="WHITE">
+      <Label layoutX="21.0" layoutY="66.0" text="Red" textFill="WHITE">
          <font>
             <Font size="20.0" />
          </font>

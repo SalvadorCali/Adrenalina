@@ -1643,7 +1643,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
         if(!arena[0][0].getPlayers().isEmpty()){
             for(int index = 0, row = 0; index <  arena[0][0].getPlayers().size(); index++){
-                Image image = new Image("colorPlayer/" + Converter.fromTokenColorToString(arena[0][0].getPlayers().get(index).getColor()) + ".jpg");
+                Image image = new Image("colorPlayer/" + Converter.fromTokenColorToString(arena[0][0].getPlayers().get(index).getColor()) + ".png");
                 addPlayer(grid00, image, index, row);
 
             }
@@ -1651,7 +1651,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
         if(!arena[0][1].getPlayers().isEmpty()){
             for(int index = 0, row = 0; index <  arena[0][1].getPlayers().size(); index++){
-                Image image = new Image("colorPlayer/" + Converter.fromTokenColorToString(arena[0][1].getPlayers().get(index).getColor()) + ".jpg");
+                Image image = new Image("colorPlayer/" + Converter.fromTokenColorToString(arena[0][1].getPlayers().get(index).getColor()) + ".png");
                 addPlayer(grid01, image, index, row);
 
             }
@@ -1659,7 +1659,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
         if(!arena[0][2].getPlayers().isEmpty()){
             for(int index = 0, row = 0; index <  arena[0][2].getPlayers().size(); index++){
-                Image image = new Image("colorPlayer/" + Converter.fromTokenColorToString(arena[0][2].getPlayers().get(index).getColor()) + ".jpg");
+                Image image = new Image("colorPlayer/" + Converter.fromTokenColorToString(arena[0][2].getPlayers().get(index).getColor()) + ".png");
                 addPlayer(grid02, image, index, row);
 
             }
@@ -1667,7 +1667,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
         if(!arena[0][3].getPlayers().isEmpty()){
             for(int index = 0, row = 0; index <  arena[0][3].getPlayers().size(); index++){
-                Image image = new Image("colorPlayer/" + Converter.fromTokenColorToString(arena[0][3].getPlayers().get(index).getColor()) + ".jpg");
+                Image image = new Image("colorPlayer/" + Converter.fromTokenColorToString(arena[0][3].getPlayers().get(index).getColor()) + ".png");
                 addPlayer(grid03, image, index, row);
 
             }
@@ -1675,7 +1675,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
         if(!arena[1][0].getPlayers().isEmpty()){
             for(int index = 0, row = 0; index <  arena[1][0].getPlayers().size(); index++){
-                Image image = new Image("colorPlayer/" + Converter.fromTokenColorToString(arena[1][0].getPlayers().get(index).getColor()) + ".jpg");
+                Image image = new Image("colorPlayer/" + Converter.fromTokenColorToString(arena[1][0].getPlayers().get(index).getColor()) + ".png");
                 addPlayer(grid10, image, index, row);
 
             }
@@ -1683,7 +1683,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
         if(!arena[1][1].getPlayers().isEmpty()){
             for(int index = 0, row = 0; index <  arena[1][1].getPlayers().size(); index++){
-                Image image = new Image("colorPlayer/" + Converter.fromTokenColorToString(arena[1][1].getPlayers().get(index).getColor()) + ".jpg");
+                Image image = new Image("colorPlayer/" + Converter.fromTokenColorToString(arena[1][1].getPlayers().get(index).getColor()) + ".png");
                 addPlayer(grid11, image, index, row);
 
             }
@@ -1691,7 +1691,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
         if(!arena[1][2].getPlayers().isEmpty()){
             for(int index = 0, row = 0; index <  arena[1][2].getPlayers().size(); index++){
-                Image image = new Image("colorPlayer/" + Converter.fromTokenColorToString(arena[1][2].getPlayers().get(index).getColor()) + ".jpg");
+                Image image = new Image("colorPlayer/" + Converter.fromTokenColorToString(arena[1][2].getPlayers().get(index).getColor()) + ".png");
                 addPlayer(grid12, image, index, row);
 
             }
@@ -1699,7 +1699,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
         if(!arena[1][3].getPlayers().isEmpty()){
             for(int index = 0, row = 0; index <  arena[1][3].getPlayers().size(); index++){
-                Image image = new Image("colorPlayer/" + Converter.fromTokenColorToString(arena[1][3].getPlayers().get(index).getColor()) + ".jpg");
+                Image image = new Image("colorPlayer/" + Converter.fromTokenColorToString(arena[1][3].getPlayers().get(index).getColor()) + ".png");
                 addPlayer(grid13, image, index, row);
 
             }
@@ -1707,7 +1707,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
         if(!arena[2][0].getPlayers().isEmpty()){
             for(int index = 0, row = 0; index <  arena[2][0].getPlayers().size(); index++){
-                Image image = new Image("colorPlayer/" + Converter.fromTokenColorToString(arena[2][0].getPlayers().get(index).getColor()) + ".jpg");
+                Image image = new Image("colorPlayer/" + Converter.fromTokenColorToString(arena[2][0].getPlayers().get(index).getColor()) + ".png");
                 addPlayer(grid20, image, index, row);
 
             }
@@ -1715,7 +1715,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
         if(!arena[2][1].getPlayers().isEmpty()){
             for(int index = 0, row = 0; index <  arena[2][1].getPlayers().size(); index++){
-                Image image = new Image("colorPlayer/" + Converter.fromTokenColorToString(arena[2][1].getPlayers().get(index).getColor()) + ".jpg");
+                Image image = new Image("colorPlayer/" + Converter.fromTokenColorToString(arena[2][1].getPlayers().get(index).getColor()) + ".png");
                 addPlayer(grid21, image, index, row);
 
             }
@@ -1723,7 +1723,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
         if(!arena[2][2].getPlayers().isEmpty()){
             for(int index = 0, row = 0; index <  arena[2][2].getPlayers().size(); index++){
-                Image image = new Image("colorPlayer/" + Converter.fromTokenColorToString(arena[2][2].getPlayers().get(index).getColor()) + ".jpg");
+                Image image = new Image("colorPlayer/" + Converter.fromTokenColorToString(arena[2][2].getPlayers().get(index).getColor()) + ".png");
                 addPlayer(grid22, image, index, row);
 
             }
@@ -1731,7 +1731,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
         if(!arena[2][3].getPlayers().isEmpty()){
             for(int index = 0, row = 0; index <  arena[2][3].getPlayers().size(); index++){
-                Image image = new Image("colorPlayer/" + Converter.fromTokenColorToString(arena[2][3].getPlayers().get(index).getColor()) + ".jpg");
+                Image image = new Image("colorPlayer/" + Converter.fromTokenColorToString(arena[2][3].getPlayers().get(index).getColor()) + ".png");
                 addPlayer(grid23, image, index, row);
 
             }
@@ -1749,8 +1749,12 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         col = index;
         roww = row;
 
+        ImageView imv = new ImageView(image);
+        imv.setFitHeight(30);
+        imv.setFitWidth(30);
+
         Platform.runLater(() ->{
-            grid.add(new ImageView(image), col, roww);
+            grid.add(imv, col, roww);
         });
     }
 
