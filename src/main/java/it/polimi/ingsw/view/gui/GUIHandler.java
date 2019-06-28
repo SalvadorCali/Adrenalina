@@ -1130,7 +1130,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         arena = playerController.getGameBoard().getArena();
         for(int i=0; i < ROWS ; i++){
             for(int j=0; j<COLUMNS; j++){
-                if(arena[i][j].isActive() && !arena[i][j].isSpawn()){
+                if(arena[i][j].isActive() && !arena[i][j].isSpawn() && arena[i][j].getAmmoCard() != null){
                     AmmoCard ammoCard = arena[i][j].getAmmoCard();
                     String url = "ammo/" + Converter.fromAmmoCardToString(ammoCard) + ".png";
                     ImageView imageView = new ImageView(url);
