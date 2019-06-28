@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="712.0" prefWidth="1189.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.gui.GUIHandler">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="712.0" prefWidth="1189.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.gui.GUIHandler">
    <children>
       <ImageView fx:id="mapImage" fitHeight="710.0" fitWidth="952.0" preserveRatio="true">
          <image>
@@ -123,7 +123,7 @@
             <Font size="20.0" />
          </font>
       </Label>
-      <Label layoutX="982.0" layoutY="427.0" text="Turn:" textFill="WHITE">
+      <Label layoutX="987.0" layoutY="431.0" text="Turn:" textFill="WHITE">
          <font>
             <Font name="Alien League Regular" size="30.0" />
          </font>
@@ -292,14 +292,14 @@
             <Font size="20.0" />
          </font>
       </Label>
-      <ImageView fx:id="bannerDisconnect" fitHeight="64.0" fitWidth="200.0" layoutX="972.0" layoutY="610.0" onMouseClicked="#disconnect">
+      <ImageView fx:id="bannerDisconnect" fitHeight="45.0" fitWidth="200.0" layoutX="970.0" layoutY="652.0" onMouseClicked="#disconnect">
          <image>
             <Image url="@boardElem/banner.png" />
          </image>
       </ImageView>
-      <Label fx:id="labelDisconnect" layoutX="999.0" layoutY="627.0" mouseTransparent="true" onMouseClicked="#disconnect" text="Disconnect" textFill="WHITE">
+      <Label fx:id="labelDisconnect" layoutX="1024.0" layoutY="662.0" mouseTransparent="true" onMouseClicked="#disconnect" prefHeight="26.0" prefWidth="92.0" text="Disconnect" textFill="WHITE">
          <font>
-            <Font name="Alien League Regular" size="30.0" />
+            <Font name="Alien League Regular" size="20.0" />
          </font>
       </Label>
       <Button fx:id="enterMove" layoutX="1031.0" layoutY="519.0" mnemonicParsing="false" onMouseClicked="#confirmMovement" prefHeight="27.0" prefWidth="69.0" text="Confirm" />
@@ -341,6 +341,11 @@
       <Label fx:id="labelAmmo" layoutX="1006.0" layoutY="253.0" onMouseClicked="#launchAmmo" text="Show Ammo" textFill="WHITE">
          <font>
             <Font size="20.0" />
+         </font>
+      </Label>
+      <Label fx:id="labelShowMove" layoutX="954.0" layoutY="610.0" mouseTransparent="true" onMouseClicked="#disconnect" prefHeight="26.0" prefWidth="229.0" textFill="WHITE">
+         <font>
+            <Font name="Alien League Regular" size="15.0" />
          </font>
       </Label>
    </children>

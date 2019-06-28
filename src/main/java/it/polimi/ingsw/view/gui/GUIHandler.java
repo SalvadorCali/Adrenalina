@@ -176,7 +176,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     @FXML private ImageView thirdWeapon;
     @FXML private Label labelGrab;
     @FXML private Label labelShoot;
-
+    @FXML private Label labelShowMove;
 
     @FXML
     RadioButton socketButton;
@@ -1509,21 +1509,43 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     @FXML
     private void moveUp(MouseEvent event) throws IOException {
         saveMovement("up");
+        setLabelMovement();
     }
 
     @FXML
     private void moveDown(MouseEvent event) throws IOException {
         saveMovement("down");
+        setLabelMovement();
     }
 
     @FXML
     private void moveLeft(MouseEvent event) throws IOException {
         saveMovement("left");
+        setLabelMovement();
     }
 
     @FXML
     private void moveRight(MouseEvent event) throws IOException {
         saveMovement("right");
+        setLabelMovement();
+    }
+
+    private void setLabelMovement() {
+        for(int i = 0; i < movement.length; i++) {
+            if(this.movement[2] != null){
+                Platform.runLater(() ->{
+                    labelShowMove.setText("  " + this.movement[0] + "  " + this.movement[1] + "  " + this.movement[2]);
+                });
+            } else if(this.movement[1] != null){
+                Platform.runLater(() ->{
+                    labelShowMove.setText("  " + this.movement[0] + "  " + this.movement[1]);
+                });
+            } else {
+                Platform.runLater(() ->{
+                    labelShowMove.setText("  " + this.movement[0]);
+                });
+            }
+        }
     }
 
     public void saveMovement(String move){
