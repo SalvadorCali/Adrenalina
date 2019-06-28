@@ -72,13 +72,13 @@ public class Parser {
             InputStream input = Parser.class.getClassLoader().getResourceAsStream(CARD_FILE);
             Object reader = null;
             try {
+                assert input != null;
                 reader = new JSONParser().parse(new InputStreamReader(input));
-            } catch (ParseException e) {
-                Printer.err(e);
-            } catch (IOException e) {
+            } catch (ParseException | IOException e) {
                 Printer.err(e);
             }
             JSONObject firstObject = (JSONObject) reader;
+            assert firstObject != null;
             firstObject = (JSONObject)firstObject.get(CARD_CONFIG);
             JSONArray firstArray = (JSONArray) firstObject.get(ELEMENTS);
             JSONObject secondObject = (JSONObject) firstArray.get(0);
@@ -119,13 +119,13 @@ public class Parser {
             InputStream input = Parser.class.getClassLoader().getResourceAsStream(CARD_FILE);
             Object reader = null;
             try {
+                assert input != null;
                 reader = new JSONParser().parse(new InputStreamReader(input));
-            } catch (ParseException e) {
-                Printer.err(e);
-            } catch (IOException e) {
+            } catch (ParseException | IOException e) {
                 Printer.err(e);
             }
             JSONObject firstObject = (JSONObject) reader;
+            assert firstObject != null;
             firstObject = (JSONObject) firstObject.get(CARD_CONFIG);
             JSONArray firstArray = (JSONArray) firstObject.get(ELEMENTS);
             JSONObject secondObject = (JSONObject) firstArray.get(1);
@@ -154,11 +154,13 @@ public class Parser {
             InputStream input = Parser.class.getClassLoader().getResourceAsStream(CARD_FILE);
             Object reader = null;
             try {
+                assert input != null;
                 reader = new JSONParser().parse(new InputStreamReader(input));
             } catch (ParseException | IOException e) {
                 Printer.err(e);
             }
             JSONObject firstObject = (JSONObject) reader;
+            assert firstObject != null;
             firstObject = (JSONObject)firstObject.get(CARD_CONFIG);
             JSONArray firstArray = (JSONArray) firstObject.get(ELEMENTS);
             JSONObject secondObject = (JSONObject) firstArray.get(2);
@@ -191,11 +193,13 @@ public class Parser {
         InputStream input = Parser.class.getClassLoader().getResourceAsStream(BOARD_FILE);
         Object reader = null;
         try {
+            assert input != null;
             reader = new JSONParser().parse(new InputStreamReader(input));
         } catch (ParseException | IOException e) {
             Printer.err(e);
         }
         JSONObject firstObject = (JSONObject) reader;
+        assert firstObject != null;
         firstObject = (JSONObject)firstObject.get(GAMEBOARD);
         JSONArray firstArray = (JSONArray) firstObject.get(ELEMENTS);
 

@@ -57,7 +57,7 @@ public class ConnectionTimer extends Thread implements Serializable {
             try {
                 sleep(Config.DISCONNECTION_TIME);
             } catch (InterruptedException e) {
-                Printer.err(e);
+                Thread.currentThread().interrupt();
             }
         }
     }

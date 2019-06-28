@@ -40,7 +40,7 @@ public class BoardTypeTimer extends Thread {
                 serverController.chooseBoardType(1, 1);
             }
         } catch (InterruptedException e) {
-            Printer.err(e);
+            Thread.currentThread().interrupt();
         }
     }
 }

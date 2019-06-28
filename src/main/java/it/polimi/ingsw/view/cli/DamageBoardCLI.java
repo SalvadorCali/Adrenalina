@@ -170,7 +170,7 @@ public class DamageBoardCLI {
                 colorDamage[i] = CYAN;
             if(damageBoard[i].getFirstColor().equals(TokenColor.NONE))
                 colorDamage[i] = CYAN;
-            if(colorDamage[i] != CYAN){
+            if(!colorDamage[i].equals(CYAN)){
                 damage[i] = 1;
             }
         }
@@ -334,7 +334,7 @@ public class DamageBoardCLI {
                     colorDamage[i] = CYAN;
                 if(victimDamageBoard[i].getFirstColor().equals(TokenColor.NONE))
                     colorDamage[i] = CYAN;
-                if(colorDamage[i] != CYAN){
+                if(!colorDamage[i].equals(CYAN)){
                     damage[i] = 1;
                 }
             }

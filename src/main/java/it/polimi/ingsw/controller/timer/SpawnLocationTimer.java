@@ -39,7 +39,7 @@ public class SpawnLocationTimer extends Thread {
                 serverController.randomChoice();
             }
         } catch (InterruptedException e) {
-            Printer.err(e);
+            Thread.currentThread().interrupt();
         }
     }
 }

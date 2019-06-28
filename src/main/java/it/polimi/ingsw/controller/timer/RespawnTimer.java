@@ -46,7 +46,7 @@ public class RespawnTimer extends Thread{
                 serverController.respawn(player.getUsername(), 1);
             }
         } catch (InterruptedException e) {
-            Printer.err(e);
+            Thread.currentThread().interrupt();
         }
     }
 }
