@@ -1,6 +1,5 @@
 package it.polimi.ingsw.util;
 
-import com.sun.org.apache.regexp.internal.RE;
 import it.polimi.ingsw.model.cards.AmmoCard;
 import it.polimi.ingsw.model.cards.Card;
 import it.polimi.ingsw.model.cards.PowerupCard;
