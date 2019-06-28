@@ -78,10 +78,12 @@ public class AmmoPoint extends Square implements Serializable {
         if(ammoCard.isPowerup()){
             actionInterface.addAmmo(ammoCard.getFirstAmmo(), ammoCard.getSecondAmmo());
             actionInterface.addPowerup();
+            ammoCard = null;
             setEmpty(true);
         }
         else{
             actionInterface.addAmmo(ammoCard.getFirstAmmo(), ammoCard.getSecondAmmo(), ammoCard.getThirdAmmo());
+            ammoCard = null;
             setEmpty(true);
         }
     }
