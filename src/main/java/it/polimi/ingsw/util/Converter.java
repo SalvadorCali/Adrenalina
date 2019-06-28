@@ -360,6 +360,21 @@ public class Converter {
         }
     }
 
+    public static String powerupNameInvert(String powerup){
+        switch (powerup){
+            case "TARGETING SCOPE":
+                return "targetingscope";
+            case "NEWTON":
+                return "newton";
+            case "TAGBACK GRENADE":
+                return "tagbackgrenade";
+            case "TELEPORTER":
+                return "teleporter";
+            default:
+                return null;
+        }
+    }
+
     /**
      * Takes a weapon name and converts it to uppercase.
      * @param weapon a weapon name.

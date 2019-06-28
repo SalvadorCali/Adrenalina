@@ -2437,16 +2437,16 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
         try {
             if(firstVictim != null && secondVictim != null && thirdVictim != null) {
-                client.shoot(playerController.getWeapons().get(weaponNum).getName(), mode, basicFirst, Converter.fromStringToTokenColor(firstVictim), Converter.fromStringToTokenColor(secondVictim), Converter.fromStringToTokenColor(thirdVictim), x, y, direction);
+                client.shoot(Converter.weaponNameInvert(playerController.getWeapons().get(weaponNum).getName()), mode, basicFirst, Converter.fromStringToTokenColor(firstVictim), Converter.fromStringToTokenColor(secondVictim), Converter.fromStringToTokenColor(thirdVictim), x, y, direction);
 
             } else if(firstVictim != null && secondVictim != null && thirdVictim == null){
-                client.shoot(playerController.getWeapons().get(weaponNum).getName(), mode, basicFirst, Converter.fromStringToTokenColor(firstVictim), Converter.fromStringToTokenColor(secondVictim), TokenColor.NONE, x, y, direction);
+                client.shoot(Converter.weaponNameInvert(playerController.getWeapons().get(weaponNum).getName()), mode, basicFirst, Converter.fromStringToTokenColor(firstVictim), Converter.fromStringToTokenColor(secondVictim), TokenColor.NONE, x, y, direction);
 
             } else if(firstVictim != null && secondVictim == null && thirdVictim == null) {
-                client.shoot(playerController.getWeapons().get(weaponNum).getName(), mode, basicFirst, Converter.fromStringToTokenColor(firstVictim), TokenColor.NONE, TokenColor.NONE, x, y, direction);
+                client.shoot(Converter.weaponNameInvert(playerController.getWeapons().get(weaponNum).getName()), mode, basicFirst, Converter.fromStringToTokenColor(firstVictim), TokenColor.NONE, TokenColor.NONE, x, y, direction);
 
             } else if(firstVictim == null && secondVictim == null && thirdVictim == null){
-                client.shoot(playerController.getWeapons().get(weaponNum).getName(), mode, basicFirst, TokenColor.NONE, TokenColor.NONE, TokenColor.NONE, x, y, direction);
+                client.shoot(Converter.weaponNameInvert(playerController.getWeapons().get(weaponNum).getName()), mode, basicFirst, TokenColor.NONE, TokenColor.NONE, TokenColor.NONE, x, y, direction);
 
             }
 
@@ -2556,17 +2556,17 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
         switch (namePowerup){
             case "TARGETING SCOPE":
-                client.powerup(namePowerup, Converter.fromStringToTokenColor(victim), Converter.fromStringToColor(colorAmmo), -1, -1);
+                client.powerup(Converter.powerupNameInvert(namePowerup), Converter.fromStringToTokenColor(victim), Converter.fromStringToColor(colorAmmo), -1, -1);
             case "NEWTON":
                 if(secondDir == null) {
-                    client.powerup(namePowerup, Converter.fromStringToTokenColor(victim), Color.NONE, -1, -1, Converter.fromStringToDirection(firstDir));
+                    client.powerup(Converter.powerupNameInvert(namePowerup), Converter.fromStringToTokenColor(victim), Color.NONE, -1, -1, Converter.fromStringToDirection(firstDir));
                 } else{
-                    client.powerup(namePowerup, Converter.fromStringToTokenColor(victim), Color.NONE, -1, -1, Converter.fromStringToDirection(firstDir), Converter.fromStringToDirection(secondDir));
+                    client.powerup(Converter.powerupNameInvert(namePowerup), Converter.fromStringToTokenColor(victim), Color.NONE, -1, -1, Converter.fromStringToDirection(firstDir), Converter.fromStringToDirection(secondDir));
                 }
             case "TAGBACK GRENADE":
-                client.powerup(namePowerup, Converter.fromStringToTokenColor(victim), Color.NONE, -1, -1);
+                client.powerup(Converter.powerupNameInvert(namePowerup), Converter.fromStringToTokenColor(victim), Color.NONE, -1, -1);
             case "TELEPORTER":
-                client.powerup(namePowerup, TokenColor.NONE, Color.NONE, Integer.valueOf(x), Integer.valueOf(y));
+                client.powerup(Converter.powerupNameInvert(namePowerup), TokenColor.NONE, Color.NONE, Integer.valueOf(x), Integer.valueOf(y));
             default:
                 break;
         }
