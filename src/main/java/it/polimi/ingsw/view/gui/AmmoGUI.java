@@ -3,11 +3,15 @@ package it.polimi.ingsw.view.gui;
 import it.polimi.ingsw.controller.PlayerController;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
-public class AmmoGUI {
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class AmmoGUI implements Initializable {
 
     @FXML private HBox blueHBox;
     @FXML private HBox redHBox;
@@ -19,7 +23,7 @@ public class AmmoGUI {
     private static final Integer HEIGHT_R = 30;
     private static final Integer WIDTH_R = 30;
     private boolean connected = true;
-
+    private static final Double SPACING = 10.0;
 
     public void setAmmo() {
 
@@ -81,5 +85,16 @@ public class AmmoGUI {
             blueHBox.getChildren().clear();
             yellowHBox.getChildren().clear();
         });
+    }
+
+    public void setSpacing(HBox box){
+        box.setSpacing(SPACING);
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        setSpacing(blueHBox);
+        setSpacing(redHBox);
+        setSpacing(yellowHBox);
     }
 }
