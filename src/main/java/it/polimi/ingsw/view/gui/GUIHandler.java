@@ -1085,10 +1085,9 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
             Platform.runLater(() -> {
 
                 guiHandler.setLabelTurn();
+                guiHandler.removeImg();
                 guiHandler.placePlayers(playerController.getGameBoard().getArena());
                 guiHandler.addAmmo();
-                guiHandler.removeImg();
-                //guiHandler.removeAmmo();
                 guiHandler.removeWeapon();
             });
 
@@ -1386,43 +1385,18 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
     @FXML
     private void removeImg() {
-
-        for(int i = 0; i< grid00.getChildren().size(); i++){
-            grid00.getChildren().remove(i);
-        }
-        for(int i = 0; i< grid01.getChildren().size(); i++){
-            grid01.getChildren().remove(i);
-        }
-        for(int i = 0; i< grid02.getChildren().size(); i++){
-            grid02.getChildren().remove(i);
-        }
-        for(int i = 0; i< grid03.getChildren().size(); i++){
-            grid03.getChildren().remove(i);
-        }
-        for(int i = 0; i< grid10.getChildren().size(); i++){
-            grid10.getChildren().remove(i);
-        }
-        for(int i = 0; i< grid11.getChildren().size(); i++){
-            grid11.getChildren().remove(i);
-        }
-        for(int i = 0; i< grid12.getChildren().size(); i++){
-            grid12.getChildren().remove(i);
-        }
-        for(int i = 0; i< grid13.getChildren().size(); i++){
-            grid13.getChildren().remove(i);
-        }
-        for(int i = 0; i< grid20.getChildren().size(); i++){
-            grid20.getChildren().remove(i);
-        }
-        for(int i = 0; i< grid21.getChildren().size(); i++){
-            grid21.getChildren().remove(i);
-        }
-        for(int i = 0; i< grid22.getChildren().size(); i++){
-            grid22.getChildren().remove(i);
-        }
-        for(int i = 0; i< grid23.getChildren().size(); i++){
-            grid23.getChildren().remove(i);
-        }
+        grid00.getChildren().clear();
+        grid01.getChildren().clear();
+        grid02.getChildren().clear();
+        grid03.getChildren().clear();
+        grid10.getChildren().clear();
+        grid11.getChildren().clear();
+        grid12.getChildren().clear();
+        grid13.getChildren().clear();
+        grid20.getChildren().clear();
+        grid21.getChildren().clear();
+        grid22.getChildren().clear();
+        grid23.getChildren().clear();
     }
 
     public void setLabelTurn() {
@@ -2367,11 +2341,11 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         Integer mode = 1;
 
 
-        if(!modeTxtField.getText().isEmpty() && (modeTxtField.getText().equals("1") || !modeTxtField.getText().equals("2") || !modeTxtField.getText().equals("3"))) {
+        if(modeTxtField.getText().equals("1") || !modeTxtField.getText().equals("2") || !modeTxtField.getText().equals("3")) {
             mode = Integer.valueOf(modeTxtField.getText());
         }
 
-        if(!basicTxtField.getText().isEmpty() && (basicTxtField.getText().equals("true") || basicTxtField.getText().equals("false"))) {
+        if(basicTxtField.getText().equals("true") || basicTxtField.getText().equals("false")) {
             basicFirst = Boolean.parseBoolean(basicTxtField.getText());
         }
 
@@ -2387,7 +2361,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
             thirdVictim = thirdVictimTxtField.getText();
         }
 
-        if(!directionTxtField.getText().isEmpty() && (directionTxtField.getText().equals("up") || directionTxtField.getText().equals("down") || directionTxtField.getText().equals("left") || directionTxtField.getText().equals("right"))) {
+        if(directionTxtField.getText().equals("up") || directionTxtField.getText().equals("down") || directionTxtField.getText().equals("left") || directionTxtField.getText().equals("right")) {
             direction = Converter.fromStringToDirection(directionTxtField.getText());
         }
 
