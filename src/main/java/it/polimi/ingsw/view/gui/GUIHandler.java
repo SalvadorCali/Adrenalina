@@ -742,6 +742,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         guiHandler = Data.getInstance().getGuiHandler();
         if (outcome.equals(Outcome.RIGHT) || outcome.equals(Outcome.ALL)) {
             guiHandler.setLabelStatement("Player moved");
+            guiHandler.resetMovement();
 
         } else {
             guiHandler.setLabelStatement("Player didn't move");
