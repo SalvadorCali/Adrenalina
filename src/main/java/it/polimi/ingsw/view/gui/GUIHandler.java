@@ -2571,7 +2571,19 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
             default:
                 break;
         }
+
+        guiHandler = Data.getInstance().getGuiHandler();
+        guiHandler.handleCloseShowData();
+        guiHandler.handleCloseDataPowerUp();
+    }
+
+    private void handleCloseDataPowerUp() {
         Stage stage = (Stage) xTxtFieldPowerUp.getScene().getWindow();
+        stage.close();
+    }
+
+    private void handleCloseShowData() {
+        Stage stage = (Stage) shootButton1.getScene().getWindow();
         stage.close();
     }
 
