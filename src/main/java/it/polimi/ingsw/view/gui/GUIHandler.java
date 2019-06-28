@@ -702,7 +702,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         Platform.runLater(() ->{
             if(outcome.equals(Outcome.RIGHT)){
                 guiHandler.setLabelStatement( playerController.getPowerup() + " used!");
-            }else{
+            }else if(outcome.equals(Outcome.WRONG)){
                 guiHandler.setLabelStatement( playerController.getPowerup() + " not used!");
             }
         });
