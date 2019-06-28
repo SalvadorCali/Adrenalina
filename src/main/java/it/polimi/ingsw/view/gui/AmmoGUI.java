@@ -1,36 +1,27 @@
 package it.polimi.ingsw.view.gui;
 
 import it.polimi.ingsw.controller.PlayerController;
-import it.polimi.ingsw.model.enums.Color;
-import it.polimi.ingsw.model.gamecomponents.Ammo;
-import it.polimi.ingsw.util.Converter;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-
-import java.util.List;
 
 public class AmmoGUI {
 
-    @FXML private GridPane gridBox;
-    @FXML private GridPane gridReserve;
+    @FXML private HBox blueHBox;
+    @FXML private HBox redHBox;
+    @FXML private HBox yellowHBox;
+
 
     private PlayerController playerController;
     private Rectangle rectangle = new Rectangle();
-    private static final Integer HEIGHT_R = 50;
-    private static final Integer WIDTH_R = 50;
+    private static final Integer HEIGHT_R = 30;
+    private static final Integer WIDTH_R = 30;
+    private boolean connected = true;
 
-
-    private void setRectangle(){
-        this.rectangle.setHeight(HEIGHT_R);
-        this.rectangle.setWidth(WIDTH_R);
-    }
 
     public void setAmmo() {
-        setRectangle();
 
         Thread thread2 = new Thread(this::checkAmmo);
         thread2.setDaemon(true);
@@ -38,15 +29,15 @@ public class AmmoGUI {
     }
 
     public void checkAmmo(){
-        while(true) {
+        while(connected) {
             Platform.runLater(() -> {
-                //setAmmoBoxGrid();
-                setAmmoReserveGrid();
+                resetAmmos();
+                setAmmoBoxGrid();
             });
 
             try {
 
-                Thread.sleep(5000);
+                Thread.sleep(10000);
 
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -58,39 +49,37 @@ public class AmmoGUI {
     public void setAmmoBoxGrid(){
 
         playerController = Data.getInstance().getPlayerController();
-        List<Ammo> ammobox = playerController.getPlayer().getAmmoBox();
+        Integer redAmmo = playerController.getPlayer().getRedAmmo();
+        Integer blueAmmo = playerController.getPlayer().getBlueAmmo();
+        Integer yellowAmmo = playerController.getPlayer().getYellowAmmo();
 
-        for (int i = 0, row = 0; i < ammobox.size(); i++) {
-            rectangle.setFill(Converter.fromColorEnumsToColorJFX(ammobox.get(i).getColor()));
-            addAmmoToGrid(rectangle, i, row, gridBox);
+        for (int i = 0; i < redAmmo; i++) {
+            setBox(redHBox, new Rectangle(), Color.RED);
+        }
 
-            if (i == 2) {
-                row++;
-                i = 0;
-            }
+        for (int i = 0; i < blueAmmo; i++) {
+            setBox(blueHBox, new Rectangle(), Color.BLUE);
+        }
 
+        for (int i = 0; i < yellowAmmo; i++) {
+            setBox(yellowHBox, new Rectangle(), Color.YELLOW);
         }
     }
 
-    public void setAmmoReserveGrid(){
-
-        playerController = Data.getInstance().getPlayerController();
-        List<Ammo> ammoReserve = playerController.getPlayer().getAmmoReserve();
-
-        for (int i = 0, row = 0; i < ammoReserve.size(); i++) {
-            rectangle.setFill(Converter.fromColorEnumsToColorJFX(ammoReserve.get(i).getColor()));
-            addAmmoToGrid(rectangle, i, row, gridReserve);
-
-            if (i == 2) {
-                row++;
-                i = 0;
-            }
-        }
-    }
-
-    private void addAmmoToGrid(Rectangle rectangle, int i, int row, GridPane ammoGrid) {
+    public void setBox(HBox box, Rectangle rectangle, Color color){
+        rectangle.setHeight(HEIGHT_R);
+        rectangle.setWidth(WIDTH_R);
+        rectangle.setFill(color);
         Platform.runLater(() ->{
-            ammoGrid.add(rectangle, i, row);
+            box.getChildren().add(rectangle);
+        });
+    }
+
+    public void resetAmmos(){
+        Platform.runLater(() ->{
+            redHBox.getChildren().clear();
+            blueHBox.getChildren().clear();
+            yellowHBox.getChildren().clear();
         });
     }
 }
