@@ -820,7 +820,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                     guiHandler = loader.getController();
                     guiHandler.setMapImage();
                     guiHandler.setSkulls();
-                    guiHandler.addWeapon();
+                    //guiHandler.addWeapon();
                     guiHandler.setLabelTurn();
 
                     Data.getInstance().setGuiHandler(guiHandler);
@@ -860,7 +860,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                     guiHandler = loader.getController();
                     guiHandler.setMapImage();
                     guiHandler.setSkulls();
-                    guiHandler.addWeapon();
+                    //guiHandler.addWeapon();
                     guiHandler.setLabelTurn();
 
 
@@ -1088,7 +1088,8 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                 guiHandler.removeImg();
                 guiHandler.placePlayers(playerController.getGameBoard().getArena());
                 guiHandler.addAmmo();
-                guiHandler.removeWeapon();
+                guiHandler.addWeapon();
+                //guiHandler.removeWeapon();
             });
 
             try{
@@ -1337,44 +1338,96 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         arena = playerController.getGameBoard().getArena();
 
         Platform.runLater(() -> {
-            int k = 0;
             for (int i = 0; i < ROWS; i++) {
                 for (int j = 0; j < COLUMNS; j++) {
                     if (arena[i][j].isSpawn()) {
                         if (arena[i][j].getColor().equals(TokenColor.BLUE)) {
+                            if(arena[i][j].getWeapons().size() == 3) {
 
-                            String url1 = "weapon/" + Converter.weaponNameInvert(arena[i][j].getWeapons().get(0).getName()) + ".png";
-                            String url2 = "weapon/" + Converter.weaponNameInvert(arena[i][j].getWeapons().get(1).getName()) + ".png";
-                            String url3 = "weapon/" + Converter.weaponNameInvert(arena[i][j].getWeapons().get(2).getName()) + ".png";
+                                String url1 = "weapon/" + Converter.weaponNameInvert(arena[i][j].getWeapons().get(0).getName()) + ".png";
+                                String url2 = "weapon/" + Converter.weaponNameInvert(arena[i][j].getWeapons().get(1).getName()) + ".png";
+                                String url3 = "weapon/" + Converter.weaponNameInvert(arena[i][j].getWeapons().get(2).getName()) + ".png";
 
-                            this.weaponBlue1.setImage(new Image(url1));
-                            this.weaponBlue2.setImage(new Image(url2));
-                            this.weaponBlue3.setImage(new Image(url3));
+                                this.weaponBlue1.setImage(new Image(url1));
+                                this.weaponBlue2.setImage(new Image(url2));
+                                this.weaponBlue3.setImage(new Image(url3));
 
+                            } else if(arena[i][j].getWeapons().size() == 2){
+
+                                String url1 = "weapon/" + Converter.weaponNameInvert(arena[i][j].getWeapons().get(0).getName()) + ".png";
+                                String url2 = "weapon/" + Converter.weaponNameInvert(arena[i][j].getWeapons().get(1).getName()) + ".png";
+
+                                this.weaponBlue1.setImage(new Image(url1));
+                                this.weaponBlue2.setImage(new Image(url2));
+                                this.weaponBlue3.setImage(null);
+
+                            } else if(arena[i][j].getWeapons().size() == 1){
+                                String url1 = "weapon/" + Converter.weaponNameInvert(arena[i][j].getWeapons().get(0).getName()) + ".png";
+
+                                this.weaponBlue1.setImage(new Image(url1));
+                                this.weaponBlue2.setImage(null);
+                                this.weaponBlue3.setImage(null);
+                            }
                         }
 
                         if (arena[i][j].getColor().equals(TokenColor.RED)) {
+                            if(arena[i][j].getWeapons().size() == 3) {
 
-                            String url1 = "weapon/" + Converter.weaponNameInvert(arena[i][j].getWeapons().get(0).getName()) + ".png";
-                            String url2 = "weapon/" + Converter.weaponNameInvert(arena[i][j].getWeapons().get(1).getName()) + ".png";
-                            String url3 = "weapon/" + Converter.weaponNameInvert(arena[i][j].getWeapons().get(2).getName()) + ".png";
+                                String url1 = "weapon/" + Converter.weaponNameInvert(arena[i][j].getWeapons().get(0).getName()) + ".png";
+                                String url2 = "weapon/" + Converter.weaponNameInvert(arena[i][j].getWeapons().get(1).getName()) + ".png";
+                                String url3 = "weapon/" + Converter.weaponNameInvert(arena[i][j].getWeapons().get(2).getName()) + ".png";
 
-                            this.weaponRed1.setImage(new Image(url1));
-                            this.weaponRed2.setImage(new Image(url2));
-                            this.weaponRed3.setImage(new Image(url3));
+                                this.weaponRed1.setImage(new Image(url1));
+                                this.weaponRed2.setImage(new Image(url2));
+                                this.weaponRed3.setImage(new Image(url3));
 
+                            } else if(arena[i][j].getWeapons().size() == 2){
+
+                                String url1 = "weapon/" + Converter.weaponNameInvert(arena[i][j].getWeapons().get(0).getName()) + ".png";
+                                String url2 = "weapon/" + Converter.weaponNameInvert(arena[i][j].getWeapons().get(1).getName()) + ".png";
+
+                                this.weaponRed1.setImage(new Image(url1));
+                                this.weaponRed2.setImage(new Image(url2));
+                                this.weaponRed3.setImage(null);
+
+                            }else if(arena[i][j].getWeapons().size() == 1){
+
+                                String url1 = "weapon/" + Converter.weaponNameInvert(arena[i][j].getWeapons().get(0).getName()) + ".png";
+
+                                this.weaponRed1.setImage(new Image(url1));
+                                this.weaponRed2.setImage(null);
+                                this.weaponRed3.setImage(null);
+                            }
                         }
 
                         if (arena[i][j].getColor().equals(TokenColor.YELLOW)) {
+                            if(arena[i][j].getWeapons().size() == 3) {
 
-                            String url1 = "weapon/" + Converter.weaponNameInvert(arena[i][j].getWeapons().get(0).getName()) + ".png";
-                            String url2 = "weapon/" + Converter.weaponNameInvert(arena[i][j].getWeapons().get(1).getName()) + ".png";
-                            String url3 = "weapon/" + Converter.weaponNameInvert(arena[i][j].getWeapons().get(2).getName()) + ".png";
+                                String url1 = "weapon/" + Converter.weaponNameInvert(arena[i][j].getWeapons().get(0).getName()) + ".png";
+                                String url2 = "weapon/" + Converter.weaponNameInvert(arena[i][j].getWeapons().get(1).getName()) + ".png";
+                                String url3 = "weapon/" + Converter.weaponNameInvert(arena[i][j].getWeapons().get(2).getName()) + ".png";
 
-                            this.weaponYellow1.setImage(new Image(url1));
-                            this.weaponYellow2.setImage(new Image(url2));
-                            this.weaponYellow3.setImage(new Image(url3));
+                                this.weaponYellow1.setImage(new Image(url1));
+                                this.weaponYellow2.setImage(new Image(url2));
+                                this.weaponYellow3.setImage(new Image(url3));
 
+                            } else if(arena[i][j].getWeapons().size() == 2){
+
+                                String url1 = "weapon/" + Converter.weaponNameInvert(arena[i][j].getWeapons().get(0).getName()) + ".png";
+                                String url2 = "weapon/" + Converter.weaponNameInvert(arena[i][j].getWeapons().get(1).getName()) + ".png";
+
+                                this.weaponYellow1.setImage(new Image(url1));
+                                this.weaponYellow2.setImage(new Image(url2));
+                                this.weaponYellow3.setImage(null);
+
+                            } else if(arena[i][j].getWeapons().size() == 1){
+
+                                String url1 = "weapon/" + Converter.weaponNameInvert(arena[i][j].getWeapons().get(0).getName()) + ".png";
+
+                                this.weaponYellow1.setImage(new Image(url1));
+                                this.weaponYellow2.setImage(null);
+                                this.weaponYellow3.setImage(null);
+                            }
 
                         }
                     }
