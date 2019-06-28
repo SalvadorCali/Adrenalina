@@ -1868,7 +1868,8 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                 } else {
                     if (moveGrab == "up") {
                         if (playerController.getGameBoard().getArena()[x][y].canMove(Direction.UP)) {
-                            if (!playerController.getGameBoard().getArena()[x--][y].isSpawn()) {
+                            x--;
+                            if (!playerController.getGameBoard().getArena()[x][y].isSpawn()) {
                                 try {
                                     client.grab(0, Direction.UP);
                                 } catch (IOException e) {
@@ -1899,7 +1900,8 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
                     } else if (moveGrab == "down") {
                         if (playerController.getGameBoard().getArena()[x][y].canMove(Direction.DOWN)) {
-                            if (!playerController.getGameBoard().getArena()[x++][y].isSpawn()) {
+                            x++;
+                            if (!playerController.getGameBoard().getArena()[x][y].isSpawn()) {
                                 try {
                                     client.grab(0, Direction.DOWN);
                                 } catch (IOException e) {
@@ -1931,7 +1933,8 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                     }
                     if (moveGrab == "left") {
                         if (playerController.getGameBoard().getArena()[x][y].canMove(Direction.LEFT)) {
-                            if (!playerController.getGameBoard().getArena()[x][y--].isSpawn()) {
+                            y--;
+                            if (!playerController.getGameBoard().getArena()[x][y].isSpawn()) {
                                 try {
                                     this.client.grab(0, Direction.LEFT);
                                 } catch (IOException e) {
@@ -1963,7 +1966,8 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                     }
                     if (moveGrab == "right") {
                         if (playerController.getGameBoard().getArena()[x][y].canMove(Direction.RIGHT)) {
-                            if (!playerController.getGameBoard().getArena()[x][y++].isSpawn()) {
+                            y++;
+                            if (!playerController.getGameBoard().getArena()[x][y].isSpawn()) {
                                 try {
                                     this.client.grab(0, Direction.RIGHT);
                                 } catch (IOException e) {
