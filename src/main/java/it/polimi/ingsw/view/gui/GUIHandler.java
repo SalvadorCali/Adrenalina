@@ -16,6 +16,7 @@ import it.polimi.ingsw.network.client.rmi.RMIClient;
 import it.polimi.ingsw.network.client.socket.SocketClient;
 import it.polimi.ingsw.network.enums.Message;
 import it.polimi.ingsw.network.enums.Outcome;
+import it.polimi.ingsw.util.Config;
 import it.polimi.ingsw.util.Converter;
 import it.polimi.ingsw.util.Printer;
 import it.polimi.ingsw.view.cli.MapCLI;
@@ -590,7 +591,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                 stage.setTitle("Choose Powerup to Discard");
                 stage.show();
 
-                PauseTransition delay = new PauseTransition(Duration.seconds(10));
+                PauseTransition delay = new PauseTransition(Duration.millis(Config.SPAWN_LOCATION_TIME));
                 delay.setOnFinished( event -> {
                     respawnPlayer();
                     stage.close();
@@ -770,6 +771,11 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                     stage.setTitle("Choose Board");
                     stage.show();
 
+                    PauseTransition delay = new PauseTransition(Duration.millis(Config.BOARD_TYPE_TIME));
+                    delay.setOnFinished( event -> {
+                        stage.close();
+                    } );
+                    delay.play();
 
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -786,7 +792,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                     stage.setTitle("Board choosing...");
                     stage.show();
 
-                    PauseTransition delay = new PauseTransition(Duration.seconds(5));
+                    PauseTransition delay = new PauseTransition(Duration.millis(Config.BOARD_TYPE_TIME));
                     delay.setOnFinished( event -> stage.close() );
                     delay.play();
 
@@ -1044,6 +1050,12 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                 stage.setScene(new Scene(root, 490, 386));
                 stage.setTitle("Choose Powerup");
                 stage.show();
+
+                PauseTransition delay = new PauseTransition(Duration.millis(Config.SPAWN_LOCATION_TIME));
+                delay.setOnFinished( event -> {
+                    stage.close();
+                } );
+                delay.play();
 
             } catch (Exception e) {
                 e.printStackTrace();
