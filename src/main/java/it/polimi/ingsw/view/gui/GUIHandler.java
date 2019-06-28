@@ -2461,6 +2461,8 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
         Stage stage = (Stage) modeTxtField.getScene().getWindow();
         stage.close();
+        guiHandler = Data.getInstance().getGuiHandler();
+        guiHandler.handleCloseShowData();
     }
 
     public void disconnect(MouseEvent mouseEvent) {
