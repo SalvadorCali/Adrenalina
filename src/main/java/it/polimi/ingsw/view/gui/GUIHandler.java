@@ -11,6 +11,7 @@ import it.polimi.ingsw.model.enums.Direction;
 import it.polimi.ingsw.model.enums.FinalFrenzyAction;
 import it.polimi.ingsw.model.enums.TokenColor;
 import it.polimi.ingsw.model.gamecomponents.Square;
+import it.polimi.ingsw.model.gamecomponents.Token;
 import it.polimi.ingsw.network.client.ClientInterface;
 import it.polimi.ingsw.network.client.rmi.RMIClient;
 import it.polimi.ingsw.network.client.socket.SocketClient;
@@ -265,6 +266,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     private static final double GRID_WIDTH = 25;
     private static final double GRID_HEIGHT = 25;
     private static final int MAX_WEAPONS = 3;
+    private static final double STANDARD_HEIGHT = 50;
 
     private GameController gameController;
     private String currentPlayer;
@@ -899,16 +901,31 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
         playerController = Data.getInstance().getPlayerController();
         int skulls = playerController.getKillshotTrack().size();
-
+        List<Token> killShot = playerController.getKillshotTrack();
         Image imageSkull = new Image("boardElem/skull.png");
 
-        Platform.runLater(() -> {
-            for (int i = 0; i < skulls; i++) {
-                gridSkulls.add(new ImageView(imageSkull), i, 0);
+        for (int i = 0; i < skulls; i++) {
+            if(killShot.get(i).getFirstColor().equals(TokenColor.SKULL)) {
+                addImgOnKillshot(imageSkull, i, 0);
+
+            } else{
+
+                Image image = new Image("damageTears/" + Converter.fromTokenColorToString(killShot.get(i).getFirstColor()) + ".png");
+                addImgOnKillshot(image, i, 0);
             }
-        });
+        }
+
     }
 
+    public void addImgOnKillshot(Image image, int col, int row){
+        ImageView imv = new ImageView(image);
+        imv.setFitWidth(STANDARD_HEIGHT);
+        imv.setFitHeight(STANDARD_HEIGHT);
+
+        Platform.runLater(() ->{
+            gridSkulls.add(imv, col, row);
+        });
+    }
 
     @Override
     public void notify(Message message, Outcome outcome, Object object) {
