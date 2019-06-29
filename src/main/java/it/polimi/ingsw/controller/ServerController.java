@@ -899,6 +899,7 @@ public class ServerController {
                 finalFrenzyTurns++;
                 if(finalFrenzyTurns == servers.size() + disconnectedUsers.size()){
                     endGame();
+                    return;
                 }
             }
             if(gameController.isFinalFrenzy() && !finalFrenzy){
@@ -927,27 +928,6 @@ public class ServerController {
                             timer = new TurnTimer(this, players, players.get(index));
                             timer.start();
                         }
-                    /*
-                    if(i== players.size()-1){
-
-                        if(servers.containsKey(players.get(0).getUsername())){
-                            gameData.setGame(gameController.getGame());
-                            gameData.setPlayers(users);
-                            servers.get(players.get(0).getUsername()).notify(Message.NEW_TURN, Outcome.RIGHT, gameData);
-                            TurnTimer timer = new TurnTimer(this, players, players.get(0));
-                            timer.start();
-                        }
-                    }else{
-
-                        if(servers.containsKey(players.get(i+1).getUsername())){
-                            gameData.setGame(gameController.getGame());
-                            gameData.setPlayers(users);
-                            servers.get(players.get(i+1).getUsername()).notify(Message.NEW_TURN, Outcome.RIGHT, gameData);
-                            TurnTimer timer = new TurnTimer(this, players, players.get(i+1));
-                            timer.start();
-                        }
-                    }
-                    */
                     } catch (IOException e) {
                         Printer.err(e);
                     }
@@ -1086,6 +1066,16 @@ public class ServerController {
     private void endGame(){
         Printer.println(GAME_END);
         gameController.endGame();
+        Map<TokenColor, Integer> score = gameController.getScoreList();
+        setGameData();
+        gameData.setScoreList(score);
+        servers.forEach((u,s)->{
+            try {
+                s.notify(Message.SCORE, Outcome.ALL, gameData);
+            } catch (IOException e) {
+                Printer.err(e);
+            }
+        });
     }
 
     /**

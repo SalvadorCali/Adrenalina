@@ -848,22 +848,22 @@ public class GameController {
     }
 
     /**
-     * ???
-     * @param player
-     * @param x
-     * @param y
-     * @return
+     * Returns true if a player can see the requested square.
+     * @param player the player who wants to see the square.
+     * @param x the square's abscissa.
+     * @param y the square's ordinate.
+     * @return true if the player can see the square.
      */
     boolean canShowSquare(Player player, int x, int y){
         return (x >= 0 && x <= 2) && (y >= 0 && y <= 3);
     }
 
     /**
-     * ???
-     * @param player
-     * @param x
-     * @param y
-     * @return
+     * Sets the data for the square that the player wants to see.
+     * @param player the player that wants to see the square.
+     * @param x the square's abscissa.
+     * @param y the square's ordinate.
+     * @return the square's data.
      */
     SquareData showSquare(Player player, int x, int y) {
         SquareData squareData = new SquareData();

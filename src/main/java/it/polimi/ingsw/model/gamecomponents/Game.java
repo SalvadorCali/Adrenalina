@@ -530,8 +530,8 @@ public class Game implements Serializable {
     }
 
     /**
-     * ???
-     * @param player ???
+     * Substitutes the skull on the killshot track with the token of the shooter after a death. Then, if the killshot is the last of the game, calls the {@link #finalFrenzySetup()} method.
+     * @param player the player that is dead.
      */
     public void setKillAndDoubleKill(Player player){
         killshotTrack.get(killshotIndex).setFirstColor(player.getPlayerBoard().getKillshot());
@@ -540,27 +540,34 @@ public class Game implements Serializable {
         }
         killshotIndex++;
         if(killshotIndex == skullsNumber){
-            finalFrenzy = true;
-            int index = 0;
-            for(int i=0; i<players.size(); i++){
-                if(players.get(i).equals(currentPlayer)){
-                    index = i;
-                }
+            finalFrenzySetup();
+        }
+    }
+
+    /**
+     * Sets the final frenzy.
+     */
+    private void finalFrenzySetup(){
+        finalFrenzy = true;
+        int index = 0;
+        for(int i=0; i<players.size(); i++){
+            if(players.get(i).equals(currentPlayer)){
+                index = i;
             }
-            for(int i=0; i<players.size(); i++){
-                if(i <= index){
-                    players.get(i).setFinalFrenzyActionsNumber(1);
-                    players.get(i).setFinalFrenzyActions(FinalFrenzyAction.ONE_ACTION);
-                }else{
-                    players.get(i).setFinalFrenzyActionsNumber(2);
-                    players.get(i).setFinalFrenzyActions(FinalFrenzyAction.TWO_ACTIONS);
-                }
+        }
+        for(int i=0; i<players.size(); i++){
+            if(i <= index){
+                players.get(i).setFinalFrenzyActionsNumber(1);
+                players.get(i).setFinalFrenzyActions(FinalFrenzyAction.ONE_ACTION);
+            }else{
+                players.get(i).setFinalFrenzyActionsNumber(2);
+                players.get(i).setFinalFrenzyActions(FinalFrenzyAction.TWO_ACTIONS);
             }
         }
     }
 
     /**
-     * ???
+     * Adds the revenge marks after a player's death.
      */
     void setRevengeMarks(){
         for(Player player : players){
@@ -575,29 +582,33 @@ public class Game implements Serializable {
         }
     }
 
+    /**
+     * Getter for the loginPhase value.
+     * @return true if the game is in its login phase.
+     */
     public boolean isLoginPhase() {
         return loginPhase;
     }
+
+    /**
+     * Setter for the loginPhase value.
+     * @param loginPhase the value that will be set.
+     */
     public void setLoginPhase(boolean loginPhase) {
         this.loginPhase = loginPhase;
     }
-    public void setAmmos(List<AmmoCard> ammos) {
-        this.ammos = ammos;
-    }
+
+    /**
+     * Setter for final frenzy.
+     * @param finalFrenzy the value that will be set.
+     */
     public void setFinalFrenzy(boolean finalFrenzy) {
         this.finalFrenzy = finalFrenzy;
     }
-    public synchronized void addPlayerColors(TokenColor color){
-        playerColors.add(color);
-    }
-    public synchronized boolean containsColor(TokenColor color){
-        for(TokenColor tokenColor : playerColors){
-            if(color.equals(tokenColor)){
-                return true;
-            }
-        }
-        return false;
-    }
+
+    /**
+     * Adds an additional point to the player who realized two or more killshots in the same turn.
+     */
     void doubleKill(){
         Map<TokenColor, Integer> killshots = new HashMap<>();
         for(Player player : players){
@@ -620,6 +631,9 @@ public class Game implements Serializable {
         });
     }
 
+    /**
+     * Ends the game and prints the score.
+     */
     public void endGame(){
         players.forEach(p->p.setMyTurn(false));
         gamePhase = false;
