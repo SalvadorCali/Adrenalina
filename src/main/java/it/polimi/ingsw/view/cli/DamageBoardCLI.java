@@ -113,7 +113,7 @@ public class DamageBoardCLI {
 
     /**
      * Setter for the victims.
-     * @param victims
+     * @param victims the victims.
      */
     public void setVictims(List<Player> victims){
         this.victims = victims;
@@ -154,22 +154,7 @@ public class DamageBoardCLI {
         //color and assign damage
         for(int i = 0; i < damage.length; i++){
             damage[i]= 0;
-            if(damageBoard[i].getFirstColor().equals(TokenColor.BLUE))
-                colorDamage[i] = BLUE;
-            if(damageBoard[i].getFirstColor().equals(TokenColor.RED))
-                colorDamage[i] = RED;
-            if(damageBoard[i].getFirstColor().equals(TokenColor.YELLOW))
-                colorDamage[i] = YELLOW;
-            if(damageBoard[i].getFirstColor().equals(TokenColor.GREY))
-                colorDamage[i] = GREY;
-            if(damageBoard[i].getFirstColor().equals(TokenColor.PURPLE))
-                colorDamage[i] = PURPLE;
-            if(damageBoard[i].getFirstColor().equals(TokenColor.GREEN))
-                colorDamage[i] = GREEN;
-            if(damageBoard[i].getFirstColor().equals(TokenColor.SKULL))
-                colorDamage[i] = CYAN;
-            if(damageBoard[i].getFirstColor().equals(TokenColor.NONE))
-                colorDamage[i] = CYAN;
+            colorDamage[i] = setColorDamage(colorDamage, i);
             if(!colorDamage[i].equals(CYAN)){
                 damage[i] = 1;
             }
@@ -179,22 +164,7 @@ public class DamageBoardCLI {
             for (int i = 0; i < markBoard.size(); i++) {
                 if (markBoard.get(i).getFirstColor() != TokenColor.NONE) {
                     mark[i] = MARK;
-                    if (markBoard.get(i).getFirstColor().equals(TokenColor.BLUE))
-                        colorMark[i] = BLUE;
-                    if (markBoard.get(i).getFirstColor().equals(TokenColor.RED))
-                        colorMark[i] = RED;
-                    if (markBoard.get(i).getFirstColor().equals(TokenColor.YELLOW))
-                        colorMark[i] = YELLOW;
-                    if (markBoard.get(i).getFirstColor().equals(TokenColor.GREY))
-                        colorMark[i] = GREY;
-                    if (markBoard.get(i).getFirstColor().equals(TokenColor.GREEN))
-                        colorMark[i] = GREEN;
-                    if (markBoard.get(i).getFirstColor().equals(TokenColor.PURPLE))
-                        colorMark[i] = PURPLE;
-                    if (markBoard.get(i).getFirstColor().equals(TokenColor.SKULL))
-                        colorMark[i] = CYAN;
-                    if (markBoard.get(i).getFirstColor().equals(TokenColor.NONE))
-                        colorMark[i] = CYAN;
+                    colorMark[i] = setColorMark(colorMark, i);
                 }
             }
         }
@@ -205,6 +175,74 @@ public class DamageBoardCLI {
         }
 
         //give color to ammo
+        ammoColor = setAmmoColor(ammoColor);
+        for(int i = 0; i < RESERVE_LENGTH; i++){
+            if(ammoColor[i].equals(CYAN)){
+                ammoVal[i] = SPACE;
+            }
+        }
+        points = setPoints(points);
+        print(damage, colorDamage, mark, colorMark, ammoColor, ammoVal, points);
+    }
+
+    /**
+     * Sets the color of each damage.
+     * @param colorDamage an array of damages.
+     * @param i the index.
+     * @return the current damage.
+     */
+    private String setColorDamage(String[] colorDamage, int i){
+        if(damageBoard[i].getFirstColor().equals(TokenColor.BLUE))
+            colorDamage[i] = BLUE;
+        if(damageBoard[i].getFirstColor().equals(TokenColor.RED))
+            colorDamage[i] = RED;
+        if(damageBoard[i].getFirstColor().equals(TokenColor.YELLOW))
+            colorDamage[i] = YELLOW;
+        if(damageBoard[i].getFirstColor().equals(TokenColor.GREY))
+            colorDamage[i] = GREY;
+        if(damageBoard[i].getFirstColor().equals(TokenColor.PURPLE))
+            colorDamage[i] = PURPLE;
+        if(damageBoard[i].getFirstColor().equals(TokenColor.GREEN))
+            colorDamage[i] = GREEN;
+        if(damageBoard[i].getFirstColor().equals(TokenColor.SKULL))
+            colorDamage[i] = CYAN;
+        if(damageBoard[i].getFirstColor().equals(TokenColor.NONE))
+            colorDamage[i] = CYAN;
+        return colorDamage[i];
+    }
+
+    /**
+     * Sets the color of each mark.
+     * @param colorMark an array of marks.
+     * @param i the index.
+     * @return the current damage.
+     */
+    private String setColorMark(String[] colorMark, int i){
+        if (markBoard.get(i).getFirstColor().equals(TokenColor.BLUE))
+            colorMark[i] = BLUE;
+        if (markBoard.get(i).getFirstColor().equals(TokenColor.RED))
+            colorMark[i] = RED;
+        if (markBoard.get(i).getFirstColor().equals(TokenColor.YELLOW))
+            colorMark[i] = YELLOW;
+        if (markBoard.get(i).getFirstColor().equals(TokenColor.GREY))
+            colorMark[i] = GREY;
+        if (markBoard.get(i).getFirstColor().equals(TokenColor.GREEN))
+            colorMark[i] = GREEN;
+        if (markBoard.get(i).getFirstColor().equals(TokenColor.PURPLE))
+            colorMark[i] = PURPLE;
+        if (markBoard.get(i).getFirstColor().equals(TokenColor.SKULL))
+            colorMark[i] = CYAN;
+        if (markBoard.get(i).getFirstColor().equals(TokenColor.NONE))
+            colorMark[i] = CYAN;
+        return colorMark[i];
+    }
+
+    /**
+     * Sets the color of each ammo.
+     * @param ammoColor an array of ammos.
+     * @return the array of ammos.
+     */
+    private String[] setAmmoColor(String[] ammoColor){
         for (int i = 0; i < ammoBox.size(); i++){
             if(ammoBox.get(i).getColor().equals(Color.BLUE)){
                 ammoColor[i] = BLUE;
@@ -219,13 +257,15 @@ public class DamageBoardCLI {
                 ammoColor[i] = CYAN;
             }
         }
+        return ammoColor;
+    }
 
-        for(int i = 0; i < RESERVE_LENGTH; i++){
-            if(ammoColor[i].equals(CYAN)){
-                ammoVal[i] = SPACE;
-            }
-        }
-
+    /**
+     * Sets the list of points for each death.
+     * @param points the list of points.
+     * @return the list of points.
+     */
+    private String[] setPoints(String[] points){
         points[0] = EIGHT;
         points[1] = SIX;
         points[2] = FOUR;
@@ -245,7 +285,20 @@ public class DamageBoardCLI {
             points[4] = ONE;
             points[5] = SPACE;
         }
+        return points;
+    }
 
+    /**
+     * Prints the player's playerboard.
+     * @param damage an array of integers.
+     * @param colorDamage an array of colors that represent the color of the shooter.
+     * @param mark an array of marks.
+     * @param colorMark an array of colors that represent the color of the marks.
+     * @param ammoColor the color of the ammos.
+     * @param ammoVal the value of the ammos.
+     * @param points the current maximum points assigned after the death.
+     */
+    private void print(Integer[] damage, String[] colorDamage, String[] mark, String[] colorMark, String[] ammoColor, String[] ammoVal, String[] points){
         /*
         Printer.print("        ");
         //Printer.print("                      ");
@@ -289,7 +342,7 @@ public class DamageBoardCLI {
     /**
      * Main method of this class. Prints the victim's playerboard, with ammos, damages and marks of the right color.
      */
-    public void printVictimsDamageBoard() {
+    void printVictimsDamageBoard() {
         for(int k = 0; k<victims.size(); k++){
             Integer[] damage = new Integer[MAX_DAMAGE];
             String[] colorDamage = new String[MAX_DAMAGE];
@@ -318,22 +371,7 @@ public class DamageBoardCLI {
             //color and assign damage
             for(int i = 0; i < damage.length; i++){
                 damage[i]= 0;
-                if(victimDamageBoard[i].getFirstColor().equals(TokenColor.BLUE))
-                    colorDamage[i] = BLUE;
-                if(victimDamageBoard[i].getFirstColor().equals(TokenColor.RED))
-                    colorDamage[i] = RED;
-                if(victimDamageBoard[i].getFirstColor().equals(TokenColor.YELLOW))
-                    colorDamage[i] = YELLOW;
-                if(victimDamageBoard[i].getFirstColor().equals(TokenColor.GREY))
-                    colorDamage[i] = GREY;
-                if(victimDamageBoard[i].getFirstColor().equals(TokenColor.PURPLE))
-                    colorDamage[i] = PURPLE;
-                if(victimDamageBoard[i].getFirstColor().equals(TokenColor.GREEN))
-                    colorDamage[i] = GREEN;
-                if(victimDamageBoard[i].getFirstColor().equals(TokenColor.SKULL))
-                    colorDamage[i] = CYAN;
-                if(victimDamageBoard[i].getFirstColor().equals(TokenColor.NONE))
-                    colorDamage[i] = CYAN;
+                colorDamage[i] = setVictimsColorDamage(colorDamage, i);
                 if(!colorDamage[i].equals(CYAN)){
                     damage[i] = 1;
                 }
@@ -343,22 +381,7 @@ public class DamageBoardCLI {
                 for (int i = 0; i < victimMarkBoard.size(); i++) {
                     if (victimMarkBoard.get(i).getFirstColor() != TokenColor.NONE) {
                         mark[i] = MARK;
-                        if (victimMarkBoard.get(i).getFirstColor().equals(TokenColor.BLUE))
-                            colorMark[i] = BLUE;
-                        if (victimMarkBoard.get(i).getFirstColor().equals(TokenColor.RED))
-                            colorMark[i] = RED;
-                        if (victimMarkBoard.get(i).getFirstColor().equals(TokenColor.YELLOW))
-                            colorMark[i] = YELLOW;
-                        if (victimMarkBoard.get(i).getFirstColor().equals(TokenColor.GREY))
-                            colorMark[i] = GREY;
-                        if (victimMarkBoard.get(i).getFirstColor().equals(TokenColor.GREEN))
-                            colorMark[i] = GREEN;
-                        if (victimMarkBoard.get(i).getFirstColor().equals(TokenColor.PURPLE))
-                            colorMark[i] = PURPLE;
-                        if (victimMarkBoard.get(i).getFirstColor().equals(TokenColor.SKULL))
-                            colorMark[i] = CYAN;
-                        if (victimMarkBoard.get(i).getFirstColor().equals(TokenColor.NONE))
-                            colorMark[i] = CYAN;
+                        colorMark[i] = setVictimsColorMark(colorMark, i);
                     }
                 }
             }
@@ -369,46 +392,133 @@ public class DamageBoardCLI {
             }
 
             //give color to ammo
-            for (int i = 0; i < victimAmmoBox.size(); i++){
-                if(victimAmmoBox.get(i).getColor().equals(Color.BLUE)){
-                    ammoColor[i] = BLUE;
-                }
-                if(victimAmmoBox.get(i).getColor().equals(Color.RED)){
-                    ammoColor[i] = RED;
-                }
-                if(victimAmmoBox.get(i).getColor().equals(Color.YELLOW)){
-                    ammoColor[i] = YELLOW;
-                }
-                if(victimAmmoBox.get(i).getColor().equals(Color.NONE)){
-                    ammoColor[i] = CYAN;
-                }
-            }
+            ammoColor = setVictimsAmmoColor(ammoColor);
 
             for(int i = 0; i < RESERVE_LENGTH; i++){
                 if(ammoColor[i].equals(CYAN)){
                     ammoVal[i] = SPACE;
                 }
             }
+            setVictimsPoints(points);
+            printVictims(k, damage, colorDamage, mark, colorMark, ammoColor, ammoVal, points);
+        }
+    }
 
-            points[0] = EIGHT;
-            points[1] = SIX;
-            points[2] = FOUR;
-            points[3] = TWO;
+    /**
+     * Sets the color of each damage.
+     * @param colorDamage an array of damages.
+     * @param i the index.
+     * @return the current damage.
+     */
+    private String setVictimsColorDamage(String[] colorDamage, int i){
+        if(victimDamageBoard[i].getFirstColor().equals(TokenColor.BLUE))
+            colorDamage[i] = BLUE;
+        if(victimDamageBoard[i].getFirstColor().equals(TokenColor.RED))
+            colorDamage[i] = RED;
+        if(victimDamageBoard[i].getFirstColor().equals(TokenColor.YELLOW))
+            colorDamage[i] = YELLOW;
+        if(victimDamageBoard[i].getFirstColor().equals(TokenColor.GREY))
+            colorDamage[i] = GREY;
+        if(victimDamageBoard[i].getFirstColor().equals(TokenColor.PURPLE))
+            colorDamage[i] = PURPLE;
+        if(victimDamageBoard[i].getFirstColor().equals(TokenColor.GREEN))
+            colorDamage[i] = GREEN;
+        if(victimDamageBoard[i].getFirstColor().equals(TokenColor.SKULL))
+            colorDamage[i] = CYAN;
+        if(victimDamageBoard[i].getFirstColor().equals(TokenColor.NONE))
+            colorDamage[i] = CYAN;
+        return colorDamage[i];
+    }
+
+    /**
+     * Sets the color of each mark.
+     * @param colorMark an array of marks.
+     * @param i the index.
+     * @return the current damage.
+     */
+    private String setVictimsColorMark(String[] colorMark, int i){
+        if (victimMarkBoard.get(i).getFirstColor().equals(TokenColor.BLUE))
+            colorMark[i] = BLUE;
+        if (victimMarkBoard.get(i).getFirstColor().equals(TokenColor.RED))
+            colorMark[i] = RED;
+        if (victimMarkBoard.get(i).getFirstColor().equals(TokenColor.YELLOW))
+            colorMark[i] = YELLOW;
+        if (victimMarkBoard.get(i).getFirstColor().equals(TokenColor.GREY))
+            colorMark[i] = GREY;
+        if (victimMarkBoard.get(i).getFirstColor().equals(TokenColor.GREEN))
+            colorMark[i] = GREEN;
+        if (victimMarkBoard.get(i).getFirstColor().equals(TokenColor.PURPLE))
+            colorMark[i] = PURPLE;
+        if (victimMarkBoard.get(i).getFirstColor().equals(TokenColor.SKULL))
+            colorMark[i] = CYAN;
+        if (victimMarkBoard.get(i).getFirstColor().equals(TokenColor.NONE))
+            colorMark[i] = CYAN;
+        return colorMark[i];
+    }
+
+    /**
+     * Sets the color of each ammo.
+     * @param ammoColor an array of ammos.
+     * @return the array of ammos.
+     */
+    private String[] setVictimsAmmoColor(String[] ammoColor){
+        for (int i = 0; i < victimAmmoBox.size(); i++){
+            if(victimAmmoBox.get(i).getColor().equals(Color.BLUE)){
+                ammoColor[i] = BLUE;
+            }
+            if(victimAmmoBox.get(i).getColor().equals(Color.RED)){
+                ammoColor[i] = RED;
+            }
+            if(victimAmmoBox.get(i).getColor().equals(Color.YELLOW)){
+                ammoColor[i] = YELLOW;
+            }
+            if(victimAmmoBox.get(i).getColor().equals(Color.NONE)){
+                ammoColor[i] = CYAN;
+            }
+        }
+        return ammoColor;
+    }
+
+    /**
+     * Sets the list of points for each death.
+     * @param points the list of points.
+     * @return the list of points.
+     */
+    private String[] setVictimsPoints(String[] points){
+        points[0] = EIGHT;
+        points[1] = SIX;
+        points[2] = FOUR;
+        points[3] = TWO;
+        points[4] = ONE;
+        points[5] = ONE;
+
+        for(int i=0; i<victimDeathNumber; i++){
+            points[i] = DEATH;
+        }
+
+        if(finalFrenzy){
+            points[0] = SPACE;
+            points[1] = TWO;
+            points[2] = ONE;
+            points[3] = ONE;
             points[4] = ONE;
-            points[5] = ONE;
+            points[5] = SPACE;
+        }
+        return points;
+    }
 
-            for(int i=0; i<victimDeathNumber; i++){
-                points[i] = DEATH;
-            }
-
-            if(finalFrenzy){
-                points[0] = SPACE;
-                points[1] = TWO;
-                points[2] = ONE;
-                points[3] = ONE;
-                points[4] = ONE;
-                points[5] = SPACE;
-            }
+    /**
+     * Prints the victims' playerboard.
+     * @param k the current victim index.
+     * @param damage an array of integers.
+     * @param colorDamage an array of colors that represent the color of the shooter.
+     * @param mark an array of marks.
+     * @param colorMark an array of colors that represent the color of the marks.
+     * @param ammoColor the color of the ammos.
+     * @param ammoVal the value of the ammos.
+     * @param points the current maximum points assigned after the death.
+     */
+    private void printVictims(int k, Integer[] damage, String[] colorDamage, String[] mark, String[] colorMark, String[] ammoColor, String[] ammoVal, String[] points){
 
 /*            Printer.println(victims.get(k).getUsername() + ": " + victims.get(k).getColor());
             Printer.print("        ");
@@ -430,26 +540,24 @@ public class DamageBoardCLI {
             Printer.print("        ");
             Printer.print(" ¯ ¯ ¯ ¯ ¯ ¯\n" + RESET);*/
 
-            Printer.println(victims.get(k).getUsername() + ": " + victims.get(k).getColor());
-            Printer.print("        ");
-            //Printer.print("                      ");
-            Printer.print(" -Ammos- - - - - - - - -Marks-\n" + RESET);
-            Printer.print("        ");
-            Printer.print("|" + " " + ammoColor[0] + ammoVal[0] + SPACE + ammoColor[1] + ammoVal[1] + SPACE + ammoColor[2] + ammoVal[2] + SPACE + ammoColor[3] + ammoVal[3] + SPACE + ammoColor[4] + ammoVal[4] + SPACE + ammoColor[5] + ammoVal[5] + SPACE + ammoColor[6] + ammoVal[6] + SPACE + ammoColor[7] + ammoVal[7] + SPACE + ammoColor[8] + ammoVal[8] + GREY + " " + RESET);
-            //Printer.print("                      ");
-            Printer.print("| ");
-            Printer.print("|" + " " + colorMark[0] + mark[0] + " " + colorMark[1] + mark[1] + " " + colorMark[2] + mark[2] + " " + RESET + "|\n");
-            Printer.print("        ");
-            Printer.print("|- - - - - - - - - -|-|- - - -|\n" + RESET);
-            Printer.print("        ");
-            Printer.print("|" + colorDamage[0] + damage[0] + SPACE + colorDamage[1] + damage[1] + SPACE + GREY + "|" + SPACE + colorDamage[2] + damage[2] + SPACE + colorDamage[3] + damage[3] + SPACE + colorDamage[4] + damage[4] + SPACE + GREY + "|" + SPACE + colorDamage[5] + damage[5] + SPACE + colorDamage[6] + damage[6] + SPACE + colorDamage[7] + damage[7] + SPACE + colorDamage[8] + damage[8] + SPACE + colorDamage[9] + damage[9] + SPACE + GREY + "|" + SPACE + colorDamage[10] + damage[10] + SPACE + colorDamage[11] + damage[11] + RESET + "|\n");
-            Printer.print("        ");
-            Printer.print("|- - - - - -|- - - - - - - - -\n" + RESET);
-            Printer.print("        ");
-            Printer.print("|" + points[0] + SPACE + points[1] + SPACE + points[2] + SPACE + points[3] + SPACE + points[4] + SPACE + points[5] + "|\n");
-            Printer.print("        ");
-            Printer.print(" - - - - - -\n" + RESET);
-        }
-
+        Printer.println(victims.get(k).getUsername() + ": " + victims.get(k).getColor());
+        Printer.print("        ");
+        //Printer.print("                      ");
+        Printer.print(" -Ammos- - - - - - - - -Marks-\n" + RESET);
+        Printer.print("        ");
+        Printer.print("|" + " " + ammoColor[0] + ammoVal[0] + SPACE + ammoColor[1] + ammoVal[1] + SPACE + ammoColor[2] + ammoVal[2] + SPACE + ammoColor[3] + ammoVal[3] + SPACE + ammoColor[4] + ammoVal[4] + SPACE + ammoColor[5] + ammoVal[5] + SPACE + ammoColor[6] + ammoVal[6] + SPACE + ammoColor[7] + ammoVal[7] + SPACE + ammoColor[8] + ammoVal[8] + GREY + " " + RESET);
+        //Printer.print("                      ");
+        Printer.print("| ");
+        Printer.print("|" + " " + colorMark[0] + mark[0] + " " + colorMark[1] + mark[1] + " " + colorMark[2] + mark[2] + " " + RESET + "|\n");
+        Printer.print("        ");
+        Printer.print("|- - - - - - - - - -|-|- - - -|\n" + RESET);
+        Printer.print("        ");
+        Printer.print("|" + colorDamage[0] + damage[0] + SPACE + colorDamage[1] + damage[1] + SPACE + GREY + "|" + SPACE + colorDamage[2] + damage[2] + SPACE + colorDamage[3] + damage[3] + SPACE + colorDamage[4] + damage[4] + SPACE + GREY + "|" + SPACE + colorDamage[5] + damage[5] + SPACE + colorDamage[6] + damage[6] + SPACE + colorDamage[7] + damage[7] + SPACE + colorDamage[8] + damage[8] + SPACE + colorDamage[9] + damage[9] + SPACE + GREY + "|" + SPACE + colorDamage[10] + damage[10] + SPACE + colorDamage[11] + damage[11] + RESET + "|\n");
+        Printer.print("        ");
+        Printer.print("|- - - - - -|- - - - - - - - -\n" + RESET);
+        Printer.print("        ");
+        Printer.print("|" + points[0] + SPACE + points[1] + SPACE + points[2] + SPACE + points[3] + SPACE + points[4] + SPACE + points[5] + "|\n");
+        Printer.print("        ");
+        Printer.print(" - - - - - -\n" + RESET);
     }
 }
