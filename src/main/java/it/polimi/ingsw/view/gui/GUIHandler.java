@@ -908,7 +908,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
             if(killShot.get(i).getFirstColor().equals(TokenColor.SKULL)) {
                 addImgOnKillshot(imageSkull, i, 0);
 
-            } else{
+            } else if(!killShot.get(i).getFirstColor().equals(TokenColor.NONE)){
 
                 Image image = new Image("damageTears/" + Converter.fromTokenColorToString(killShot.get(i).getFirstColor()) + ".png");
                 addImgOnKillshot(image, i, 0);
