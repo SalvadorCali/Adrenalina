@@ -76,6 +76,57 @@ public class PlayerBoardGui extends Application {
         }
     }
 
+    public void setOtherPlayersDeath(){
+
+        playerController = Data.getInstance().getPlayerController();
+        this.numOtherPlayers = playerController.getOtherPlayers().size();
+
+        if(numOtherPlayers >= 1){
+            int deathNum = playerController.getOtherPlayers().get(0).getPlayerBoard().getDeathNumber();
+            for (int i = 0, row = 0; i < deathNum; i++) {
+                Image image = new Image("boardElem/skull.png");
+                addMarkGrid2(secondDeathCounterGrid, image, i, row);
+            }
+        }
+
+        if(numOtherPlayers >= 2){
+            int deathNum = playerController.getOtherPlayers().get(1).getPlayerBoard().getDeathNumber();
+            for (int i = 0, row = 0; i < deathNum; i++) {
+                Image image = new Image("boardElem/skull.png");
+                addMarkGrid2(thirdDeathCounterGrid, image, i, row);
+            }
+        }
+
+        if(numOtherPlayers >= 3){
+            int deathNum = playerController.getOtherPlayers().get(2).getPlayerBoard().getDeathNumber();
+            for (int i = 0, row = 0; i < deathNum; i++) {
+                Image image = new Image("boardElem/skull.png");
+                addMarkGrid2(fourthDeathCounterGrid, image, i, row);
+            }
+        }
+
+        if(numOtherPlayers >= 4){
+            int deathNum = playerController.getOtherPlayers().get(3).getPlayerBoard().getDeathNumber();
+            for (int i = 0, row = 0; i < deathNum; i++) {
+                Image image = new Image("boardElem/skull.png");
+                addMarkGrid2(fifthDeathCounterGrid, image, i, row);
+            }
+        }
+    }
+
+    public void setFirstPlayerDeathCounter(){
+
+        playerController = Data.getInstance().getPlayerController();
+        List<Token> kills = playerController.getKillshotTrack();
+
+        for (int i = 0, row = 0; i < kills.size(); i++) {
+            if (!kills.get(i).getFirstColor().equals(TokenColor.NONE)) {
+                Image image = new Image("damageTears/" + Converter.fromTokenColorToString(kills.get(i).getFirstColor()) + ".png");
+                addDamageOnGrid(firstDeathCounterGrid, image, i, row);
+            }
+        }
+    }
+
     public void setMarksGridOtherPlayers(){
         playerController = Data.getInstance().getPlayerController();
         List<Player> otherPlayers = playerController.getOtherPlayers();
@@ -280,6 +331,8 @@ public class PlayerBoardGui extends Application {
                 setOthersDamage();
                 setMarksGridFirstPlayer();
                 setMarksGridOtherPlayers();
+                setFirstPlayerDeathCounter();
+                setOtherPlayersDeath();
             });
 
             try {
