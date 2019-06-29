@@ -117,13 +117,11 @@ public class PlayerBoardGui extends Application {
     public void setFirstPlayerDeathCounter(){
 
         playerController = Data.getInstance().getPlayerController();
-        List<Token> kills = playerController.getKillshotTrack();
+        int kills = playerController.getPlayer().getPlayerBoard().getDeathNumber();
 
-        for (int i = 0, row = 0; i < kills.size(); i++) {
-            if (!kills.get(i).getFirstColor().equals(TokenColor.NONE)) {
-                Image image = new Image("damageTears/" + Converter.fromTokenColorToString(kills.get(i).getFirstColor()) + ".png");
-                addDamageOnGrid(firstDeathCounterGrid, image, i, row);
-            }
+        for (int i = 0, row = 0; i < kills; i++) {
+            Image image = new Image("boardElem/skull.png");
+            addDamageOnGrid(firstDeathCounterGrid, image, i, row);
         }
     }
 
