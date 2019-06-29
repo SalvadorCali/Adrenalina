@@ -38,14 +38,16 @@ public class PlayerBoardGui extends Application {
     @FXML private GridPane thirdDamageGrid;
     @FXML private GridPane fourthDamageGrid;
     @FXML private GridPane fifthDamageGrid;
-    @FXML private GridPane ammoBoxGrid;
-    @FXML private GridPane ammoReserveGrid;
     @FXML private GridPane firstDeathCounterGrid;
     @FXML private GridPane secondDeathCounterGrid;
     @FXML private GridPane thirdDeathCounterGrid;
     @FXML private GridPane fourthDeathCounterGrid;
     @FXML private GridPane fifthDeathCounterGrid;
     @FXML private GridPane marksGrid;
+    @FXML private GridPane secondPlayerMarks;
+    @FXML private GridPane thirdPlayerMarks;
+    @FXML private GridPane fourthPlayerMarks;
+    @FXML private GridPane fifthPlayerMarks;
 
     private PlayerController playerController;
     private int numOtherPlayers;
@@ -61,7 +63,7 @@ public class PlayerBoardGui extends Application {
         stage.show();
     }
 
-    public void setMarksGrid() {
+    public void setMarksGridFirstPlayer() {
 
         playerController = Data.getInstance().getPlayerController();
         List<Token> marks = playerController.getPlayerBoard().getRevengeMarks();
@@ -74,7 +76,57 @@ public class PlayerBoardGui extends Application {
         }
     }
 
+    public void setMarksGridOtherPlayers(){
+        playerController = Data.getInstance().getPlayerController();
+        List<Player> otherPlayers = playerController.getOtherPlayers();
+        this.numOtherPlayers = otherPlayers.size();
+
+        if(numOtherPlayers >= 1){
+            List<Token> marks = playerController.getOtherPlayers().get(0).getPlayerBoard().getRevengeMarks();
+            for (int i = 0, row = 0; i < marks.size(); i++) {
+                Image image = new Image("damageTears/" + Converter.fromTokenColorToString(marks.get(i).getFirstColor()) + ".png");
+                addMarkGrid2(secondPlayerMarks, image, i, row);
+            }
+        }
+
+        if(numOtherPlayers >= 2){
+            List<Token> marks = playerController.getOtherPlayers().get(1).getPlayerBoard().getRevengeMarks();
+            for (int i = 0, row = 0; i < marks.size(); i++) {
+                Image image = new Image("damageTears/" + Converter.fromTokenColorToString(marks.get(i).getFirstColor()) + ".png");
+                addMarkGrid2(thirdPlayerMarks, image, i, row);
+            }
+        }
+
+        if(numOtherPlayers >= 3){
+            List<Token> marks = playerController.getOtherPlayers().get(2).getPlayerBoard().getRevengeMarks();
+            for (int i = 0, row = 0; i < marks.size(); i++) {
+                Image image = new Image("damageTears/" + Converter.fromTokenColorToString(marks.get(i).getFirstColor()) + ".png");
+                addMarkGrid2(fourthPlayerMarks, image, i, row);
+            }
+        }
+
+        if(numOtherPlayers >= 4){
+            List<Token> marks = playerController.getOtherPlayers().get(3).getPlayerBoard().getRevengeMarks();
+            for (int i = 0, row = 0; i < marks.size(); i++) {
+                Image image = new Image("damageTears/" + Converter.fromTokenColorToString(marks.get(i).getFirstColor()) + ".png");
+                addMarkGrid2(fifthPlayerMarks, image, i, row);
+            }
+        }
+    }
+
     private void addMarkGrid(Image image, GridPane marksGrid, int i, int row) {
+        ImageView imv = new ImageView(image);
+        imv.setFitWidth(STANDARD_HEIGHT);
+        imv.setFitHeight(STANDARD_HEIGHT);
+        Platform.runLater(() ->{
+            marksGrid.add(new ImageView(image), i, row);
+        });
+    }
+
+    private void addMarkGrid2(GridPane marksGrid, Image image, int i, int row) {
+        ImageView imv = new ImageView(image);
+        imv.setFitWidth(SMALL_HEIGHT);
+        imv.setFitHeight(SMALL_HEIGHT);
         Platform.runLater(() ->{
             marksGrid.add(new ImageView(image), i, row);
         });
@@ -225,10 +277,9 @@ public class PlayerBoardGui extends Application {
             Platform.runLater(() -> {
                 setPlayerBoardImage();
                 setFirstDamageGrid();
-                //setAmmoBoxGrid();
                 setOthersDamage();
-                //setAmmoReserveGrid();
-                //setMarksGrid();
+                setMarksGridFirstPlayer();
+                setMarksGridOtherPlayers();
             });
 
             try {
