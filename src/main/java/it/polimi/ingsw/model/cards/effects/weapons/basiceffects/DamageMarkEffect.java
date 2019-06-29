@@ -2,6 +2,7 @@ package it.polimi.ingsw.model.cards.effects.weapons.basiceffects;
 
 import it.polimi.ingsw.model.cards.effects.ActionInterface;
 import it.polimi.ingsw.model.gamecomponents.Player;
+import static it.polimi.ingsw.model.cards.StringCards.*;
 
 /**
  * Basic effects of the cards that are giving damages and marks to specific victims.
@@ -72,13 +73,13 @@ public class DamageMarkEffect extends BasicEffect {
         setData(actionInterface);
         canUse = actionInterface.ammoControl(redAmmos, blueAmmos, yellowAmmos) && noAutoShoot(actionInterface);
         if (canUse) {
-            if (effectName.equals("Cyberblade") || effectName.equals("Sledgehammer"))
+            if (effectName.equals(CYBERBLADEEFFECT) || effectName.equals(SLEDGEHAMMEREFFECT))
                 canUse = actionInterface.sameSquare(currentPlayer, victim);
-            else if (effectName.equals("Lock Rifle") || effectName.equals("T.H.O.R.") || effectName.equals("Plasma Gun") || effectName.equals("ZX-21") || effectName.equals("Whisper") || effectName.equals("Machine Gun"))
+            else if (effectName.equals(LOCKRIFLEEFFECT) || effectName.equals(THOREFFECT) || effectName.equals(PLASMAGUNEFFECT) || effectName.equals(ZX2MOD1EFFECT) || effectName.equals(WHISPEREFFECT) || effectName.equals(MACHINEGUNEFFECT))
                 visibilityCheck(actionInterface);
-            else if (effectName.equals("Heatseeker") && actionInterface.isVisible(currentPlayer, victim)) {
+            else if (effectName.equals(HEATSEEKEREFFECT) && actionInterface.isVisible(currentPlayer, victim)) {
                 canUse = false;
-            }else if (effectName.equals("ZX-22")) {
+            }else if (effectName.equals(ZX2MOD2EFFECT)) {
                 canUse = actionInterface.isVisible(currentPlayer, victim) || actionInterface.isVisible(currentPlayer, secondVictim) || actionInterface.isVisible(currentPlayer, thirdVictim);
                 if (canUse) {
                     if (actionInterface.isVisible(currentPlayer, victim)) {
@@ -91,7 +92,7 @@ public class DamageMarkEffect extends BasicEffect {
                         visible3 = true;
                     }
                 }
-            }else if(effectName.equals("Shockwave")){
+            }else if(effectName.equals(SHOCKWAVEEFFECT)){
                 canUse = actionInterface.distanceControl(victim.getPosition().getX(), victim.getPosition().getY()) == 1 || (secondVictim!= null && actionInterface.distanceControl(secondVictim.getPosition().getX(), secondVictim.getPosition().getY()) == 1) || (thirdVictim!= null && actionInterface.distanceControl(thirdVictim.getPosition().getX(), thirdVictim.getPosition().getY()) == 1);
                 if(canUse){
                     if (actionInterface.distanceControl(victim.getPosition().getX(), victim.getPosition().getY()) == 1) {
@@ -104,7 +105,6 @@ public class DamageMarkEffect extends BasicEffect {
                         visible3 = true;
                     }
                 }
-
             }
         }
         return canUse;
@@ -117,13 +117,13 @@ public class DamageMarkEffect extends BasicEffect {
     @Override
     public void useEffect(ActionInterface actionInterface) {
 
-        if(!effectName.equals("Shockwave"))
+        if(!effectName.equals(SHOCKWAVEEFFECT))
             actionInterface.playerDamage(victim, damagePower);
-        if(!effectName.equals("ZX-22"))
+        if(!effectName.equals(ZX2MOD2EFFECT))
             actionInterface.playerMark(victim, markPower);
-        if (effectName.equals("Machine Gun") && secondVictim!= null) {
+        if (effectName.equals(MACHINEGUNEFFECT) && secondVictim!= null) {
             actionInterface.playerDamage(secondVictim.getColor(), damagePower);
-        }else if (effectName.equals("ZX-22") || effectName.equals("Shockwave")){
+        }else if (effectName.equals(ZX2MOD2EFFECT) || effectName.equals(SHOCKWAVEEFFECT)){
             if(visible1) {
                 actionInterface.playerMark(victim, markPower);
                 actionInterface.playerDamage(victim, damagePower);
@@ -146,13 +146,12 @@ public class DamageMarkEffect extends BasicEffect {
      * @param actionInterface give access to some restricted methods of the game/clientData to the card controls.
      */
     private void visibilityCheck(ActionInterface actionInterface) {
-
         canUse = actionInterface.isVisible(currentPlayer, victim);
         if (canUse) {
-            if (effectName.equals("Whisper")) {
+            if (effectName.equals(WHISPEREFFECT)) {
                 if (actionInterface.distanceControl(victim.getPosition().getX(), victim.getPosition().getY()) <= 1)
                     canUse = false;
-            } else if (effectName.equals("Machine Gun") && secondVictim != null) {
+            } else if (effectName.equals(MACHINEGUNEFFECT) && secondVictim != null) {
                 canUse = (!secondVictim.getColor().equals(victim.getColor())) && actionInterface.isVisible(currentPlayer, secondVictim);
             }
         }

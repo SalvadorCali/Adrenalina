@@ -2,6 +2,8 @@ package it.polimi.ingsw.model.cards.effects.weapons.singleaddictions;
 
 import it.polimi.ingsw.model.cards.effects.ActionInterface;
 import it.polimi.ingsw.model.cards.effects.Effect;
+import static it.polimi.ingsw.model.cards.StringCards.*;
+
 
 /**
  * Class representing the additional damages involving squares/rooms.
@@ -69,13 +71,12 @@ public class AdditionalSquareDamage extends SingleAddictionEffect{
      */
     @Override
     public boolean canUseEffect(ActionInterface actionInterface) {
-
         setData(actionInterface);
         if (basicFirst) {
             canUse = super.effect.canUseEffect(actionInterface) && actionInterface.ammoControl(redAmmos, blueAmmos, yellowAmmos);
-            if (canUse && !effectName.equals("Rocket Launcher") && !effectName.equals("Vortex Cannon"))
+            if (canUse && !effectName.equals(ROCKETLAUNCHEREFFECT) && !effectName.equals(VORTEXCANNONEFFECT))
                 canUse = actionInterface.isVisibleDifferentSquare(x, y);
-            if(canUse && effectName.equals("Vortex Cannon")) {
+            if(canUse && effectName.equals(VORTEXCANNONEFFECT)) {
                 if(actionInterface.distanceControl(actionInterface.getClientData().getSecondVictim(), x, y)  >= 2)
                     canUse = false;
                 if(actionInterface.distanceControl(actionInterface.getClientData().getSecondVictim(), x, y)  < 2)
@@ -90,7 +91,7 @@ public class AdditionalSquareDamage extends SingleAddictionEffect{
         } else {
             canUse = actionInterface.ammoControl(redAmmos, blueAmmos, yellowAmmos);
             if (canUse) {
-                if (!effectName.equals("Rocket Launcher")) {
+                if (!effectName.equals(ROCKETLAUNCHEREFFECT)) {
                     canUse = actionInterface.isVisibleDifferentSquare(x, y) || (x == actionInterface.getClientData().getCurrentPlayer().getPosition().getX() && y == actionInterface.getClientData().getCurrentPlayer().getPosition().getY());
                 }
                 if (canUse)
@@ -106,11 +107,10 @@ public class AdditionalSquareDamage extends SingleAddictionEffect{
      */
     @Override
     public void useEffect(ActionInterface actionInterface) {
-
         super.effect.useEffect(actionInterface);
-        if(!effectName.equals("Vortex Cannon")) {
+        if(!effectName.equals(VORTEXCANNONEFFECT)) {
             actionInterface.squareDamage(x, y, damagePower, 0);
-            if (effectName.equals("Rocket Launcher") && (actionInterface.getVictim().getPosition().getX() != x || actionInterface.getVictim().getPosition().getY() != y))
+            if (effectName.equals(ROCKETLAUNCHEREFFECT) && (actionInterface.getVictim().getPosition().getX() != x || actionInterface.getVictim().getPosition().getY() != y))
                 actionInterface.playerDamage(actionInterface.getVictim().getColor(), damagePower);
         }else{
             if(victim1){
@@ -132,7 +132,7 @@ public class AdditionalSquareDamage extends SingleAddictionEffect{
      * @param actionInterface give access to some restricted methods of the game/clientData to the card controls.
      */
     private void setData(ActionInterface actionInterface){
-        if(effectName.equals("Rocket Launcher")){
+        if(effectName.equals(ROCKETLAUNCHEREFFECT)){
             actionInterface.getClientData().setSquare(actionInterface.getClientData().getVictim().getPosition().getX(), actionInterface.getClientData().getVictim().getPosition().getY());
             this.x = actionInterface.getClientData().getSquare().getX();
             this.y = actionInterface.getClientData().getSquare().getY();

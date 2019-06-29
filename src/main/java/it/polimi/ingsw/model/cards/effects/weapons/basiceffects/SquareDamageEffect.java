@@ -4,6 +4,7 @@ import it.polimi.ingsw.model.cards.effects.ActionInterface;
 import it.polimi.ingsw.model.enums.Direction;
 import it.polimi.ingsw.model.gamecomponents.Player;
 import it.polimi.ingsw.model.gamecomponents.Position;
+import static it.polimi.ingsw.model.cards.StringCards.*;
 
 /**
  * Class representing the basic effects which damage all the players in a square/room.
@@ -76,17 +77,16 @@ public class SquareDamageEffect extends BasicEffect {
      */
     @Override
     public boolean canUseEffect(ActionInterface actionInterface) {
-
         setData(actionInterface);
         canUse = actionInterface.ammoControl(redAmmos, blueAmmos, yellowAmmos) && noAutoShoot(actionInterface);// Electroscythe
         if(canUse) {
-            if (effectName.equals("Hellion"))
+            if (effectName.equals(HELLIONEFFECT))
                 canUse = actionInterface.isVisible(currentPlayer,victim) && (actionInterface.distanceControl(victim.getPosition().getX(),victim.getPosition().getY())>= 1);
-            else if(effectName.equals("Furnace1"))
+            else if(effectName.equals(FURNACEMOD1EFFECT))
                 canUse = actionInterface.isVisibleDifferentSquare(square.getX(),square.getY());
-            else if (effectName.equals("Furnace2") && (actionInterface.distanceControl(square.getX(), square.getY()) != 1))
+            else if (effectName.equals(FURNACEMOD2EFFECT) && (actionInterface.distanceControl(square.getX(), square.getY()) != 1))
                     canUse = false;
-            else if(effectName.equals("Shockwave")){
+            else if(effectName.equals(SHOCKWAVEEFFECT)){
                 if(actionInterface.canMove(currentPlayer, Direction.UP))
                     up = true;
                 if(actionInterface.canMove(currentPlayer,Direction.DOWN))
@@ -95,7 +95,7 @@ public class SquareDamageEffect extends BasicEffect {
                     right = true;
                 if(actionInterface.canMove(currentPlayer, Direction.LEFT))
                     left = true;
-            }else if(effectName.equals("Vortex Cannon")){
+            }else if(effectName.equals(VORTEXCANNONEFFECT)){
                 if(actionInterface.distanceControl(currentPlayer, square.getX(),square.getY()) == 0 || actionInterface.distanceControl(victim, square.getX(), square.getY()) > 1)
                     canUse = false;
             }
@@ -109,10 +109,9 @@ public class SquareDamageEffect extends BasicEffect {
      */
     @Override
     public void useEffect(ActionInterface actionInterface) {
-
-        if (effectName.equals("Furnace1")) {
+        if (effectName.equals(FURNACEMOD1EFFECT)) {
             actionInterface.roomDamage(square.getX(), square.getY(), damagePower, markPower);
-        }else if(effectName.equals("Shockwave")){
+        }else if(effectName.equals(SHOCKWAVEEFFECT)){
             if(up)
                 actionInterface.squareDamage(currentPlayer.getPosition().getX() - 1, currentPlayer.getPosition().getY(), damagePower, markPower);
             if(down)
@@ -125,11 +124,11 @@ public class SquareDamageEffect extends BasicEffect {
             down = false;
             right = false;
             left = false;
-        }else if(effectName.equals("Vortex Cannon")) {
+        }else if(effectName.equals(VORTEXCANNONEFFECT)) {
             actionInterface.playerDamage(victim, damagePower);
             actionInterface.move(square.getX(),square.getY(),victim);
         }else {
-            if (effectName.equals("Hellion")) {
+            if (effectName.equals(HELLIONEFFECT)) {
                 actionInterface.playerDamage(victim, damagePower);
                 damagePower--;
             }
@@ -147,10 +146,9 @@ public class SquareDamageEffect extends BasicEffect {
         currentPlayer = actionInterface.getClientData().getCurrentPlayer();
         victim = actionInterface.getVictim();
         square = actionInterface.getSquare();
-        if(effectName.equals("Hellion"))
+        if(effectName.equals(HELLIONEFFECT))
             actionInterface.getClientData().setSquare(victim.getPosition().getX(), victim.getPosition().getY());
-        if(effectName.equals("Electroscythe") || effectName.equals("Shockwave"))
+        if(effectName.equals(ELECTROSCYTHEEFFECT) || effectName.equals(SHOCKWAVEEFFECT))
             actionInterface.getClientData().setSquare(currentPlayer.getPosition().getX(), currentPlayer.getPosition().getY());
-
     }
 }

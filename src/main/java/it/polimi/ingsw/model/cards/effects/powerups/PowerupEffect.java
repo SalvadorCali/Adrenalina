@@ -8,6 +8,8 @@ import it.polimi.ingsw.model.enums.TokenColor;
 import it.polimi.ingsw.model.gamecomponents.Player;
 import it.polimi.ingsw.model.gamecomponents.Position;
 
+import static it.polimi.ingsw.model.cards.StringCards.*;
+
 /**
  * Class representing the effects of the powerup cards.
  */
@@ -50,16 +52,16 @@ public class PowerupEffect extends Effect {
     @Override
     public boolean canUseEffect(ActionInterface actionInterface) {
         switch (powerupName) {
-            case ("Targeting Scope"):
+            case (TARGETINGSCOPEEFFECT):
                 targetingScope(actionInterface);
                 break;
-            case ("Newton"):
+            case (NEWTONEFFECT):
                 newton(actionInterface);
                 break;
-            case ("Tagback Grenade"):
+            case (TAGBACKGRENADEEFFECT):
                 tagbackGrenade(actionInterface);
                 break;
-            case ("Teleporter"):
+            case (TELEPORTEREFFECT):
                 teleporter(actionInterface);
                 break;
             default:
@@ -76,16 +78,16 @@ public class PowerupEffect extends Effect {
     public void useEffect(ActionInterface actionInterface) {
 
         switch (powerupName){
-            case ("Targeting Scope"):
+            case (TARGETINGSCOPEEFFECT):
                 targetingScopeUse(actionInterface);
                 break;
-            case("Newton"):
+            case(NEWTONEFFECT):
                 newtonUse(actionInterface);
                 break;
-            case("Tagback Grenade"):
+            case(TAGBACKGRENADEEFFECT):
                 tagbackGrenadeUse(actionInterface);
                 break;
-            case("Teleporter"):
+            case(TELEPORTEREFFECT):
                 teleporterUse(actionInterface);
                 break;
             default:

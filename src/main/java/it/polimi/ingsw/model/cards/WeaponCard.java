@@ -14,19 +14,31 @@ import it.polimi.ingsw.model.gamecomponents.Player;
 import java.util.ArrayList;
 import java.util.List;
 
+import static it.polimi.ingsw.model.cards.StringCards.*;
+
 /**
  * Class representing the weapon cards in the game.
  */
 public class WeaponCard extends Card{
 
-    private int weaponId;
-
+    /**
+     * Ammos required for grabbing the weapon.
+     */
     private int grabRedAmmos, grabBlueAmmos, grabYellowAmmos;
 
+    /**
+     * Ammos required for reloading the weapon.
+     */
     private int reloadRedAmmos, reloadBlueAmmos, reloadYellowAmmos;
 
+    /**
+     * Boolean that indicates if the weapon is loaded.
+     */
     private boolean loaded;
 
+    /**
+     * Different effects in the weapon.
+     */
     private List<Effect> effects = new ArrayList<>();
 
     /**
@@ -66,137 +78,136 @@ public class WeaponCard extends Card{
      * @param name name of the weapon.
      */
     private void setEffects(String name){
-
         switch (name){
-            case ("LOCK RIFLE"):
-                Effect lockRifle = new DamageMarkEffect("Lock Rifle", 2,1, 0,0,0);
-                Effect lockRifleAdd = new AdditionalTarget("Lock Rifle", 0, 1,1,0,0, lockRifle);
+            case (LOCKRIFLECAPS):
+                Effect lockRifle = new DamageMarkEffect(LOCKRIFLEEFFECT, 2,1, 0,0,0);
+                Effect lockRifleAdd = new AdditionalTarget(LOCKRIFLEEFFECT, 0, 1,1,0,0, lockRifle);
                 effects.add(lockRifle);
                 effects.add(lockRifleAdd);
                 break;
-            case ("ELECTROSCYTHE"):
-                Effect electroscythe1 = new SquareDamageEffect("Electroscythe", 1,0, 0,0,0);
-                Effect electroscythe2 = new SquareDamageEffect("Electroscythe", 2,0,1,1,0);
+            case (ELECTROSCYTHECAPS):
+                Effect electroscythe1 = new SquareDamageEffect(ELECTROSCYTHEEFFECT, 1,0, 0,0,0);
+                Effect electroscythe2 = new SquareDamageEffect(ELECTROSCYTHEEFFECT, 2,0,1,1,0);
                 effects.add(electroscythe1);
                 effects.add(electroscythe2);
                 break;
-            case ("MACHINE GUN"):
-                Effect machineGun = new DamageMarkEffect("Machine Gun", 1,0, 0,0,0);
-                Effect machineGunAdd = new AdditionalTarget("Machine Gun", 1,0,0,0,1, machineGun);
-                Effect machineGunAdd2 = new AdditionalTarget("Machine Gun Double", 1,0,0,1,0, machineGunAdd);
+            case (MACHINEGUNCAPS):
+                Effect machineGun = new DamageMarkEffect(MACHINEGUNEFFECT, 1,0, 0,0,0);
+                Effect machineGunAdd = new AdditionalTarget(MACHINEGUNEFFECT, 1,0,0,0,1, machineGun);
+                Effect machineGunAdd2 = new AdditionalTarget(MACHINEGUNDOUBLEEFFECT, 1,0,0,1,0, machineGunAdd);
                 effects.add(machineGun);
                 effects.add(machineGunAdd);
                 effects.add(machineGunAdd2);
                 break;
-            case("TRACTOR BEAM"):
-                Effect tractorBeam1 = new MovementEffect("Tractor Beam1",1,0,0,0,0);
-                Effect tractorBeam2 = new MovementEffect("Tractor Beam2", 3,0,1,0,1);
+            case(TRACTORBEAMCAPS):
+                Effect tractorBeam1 = new MovementEffect(TRACTORBEAMMOD1EFFECT,1,0,0,0,0);
+                Effect tractorBeam2 = new MovementEffect(TRACTORBEAMMOD2EFFECT, 3,0,1,0,1);
                 effects.add(tractorBeam1);
                 effects.add(tractorBeam2);
                 break;
-            case ("T.H.O.R."):
-                Effect thor = new DamageMarkEffect("T.H.O.R.",2,0,0,0,0);
-                Effect thorAdd = new AdditionalTarget("T.H.O.R. Single",1,0,0,1,0, thor);
-                Effect thorAdd2 = new AdditionalTarget("T.H.O.R. Double",2,0,0,1,0, thorAdd);
+            case (THORCAPS):
+                Effect thor = new DamageMarkEffect(THOREFFECT,2,0,0,0,0);
+                Effect thorAdd = new AdditionalTarget(THORSINGLEEFFECT,1,0,0,1,0, thor);
+                Effect thorAdd2 = new AdditionalTarget(THORDOUBLEEFFECT,2,0,0,1,0, thorAdd);
                 effects.add(thor);
                 effects.add(thorAdd);
                 effects.add(thorAdd2);
                 break;
-            case ("VORTEX CANNON"):
-                Effect vortexCannon = new SquareDamageEffect("Vortex Cannon",2,0,0,0,0);
-                Effect vortexCannonAdd = new AdditionalSquareDamage("Vortex Cannon",1,1,0,0, vortexCannon);
+            case (VORTEXCANNONCAPS):
+                Effect vortexCannon = new SquareDamageEffect(VORTEXCANNONEFFECT,2,0,0,0,0);
+                Effect vortexCannonAdd = new AdditionalSquareDamage(VORTEXCANNONEFFECT,1,1,0,0, vortexCannon);
                 effects.add(vortexCannon);
                 effects.add(vortexCannonAdd);
                 break;
-            case ("FURNACE"):
-                Effect furnace1 = new SquareDamageEffect("Furnace1", 1,0, 0,0,0);
-                Effect furnace2 = new SquareDamageEffect("Furnace2", 1,1,0,0,0);
+            case (FURNACECAPS):
+                Effect furnace1 = new SquareDamageEffect(FURNACEMOD1EFFECT, 1,0, 0,0,0);
+                Effect furnace2 = new SquareDamageEffect(FURNACEMOD2EFFECT, 1,1,0,0,0);
                 effects.add(furnace1);
                 effects.add(furnace2);
                 break;
-            case("PLASMA GUN"):
-                Effect plasmaGun = new DamageMarkEffect("Plasma Gun",2,0,0,0,0);
-                Effect plasmaGunAdd = new AdditionalMove("Plasma Gun",0,0,0, plasmaGun);
-                Effect plasmaGunAdd2 = new AdditionalTarget("Plasma Gun Double",1,0,0,1,0, plasmaGunAdd);
+            case(PLASMAGUNCAPS):
+                Effect plasmaGun = new DamageMarkEffect(PLASMAGUNEFFECT,2,0,0,0,0);
+                Effect plasmaGunAdd = new AdditionalMove(PLASMAGUNEFFECT,0,0,0, plasmaGun);
+                Effect plasmaGunAdd2 = new AdditionalTarget(PLASMAGUNDOUBLEEFFECT,1,0,0,1,0, plasmaGunAdd);
                 effects.add(plasmaGun);
                 effects.add(plasmaGunAdd);
                 effects.add(plasmaGunAdd2);
                 break;
-            case ("HEATSEEKER"):
-                Effect heatseeker = new DamageMarkEffect("Heatseeker",3,0,0,0,0);
+            case (HEATSEEKERCAPS):
+                Effect heatseeker = new DamageMarkEffect(HEATSEEKEREFFECT,3,0,0,0,0);
                 effects.add(heatseeker);
                 break;
-            case ("WHISPER"):
-                Effect whisper = new DamageMarkEffect("Whisper", 3,1,0,0,0);
+            case (WHISPERCAPS):
+                Effect whisper = new DamageMarkEffect(WHISPEREFFECT, 3,1,0,0,0);
                 effects.add(whisper);
                 break;
-            case("HELLION"):
-                Effect hellion1 = new SquareDamageEffect("Hellion",1,1,0,0,0 );
-                Effect hellion2 = new SquareDamageEffect("Hellion",1,2,1,0,0 );
+            case(HELLIONCAPS):
+                Effect hellion1 = new SquareDamageEffect(HELLIONEFFECT,1,1,0,0,0 );
+                Effect hellion2 = new SquareDamageEffect(HELLIONEFFECT,1,2,1,0,0 );
                 effects.add(hellion1);
                 effects.add(hellion2);
                 break;
-            case ("FLAMETHROWER"):
-                Effect flamethrower1 = new DirectionalDamage("Flamethrower1",1,0,0,0 );
-                Effect flamethrower2 = new DirectionalDamage("Flamethrower2",2,0,0,2 );
+            case (FLAMETHROWERCAPS):
+                Effect flamethrower1 = new DirectionalDamage(FLAMETHROWERMOD1EFFECT,1,0,0,0 );
+                Effect flamethrower2 = new DirectionalDamage(FLAMETHROWERMOD2EFFECT,2,0,0,2 );
                 effects.add(flamethrower1);
                 effects.add(flamethrower2);
                 break;
-            case ("ZX-2"):
-                Effect zx21 = new DamageMarkEffect("ZX-21",1,2,0,0,0);
-                Effect zx22 = new DamageMarkEffect("ZX-22", 0,1,0,0,0);
+            case (ZX2CAPS):
+                Effect zx21 = new DamageMarkEffect(ZX2MOD1EFFECT,1,2,0,0,0);
+                Effect zx22 = new DamageMarkEffect(ZX2MOD2EFFECT, 0,1,0,0,0);
                 effects.add(zx21);
                 effects.add(zx22);
                 break;
-            case ("GRENADE LAUNCHER"):
-                Effect grenadeLauncher = new MovementEffect("Grenade Launcher",1,0,0,0,0);
-                Effect grenadeLauncherAdd = new AdditionalSquareDamage("Grenade Launcher",1,1,0,0, grenadeLauncher);
+            case (GRENADELAUNCHERCAPS):
+                Effect grenadeLauncher = new MovementEffect(GRENADELAUNCHEREFFECT,1,0,0,0,0);
+                Effect grenadeLauncherAdd = new AdditionalSquareDamage(GRENADELAUNCHEREFFECT,1,1,0,0, grenadeLauncher);
                 effects.add(grenadeLauncher);
                 effects.add(grenadeLauncherAdd);
                 break;
-            case("SHOTGUN"):
-                Effect shotgun1 = new MovementEffect("Shotgun1",3,0,0,0,0);
-                Effect shotgun2 = new MovementEffect("Shotgun2",2,0,0,0,0);
+            case(SHOTGUNCAPS):
+                Effect shotgun1 = new MovementEffect(SHOTGUNMOD1EFFECT,3,0,0,0,0);
+                Effect shotgun2 = new MovementEffect(SHOTGUNMOD2EFFECT,2,0,0,0,0);
                 effects.add(shotgun1);
                 effects.add(shotgun2);
                 break;
-            case("ROCKET LAUNCHER"):
-                Effect rocketLauncher = new MovementEffect("Rocket Launcher",2,0,0,0,0);
-                Effect rocketLauncherAdd = new AdditionalMove("Rocket Launcher",0,0,0, rocketLauncher);
-                Effect rocketLauncherAdd2 = new AdditionalSquareDamage("Rocket Launcher",1,0,0,1, rocketLauncherAdd);
+            case(ROCKETLAUNCHERCAPS):
+                Effect rocketLauncher = new MovementEffect(ROCKETLAUNCHEREFFECT,2,0,0,0,0);
+                Effect rocketLauncherAdd = new AdditionalMove(ROCKETLAUNCHEREFFECT,0,0,0, rocketLauncher);
+                Effect rocketLauncherAdd2 = new AdditionalSquareDamage(ROCKETLAUNCHEREFFECT,1,0,0,1, rocketLauncherAdd);
                 effects.add(rocketLauncher);
                 effects.add(rocketLauncherAdd);
                 effects.add(rocketLauncherAdd2);
                 break;
-            case ("POWER GLOVE"):
-                Effect powerGlove1 = new MovementEffect("Power Glove1", 1,2,0,0,0);
-                Effect powerGlove2 = new DirectionalDamage("Power Glove2",2,0,1,0);
+            case (POWERGLOVECAPS):
+                Effect powerGlove1 = new MovementEffect(POWERGLOVEMOD1EFFECT, 1,2,0,0,0);
+                Effect powerGlove2 = new DirectionalDamage(POWERGLOVEMOD2EFFECT,2,0,1,0);
                 effects.add(powerGlove1);
                 effects.add(powerGlove2);
                 break;
-            case("RAILGUN"):
-                Effect railgun1 = new DirectionalDamage("Railgun1",3,0,0,0);
-                Effect railgun2 = new DirectionalDamage("Railgun2", 2,0,0,0);
+            case(RAILGUNCAPS):
+                Effect railgun1 = new DirectionalDamage(RAILGUNMOD1EFFECT,3,0,0,0);
+                Effect railgun2 = new DirectionalDamage(RAILGUNMOD2EFFECT, 2,0,0,0);
                 effects.add(railgun1);
                 effects.add(railgun2);
                 break;
-            case("CYBERBLADE"):
-                Effect cyberblade = new DamageMarkEffect("Cyberblade",2,0,0,0,0);
-                Effect cyberbladeAdd = new AdditionalMove("Cyberblade",0,0,0, cyberblade);
-                Effect cyberbladeAdd2 = new AdditionalTarget("Cyberblade",2,0,0,0,1,cyberbladeAdd);
+            case(CYBERBLADECAPS):
+                Effect cyberblade = new DamageMarkEffect(CYBERBLADEEFFECT,2,0,0,0,0);
+                Effect cyberbladeAdd = new AdditionalMove(CYBERBLADEEFFECT,0,0,0, cyberblade);
+                Effect cyberbladeAdd2 = new AdditionalTarget(CYBERBLADEEFFECT,2,0,0,0,1,cyberbladeAdd);
                 effects.add(cyberblade);
                 effects.add(cyberbladeAdd);
                 effects.add(cyberbladeAdd2);
                 break;
-            case ("SLEDGEHAMMER"):
-                Effect sledgehammer1 = new DamageMarkEffect("Sledgehammer",2,0,0,0,0);
-                Effect sledgehammer2 = new DirectionalDamage("Sledgehammer",3,1,0,0);
+            case (SLEDGEHAMMERCAPS):
+                Effect sledgehammer1 = new DamageMarkEffect(SLEDGEHAMMEREFFECT,2,0,0,0,0);
+                Effect sledgehammer2 = new DirectionalDamage(SLEDGEHAMMEREFFECT,3,1,0,0);
                 effects.add(sledgehammer1);
                 effects.add(sledgehammer2);
                 break;
-            case ("SHOCKWAVE"):
-                Effect shockwave1 = new DamageMarkEffect("Shockwave",1,0,0,0,0);
-                Effect shockwave2 = new SquareDamageEffect("Shockwave",1,0,0, 0,1);
+            case (SHOCKWAVECAPS):
+                Effect shockwave1 = new DamageMarkEffect(SHOCKWAVEEFFECT,1,0,0,0,0);
+                Effect shockwave2 = new SquareDamageEffect(SHOCKWAVEEFFECT,1,0,0, 0,1);
                 effects.add(shockwave1);
                 effects.add(shockwave2);
                 break;

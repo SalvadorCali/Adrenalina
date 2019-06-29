@@ -4,6 +4,8 @@ import it.polimi.ingsw.model.cards.effects.ActionInterface;
 import it.polimi.ingsw.model.cards.effects.Effect;
 import it.polimi.ingsw.model.gamecomponents.Player;
 import it.polimi.ingsw.util.Printer;
+import static it.polimi.ingsw.model.cards.StringCards.*;
+
 
 /**
  * Class representing the effects which add damages to new victims.
@@ -69,35 +71,30 @@ public class AdditionalTarget extends SingleAddictionEffect {
      */
     @Override
     public boolean canUseEffect(ActionInterface actionInterface) {
-
         setData(actionInterface);
         if(basicFirst) {
             Printer.println(actionInterface.ammoControl(redAmmos, blueAmmos, yellowAmmos));
             canUse = super.effect.canUseEffect(actionInterface) && actionInterface.ammoControl(redAmmos, blueAmmos, yellowAmmos);
-            if (canUse && !effectName.equals("Plasma Gun Double") && !effectName.equals("Machine Gun")) {
-                if (effectName.equals("Lock Rifle")) {
+            if (canUse && !effectName.equals(PLASMAGUNDOUBLEEFFECT) && !effectName.equals(MACHINEGUNEFFECT)) {
+                if (effectName.equals(LOCKRIFLEEFFECT)) {
                     canUse = actionInterface.isVisible(currentPlayer, additionalVictim);
-                } else if (effectName.equals("T.H.O.R. Single")) {
+                } else if (effectName.equals(THORSINGLEEFFECT)) {
                     canUse = actionInterface.isVisible(victim, additionalVictim);
-                } else if (effectName.equals("Machine Gun Double")) {
+                } else if (effectName.equals(MACHINEGUNDOUBLEEFFECT)) {
                     canUse = actionInterface.isVisible(currentPlayer, thirdVictim);
-                } else if (effectName.equals("T.H.O.R. Double")) {
+                } else if (effectName.equals(THORDOUBLEEFFECT)) {
                     canUse = actionInterface.isVisible(additionalVictim, thirdVictim);
                 } else {
-                    Printer.print("SHOOTER:" +currentPlayer.getPosition().getX());
-                    Printer.println(currentPlayer.getPosition().getX());
-                    Printer.print("VICTIM:"+additionalVictim.getPosition().getX());
-                    Printer.println(additionalVictim.getPosition().getY());
                     canUse = actionInterface.sameSquare(currentPlayer, additionalVictim);
                 }
             }
         }else {
-            if(effectName.equals("Cyberblade")) {
+            if(effectName.equals(CYBERBLADEEFFECT)) {
                 canUse = actionInterface.ammoControl(redAmmos, blueAmmos, yellowAmmos) && actionInterface.sameSquare(currentPlayer, additionalVictim);
                 actionInterface.getClientData().setBasicFirst(true);
                 if(canUse)
                     super.effect.canUseEffect(actionInterface);
-            }else if(effectName.equals("Plasma Gun Double"))
+            }else if(effectName.equals(PLASMAGUNDOUBLEEFFECT))
                 canUse = actionInterface.ammoControl(redAmmos,blueAmmos,yellowAmmos) && super.effect.canUseEffect(actionInterface);
         }
         return canUse;
@@ -109,12 +106,11 @@ public class AdditionalTarget extends SingleAddictionEffect {
      */
     @Override
     public void useEffect(ActionInterface actionInterface) {
-
         super.effect.useEffect(actionInterface);
-        if(effectName.equals("Plasma Gun Double")){
+        if(effectName.equals(PLASMAGUNDOUBLEEFFECT)){
             actionInterface.playerDamage(victim.getColor(), damagePower);
         }
-        if(effectName.equals("Machine Gun Double") || effectName.equals("T.H.O.R. Double")){
+        if(effectName.equals(MACHINEGUNDOUBLEEFFECT) || effectName.equals(THORDOUBLEEFFECT)){
             actionInterface.playerDamage(thirdVictim.getColor(), damagePower);
         }else{
             actionInterface.playerDamage(additionalVictim, damagePower);
@@ -131,7 +127,7 @@ public class AdditionalTarget extends SingleAddictionEffect {
         this.basicFirst = actionInterface.basicFirst();
         if(!basicFirst)
             actionInterface.getClientData().setAmmos();
-        if(effectName.equals("Cyberblade") && basicFirst)
+        if(effectName.equals(CYBERBLADEEFFECT) && basicFirst)
             currentPlayer = actionInterface.getClientData().getFakePlayer();
         else
             currentPlayer = actionInterface.getClientData().getCurrentPlayer();

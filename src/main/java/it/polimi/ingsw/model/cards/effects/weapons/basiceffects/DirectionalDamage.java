@@ -6,6 +6,8 @@ import it.polimi.ingsw.model.gamecomponents.Player;
 import it.polimi.ingsw.model.gamecomponents.Position;
 import it.polimi.ingsw.util.Printer;
 
+import static it.polimi.ingsw.model.cards.StringCards.*;
+
 /**
  * Basic effects of the cards that are giving damages to victims setted in a single direction.
  */
@@ -75,17 +77,16 @@ public class DirectionalDamage extends BasicEffect {
      */
     @Override
     public boolean canUseEffect(ActionInterface actionInterface) {
-
         setData(actionInterface);
         canUse = ammoControl(redAmmos, blueAmmos, yellowAmmos, actionInterface) && noAutoShoot(actionInterface);
-        if(effectName.equals("Sledgehammer")){
+        if(effectName.equals(SLEDGEHAMMEREFFECT)){
             if(victim!=null)
                 actionInterface.generatePlayer(victim, player);
             else
                 canUse = false;
         } else
             actionInterface.generatePlayer(currentPlayer, player);
-        if(canUse && effectName.equals("Sledgehammer"))
+        if(canUse && effectName.equals(SLEDGEHAMMEREFFECT))
             canUse = actionInterface.sameSquare(currentPlayer,victim);
         if(canUse) {
             firstMoveControl(actionInterface);
@@ -94,16 +95,15 @@ public class DirectionalDamage extends BasicEffect {
                 actionInterface.move(direction, player);
                 victimControl(actionInterface);
                 Printer.println(canUse);
-                if (canUse && !effectName.equals("Railgun1")) {
+                if (canUse && !effectName.equals(RAILGUNMOD1EFFECT)) {
                     secondMoveControl(actionInterface);
-                    if (!effectName.equals("Flamethrower2") && !effectName.equals("Sledgehammer")&& secondVictim != null)
+                    if (!effectName.equals(FLAMETHROWERMOD2EFFECT) && !effectName.equals(SLEDGEHAMMEREFFECT)&& secondVictim != null)
                         canUse = actionInterface.squareControl(player.getPosition().getX(), player.getPosition().getY(), secondVictim);
                     else
                         squares = 2;
                 }
             }
         }
-        Printer.println("FINALE"+ canUse);
         actionInterface.removePlayer(player);
         return canUse;
     }
@@ -114,24 +114,23 @@ public class DirectionalDamage extends BasicEffect {
      */
     @Override
     public void useEffect(ActionInterface actionInterface) {
-
-        if(!effectName.equals("Flamethrower2") && victim!=null)
+        if(!effectName.equals(FLAMETHROWERMOD2EFFECT) && victim!=null)
             actionInterface.playerDamage(victim.getColor(), damagePower);
-        if(secondVictim != null && !effectName.equals("Flamethrower2"))
+        if(secondVictim != null && !effectName.equals(FLAMETHROWERMOD2EFFECT))
             actionInterface.playerDamage(secondVictim.getColor(), damagePower);
-        if(effectName.equals("Power Glove2")) {
+        if(effectName.equals(POWERGLOVEMOD2EFFECT)) {
             if (actionInterface.getClientData().getSecondMove() == null)
                 actionInterface.move(firstSquare.getX(), firstSquare.getY(), currentPlayer);
             else
                 actionInterface.move(player.getPosition().getX(), player.getPosition().getY(), currentPlayer);
         }
-        if(effectName.equals("Sledgehammer")) {
+        if(effectName.equals(SLEDGEHAMMEREFFECT)) {
             if(actionInterface.getClientData().getSecondMove() == null)
                 actionInterface.move(firstSquare.getX(), firstSquare.getY(), victim);
             else
                 actionInterface.move(player.getPosition().getX(), player.getPosition().getY(), victim);
         }
-        if(effectName.equals("Flamethrower2")){
+        if(effectName.equals(FLAMETHROWERMOD2EFFECT)){
             actionInterface.squareDamage(firstSquare.getX(), firstSquare.getY(), damagePower, 0);
             if (squares == 2)
                 actionInterface.squareDamage(player.getPosition().getX(), player.getPosition().getY(), 1, 0);
@@ -158,7 +157,7 @@ public class DirectionalDamage extends BasicEffect {
      */
     private void victimControl(ActionInterface actionInterface){
         firstSquare = new Position(player.getPosition().getX(), player.getPosition().getY());
-        if ((!effectName.equals("Flamethrower2")) && !effectName.equals("Sledgehammer"))
+        if ((!effectName.equals(FLAMETHROWERMOD2EFFECT)) && !effectName.equals(SLEDGEHAMMEREFFECT))
             canUse = actionInterface.squareControl(player.getPosition().getX(), player.getPosition().getY(), victim);
     }
 
@@ -167,7 +166,7 @@ public class DirectionalDamage extends BasicEffect {
      * @param actionInterface give access to some restricted methods of the game/clientData to the card controls.
      */
     private void firstMoveControl(ActionInterface actionInterface){
-        if(!effectName.equals("Railgun1") && !effectName.equals("Railgun2") && direction!=null)
+        if(!effectName.equals(RAILGUNMOD1EFFECT) && !effectName.equals(RAILGUNMOD2EFFECT) && direction!=null)
             canUse = actionInterface.canMove(player, direction);
         else {
             canUse = actionInterface.noOutOfBounds(player, direction);
@@ -179,10 +178,10 @@ public class DirectionalDamage extends BasicEffect {
      * @param actionInterface give access to some restricted methods of the game/clientData to the card controls.
      */
     private void secondMoveControl(ActionInterface actionInterface){
-        if((!effectName.equals("Railgun1")) && !effectName.equals("Railgun2")){
+        if((!effectName.equals(RAILGUNMOD1EFFECT)) && !effectName.equals(RAILGUNMOD2EFFECT)){
             if(actionInterface.canMove(player, direction))
                 actionInterface.move(direction, player);
-        }else if(effectName.equals("Railgun2") && actionInterface.noOutOfBounds(player, direction)){
+        }else if(effectName.equals(RAILGUNMOD2EFFECT) && actionInterface.noOutOfBounds(player, direction)){
             actionInterface.move(direction, player);
         }
     }

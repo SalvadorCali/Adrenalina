@@ -4,6 +4,8 @@ import it.polimi.ingsw.model.cards.effects.powerups.PowerupEffect;
 import it.polimi.ingsw.model.enums.Color;
 import it.polimi.ingsw.model.cards.effects.Effect;
 
+import static it.polimi.ingsw.model.cards.StringCards.*;
+
 /**
  * Class representing the Powerup Cards in the game.
  */
@@ -30,17 +32,17 @@ public class PowerupCard extends Card{
      */
     private void setEffect(String name){
         switch (name){
-            case "TARGETING SCOPE":
-                effect = new PowerupEffect("Targeting Scope");
+            case TARGETINGSCOPECAPS:
+                effect = new PowerupEffect(TARGETINGSCOPEEFFECT);
                 break;
-            case "NEWTON":
-                effect = new PowerupEffect("Newton");
+            case NEWTONCAPS:
+                effect = new PowerupEffect(NEWTONEFFECT);
                 break;
-            case "TAGBACK GRENADE":
-                effect = new PowerupEffect("Tagback Grenade");
+            case TAGBACKGRENADECAPS:
+                effect = new PowerupEffect(TAGBACKGRENADEEFFECT);
                 break;
-            case "TELEPORTER":
-                effect = new PowerupEffect("Teleporter");
+            case TELEPORTERCAPS:
+                effect = new PowerupEffect(TELEPORTEREFFECT);
                 break;
             default:
                 throw new IllegalStateException("Unexpected value: " + name);

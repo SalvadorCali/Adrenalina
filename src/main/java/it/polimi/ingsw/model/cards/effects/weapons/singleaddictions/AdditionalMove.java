@@ -4,6 +4,8 @@ import it.polimi.ingsw.model.cards.effects.ActionInterface;
 import it.polimi.ingsw.model.cards.effects.Effect;
 import it.polimi.ingsw.model.enums.Direction;
 import it.polimi.ingsw.model.gamecomponents.Player;
+import static it.polimi.ingsw.model.cards.StringCards.*;
+
 
 /**
  * Class representing the effects which adds movements to the basic effect of the card.
@@ -70,19 +72,18 @@ public class AdditionalMove extends SingleAddictionEffect {
      */
     @Override
     public boolean canUseEffect(ActionInterface actionInterface) {
-
         setData(actionInterface);
         actionInterface.generatePlayer(currentPlayer, player);
         if(basicFirst) {
             canUse = super.effect.canUseEffect(actionInterface) && actionInterface.ammoControl(redAmmos, blueAmmos, yellowAmmos);
             if (canUse){
-                if(effectName.equals("Plasma Gun") || effectName.equals("Rocket Launcher"))
+                if(effectName.equals(PLASMAGUNEFFECT) || effectName.equals(ROCKETLAUNCHEREFFECT))
                     movementControl(actionInterface);
                 else
                     oneMovementControl(actionInterface);
             }
         }else{
-            if(effectName.equals("Plasma Gun") || effectName.equals("Rocket Launcher"))
+            if(effectName.equals(PLASMAGUNEFFECT) || effectName.equals(ROCKETLAUNCHEREFFECT))
                 movementControl(actionInterface);
             else
                 oneMovementControl(actionInterface);
@@ -100,7 +101,6 @@ public class AdditionalMove extends SingleAddictionEffect {
      */
     @Override
     public void useEffect(ActionInterface actionInterface) {
-
         super.effect.useEffect(actionInterface);
         actionInterface.move(player.getPosition().getX(), player.getPosition().getY(), currentPlayer);
         actionInterface.updateAmmoBox(redAmmos, blueAmmos, yellowAmmos);
@@ -116,7 +116,7 @@ public class AdditionalMove extends SingleAddictionEffect {
         player = actionInterface.getFakePlayer();
         if(!basicFirst)
             actionInterface.getClientData().setAmmos();
-        if(!effectName.equals("Rocket Launcher")){
+        if(!effectName.equals(ROCKETLAUNCHEREFFECT)){
             firstMove = actionInterface.getFirstMove();
             secondMove = actionInterface.getSecondMove();
         }else{
