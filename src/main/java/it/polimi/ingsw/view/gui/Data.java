@@ -17,7 +17,7 @@ public class Data{
     private GUIHandler guiHandlerWeapon;
     private String weaponReloaded;
     private Integer numPowerup;
-
+    private Integer finalFrenzy = 0;
 
     private Data(){
     }
@@ -115,5 +115,13 @@ public class Data{
 
     public void setNumPowerup(Integer numPowerup) {
         this.numPowerup = numPowerup;
+    }
+
+    public Integer getFinalFrenzy() {
+        return finalFrenzy;
+    }
+
+    public void setFinalFrenzy(Integer finalFrenzy) {
+        this.finalFrenzy = finalFrenzy;
     }
 }

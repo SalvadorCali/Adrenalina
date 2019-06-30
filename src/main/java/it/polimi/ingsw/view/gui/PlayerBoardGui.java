@@ -261,54 +261,107 @@ public class PlayerBoardGui extends Application {
 
 
     public void setPlayerBoardImage() {
-
         playerController = Data.getInstance().getPlayerController();
-        firstPlayerBoard.setImage(new Image("playerBoard/" + Converter.fromTokenColorToString(playerController.getPlayer().getColor()) + ".jpg"));
+
+        if(Data.getInstance().getFinalFrenzy() == 0 || (Data.getInstance().getFinalFrenzy() == 1 && !playerController.isPlayerBoardFinalFrenzy())) {
+            firstPlayerBoard.setImage(new Image("playerBoard/" + Converter.fromTokenColorToString(playerController.getPlayer().getColor()) + ".jpg"));
 
 
-        List<Player> otherPlayers = playerController.getOtherPlayers();
-        if(otherPlayers.size() == 1){
-            Platform.runLater(() -> {
+            List<Player> otherPlayers = playerController.getOtherPlayers();
+            if (otherPlayers.size() == 1) {
+                Platform.runLater(() -> {
 
-                secondPlayerBoard.setImage(new Image("playerBoard/" + Converter.fromTokenColorToString(otherPlayers.get(0).getColor()) + ".jpg"));
-                secondPlayerBoard.setVisible(true);
-            });
+                    secondPlayerBoard.setImage(new Image("playerBoard/" + Converter.fromTokenColorToString(otherPlayers.get(0).getColor()) + ".jpg"));
+                    secondPlayerBoard.setVisible(true);
+                });
 
-        }else if (otherPlayers.size() == 2) {
+            } else if (otherPlayers.size() == 2) {
 
-            Platform.runLater(() -> {
+                Platform.runLater(() -> {
 
-                secondPlayerBoard.setImage(new Image("playerBoard/" + Converter.fromTokenColorToString(otherPlayers.get(0).getColor()) + ".jpg"));
-                thirdPlayerBoard.setImage(new Image("playerBoard/" + Converter.fromTokenColorToString(otherPlayers.get(1).getColor()) + ".jpg"));
-                secondPlayerBoard.setVisible(true);
-                thirdPlayerBoard.setVisible(true);
-            });
+                    secondPlayerBoard.setImage(new Image("playerBoard/" + Converter.fromTokenColorToString(otherPlayers.get(0).getColor()) + ".jpg"));
+                    thirdPlayerBoard.setImage(new Image("playerBoard/" + Converter.fromTokenColorToString(otherPlayers.get(1).getColor()) + ".jpg"));
+                    secondPlayerBoard.setVisible(true);
+                    thirdPlayerBoard.setVisible(true);
+                });
 
-        } else if (otherPlayers.size() == 3) {
+            } else if (otherPlayers.size() == 3) {
 
-            Platform.runLater(() -> {
+                Platform.runLater(() -> {
 
-                secondPlayerBoard.setImage(new Image("playerBoard/" + Converter.fromTokenColorToString(otherPlayers.get(0).getColor()) + ".jpg"));
-                thirdPlayerBoard.setImage(new Image("playerBoard/" + Converter.fromTokenColorToString(otherPlayers.get(1).getColor()) + ".jpg"));
-                fourthPlayerBoard.setImage(new Image("playerBoard/" + Converter.fromTokenColorToString(otherPlayers.get(2).getColor()) + ".jpg"));
-                secondPlayerBoard.setVisible(true);
-                thirdPlayerBoard.setVisible(true);
-                fourthPlayerBoard.setVisible(true);
-            });
+                    secondPlayerBoard.setImage(new Image("playerBoard/" + Converter.fromTokenColorToString(otherPlayers.get(0).getColor()) + ".jpg"));
+                    thirdPlayerBoard.setImage(new Image("playerBoard/" + Converter.fromTokenColorToString(otherPlayers.get(1).getColor()) + ".jpg"));
+                    fourthPlayerBoard.setImage(new Image("playerBoard/" + Converter.fromTokenColorToString(otherPlayers.get(2).getColor()) + ".jpg"));
+                    secondPlayerBoard.setVisible(true);
+                    thirdPlayerBoard.setVisible(true);
+                    fourthPlayerBoard.setVisible(true);
+                });
 
-        } else {
+            } else {
 
-            Platform.runLater(() -> {
+                Platform.runLater(() -> {
 
-                secondPlayerBoard.setImage(new Image("playerBoard/" + Converter.fromTokenColorToString(otherPlayers.get(0).getColor()) + ".jpg"));
-                thirdPlayerBoard.setImage(new Image("playerBoard/" + Converter.fromTokenColorToString(otherPlayers.get(1).getColor()) + ".jpg"));
-                fourthPlayerBoard.setImage(new Image("playerBoard/" + Converter.fromTokenColorToString(otherPlayers.get(2).getColor()) + ".jpg"));
-                fifthPlayerBoard.setImage(new Image("playerBoard/" + Converter.fromTokenColorToString(otherPlayers.get(3).getColor()) + ".jpg"));
-                secondPlayerBoard.setVisible(true);
-                thirdPlayerBoard.setVisible(true);
-                fourthPlayerBoard.setVisible(true);
-                fifthPlayerBoard.setVisible(true);
-            });
+                    secondPlayerBoard.setImage(new Image("playerBoard/" + Converter.fromTokenColorToString(otherPlayers.get(0).getColor()) + ".jpg"));
+                    thirdPlayerBoard.setImage(new Image("playerBoard/" + Converter.fromTokenColorToString(otherPlayers.get(1).getColor()) + ".jpg"));
+                    fourthPlayerBoard.setImage(new Image("playerBoard/" + Converter.fromTokenColorToString(otherPlayers.get(2).getColor()) + ".jpg"));
+                    fifthPlayerBoard.setImage(new Image("playerBoard/" + Converter.fromTokenColorToString(otherPlayers.get(3).getColor()) + ".jpg"));
+                    secondPlayerBoard.setVisible(true);
+                    thirdPlayerBoard.setVisible(true);
+                    fourthPlayerBoard.setVisible(true);
+                    fifthPlayerBoard.setVisible(true);
+                });
+            }
+
+        }else {
+
+            playerController = Data.getInstance().getPlayerController();
+            firstPlayerBoard.setImage(new Image("playerBoardFF/" + Converter.fromTokenColorToString(playerController.getPlayer().getColor()) + ".jpg"));
+
+
+            List<Player> otherPlayers = playerController.getOtherPlayers();
+            if (otherPlayers.size() == 1) {
+                Platform.runLater(() -> {
+
+                    secondPlayerBoard.setImage(new Image("playerBoardFF/" + Converter.fromTokenColorToString(otherPlayers.get(0).getColor()) + ".jpg"));
+                    secondPlayerBoard.setVisible(true);
+                });
+
+            } else if (otherPlayers.size() == 2) {
+
+                Platform.runLater(() -> {
+
+                    secondPlayerBoard.setImage(new Image("playerBoardFF/" + Converter.fromTokenColorToString(otherPlayers.get(0).getColor()) + ".jpg"));
+                    thirdPlayerBoard.setImage(new Image("playerBoardFF/" + Converter.fromTokenColorToString(otherPlayers.get(1).getColor()) + ".jpg"));
+                    secondPlayerBoard.setVisible(true);
+                    thirdPlayerBoard.setVisible(true);
+                });
+
+            } else if (otherPlayers.size() == 3) {
+
+                Platform.runLater(() -> {
+
+                    secondPlayerBoard.setImage(new Image("playerBoardFF/" + Converter.fromTokenColorToString(otherPlayers.get(0).getColor()) + ".jpg"));
+                    thirdPlayerBoard.setImage(new Image("playerBoardFF/" + Converter.fromTokenColorToString(otherPlayers.get(1).getColor()) + ".jpg"));
+                    fourthPlayerBoard.setImage(new Image("playerBoardFF/" + Converter.fromTokenColorToString(otherPlayers.get(2).getColor()) + ".jpg"));
+                    secondPlayerBoard.setVisible(true);
+                    thirdPlayerBoard.setVisible(true);
+                    fourthPlayerBoard.setVisible(true);
+                });
+
+            } else {
+
+                Platform.runLater(() -> {
+
+                    secondPlayerBoard.setImage(new Image("playerBoardFF/" + Converter.fromTokenColorToString(otherPlayers.get(0).getColor()) + ".jpg"));
+                    thirdPlayerBoard.setImage(new Image("playerBoardFF/" + Converter.fromTokenColorToString(otherPlayers.get(1).getColor()) + ".jpg"));
+                    fourthPlayerBoard.setImage(new Image("playerBoardFF/" + Converter.fromTokenColorToString(otherPlayers.get(2).getColor()) + ".jpg"));
+                    fifthPlayerBoard.setImage(new Image("playerBoardFF/" + Converter.fromTokenColorToString(otherPlayers.get(3).getColor()) + ".jpg"));
+                    secondPlayerBoard.setVisible(true);
+                    thirdPlayerBoard.setVisible(true);
+                    fourthPlayerBoard.setVisible(true);
+                    fifthPlayerBoard.setVisible(true);
+                });
+            }
         }
     }
 

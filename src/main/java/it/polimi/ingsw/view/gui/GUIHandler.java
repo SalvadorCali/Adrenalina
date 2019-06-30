@@ -508,6 +508,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
             guiHandler = Data.getInstance().getGuiHandler();
             guiHandler.setLabelStatement("final frenzy");
             this.finalFrenzy = 1;
+            Data.getInstance().setFinalFrenzy(1);
         });
     }
 
@@ -828,7 +829,6 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
                     guiHandler = loader.getController();
                     guiHandler.setMapImage();
-                    guiHandler.setSkulls();
                     //guiHandler.addWeapon();
                     guiHandler.setLabelTurn();
 
@@ -868,7 +868,6 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
                     guiHandler = loader.getController();
                     guiHandler.setMapImage();
-                    guiHandler.setSkulls();
                     //guiHandler.addWeapon();
                     guiHandler.setLabelTurn();
 
@@ -1113,7 +1112,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
             playerController = Data.getInstance().getPlayerController();
 
             Platform.runLater(() -> {
-
+                guiHandler.setSkulls();
                 guiHandler.setLabelTurn();
                 guiHandler.removeImg();
                 guiHandler.placePlayers(playerController.getGameBoard().getArena());
@@ -1299,67 +1298,6 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
             });
         }
     }
-
-
-    public void removeWeapon(){
-
-        playerController = Data.getInstance().getPlayerController();
-        arena = playerController.getGameBoard().getArena();
-
-        int k = 0;
-        for(int i = 0; i < ROWS ; i++) {
-            for (int j = 0; j < COLUMNS; j++) {
-                for (; k < MAX_WEAPONS; k++){
-                    if (arena[i][j].isSpawn() && arena[i][j].getWeapons().get(k) == null) {
-                        if (arena[i][j].equals(TokenColor.BLUE)) {
-                            if (k == 0) {
-                                Platform.runLater(() -> {
-                                    weaponBlue1.setImage(null);
-                                });
-                            } else if(k == 1){
-                                Platform.runLater(() -> {
-                                    weaponBlue2.setImage(null);
-                                });
-                            } else if(k == 2){
-                                Platform.runLater(() -> {
-                                    weaponBlue3.setImage(null);
-                                });
-                            }
-                        } else if (arena[i][j].equals(TokenColor.RED)) {
-                            if (k == 0) {
-                                Platform.runLater(() -> {
-                                    weaponRed1.setImage(null);
-                                });
-                            } else if(k == 1){
-                                Platform.runLater(() -> {
-                                    weaponRed2.setImage(null);
-                                });
-                            } else if(k == 2){
-                                Platform.runLater(() -> {
-                                    weaponRed3.setImage(null);
-                                });
-                            }
-                        } else if (arena[i][j].equals(TokenColor.YELLOW)) {
-                            if (k == 0) {
-                                Platform.runLater(() -> {
-                                    weaponYellow1.setImage(null);
-                                });
-                            } else if(k == 1){
-                                Platform.runLater(() -> {
-                                    weaponYellow2.setImage(null);
-                                });
-                            } else if(k == 2){
-                                Platform.runLater(() -> {
-                                    weaponYellow3.setImage(null);
-                                });
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-
 
 
     public void addWeapon() {
@@ -1557,7 +1495,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                 Platform.runLater(() ->{
                     labelShowMove.setText("  " + this.movement[0] + "  " + this.movement[1]);
                 });
-            } else {
+            } else if(this.movement[0] != null){
                 Platform.runLater(() ->{
                     labelShowMove.setText("  " + this.movement[0]);
                 });
@@ -1574,11 +1512,17 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                 this.movement[countMove] = move;
                 this.countMove++;
             }
+        } else if(this.finalFrenzy == 1) {
+            if(countMove < MAX_MOVEMENT + 1){
+
+                this.movement[countMove] = move;
+                this.countMove++;
+            }
         }
     }
 
     public void resetMovement(){
-        for(int i = 0; i < MAX_MOVEMENT; i++){
+        for(int i = 0; i < MAX_MOVEMENT + 1; i++){
             this.movement[i] = null;
         }
 
