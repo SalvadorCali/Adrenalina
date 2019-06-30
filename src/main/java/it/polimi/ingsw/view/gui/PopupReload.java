@@ -8,22 +8,24 @@ import javafx.stage.Stage;
 
 public class PopupReload {
 
-    @FXML private TextField txtWeaponReload;
-    @FXML private Button endReloadButton;
+    @FXML private TextField txtWeaponReload1;
+    @FXML private TextField txtWeaponReload2;
+    @FXML private TextField txtWeaponReload3;
     @FXML private Button buttonReload;
 
 
-    public void closeReload(MouseEvent mouseEvent) {
+    public void reload(MouseEvent mouseEvent) {
+        if(txtWeaponReload1.getText() == "yes") {
+            Data.getInstance().setWeaponReloaded1("first");
+        }
+        if(txtWeaponReload2.getText() == "yes"){
+            Data.getInstance().setWeaponReloaded2("second");
+        }
+        if(txtWeaponReload3.getText() == "yes"){
+            Data.getInstance().setWeaponReloaded3("third");
+        }
 
         Stage stage = (Stage) buttonReload.getScene().getWindow();
         stage.close();
-    }
-
-
-    public void reload(MouseEvent mouseEvent) {
-        if(txtWeaponReload.getText() == "first" || txtWeaponReload.getText() == "second" || txtWeaponReload.getText() == "third") {
-            String weaponReload = txtWeaponReload.getText();
-            Data.getInstance().setWeaponReloaded(weaponReload);
-        }
     }
 }
