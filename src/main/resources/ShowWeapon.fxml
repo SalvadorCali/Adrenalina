@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="554.0" prefWidth="522.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.gui.GUIHandler">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="554.0" prefWidth="522.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.gui.GUIHandler">
    <children>
       <Label layoutX="93.0" layoutY="14.0" text="Your Weapons and PowerUps" textFill="WHITE">
          <font>
@@ -44,11 +44,17 @@
             <Image url="@powerup/Y/NEWTON.png" />
          </image>
       </ImageView>
-      <Button fx:id="shootButton1" layoutX="58.0" layoutY="298.0" mnemonicParsing="false" onMouseClicked="#shootFirstWeapon" text="Shoot1" />
-      <Button fx:id="shootButton2" layoutX="225.0" layoutY="298.0" mnemonicParsing="false" onMouseClicked="#shootSecondWeapon" text="Shoot2" />
-      <Button fx:id="shootButton3" layoutX="393.0" layoutY="298.0" mnemonicParsing="false" onMouseClicked="#shootThirdWeapon" text="Shoot3" />
-      <Button fx:id="usePowerup1" layoutX="53.0" layoutY="513.0" mnemonicParsing="false" onMouseClicked="#useFirstPowerup" text="Use1" />
-      <Button fx:id="usePowerup2" layoutX="225.0" layoutY="513.0" mnemonicParsing="false" onMouseClicked="#useSecondPowerup" text="Use2" />
-      <Button fx:id="usePowerup3" layoutX="400.0" layoutY="513.0" mnemonicParsing="false" onMouseClicked="#useThirdPowerup" text="Use3" />
+      <Button fx:id="shootButton1" layoutX="26.0" layoutY="298.0" mnemonicParsing="false" onMouseClicked="#shootFirstWeapon" text="Shoot1" />
+      <Button fx:id="shootButton2" layoutX="191.0" layoutY="298.0" mnemonicParsing="false" onMouseClicked="#shootSecondWeapon" text="Shoot2" />
+      <Button fx:id="shootButton3" layoutX="359.0" layoutY="298.0" mnemonicParsing="false" onMouseClicked="#shootThirdWeapon" text="Shoot3" />
+      <Button fx:id="usePowerup1" layoutX="32.0" layoutY="513.0" mnemonicParsing="false" onMouseClicked="#useFirstPowerup" text="Use1" />
+      <Button fx:id="usePowerup2" layoutX="197.0" layoutY="513.0" mnemonicParsing="false" onMouseClicked="#useSecondPowerup" text="Use2" />
+      <Button fx:id="usePowerup3" layoutX="365.0" layoutY="513.0" mnemonicParsing="false" onMouseClicked="#useThirdPowerup" text="Use3" />
+      <Button fx:id="discardButton1" layoutX="84.0" layoutY="298.0" mnemonicParsing="false" onMouseClicked="#dropFirstWeapon" text="Drop1" />
+      <Button fx:id="discardButton2" layoutX="251.0" layoutY="298.0" mnemonicParsing="false" onMouseClicked="#dropSecondWeapon" text="Drop2" />
+      <Button fx:id="discardButton3" layoutX="419.0" layoutY="298.0" mnemonicParsing="false" onMouseClicked="#dropThirdWeapon" text="Drop3" />
+      <Button fx:id="dropButton1" layoutX="84.0" layoutY="513.0" mnemonicParsing="false" onMouseClicked="#dropFirstPowerup" text="Drop1" />
+      <Button fx:id="dropButton2" layoutX="251.0" layoutY="513.0" mnemonicParsing="false" onMouseClicked="#dropSecondPowerup" text="Drop2" />
+      <Button fx:id="dropButton3" layoutX="418.0" layoutY="513.0" mnemonicParsing="false" onMouseClicked="#dropThirdPowerup" text="Drop3" />
    </children>
 </AnchorPane>

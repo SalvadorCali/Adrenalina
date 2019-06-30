@@ -3126,4 +3126,58 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         stage.setTitle("Ammo");
         stage.show();
     }
+
+    public void dropFirstWeapon(MouseEvent mouseEvent) throws IOException {
+        client = Data.getInstance().getClient();
+        playerController = Data.getInstance().getPlayerController();
+
+        if(playerController.getWeapons().size() >= 1) {
+            client.dropWeapon(0);
+        }
+    }
+
+    public void dropSecondWeapon(MouseEvent mouseEvent) throws IOException {
+        client = Data.getInstance().getClient();
+        playerController = Data.getInstance().getPlayerController();
+
+        if(playerController.getWeapons().size() >= 2) {
+            client.dropWeapon(1);
+        }
+    }
+
+    public void dropThirdWeapon(MouseEvent mouseEvent) throws IOException {
+        client = Data.getInstance().getClient();
+        playerController = Data.getInstance().getPlayerController();
+
+        if(playerController.getWeapons().size() >= 3) {
+            client.dropWeapon(2);
+        }
+    }
+
+    public void dropFirstPowerup(MouseEvent mouseEvent) throws IOException {
+        client = Data.getInstance().getClient();
+        playerController = Data.getInstance().getPlayerController();
+
+        if(playerController.getPowerups().size() >= 1) {
+            client.dropPowerup(0);
+        }
+    }
+
+    public void dropSecondPowerup(MouseEvent mouseEvent) throws IOException {
+        client = Data.getInstance().getClient();
+        playerController = Data.getInstance().getPlayerController();
+
+        if(playerController.getPowerups().size() >= 2) {
+            client.dropPowerup(1);
+        }
+    }
+
+    public void dropThirdPowerup(MouseEvent mouseEvent) throws IOException {
+        client = Data.getInstance().getClient();
+        playerController = Data.getInstance().getPlayerController();
+
+        if(playerController.getPowerups().size() >= 1) {
+            client.dropPowerup(2);
+        }
+    }
 }
