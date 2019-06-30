@@ -7,6 +7,59 @@ import it.polimi.ingsw.model.enums.*;
  * This class has methods that takes an object and returns another type of object.
  */
 public class Converter {
+    private static final String B = "B";
+    private static final String R = "R";
+    private static final String Y = "Y";
+    private static final String N = "N";
+    private static final String P = "P";
+    private static final String NOTHING = "";
+    private static final String UP = "up";
+    private static final String DOWN = "down";
+    private static final String LEFT = "left";
+    private static final String RIGHT = "right";
+    private static final String ANSI_BLUE = "\033[0;34m";
+    private static final String ANSI_CYAN = "\033[0;36m";
+    private static final String ANSI_GREY = "\033[0;37m";
+    private static final String ANSI_GREEN = "\033[0;32m";
+    private static final String ANSI_PURPLE = "\033[0;35m";
+    private static final String ANSI_RED = "\033[0;31m";
+    private static final String ANSI_YELLOW = "\033[0;33m";
+    private static final String COLOR_BLUE = "blue";
+    private static final String COLOR_GREY = "grey";
+    private static final String COLOR_GREEN = "green";
+    private static final String COLOR_PURPLE = "purple";
+    private static final String COLOR_RED = "red";
+    private static final String COLOR_YELLOW = "yellow";
+    private static final String COLOR_SKULL = "skull";
+    private static final String COLOR_NONE = "none";
+    private static final String BOARD_BASIC = "basic";
+    private static final String BOARD_GENERIC = "generic";
+    private static final String BOARD_3_4 = "3_4";
+    private static final String BOARD_4_5 = "4_5";
+    private static final String DOOR = "door";
+    private static final String ROOM = "room";
+    private static final String WALL = "wall";
+    private static final String LOCKRIFLECAPS = "LOCK RIFLE";
+    private static final String ELECTROSCYTHECAPS = "ELECTROSCYTHE";
+    private static final String MACHINEGUNCAPS = "MACHINE GUN";
+    private static final String TRACTORBEAMCAPS = "TRACTOR BEAM";
+    private static final String THORCAPS = "T.H.O.R.";
+    private static final String VORTEXCANNONCAPS = "VORTEX CANNON";
+    private static final String FURNACECAPS = "FURNACE";
+    private static final String PLASMAGUNCAPS = "PLASMA GUN";
+    private static final String HEATSEEKERCAPS = "HEATSEEKER";
+    private static final String WHISPERCAPS = "WHISPER";
+    private static final String HELLIONCAPS = "HELLION";
+    private static final String FLAMETHROWERCAPS = "FLAMETHROWER";
+    private static final String ZX2CAPS = "ZX-2";
+    private static final String GRENADELAUNCHERCAPS = "GRENADE LAUNCHER";
+    private static final String SHOTGUNCAPS = "SHOTGUN";
+    private static final String ROCKETLAUNCHERCAPS = "ROCKET LAUNCHER";
+    private static final String POWERGLOVECAPS = "POWER GLOVE";
+    private static final String RAILGUNCAPS = "RAILGUN";
+    private static final String CYBERBLADECAPS = "CYBERBLADE";
+    private static final String SLEDGEHAMMERCAPS = "SLEDGEHAMMER";
+    private static final String SHOCKWAVECAPS = "SHOCKWAVE";
     /**
      * Class constructor.
      */
@@ -57,26 +110,26 @@ public class Converter {
         String third = new String();
             switch (ammoCard.getFirstAmmo().getColor()){
                 case BLUE:
-                    first = "B";
+                    first = B;
                     break;
                 case RED:
-                    first = "R";
+                    first = R;
                     break;
                 case YELLOW:
-                    first = "Y";
+                    first = Y;
                     break;
                 default:
                     break;
             }
         switch (ammoCard.getSecondAmmo().getColor()){
             case BLUE:
-                second = "B";
+                second = B;
                 break;
             case RED:
-                second = "R";
+                second = R;
                 break;
             case YELLOW:
-                second = "Y";
+                second = Y;
                 break;
             default:
                 break;
@@ -84,22 +137,22 @@ public class Converter {
         if(!ammoCard.isPowerup()) {
             switch (ammoCard.getThirdAmmo().getColor()) {
                 case BLUE:
-                    third = "B";
+                    third = B;
                     break;
                 case RED:
-                    third = "R";
+                    third = R;
                     break;
                 case YELLOW:
-                    third = "Y";
+                    third = Y;
                     break;
                 case NONE:
-                    third = "";
+                    third = NOTHING;
                     break;
                 default:
                     break;
             }
         }else{
-            third = "P";
+            third = P;
         }
 
         return first+second+third;
@@ -112,13 +165,13 @@ public class Converter {
      */
     public static Direction fromStringToDirection(String direction){
         switch(direction){
-            case "up":
+            case UP:
                 return Direction.UP;
-            case "down":
+            case DOWN:
                 return Direction.DOWN;
-            case "left":
+            case LEFT:
                 return Direction.LEFT;
-            case "right":
+            case RIGHT:
                 return Direction.RIGHT;
             default:
                 return null;
@@ -133,23 +186,23 @@ public class Converter {
     public static String fromTokenColorToString(TokenColor tokenColor){
         switch(tokenColor){
             case NONE:
-                return "none";
+                return COLOR_NONE;
             case SKULL:
-                return "skull";
+                return COLOR_SKULL;
             case BLUE:
-                return "blue";
+                return COLOR_BLUE;
             case GREEN:
-                return "green";
+                return COLOR_GREEN;
             case GREY:
-                return "grey";
+                return COLOR_GREY;
             case PURPLE:
-                return "purple";
+                return COLOR_PURPLE;
             case RED:
-                return "red";
+                return COLOR_RED;
             case YELLOW:
-                return "yellow";
+                return COLOR_YELLOW;
             default:
-                return "none";
+                return COLOR_NONE;
         }
     }
 
@@ -160,17 +213,17 @@ public class Converter {
      */
     public static Color fromStringToColor(String color){
         switch(color){
-            case "B":
+            case B:
                 return Color.BLUE;
-            case "R":
+            case R:
                 return Color.RED;
-            case "Y":
+            case Y:
                 return Color.YELLOW;
-            case "blue":
+            case COLOR_BLUE:
                 return Color.BLUE;
-            case "red":
+            case COLOR_RED:
                 return Color.RED;
-            case "yellow":
+            case COLOR_YELLOW:
                 return Color.YELLOW;
             default:
                 return Color.NONE;
@@ -184,17 +237,17 @@ public class Converter {
      */
     public static TokenColor fromStringToTokenColor(String color){
         switch(color){
-            case "blue":
+            case COLOR_BLUE:
                 return TokenColor.BLUE;
-            case "green":
+            case COLOR_GREEN:
                 return TokenColor.GREEN;
-            case "grey":
+            case COLOR_GREY:
                 return TokenColor.GREY;
-            case "purple":
+            case COLOR_PURPLE:
                 return TokenColor.PURPLE;
-            case "red":
+            case COLOR_RED:
                 return TokenColor.RED;
-            case "yellow":
+            case COLOR_YELLOW:
                 return TokenColor.YELLOW;
             default:
                 return TokenColor.NONE;
@@ -208,13 +261,13 @@ public class Converter {
      */
     public static BoardType fromStringToBoardType(String boardType){
         switch(boardType){
-            case "basic":
+            case BOARD_BASIC:
                 return BoardType.BASIC;
-            case "generic":
+            case BOARD_GENERIC:
                 return BoardType.GENERIC;
-            case "3_4":
+            case BOARD_3_4:
                 return BoardType.PLAYERS_3_4;
-            case "4_5":
+            case BOARD_4_5:
                 return BoardType.PLAYERS_4_5;
             default:
                 return BoardType.BASIC;
@@ -248,11 +301,11 @@ public class Converter {
      */
     public static Cardinal fromStringToCardinal(String cardinal){
         switch (cardinal){
-            case "door":
+            case DOOR:
                 return Cardinal.DOOR;
-            case "room":
+            case ROOM:
                 return Cardinal.ROOM;
-            case "wall":
+            case WALL:
                 return Cardinal.WALL;
             default:
                 return Cardinal.NONE;
@@ -267,13 +320,13 @@ public class Converter {
     public static String fromColorToLetter(Color color){
         switch (color){
             case BLUE:
-                return "B";
+                return B;
             case RED:
-                return "R";
+                return R;
             case YELLOW:
-                return "Y";
+                return Y;
             default:
-                return "N";
+                return N;
         }
     }
 
@@ -287,31 +340,31 @@ public class Converter {
         switch (tokenColor){
 
             case NONE:
-                return "\033[0;36m";
+                return ANSI_CYAN;
 
             case BLUE:
-                return "\033[0;34m";
+                return ANSI_BLUE;
 
             case SKULL:
-                return "\033[0;36m";
+                return ANSI_CYAN;
 
             case RED:
-                return "\033[0;31m";
+                return ANSI_RED;
 
             case PURPLE:
-                return "\033[0;35m";
+                return ANSI_PURPLE;
 
             case GREEN:
-                return "\033[0;32m";
+                return ANSI_GREEN;
 
             case YELLOW:
-                return "\033[0;33m";
+                return ANSI_YELLOW;
 
             case GREY:
-                return "\033[0;37m";
+                return ANSI_GREY;
 
             default:
-                return "\033[0;36m";
+                return ANSI_CYAN;
         }
     }
 
@@ -324,19 +377,19 @@ public class Converter {
 
         switch (color){
             case NONE:
-                return "\033[0;36m";
+                return ANSI_CYAN;
 
             case YELLOW:
-                return "\033[0;33m";
+                return ANSI_YELLOW;
 
             case RED:
-                return "\033[0;31m";
+                return ANSI_RED;
 
             case BLUE:
-                return "\033[0;34m";
+                return ANSI_BLUE;
 
             default:
-                return "\033[0;36m";
+                return ANSI_CYAN;
         }
     }
 
@@ -383,47 +436,47 @@ public class Converter {
     public static String weaponName(String weapon){
         switch (weapon){
             case "lockrifle":
-                return "LOCK RIFLE";
+                return LOCKRIFLECAPS;
             case "electroscythe":
-                return "ELECTROSCYTHE";
+                return ELECTROSCYTHECAPS;
             case "furnace":
-                return "FURNACE";
+                return FURNACECAPS;
             case "heatseeker":
-                return "HEATSEEKER";
+                return HEATSEEKERCAPS;
             case "whisper":
-                return "WHISPER";
+                return WHISPERCAPS;
             case "hellion":
-                return "HELLION";
+                return HELLIONCAPS;
             case "zx-2":
-                return "ZX-2";
+                return ZX2CAPS;
             case "tractorbeam":
-                return "TRACTOR BEAM";
+                return TRACTORBEAMCAPS;
             case "shotgun":
-                return "SHOTGUN";
+                return SHOTGUNCAPS;
             case "plasmagun":
-                return "PLASMA GUN";
+                return PLASMAGUNCAPS;
             case "machinegun":
-                return "MACHINE GUN";
+                return MACHINEGUNCAPS;
             case "flamethrower":
-                return "FLAMETHROWER";
+                return FLAMETHROWERCAPS;
             case "shockwave":
-                return "SHOCKWAVE";
+                return SHOCKWAVECAPS;
             case "vortexcannon":
-                return "VORTEX CANNON";
+                return VORTEXCANNONCAPS;
             case "thor":
-                return "T.H.O.R.";
+                return THORCAPS;
             case "grenadelauncher":
-                return "GRENADE LAUNCHER";
+                return GRENADELAUNCHERCAPS;
             case "rocketlauncher":
-                return "ROCKET LAUNCHER";
+                return ROCKETLAUNCHERCAPS;
             case "railgun":
-                return "RAILGUN";
+                return RAILGUNCAPS;
             case "cyberblade":
-                return "CYBERBLADE";
+                return CYBERBLADECAPS;
             case "powerglove":
-                return "POWER GLOVE";
+                return POWERGLOVECAPS;
             case "sledgehammer":
-                return "SLEDGEHAMMER";
+                return SLEDGEHAMMERCAPS;
             default:
                 return null;
         }
@@ -436,47 +489,47 @@ public class Converter {
      */
     public static String weaponNameInvert(String weapon){
         switch (weapon){
-            case "LOCK RIFLE":
+            case LOCKRIFLECAPS:
                 return "lockrifle";
-            case "ELECTROSCYTHE":
+            case ELECTROSCYTHECAPS:
                 return "electroscythe";
-            case "FURNACE":
+            case FURNACECAPS:
                 return "furnace";
-            case "HEATSEEKER":
+            case HEATSEEKERCAPS:
                 return "heatseeker";
-            case "WHISPER":
+            case WHISPERCAPS:
                 return "whisper";
-            case "HELLION":
+            case HELLIONCAPS:
                 return "hellion";
-            case "ZX-2":
+            case ZX2CAPS:
                 return "zx-2";
-            case "TRACTOR BEAM":
+            case TRACTORBEAMCAPS:
                 return "tractorbeam";
-            case "SHOTGUN":
+            case SHOTGUNCAPS:
                 return "shotgun";
-            case "PLASMA GUN":
+            case PLASMAGUNCAPS:
                 return "plasmagun";
-            case "MACHINE GUN":
+            case MACHINEGUNCAPS:
                 return "machinegun";
-            case "FLAMETHROWER":
+            case FLAMETHROWERCAPS:
                 return "flamethrower";
-            case "SHOCKWAVE":
+            case SHOCKWAVECAPS:
                 return "shockwave";
-            case "VORTEX CANNON":
+            case VORTEXCANNONCAPS:
                 return "vortexcannon";
-            case "T.H.O.R.":
+            case THORCAPS:
                 return "thor";
-            case "GRENADE LAUNCHER":
+            case GRENADELAUNCHERCAPS:
                 return "grenadelauncher";
-            case "ROCKET LAUNCHER":
+            case ROCKETLAUNCHERCAPS:
                 return "rocketlauncher";
-            case "RAILGUN":
+            case RAILGUNCAPS:
                 return "railgun";
-            case "CYBERBLADE":
+            case CYBERBLADECAPS:
                 return "cyberblade";
-            case "POWER GLOVE":
+            case POWERGLOVECAPS:
                 return "powerglove";
-            case "SLEDGEHAMMER":
+            case SLEDGEHAMMERCAPS:
                 return "sledgehammer";
             default:
                 return null;
@@ -491,13 +544,13 @@ public class Converter {
     public static String fromColorToString(Color color){
         switch (color){
             case BLUE:
-                return "blue";
+                return COLOR_BLUE;
             case RED:
-                return "red";
+                return COLOR_RED;
             case YELLOW:
-                return "yellow";
+                return COLOR_YELLOW;
             default:
-                return "none";
+                return COLOR_NONE;
         }
     }
 
