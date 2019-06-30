@@ -15,7 +15,9 @@ public class Data{
     private String moveGrab;
     private Integer weaponShoot;
     private GUIHandler guiHandlerWeapon;
-    private String weaponReloaded;
+    private String weaponReloaded1;
+    private String weaponReloaded2;
+    private String weaponReloaded3;
     private Integer numPowerup;
     private Integer finalFrenzy = 0;
 
@@ -101,14 +103,6 @@ public class Data{
         this.guiHandlerWeapon = guiHandlerWeapon;
     }
 
-    public String getWeaponReloaded() {
-        return weaponReloaded;
-    }
-
-    public void setWeaponReloaded(String weaponReloaded) {
-        this.weaponReloaded = weaponReloaded;
-    }
-
     public Integer getNumPowerup() {
         return numPowerup;
     }
@@ -123,5 +117,29 @@ public class Data{
 
     public void setFinalFrenzy(Integer finalFrenzy) {
         this.finalFrenzy = finalFrenzy;
+    }
+
+    public String getWeaponReloaded1() {
+        return weaponReloaded1;
+    }
+
+    public void setWeaponReloaded1(String weaponReloaded1) {
+        this.weaponReloaded1 = weaponReloaded1;
+    }
+
+    public String getWeaponReloaded2() {
+        return weaponReloaded2;
+    }
+
+    public void setWeaponReloaded2(String weaponReloaded2) {
+        this.weaponReloaded2 = weaponReloaded2;
+    }
+
+    public String getWeaponReloaded3() {
+        return weaponReloaded3;
+    }
+
+    public void setWeaponReloaded3(String weaponReloaded3) {
+        this.weaponReloaded3 = weaponReloaded3;
     }
 }
