@@ -39,6 +39,27 @@ public class Converter {
     private static final String DOOR = "door";
     private static final String ROOM = "room";
     private static final String WALL = "wall";
+    private static final String LOCK_RIFLE = "lockrifle";
+    private static final String MACHINE_GUN = "machinegun";
+    private static final String THOR = "thor";
+    private static final String PLASMA_GUN = "plasmagun";
+    private static final String WHISPER = "whisper";
+    private static final String ELECTROSCYTHE = "electroscythe";
+    private static final String TRACTOR_BEAM = "tractorbeam";
+    private static final String VORTEX_CANNON = "vortexcannon";
+    private static final String FURNACE = "furnace";
+    private static final String HEATSEEKER = "heatseeker";
+    private static final String HELLION = "hellion";
+    private static final String FLAMETHROWER = "flamethrower";
+    private static final String GRENADE_LAUNCHER = "grenadelauncher";
+    private static final String ROCKET_LAUNCHER = "rocketlauncher";
+    private static final String RAILGUN = "railgun";
+    private static final String CYBERBLADE = "cyberblade";
+    private static final String ZX_2 = "zx-2";
+    private static final String SHOTGUN = "shotgun";
+    private static final String POWER_GLOVE = "powerglove";
+    private static final String SHOCKWAVE = "shockwave";
+    private static final String SLEDGEHAMMER = "sledgehammer";
     private static final String LOCKRIFLECAPS = "LOCK RIFLE";
     private static final String ELECTROSCYTHECAPS = "ELECTROSCYTHE";
     private static final String MACHINEGUNCAPS = "MACHINE GUN";
@@ -60,6 +81,14 @@ public class Converter {
     private static final String CYBERBLADECAPS = "CYBERBLADE";
     private static final String SLEDGEHAMMERCAPS = "SLEDGEHAMMER";
     private static final String SHOCKWAVECAPS = "SHOCKWAVE";
+    private static final String TARGETING_SCOPE = "targetingscope";
+    private static final String TAGBACK_GRENADE = "tagbackgrenade";
+    private static final String NEWTON = "newton";
+    private static final String TELEPORTER = "teleporter";
+    private static final String TARGETINGSCOPECAPS = "TARGETING SCOPE";
+    private static final String NEWTONCAPS = "NEWTON";
+    private static final String TAGBACKGRENADECAPS = "TAGBACK GRENADE";
+    private static final String TELEPORTERCAPS = "TELEPORTER";
     /**
      * Class constructor.
      */
@@ -400,14 +429,14 @@ public class Converter {
      */
     public static String powerupName(String powerup){
         switch (powerup){
-            case "targetingscope":
-                return "TARGETING SCOPE";
-            case "newton":
-                return "NEWTON";
-            case "tagbackgrenade":
-                return "TAGBACK GRENADE";
-            case "teleporter":
-                return "TELEPORTER";
+            case TARGETING_SCOPE:
+                return TARGETINGSCOPECAPS;
+            case NEWTON:
+                return NEWTONCAPS;
+            case TAGBACK_GRENADE:
+                return TAGBACKGRENADECAPS;
+            case TELEPORTER:
+                return TELEPORTERCAPS;
             default:
                 return null;
         }
@@ -415,14 +444,14 @@ public class Converter {
 
     public static String powerupNameInvert(String powerup){
         switch (powerup){
-            case "TARGETING SCOPE":
-                return "targetingscope";
-            case "NEWTON":
-                return "newton";
-            case "TAGBACK GRENADE":
-                return "tagbackgrenade";
-            case "TELEPORTER":
-                return "teleporter";
+            case TARGETINGSCOPECAPS:
+                return TARGETING_SCOPE;
+            case NEWTONCAPS:
+                return NEWTON;
+            case TAGBACKGRENADECAPS:
+                return TAGBACK_GRENADE;
+            case TELEPORTERCAPS:
+                return TELEPORTER;
             default:
                 return null;
         }
@@ -435,47 +464,47 @@ public class Converter {
      */
     public static String weaponName(String weapon){
         switch (weapon){
-            case "lockrifle":
+            case LOCK_RIFLE:
                 return LOCKRIFLECAPS;
-            case "electroscythe":
+            case ELECTROSCYTHE:
                 return ELECTROSCYTHECAPS;
-            case "furnace":
+            case FURNACE:
                 return FURNACECAPS;
-            case "heatseeker":
+            case HEATSEEKER:
                 return HEATSEEKERCAPS;
-            case "whisper":
+            case WHISPER:
                 return WHISPERCAPS;
-            case "hellion":
+            case HELLION:
                 return HELLIONCAPS;
-            case "zx-2":
+            case ZX_2:
                 return ZX2CAPS;
-            case "tractorbeam":
+            case TRACTOR_BEAM:
                 return TRACTORBEAMCAPS;
-            case "shotgun":
+            case SHOTGUN:
                 return SHOTGUNCAPS;
-            case "plasmagun":
+            case PLASMA_GUN:
                 return PLASMAGUNCAPS;
-            case "machinegun":
+            case MACHINE_GUN:
                 return MACHINEGUNCAPS;
-            case "flamethrower":
+            case FLAMETHROWER:
                 return FLAMETHROWERCAPS;
-            case "shockwave":
+            case SHOCKWAVE:
                 return SHOCKWAVECAPS;
-            case "vortexcannon":
+            case VORTEX_CANNON:
                 return VORTEXCANNONCAPS;
-            case "thor":
+            case THOR:
                 return THORCAPS;
-            case "grenadelauncher":
+            case GRENADE_LAUNCHER:
                 return GRENADELAUNCHERCAPS;
-            case "rocketlauncher":
+            case ROCKET_LAUNCHER:
                 return ROCKETLAUNCHERCAPS;
-            case "railgun":
+            case RAILGUN:
                 return RAILGUNCAPS;
-            case "cyberblade":
+            case CYBERBLADE:
                 return CYBERBLADECAPS;
-            case "powerglove":
+            case POWER_GLOVE:
                 return POWERGLOVECAPS;
-            case "sledgehammer":
+            case SLEDGEHAMMER:
                 return SLEDGEHAMMERCAPS;
             default:
                 return null;
@@ -490,47 +519,47 @@ public class Converter {
     public static String weaponNameInvert(String weapon){
         switch (weapon){
             case LOCKRIFLECAPS:
-                return "lockrifle";
+                return LOCK_RIFLE;
             case ELECTROSCYTHECAPS:
-                return "electroscythe";
+                return ELECTROSCYTHE;
             case FURNACECAPS:
-                return "furnace";
+                return FURNACE;
             case HEATSEEKERCAPS:
-                return "heatseeker";
+                return HEATSEEKER;
             case WHISPERCAPS:
-                return "whisper";
+                return WHISPER;
             case HELLIONCAPS:
-                return "hellion";
+                return HELLION;
             case ZX2CAPS:
-                return "zx-2";
+                return ZX_2;
             case TRACTORBEAMCAPS:
-                return "tractorbeam";
+                return TRACTOR_BEAM;
             case SHOTGUNCAPS:
-                return "shotgun";
+                return SHOTGUN;
             case PLASMAGUNCAPS:
-                return "plasmagun";
+                return PLASMA_GUN;
             case MACHINEGUNCAPS:
-                return "machinegun";
+                return MACHINE_GUN;
             case FLAMETHROWERCAPS:
-                return "flamethrower";
+                return FLAMETHROWER;
             case SHOCKWAVECAPS:
-                return "shockwave";
+                return SHOCKWAVE;
             case VORTEXCANNONCAPS:
-                return "vortexcannon";
+                return VORTEX_CANNON;
             case THORCAPS:
-                return "thor";
+                return THOR;
             case GRENADELAUNCHERCAPS:
-                return "grenadelauncher";
+                return GRENADE_LAUNCHER;
             case ROCKETLAUNCHERCAPS:
-                return "rocketlauncher";
+                return ROCKET_LAUNCHER;
             case RAILGUNCAPS:
-                return "railgun";
+                return RAILGUN;
             case CYBERBLADECAPS:
-                return "cyberblade";
+                return CYBERBLADE;
             case POWERGLOVECAPS:
-                return "powerglove";
+                return POWER_GLOVE;
             case SLEDGEHAMMERCAPS:
-                return "sledgehammer";
+                return SLEDGEHAMMER;
             default:
                 return null;
         }

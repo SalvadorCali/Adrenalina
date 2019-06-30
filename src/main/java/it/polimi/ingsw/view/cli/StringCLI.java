@@ -164,7 +164,7 @@ public class StringCLI {
     static final String RAILGUN = "railgun";
     static final String CYBERBLADE = "cyberblade";
     static final String CYBERBLADE_2 = "cyberblade2";
-    static final String ZX_2 = "zx2";
+    static final String ZX_2 = "zx-2";
     static final String SHOTGUN = "shotgun";
     static final String POWER_GLOVE = "powerglove";
     static final String SHOCKWAVE = "shockwave";
