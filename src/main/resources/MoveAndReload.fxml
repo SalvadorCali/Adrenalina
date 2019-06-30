@@ -6,7 +6,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="222.0" prefWidth="256.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.gui.GUIHandler">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="222.0" prefWidth="256.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.gui.GUIHandler">
    <children>
       <Label layoutX="109.0" layoutY="6.0" text="Move:" textFill="WHITE" />
       <ImageView fx:id="upArrowMoveReload" fitHeight="39.0" fitWidth="45.0" layoutX="104.0" layoutY="40.0" onMouseClicked="#upMoveRel">
@@ -30,5 +30,6 @@
          </image>
       </ImageView>
       <Button fx:id="enterMoveReload" layoutX="94.0" layoutY="99.0" mnemonicParsing="false" onMouseClicked="#confirmMoveRel" prefHeight="27.0" prefWidth="69.0" text="Confirm" />
+      <Label fx:id="labelErrorMoveReload" layoutX="66.0" layoutY="191.0" text="Error: Insert Movement!" textFill="WHITE" visible="false" />
    </children>
 </AnchorPane>
