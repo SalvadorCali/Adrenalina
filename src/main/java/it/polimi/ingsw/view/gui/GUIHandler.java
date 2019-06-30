@@ -508,6 +508,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
             guiHandler = Data.getInstance().getGuiHandler();
             guiHandler.setLabelStatement("final frenzy");
             this.finalFrenzy = 1;
+            Data.getInstance().setFinalFrenzy(1);
         });
     }
 
@@ -828,7 +829,6 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
                     guiHandler = loader.getController();
                     guiHandler.setMapImage();
-                    guiHandler.setSkulls();
                     //guiHandler.addWeapon();
                     guiHandler.setLabelTurn();
 
@@ -868,7 +868,6 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
                     guiHandler = loader.getController();
                     guiHandler.setMapImage();
-                    guiHandler.setSkulls();
                     //guiHandler.addWeapon();
                     guiHandler.setLabelTurn();
 
@@ -1113,7 +1112,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
             playerController = Data.getInstance().getPlayerController();
 
             Platform.runLater(() -> {
-
+                guiHandler.setSkulls();
                 guiHandler.setLabelTurn();
                 guiHandler.removeImg();
                 guiHandler.placePlayers(playerController.getGameBoard().getArena());
@@ -1299,67 +1298,6 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
             });
         }
     }
-
-
-    public void removeWeapon(){
-
-        playerController = Data.getInstance().getPlayerController();
-        arena = playerController.getGameBoard().getArena();
-
-        int k = 0;
-        for(int i = 0; i < ROWS ; i++) {
-            for (int j = 0; j < COLUMNS; j++) {
-                for (; k < MAX_WEAPONS; k++){
-                    if (arena[i][j].isSpawn() && arena[i][j].getWeapons().get(k) == null) {
-                        if (arena[i][j].equals(TokenColor.BLUE)) {
-                            if (k == 0) {
-                                Platform.runLater(() -> {
-                                    weaponBlue1.setImage(null);
-                                });
-                            } else if(k == 1){
-                                Platform.runLater(() -> {
-                                    weaponBlue2.setImage(null);
-                                });
-                            } else if(k == 2){
-                                Platform.runLater(() -> {
-                                    weaponBlue3.setImage(null);
-                                });
-                            }
-                        } else if (arena[i][j].equals(TokenColor.RED)) {
-                            if (k == 0) {
-                                Platform.runLater(() -> {
-                                    weaponRed1.setImage(null);
-                                });
-                            } else if(k == 1){
-                                Platform.runLater(() -> {
-                                    weaponRed2.setImage(null);
-                                });
-                            } else if(k == 2){
-                                Platform.runLater(() -> {
-                                    weaponRed3.setImage(null);
-                                });
-                            }
-                        } else if (arena[i][j].equals(TokenColor.YELLOW)) {
-                            if (k == 0) {
-                                Platform.runLater(() -> {
-                                    weaponYellow1.setImage(null);
-                                });
-                            } else if(k == 1){
-                                Platform.runLater(() -> {
-                                    weaponYellow2.setImage(null);
-                                });
-                            } else if(k == 2){
-                                Platform.runLater(() -> {
-                                    weaponYellow3.setImage(null);
-                                });
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-
 
 
     public void addWeapon() {
@@ -1557,7 +1495,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                 Platform.runLater(() ->{
                     labelShowMove.setText("  " + this.movement[0] + "  " + this.movement[1]);
                 });
-            } else {
+            } else if(this.movement[0] != null){
                 Platform.runLater(() ->{
                     labelShowMove.setText("  " + this.movement[0]);
                 });
@@ -1574,11 +1512,17 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                 this.movement[countMove] = move;
                 this.countMove++;
             }
+        } else if(this.finalFrenzy == 1 && playerController.getFinalFrenzyActions().equals(FinalFrenzyAction.TWO_ACTIONS)) {
+            if(countMove < MAX_MOVEMENT + 1){
+
+                this.movement[countMove] = move;
+                this.countMove++;
+            }
         }
     }
 
     public void resetMovement(){
-        for(int i = 0; i < MAX_MOVEMENT; i++){
+        for(int i = 0; i < MAX_MOVEMENT + 1; i++){
             this.movement[i] = null;
         }
 
@@ -1853,6 +1797,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         if(playerController.getFinalFrenzyActions().equals(FinalFrenzyAction.TWO_ACTIONS) && this.countMovementTwoAction < MAX_MOVEMENT - 1){
             this.moveFrenzyTwoActions[this.countMovementTwoAction] = movement;
             this.countMovementTwoAction ++;
+
         } else if(playerController.getFinalFrenzyActions().equals(FinalFrenzyAction.ONE_ACTION) && this.countMovementOneAction < MAX_MOVEMENT){
             this.moveFrenzyOneActions[this.countMovementOneAction] = movement;
             this.countMovementOneAction ++;
@@ -1926,7 +1871,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                                 Data.getInstance().setMoveGrab("up");
                                 guiHandler = loader.getController();
 
-                                List<WeaponCard> weapon = playerController.getGameBoard().getArena()[x--][y].getWeapons();
+                                List<WeaponCard> weapon = playerController.getGameBoard().getArena()[x][y].getWeapons();
                                 guiHandler.setWeaponImage(weapon);
 
 
@@ -1958,7 +1903,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
                                 Data.getInstance().setMoveGrab("down");
 
-                                List<WeaponCard> weapon = playerController.getGameBoard().getArena()[x++][y].getWeapons();
+                                List<WeaponCard> weapon = playerController.getGameBoard().getArena()[x][y].getWeapons();
                                 guiHandler.setWeaponImage(weapon);
 
 
@@ -1991,7 +1936,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
                                 Data.getInstance().setMoveGrab("left");
 
-                                List<WeaponCard> weapon = playerController.getGameBoard().getArena()[x][y--].getWeapons();
+                                List<WeaponCard> weapon = playerController.getGameBoard().getArena()[x][y].getWeapons();
                                 guiHandler.setWeaponImage(weapon);
 
 
@@ -2024,7 +1969,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                                 Data.getInstance().setMoveGrab("right");
                                 guiHandler = loader.getController();
 
-                                List<WeaponCard> weapon = playerController.getGameBoard().getArena()[x][y++].getWeapons();
+                                List<WeaponCard> weapon = playerController.getGameBoard().getArena()[x][y].getWeapons();
                                 guiHandler.setWeaponImage(weapon);
 
                                 Stage stage = new Stage();
@@ -2041,26 +1986,244 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
             });
 
         } else if(this.finalFrenzy == 1 && playerController.getFinalFrenzyActions().equals(FinalFrenzyAction.TWO_ACTIONS)){
+
+            int x = playerController.getPlayer().getPosition().getX();
+            int y = playerController.getPlayer().getPosition().getY();
+            guiHandler = Data.getInstance().getGuiHandler();
+
             if(moveFrenzyTwoActions[0] == null) {
-                client.grab(0);
+                if (!playerController.getGameBoard().getArena()[x][y].isSpawn()) {
+                    try {
+                        client.grab(0);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                } else if(playerController.getGameBoard().getArena()[x][y].isSpawn()){
+
+                    FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ChooseWeapon.fxml"));
+                    Parent root = null;
+                    try {
+                        root = loader.load();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                    guiHandler = loader.getController();
+
+                    Data.getInstance().setMoveGrab(null);
+
+                    List<WeaponCard> weapon = playerController.getGameBoard().getArena()[x][y].getWeapons();
+
+                    guiHandler.setWeaponImage(weapon);
+
+                    Stage stage = new Stage();
+                    stage.setScene(new Scene(root, 496, 269));
+                    stage.setTitle("Choose Weapon");
+                    stage.show();
+                }
+
             } else if(moveFrenzyTwoActions[1] == null) {
-                client.grab(0, Converter.fromStringToDirection(moveFrenzyTwoActions[0]));
+                x = x + Converter.fromStringDirToIntegerX(moveFrenzyTwoActions[0]);
+                y = y + Converter.fromStringDirToIntegerY(moveFrenzyTwoActions[0]);
+
+                if (!playerController.getGameBoard().getArena()[x][y].isSpawn()) {
+                    try {
+                        this.client.grab(0, Converter.fromStringToDirection(moveFrenzyTwoActions[0]));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                } else if(playerController.getGameBoard().getArena()[x][y].isSpawn()){
+                    FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ChooseWeapon.fxml"));
+                    Parent root = null;
+                    try {
+                        root = loader.load();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                    guiHandler = loader.getController();
+
+                    List<WeaponCard> weapon = playerController.getGameBoard().getArena()[x][y].getWeapons();
+                    guiHandler.setWeaponImage(weapon);
+
+                    Stage stage = new Stage();
+                    stage.setScene(new Scene(root, 496, 269));
+                    stage.setTitle("Choose Weapon");
+                    stage.show();
+                }
             } else {
-                client.grab(0, Converter.fromStringToDirection(moveFrenzyTwoActions[0]), Converter.fromStringToDirection(moveFrenzyTwoActions[1]));
+
+                x = x + Converter.fromStringDirToIntegerX(moveFrenzyTwoActions[0]);
+                x = x + Converter.fromStringDirToIntegerX(moveFrenzyTwoActions[1]);
+                y = y + Converter.fromStringDirToIntegerY(moveFrenzyTwoActions[0]);
+                y = y + Converter.fromStringDirToIntegerX(moveFrenzyTwoActions[1]);
+
+                if (!playerController.getGameBoard().getArena()[x][y].isSpawn()) {
+                    try {
+                        this.client.grab(0, Converter.fromStringToDirection(moveFrenzyTwoActions[0]), Converter.fromStringToDirection(moveFrenzyTwoActions[1]));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                } else if(playerController.getGameBoard().getArena()[x][y].isSpawn()){
+                    FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ChooseWeapon.fxml"));
+                    Parent root = null;
+                    try {
+                        root = loader.load();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                    guiHandler = loader.getController();
+
+                    List<WeaponCard> weapon = playerController.getGameBoard().getArena()[x][y].getWeapons();
+                    guiHandler.setWeaponImage(weapon);
+
+                    Stage stage = new Stage();
+                    stage.setScene(new Scene(root, 496, 269));
+                    stage.setTitle("Choose Weapon");
+                    stage.show();
+                }
             }
 
             Stage stage = (Stage) upArrowGrab.getScene().getWindow();
             stage.close();
 
         } else if(this.finalFrenzy == 1 && playerController.getFinalFrenzyActions().equals(FinalFrenzyAction.ONE_ACTION)){
+
+            int x = playerController.getPlayer().getPosition().getX();
+            int y = playerController.getPlayer().getPosition().getY();
+            guiHandler = Data.getInstance().getGuiHandler();
+
             if(moveFrenzyOneActions[0] == null) {
-                client.grab(0);
+                if (!playerController.getGameBoard().getArena()[x][y].isSpawn()) {
+                    try {
+                        this.client.grab(0);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                } else if(playerController.getGameBoard().getArena()[x][y].isSpawn()){
+                    FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ChooseWeapon.fxml"));
+                    Parent root = null;
+                    try {
+                        root = loader.load();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                    guiHandler = loader.getController();
+
+                    List<WeaponCard> weapon = playerController.getGameBoard().getArena()[x][y].getWeapons();
+                    guiHandler.setWeaponImage(weapon);
+
+                    Stage stage = new Stage();
+                    stage.setScene(new Scene(root, 496, 269));
+                    stage.setTitle("Choose Weapon");
+                    stage.show();
+                }
             } else if(moveFrenzyOneActions[1] == null) {
-                client.grab(0, Converter.fromStringToDirection(moveFrenzyOneActions[0]));
+
+                x = x + Converter.fromStringDirToIntegerX(moveFrenzyTwoActions[0]);
+                y = y + Converter.fromStringDirToIntegerY(moveFrenzyTwoActions[0]);
+
+                if (!playerController.getGameBoard().getArena()[x][y].isSpawn()) {
+                    try {
+                        this.client.grab(0, Converter.fromStringToDirection(moveFrenzyTwoActions[0]));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                } else if(playerController.getGameBoard().getArena()[x][y].isSpawn()){
+                    FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ChooseWeapon.fxml"));
+                    Parent root = null;
+                    try {
+                        root = loader.load();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                    guiHandler = loader.getController();
+
+                    List<WeaponCard> weapon = playerController.getGameBoard().getArena()[x][y].getWeapons();
+                    guiHandler.setWeaponImage(weapon);
+
+                    Stage stage = new Stage();
+                    stage.setScene(new Scene(root, 496, 269));
+                    stage.setTitle("Choose Weapon");
+                    stage.show();
+                }
+
             } else if(moveFrenzyOneActions[2] == null){
-                client.grab(0, Converter.fromStringToDirection(moveFrenzyOneActions[0]), Converter.fromStringToDirection(moveFrenzyOneActions[1]));
+
+                x = x + Converter.fromStringDirToIntegerX(moveFrenzyTwoActions[0]);
+                x = x + Converter.fromStringDirToIntegerX(moveFrenzyTwoActions[1]);
+                y = y + Converter.fromStringDirToIntegerY(moveFrenzyTwoActions[0]);
+                y = y + Converter.fromStringDirToIntegerX(moveFrenzyTwoActions[1]);
+
+                if (!playerController.getGameBoard().getArena()[x][y].isSpawn()) {
+                    try {
+                        this.client.grab(0, Converter.fromStringToDirection(moveFrenzyTwoActions[0]), Converter.fromStringToDirection(moveFrenzyTwoActions[1]));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                } else if(playerController.getGameBoard().getArena()[x][y].isSpawn()){
+                    FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ChooseWeapon.fxml"));
+                    Parent root = null;
+                    try {
+                        root = loader.load();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                    guiHandler = loader.getController();
+
+                    List<WeaponCard> weapon = playerController.getGameBoard().getArena()[x][y].getWeapons();
+                    guiHandler.setWeaponImage(weapon);
+
+                    Stage stage = new Stage();
+                    stage.setScene(new Scene(root, 496, 269));
+                    stage.setTitle("Choose Weapon");
+                    stage.show();
+                }
+
             } else{
-                client.grab(0, Converter.fromStringToDirection(moveFrenzyOneActions[0]), Converter.fromStringToDirection(moveFrenzyOneActions[1]), Converter.fromStringToDirection(moveFrenzyOneActions[2]));
+
+                x = x + Converter.fromStringDirToIntegerX(moveFrenzyTwoActions[0]);
+                x = x + Converter.fromStringDirToIntegerX(moveFrenzyTwoActions[1]);
+                x = x +  Converter.fromStringDirToIntegerX(moveFrenzyTwoActions[2]);
+                y = y + Converter.fromStringDirToIntegerY(moveFrenzyTwoActions[0]);
+                y = y + Converter.fromStringDirToIntegerX(moveFrenzyTwoActions[1]);
+                y = y + Converter.fromStringDirToIntegerX(moveFrenzyTwoActions[2]);
+
+                if (!playerController.getGameBoard().getArena()[x][y].isSpawn()) {
+                    try {
+                        this.client.grab(0, Converter.fromStringToDirection(moveFrenzyTwoActions[0]), Converter.fromStringToDirection(moveFrenzyTwoActions[1]), Converter.fromStringToDirection(moveFrenzyTwoActions[2]));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                } else if(playerController.getGameBoard().getArena()[x][y].isSpawn()){
+                    FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ChooseWeapon.fxml"));
+                    Parent root = null;
+                    try {
+                        root = loader.load();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                    guiHandler = loader.getController();
+
+                    List<WeaponCard> weapon = playerController.getGameBoard().getArena()[x][y].getWeapons();
+                    guiHandler.setWeaponImage(weapon);
+
+                    Stage stage = new Stage();
+                    stage.setScene(new Scene(root, 496, 269));
+                    stage.setTitle("Choose Weapon");
+                    stage.show();
+                }
             }
 
             Stage stage = (Stage) upArrowGrab.getScene().getWindow();
