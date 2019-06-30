@@ -165,8 +165,8 @@ public class PlayerBoardGui extends Application {
 
     private void addMarkGrid(Image image, GridPane marksGrid, int i, int row) {
         ImageView imv = new ImageView(image);
-        imv.setFitWidth(STANDARD_HEIGHT);
-        imv.setFitHeight(STANDARD_HEIGHT);
+        imv.setFitWidth(SMALL_HEIGHT);
+        imv.setFitHeight(SMALL_HEIGHT);
         Platform.runLater(() ->{
             marksGrid.add(new ImageView(image), i, row);
         });
