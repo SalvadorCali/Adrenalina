@@ -178,6 +178,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     @FXML private Label labelGrab;
     @FXML private Label labelShoot;
     @FXML private Label labelShowMove;
+    @FXML private Label labelErrorMoveReload;
 
     @FXML
     RadioButton socketButton;
@@ -2857,11 +2858,30 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     }
 
     public void confirmMoveRel(MouseEvent mouseEvent) throws IOException {
-        guiHandler = Data.getInstance().getGuiHandler();
-        guiHandler.reload();
+        playerController = Data.getInstance().getPlayerController();
 
-        Stage stage = (Stage) enterMoveReload.getScene().getWindow();
-        stage.close();
+        if(this.moveReload[0] == null && playerController.getFinalFrenzyActions().equals(FinalFrenzyAction.TWO_ACTIONS)) {
+            showErrorMoveRel();
+
+        } else if((this.moveReload[0] == null || this.moveReload[1] == null) && playerController.getFinalFrenzyActions().equals(FinalFrenzyAction.ONE_ACTION)){
+            showErrorMoveRel();
+
+        }else {
+            guiHandler = Data.getInstance().getGuiHandler();
+            guiHandler.reload();
+
+            Stage stage = (Stage) enterMoveReload.getScene().getWindow();
+            stage.close();
+        }
+
+    }
+
+    public void showErrorMoveRel(){
+        guiHandler = Data.getInstance().getGuiHandler();
+
+        Platform.runLater(() ->{
+            guiHandler.labelErrorMoveReload.setVisible(true);
+        });
     }
 
     public void useThirdPowerup(MouseEvent mouseEvent) throws IOException {
