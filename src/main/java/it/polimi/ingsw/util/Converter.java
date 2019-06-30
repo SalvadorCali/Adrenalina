@@ -554,18 +554,43 @@ public class Converter {
         }
     }
 
-    public static javafx.scene.paint.Color fromColorEnumsToColorJFX(Color color){
-        switch (color){
-            case BLUE:
-                return javafx.scene.paint.Color.BLUE;
-            case RED:
-                return javafx.scene.paint.Color.RED;
-            case YELLOW:
-                return javafx.scene.paint.Color.YELLOW;
-            case NONE:
-                return javafx.scene.paint.Color.TRANSPARENT;
+    public static Integer fromStringDirToIntegerX(String direction){
+        Integer x = 0;
+        switch (direction){
+            case "up":{
+                x--;
+                return x;
+            }
+            case "down":{
+                x++;
+                return x;
+            }
+            case "left":
+                return x;
+            case "right":
+                return x;
             default:
-                return javafx.scene.paint.Color.TRANSPARENT;
+                return x;
+        }
+    }
+
+    public static Integer fromStringDirToIntegerY(String direction){
+        Integer y = 0;
+        switch (direction){
+            case "up":
+                return y;
+            case "down":
+                return y;
+            case "left":{
+                y--;
+                return y;
+            }
+            case "right":{
+                y++;
+                return y;
+            }
+            default:
+                return y;
         }
     }
 }
