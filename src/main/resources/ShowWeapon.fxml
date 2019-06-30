@@ -29,7 +29,7 @@
             <Image url="@weapon/hellion.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="thirdWeaponHad" fitHeight="200.0" fitWidth="118.0" layoutX="359.0" layoutY="91.0" visible="false">
+      <ImageView fx:id="thirdWeaponHad" fitHeight="200.0" fitWidth="118.0" layoutX="362.0" layoutY="91.0" visible="false">
          <image>
             <Image url="@weapon/hellion.png" />
          </image>
@@ -39,22 +39,25 @@
             <Image url="@powerup/Y/NEWTON.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="thirdPowerupHad" fitHeight="155.0" fitWidth="99.0" layoutX="369.0" layoutY="340.0" visible="false">
+      <ImageView fx:id="thirdPowerupHad" fitHeight="155.0" fitWidth="99.0" layoutX="378.0" layoutY="340.0" visible="false">
          <image>
             <Image url="@powerup/Y/NEWTON.png" />
          </image>
       </ImageView>
-      <Button fx:id="shootButton1" layoutX="26.0" layoutY="298.0" mnemonicParsing="false" onMouseClicked="#shootFirstWeapon" text="Shoot1" />
+      <Button fx:id="shootButton1" layoutX="24.0" layoutY="298.0" mnemonicParsing="false" onMouseClicked="#shootFirstWeapon" text="Shoot1" />
       <Button fx:id="shootButton2" layoutX="191.0" layoutY="298.0" mnemonicParsing="false" onMouseClicked="#shootSecondWeapon" text="Shoot2" />
-      <Button fx:id="shootButton3" layoutX="359.0" layoutY="298.0" mnemonicParsing="false" onMouseClicked="#shootThirdWeapon" text="Shoot3" />
-      <Button fx:id="usePowerup1" layoutX="32.0" layoutY="513.0" mnemonicParsing="false" onMouseClicked="#useFirstPowerup" text="Use1" />
-      <Button fx:id="usePowerup2" layoutX="197.0" layoutY="513.0" mnemonicParsing="false" onMouseClicked="#useSecondPowerup" text="Use2" />
-      <Button fx:id="usePowerup3" layoutX="365.0" layoutY="513.0" mnemonicParsing="false" onMouseClicked="#useThirdPowerup" text="Use3" />
-      <Button fx:id="discardButton1" layoutX="84.0" layoutY="298.0" mnemonicParsing="false" onMouseClicked="#dropFirstWeapon" text="Drop1" />
-      <Button fx:id="discardButton2" layoutX="251.0" layoutY="298.0" mnemonicParsing="false" onMouseClicked="#dropSecondWeapon" text="Drop2" />
-      <Button fx:id="discardButton3" layoutX="419.0" layoutY="298.0" mnemonicParsing="false" onMouseClicked="#dropThirdWeapon" text="Drop3" />
-      <Button fx:id="dropButton1" layoutX="84.0" layoutY="513.0" mnemonicParsing="false" onMouseClicked="#dropFirstPowerup" text="Drop1" />
-      <Button fx:id="dropButton2" layoutX="251.0" layoutY="513.0" mnemonicParsing="false" onMouseClicked="#dropSecondPowerup" text="Drop2" />
-      <Button fx:id="dropButton3" layoutX="418.0" layoutY="513.0" mnemonicParsing="false" onMouseClicked="#dropThirdPowerup" text="Drop3" />
+      <Button fx:id="shootButton3" layoutX="373.0" layoutY="298.0" mnemonicParsing="false" onMouseClicked="#shootThirdWeapon" text="Shoot3" />
+      <Button fx:id="usePowerup1" layoutX="3.0" layoutY="513.0" mnemonicParsing="false" onMouseClicked="#useFirstPowerup" prefHeight="25.0" prefWidth="43.0" text="Use1" />
+      <Button fx:id="usePowerup2" layoutX="180.0" layoutY="513.0" mnemonicParsing="false" onMouseClicked="#useSecondPowerup" text="Use2" />
+      <Button fx:id="usePowerup3" layoutX="357.0" layoutY="513.0" mnemonicParsing="false" onMouseClicked="#useThirdPowerup" text="Use3" />
+      <Button fx:id="dropButton1W" layoutX="93.0" layoutY="298.0" mnemonicParsing="false" onMouseClicked="#dropFirstWeapon" text="Drop1" />
+      <Button fx:id="dropButton2W" layoutX="261.0" layoutY="298.0" mnemonicParsing="false" onMouseClicked="#dropSecondWeapon" text="Drop2" />
+      <Button fx:id="dropButton3W" layoutX="438.0" layoutY="298.0" mnemonicParsing="false" onMouseClicked="#dropThirdWeapon" text="Drop3" />
+      <Button fx:id="dropButton1" layoutX="49.0" layoutY="513.0" mnemonicParsing="false" onMouseClicked="#dropFirstPowerup" prefHeight="25.0" prefWidth="54.0" text="Drop1" />
+      <Button fx:id="dropButton2" layoutX="226.0" layoutY="513.0" mnemonicParsing="false" onMouseClicked="#dropSecondPowerup" text="Drop2" />
+      <Button fx:id="dropButton3" layoutX="402.0" layoutY="513.0" mnemonicParsing="false" onMouseClicked="#dropThirdPowerup" text="Drop3" />
+      <Button fx:id="discardButton1" layoutX="106.0" layoutY="513.0" mnemonicParsing="false" onMouseClicked="#discardFirstPowerup" prefHeight="25.0" prefWidth="62.0" text="Discard1" />
+      <Button fx:id="discardButton2" layoutX="280.0" layoutY="513.0" mnemonicParsing="false" onMouseClicked="#discardSecondPowerup" prefHeight="25.0" prefWidth="62.0" text="Discard2" />
+      <Button fx:id="discardButton3" layoutX="454.0" layoutY="513.0" mnemonicParsing="false" onMouseClicked="#discardThirdPowerup" prefHeight="25.0" prefWidth="68.0" text="Discard3" />
    </children>
 </AnchorPane>

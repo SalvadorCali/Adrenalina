@@ -3131,7 +3131,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         client = Data.getInstance().getClient();
         playerController = Data.getInstance().getPlayerController();
 
-        if(playerController.getWeapons().size() >= 1) {
+        if(playerController.getWeapons().size() == 3) {
             client.dropWeapon(0);
         }
     }
@@ -3140,7 +3140,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         client = Data.getInstance().getClient();
         playerController = Data.getInstance().getPlayerController();
 
-        if(playerController.getWeapons().size() >= 2) {
+        if(playerController.getPowerups().size() == 3) {
             client.dropWeapon(1);
         }
     }
@@ -3149,7 +3149,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         client = Data.getInstance().getClient();
         playerController = Data.getInstance().getPlayerController();
 
-        if(playerController.getWeapons().size() >= 3) {
+        if(playerController.getPowerups().size() == 3) {
             client.dropWeapon(2);
         }
     }
@@ -3158,7 +3158,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         client = Data.getInstance().getClient();
         playerController = Data.getInstance().getPlayerController();
 
-        if(playerController.getPowerups().size() >= 1) {
+        if(playerController.getPowerups().size() == 3) {
             client.dropPowerup(0);
         }
     }
@@ -3167,7 +3167,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         client = Data.getInstance().getClient();
         playerController = Data.getInstance().getPlayerController();
 
-        if(playerController.getPowerups().size() >= 2) {
+        if(playerController.getPowerups().size() == 3) {
             client.dropPowerup(1);
         }
     }
@@ -3176,8 +3176,35 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         client = Data.getInstance().getClient();
         playerController = Data.getInstance().getPlayerController();
 
-        if(playerController.getPowerups().size() >= 1) {
+        if(playerController.getPowerups().size() == 3) {
             client.dropPowerup(2);
+        }
+    }
+
+    public void discardFirstPowerup(MouseEvent mouseEvent) throws IOException {
+        client = Data.getInstance().getClient();
+        playerController = Data.getInstance().getPlayerController();
+
+        if(playerController.getPowerups().size() >= 1) {
+            client.discardPowerup(0);
+        }
+    }
+
+    public void discardSecondPowerup(MouseEvent mouseEvent) throws IOException {
+        client = Data.getInstance().getClient();
+        playerController = Data.getInstance().getPlayerController();
+
+        if(playerController.getPowerups().size() >= 2) {
+            client.discardPowerup(1);
+        }
+    }
+
+    public void discardThirdPowerup(MouseEvent mouseEvent) throws IOException {
+        client = Data.getInstance().getClient();
+        playerController = Data.getInstance().getPlayerController();
+
+        if(playerController.getPowerups().size() == 3) {
+            client.discardPowerup(2);
         }
     }
 }
