@@ -6,10 +6,7 @@ import it.polimi.ingsw.model.cards.AmmoCard;
 import it.polimi.ingsw.model.cards.Card;
 import it.polimi.ingsw.model.cards.PowerupCard;
 import it.polimi.ingsw.model.cards.WeaponCard;
-import it.polimi.ingsw.model.enums.Color;
-import it.polimi.ingsw.model.enums.Direction;
-import it.polimi.ingsw.model.enums.FinalFrenzyAction;
-import it.polimi.ingsw.model.enums.TokenColor;
+import it.polimi.ingsw.model.enums.*;
 import it.polimi.ingsw.model.gamecomponents.Square;
 import it.polimi.ingsw.model.gamecomponents.Token;
 import it.polimi.ingsw.network.client.ClientInterface;
@@ -314,6 +311,9 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     private Integer countMoveRel = 0;
     private WeaponInfoHandler weaponInfoHandler = new WeaponInfoHandler();
     private AmmoGUI ammoGUI;
+    private String weaponReload1 = " ";
+    private String weaponReload2 = " ";
+    private String weaponReload3 = " ";
 
     //starting methods
     //
@@ -417,16 +417,49 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     }
 
     public void reload(MouseEvent mouseEvent) throws IOException {
-        if(this.txtWeaponReload1.getText().equals("yes")) {
-            reloadClient1();
-        }
-        if(this.txtWeaponReload2.getText().equals("yes")){
-            reloadClient2();
-        }
-        if(this.txtWeaponReload3.getText().equals("yes")){
-            reloadClient3();
+        playerController = Data.getInstance().getPlayerController();
+
+        if(!playerController.isFinalFrenzy()) {
+            if (this.txtWeaponReload1.getText().equals("yes")) {
+                reloadClient1();
+            }
+            if (this.txtWeaponReload2.getText().equals("yes")) {
+                reloadClient2();
+            }
+            if (this.txtWeaponReload3.getText().equals("yes")) {
+                reloadClient3();
+            }
         }
 
+        if(playerController.isFinalFrenzy() && playerController.getFinalFrenzyActions().equals(FinalFrenzyAction.TWO_ACTIONS)){
+
+            if (this.txtWeaponReload1.getText().equals("yes")) {
+                this.weaponReload1 = "yes";
+            }
+            if (this.txtWeaponReload2.getText().equals("yes")) {
+                this.weaponReload2 = "yes";
+            }
+            if (this.txtWeaponReload3.getText().equals("yes")) {
+                this.weaponReload3 = "yes";
+            }
+
+            reloadClientTwoActions();
+        }
+
+        if(playerController.isFinalFrenzy() && playerController.getFinalFrenzyActions().equals(FinalFrenzyAction.ONE_ACTION)){
+
+            if (this.txtWeaponReload1.getText().equals("yes")) {
+                this.weaponReload1 = "yes";
+            }
+            if (this.txtWeaponReload2.getText().equals("yes")) {
+                this.weaponReload2 = "yes";
+            }
+            if (this.txtWeaponReload3.getText().equals("yes")) {
+                this.weaponReload3 = "yes";
+            }
+
+            reloadClientOneAction();
+        }
 
         Stage stage = (Stage) buttonReload.getScene().getWindow();
         stage.close();
@@ -1529,7 +1562,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                 Platform.runLater(() ->{
                     labelShowMove.setText("  " + this.movement[0]);
                 });
-            } else {
+            } else if(this.movement[3] != null){
                 Platform.runLater(() ->{
                     labelShowMove.setText("  " + this.movement[0] + "  " + this.movement[1] + "  " + this.movement[2] + "  " + this.movement[3]);
                 });
@@ -1635,100 +1668,79 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         }
     }
 
-    /*
-    private void reloadClient() throws IOException {
+
+    private void reloadClientTwoActions() throws IOException {
         playerController = Data.getInstance().getPlayerController();
         client = Data.getInstance().getClient();
 
-        Integer numWeapon = playerController.getWeapons().size();
-
-        if(this.finalFrenzy == 0) {
-            if (weaponReload1 == "yes" && numWeapon == 1) {
+        if(this.moveReload[0] != null) {
+            if (this.weaponReload1.equals("yes") && this.weaponReload2.equals(" ") && this.weaponReload3.equals(" ")) {
                 try {
-                    client.reload(Converter.weaponNameInvert(playerController.getWeapons().get(0).getName()));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-            if (weaponReload2 == "yes" && numWeapon == 2) {
-                try {
-                    client.reload(Converter.weaponNameInvert(playerController.getWeapons().get(1).getName()));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-            if (weaponReload3 == "yes" && numWeapon == 3) {
-                try {
-                    client.reload(Converter.weaponNameInvert(playerController.getWeapons().get(2).getName()));
+                    client.moveAndReload(Converter.fromStringToDirection(this.moveReload[0]), Converter.weaponNameInvert(playerController.getWeapons().get(0).getName()));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
 
-        } else if(this.finalFrenzy == 1 && playerController.getFinalFrenzyActions().equals(FinalFrenzyAction.TWO_ACTIONS)){
-            if(this.moveReload[0] != null) {
-                if (weaponReload1 == "yes" && weaponReload2 == null && weaponReload3 == null && numWeapon >= 1) {
-                    try {
-                        client.moveAndReload(Converter.fromStringToDirection(this.moveReload[0]), Converter.weaponNameInvert(playerController.getWeapons().get(0).getName()));
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+            if (this.weaponReload1.equals("yes") && this.weaponReload2.equals("yes") && this.weaponReload3.equals(" ")) {
+                try {
+                    client.moveAndReload(Converter.fromStringToDirection(this.moveReload[0]), Converter.weaponNameInvert(playerController.getWeapons().get(0).getName()), Converter.weaponNameInvert(playerController.getWeapons().get(1).getName()));
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
-
-                if (weaponReload1 == "yes" && weaponReload2 == "yes" && weaponReload3 == null && numWeapon >= 2) {
-                    try {
-                        client.moveAndReload(Converter.fromStringToDirection(this.moveReload[0]), Converter.weaponNameInvert(playerController.getWeapons().get(0).getName()), Converter.weaponNameInvert(playerController.getWeapons().get(1).getName()));
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-
-                if (weaponReload1 == "yes" && weaponReload2 == "yes" && weaponReload3 == "yes" && numWeapon == 3) {
-                    try {
-                        client.moveAndReload(Converter.fromStringToDirection(this.moveReload[0]), Converter.weaponNameInvert(playerController.getWeapons().get(0).getName()), Converter.weaponNameInvert(playerController.getWeapons().get(1).getName()), Converter.weaponNameInvert(playerController.getWeapons().get(2).getName()));
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-
-                if (weaponReload1 == null && weaponReload2 == "yes" && weaponReload3 == "yes" && numWeapon == 3) {
-                    try {
-                        client.moveAndReload(Converter.fromStringToDirection(this.moveReload[0]), Converter.weaponNameInvert(playerController.getWeapons().get(1).getName()), Converter.weaponNameInvert(playerController.getWeapons().get(2).getName()));
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-
-                if (weaponReload1 == null && weaponReload2 == "yes" && weaponReload3 == null && numWeapon >= 2) {
-                    try {
-                        client.moveAndReload(Converter.fromStringToDirection(this.moveReload[0]), Converter.weaponNameInvert(playerController.getWeapons().get(1).getName()));
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-
-                if (weaponReload1 == null && weaponReload2 == null && weaponReload3 == "yes" && numWeapon == 3) {
-                    try {
-                        client.moveAndReload(Converter.fromStringToDirection(this.moveReload[0]), Converter.weaponNameInvert(playerController.getWeapons().get(2).getName()));
-
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-
-                if (weaponReload1 != null && weaponReload2 == null && weaponReload3 != null && numWeapon == 3) {
-                    try {
-                        client.moveAndReload(Converter.fromStringToDirection(this.moveReload[0]), Converter.weaponNameInvert(playerController.getWeapons().get(0).getName()), Converter.weaponNameInvert(playerController.getWeapons().get(2).getName()));
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-
             }
 
-        } else if(this.finalFrenzy == 1 && playerController.getFinalFrenzyActions().equals(FinalFrenzyAction.ONE_ACTION)){
-            if(this.moveReload[0] != null && this.moveReload[1] != null) {
-                if (weaponReload1 != null && weaponReload2 == null && weaponReload3 == null && numWeapon >= 1) {
+            if (this.weaponReload1.equals("yes") && this.weaponReload2 .equals("yes") && this.weaponReload3.equals("yes")) {
+                try {
+                    client.moveAndReload(Converter.fromStringToDirection(this.moveReload[0]), Converter.weaponNameInvert(playerController.getWeapons().get(0).getName()), Converter.weaponNameInvert(playerController.getWeapons().get(1).getName()), Converter.weaponNameInvert(playerController.getWeapons().get(2).getName()));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            if (this.weaponReload1.equals(" ") && this.weaponReload2.equals("yes") && this.weaponReload3.equals("yes")) {
+                try {
+                    client.moveAndReload(Converter.fromStringToDirection(this.moveReload[0]), Converter.weaponNameInvert(playerController.getWeapons().get(1).getName()), Converter.weaponNameInvert(playerController.getWeapons().get(2).getName()));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            if (this.weaponReload1.equals(" ") && this.weaponReload2.equals("yes") && this.weaponReload3.equals(" ")) {
+                try {
+                    client.moveAndReload(Converter.fromStringToDirection(this.moveReload[0]), Converter.weaponNameInvert(playerController.getWeapons().get(1).getName()));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            if (this.weaponReload1.equals("yes") && this.weaponReload2.equals(" ") && this.weaponReload3.equals("yes")) {
+                try {
+                    client.moveAndReload(Converter.fromStringToDirection(this.moveReload[0]), Converter.weaponNameInvert(playerController.getWeapons().get(2).getName()));
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            if (this.weaponReload1.equals("yes") && this.weaponReload2.equals(" ") && this.weaponReload3.equals("yes")) {
+                try {
+                    client.moveAndReload(Converter.fromStringToDirection(this.moveReload[0]), Converter.weaponNameInvert(playerController.getWeapons().get(0).getName()), Converter.weaponNameInvert(playerController.getWeapons().get(2).getName()));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    public void reloadClientOneAction(){
+
+        playerController = Data.getInstance().getPlayerController();
+        client = Data.getInstance().getClient();
+
+        if(playerController.isFinalFrenzy() && playerController.getFinalFrenzyActions().equals(FinalFrenzyAction.ONE_ACTION)) {
+            if (this.moveReload[0] != null && this.moveReload[1] != null) {
+                if (this.weaponReload1.equals("yes") && this.weaponReload2.equals(" ") && this.weaponReload3.equals(" ")) {
                     try {
                         client.moveAndReload(Converter.fromStringToDirection(moveReload[0]), Converter.fromStringToDirection(moveReload[1]), Converter.weaponNameInvert(playerController.getWeapons().get(0).getName()));
                     } catch (IOException e) {
@@ -1736,7 +1748,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                     }
                 }
 
-                if (weaponReload1 != null && weaponReload2 != null && weaponReload3 == null && numWeapon >= 2) {
+                if (this.weaponReload1.equals("yes") && this.weaponReload2.equals("yes") && this.weaponReload3.equals(" ")) {
                     try {
                         client.moveAndReload(Converter.fromStringToDirection(moveReload[0]), Converter.fromStringToDirection(moveReload[1]), Converter.weaponNameInvert(playerController.getWeapons().get(0).getName()), Converter.weaponNameInvert(playerController.getWeapons().get(1).getName()));
                     } catch (IOException e) {
@@ -1744,7 +1756,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                     }
                 }
 
-                if (weaponReload1 != null && weaponReload2 != null && weaponReload3 != null && numWeapon == 3) {
+                if (this.weaponReload1.equals("yes") && this.weaponReload2.equals("yes") && this.weaponReload3.equals("yes")) {
                     try {
                         client.moveAndReload(Converter.fromStringToDirection(moveReload[0]), Converter.fromStringToDirection(moveReload[1]), Converter.weaponNameInvert(playerController.getWeapons().get(0).getName()), Converter.weaponNameInvert(playerController.getWeapons().get(1).getName()), Converter.weaponNameInvert(playerController.getWeapons().get(2).getName()));
                     } catch (IOException e) {
@@ -1752,7 +1764,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                     }
                 }
 
-                if (weaponReload1 == null && weaponReload2 != null && weaponReload3 != null && numWeapon == 3) {
+                if (this.weaponReload1.equals(" ") && this.weaponReload2.equals("yes") && this.weaponReload3.equals("yes")) {
                     try {
                         client.moveAndReload(Converter.fromStringToDirection(moveReload[0]), Converter.fromStringToDirection(moveReload[1]), Converter.weaponNameInvert(playerController.getWeapons().get(1).getName()), Converter.weaponNameInvert(playerController.getWeapons().get(2).getName()));
                     } catch (IOException e) {
@@ -1760,7 +1772,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                     }
                 }
 
-                if (weaponReload1 == null && weaponReload2 != null && weaponReload3 == null && numWeapon >= 2) {
+                if (this.weaponReload1.equals(" ") && this.weaponReload2.equals("yes") && this.weaponReload3.equals(" ")) {
                     try {
                         client.moveAndReload(Converter.fromStringToDirection(moveReload[0]), Converter.fromStringToDirection(moveReload[1]), Converter.weaponNameInvert(playerController.getWeapons().get(1).getName()));
                     } catch (IOException e) {
@@ -1768,7 +1780,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                     }
                 }
 
-                if (weaponReload1 == null && weaponReload2 == null && weaponReload3 != null && numWeapon == 3) {
+                if (this.weaponReload1.equals(" ") && this.weaponReload2.equals(" ") && this.weaponReload3.equals("yes")) {
                     try {
                         client.moveAndReload(Converter.fromStringToDirection(moveReload[0]), Converter.fromStringToDirection(moveReload[1]), Converter.weaponNameInvert(playerController.getWeapons().get(2).getName()));
 
@@ -1777,18 +1789,17 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                     }
                 }
 
-                if (weaponReload1 != null && weaponReload2 == null && weaponReload3 != null && numWeapon == 3) {
+                if (this.weaponReload1.equals("yes") && this.weaponReload2 == null && this.weaponReload3.equals("yes")) {
                     try {
                         client.moveAndReload(Converter.fromStringToDirection(moveReload[0]), Converter.fromStringToDirection(moveReload[1]), Converter.weaponNameInvert(playerController.getWeapons().get(0).getName()), Converter.weaponNameInvert(playerController.getWeapons().get(2).getName()));
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
                 }
-
             }
         }
     }
-    */
+
 
     private void disableButtonWhenReload() {
         Platform.runLater(() ->{
@@ -2198,7 +2209,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                 stage.close();
             });
 
-        } else if(playerController.isFinalFrenzy() && playerController.getFinalFrenzyActions().equals(FinalFrenzyAction.TWO_ACTIONS)){
+        } else if(playerController.isFinalFrenzy() && playerController.getFinalFrenzyActions().equals(FinalFrenzyAction.TWO_ACTIONS) || (!playerController.isFinalFrenzy() && !playerController.getAdrenalineZone().equals(AdrenalineZone.DEFAULT))){
 
             int x = playerController.getPlayer().getPosition().getX();
             int y = playerController.getPlayer().getPosition().getY();
@@ -2402,7 +2413,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                     stage.show();
                 }
 
-            } else{
+            } else {
 
                 x = x + Converter.fromStringDirToIntegerX(moveFrenzyTwoActions[0]);
                 x = x + Converter.fromStringDirToIntegerX(moveFrenzyTwoActions[1]);
@@ -2744,7 +2755,9 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
             this.guiHandler = Data.getInstance().getGuiHandler();
             this.guiHandler.showWeapon(mouseEvent);
 
-        } else {
+        }
+
+        if(playerController.isFinalFrenzy() || (!playerController.isFinalFrenzy() && playerController.getAdrenalineZone().equals(AdrenalineZone.SECOND))){
             Platform.runLater(() -> {
                 FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("MoveAndReload.fxml"));
 
@@ -2826,7 +2839,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         Integer mode = 1;
 
 
-        if(modeTxtField.getText().equals("1") || !modeTxtField.getText().equals("2") || !modeTxtField.getText().equals("3")) {
+        if(modeTxtField.getText().equals("1") || modeTxtField.getText().equals("2") || modeTxtField.getText().equals("3")) {
             mode = Integer.valueOf(modeTxtField.getText());
         }
 
@@ -2920,21 +2933,54 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
     public void confirmMoveRel(MouseEvent mouseEvent) throws IOException {
         playerController = Data.getInstance().getPlayerController();
+        guiHandler = Data.getInstance().getGuiHandler();
 
-        if(this.moveReload[0] == null && playerController.getFinalFrenzyActions().equals(FinalFrenzyAction.TWO_ACTIONS)) {
-            showErrorMoveRel();
+        if(playerController.getAdrenalineZone().equals(AdrenalineZone.SECOND)){
 
-        } else if((this.moveReload[0] == null || this.moveReload[1] == null) && playerController.getFinalFrenzyActions().equals(FinalFrenzyAction.ONE_ACTION)){
-            showErrorMoveRel();
+            moveReloadZoneTwo();
 
-        }else {
+            Platform.runLater(() ->{
+
+                FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ShowWeapon.fxml"));
+                Parent root = null;
+                try {
+                    root = loader.load();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                guiHandler = loader.getController();
+                Data.getInstance().setGuiHandlerWeapon(guiHandler);
+
+                Stage stage = new Stage();
+                stage.setScene(new Scene(root, 522, 554));
+                stage.setTitle("Weapons");
+                stage.show();
+
+
+                Thread thread2 = new Thread(this::checkWeapon);
+                thread2.setDaemon(true);
+                thread2.start();
+
+            });
+
+        } else {
+
             guiHandler = Data.getInstance().getGuiHandler();
             guiHandler.reloadPopup();
-
-            Stage stage = (Stage) enterMoveReload.getScene().getWindow();
-            stage.close();
         }
+        Stage stage = (Stage) enterMoveReload.getScene().getWindow();
+        stage.close();
+    }
 
+    private void moveReloadZoneTwo() throws IOException {
+        client = Data.getInstance().getClient();
+
+        if(this.moveReload[0] == null) {
+            client.moveAndReload(null);
+        }else {
+            client.moveAndReload(Converter.fromStringToDirection(this.moveReload[0]));
+        }
     }
 
     public void showErrorMoveRel(){
@@ -3193,7 +3239,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         playerController = Data.getInstance().getPlayerController();
 
         if(playerController.getWeapons().size() == 3) {
-            client.dropWeapon(0);
+            client.dropWeapon(1);
         }
     }
 
@@ -3202,7 +3248,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         playerController = Data.getInstance().getPlayerController();
 
         if(playerController.getPowerups().size() == 3) {
-            client.dropWeapon(1);
+            client.dropWeapon(2);
         }
     }
 
@@ -3211,7 +3257,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         playerController = Data.getInstance().getPlayerController();
 
         if(playerController.getPowerups().size() == 3) {
-            client.dropWeapon(2);
+            client.dropWeapon(3);
         }
     }
 
@@ -3220,7 +3266,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         playerController = Data.getInstance().getPlayerController();
 
         if(playerController.getPowerups().size() == 3) {
-            client.dropPowerup(0);
+            client.dropPowerup(1);
         }
     }
 
@@ -3229,7 +3275,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         playerController = Data.getInstance().getPlayerController();
 
         if(playerController.getPowerups().size() == 3) {
-            client.dropPowerup(1);
+            client.dropPowerup(2);
         }
     }
 
@@ -3238,7 +3284,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         playerController = Data.getInstance().getPlayerController();
 
         if(playerController.getPowerups().size() == 3) {
-            client.dropPowerup(2);
+            client.dropPowerup(3);
         }
     }
 
@@ -3247,7 +3293,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         playerController = Data.getInstance().getPlayerController();
 
         if(playerController.getPowerups().size() >= 1) {
-            client.discardPowerup(0);
+            client.discardPowerup(1);
         }
     }
 
@@ -3256,7 +3302,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         playerController = Data.getInstance().getPlayerController();
 
         if(playerController.getPowerups().size() >= 2) {
-            client.discardPowerup(1);
+            client.discardPowerup(2);
         }
     }
 
@@ -3265,7 +3311,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         playerController = Data.getInstance().getPlayerController();
 
         if(playerController.getPowerups().size() == 3) {
-            client.discardPowerup(2);
+            client.discardPowerup(3);
         }
     }
 
