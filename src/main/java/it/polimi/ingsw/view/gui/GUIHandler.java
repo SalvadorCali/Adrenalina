@@ -957,17 +957,23 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     }
 
     private void notifyScore(Map<TokenColor, Integer> object) throws IOException {
+        Platform.runLater(() ->{
+            FXMLLoader loader3 = new FXMLLoader(getClass().getClassLoader().getResource("ScorePopup.fxml"));
+            Parent root = null;
+            try {
+                root = loader3.load();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
-        FXMLLoader loader3 = new FXMLLoader(getClass().getClassLoader().getResource("ScorePopup.fxml"));
-        Parent root = loader3.load();
+            scorePopup = loader3.getController();
+            scorePopup.setScore(object);
 
-        scorePopup = loader3.getController();
-        scorePopup.setScore(object);
-
-        Stage stage3 = new Stage();
-        stage3.setScene(new Scene(root, 411, 311));
-        stage3.setTitle("Score");
-        stage3.show();
+            Stage stage3 = new Stage();
+            stage3.setScene(new Scene(root, 411, 311));
+            stage3.setTitle("Score");
+            stage3.show();
+        });
     }
 
 
