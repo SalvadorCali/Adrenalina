@@ -585,15 +585,16 @@ public class Converter {
 
     public static Integer fromStringDirToIntegerX(String direction){
         Integer x = 0;
+        if(direction == null){
+            return x;
+        }
         switch (direction){
-            case UP:{
+            case UP:
                 x--;
                 return x;
-            }
-            case DOWN:{
+            case DOWN:
                 x++;
                 return x;
-            }
             case LEFT:
                 return x;
             case RIGHT:
@@ -605,19 +606,20 @@ public class Converter {
 
     public static Integer fromStringDirToIntegerY(String direction){
         Integer y = 0;
+        if(direction == null){
+            return y;
+        }
         switch (direction){
             case UP:
                 return y;
             case DOWN:
                 return y;
-            case LEFT:{
+            case LEFT:
                 y--;
                 return y;
-            }
-            case RIGHT:{
+            case RIGHT:
                 y++;
                 return y;
-            }
             default:
                 return y;
         }
