@@ -2416,7 +2416,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                     stage.show();
                 }
 
-            } else{
+            } else if(moveFrenzyOneActions[3] != null){
 
                 x = x + Converter.fromStringDirToIntegerX(moveFrenzyTwoActions[0]);
                 x = x + Converter.fromStringDirToIntegerX(moveFrenzyTwoActions[1]);
@@ -2840,7 +2840,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         Integer mode = 1;
 
 
-        if(modeTxtField.getText().equals("1") || !modeTxtField.getText().equals("2") || !modeTxtField.getText().equals("3")) {
+        if(modeTxtField.getText().equals("1") || modeTxtField.getText().equals("2") || modeTxtField.getText().equals("3")) {
             mode = Integer.valueOf(modeTxtField.getText());
         }
 
