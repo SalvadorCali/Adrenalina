@@ -683,11 +683,14 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
                 if(i == 0){
                     firstPowerUpD.setImage(image);
-                }else if (i == 1){
+                }
+                if (i == 1){
                     secondPowerUpD.setImage(image);
-                } else if(i == 2){
+                }
+                if(i == 2){
                     thirdPowerUpD.setImage(image);
-                } else if(i == 3){
+                }
+                if(i == 3){
                     fourthPowerUpD.setImage(image);
                 }
             }
@@ -2707,7 +2710,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     }
 
     public void grabThirdImg(MouseEvent mouseEvent) {
-        
+
         playerController = Data.getInstance().getPlayerController();
         client = Data.getInstance().getClient();
         String move = Data.getInstance().getMoveGrab();
