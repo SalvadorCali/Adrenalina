@@ -2550,23 +2550,66 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
     public void grabFirstImg(MouseEvent mouseEvent) {
 
+        playerController = Data.getInstance().getPlayerController();
         client = Data.getInstance().getClient();
         String move = Data.getInstance().getMoveGrab();
 
-        if (move != null) {
-            try {
-                this.client.grab(1, Converter.fromStringToDirection(move));
-            } catch (IOException e) {
-                e.printStackTrace();
+        if(!playerController.isFinalFrenzy() && playerController.getAdrenalineZone().equals(AdrenalineZone.DEFAULT)) {
+            if (move != null) {
+                try {
+                    this.client.grab(1, Converter.fromStringToDirection(move));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            } else {
+                try {
+                    this.client.grab(1);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+        } else if((!playerController.isFinalFrenzy() && !playerController.getAdrenalineZone().equals(AdrenalineZone.DEFAULT)) || (playerController.isFinalFrenzy() && playerController.getFinalFrenzyActions().equals(FinalFrenzyAction.TWO_ACTIONS))){
+
+            if(this.moveFrenzyTwoActions[0] != null){
+                try {
+                    client.grab(1, Converter.fromStringToDirection(moveFrenzyTwoActions[0]));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            } else if(this.moveFrenzyTwoActions[1] != null) {
+                try {
+                    client.grab(1, Converter.fromStringToDirection(moveFrenzyTwoActions[0]), Converter.fromStringToDirection(moveFrenzyTwoActions[1]));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
 
         } else {
-            try {
-                this.client.grab(1);
-            } catch (IOException e) {
-                e.printStackTrace();
+
+            if(this.moveFrenzyOneActions[0] != null){
+                try {
+                    client.grab(1, Converter.fromStringToDirection(moveFrenzyOneActions[0]));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            } else if(this.moveFrenzyOneActions[1] != null) {
+                try {
+                    client.grab(1, Converter.fromStringToDirection(moveFrenzyOneActions[0]), Converter.fromStringToDirection(moveFrenzyOneActions[1]));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                try {
+                    client.grab(1, Converter.fromStringToDirection(moveFrenzyOneActions[0]), Converter.fromStringToDirection(moveFrenzyOneActions[1]), Converter.fromStringToDirection(moveFrenzyOneActions[2]));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         }
+
 
         Stage stage = (Stage) firstWeapon.getScene().getWindow();
         stage.close();
