@@ -1847,8 +1847,8 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
     public void placePlayers(Square[][] arena){
         playerController = Data.getInstance().getPlayerController();
-        MapCLI mapCLI = new MapCLI(playerController.getGameBoard());
-        mapCLI.printMap();
+        //MapCLI mapCLI = new MapCLI(playerController.getGameBoard());
+        //mapCLI.printMap();
 
 
         if(!arena[0][0].getPlayers().isEmpty()){
@@ -2856,43 +2856,54 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
         if(modeTxtField.getText().equals("1") || modeTxtField.getText().equals("2") || modeTxtField.getText().equals("3")) {
             mode = Integer.valueOf(modeTxtField.getText());
+            Printer.println(mode);
         }
 
         if(basicTxtField.getText().equals("true") || basicTxtField.getText().equals("false")) {
             basicFirst = Boolean.parseBoolean(basicTxtField.getText());
+            Printer.println(basicFirst);
         }
 
         if (firstVictimTxtField.getText().equals("blue") || firstVictimTxtField.getText().equals("green") || firstVictimTxtField.getText().equals("purple") || firstVictimTxtField.getText().equals("grey") || firstVictimTxtField.getText().equals("yellow")) {
             firstVictim = firstVictimTxtField.getText();
+            Printer.println(firstVictim);
         }
 
         if (secondVictimTxtField.getText().equals("blue") || secondVictimTxtField.getText().equals("green") || secondVictimTxtField.getText().equals("purple") || secondVictimTxtField.getText().equals("grey") || secondVictimTxtField.getText().equals("yellow")) {
             secondVictim = secondVictimTxtField.getText();
+            Printer.println(secondVictim);
         }
 
         if(thirdVictimTxtField.getText().equals("blue") || thirdVictimTxtField.getText().equals("green") || thirdVictimTxtField.getText().equals("purple") || thirdVictimTxtField.getText().equals("grey") || thirdVictimTxtField.getText().equals("yellow")) {
             thirdVictim = thirdVictimTxtField.getText();
+            Printer.println(thirdVictim);
         }
 
         if(directionTxtField.getText().equals("up") || directionTxtField.getText().equals("down") || directionTxtField.getText().equals("left") || directionTxtField.getText().equals("right")) {
             direction = Converter.fromStringToDirection(directionTxtField.getText());
+            Printer.println(direction);
         }
 
         if(directionTxtField2.getText().equals("up") || directionTxtField2.getText().equals("down") || directionTxtField2.getText().equals("left") || directionTxtField2.getText().equals("right")) {
             direction2 = Converter.fromStringToDirection(directionTxtField2.getText());
+            Printer.println(direction2);
         }
 
         if(directionTxtField3.getText().equals("up") || directionTxtField3.getText().equals("down") || directionTxtField3.getText().equals("left") || directionTxtField3.getText().equals("right")) {
             direction3 = Converter.fromStringToDirection(directionTxtField3.getText());
+            Printer.println(direction3);
         }
 
         if(directionTxtField4.getText().equals("up") || directionTxtField4.getText().equals("down") || directionTxtField4.getText().equals("left") || directionTxtField4.getText().equals("right")) {
             direction4 = Converter.fromStringToDirection(directionTxtField4.getText());
+            Printer.println(direction4);
         }
 
         if(!xTxtField.getText().isEmpty() && !yTxtField.getText().isEmpty()) {
             x = Integer.valueOf(xTxtField.getText());
             y = Integer.valueOf(yTxtField.getText());
+            Printer.println(x);
+            Printer.println(y);
         }
 
         try {
@@ -2949,6 +2960,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
         if(playerController.getFinalFrenzyActions().equals(FinalFrenzyAction.TWO_ACTIONS) || playerController.getAdrenalineZone().equals(AdrenalineZone.SECOND)) {
             this.moveReload[0] = move;
+            Printer.println("2963: " + this.moveReload[0]);
 
         } else if(playerController.getFinalFrenzyActions().equals(FinalFrenzyAction.ONE_ACTION)){
             if (this.countMoveRel < MAX_MOVEMENT - 1) {
@@ -3400,12 +3412,12 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
         for(int i= 0; i < moveLength; i++){
 
-            this.moveFrenzyTwoActions = null;
+            this.moveFrenzyTwoActions[i] = null;
         }
 
         for(int i = 0; i < moveLength2; i++){
 
-            this.moveFrenzyOneActions = null;
+            this.moveFrenzyOneActions[i] = null;
         }
     }
 }

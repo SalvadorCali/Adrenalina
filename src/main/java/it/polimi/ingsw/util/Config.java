@@ -87,7 +87,7 @@ public class Config {
     /**
      * Time to choose where respawn.
      */
-    public static final int RESPAWN_TIME = 10000;
+    public static final int RESPAWN_TIME = 30000;
 
     //game
 
