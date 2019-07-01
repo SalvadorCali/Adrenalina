@@ -670,7 +670,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     private void setPowerupImageRespawn() {
 
         playerController = Data.getInstance().getPlayerController();
-        List<PowerupCard> powerupRespawn = playerController.getPowerups();
+        List<PowerupCard> powerupRespawn = playerController.getPlayer().getPowerups();
 
         Platform.runLater(()->{
 
@@ -2629,6 +2629,8 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     }
 
     public void grabSecondImg(MouseEvent mouseEvent){
+
+        playerController = Data.getInstance().getPlayerController();
         client = Data.getInstance().getClient();
         String move = Data.getInstance().getMoveGrab();
 
@@ -2705,6 +2707,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     }
 
     public void grabThirdImg(MouseEvent mouseEvent) {
+        
         playerController = Data.getInstance().getPlayerController();
         client = Data.getInstance().getClient();
         String move = Data.getInstance().getMoveGrab();
