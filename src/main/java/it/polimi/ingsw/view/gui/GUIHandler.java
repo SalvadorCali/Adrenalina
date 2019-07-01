@@ -3266,7 +3266,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         playerController = Data.getInstance().getPlayerController();
 
         if(playerController.getPowerups().size() == 3) {
-            client.dropPowerup(0);
+            client.dropPowerup(1);
         }
     }
 
@@ -3275,7 +3275,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         playerController = Data.getInstance().getPlayerController();
 
         if(playerController.getPowerups().size() == 3) {
-            client.dropPowerup(1);
+            client.dropPowerup(2);
         }
     }
 
@@ -3284,7 +3284,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         playerController = Data.getInstance().getPlayerController();
 
         if(playerController.getPowerups().size() == 3) {
-            client.dropPowerup(2);
+            client.dropPowerup(3);
         }
     }
 
