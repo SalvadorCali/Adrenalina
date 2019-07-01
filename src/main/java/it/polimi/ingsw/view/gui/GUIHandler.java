@@ -306,7 +306,6 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     private Stage primaryStage;
     private PlayerBoardGui playerboard;
     private ScorePopup scorePopup;
-    private Integer finalFrenzy = 0;
     private Integer countMovementTwoAction = 0;
     private String moveFrenzyTwoActions[] = new String[MAX_MOVEMENT - 1];
     private Integer countMovementOneAction = 0;
@@ -533,8 +532,6 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         Platform.runLater(() ->{
             guiHandler = Data.getInstance().getGuiHandler();
             guiHandler.setLabelStatement("final frenzy");
-            this.finalFrenzy = 1;
-            Data.getInstance().setFinalFrenzy(1);
         });
     }
 
@@ -930,10 +927,17 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
             } else if(!killShot.get(i).getFirstColor().equals(TokenColor.NONE)){
 
                 Image image = new Image("damageTears/" + Converter.fromTokenColorToString(killShot.get(i).getFirstColor()) + ".png");
+                removeSkullImgOnKillshot(i, 0);
                 addImgOnKillshot(image, i, 0);
             }
         }
 
+    }
+
+    private void removeSkullImgOnKillshot(int col, int row) {
+        Platform.runLater(() ->{
+            gridSkulls.getChildren().remove(col, row);
+        });
     }
 
     public void addImgOnKillshot(Image image, int col, int row){
@@ -1525,6 +1529,10 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                 Platform.runLater(() ->{
                     labelShowMove.setText("  " + this.movement[0]);
                 });
+            } else {
+                Platform.runLater(() ->{
+                    labelShowMove.setText("  " + this.movement[0] + "  " + this.movement[1] + "  " + this.movement[2] + "  " + this.movement[3]);
+                });
             }
         }
     }
@@ -1532,13 +1540,14 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     public void saveMovement(String move){
         playerController = Data.getInstance().getPlayerController();
 
-        if(this.finalFrenzy == 0) {
+        if(!playerController.isFinalFrenzy()) {
             if (countMove < MAX_MOVEMENT) {
 
                 this.movement[countMove] = move;
                 this.countMove++;
             }
-        } else if(this.finalFrenzy == 1 && playerController.getFinalFrenzyActions().equals(FinalFrenzyAction.TWO_ACTIONS)) {
+        }
+        if(playerController.isFinalFrenzy() && playerController.getFinalFrenzyActions().equals(FinalFrenzyAction.TWO_ACTIONS)) {
             if(countMove < MAX_MOVEMENT + 1){
 
                 this.movement[countMove] = move;
@@ -1570,6 +1579,8 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         }else if(movement[3] == null){
             this.client.move(Converter.fromStringToDirection(movement[0]), Converter.fromStringToDirection(movement[1]), Converter.fromStringToDirection(movement[2]));
 
+        }else {
+            this.client.move(Converter.fromStringToDirection(movement[0]), Converter.fromStringToDirection(movement[1]), Converter.fromStringToDirection(movement[2]), Converter.fromStringToDirection(movement[3]));
         }
     }
 
@@ -1955,33 +1966,40 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     }
 
     public void moveUpGrab(MouseEvent mouseEvent) {
-        if(this.finalFrenzy == 0) {
+        playerController = Data.getInstance().getPlayerController();
+        if(!playerController.isFinalFrenzy()) {
             Data.getInstance().setMoveGrab("up");
-        } else if(this.finalFrenzy == 1){
+        } else {
             saveMovementFinalFrenzy("up");
         }
     }
 
     public void moveRightGrab(MouseEvent mouseEvent) {
-        if(this.finalFrenzy == 0) {
+        playerController = Data.getInstance().getPlayerController();
+
+        if(!playerController.isFinalFrenzy()) {
             Data.getInstance().setMoveGrab("right");
-        } else if(this.finalFrenzy == 1){
+        } else {
             saveMovementFinalFrenzy("right");
         }
     }
 
     public void moveDownGrab(MouseEvent mouseEvent) {
-        if(this.finalFrenzy == 0) {
+        playerController = Data.getInstance().getPlayerController();
+
+        if(!playerController.isFinalFrenzy()) {
             Data.getInstance().setMoveGrab("down");
-        } else if(this.finalFrenzy == 1){
+        } else {
             saveMovementFinalFrenzy("down");
         }
     }
 
     public void moveLeftGrab(MouseEvent mouseEvent) {
-        if(this.finalFrenzy == 0) {
+        playerController = Data.getInstance().getPlayerController();
+
+        if(!playerController.isFinalFrenzy()) {
             Data.getInstance().setMoveGrab("left");
-        } else if(this.finalFrenzy == 1){
+        } else {
             saveMovementFinalFrenzy("left");
         }
     }
@@ -2006,7 +2024,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         client = Data.getInstance().getClient();
         playerController = Data.getInstance().getPlayerController();
 
-        if(this.finalFrenzy == 0) {
+        if(!playerController.isFinalFrenzy()) {
             Platform.runLater(() -> {
 
                 int x = playerController.getPlayer().getPosition().getX();
@@ -2180,7 +2198,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                 stage.close();
             });
 
-        } else if(this.finalFrenzy == 1 && playerController.getFinalFrenzyActions().equals(FinalFrenzyAction.TWO_ACTIONS)){
+        } else if(playerController.isFinalFrenzy() && playerController.getFinalFrenzyActions().equals(FinalFrenzyAction.TWO_ACTIONS)){
 
             int x = playerController.getPlayer().getPosition().getX();
             int y = playerController.getPlayer().getPosition().getY();
@@ -2285,7 +2303,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
             Stage stage = (Stage) upArrowGrab.getScene().getWindow();
             stage.close();
 
-        } else if(this.finalFrenzy == 1 && playerController.getFinalFrenzyActions().equals(FinalFrenzyAction.ONE_ACTION)){
+        } else if(playerController.isFinalFrenzy() && playerController.getFinalFrenzyActions().equals(FinalFrenzyAction.ONE_ACTION)){
 
             int x = playerController.getPlayer().getPosition().getX();
             int y = playerController.getPlayer().getPosition().getY();
@@ -2722,11 +2740,11 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     public void shoot(MouseEvent mouseEvent) {
         playerController = Data.getInstance().getPlayerController();
 
-        if(this.finalFrenzy == 0) {
+        if(playerController.isFinalFrenzy()) {
             this.guiHandler = Data.getInstance().getGuiHandler();
             this.guiHandler.showWeapon(mouseEvent);
 
-        } else if(this.finalFrenzy == 1) {
+        } else {
             Platform.runLater(() -> {
                 FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("MoveAndReload.fxml"));
 
@@ -3294,7 +3312,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
         Stage stage = (Stage) firstPowerUpD.getScene().getWindow();
         stage.close();
-        
+
         client = Data.getInstance().getClient();
         try {
             client.respawn(4);
