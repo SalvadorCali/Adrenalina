@@ -2740,7 +2740,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     public void shoot(MouseEvent mouseEvent) {
         playerController = Data.getInstance().getPlayerController();
 
-        if(playerController.isFinalFrenzy()) {
+        if(!playerController.isFinalFrenzy()) {
             this.guiHandler = Data.getInstance().getGuiHandler();
             this.guiHandler.showWeapon(mouseEvent);
 
