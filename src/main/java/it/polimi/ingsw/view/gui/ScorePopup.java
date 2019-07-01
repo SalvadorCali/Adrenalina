@@ -39,8 +39,10 @@ public class ScorePopup {
 
             if (numPlayer >= 2) {
 
-                firstPlayerScoreNum.setText(String.valueOf((score.keySet().toArray()[0])));
-                secondPlayerScoreNum.setText(String.valueOf((score.keySet().toArray()[1])));
+                firstPlayerScoreNum.setText(String.valueOf(score.get(colors.get(0))));
+                secondPlayerScoreNum.setText(String.valueOf(score.get(colors.get(1))));
+                //firstPlayerScoreNum.setText(String.valueOf((score.keySet().toArray()[0])));
+                //secondPlayerScoreNum.setText(String.valueOf((score.keySet().toArray()[1])));
                 firstScoreLabel.setText(Converter.fromTokenColorToString(colors.get(0)));
                 secondScoreLabel.setText(Converter.fromTokenColorToString(colors.get(1)));
             }
@@ -48,21 +50,21 @@ public class ScorePopup {
             if (numPlayer >= 3) {
                 thirdScoreLabel.setVisible(true);
                 thirdPlayerScoreNum.setVisible(true);
-                thirdPlayerScoreNum.setText(String.valueOf((score.keySet().toArray()[2])));
+                thirdPlayerScoreNum.setText(String.valueOf((score.get(colors.get(2)))));
                 thirdScoreLabel.setText(Converter.fromTokenColorToString(colors.get(2)));
             }
 
             if (numPlayer >= 4) {
                 fourthScoreLabel.setVisible(true);
                 fourthPlayerScoreNum.setVisible(true);
-                fourthPlayerScoreNum.setText(String.valueOf((score.keySet().toArray()[3])));
+                fourthPlayerScoreNum.setText(String.valueOf((score.get(colors.get(3)))));
                 fourthScoreLabel.setText(Converter.fromTokenColorToString(colors.get(3)));
             }
 
             if (numPlayer == 5) {
                 fifthScoreLabel.setVisible(true);
                 fifthPlayerScoreNum.setVisible(true);
-                fifthPlayerScoreNum.setText(String.valueOf((score.keySet().toArray()[4])));
+                fifthPlayerScoreNum.setText(String.valueOf((score.get(colors.get(4)))));
                 fifthScoreLabel.setText(Converter.fromTokenColorToString(colors.get(4)));
             }
         });
