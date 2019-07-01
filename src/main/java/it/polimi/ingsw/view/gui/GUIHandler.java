@@ -2575,13 +2575,13 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
             if(this.moveFrenzyTwoActions[0] != null){
                 try {
-                    client.grab(1, Converter.fromStringToDirection(moveFrenzyTwoActions[0]));
+                    client.grab(1, Converter.fromStringToDirection(this.moveFrenzyTwoActions[0]));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             } else if(this.moveFrenzyTwoActions[1] != null) {
                 try {
-                    client.grab(1, Converter.fromStringToDirection(moveFrenzyTwoActions[0]), Converter.fromStringToDirection(moveFrenzyTwoActions[1]));
+                    client.grab(1, Converter.fromStringToDirection(this.moveFrenzyTwoActions[0]), Converter.fromStringToDirection(this.moveFrenzyTwoActions[1]));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -2591,19 +2591,19 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
             if(this.moveFrenzyOneActions[0] != null){
                 try {
-                    client.grab(1, Converter.fromStringToDirection(moveFrenzyOneActions[0]));
+                    client.grab(1, Converter.fromStringToDirection(this.moveFrenzyOneActions[0]));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             } else if(this.moveFrenzyOneActions[1] != null) {
                 try {
-                    client.grab(1, Converter.fromStringToDirection(moveFrenzyOneActions[0]), Converter.fromStringToDirection(moveFrenzyOneActions[1]));
+                    client.grab(1, Converter.fromStringToDirection(this.moveFrenzyOneActions[0]), Converter.fromStringToDirection(this.moveFrenzyOneActions[1]));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             } else {
                 try {
-                    client.grab(1, Converter.fromStringToDirection(moveFrenzyOneActions[0]), Converter.fromStringToDirection(moveFrenzyOneActions[1]), Converter.fromStringToDirection(moveFrenzyOneActions[2]));
+                    client.grab(1, Converter.fromStringToDirection(this.moveFrenzyOneActions[0]), Converter.fromStringToDirection(this.moveFrenzyOneActions[1]), Converter.fromStringToDirection(moveFrenzyOneActions[2]));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
