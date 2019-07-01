@@ -2619,18 +2619,57 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         client = Data.getInstance().getClient();
         String move = Data.getInstance().getMoveGrab();
 
-        if (move != null) {
-            try {
-                this.client.grab(2, Converter.fromStringToDirection(move));
-            } catch (IOException e) {
-                e.printStackTrace();
+        if(!playerController.isFinalFrenzy() && playerController.getAdrenalineZone().equals(AdrenalineZone.DEFAULT)) {
+            if (move != null) {
+                try {
+                    this.client.grab(2, Converter.fromStringToDirection(move));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            } else {
+                try {
+                    this.client.grab(2);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        } else if((!playerController.isFinalFrenzy() && !playerController.getAdrenalineZone().equals(AdrenalineZone.DEFAULT)) || (playerController.isFinalFrenzy() && playerController.getFinalFrenzyActions().equals(FinalFrenzyAction.TWO_ACTIONS))){
+
+            if(this.moveFrenzyTwoActions[1] == null){
+                try {
+                    client.grab(2, Converter.fromStringToDirection(this.moveFrenzyTwoActions[0]));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                try {
+                    client.grab(2, Converter.fromStringToDirection(this.moveFrenzyTwoActions[0]), Converter.fromStringToDirection(this.moveFrenzyTwoActions[1]));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
 
         } else {
-            try {
-                this.client.grab(2);
-            } catch (IOException e) {
-                e.printStackTrace();
+
+            if(this.moveFrenzyOneActions[1] == null){
+                try {
+                    client.grab(2, Converter.fromStringToDirection(this.moveFrenzyOneActions[0]));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            } else if(this.moveFrenzyOneActions[2] == null) {
+                try {
+                    client.grab(2, Converter.fromStringToDirection(this.moveFrenzyOneActions[0]), Converter.fromStringToDirection(this.moveFrenzyOneActions[1]));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                try {
+                    client.grab(2, Converter.fromStringToDirection(this.moveFrenzyOneActions[0]), Converter.fromStringToDirection(this.moveFrenzyOneActions[1]), Converter.fromStringToDirection(moveFrenzyOneActions[2]));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         }
 
@@ -2642,20 +2681,63 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         client = Data.getInstance().getClient();
         String move = Data.getInstance().getMoveGrab();
 
-        if (move != null) {
-            try {
-                this.client.grab(3, Converter.fromStringToDirection(move));
-            } catch (IOException e) {
-                e.printStackTrace();
+        if(!playerController.isFinalFrenzy() && playerController.getAdrenalineZone().equals(AdrenalineZone.DEFAULT)) {
+
+            if (move != null) {
+                try {
+                    this.client.grab(3, Converter.fromStringToDirection(move));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            } else {
+                try {
+                    this.client.grab(3);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        } else if((!playerController.isFinalFrenzy() && !playerController.getAdrenalineZone().equals(AdrenalineZone.DEFAULT)) || (playerController.isFinalFrenzy() && playerController.getFinalFrenzyActions().equals(FinalFrenzyAction.TWO_ACTIONS))){
+
+            if(this.moveFrenzyTwoActions[1] == null){
+                try {
+                    client.grab(3, Converter.fromStringToDirection(this.moveFrenzyTwoActions[0]));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                try {
+                    client.grab(3, Converter.fromStringToDirection(this.moveFrenzyTwoActions[0]), Converter.fromStringToDirection(this.moveFrenzyTwoActions[1]));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
 
         } else {
-            try {
-                this.client.grab(3);
-            } catch (IOException e) {
-                e.printStackTrace();
+
+            if(this.moveFrenzyOneActions[1] == null){
+                try {
+                    client.grab(3, Converter.fromStringToDirection(this.moveFrenzyOneActions[0]));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            } else if(this.moveFrenzyOneActions[2] == null) {
+                try {
+                    client.grab(3, Converter.fromStringToDirection(this.moveFrenzyOneActions[0]), Converter.fromStringToDirection(this.moveFrenzyOneActions[1]));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                try {
+                    client.grab(3, Converter.fromStringToDirection(this.moveFrenzyOneActions[0]), Converter.fromStringToDirection(this.moveFrenzyOneActions[1]), Converter.fromStringToDirection(moveFrenzyOneActions[2]));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         }
+
+
+
         Stage stage = (Stage) firstWeapon.getScene().getWindow();
         stage.close();
     }
