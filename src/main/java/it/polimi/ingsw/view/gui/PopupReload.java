@@ -16,13 +16,13 @@ public class PopupReload {
 
     public void reload(MouseEvent mouseEvent) {
         if(txtWeaponReload1.getText() == "yes") {
-            Data.getInstance().setWeaponReloaded1("first");
+            Data.getInstance().setWeaponReloaded1("yes");
         }
         if(txtWeaponReload2.getText() == "yes"){
-            Data.getInstance().setWeaponReloaded2("second");
+            Data.getInstance().setWeaponReloaded2("yes");
         }
         if(txtWeaponReload3.getText() == "yes"){
-            Data.getInstance().setWeaponReloaded3("third");
+            Data.getInstance().setWeaponReloaded3("yes");
         }
 
         Stage stage = (Stage) buttonReload.getScene().getWindow();
