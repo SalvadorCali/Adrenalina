@@ -2035,7 +2035,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         client = Data.getInstance().getClient();
         playerController = Data.getInstance().getPlayerController();
 
-        if(!playerController.isFinalFrenzy()) {
+        if(!playerController.isFinalFrenzy() && playerController.getAdrenalineZone().equals(AdrenalineZone.DEFAULT)) {
             Platform.runLater(() -> {
 
                 int x = playerController.getPlayer().getPosition().getX();
@@ -2209,7 +2209,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                 stage.close();
             });
 
-        } else if(playerController.isFinalFrenzy() && playerController.getFinalFrenzyActions().equals(FinalFrenzyAction.TWO_ACTIONS) || (!playerController.isFinalFrenzy() && !playerController.getAdrenalineZone().equals(AdrenalineZone.DEFAULT))){
+        } else if((playerController.isFinalFrenzy() && playerController.getFinalFrenzyActions().equals(FinalFrenzyAction.TWO_ACTIONS)) || (!playerController.isFinalFrenzy() && !playerController.getAdrenalineZone().equals(AdrenalineZone.DEFAULT))){
 
             int x = playerController.getPlayer().getPosition().getX();
             int y = playerController.getPlayer().getPosition().getY();
