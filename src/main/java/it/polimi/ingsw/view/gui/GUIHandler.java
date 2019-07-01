@@ -336,8 +336,13 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
 
     //login methods
-    //
-    //
+
+    /**
+     * Check what button is selected and starts
+     * @param playerName
+     * @param address
+     * @param colorPlayer
+     */
     public synchronized void clickButton(String playerName, String address, String colorPlayer){
 
         if(rmiButton.isSelected()){
@@ -2213,7 +2218,8 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                 stage.close();
             });
 
-        } else if((playerController.isFinalFrenzy() && playerController.getFinalFrenzyActions().equals(FinalFrenzyAction.TWO_ACTIONS)) || (!playerController.isFinalFrenzy() && !playerController.getAdrenalineZone().equals(AdrenalineZone.DEFAULT))){
+        }
+        if((playerController.isFinalFrenzy() && playerController.getFinalFrenzyActions().equals(FinalFrenzyAction.TWO_ACTIONS)) || (!playerController.isFinalFrenzy() && !playerController.getAdrenalineZone().equals(AdrenalineZone.DEFAULT))){
 
             int x = playerController.getPlayer().getPosition().getX();
             int y = playerController.getPlayer().getPosition().getY();
@@ -2318,7 +2324,8 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
             Stage stage = (Stage) upArrowGrab.getScene().getWindow();
             stage.close();
 
-        } else if(playerController.isFinalFrenzy() && playerController.getFinalFrenzyActions().equals(FinalFrenzyAction.ONE_ACTION)){
+        }
+        if(playerController.isFinalFrenzy() && playerController.getFinalFrenzyActions().equals(FinalFrenzyAction.ONE_ACTION)){
 
             int x = playerController.getPlayer().getPosition().getX();
             int y = playerController.getPlayer().getPosition().getY();
