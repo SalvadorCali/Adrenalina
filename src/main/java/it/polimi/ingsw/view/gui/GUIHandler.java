@@ -179,6 +179,11 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     @FXML private Label labelShoot;
     @FXML private Label labelShowMove;
     @FXML private Label labelErrorMoveReload;
+    @FXML private TextField txtWeaponReload1;
+    @FXML private TextField txtWeaponReload2;
+    @FXML private TextField txtWeaponReload3;
+    @FXML private Button buttonReload;
+
 
     @FXML
     RadioButton socketButton;
@@ -407,6 +412,21 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         Data.getInstance().setBoardType(3);
     }
 
+    public void reload(MouseEvent mouseEvent) throws IOException {
+        if(this.txtWeaponReload1.getText().equals("yes")) {
+            reloadClient1();
+        }
+        if(this.txtWeaponReload2.getText().equals("yes")){
+            reloadClient2();
+        }
+        if(this.txtWeaponReload3.getText().equals("yes")){
+            reloadClient3();
+        }
+
+
+        Stage stage = (Stage) buttonReload.getScene().getWindow();
+        stage.close();
+    }
 
     public void chooseBoardButton(){
 
@@ -570,11 +590,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                 notifyDropWeapon(outcome);
                 break;
             case RESPAWN:
-                try {
-                    notifyRespawn(outcome);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                notifyRespawn(outcome);
                 break;
             case RELOAD:
                 notifyReload(outcome);
@@ -584,26 +600,32 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         }
     }
 
-    public void notifyRespawn(Outcome outcome) throws IOException {
+    public void notifyRespawn(Outcome outcome) {
+        Platform.runLater(() ->{
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ChoosePowerup.fxml"));
+            Parent root = null;
+            try {
+                root = loader.load();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ChoosePowerup.fxml"));
-        Parent root = loader.load();
-
-        guiHandler = loader.getController();
-        guiHandler.setPowerupImageRespawn();
+            guiHandler = loader.getController();
+            guiHandler.setPowerupImageRespawn();
 
 
-        Stage stage = new Stage();
-        stage.setScene(new Scene(root, 490, 386));
-        stage.setTitle("Choose Powerup to Discard");
-        stage.show();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root, 490, 386));
+            stage.setTitle("Choose Powerup to Discard");
+            stage.show();
 
-        PauseTransition delay = new PauseTransition(Duration.millis(Config.SPAWN_LOCATION_TIME));
-        delay.setOnFinished( event -> {
-            respawnPlayer();
-            stage.close();
-        } );
-        delay.play();
+            PauseTransition delay = new PauseTransition(Duration.millis(Config.SPAWN_LOCATION_TIME));
+            delay.setOnFinished( event -> {
+                respawnPlayer();
+                stage.close();
+            } );
+            delay.play();
+        });
     }
 
     private void respawnPlayer() {
@@ -1556,7 +1578,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         }
     }
 
-    public void reload(){
+    public void reloadPopup(){
         Platform.runLater(() ->{
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ReloadPopup.fxml"));
 
@@ -1572,25 +1594,45 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
             stage.setTitle("Reload Popup");
             stage.show();
 
-            PauseTransition delay = new PauseTransition(Duration.seconds(5));
-            delay.setOnFinished( event -> {
-                try {
-                    guiHandler = Data.getInstance().getGuiHandler();
-                    guiHandler.reloadClient();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            });
-            delay.play();
         });
     }
 
+    public void reloadClient1(){
+        playerController = Data.getInstance().getPlayerController();
+        client = Data.getInstance().getClient();
+        try {
+            client.reload(Converter.weaponNameInvert(playerController.getWeapons().get(0).getName()));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void reloadClient2(){
+        playerController = Data.getInstance().getPlayerController();
+        client = Data.getInstance().getClient();
+
+        try {
+            client.reload(Converter.weaponNameInvert(playerController.getWeapons().get(1).getName()));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void reloadClient3(){
+        playerController = Data.getInstance().getPlayerController();
+        client = Data.getInstance().getClient();
+
+        try {
+            client.reload(Converter.weaponNameInvert(playerController.getWeapons().get(2).getName()));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /*
     private void reloadClient() throws IOException {
         playerController = Data.getInstance().getPlayerController();
         client = Data.getInstance().getClient();
-        String weaponReload1 = Data.getInstance().getWeaponReloaded1();
-        String weaponReload2 = Data.getInstance().getWeaponReloaded2();
-        String weaponReload3 = Data.getInstance().getWeaponReloaded3();
 
         Integer numWeapon = playerController.getWeapons().size();
 
@@ -1740,6 +1782,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
             }
         }
     }
+    */
 
     private void disableButtonWhenReload() {
         Platform.runLater(() ->{
@@ -2873,7 +2916,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
         }else {
             guiHandler = Data.getInstance().getGuiHandler();
-            guiHandler.reload();
+            guiHandler.reloadPopup();
 
             Stage stage = (Stage) enterMoveReload.getScene().getWindow();
             stage.close();
