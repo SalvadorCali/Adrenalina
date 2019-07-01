@@ -6,10 +6,7 @@ import it.polimi.ingsw.model.cards.AmmoCard;
 import it.polimi.ingsw.model.cards.Card;
 import it.polimi.ingsw.model.cards.PowerupCard;
 import it.polimi.ingsw.model.cards.WeaponCard;
-import it.polimi.ingsw.model.enums.Color;
-import it.polimi.ingsw.model.enums.Direction;
-import it.polimi.ingsw.model.enums.FinalFrenzyAction;
-import it.polimi.ingsw.model.enums.TokenColor;
+import it.polimi.ingsw.model.enums.*;
 import it.polimi.ingsw.model.gamecomponents.Square;
 import it.polimi.ingsw.model.gamecomponents.Token;
 import it.polimi.ingsw.network.client.ClientInterface;
@@ -2212,7 +2209,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                 stage.close();
             });
 
-        } else if(playerController.isFinalFrenzy() && playerController.getFinalFrenzyActions().equals(FinalFrenzyAction.TWO_ACTIONS)){
+        } else if(playerController.isFinalFrenzy() && playerController.getFinalFrenzyActions().equals(FinalFrenzyAction.TWO_ACTIONS) || (!playerController.isFinalFrenzy() && !playerController.getAdrenalineZone().equals(AdrenalineZone.DEFAULT))){
 
             int x = playerController.getPlayer().getPosition().getX();
             int y = playerController.getPlayer().getPosition().getY();
