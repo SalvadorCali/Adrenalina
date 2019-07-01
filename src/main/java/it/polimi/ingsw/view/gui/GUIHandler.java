@@ -2416,7 +2416,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                     stage.show();
                 }
 
-            } else if(moveFrenzyOneActions[3] != null){
+            } else {
 
                 x = x + Converter.fromStringDirToIntegerX(moveFrenzyTwoActions[0]);
                 x = x + Converter.fromStringDirToIntegerX(moveFrenzyTwoActions[1]);
