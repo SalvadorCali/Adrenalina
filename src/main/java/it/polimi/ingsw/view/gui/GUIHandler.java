@@ -2755,7 +2755,9 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
             this.guiHandler = Data.getInstance().getGuiHandler();
             this.guiHandler.showWeapon(mouseEvent);
 
-        } else {
+        }
+
+        if(playerController.isFinalFrenzy() || (!playerController.isFinalFrenzy() && playerController.getAdrenalineZone().equals(AdrenalineZone.SECOND))){
             Platform.runLater(() -> {
                 FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("MoveAndReload.fxml"));
 
@@ -2931,21 +2933,54 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
     public void confirmMoveRel(MouseEvent mouseEvent) throws IOException {
         playerController = Data.getInstance().getPlayerController();
+        guiHandler = Data.getInstance().getGuiHandler();
 
-        if(this.moveReload[0] == null && playerController.getFinalFrenzyActions().equals(FinalFrenzyAction.TWO_ACTIONS)) {
-            showErrorMoveRel();
+        if(playerController.getAdrenalineZone().equals(AdrenalineZone.SECOND)){
 
-        } else if((this.moveReload[0] == null || this.moveReload[1] == null) && playerController.getFinalFrenzyActions().equals(FinalFrenzyAction.ONE_ACTION)){
-            showErrorMoveRel();
+            moveReloadZoneTwo();
 
-        }else {
+            Platform.runLater(() ->{
+
+                FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ShowWeapon.fxml"));
+                Parent root = null;
+                try {
+                    root = loader.load();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                guiHandler = loader.getController();
+                Data.getInstance().setGuiHandlerWeapon(guiHandler);
+
+                Stage stage = new Stage();
+                stage.setScene(new Scene(root, 522, 554));
+                stage.setTitle("Weapons");
+                stage.show();
+
+
+                Thread thread2 = new Thread(this::checkWeapon);
+                thread2.setDaemon(true);
+                thread2.start();
+
+            });
+
+        } else {
+
             guiHandler = Data.getInstance().getGuiHandler();
             guiHandler.reloadPopup();
-
-            Stage stage = (Stage) enterMoveReload.getScene().getWindow();
-            stage.close();
         }
+        Stage stage = (Stage) enterMoveReload.getScene().getWindow();
+        stage.close();
+    }
 
+    private void moveReloadZoneTwo() throws IOException {
+        client = Data.getInstance().getClient();
+
+        if(this.moveReload[0] == null) {
+            client.moveAndReload(null);
+        }else {
+            client.moveAndReload(Converter.fromStringToDirection(this.moveReload[0]));
+        }
     }
 
     public void showErrorMoveRel(){
