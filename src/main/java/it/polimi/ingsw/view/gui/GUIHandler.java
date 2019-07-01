@@ -2291,7 +2291,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                 x = x + Converter.fromStringDirToIntegerX(moveFrenzyTwoActions[0]);
                 x = x + Converter.fromStringDirToIntegerX(moveFrenzyTwoActions[1]);
                 y = y + Converter.fromStringDirToIntegerY(moveFrenzyTwoActions[0]);
-                y = y + Converter.fromStringDirToIntegerX(moveFrenzyTwoActions[1]);
+                y = y + Converter.fromStringDirToIntegerY(moveFrenzyTwoActions[1]);
 
                 if (!playerController.getGameBoard().getArena()[x][y].isSpawn()) {
                     try {
@@ -2395,7 +2395,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                 x = x + Converter.fromStringDirToIntegerX(moveFrenzyTwoActions[0]);
                 x = x + Converter.fromStringDirToIntegerX(moveFrenzyTwoActions[1]);
                 y = y + Converter.fromStringDirToIntegerY(moveFrenzyTwoActions[0]);
-                y = y + Converter.fromStringDirToIntegerX(moveFrenzyTwoActions[1]);
+                y = y + Converter.fromStringDirToIntegerY(moveFrenzyTwoActions[1]);
 
                 if (!playerController.getGameBoard().getArena()[x][y].isSpawn()) {
                     try {
@@ -2430,8 +2430,8 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                 x = x + Converter.fromStringDirToIntegerX(moveFrenzyTwoActions[1]);
                 x = x +  Converter.fromStringDirToIntegerX(moveFrenzyTwoActions[2]);
                 y = y + Converter.fromStringDirToIntegerY(moveFrenzyTwoActions[0]);
-                y = y + Converter.fromStringDirToIntegerX(moveFrenzyTwoActions[1]);
-                y = y + Converter.fromStringDirToIntegerX(moveFrenzyTwoActions[2]);
+                y = y + Converter.fromStringDirToIntegerY(moveFrenzyTwoActions[1]);
+                y = y + Converter.fromStringDirToIntegerY(moveFrenzyTwoActions[2]);
 
                 if (!playerController.getGameBoard().getArena()[x][y].isSpawn()) {
                     try {
