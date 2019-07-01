@@ -186,6 +186,10 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     @FXML private ImageView thirdPowerUpD;
     @FXML private ImageView fourthPowerUpD;
 
+    @FXML private TextField directionTxtField2;
+    @FXML private TextField directionTxtField3;
+    @FXML private TextField directionTxtField4;
+
 
     @FXML
     RadioButton socketButton;
@@ -2834,6 +2838,9 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         String secondVictim = null;
         String thirdVictim = null;
         Direction direction = null;
+        Direction direction2 = null;
+        Direction direction3 = null;
+        Direction direction4 = null;
         Integer x = -1;
         Integer y = -1;
         Integer mode = 1;
@@ -2863,6 +2870,18 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
             direction = Converter.fromStringToDirection(directionTxtField.getText());
         }
 
+        if(directionTxtField2.getText().equals("up") || directionTxtField2.getText().equals("down") || directionTxtField2.getText().equals("left") || directionTxtField2.getText().equals("right")) {
+            direction2 = Converter.fromStringToDirection(directionTxtField2.getText());
+        }
+
+        if(directionTxtField3.getText().equals("up") || directionTxtField3.getText().equals("down") || directionTxtField3.getText().equals("left") || directionTxtField3.getText().equals("right")) {
+            direction3 = Converter.fromStringToDirection(directionTxtField3.getText());
+        }
+
+        if(directionTxtField4.getText().equals("up") || directionTxtField4.getText().equals("down") || directionTxtField4.getText().equals("left") || directionTxtField4.getText().equals("right")) {
+            direction4 = Converter.fromStringToDirection(directionTxtField4.getText());
+        }
+
         if(!xTxtField.getText().isEmpty() && !yTxtField.getText().isEmpty()) {
             x = Integer.valueOf(xTxtField.getText());
             y = Integer.valueOf(yTxtField.getText());
@@ -2870,16 +2889,16 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
         try {
             if(firstVictim != null && secondVictim != null && thirdVictim != null) {
-                client.shoot(Converter.weaponNameInvert(playerController.getWeapons().get(weaponNum).getName()), mode, basicFirst, Converter.fromStringToTokenColor(firstVictim), Converter.fromStringToTokenColor(secondVictim), Converter.fromStringToTokenColor(thirdVictim), x, y, direction);
+                client.shoot(Converter.weaponNameInvert(playerController.getWeapons().get(weaponNum).getName()), mode, basicFirst, Converter.fromStringToTokenColor(firstVictim), Converter.fromStringToTokenColor(secondVictim), Converter.fromStringToTokenColor(thirdVictim), x, y, direction, direction2, direction3, direction4);
 
             } else if(firstVictim != null && secondVictim != null && thirdVictim == null){
-                client.shoot(Converter.weaponNameInvert(playerController.getWeapons().get(weaponNum).getName()), mode, basicFirst, Converter.fromStringToTokenColor(firstVictim), Converter.fromStringToTokenColor(secondVictim), TokenColor.NONE, x, y, direction);
+                client.shoot(Converter.weaponNameInvert(playerController.getWeapons().get(weaponNum).getName()), mode, basicFirst, Converter.fromStringToTokenColor(firstVictim), Converter.fromStringToTokenColor(secondVictim), TokenColor.NONE, x, y, direction, direction2, direction3, direction4);
 
             } else if(firstVictim != null && secondVictim == null && thirdVictim == null) {
-                client.shoot(Converter.weaponNameInvert(playerController.getWeapons().get(weaponNum).getName()), mode, basicFirst, Converter.fromStringToTokenColor(firstVictim), TokenColor.NONE, TokenColor.NONE, x, y, direction);
+                client.shoot(Converter.weaponNameInvert(playerController.getWeapons().get(weaponNum).getName()), mode, basicFirst, Converter.fromStringToTokenColor(firstVictim), TokenColor.NONE, TokenColor.NONE, x, y, direction, direction2, direction3, direction4);
 
             } else if(firstVictim == null && secondVictim == null && thirdVictim == null){
-                client.shoot(Converter.weaponNameInvert(playerController.getWeapons().get(weaponNum).getName()), mode, basicFirst, TokenColor.NONE, TokenColor.NONE, TokenColor.NONE, x, y, direction);
+                client.shoot(Converter.weaponNameInvert(playerController.getWeapons().get(weaponNum).getName()), mode, basicFirst, TokenColor.NONE, TokenColor.NONE, TokenColor.NONE, x, y, direction, direction2, direction3, direction4);
 
             }
 

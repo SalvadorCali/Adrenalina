@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="454.0" prefWidth="522.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.gui.GUIHandler">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="454.0" prefWidth="522.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.gui.GUIHandler">
    <children>
       <Label layoutX="148.0" layoutY="14.0" text="Insert Data for Shooting" textFill="WHITE">
          <font>
@@ -19,10 +19,10 @@
       <TextField fx:id="firstVictimTxtField" layoutX="40.0" layoutY="175.0" />
       <Label layoutX="40.0" layoutY="222.0" text="Second Victim:" textFill="WHITE" />
       <TextField fx:id="secondVictimTxtField" layoutX="40.0" layoutY="245.0" />
-      <Label layoutX="330.0" layoutY="76.0" text="Third Victim:" textFill="WHITE" />
-      <TextField fx:id="thirdVictimTxtField" layoutX="330.0" layoutY="99.0" />
-      <Label layoutX="329.0" layoutY="151.0" text="Direction:" textFill="WHITE" />
-      <TextField fx:id="directionTxtField" layoutX="329.0" layoutY="174.0" />
+      <Label layoutX="237.0" layoutY="76.0" text="Third Victim:" textFill="WHITE" />
+      <TextField fx:id="thirdVictimTxtField" layoutX="236.0" layoutY="99.0" />
+      <Label layoutX="427.0" layoutY="75.0" text="Direction1:" textFill="WHITE" />
+      <TextField fx:id="directionTxtField" layoutX="427.0" layoutY="98.0" prefHeight="25.0" prefWidth="51.0" />
       <Button fx:id="shootDataButton" layoutX="236.0" layoutY="290.0" mnemonicParsing="false" onMouseClicked="#setShoot" text="Shoot!" />
       <Label layoutX="330.0" layoutY="222.0" text="Insert X:" textFill="WHITE" />
       <TextField layoutX="330.0" layoutY="245.0" prefHeight="25.0" prefWidth="43.0" fx:id="xTxtField" />
@@ -32,5 +32,11 @@
       <TextField fx:id="basicTxtField" layoutX="139.0" layoutY="99.0" prefHeight="25.0" prefWidth="67.0" promptText="true/false" />
       <Label fx:id="labelInfoWeapon" layoutX="41.0" layoutY="329.0" prefHeight="117.0" prefWidth="442.0" textFill="WHITE" wrapText="true" />
       <Label layoutX="40.0" layoutY="307.0" prefHeight="32.0" prefWidth="111.0" text="what to specify:" textFill="WHITE" wrapText="true" />
+      <Label layoutX="322.0" layoutY="150.0" text="Direction3:" textFill="WHITE" />
+      <TextField fx:id="directionTxtField3" layoutX="322.0" layoutY="172.0" prefHeight="25.0" prefWidth="51.0" />
+      <Label layoutX="241.0" layoutY="150.0" text="Direction2:" textFill="WHITE" />
+      <TextField fx:id="directionTxtField2" layoutX="241.0" layoutY="173.0" prefHeight="25.0" prefWidth="51.0" />
+      <Label layoutX="424.0" layoutY="149.0" text="Direction4:" textFill="WHITE" />
+      <TextField fx:id="directionTxtField4" layoutX="427.0" layoutY="171.0" prefHeight="25.0" prefWidth="51.0" />
    </children>
 </AnchorPane>
