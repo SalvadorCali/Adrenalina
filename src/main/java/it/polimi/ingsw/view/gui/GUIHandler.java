@@ -2571,7 +2571,8 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
             }
 
-        } else if((!playerController.getAdrenalineZone().equals(AdrenalineZone.DEFAULT)) || (playerController.isFinalFrenzy() && playerController.getFinalFrenzyActions().equals(FinalFrenzyAction.TWO_ACTIONS))){
+        }
+        if((!playerController.getAdrenalineZone().equals(AdrenalineZone.DEFAULT)) || (playerController.isFinalFrenzy() && playerController.getFinalFrenzyActions().equals(FinalFrenzyAction.TWO_ACTIONS))){
             if(this.moveFrenzyTwoActions[0] == null){
 
                 try {
@@ -2647,7 +2648,8 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                     e.printStackTrace();
                 }
             }
-        } else if((!playerController.isFinalFrenzy() && !playerController.getAdrenalineZone().equals(AdrenalineZone.DEFAULT)) || (playerController.isFinalFrenzy() && playerController.getFinalFrenzyActions().equals(FinalFrenzyAction.TWO_ACTIONS))){
+        }
+        if((!playerController.isFinalFrenzy() && !playerController.getAdrenalineZone().equals(AdrenalineZone.DEFAULT)) || (playerController.isFinalFrenzy() && playerController.getFinalFrenzyActions().equals(FinalFrenzyAction.TWO_ACTIONS))){
             if(this.moveFrenzyTwoActions[0] == null){
 
                 try {
@@ -2705,6 +2707,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     }
 
     public void grabThirdImg(MouseEvent mouseEvent) {
+        playerController = Data.getInstance().getPlayerController();
         client = Data.getInstance().getClient();
         String move = Data.getInstance().getMoveGrab();
 
@@ -2724,7 +2727,8 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                     e.printStackTrace();
                 }
             }
-        } else if((!playerController.isFinalFrenzy() && !playerController.getAdrenalineZone().equals(AdrenalineZone.DEFAULT)) || (playerController.isFinalFrenzy() && playerController.getFinalFrenzyActions().equals(FinalFrenzyAction.TWO_ACTIONS))){
+        }
+        if((!playerController.isFinalFrenzy() && !playerController.getAdrenalineZone().equals(AdrenalineZone.DEFAULT)) || (playerController.isFinalFrenzy() && playerController.getFinalFrenzyActions().equals(FinalFrenzyAction.TWO_ACTIONS))){
             if(this.moveFrenzyTwoActions[0] == null){
 
                 try {
