@@ -2571,9 +2571,16 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
             }
 
-        } else if((!playerController.isFinalFrenzy() && !playerController.getAdrenalineZone().equals(AdrenalineZone.DEFAULT)) || (playerController.isFinalFrenzy() && playerController.getFinalFrenzyActions().equals(FinalFrenzyAction.TWO_ACTIONS))){
+        } else if((!playerController.getAdrenalineZone().equals(AdrenalineZone.DEFAULT)) || (playerController.isFinalFrenzy() && playerController.getFinalFrenzyActions().equals(FinalFrenzyAction.TWO_ACTIONS))){
+            if(this.moveFrenzyTwoActions[0] == null){
 
-            if(this.moveFrenzyTwoActions[1] == null){
+                try {
+                    client.grab(1);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            } else if(this.moveFrenzyTwoActions[1] == null){
                 try {
                     client.grab(1, Converter.fromStringToDirection(this.moveFrenzyTwoActions[0]));
                 } catch (IOException e) {
@@ -2588,8 +2595,14 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
             }
 
         } else {
+            if(this.moveFrenzyOneActions[0] == null){
+                try {
+                    client.grab(1);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
 
-            if(this.moveFrenzyOneActions[1] == null){
+            } else if(this.moveFrenzyOneActions[1] == null){
                 try {
                     client.grab(1, Converter.fromStringToDirection(this.moveFrenzyOneActions[0]));
                 } catch (IOException e) {
@@ -2635,8 +2648,15 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                 }
             }
         } else if((!playerController.isFinalFrenzy() && !playerController.getAdrenalineZone().equals(AdrenalineZone.DEFAULT)) || (playerController.isFinalFrenzy() && playerController.getFinalFrenzyActions().equals(FinalFrenzyAction.TWO_ACTIONS))){
+            if(this.moveFrenzyTwoActions[0] == null){
 
-            if(this.moveFrenzyTwoActions[1] == null){
+                try {
+                    client.grab(2);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            } else if(this.moveFrenzyTwoActions[1] == null){
                 try {
                     client.grab(2, Converter.fromStringToDirection(this.moveFrenzyTwoActions[0]));
                 } catch (IOException e) {
@@ -2651,8 +2671,15 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
             }
 
         } else {
+            if(this.moveFrenzyOneActions[0] == null){
 
-            if(this.moveFrenzyOneActions[1] == null){
+                try {
+                    client.grab(2);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            } else if(this.moveFrenzyOneActions[1] == null){
                 try {
                     client.grab(2, Converter.fromStringToDirection(this.moveFrenzyOneActions[0]));
                 } catch (IOException e) {
@@ -2698,8 +2725,15 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                 }
             }
         } else if((!playerController.isFinalFrenzy() && !playerController.getAdrenalineZone().equals(AdrenalineZone.DEFAULT)) || (playerController.isFinalFrenzy() && playerController.getFinalFrenzyActions().equals(FinalFrenzyAction.TWO_ACTIONS))){
+            if(this.moveFrenzyTwoActions[0] == null){
 
-            if(this.moveFrenzyTwoActions[1] == null){
+                try {
+                    client.grab(3);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            } else if(this.moveFrenzyTwoActions[1] == null){
                 try {
                     client.grab(3, Converter.fromStringToDirection(this.moveFrenzyTwoActions[0]));
                 } catch (IOException e) {
@@ -2714,8 +2748,15 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
             }
 
         } else {
+            if(this.moveFrenzyTwoActions[0] == null){
 
-            if(this.moveFrenzyOneActions[1] == null){
+                try {
+                    client.grab(3);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            } else if(this.moveFrenzyOneActions[1] == null){
                 try {
                     client.grab(3, Converter.fromStringToDirection(this.moveFrenzyOneActions[0]));
                 } catch (IOException e) {
