@@ -2939,7 +2939,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     private void setMoveRel(String move) {
         playerController = Data.getInstance().getPlayerController();
 
-        if(playerController.getFinalFrenzyActions().equals(FinalFrenzyAction.TWO_ACTIONS)) {
+        if(playerController.getFinalFrenzyActions().equals(FinalFrenzyAction.TWO_ACTIONS) || playerController.getAdrenalineZone().equals(AdrenalineZone.SECOND)) {
             this.moveReload[0] = move;
 
         } else if(playerController.getFinalFrenzyActions().equals(FinalFrenzyAction.ONE_ACTION)){
