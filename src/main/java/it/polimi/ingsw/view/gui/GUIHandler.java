@@ -1987,7 +1987,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
     public void moveUpGrab(MouseEvent mouseEvent) {
         playerController = Data.getInstance().getPlayerController();
-        if(!playerController.isFinalFrenzy()) {
+        if(!playerController.isFinalFrenzy() && playerController.getAdrenalineZone().equals(AdrenalineZone.DEFAULT) ) {
             Data.getInstance().setMoveGrab("up");
         } else {
             saveMovementFinalFrenzy("up");
@@ -1997,7 +1997,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     public void moveRightGrab(MouseEvent mouseEvent) {
         playerController = Data.getInstance().getPlayerController();
 
-        if(!playerController.isFinalFrenzy()) {
+        if(!playerController.isFinalFrenzy() && playerController.getAdrenalineZone().equals(AdrenalineZone.DEFAULT) ) {
             Data.getInstance().setMoveGrab("right");
         } else {
             saveMovementFinalFrenzy("right");
@@ -2007,7 +2007,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     public void moveDownGrab(MouseEvent mouseEvent) {
         playerController = Data.getInstance().getPlayerController();
 
-        if(!playerController.isFinalFrenzy()) {
+        if(!playerController.isFinalFrenzy() && playerController.getAdrenalineZone().equals(AdrenalineZone.DEFAULT) ) {
             Data.getInstance().setMoveGrab("down");
         } else {
             saveMovementFinalFrenzy("down");
@@ -2017,7 +2017,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     public void moveLeftGrab(MouseEvent mouseEvent) {
         playerController = Data.getInstance().getPlayerController();
 
-        if(!playerController.isFinalFrenzy()) {
+        if(!playerController.isFinalFrenzy() && playerController.getAdrenalineZone().equals(AdrenalineZone.DEFAULT) ) {
             Data.getInstance().setMoveGrab("left");
         } else {
             saveMovementFinalFrenzy("left");
@@ -2027,7 +2027,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     public void saveMovementFinalFrenzy(String movement){
         playerController = Data.getInstance().getPlayerController();
 
-        if(playerController.getFinalFrenzyActions().equals(FinalFrenzyAction.TWO_ACTIONS) && this.countMovementTwoAction < MAX_MOVEMENT - 1){
+        if((playerController.getFinalFrenzyActions().equals(FinalFrenzyAction.TWO_ACTIONS)|| !playerController.getAdrenalineZone().equals(AdrenalineZone.DEFAULT)) && this.countMovementTwoAction < MAX_MOVEMENT - 1){
             this.moveFrenzyTwoActions[this.countMovementTwoAction] = movement;
             this.countMovementTwoAction ++;
 
