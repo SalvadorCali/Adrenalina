@@ -1741,6 +1741,32 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                 }
             }
         }
+
+        //inserito da cali
+        Platform.runLater(() ->{
+
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ShowWeapon.fxml"));
+            Parent root = null;
+            try {
+                root = loader.load();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            guiHandler = loader.getController();
+            Data.getInstance().setGuiHandlerWeapon(guiHandler);
+
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root, 522, 554));
+            stage.setTitle("Weapons");
+            stage.show();
+
+
+            Thread thread2 = new Thread(this::checkWeapon);
+            thread2.setDaemon(true);
+            thread2.start();
+
+        });
     }
 
     public void reloadClientOneAction(){
@@ -1807,6 +1833,31 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                     }
                 }
             }
+            //inserito da cali
+            Platform.runLater(() ->{
+
+                FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ShowWeapon.fxml"));
+                Parent root = null;
+                try {
+                    root = loader.load();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                guiHandler = loader.getController();
+                Data.getInstance().setGuiHandlerWeapon(guiHandler);
+
+                Stage stage = new Stage();
+                stage.setScene(new Scene(root, 522, 554));
+                stage.setTitle("Weapons");
+                stage.show();
+
+
+                Thread thread2 = new Thread(this::checkWeapon);
+                thread2.setDaemon(true);
+                thread2.start();
+
+            });
         }
     }
 
