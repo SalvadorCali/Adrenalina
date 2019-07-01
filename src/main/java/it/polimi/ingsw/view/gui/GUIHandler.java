@@ -3239,7 +3239,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         playerController = Data.getInstance().getPlayerController();
 
         if(playerController.getWeapons().size() == 3) {
-            client.dropWeapon(0);
+            client.dropWeapon(1);
         }
     }
 
@@ -3248,7 +3248,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         playerController = Data.getInstance().getPlayerController();
 
         if(playerController.getPowerups().size() == 3) {
-            client.dropWeapon(1);
+            client.dropWeapon(2);
         }
     }
 
@@ -3257,7 +3257,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         playerController = Data.getInstance().getPlayerController();
 
         if(playerController.getPowerups().size() == 3) {
-            client.dropWeapon(2);
+            client.dropWeapon(3);
         }
     }
 
@@ -3293,7 +3293,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         playerController = Data.getInstance().getPlayerController();
 
         if(playerController.getPowerups().size() >= 1) {
-            client.discardPowerup(0);
+            client.discardPowerup(1);
         }
     }
 
@@ -3302,7 +3302,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         playerController = Data.getInstance().getPlayerController();
 
         if(playerController.getPowerups().size() >= 2) {
-            client.discardPowerup(1);
+            client.discardPowerup(2);
         }
     }
 
@@ -3311,7 +3311,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         playerController = Data.getInstance().getPlayerController();
 
         if(playerController.getPowerups().size() == 3) {
-            client.discardPowerup(2);
+            client.discardPowerup(3);
         }
     }
 
