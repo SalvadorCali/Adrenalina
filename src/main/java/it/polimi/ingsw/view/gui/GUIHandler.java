@@ -2571,8 +2571,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
             }
 
-        }
-        if((!playerController.getAdrenalineZone().equals(AdrenalineZone.DEFAULT)) || (playerController.isFinalFrenzy() && playerController.getFinalFrenzyActions().equals(FinalFrenzyAction.TWO_ACTIONS))){
+        } else if((!playerController.getAdrenalineZone().equals(AdrenalineZone.DEFAULT)) || (playerController.isFinalFrenzy() && playerController.getFinalFrenzyActions().equals(FinalFrenzyAction.TWO_ACTIONS))){
             if(this.moveFrenzyTwoActions[0] == null){
 
                 try {
@@ -2648,8 +2647,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                     e.printStackTrace();
                 }
             }
-        }
-        if((!playerController.isFinalFrenzy() && !playerController.getAdrenalineZone().equals(AdrenalineZone.DEFAULT)) || (playerController.isFinalFrenzy() && playerController.getFinalFrenzyActions().equals(FinalFrenzyAction.TWO_ACTIONS))){
+        } else if((!playerController.isFinalFrenzy() && !playerController.getAdrenalineZone().equals(AdrenalineZone.DEFAULT)) || (playerController.isFinalFrenzy() && playerController.getFinalFrenzyActions().equals(FinalFrenzyAction.TWO_ACTIONS))){
             if(this.moveFrenzyTwoActions[0] == null){
 
                 try {
@@ -2727,8 +2725,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                     e.printStackTrace();
                 }
             }
-        }
-        if((!playerController.isFinalFrenzy() && !playerController.getAdrenalineZone().equals(AdrenalineZone.DEFAULT)) || (playerController.isFinalFrenzy() && playerController.getFinalFrenzyActions().equals(FinalFrenzyAction.TWO_ACTIONS))){
+        } else if((!playerController.isFinalFrenzy() && !playerController.getAdrenalineZone().equals(AdrenalineZone.DEFAULT)) || (playerController.isFinalFrenzy() && playerController.getFinalFrenzyActions().equals(FinalFrenzyAction.TWO_ACTIONS))){
             if(this.moveFrenzyTwoActions[0] == null){
 
                 try {
