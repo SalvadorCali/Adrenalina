@@ -55,6 +55,19 @@ public class AmmoGUI implements Initializable {
         Integer blueAmmo = playerController.getPlayer().getBlueAmmo();
         Integer yellowAmmo = playerController.getPlayer().getYellowAmmo();
 
+        int blueAmmoP = playerController.getPlayer().getPowerupBlueAmmo();
+        int yellowAmmoP = playerController.getPlayer().getPowerupYellowAmmo();
+        int redAmmoP = playerController.getPlayer().getPowerupRedAmmo();
+
+        if(blueAmmoP != 0){
+            blueAmmo += blueAmmoP;
+        }
+        if(redAmmoP != 0) {
+            redAmmo += redAmmoP;
+        }
+        if(yellowAmmoP != 0) {
+            yellowAmmo += yellowAmmoP;
+        }
         for (int i = 0; i < redAmmo; i++) {
             setBox(redHBox, "red");
         }
