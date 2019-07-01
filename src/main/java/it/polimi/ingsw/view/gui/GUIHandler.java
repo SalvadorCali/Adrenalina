@@ -794,9 +794,10 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         guiHandler = Data.getInstance().getGuiHandler();
         if(outcome.equals(Outcome.RIGHT) || outcome.equals(Outcome.ALL)){
             guiHandler.setLabelStatement("Grabbed");
-
+            resetMoveGrab();
         }else{
             guiHandler.setLabelStatement("Not grabbed");
+            resetMoveGrab();
         }
     }
 
@@ -3390,6 +3391,21 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
             client.respawn(4);
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    private void resetMoveGrab(){
+        int moveLength = this.moveFrenzyTwoActions.length;
+        int moveLength2 = this.moveFrenzyOneActions.length;
+
+        for(int i= 0; i < moveLength; i++){
+
+            this.moveFrenzyTwoActions = null;
+        }
+
+        for(int i = 0; i < moveLength2; i++){
+
+            this.moveFrenzyOneActions = null;
         }
     }
 }
