@@ -1565,7 +1565,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                 Platform.runLater(() ->{
                     labelShowMove.setText("  " + this.movement[0]);
                 });
-            } else {
+            } else if(this.movement[3] != null){
                 Platform.runLater(() ->{
                     labelShowMove.setText("  " + this.movement[0] + "  " + this.movement[1] + "  " + this.movement[2] + "  " + this.movement[3]);
                 });
