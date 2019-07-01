@@ -1773,7 +1773,8 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
         playerController = Data.getInstance().getPlayerController();
         client = Data.getInstance().getClient();
-
+        Printer.println("moverel0" + this.moveReload[0]);
+        Printer.println("moverel1" + this.moveReload[1]);
         if(playerController.isFinalFrenzy() && playerController.getFinalFrenzyActions().equals(FinalFrenzyAction.ONE_ACTION)) {
             if (this.moveReload[0] != null && this.moveReload[1] != null) {
                 if (this.weaponReload1.equals("yes") && this.weaponReload2.equals(" ") && this.weaponReload3.equals(" ")) {
