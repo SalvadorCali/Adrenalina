@@ -184,6 +184,11 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     @FXML private TextField txtWeaponReload3;
     @FXML private Button buttonReload;
 
+    @FXML private ImageView firstPowerUpD;
+    @FXML private ImageView secondPowerUpD;
+    @FXML private ImageView thirdPowerUpD;
+    @FXML private ImageView fourthPowerUpD;
+
 
     @FXML
     RadioButton socketButton;
@@ -602,7 +607,8 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
     public void notifyRespawn(Outcome outcome) {
         Platform.runLater(() ->{
-            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ChoosePowerup.fxml"));
+
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("DiscardPowerUpRespawn.fxml"));
             Parent root = null;
             try {
                 root = loader.load();
@@ -613,29 +619,14 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
             guiHandler = loader.getController();
             guiHandler.setPowerupImageRespawn();
 
-
             Stage stage = new Stage();
-            stage.setScene(new Scene(root, 490, 386));
+            stage.setScene(new Scene(root, 600, 399));
             stage.setTitle("Choose Powerup to Discard");
             stage.show();
 
-            PauseTransition delay = new PauseTransition(Duration.millis(Config.SPAWN_LOCATION_TIME));
-            delay.setOnFinished( event -> {
-                respawnPlayer();
-                stage.close();
-            } );
-            delay.play();
         });
     }
 
-    private void respawnPlayer() {
-        client = Data.getInstance().getClient();
-        try {
-            client.respawn(Data.getInstance().getPowerup());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
     private void setPowerupImageRespawn() {
 
@@ -652,9 +643,13 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                 Image image = new Image("powerup/" + color + "/" + name + ".png");
 
                 if(i == 0){
-                    powerupImg1.setImage(image);
-                }else{
-                    powerupImg2.setImage(image);
+                    firstPowerUpD.setImage(image);
+                }else if (i == 1){
+                    secondPowerUpD.setImage(image);
+                } else if(i == 2){
+                    thirdPowerUpD.setImage(image);
+                } else if(i == 3){
+                    fourthPowerUpD.setImage(image);
                 }
             }
         });
@@ -3253,6 +3248,58 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
         if(playerController.getPowerups().size() == 3) {
             client.discardPowerup(2);
+        }
+    }
+
+    public void discardPw1(MouseEvent mouseEvent) {
+
+        Stage stage = (Stage) firstPowerUpD.getScene().getWindow();
+        stage.close();
+
+        client = Data.getInstance().getClient();
+        try {
+            client.respawn(1);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void discardPw2(MouseEvent mouseEvent) {
+
+        Stage stage = (Stage) firstPowerUpD.getScene().getWindow();
+        stage.close();
+
+        client = Data.getInstance().getClient();
+        try {
+            client.respawn(2);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void discardPw3(MouseEvent mouseEvent) {
+
+        Stage stage = (Stage) firstPowerUpD.getScene().getWindow();
+        stage.close();
+
+        client = Data.getInstance().getClient();
+        try {
+            client.respawn(3);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void discardPw4(MouseEvent mouseEvent) {
+
+        Stage stage = (Stage) firstPowerUpD.getScene().getWindow();
+        stage.close();
+        
+        client = Data.getInstance().getClient();
+        try {
+            client.respawn(4);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }

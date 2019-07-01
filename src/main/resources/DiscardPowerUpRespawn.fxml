@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="399.0" prefWidth="600.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.gui.GUIHandler">
+   <children>
+      <ImageView fx:id="firstPowerUpD" fitHeight="200.0" fitWidth="128.0" layoutX="14.0" layoutY="175.0" onMouseClicked="#discardPw1">
+         <image>
+            <Image url="@powerup/B/NEWTON.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="secondPowerUpD" fitHeight="200.0" fitWidth="128.0" layoutX="165.0" layoutY="175.0" visible="false" onMouseClicked="#discardPw2">
+         <image>
+            <Image url="@powerup/B/NEWTON.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="thirdPowerUpD" fitHeight="200.0" fitWidth="128.0" layoutX="314.0" layoutY="175.0" visible="false" onMouseClicked="#discardPw3">
+         <image>
+            <Image url="@powerup/B/NEWTON.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="fourthPowerUpD" fitHeight="200.0" fitWidth="128.0" layoutX="458.0" layoutY="175.0" visible="false" onMouseClicked="#discardPw4">
+         <image>
+            <Image url="@powerup/B/NEWTON.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="173.0" layoutY="32.0" text="Discard PowerUp:" textFill="WHITE">
+         <font>
+            <Font size="30.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
