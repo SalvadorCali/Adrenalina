@@ -104,7 +104,7 @@ When you run the <i>client.jar</i>, you can choose between CLI or GUI:
 
 #### Rules
 
-* If there are no games, a new game will be created. Each new game will be created when the previous reach the minimum number of players.
+* If there are no games, a new game will be created. Each new game will be created when the previous reaches the minimum number of players.
 * The username is unique in the lobby, so you can't choose an username already used by another player, even if the other player is playing a different game.
 * If you are disconnected and try to reconnect yourself, the <i>ServerControllerManager</i> will look for you username in the list of disconnected users and reconnects you to the correct game.
 
