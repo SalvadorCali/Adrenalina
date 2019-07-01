@@ -759,4 +759,16 @@ public class Player implements Serializable {
     public int getFinalFrenzyActionsNumber() {
         return finalFrenzyActionsNumber;
     }
+
+    public int getPowerupYellowAmmo() {
+        return powerupYellowAmmo;
+    }
+
+    public int getPowerupBlueAmmo() {
+        return powerupBlueAmmo;
+    }
+
+    public int getPowerupRedAmmo() {
+        return powerupRedAmmo;
+    }
 }
