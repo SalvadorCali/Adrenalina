@@ -2361,12 +2361,12 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                 }
             } else if(moveFrenzyOneActions[1] == null) {
 
-                x = x + Converter.fromStringDirToIntegerX(moveFrenzyTwoActions[0]);
-                y = y + Converter.fromStringDirToIntegerY(moveFrenzyTwoActions[0]);
+                x = x + Converter.fromStringDirToIntegerX(moveFrenzyOneActions[0]);
+                y = y + Converter.fromStringDirToIntegerY(moveFrenzyOneActions[0]);
 
                 if (!playerController.getGameBoard().getArena()[x][y].isSpawn()) {
                     try {
-                        this.client.grab(0, Converter.fromStringToDirection(moveFrenzyTwoActions[0]));
+                        this.client.grab(0, Converter.fromStringToDirection(moveFrenzyOneActions[0]));
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -2393,14 +2393,14 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
             } else if(moveFrenzyOneActions[2] == null){
 
-                x = x + Converter.fromStringDirToIntegerX(moveFrenzyTwoActions[0]);
-                x = x + Converter.fromStringDirToIntegerX(moveFrenzyTwoActions[1]);
-                y = y + Converter.fromStringDirToIntegerY(moveFrenzyTwoActions[0]);
-                y = y + Converter.fromStringDirToIntegerY(moveFrenzyTwoActions[1]);
+                x = x + Converter.fromStringDirToIntegerX(moveFrenzyOneActions[0]);
+                x = x + Converter.fromStringDirToIntegerX(moveFrenzyOneActions[1]);
+                y = y + Converter.fromStringDirToIntegerY(moveFrenzyOneActions[0]);
+                y = y + Converter.fromStringDirToIntegerY(moveFrenzyOneActions[1]);
 
                 if (!playerController.getGameBoard().getArena()[x][y].isSpawn()) {
                     try {
-                        this.client.grab(0, Converter.fromStringToDirection(moveFrenzyTwoActions[0]), Converter.fromStringToDirection(moveFrenzyTwoActions[1]));
+                        this.client.grab(0, Converter.fromStringToDirection(moveFrenzyOneActions[0]), Converter.fromStringToDirection(moveFrenzyOneActions[1]));
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -2426,20 +2426,20 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                 }
 
             } else {
-                Printer.println(moveFrenzyTwoActions[0]);
-                Printer.println(moveFrenzyTwoActions[1]);
-                Printer.println(moveFrenzyTwoActions[2]);
+                Printer.println(moveFrenzyOneActions[0]);
+                Printer.println(moveFrenzyOneActions[1]);
+                Printer.println(moveFrenzyOneActions[2]);
 
-                x = x + Converter.fromStringDirToIntegerX(moveFrenzyTwoActions[0]);
-                x = x + Converter.fromStringDirToIntegerX(moveFrenzyTwoActions[1]);
-                x = x +  Converter.fromStringDirToIntegerX(moveFrenzyTwoActions[2]);
-                y = y + Converter.fromStringDirToIntegerY(moveFrenzyTwoActions[0]);
-                y = y + Converter.fromStringDirToIntegerY(moveFrenzyTwoActions[1]);
-                y = y + Converter.fromStringDirToIntegerY(moveFrenzyTwoActions[2]);
+                x = x + Converter.fromStringDirToIntegerX(moveFrenzyOneActions[0]);
+                x = x + Converter.fromStringDirToIntegerX(moveFrenzyOneActions[1]);
+                x = x +  Converter.fromStringDirToIntegerX(moveFrenzyOneActions[2]);
+                y = y + Converter.fromStringDirToIntegerY(moveFrenzyOneActions[0]);
+                y = y + Converter.fromStringDirToIntegerY(moveFrenzyOneActions[1]);
+                y = y + Converter.fromStringDirToIntegerY(moveFrenzyOneActions[2]);
 
                 if (!playerController.getGameBoard().getArena()[x][y].isSpawn()) {
                     try {
-                        this.client.grab(0, Converter.fromStringToDirection(moveFrenzyTwoActions[0]), Converter.fromStringToDirection(moveFrenzyTwoActions[1]), Converter.fromStringToDirection(moveFrenzyTwoActions[2]));
+                        this.client.grab(0, Converter.fromStringToDirection(moveFrenzyOneActions[0]), Converter.fromStringToDirection(moveFrenzyOneActions[1]), Converter.fromStringToDirection(moveFrenzyOneActions[2]));
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
