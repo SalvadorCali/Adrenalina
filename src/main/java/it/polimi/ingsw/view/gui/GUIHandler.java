@@ -255,6 +255,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     @FXML private ImageView rightArrowMoveReload;
     @FXML private ImageView downArrowMoveReload;
     @FXML private Button enterMoveReload;
+    @FXML private Label labelShowMoveRel;
 
     @FXML private Button usePowerup1;
     @FXML private Button usePowerup2;
@@ -2087,6 +2088,8 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
             stage.setScene(new Scene(root, 256, 222));
             stage.setTitle("Grab Popup");
             stage.show();
+
+            stage.setOnCloseRequest(event -> resetMoveGrab());
         });
     }
 
@@ -3233,18 +3236,22 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
     public void upMoveRel(MouseEvent mouseEvent){
         setMoveRel("up");
+        setLabelMoveRel();
     }
 
     public void rightMoveRel(MouseEvent mouseEvent){
         setMoveRel("right");
+        setLabelMoveRel();
     }
 
     public void downMoveRel(MouseEvent mouseEvent){
         setMoveRel("down");
+        setLabelMoveRel();
     }
 
     public void leftMoveRel(MouseEvent mouseEvent){
         setMoveRel("left");
+        setLabelMoveRel();
     }
 
     private void setMoveRel(String move) {
@@ -3714,6 +3721,8 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
             this.moveFrenzyOneActions[i] = null;
         }
+
+        Data.getInstance().setMoveGrab(null);
     }
 
     private void setLabelMoveGrabTwoActions() {
@@ -3762,5 +3771,20 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         Platform.runLater(()->{
             labelShowMoveGrab.setText(Data.getInstance().getMoveGrab());
         });
+    }
+
+    private void setLabelMoveRel() {
+        String[] moveRel = Data.getInstance().getMoveRel();
+        for(int i = 0; i < moveRel.length; i++) {
+            if(moveRel[1] != null){
+                Platform.runLater(() ->{
+                    labelShowMoveGrab.setText("  " + moveRel[0] + "  " + moveRel[1]);
+                });
+            } else if(moveRel[0] != null){
+                Platform.runLater(() ->{
+                    labelShowMoveGrab.setText("  " + moveRel[0]);
+                });
+            }
+        }
     }
 }
