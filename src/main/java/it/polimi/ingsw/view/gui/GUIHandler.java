@@ -672,13 +672,17 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
         playerController = Data.getInstance().getPlayerController();
         List<PowerupCard> powerupRespawn = playerController.getPlayer().getPowerups();
+        Printer.println("psize: " + playerController.getPlayer().getPowerups().size());
+        Printer.println("posize: " + powerupRespawn.size());
 
         Platform.runLater(()->{
 
             for (int i = 0; i < powerupRespawn.size(); i++) {
 
                 String color = Converter.fromColorToLetter(powerupRespawn.get(i).getColor());
+                Printer.println("color: " + i + " " + color);
                 String name = powerupRespawn.get(i).getName();
+                Printer.println(name);
 
                 Image image = new Image("powerup/" + color + "/" + name + ".png");
 
