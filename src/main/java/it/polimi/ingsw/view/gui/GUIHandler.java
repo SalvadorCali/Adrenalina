@@ -1594,10 +1594,11 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     public void saveMovement(String move){
         playerController = Data.getInstance().getPlayerController();
 
-        if(!playerController.isFinalFrenzy()) {
+        if(!playerController.isFinalFrenzy() || (playerController.isFinalFrenzy() && playerController.getFinalFrenzyActions().equals(FinalFrenzyAction.ONE_ACTION))) {
             if (countMove < MAX_MOVEMENT) {
 
                 this.movement[countMove] = move;
+                Printer.println("1 or def:" + move);
                 this.countMove++;
             }
         }
@@ -1605,6 +1606,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
             if(countMove < MAX_MOVEMENT + 1){
 
                 this.movement[countMove] = move;
+                Printer.println("2:" + move);
                 this.countMove++;
             }
         }
