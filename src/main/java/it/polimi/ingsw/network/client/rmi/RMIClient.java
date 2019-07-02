@@ -446,6 +446,10 @@ public class RMIClient extends UnicastRemoteObject implements RMIClientInterface
             case SCORE:
                 view.notify(message, outcome, gameData.getScoreList());
                 break;
+            case END_TURN:
+                playerControllerSetterWithCurrentPlayer(gameData);
+                view.notify(message);
+                break;
             default:
                 view.notify(message, outcome);
                 break;
