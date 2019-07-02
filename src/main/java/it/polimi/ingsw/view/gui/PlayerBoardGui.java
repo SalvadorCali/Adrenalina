@@ -263,7 +263,7 @@ public class PlayerBoardGui extends Application {
     public void setPlayerBoardImage() {
         playerController = Data.getInstance().getPlayerController();
 
-        if(Data.getInstance().getFinalFrenzy() == 0 || (Data.getInstance().getFinalFrenzy() == 1 && !playerController.isPlayerBoardFinalFrenzy())) {
+        if(!playerController.isPlayerBoardFinalFrenzy()) {
             firstPlayerBoard.setImage(new Image("playerBoard/" + Converter.fromTokenColorToString(playerController.getPlayer().getColor()) + ".jpg"));
 
 
