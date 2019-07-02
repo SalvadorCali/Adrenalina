@@ -760,7 +760,37 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
         Platform.runLater(() ->{
             if(outcome.equals(Outcome.RIGHT)){
-                guiHandler.setLabelStatement("Reconnected");
+                //aggiunto
+                Stage stagelogin = (Stage) loginButton.getScene().getWindow();
+                stagelogin.close();
+                FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("MapGUI.fxml"));
+
+                Parent root = null;
+                try {
+                    root = loader.load();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                playerController = Data.getInstance().getPlayerController();
+
+                guiHandler = loader.getController();
+                guiHandler.setMapImage();
+                //guiHandler.addWeapon();
+                guiHandler.setLabelTurn();
+
+                Data.getInstance().setGuiHandler(guiHandler);
+
+                Stage stage = new Stage();
+                stage.setScene(new Scene(root, 1189, 710));
+                stage.setTitle("Adrenaline's Board");
+                stage.show();
+
+                Thread thread = new Thread(this::checkPosition);
+                thread.setDaemon(true);
+                thread.start();
+
+                guiHandler.setLabelStatement("Reconnected"); //gia presente
 
             }else{
                 guiHandler.setLabelStatement("Reconnected");
