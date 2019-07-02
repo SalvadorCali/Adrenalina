@@ -622,9 +622,6 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
             case POWERUP:
                 notifyPowerup(outcome);
                 break;
-            case RECONNECTION:
-                notifyReconnection(outcome);
-                break;
             case DISCARD_POWERUP:
                 notifyDiscardPowerup(outcome);
                 break;
@@ -755,14 +752,14 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         });
     }
 
-    private void notifyReconnection(Outcome outcome) {
-        guiHandler = Data.getInstance().getGuiHandler();
+    private void notifyReconnection(Outcome outcome, String object) {
 
         Platform.runLater(() ->{
             if(outcome.equals(Outcome.RIGHT)){
                 //aggiunto
                 Stage stagelogin = (Stage) loginButton.getScene().getWindow();
                 stagelogin.close();
+
                 FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("MapGUI.fxml"));
 
                 Parent root = null;
@@ -772,7 +769,12 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                     e.printStackTrace();
                 }
 
-                playerController = Data.getInstance().getPlayerController();
+                client = Data.getInstance().getClient();
+                try {
+                    Data.getInstance().setPlayerController(client.getPlayerController());
+                } catch (RemoteException e) {
+                    e.printStackTrace();
+                }
 
                 guiHandler = loader.getController();
                 guiHandler.setMapImage();
@@ -790,10 +792,12 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                 thread.setDaemon(true);
                 thread.start();
 
-                guiHandler.setLabelStatement("Reconnected"); //gia presente
+                disableButtons();
+                guiHandler.setLabelStatement(object + " reconnected"); //gia presente
+                this.startedGame++;
 
             }else{
-                guiHandler.setLabelStatement("Reconnected");
+                guiHandler.setLabelStatement(object + " reconnected");
             }
         });
     }
@@ -1055,6 +1059,9 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+                break;
+            case RECONNECTION:
+                notifyReconnection(outcome, (String) object);
                 break;
             default:
                 break;
