@@ -463,6 +463,9 @@ public class ServerController {
      * @param username the username of the disconnected player.
      */
     public void disconnect(String username){
+        if(disconnectedUsers.containsKey(username)){
+            return;
+        }
         /*
         if(gameController.isBoardTypePhase() && players.get(0).getUsername().equals(username)){
             chooseBoardType(1, 5);

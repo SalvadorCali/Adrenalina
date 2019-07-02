@@ -20,6 +20,9 @@ public class Data{
     private String weaponReloaded3;
     private Integer numPowerup;
     private Integer finalFrenzy = 0;
+    private String moveGrabOneAction [] = new String[3];
+    private String moveGrabTwoActions [] = new String[2];
+    private String moveRel [] = new String[2];
 
     private Data(){
     }
@@ -141,5 +144,29 @@ public class Data{
 
     public void setWeaponReloaded3(String weaponReloaded3) {
         this.weaponReloaded3 = weaponReloaded3;
+    }
+
+    public String[] getMoveGrabTwoActions() {
+        return moveGrabTwoActions;
+    }
+
+    public void setMoveGrabTwoActions(String[] moveGrabTwoActions) {
+        this.moveGrabTwoActions = moveGrabTwoActions;
+    }
+
+    public String[] getMoveGrabOneAction() {
+        return moveGrabOneAction;
+    }
+
+    public void setMoveGrabOneAction(String[] moveGrabOneAction) {
+        this.moveGrabOneAction = moveGrabOneAction;
+    }
+
+    public String[] getMoveRel() {
+        return moveRel;
+    }
+
+    public void setMoveRel(String[] moveRel) {
+        this.moveRel = moveRel;
     }
 }

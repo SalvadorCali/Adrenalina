@@ -1725,11 +1725,12 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     private void reloadClientTwoActions() throws IOException {
         playerController = Data.getInstance().getPlayerController();
         client = Data.getInstance().getClient();
+        String[] moveRel = Data.getInstance().getMoveRel();
 
-        if(this.moveReload[0] != null) {
+        if(moveRel[0] != null) {
             if (this.weaponReload1.equals("yes") && this.weaponReload2.equals(" ") && this.weaponReload3.equals(" ")) {
                 try {
-                    client.moveAndReload(Converter.fromStringToDirection(this.moveReload[0]), Converter.weaponNameInvert(playerController.getWeapons().get(0).getName()));
+                    client.moveAndReload(Converter.fromStringToDirection(moveRel[0]), Converter.weaponNameInvert(playerController.getWeapons().get(0).getName()));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -1737,7 +1738,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
             if (this.weaponReload1.equals("yes") && this.weaponReload2.equals("yes") && this.weaponReload3.equals(" ")) {
                 try {
-                    client.moveAndReload(Converter.fromStringToDirection(this.moveReload[0]), Converter.weaponNameInvert(playerController.getWeapons().get(0).getName()), Converter.weaponNameInvert(playerController.getWeapons().get(1).getName()));
+                    client.moveAndReload(Converter.fromStringToDirection(moveRel[0]), Converter.weaponNameInvert(playerController.getWeapons().get(0).getName()), Converter.weaponNameInvert(playerController.getWeapons().get(1).getName()));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -1745,7 +1746,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
             if (this.weaponReload1.equals("yes") && this.weaponReload2 .equals("yes") && this.weaponReload3.equals("yes")) {
                 try {
-                    client.moveAndReload(Converter.fromStringToDirection(this.moveReload[0]), Converter.weaponNameInvert(playerController.getWeapons().get(0).getName()), Converter.weaponNameInvert(playerController.getWeapons().get(1).getName()), Converter.weaponNameInvert(playerController.getWeapons().get(2).getName()));
+                    client.moveAndReload(Converter.fromStringToDirection(moveRel[0]), Converter.weaponNameInvert(playerController.getWeapons().get(0).getName()), Converter.weaponNameInvert(playerController.getWeapons().get(1).getName()), Converter.weaponNameInvert(playerController.getWeapons().get(2).getName()));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -1753,7 +1754,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
             if (this.weaponReload1.equals(" ") && this.weaponReload2.equals("yes") && this.weaponReload3.equals("yes")) {
                 try {
-                    client.moveAndReload(Converter.fromStringToDirection(this.moveReload[0]), Converter.weaponNameInvert(playerController.getWeapons().get(1).getName()), Converter.weaponNameInvert(playerController.getWeapons().get(2).getName()));
+                    client.moveAndReload(Converter.fromStringToDirection(moveRel[0]), Converter.weaponNameInvert(playerController.getWeapons().get(1).getName()), Converter.weaponNameInvert(playerController.getWeapons().get(2).getName()));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -1761,7 +1762,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
             if (this.weaponReload1.equals(" ") && this.weaponReload2.equals("yes") && this.weaponReload3.equals(" ")) {
                 try {
-                    client.moveAndReload(Converter.fromStringToDirection(this.moveReload[0]), Converter.weaponNameInvert(playerController.getWeapons().get(1).getName()));
+                    client.moveAndReload(Converter.fromStringToDirection(moveRel[0]), Converter.weaponNameInvert(playerController.getWeapons().get(1).getName()));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -1778,7 +1779,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
             if (this.weaponReload1.equals("yes") && this.weaponReload2.equals(" ") && this.weaponReload3.equals("yes")) {
                 try {
-                    client.moveAndReload(Converter.fromStringToDirection(this.moveReload[0]), Converter.weaponNameInvert(playerController.getWeapons().get(0).getName()), Converter.weaponNameInvert(playerController.getWeapons().get(2).getName()));
+                    client.moveAndReload(Converter.fromStringToDirection(moveRel[0]), Converter.weaponNameInvert(playerController.getWeapons().get(0).getName()), Converter.weaponNameInvert(playerController.getWeapons().get(2).getName()));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -1816,13 +1817,14 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
         playerController = Data.getInstance().getPlayerController();
         client = Data.getInstance().getClient();
-        Printer.println("moverel0" + this.moveReload[0]);
-        Printer.println("moverel1" + this.moveReload[1]);
+        String [] moveRel = Data.getInstance().getMoveRel();
+        Printer.println("moverel0" + moveRel[0]);
+        Printer.println("moverel1" + moveRel[1]);
         if(playerController.isFinalFrenzy() && playerController.getFinalFrenzyActions().equals(FinalFrenzyAction.ONE_ACTION)) {
-            if (this.moveReload[0] != null && this.moveReload[1] != null) {
+            if (moveRel[0] != null && moveRel[1] != null) {
                 if (this.weaponReload1.equals("yes") && this.weaponReload2.equals(" ") && this.weaponReload3.equals(" ")) {
                     try {
-                        client.moveAndReload(Converter.fromStringToDirection(this.moveReload[0]), Converter.fromStringToDirection(this.moveReload[1]), Converter.weaponNameInvert(playerController.getWeapons().get(0).getName()));
+                        client.moveAndReload(Converter.fromStringToDirection(moveRel[0]), Converter.fromStringToDirection(moveRel[1]), Converter.weaponNameInvert(playerController.getWeapons().get(0).getName()));
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -1830,7 +1832,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
                 if (this.weaponReload1.equals("yes") && this.weaponReload2.equals("yes") && this.weaponReload3.equals(" ")) {
                     try {
-                        client.moveAndReload(Converter.fromStringToDirection(this.moveReload[0]), Converter.fromStringToDirection(this.moveReload[1]), Converter.weaponNameInvert(playerController.getWeapons().get(0).getName()), Converter.weaponNameInvert(playerController.getWeapons().get(1).getName()));
+                        client.moveAndReload(Converter.fromStringToDirection(moveRel[0]), Converter.fromStringToDirection(moveRel[1]), Converter.weaponNameInvert(playerController.getWeapons().get(0).getName()), Converter.weaponNameInvert(playerController.getWeapons().get(1).getName()));
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -1838,7 +1840,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
                 if (this.weaponReload1.equals("yes") && this.weaponReload2.equals("yes") && this.weaponReload3.equals("yes")) {
                     try {
-                        client.moveAndReload(Converter.fromStringToDirection(this.moveReload[0]), Converter.fromStringToDirection(this.moveReload[1]), Converter.weaponNameInvert(playerController.getWeapons().get(0).getName()), Converter.weaponNameInvert(playerController.getWeapons().get(1).getName()), Converter.weaponNameInvert(playerController.getWeapons().get(2).getName()));
+                        client.moveAndReload(Converter.fromStringToDirection(moveRel[0]), Converter.fromStringToDirection(moveRel[1]), Converter.weaponNameInvert(playerController.getWeapons().get(0).getName()), Converter.weaponNameInvert(playerController.getWeapons().get(1).getName()), Converter.weaponNameInvert(playerController.getWeapons().get(2).getName()));
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -1846,7 +1848,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
                 if (this.weaponReload1.equals(" ") && this.weaponReload2.equals("yes") && this.weaponReload3.equals("yes")) {
                     try {
-                        client.moveAndReload(Converter.fromStringToDirection(this.moveReload[0]), Converter.fromStringToDirection(this.moveReload[1]), Converter.weaponNameInvert(playerController.getWeapons().get(1).getName()), Converter.weaponNameInvert(playerController.getWeapons().get(2).getName()));
+                        client.moveAndReload(Converter.fromStringToDirection(moveRel[0]), Converter.fromStringToDirection(moveRel[1]), Converter.weaponNameInvert(playerController.getWeapons().get(1).getName()), Converter.weaponNameInvert(playerController.getWeapons().get(2).getName()));
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -1854,7 +1856,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
                 if (this.weaponReload1.equals(" ") && this.weaponReload2.equals("yes") && this.weaponReload3.equals(" ")) {
                     try {
-                        client.moveAndReload(Converter.fromStringToDirection(this.moveReload[0]), Converter.fromStringToDirection(this.moveReload[1]), Converter.weaponNameInvert(playerController.getWeapons().get(1).getName()));
+                        client.moveAndReload(Converter.fromStringToDirection(moveRel[0]), Converter.fromStringToDirection(moveRel[1]), Converter.weaponNameInvert(playerController.getWeapons().get(1).getName()));
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -1862,7 +1864,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
                 if (this.weaponReload1.equals(" ") && this.weaponReload2.equals(" ") && this.weaponReload3.equals("yes")) {
                     try {
-                        client.moveAndReload(Converter.fromStringToDirection(this.moveReload[0]), Converter.fromStringToDirection(this.moveReload[1]), Converter.weaponNameInvert(playerController.getWeapons().get(2).getName()));
+                        client.moveAndReload(Converter.fromStringToDirection(moveRel[0]), Converter.fromStringToDirection(moveRel[1]), Converter.weaponNameInvert(playerController.getWeapons().get(2).getName()));
 
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -1871,7 +1873,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
                 if (this.weaponReload1.equals("yes") && this.weaponReload2 == null && this.weaponReload3.equals("yes")) {
                     try {
-                        client.moveAndReload(Converter.fromStringToDirection(this.moveReload[0]), Converter.fromStringToDirection(this.moveReload[1]), Converter.weaponNameInvert(playerController.getWeapons().get(0).getName()), Converter.weaponNameInvert(playerController.getWeapons().get(2).getName()));
+                        client.moveAndReload(Converter.fromStringToDirection(moveRel[0]), Converter.fromStringToDirection(moveRel[1]), Converter.weaponNameInvert(playerController.getWeapons().get(0).getName()), Converter.weaponNameInvert(playerController.getWeapons().get(2).getName()));
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -2130,11 +2132,13 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         if((playerController.getFinalFrenzyActions().equals(FinalFrenzyAction.TWO_ACTIONS)|| !playerController.getAdrenalineZone().equals(AdrenalineZone.DEFAULT)) && this.countMovementTwoAction < MAX_MOVEMENT - 1){
             this.moveFrenzyTwoActions[this.countMovementTwoAction] = movement;
             this.countMovementTwoAction ++;
+            Data.getInstance().setMoveGrabTwoActions(moveFrenzyTwoActions);
             setLabelMoveGrabTwoActions();
 
         } else if(playerController.getFinalFrenzyActions().equals(FinalFrenzyAction.ONE_ACTION) && this.countMovementOneAction < MAX_MOVEMENT){
             this.moveFrenzyOneActions[this.countMovementOneAction] = movement;
             this.countMovementOneAction ++;
+            Data.getInstance().setMoveGrabOneAction(moveFrenzyOneActions);
             setLabelMoveGrabOneAction();
         }
     }
@@ -2603,6 +2607,8 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         playerController = Data.getInstance().getPlayerController();
         client = Data.getInstance().getClient();
         String move = Data.getInstance().getMoveGrab();
+        String[] moveFrenzyOne = Data.getInstance().getMoveGrabOneAction();
+        String[] moveFrenzyTwo = Data.getInstance().getMoveGrabTwoActions();
 
         if(!playerController.isFinalFrenzy() && playerController.getAdrenalineZone().equals(AdrenalineZone.DEFAULT)) {
             if (move != null) {
@@ -2622,7 +2628,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
             }
 
         } else if((!playerController.getAdrenalineZone().equals(AdrenalineZone.DEFAULT)) || (playerController.isFinalFrenzy() && playerController.getFinalFrenzyActions().equals(FinalFrenzyAction.TWO_ACTIONS))){
-            if(this.moveFrenzyTwoActions[0] == null){
+            if(moveFrenzyTwo[0] == null){
 
                 try {
                     client.grab(1);
@@ -2630,43 +2636,43 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                     e.printStackTrace();
                 }
 
-            } else if(this.moveFrenzyTwoActions[1] == null){
+            } else if(moveFrenzyTwo[1] == null){
                 try {
-                    client.grab(1, Converter.fromStringToDirection(this.moveFrenzyTwoActions[0]));
+                    client.grab(1, Converter.fromStringToDirection(moveFrenzyTwo[0]));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             } else {
                 try {
-                    client.grab(1, Converter.fromStringToDirection(this.moveFrenzyTwoActions[0]), Converter.fromStringToDirection(this.moveFrenzyTwoActions[1]));
+                    client.grab(1, Converter.fromStringToDirection(moveFrenzyTwo[0]), Converter.fromStringToDirection(moveFrenzyTwo[1]));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
 
         } else {
-            if(this.moveFrenzyOneActions[0] == null){
+            if(moveFrenzyOne[0] == null){
                 try {
                     client.grab(1);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
 
-            } else if(this.moveFrenzyOneActions[1] == null){
+            } else if(moveFrenzyOne[1] == null){
                 try {
-                    client.grab(1, Converter.fromStringToDirection(this.moveFrenzyOneActions[0]));
+                    client.grab(1, Converter.fromStringToDirection(moveFrenzyOne[0]));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-            } else if(this.moveFrenzyOneActions[2] == null) {
+            } else if(moveFrenzyOne[2] == null) {
                 try {
-                    client.grab(1, Converter.fromStringToDirection(this.moveFrenzyOneActions[0]), Converter.fromStringToDirection(this.moveFrenzyOneActions[1]));
+                    client.grab(1, Converter.fromStringToDirection(moveFrenzyOne[0]), Converter.fromStringToDirection(moveFrenzyOne[1]));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             } else {
                 try {
-                    client.grab(1, Converter.fromStringToDirection(this.moveFrenzyOneActions[0]), Converter.fromStringToDirection(this.moveFrenzyOneActions[1]), Converter.fromStringToDirection(moveFrenzyOneActions[2]));
+                    client.grab(1, Converter.fromStringToDirection(moveFrenzyOne[0]), Converter.fromStringToDirection(moveFrenzyOne[1]), Converter.fromStringToDirection(moveFrenzyOne[2]));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -2683,6 +2689,8 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         playerController = Data.getInstance().getPlayerController();
         client = Data.getInstance().getClient();
         String move = Data.getInstance().getMoveGrab();
+        String[] moveFrenzyOne = Data.getInstance().getMoveGrabOneAction();
+        String[] moveFrenzyTwo = Data.getInstance().getMoveGrabTwoActions();
 
         if(!playerController.isFinalFrenzy() && playerController.getAdrenalineZone().equals(AdrenalineZone.DEFAULT)) {
             if (move != null) {
@@ -2700,7 +2708,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                 }
             }
         } else if((!playerController.isFinalFrenzy() && !playerController.getAdrenalineZone().equals(AdrenalineZone.DEFAULT)) || (playerController.isFinalFrenzy() && playerController.getFinalFrenzyActions().equals(FinalFrenzyAction.TWO_ACTIONS))){
-            if(this.moveFrenzyTwoActions[0] == null){
+            if(moveFrenzyTwo[0] == null){
 
                 try {
                     client.grab(2);
@@ -2708,22 +2716,22 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                     e.printStackTrace();
                 }
 
-            } else if(this.moveFrenzyTwoActions[1] == null){
+            } else if(moveFrenzyTwo[1] == null){
                 try {
-                    client.grab(2, Converter.fromStringToDirection(this.moveFrenzyTwoActions[0]));
+                    client.grab(2, Converter.fromStringToDirection(moveFrenzyTwo[0]));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             } else {
                 try {
-                    client.grab(2, Converter.fromStringToDirection(this.moveFrenzyTwoActions[0]), Converter.fromStringToDirection(this.moveFrenzyTwoActions[1]));
+                    client.grab(2, Converter.fromStringToDirection(moveFrenzyTwo[0]), Converter.fromStringToDirection(moveFrenzyTwo[1]));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
 
         } else {
-            if(this.moveFrenzyOneActions[0] == null){
+            if(moveFrenzyOne[0] == null){
 
                 try {
                     client.grab(2);
@@ -2731,21 +2739,21 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                     e.printStackTrace();
                 }
 
-            } else if(this.moveFrenzyOneActions[1] == null){
+            } else if(moveFrenzyOne[1] == null){
                 try {
-                    client.grab(2, Converter.fromStringToDirection(this.moveFrenzyOneActions[0]));
+                    client.grab(2, Converter.fromStringToDirection(moveFrenzyOne[0]));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-            } else if(this.moveFrenzyOneActions[2] == null) {
+            } else if(moveFrenzyOne[2] == null) {
                 try {
-                    client.grab(2, Converter.fromStringToDirection(this.moveFrenzyOneActions[0]), Converter.fromStringToDirection(this.moveFrenzyOneActions[1]));
+                    client.grab(2, Converter.fromStringToDirection(moveFrenzyOne[0]), Converter.fromStringToDirection(moveFrenzyOne[1]));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             } else {
                 try {
-                    client.grab(2, Converter.fromStringToDirection(this.moveFrenzyOneActions[0]), Converter.fromStringToDirection(this.moveFrenzyOneActions[1]), Converter.fromStringToDirection(moveFrenzyOneActions[2]));
+                    client.grab(2, Converter.fromStringToDirection(moveFrenzyOne[0]), Converter.fromStringToDirection(moveFrenzyOne[1]), Converter.fromStringToDirection(moveFrenzyOne[2]));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -2761,6 +2769,8 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         playerController = Data.getInstance().getPlayerController();
         client = Data.getInstance().getClient();
         String move = Data.getInstance().getMoveGrab();
+        String[] moveFrenzyOne = Data.getInstance().getMoveGrabOneAction();
+        String[] moveFrenzyTwo = Data.getInstance().getMoveGrabTwoActions();
 
         if(!playerController.isFinalFrenzy() && playerController.getAdrenalineZone().equals(AdrenalineZone.DEFAULT)) {
 
@@ -2779,7 +2789,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                 }
             }
         } else if((!playerController.isFinalFrenzy() && !playerController.getAdrenalineZone().equals(AdrenalineZone.DEFAULT)) || (playerController.isFinalFrenzy() && playerController.getFinalFrenzyActions().equals(FinalFrenzyAction.TWO_ACTIONS))){
-            if(this.moveFrenzyTwoActions[0] == null){
+            if(moveFrenzyTwo[0] == null){
 
                 try {
                     client.grab(3);
@@ -2787,22 +2797,22 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                     e.printStackTrace();
                 }
 
-            } else if(this.moveFrenzyTwoActions[1] == null){
+            } else if(moveFrenzyTwo[1] == null){
                 try {
-                    client.grab(3, Converter.fromStringToDirection(this.moveFrenzyTwoActions[0]));
+                    client.grab(3, Converter.fromStringToDirection(moveFrenzyTwo[0]));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             } else {
                 try {
-                    client.grab(3, Converter.fromStringToDirection(this.moveFrenzyTwoActions[0]), Converter.fromStringToDirection(this.moveFrenzyTwoActions[1]));
+                    client.grab(3, Converter.fromStringToDirection(moveFrenzyTwo[0]), Converter.fromStringToDirection(moveFrenzyTwo[1]));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
 
         } else {
-            if(this.moveFrenzyTwoActions[0] == null){
+            if(moveFrenzyOne[0] == null){
 
                 try {
                     client.grab(3);
@@ -2810,21 +2820,21 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                     e.printStackTrace();
                 }
 
-            } else if(this.moveFrenzyOneActions[1] == null){
+            } else if(moveFrenzyOne[1] == null){
                 try {
-                    client.grab(3, Converter.fromStringToDirection(this.moveFrenzyOneActions[0]));
+                    client.grab(3, Converter.fromStringToDirection(moveFrenzyOne[0]));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-            } else if(this.moveFrenzyOneActions[2] == null) {
+            } else if(moveFrenzyOne[2] == null) {
                 try {
-                    client.grab(3, Converter.fromStringToDirection(this.moveFrenzyOneActions[0]), Converter.fromStringToDirection(this.moveFrenzyOneActions[1]));
+                    client.grab(3, Converter.fromStringToDirection(moveFrenzyOne[0]), Converter.fromStringToDirection(moveFrenzyOne[1]));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             } else {
                 try {
-                    client.grab(3, Converter.fromStringToDirection(this.moveFrenzyOneActions[0]), Converter.fromStringToDirection(this.moveFrenzyOneActions[1]), Converter.fromStringToDirection(moveFrenzyOneActions[2]));
+                    client.grab(3, Converter.fromStringToDirection(moveFrenzyOne[0]), Converter.fromStringToDirection(moveFrenzyOne[1]), Converter.fromStringToDirection(moveFrenzyOne[2]));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -3241,6 +3251,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
             if (this.countMoveRel < MAX_MOVEMENT - 1) {
                 this.moveReload[this.countMoveRel] = move;
                 this.countMoveRel++;
+                Data.getInstance().setMoveRel(moveReload);
             }
         }
     }
@@ -3278,22 +3289,24 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
             });
 
-        } else {
+        } else{
 
             guiHandler = Data.getInstance().getGuiHandler();
             guiHandler.reloadPopup();
         }
+
         Stage stage = (Stage) enterMoveReload.getScene().getWindow();
         stage.close();
     }
 
     private void moveReloadZoneTwo() throws IOException {
         client = Data.getInstance().getClient();
+        String[] moveRel = Data.getInstance().getMoveRel();
 
-        if(this.moveReload[0] == null) {
+        if(moveRel[0] == null) {
             client.moveAndReload(null);
         }else {
-            client.moveAndReload(Converter.fromStringToDirection(this.moveReload[0]));
+            client.moveAndReload(Converter.fromStringToDirection(moveRel[0]));
         }
     }
 
