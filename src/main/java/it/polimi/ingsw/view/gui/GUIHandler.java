@@ -3655,11 +3655,12 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
     private void setLabelMoveGrabTwoActions() {
         for(int i = 0; i < this.moveFrenzyTwoActions.length; i++) {
-            if(this.moveFrenzyTwoActions[2] != null){
-                Platform.runLater(() ->{
-                    labelShowMoveGrab.setText("  " + this.moveFrenzyTwoActions[0] + "  " + this.moveFrenzyTwoActions[1] + "  " + this.moveFrenzyTwoActions[2]);
-                });
-            } else if(this.moveFrenzyTwoActions[1] != null){
+            //if(this.moveFrenzyTwoActions[2] != null){
+                //Platform.runLater(() ->{
+                  //  labelShowMoveGrab.setText("  " + this.moveFrenzyTwoActions[0] + "  " + this.moveFrenzyTwoActions[1] + "  " + this.moveFrenzyTwoActions[2]);
+                //});
+            //} else
+                if(this.moveFrenzyTwoActions[1] != null){
                 Platform.runLater(() ->{
                     labelShowMoveGrab.setText("  " + this.moveFrenzyTwoActions[0] + "  " + this.moveFrenzyTwoActions[1]);
                 });
@@ -3667,11 +3668,12 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                 Platform.runLater(() ->{
                     labelShowMoveGrab.setText("  " + this.moveFrenzyTwoActions[0]);
                 });
-            } else if(this.moveFrenzyTwoActions[3] != null){
-                Platform.runLater(() ->{
-                    labelShowMoveGrab.setText("  " + this.moveFrenzyTwoActions[0] + "  " + this.moveFrenzyTwoActions[1] + "  " + this.moveFrenzyTwoActions[2] + "  " + this.moveFrenzyTwoActions[3]);
-                });
             }
+                //else if(this.moveFrenzyTwoActions[3] != null){
+                //Platform.runLater(() ->{
+                  //  labelShowMoveGrab.setText("  " + this.moveFrenzyTwoActions[0] + "  " + this.moveFrenzyTwoActions[1] + "  " + this.moveFrenzyTwoActions[2] + "  " + this.moveFrenzyTwoActions[3]);
+                //});
+            //}
         }
     }
 
