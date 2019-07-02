@@ -917,11 +917,13 @@ public class ServerController {
                     }
                 });
             }
+            gameController.endTurn(users.get(username));
             for(int i = 0; i< players.size(); i++){
                 if(players.get(i).getUsername().equals(username)){
                     try {
                         if(servers.containsKey(username) && !players.get(i).isDisconnected()){
-                            servers.get(username).notify(Message.END_TURN);
+                            setGameData();
+                            servers.get(username).notify(Message.END_TURN, Outcome.RIGHT, gameData);
                         }
                         int index = nextPlayerIndex(i);
                         if(servers.containsKey(players.get(index).getUsername())){
@@ -936,7 +938,7 @@ public class ServerController {
                     }
                 }
             }
-            gameController.endTurn(users.get(username));
+
         }else{
             try {
                 servers.get(username).notify(Message.NOT_TURN);
@@ -972,11 +974,13 @@ public class ServerController {
                     }
                 });
             }
+            gameController.endTurn(users.get(username));
             for(int i = 0; i< players.size(); i++){
                 if(players.get(i).getUsername().equals(username)){
                     try {
                         if(servers.containsKey(username) && !players.get(i).isDisconnected()){
-                            servers.get(username).notify(Message.END_TURN);
+                            setGameData();
+                            servers.get(username).notify(Message.END_TURN, Outcome.RIGHT, gameData);
                         }
                         int index = nextPlayerIndex(i);
                         if(servers.containsKey(players.get(index).getUsername())){
@@ -991,7 +995,7 @@ public class ServerController {
                     }
                 }
             }
-            gameController.endTurn(users.get(username));
+
         }else{
             try {
                 servers.get(username).notify(Message.NOT_TURN);

@@ -494,6 +494,7 @@ public class SocketClient implements ClientInterface, Runnable, Serializable {
         GameData gameData;
         switch(message){
             case END_TURN:
+                outcome = (Outcome) objectInputStream.readObject();
                 gameData = (GameData) objectInputStream.readObject();
                 playerControllerSetterWithCurrentPlayer(gameData);
                 view.notify(message);

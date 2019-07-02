@@ -334,6 +334,8 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         stage.setScene(scene);
         stage.setTitle("Login");
         stage.show();
+
+        stage.setResizable(false);
     }
 
 
@@ -487,7 +489,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
                 labelErrorSkull.setText("Board not chosen");
 
-            } else if (skull > 8 || skull < 5) {
+            } else if (skull > 8 || skull < 1) {
 
                 labelErrorSkull.setText("Wrong skull number");
 
@@ -510,7 +512,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     //
     public void choosePowerup1() throws IOException {
 
-        Data.getInstance().setPowerup(1);
+        Data.getInstance().setPowerup(2);
         handleCloseAction1();
         try {
             setPowerup();
@@ -521,7 +523,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
     public void choosePowerup2() throws IOException {
 
-        Data.getInstance().setPowerup(2);
+        Data.getInstance().setPowerup(1);
         handleCloseAction2();
         try {
             setPowerup();
@@ -662,6 +664,11 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
             stage.setTitle("Choose Powerup to Discard");
             stage.show();
 
+            PauseTransition delay = new PauseTransition(Duration.millis(Config.RESPAWN_TIME));
+            delay.setOnFinished( event -> {
+                stage.close();
+            } );
+            delay.play();
         });
     }
 
@@ -2089,6 +2096,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
             stage.setTitle("Grab Popup");
             stage.show();
 
+            stage.setResizable(false);
             stage.setOnCloseRequest(event -> resetMoveGrab());
         });
     }
@@ -2197,6 +2205,8 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                         stage.setScene(new Scene(root, 496, 269));
                         stage.setTitle("Choose Weapon");
                         stage.show();
+
+                        stage.setResizable(false);
                     }
 
                 } else {
@@ -3079,6 +3089,8 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                 stage.setScene(new Scene(root, 222, 256));
                 stage.setTitle("Move and Reload Popup");
                 stage.show();
+
+                stage.setResizable(false);
             });
         }
     }
