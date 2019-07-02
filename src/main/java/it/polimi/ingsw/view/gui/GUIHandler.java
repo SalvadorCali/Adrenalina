@@ -1571,7 +1571,11 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
     private void setLabelMovement() {
         for(int i = 0; i < movement.length; i++) {
-            if(this.movement[2] != null){
+            if(this.movement[3] != null){
+                Platform.runLater(() ->{
+                    labelShowMove.setText("  " + this.movement[0] + "  " + this.movement[1] + "  " + this.movement[2] + "  " + this.movement[3]);
+                });
+            }else if(this.movement[2] != null){
                 Platform.runLater(() ->{
                     labelShowMove.setText("  " + this.movement[0] + "  " + this.movement[1] + "  " + this.movement[2]);
                 });
@@ -1582,10 +1586,6 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
             } else if(this.movement[0] != null){
                 Platform.runLater(() ->{
                     labelShowMove.setText("  " + this.movement[0]);
-                });
-            } else if(this.movement[3] != null){
-                Platform.runLater(() ->{
-                    labelShowMove.setText("  " + this.movement[0] + "  " + this.movement[1] + "  " + this.movement[2] + "  " + this.movement[3]);
                 });
             }
         }
@@ -3703,10 +3703,6 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
             } else if(this.moveFrenzyOneActions[0] != null){
                 Platform.runLater(() ->{
                     labelShowMoveGrab.setText("  " + this.moveFrenzyOneActions[0]);
-                });
-            } else if(this.moveFrenzyOneActions[3] != null){
-                Platform.runLater(() ->{
-                    labelShowMoveGrab.setText("  " + this.moveFrenzyOneActions[0] + "  " + this.moveFrenzyOneActions[1] + "  " + this.moveFrenzyOneActions[2] + "  " + this.moveFrenzyOneActions[3]);
                 });
             }
         }
