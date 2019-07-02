@@ -691,12 +691,15 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                 }
                 if (i == 1){
                     secondPowerUpD.setImage(image);
+                    secondPowerUpD.setVisible(true);
                 }
                 if(i == 2){
                     thirdPowerUpD.setImage(image);
+                    thirdPowerUpD.setVisible(true);
                 }
                 if(i == 3){
                     fourthPowerUpD.setImage(image);
+                    fourthPowerUpD.setVisible(true);
                 }
             }
         });
@@ -2050,6 +2053,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         playerController = Data.getInstance().getPlayerController();
         if(!playerController.isFinalFrenzy() && playerController.getAdrenalineZone().equals(AdrenalineZone.DEFAULT) ) {
             Data.getInstance().setMoveGrab("up");
+            labelShowMoveGrab.setText("  " + "up");
         } else {
             saveMovementFinalFrenzy("up");
         }
@@ -2060,6 +2064,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
         if(!playerController.isFinalFrenzy() && playerController.getAdrenalineZone().equals(AdrenalineZone.DEFAULT) ) {
             Data.getInstance().setMoveGrab("right");
+            labelShowMoveGrab.setText("  " + "right");
         } else {
             saveMovementFinalFrenzy("right");
         }
@@ -2070,6 +2075,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
         if(!playerController.isFinalFrenzy() && playerController.getAdrenalineZone().equals(AdrenalineZone.DEFAULT) ) {
             Data.getInstance().setMoveGrab("down");
+            labelShowMoveGrab.setText("  " + "down");
         } else {
             saveMovementFinalFrenzy("down");
         }
@@ -2080,6 +2086,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
         if(!playerController.isFinalFrenzy() && playerController.getAdrenalineZone().equals(AdrenalineZone.DEFAULT) ) {
             Data.getInstance().setMoveGrab("left");
+            labelShowMoveGrab.setText("  " + "left");
         } else {
             saveMovementFinalFrenzy("left");
         }
