@@ -1101,9 +1101,9 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
             Data.getInstance().setPlayerController(playerController);
 
         } catch (NotBoundException e) {
-            e.printStackTrace();
+            setErrorText("Wrong Host");
         } catch (IOException e) {
-            e.printStackTrace();
+            setErrorText("Wrong Host");
         }
     }
 
@@ -1117,7 +1117,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
             Data.getInstance().setPlayerController(playerController);
 
         } catch (IOException e) {
-            e.printStackTrace();
+            setErrorText("Wrong Host");
         }
     }
 
