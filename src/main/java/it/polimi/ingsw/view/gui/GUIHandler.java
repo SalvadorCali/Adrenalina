@@ -2087,12 +2087,12 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         if((playerController.getFinalFrenzyActions().equals(FinalFrenzyAction.TWO_ACTIONS)|| !playerController.getAdrenalineZone().equals(AdrenalineZone.DEFAULT)) && this.countMovementTwoAction < MAX_MOVEMENT - 1){
             this.moveFrenzyTwoActions[this.countMovementTwoAction] = movement;
             this.countMovementTwoAction ++;
-            setLabelMoveGrahTwoActions();
+            setLabelMoveGrabTwoActions();
 
         } else if(playerController.getFinalFrenzyActions().equals(FinalFrenzyAction.ONE_ACTION) && this.countMovementOneAction < MAX_MOVEMENT){
             this.moveFrenzyOneActions[this.countMovementOneAction] = movement;
             this.countMovementOneAction ++;
-            setLabelMoveGrahOneAction();
+            setLabelMoveGrabOneAction();
         }
     }
 
@@ -2104,6 +2104,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         playerController = Data.getInstance().getPlayerController();
 
         if(!playerController.isFinalFrenzy() && playerController.getAdrenalineZone().equals(AdrenalineZone.DEFAULT)) {
+            showGrabMove();
             Platform.runLater(() -> {
 
                 int x = playerController.getPlayer().getPosition().getX();
@@ -3652,7 +3653,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         }
     }
 
-    private void setLabelMoveGrahTwoActions() {
+    private void setLabelMoveGrabTwoActions() {
         for(int i = 0; i < this.moveFrenzyTwoActions.length; i++) {
             if(this.moveFrenzyTwoActions[2] != null){
                 Platform.runLater(() ->{
@@ -3674,7 +3675,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         }
     }
 
-    private void setLabelMoveGrahOneAction() {
+    private void setLabelMoveGrabOneAction() {
         for(int i = 0; i < this.moveFrenzyOneActions.length; i++) {
             if(this.moveFrenzyOneActions[2] != null){
                 Platform.runLater(() ->{
@@ -3694,5 +3695,11 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                 });
             }
         }
+    }
+
+    private void showGrabMove(){
+        Platform.runLater(()->{
+            labelShowMoveGrab.setText(Data.getInstance().getMoveGrab());
+        });
     }
 }
