@@ -269,6 +269,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     @FXML private Label labelInfoPowerup;
     @FXML private Button buttonUsePowerUpData;
 
+    @FXML private Label labelShowMoveGrab;
 
     private static final int ROWS = 3;
     private static final int COLUMNS = 4;
@@ -2086,10 +2087,12 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         if((playerController.getFinalFrenzyActions().equals(FinalFrenzyAction.TWO_ACTIONS)|| !playerController.getAdrenalineZone().equals(AdrenalineZone.DEFAULT)) && this.countMovementTwoAction < MAX_MOVEMENT - 1){
             this.moveFrenzyTwoActions[this.countMovementTwoAction] = movement;
             this.countMovementTwoAction ++;
+            setLabelMoveGrahTwoActions();
 
         } else if(playerController.getFinalFrenzyActions().equals(FinalFrenzyAction.ONE_ACTION) && this.countMovementOneAction < MAX_MOVEMENT){
             this.moveFrenzyOneActions[this.countMovementOneAction] = movement;
             this.countMovementOneAction ++;
+            setLabelMoveGrahOneAction();
         }
     }
 
@@ -3646,6 +3649,50 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         for(int i = 0; i < moveLength2; i++){
 
             this.moveFrenzyOneActions[i] = null;
+        }
+    }
+
+    private void setLabelMoveGrahTwoActions() {
+        for(int i = 0; i < this.moveFrenzyTwoActions.length; i++) {
+            if(this.moveFrenzyTwoActions[2] != null){
+                Platform.runLater(() ->{
+                    labelShowMoveGrab.setText("  " + this.moveFrenzyTwoActions[0] + "  " + this.moveFrenzyTwoActions[1] + "  " + this.moveFrenzyTwoActions[2]);
+                });
+            } else if(this.moveFrenzyTwoActions[1] != null){
+                Platform.runLater(() ->{
+                    labelShowMoveGrab.setText("  " + this.moveFrenzyTwoActions[0] + "  " + this.moveFrenzyTwoActions[1]);
+                });
+            } else if(this.moveFrenzyTwoActions[0] != null){
+                Platform.runLater(() ->{
+                    labelShowMoveGrab.setText("  " + this.moveFrenzyTwoActions[0]);
+                });
+            } else if(this.moveFrenzyTwoActions[3] != null){
+                Platform.runLater(() ->{
+                    labelShowMoveGrab.setText("  " + this.moveFrenzyTwoActions[0] + "  " + this.moveFrenzyTwoActions[1] + "  " + this.moveFrenzyTwoActions[2] + "  " + this.moveFrenzyTwoActions[3]);
+                });
+            }
+        }
+    }
+
+    private void setLabelMoveGrahOneAction() {
+        for(int i = 0; i < this.moveFrenzyOneActions.length; i++) {
+            if(this.moveFrenzyOneActions[2] != null){
+                Platform.runLater(() ->{
+                    labelShowMoveGrab.setText("  " + this.moveFrenzyOneActions[0] + "  " + this.moveFrenzyOneActions[1] + "  " + this.moveFrenzyOneActions[2]);
+                });
+            } else if(this.moveFrenzyOneActions[1] != null){
+                Platform.runLater(() ->{
+                    labelShowMoveGrab.setText("  " + this.moveFrenzyOneActions[0] + "  " + this.moveFrenzyOneActions[1]);
+                });
+            } else if(this.moveFrenzyOneActions[0] != null){
+                Platform.runLater(() ->{
+                    labelShowMoveGrab.setText("  " + this.moveFrenzyOneActions[0]);
+                });
+            } else if(this.moveFrenzyOneActions[3] != null){
+                Platform.runLater(() ->{
+                    labelShowMoveGrab.setText("  " + this.moveFrenzyOneActions[0] + "  " + this.moveFrenzyOneActions[1] + "  " + this.moveFrenzyOneActions[2] + "  " + this.moveFrenzyOneActions[3]);
+                });
+            }
         }
     }
 }
