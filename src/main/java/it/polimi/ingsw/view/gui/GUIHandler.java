@@ -3104,6 +3104,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         playerController = Data.getInstance().getPlayerController();
         Integer weaponNum = Data.getInstance().getWeaponShoot();
 
+        if(!playerController.getWeapons().isEmpty()){
         Platform.runLater(() -> {
 
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("DataShoot.fxml"));
@@ -3122,6 +3123,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
             stage.setTitle("Data Shoot");
             stage.show();
         });
+        }
     }
 
     private void setLabelWeapon(String name) {
@@ -3406,7 +3408,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     }
 
     private void handleCloseShowData() {
-        Stage stage = (Stage) shootButton1.getScene().getWindow();
+        Stage stage = (Stage) this.shootButton1.getScene().getWindow();
         stage.close();
     }
 
