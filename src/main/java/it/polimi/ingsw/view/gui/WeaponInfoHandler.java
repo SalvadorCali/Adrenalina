@@ -1,7 +1,14 @@
 package it.polimi.ingsw.view.gui;
 
+/**
+ * this class is helpful for Weapon infos
+ */
 public class WeaponInfoHandler {
-
+    /**
+     * get Info of every weapon, what is needed when you shoot
+     * @param nameWeapon
+     * @return
+     */
     public String getInfoWeapon(String nameWeapon){
         switch(nameWeapon){
             case "LOCK RIFLE":
@@ -51,6 +58,11 @@ public class WeaponInfoHandler {
         }
     }
 
+    /**
+     * get Info of every powerup
+     * @param namePowerup
+     * @return
+     */
 
     public String getInfoPowerUp(String namePowerup){
         switch (namePowerup){
