@@ -3416,16 +3416,20 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         switch (namePowerup){
             case "TARGETING SCOPE":
                 client.powerup(Converter.powerupNameInvert(namePowerup), Converter.fromStringToTokenColor(victim), Converter.fromStringToColor(colorAmmo), -1, -1);
+                break;
             case "NEWTON":
                 if(secondDir == null) {
                     client.powerup(Converter.powerupNameInvert(namePowerup), Converter.fromStringToTokenColor(victim), Color.NONE, -1, -1, Converter.fromStringToDirection(firstDir));
                 } else{
                     client.powerup(Converter.powerupNameInvert(namePowerup), Converter.fromStringToTokenColor(victim), Color.NONE, -1, -1, Converter.fromStringToDirection(firstDir), Converter.fromStringToDirection(secondDir));
                 }
+                break;
             case "TAGBACK GRENADE":
                 client.powerup(Converter.powerupNameInvert(namePowerup), Converter.fromStringToTokenColor(victim), Color.NONE, -1, -1);
+                break;
             case "TELEPORTER":
                 client.powerup(Converter.powerupNameInvert(namePowerup), TokenColor.NONE, Color.NONE, Integer.valueOf(x), Integer.valueOf(y));
+                break;
             default:
                 break;
         }
