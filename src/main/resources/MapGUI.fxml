@@ -93,19 +93,19 @@
             <Image url="@boardElem/banner.png" />
          </image>
       </ImageView>
-      <Label fx:id="labelShoot" layoutX="1031.0" layoutY="15.0" mouseTransparent="true" onMouseClicked="#shoot" prefHeight="39.0" prefWidth="70.0" text="Shoot" textFill="WHITE">
+      <Label fx:id="labelShoot" layoutX="1033.0" layoutY="11.0" mouseTransparent="true" onMouseClicked="#shoot" prefHeight="45.0" prefWidth="107.0" text="Shoot" textFill="WHITE">
          <font>
-            <Font size="20.0" />
+            <Font name="Alien League Regular" size="23.0" />
          </font>
       </Label>
-      <Label fx:id="labelGrab" layoutX="1041.0" layoutY="76.0" mouseTransparent="true" onMouseClicked="#grab" text="Grab" textFill="WHITE">
+      <Label fx:id="labelGrab" layoutX="1040.0" layoutY="79.0" mouseTransparent="true" onMouseClicked="#grab" text="Grab" textFill="WHITE">
          <font>
-            <Font size="20.0" />
+            <Font name="Alien League Regular" size="23.0" />
          </font>
       </Label>
-      <Label fx:id="labelEndTurn" layoutX="1023.0" layoutY="396.0" mouseTransparent="true" onMouseClicked="#endTurn" text="End Turn" textFill="WHITE">
+      <Label fx:id="labelEndTurn" layoutX="1023.0" layoutY="399.0" mouseTransparent="true" onMouseClicked="#endTurn" text="End Turn" textFill="WHITE">
          <font>
-            <Font size="20.0" />
+            <Font name="Alien League Regular" size="22.0" />
          </font>
       </Label>
       <ImageView fx:id="bannerShowDamage1" fitHeight="45.0" fitWidth="200.0" layoutX="962.0" layoutY="127.0" onMouseClicked="#showDamageBoard">
@@ -113,14 +113,14 @@
             <Image url="@boardElem/banner.png" />
          </image>
       </ImageView>
-      <Label layoutX="998.0" layoutY="192.0" onMouseClicked="#showWeapon" text="Show Weapon" textFill="WHITE">
+      <Label layoutX="999.0" layoutY="198.0" onMouseClicked="#showWeapon" text="Show Weapon" textFill="WHITE">
          <font>
-            <Font size="20.0" />
+            <Font name="Alien League Regular" size="23.0" />
          </font>
       </Label>
       <Label layoutX="1002.0" layoutY="138.0" mouseTransparent="true" onMouseClicked="#showDamageBoard" text="Show Damage" textFill="WHITE">
          <font>
-            <Font size="20.0" />
+            <Font name="Alien League Regular" size="23.0" />
          </font>
       </Label>
       <Label layoutX="987.0" layoutY="431.0" text="Turn:" textFill="WHITE">
@@ -302,7 +302,10 @@
             <Font name="Alien League Regular" size="20.0" />
          </font>
       </Label>
-      <Button fx:id="enterMove" layoutX="1031.0" layoutY="519.0" mnemonicParsing="false" onMouseClicked="#confirmMovement" prefHeight="27.0" prefWidth="69.0" text="Confirm" />
+      <Button fx:id="enterMove" layoutX="1031.0" layoutY="519.0" mnemonicParsing="false" onMouseClicked="#confirmMovement" prefHeight="27.0" prefWidth="69.0" text="Confirm">
+         <font>
+            <Font name="Alien League Regular" size="14.0" />
+         </font></Button>
       <GridPane fx:id="gridSkulls" hgap="10.0" layoutX="58.0" layoutY="26.0" prefHeight="56.0" prefWidth="337.0" vgap="5.0">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -326,9 +329,9 @@
             <Image url="@boardElem/banner.png" />
          </image>
       </ImageView>
-      <Label fx:id="labelReload" layoutX="1032.0" layoutY="308.0" onMouseClicked="#reloadPopup" text="Reload" textFill="WHITE">
+      <Label fx:id="labelReload" layoutX="1030.0" layoutY="311.0" onMouseClicked="#reloadPopup" text="Reload" textFill="WHITE">
          <font>
-            <Font size="20.0" />
+            <Font name="Alien League Regular" size="23.0" />
          </font>
       </Label>
       <Label layoutX="990.0" layoutY="340.0" prefHeight="39.0" prefWidth="301.0" text="Note: if you reload you won't" textFill="WHITE" />
@@ -338,9 +341,9 @@
             <Image url="@boardElem/banner.png" />
          </image>
       </ImageView>
-      <Label fx:id="labelAmmo" layoutX="1006.0" layoutY="253.0" onMouseClicked="#launchAmmo" text="Show Ammo" textFill="WHITE">
+      <Label fx:id="labelAmmo" layoutX="1006.0" layoutY="256.0" onMouseClicked="#launchAmmo" text="Show Ammo" textFill="WHITE">
          <font>
-            <Font size="20.0" />
+            <Font name="Alien League Regular" size="23.0" />
          </font>
       </Label>
       <Label fx:id="labelShowMove" layoutX="954.0" layoutY="610.0" mouseTransparent="true" onMouseClicked="#disconnect" prefHeight="26.0" prefWidth="229.0" textFill="WHITE">
