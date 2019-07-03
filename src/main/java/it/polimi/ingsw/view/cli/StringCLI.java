@@ -86,6 +86,7 @@ public class StringCLI {
     //game
     static final String GAME_BEGUN = "Game is already begun!";
     static final String GAME_STARTED = "Game is started!";
+    static final String GAME_END = "Game end!";
 
     //move
     static final String MOVED = "moved!";
@@ -201,21 +202,25 @@ public class StringCLI {
     static final String IN_PULVERIZE_MODE = "In pulverize mode:";
 
     //effects
-    static final String VICTIM = "<victim>";
-    static final String FIRST_VICTIM = "<first_victim>";
-    static final String SECOND_VICTIM = "<second_victim>";
-    static final String THIRD_VICTIM = "<third_victim>";
-    static final String ONE = "<1>";
-    static final String TWO = "<2>";
-    static final String THREE = "<3>";
-    static final String DIRECTION = "<direction>";
-    static final String FIRST_DIRECTION = "<first_direction>";
-    static final String SECOND_DIRECTION = "<second_direction>";
-    static final String SQUARE_X = "<squareX>";
-    static final String SQUARE_Y = "<squareY>";
-    static final String VICTIM_DIRECTION = "<victim_direction>";
-    static final String SHOOTER_DIRECTION = "<shooter_direction>";
-    static final String AMMO = "<ammo>";
+    public static final String PARAMETERS = "Parameters:";
+    public static final String VICTIM = "<victim>";
+    public static final String FIRST_VICTIM = "<first_victim>";
+    public static final String SECOND_VICTIM = "<second_victim>";
+    public static final String THIRD_VICTIM = "<third_victim>";
+    public static final String ONE = "<1>";
+    public static final String TWO = "<2>";
+    public static final String THREE = "<3>";
+    public static final String DIRECTION = "<direction>";
+    public static final String FIRST_DIRECTION = "<first_direction>";
+    public static final String SECOND_DIRECTION = "<second_direction>";
+    public static final String SQUARE_X = "<squareX>";
+    public static final String SQUARE_Y = "<squareY>";
+    public static final String VICTIM_DIRECTION = "<victim_direction>";
+    public static final String SHOOTER_DIRECTION = "<shooter_direction>";
+    public static final String AMMO = "<ammo>";
+
+    //descriptions
+
 
     //do you want
     static final String CHOOSE_EFFECT = "Choose your effect:";
@@ -224,9 +229,9 @@ public class StringCLI {
     static final String MOVE_AFTER_THIRD = "Do you want to move after the third effect?:";
 
     //generic
-    static final String SPACE = " ";
+    public static final String SPACE = " ";
     static final String MULTIPLE_SPACE = "   ";
     static final String COLON = ":";
-    static final String NEW_LINE = "\n";
+    public static final String NEW_LINE = "\n";
     static final String OR = "or";
 }
