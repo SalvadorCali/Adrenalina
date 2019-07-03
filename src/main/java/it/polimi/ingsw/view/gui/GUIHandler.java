@@ -279,7 +279,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     private static final double GRID_WIDTH = 25;
     private static final double GRID_HEIGHT = 25;
     private static final int MAX_WEAPONS = 3;
-    private static final double STANDARD_HEIGHT = 50;
+    private static final double STANDARD_HEIGHT = 40;
 
     private GameController gameController;
     private String currentPlayer;
@@ -1019,8 +1019,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
             if(killShot.get(i).getFirstColor().equals(TokenColor.SKULL)) {
                 addImgOnKillshot(imageSkull, i, 0);
 
-            } else if(!killShot.get(i).getFirstColor().equals(TokenColor.NONE)){
-
+            } else if(!killShot.get(i).getFirstColor().equals(TokenColor.SKULL)){
                 Image image = new Image("damageTears/" + Converter.fromTokenColorToString(killShot.get(i).getFirstColor()) + ".png");
                 removeSkullImgOnKillshot(i, 0);
                 addImgOnKillshot(image, i, 0);
@@ -1067,12 +1066,23 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                     e.printStackTrace();
                 }
                 break;
+            case END_GAME:
+                try {
+                    notifyEndGame((Map<TokenColor, Integer>) object);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             case RECONNECTION:
                 notifyReconnection(outcome, (String) object);
                 break;
             default:
                 break;
         }
+    }
+
+    private void notifyEndGame(Map<TokenColor, Integer> object) throws IOException {
+        disableButtons();
+        notifyScore(object);
     }
 
     private void notifyScore(Map<TokenColor, Integer> object) throws IOException {
@@ -1240,6 +1250,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
             playerController = Data.getInstance().getPlayerController();
 
             Platform.runLater(() -> {
+                guiHandler.removeSkulls();
                 guiHandler.setSkulls();
                 guiHandler.setLabelTurn();
                 guiHandler.removeImg();
@@ -1257,6 +1268,12 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                 e.printStackTrace();
             }
         }
+    }
+
+    private void removeSkulls() {
+        Platform.runLater(()->{
+            gridSkulls.getChildren().clear();
+        });
     }
 
     @FXML

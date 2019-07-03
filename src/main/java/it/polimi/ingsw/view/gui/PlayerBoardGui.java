@@ -274,6 +274,7 @@ public class PlayerBoardGui extends Application {
         } else {
             playerController = Data.getInstance().getPlayerController();
             firstPlayerBoard.setImage(new Image("playerBoardFF/" + Converter.fromTokenColorToString(playerController.getPlayer().getColor()) + ".jpg"));
+            resetSkulls(firstDeathCounterGrid);
         }
 
         List<Player> otherPlayers = playerController.getOtherPlayers();
@@ -289,6 +290,7 @@ public class PlayerBoardGui extends Application {
 
                     secondPlayerBoard.setImage(new Image("playerBoardFF/" + Converter.fromTokenColorToString(otherPlayers.get(0).getColor()) + ".jpg"));
                     secondPlayerBoard.setVisible(true);
+                    resetSkulls(secondDeathCounterGrid);
                 });
             }
         }
@@ -304,6 +306,7 @@ public class PlayerBoardGui extends Application {
 
                     thirdPlayerBoard.setImage(new Image("playerBoardFF/" + Converter.fromTokenColorToString(otherPlayers.get(1).getColor()) + ".jpg"));
                     thirdPlayerBoard.setVisible(true);
+                    resetSkulls(thirdDeathCounterGrid);
                 });
             }
         }
@@ -319,6 +322,7 @@ public class PlayerBoardGui extends Application {
 
                     fourthPlayerBoard.setImage(new Image("playerBoardFF/" + Converter.fromTokenColorToString(otherPlayers.get(2).getColor()) + ".jpg"));
                     fourthPlayerBoard.setVisible(true);
+                    resetSkulls(fourthDeathCounterGrid);
                 });
             }
 
@@ -336,6 +340,7 @@ public class PlayerBoardGui extends Application {
 
                     fifthPlayerBoard.setImage(new Image("playerBoardFF/" + Converter.fromTokenColorToString(otherPlayers.get(3).getColor()) + ".jpg"));
                     fifthPlayerBoard.setVisible(true);
+                    resetSkulls(fifthDeathCounterGrid);
                 });
             }
         }
@@ -374,6 +379,12 @@ public class PlayerBoardGui extends Application {
             fifthPlayerBoard.setVisible(true);
         });
     }*/
+    }
+
+    private void resetSkulls(GridPane gridPane) {
+        Platform.runLater(() ->{
+            gridPane.getChildren().clear();
+        });
     }
 
 
