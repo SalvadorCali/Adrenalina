@@ -3407,10 +3407,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
             default:
                 break;
         }
-
-        guiHandler = Data.getInstance().getGuiHandler();
-        handleCloseShowData();
-        handleCloseDataPowerUp();
+        
     }
 
     private void handleCloseDataPowerUp() {
