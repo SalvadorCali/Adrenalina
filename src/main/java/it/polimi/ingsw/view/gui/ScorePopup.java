@@ -4,7 +4,6 @@ import it.polimi.ingsw.model.enums.TokenColor;
 import it.polimi.ingsw.util.Converter;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 
 import java.util.ArrayList;
@@ -41,8 +40,6 @@ public class ScorePopup {
 
                 firstPlayerScoreNum.setText(String.valueOf(score.get(colors.get(0))));
                 secondPlayerScoreNum.setText(String.valueOf(score.get(colors.get(1))));
-                //firstPlayerScoreNum.setText(String.valueOf((score.keySet().toArray()[0])));
-                //secondPlayerScoreNum.setText(String.valueOf((score.keySet().toArray()[1])));
                 firstScoreLabel.setText(Converter.fromTokenColorToString(colors.get(0)));
                 secondScoreLabel.setText(Converter.fromTokenColorToString(colors.get(1)));
             }
