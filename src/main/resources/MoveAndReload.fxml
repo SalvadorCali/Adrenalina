@@ -5,10 +5,14 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="234.0" prefWidth="255.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.gui.GUIHandler">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="234.0" prefWidth="255.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.gui.GUIHandler">
    <children>
-      <Label layoutX="109.0" layoutY="6.0" text="Move:" textFill="WHITE" />
+      <Label layoutX="100.0" layoutY="2.0" text="Move:" textFill="WHITE">
+         <font>
+            <Font name="Alien League Regular" size="24.0" />
+         </font></Label>
       <ImageView fx:id="upArrowMoveReload" fitHeight="39.0" fitWidth="45.0" layoutX="104.0" layoutY="40.0" onMouseClicked="#upMoveRel">
          <image>
             <Image url="@boardElem/arrow.png" />
@@ -29,7 +33,10 @@
             <Image url="@boardElem/arrow.png" />
          </image>
       </ImageView>
-      <Button fx:id="enterMoveReload" layoutX="94.0" layoutY="99.0" mnemonicParsing="false" onMouseClicked="#confirmMoveRel" prefHeight="27.0" prefWidth="69.0" text="Confirm" />
+      <Button fx:id="enterMoveReload" layoutX="94.0" layoutY="99.0" mnemonicParsing="false" onMouseClicked="#confirmMoveRel" prefHeight="27.0" prefWidth="69.0" text="Confirm">
+         <font>
+            <Font name="Alien League Regular" size="14.0" />
+         </font></Button>
       <Label fx:id="labelErrorMoveReload" layoutX="65.0" layoutY="213.0" text="Error: Insert Movement!" textFill="WHITE" visible="false" />
       <Label fx:id="labelShowMoveRel" layoutX="7.0" layoutY="195.0" prefHeight="17.0" prefWidth="243.0" text=" " textFill="WHITE" />
    </children>

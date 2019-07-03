@@ -8,11 +8,11 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="474.0" prefWidth="600.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.gui.GUIHandler">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="474.0" prefWidth="600.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.gui.GUIHandler">
    <children>
-      <Label layoutX="209.0" layoutY="14.0" text="Click one BoardType" textFill="WHITE">
+      <Label layoutX="191.0" layoutY="14.0" text="Click one BoardType" textFill="WHITE">
          <font>
-            <Font size="22.0" />
+            <Font name="Alien League Regular" size="26.0" />
          </font>
       </Label>
       <ImageView fx:id="firstBoard" fitHeight="112.0" fitWidth="149.0" layoutX="82.0" layoutY="78.0" onMouseClicked="#chooseBoard0" pickOnBounds="true" preserveRatio="true">

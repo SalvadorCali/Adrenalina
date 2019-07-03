@@ -17,14 +17,14 @@
             <Image url="@playerBoard/blue.jpg" />
          </image>
       </ImageView>
-      <Label layoutX="496.0" layoutY="14.0" text="Your PlayerBoard" textFill="WHITE">
+      <Label layoutX="476.0" layoutY="14.0" text="Your PlayerBoard" textFill="WHITE">
          <font>
-            <Font size="27.0" />
+            <Font name="Alien League Regular" size="36.0" />
          </font>
       </Label>
       <Label layoutX="527.0" layoutY="337.0" text="other boards" textFill="WHITE">
          <font>
-            <Font size="27.0" />
+            <Font name="Alien League Regular" size="32.0" />
          </font>
       </Label>
       <ImageView fx:id="secondPlayerBoard" fitHeight="115.0" fitWidth="679.0" layoutX="57.0" layoutY="420.0" preserveRatio="true" visible="false">

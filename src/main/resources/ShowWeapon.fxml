@@ -7,11 +7,11 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="554.0" prefWidth="522.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.gui.GUIHandler">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="554.0" prefWidth="522.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.gui.GUIHandler">
    <children>
-      <Label layoutX="93.0" layoutY="14.0" text="Your Weapons and PowerUps" textFill="WHITE">
+      <Label layoutX="78.0" layoutY="14.0" text="Your Weapons and PowerUps" textFill="WHITE">
          <font>
-            <Font size="24.0" />
+            <Font name="Alien League Regular" size="29.0" />
          </font>
       </Label>
       <ImageView fx:id="firstWeaponHad" fitHeight="200.0" fitWidth="118.0" layoutX="24.0" layoutY="91.0" visible="false">

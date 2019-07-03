@@ -6,11 +6,11 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="208.0" prefWidth="338.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.gui.GUIHandler">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="208.0" prefWidth="338.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.gui.GUIHandler">
    <children>
-      <Label layoutX="60.0" layoutY="14.0" text="Do you want to reload weapons?">
+      <Label layoutX="47.0" layoutY="14.0" text="Do you want to reload weapons?">
          <font>
-            <Font size="15.0" />
+            <Font name="Alien League Regular" size="18.0" />
          </font>
       </Label>
       <TextField fx:id="txtWeaponReload1" layoutX="218.0" layoutY="55.0" prefHeight="25.0" prefWidth="60.0" />

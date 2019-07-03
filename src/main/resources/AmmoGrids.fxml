@@ -7,9 +7,9 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="266.0" prefWidth="332.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.gui.AmmoGUI">
    <children>
-      <Label layoutX="121.0" layoutY="14.0" text="AmmoBox" textFill="WHITE">
+      <Label layoutX="115.0" layoutY="14.0" text="AmmoBox" textFill="WHITE">
          <font>
-            <Font size="20.0" />
+            <Font name="Alien League Regular" size="27.0" />
          </font>
       </Label>
       <HBox fx:id="redHBox" layoutX="104.0" layoutY="56.0" prefHeight="46.0" prefWidth="200.0" />
@@ -17,17 +17,17 @@
       <HBox fx:id="yellowHBox" layoutX="104.0" layoutY="193.0" prefHeight="46.0" prefWidth="200.0" />
       <Label layoutX="21.0" layoutY="66.0" text="Red" textFill="WHITE">
          <font>
-            <Font size="20.0" />
+            <Font name="Alien League Regular" size="23.0" />
          </font>
       </Label>
       <Label layoutX="18.0" layoutY="133.0" text="Blue" textFill="WHITE">
          <font>
-            <Font size="20.0" />
+            <Font name="Alien League Regular" size="23.0" />
          </font>
       </Label>
       <Label layoutX="8.0" layoutY="203.0" text="Yellow" textFill="WHITE">
          <font>
-            <Font size="20.0" />
+            <Font name="Alien League Regular" size="23.0" />
          </font>
       </Label>
    </children>
