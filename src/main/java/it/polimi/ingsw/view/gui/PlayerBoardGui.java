@@ -30,6 +30,11 @@ public class PlayerBoardGui extends Application {
     private static final double SMALL_HEIGHT = 20;
 
     /**
+     * time used for updating the playerBoardGUI thread
+     */
+    private static final int TIME_CHECK = 10000;
+
+    /**
      * these imageView contain image of playerboard
      */
     @FXML private ImageView firstPlayerBoard;
@@ -38,25 +43,48 @@ public class PlayerBoardGui extends Application {
     @FXML private ImageView fourthPlayerBoard;
     @FXML private ImageView fifthPlayerBoard;
 
+    /**
+     * these gridPane contain players' damage
+     */
     @FXML private GridPane firstDamageGrid;
     @FXML private GridPane secondDamageGrid;
     @FXML private GridPane thirdDamageGrid;
     @FXML private GridPane fourthDamageGrid;
     @FXML private GridPane fifthDamageGrid;
+
+    /**
+     * these gridPane contain players' death counter
+     */
     @FXML private GridPane firstDeathCounterGrid;
     @FXML private GridPane secondDeathCounterGrid;
     @FXML private GridPane thirdDeathCounterGrid;
     @FXML private GridPane fourthDeathCounterGrid;
     @FXML private GridPane fifthDeathCounterGrid;
+
+    /**
+     * these gridPane contain players' marks
+     */
     @FXML private GridPane marksGrid;
     @FXML private GridPane secondPlayerMarks;
     @FXML private GridPane thirdPlayerMarks;
     @FXML private GridPane fourthPlayerMarks;
     @FXML private GridPane fifthPlayerMarks;
 
+    /**
+     * playerController that contains datas about the player.
+     */
     private PlayerController playerController;
+
+    /**
+     * count total player - 1
+     */
     private int numOtherPlayers;
 
+    /**
+     * standard start method that loads playerboard.fxml
+     * @param stage
+     * @throws Exception
+     */
     @Override
     public void start(Stage stage) throws Exception {
 
@@ -68,6 +96,9 @@ public class PlayerBoardGui extends Application {
         stage.show();
     }
 
+    /**
+     * this method sets marks on the first playerBoard
+     */
     public void setMarksGridFirstPlayer() {
 
         playerController = Data.getInstance().getPlayerController();
@@ -81,6 +112,9 @@ public class PlayerBoardGui extends Application {
         }
     }
 
+    /**
+     * this method sets number of deaths on every player except for the first
+     */
     public void setOtherPlayersDeath(){
 
         playerController = Data.getInstance().getPlayerController();
@@ -119,6 +153,9 @@ public class PlayerBoardGui extends Application {
         }
     }
 
+    /**
+     * this method sets number of deaths for the first player
+     */
     public void setFirstPlayerDeathCounter(){
 
         playerController = Data.getInstance().getPlayerController();
@@ -130,6 +167,9 @@ public class PlayerBoardGui extends Application {
         }
     }
 
+    /**
+     * this method sets marks on every player except for the first
+     */
     public void setMarksGridOtherPlayers(){
         playerController = Data.getInstance().getPlayerController();
         List<Player> otherPlayers = playerController.getOtherPlayers();
@@ -168,6 +208,13 @@ public class PlayerBoardGui extends Application {
         }
     }
 
+    /**
+     * this method takes an image and add that on the first player's marksGrid
+     * @param image
+     * @param marksGrid
+     * @param i
+     * @param row
+     */
     private void addMarkGrid(Image image, GridPane marksGrid, int i, int row) {
         ImageView imv = new ImageView(image);
         imv.setFitWidth(STANDARD_HEIGHT);
@@ -177,6 +224,13 @@ public class PlayerBoardGui extends Application {
         });
     }
 
+    /**
+     * this method takes an image and add that on every player's marksGrid
+     * @param marksGrid
+     * @param image
+     * @param i
+     * @param row
+     */
     private void addMarkGrid2(GridPane marksGrid, Image image, int i, int row) {
         ImageView imv = new ImageView(image);
         imv.setFitWidth(SMALL_HEIGHT);
@@ -186,6 +240,9 @@ public class PlayerBoardGui extends Application {
         });
     }
 
+    /**
+     * set damage on the first Grid
+     */
     public void setFirstDamageGrid(){
 
         playerController = Data.getInstance().getPlayerController();
@@ -199,6 +256,13 @@ public class PlayerBoardGui extends Application {
         }
     }
 
+    /**
+     * add image to the first player's damageGrid
+     * @param damageGrid
+     * @param image
+     * @param i
+     * @param row
+     */
     private void addDamageOnGrid(GridPane damageGrid, Image image, int i, int row) {
         ImageView imv = new ImageView(image);
         imv.setFitWidth(STANDARD_HEIGHT);
@@ -208,6 +272,13 @@ public class PlayerBoardGui extends Application {
         });
     }
 
+    /**
+     * add image to every player's damageGrid except for the first one
+     * @param damageGrid
+     * @param image
+     * @param i
+     * @param row
+     */
     private void addDamageOnGrid2(GridPane damageGrid, Image image, int i, int row) {
         ImageView imv = new ImageView(image);
         imv.setFitWidth(SMALL_HEIGHT);
@@ -217,7 +288,9 @@ public class PlayerBoardGui extends Application {
         });
     }
 
-
+    /**
+     * set damage for every players except for the first one
+     */
     public void setOthersDamage(){
 
         playerController = Data.getInstance().getPlayerController();
@@ -264,7 +337,9 @@ public class PlayerBoardGui extends Application {
         }
     }
 
-
+    /**
+     * set all the playerBoard's images
+     */
     public void setPlayerBoardImage() {
         playerController = Data.getInstance().getPlayerController();
 
@@ -346,50 +421,21 @@ public class PlayerBoardGui extends Application {
                 });
             }
         }
-
-
-/*
-    List<Player> otherPlayers = playerController.getOtherPlayers();
-            if (otherPlayers.size() == 1) {
-        Platform.runLater(() -> {
-
-            secondPlayerBoard.setImage(new Image("playerBoardFF/" + Converter.fromTokenColorToString(otherPlayers.get(0).getColor()) + ".jpg"));
-            secondPlayerBoard.setVisible(true);
-        });
-
-    } else if (otherPlayers.size() == 2) {
-
-        Platform.runLater(() -> {
-
-            thirdPlayerBoard.setImage(new Image("playerBoardFF/" + Converter.fromTokenColorToString(otherPlayers.get(1).getColor()) + ".jpg"));
-            thirdPlayerBoard.setVisible(true);
-        });
-
-    } else if (otherPlayers.size() == 3) {
-
-        Platform.runLater(() -> {
-
-            fourthPlayerBoard.setImage(new Image("playerBoardFF/" + Converter.fromTokenColorToString(otherPlayers.get(2).getColor()) + ".jpg"));
-            fourthPlayerBoard.setVisible(true);
-        });
-
-    } else {
-
-        Platform.runLater(() -> {
-
-            fifthPlayerBoard.setImage(new Image("playerBoardFF/" + Converter.fromTokenColorToString(otherPlayers.get(3).getColor()) + ".jpg"));
-            fifthPlayerBoard.setVisible(true);
-        });
-    }*/
     }
 
+    /**
+     * reset every gridPane's elements
+     * @param gridPane
+     */
     private void resetSkulls(GridPane gridPane) {
         Platform.runLater(() ->{
             gridPane.getChildren().clear();
         });
     }
 
-
+    /**
+     * this method is used to start the playerBoardGUI thread
+     */
     public void setAll() {
 
         Thread thread2 = new Thread(this::checkPlayerBoards);
@@ -397,7 +443,9 @@ public class PlayerBoardGui extends Application {
         thread2.start();
     }
 
-
+    /**
+     * this method check every playerBoard elements periodically, it sleeps every 10 seconds
+     */
     public void checkPlayerBoards(){
         while(true) {
             Platform.runLater(() -> {
@@ -412,7 +460,7 @@ public class PlayerBoardGui extends Application {
 
             try {
 
-                Thread.sleep(10000);
+                Thread.sleep(TIME_CHECK);
 
             } catch (InterruptedException e) {
                 e.printStackTrace();
