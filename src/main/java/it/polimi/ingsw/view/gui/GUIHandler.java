@@ -3407,7 +3407,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
             default:
                 break;
         }
-        
+
     }
 
     private void handleCloseDataPowerUp() {
@@ -3431,6 +3431,13 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         stage.setScene(new Scene(root, 469, 379));
         stage.setTitle("Data PowerUp");
         stage.show();
+
+
+        PauseTransition delay = new PauseTransition(Duration.millis(10));
+        delay.setOnFinished( event -> {
+            guiHandler.handleCloseDataPowerUp();
+        } );
+        delay.play();
     }
 
     private void setLabelPowerup() {
