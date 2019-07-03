@@ -33,7 +33,10 @@ public class ScorePopup {
     @FXML private Label fourthPlayerScoreNum;
     @FXML private Label fifthPlayerScoreNum;
 
-
+    /**
+     * main method that add the score for each player
+     * @param score
+     */
     public void setScore(Map<TokenColor, Integer> score) {
 
         List<TokenColor> colors = new ArrayList<>();
