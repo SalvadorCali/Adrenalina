@@ -179,6 +179,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     @FXML private TextField txtWeaponReload2;
     @FXML private TextField txtWeaponReload3;
     @FXML private Button buttonReload;
+    @FXML private GridPane gridKillshotTrack2;
 
     @FXML private ImageView firstPowerUpD;
     @FXML private ImageView secondPowerUpD;
@@ -234,6 +235,9 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     @FXML private Button shootButton1;
     @FXML private Button shootButton2;
     @FXML private Button shootButton3;
+    @FXML private Label labelLoaded1;
+    @FXML private Label labelLoaded2;
+    @FXML private Label labelLoaded3;
 
     @FXML private TextField modeTxtField;
     @FXML private TextField firstVictimTxtField;
@@ -1024,8 +1028,24 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                 removeSkullImgOnKillshot(i, 0);
                 addImgOnKillshot(image, i, 0);
             }
-        }
 
+            if(killShot.get(i).getSecondColor().equals(TokenColor.SKULL)){
+                addImgOnKillshot2(imageSkull, i, 0);
+            } else if(!killShot.get(i).getSecondColor().equals(TokenColor.SKULL) && !killShot.get(i).getSecondColor().equals(TokenColor.NONE)){
+                Image image = new Image("damageTears/" + Converter.fromTokenColorToString(killShot.get(i).getSecondColor()) + ".png");
+                addImgOnKillshot2(image, i, 0);
+            }
+        }
+    }
+
+    private void addImgOnKillshot2(Image image, int col, int row) {
+        ImageView imv = new ImageView(image);
+        imv.setFitWidth(STANDARD_HEIGHT);
+        imv.setFitHeight(STANDARD_HEIGHT);
+
+        Platform.runLater(() ->{
+            gridKillshotTrack2.add(imv, col, row);
+        });
     }
 
     private void removeSkullImgOnKillshot(int col, int row) {
@@ -3072,6 +3092,14 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         }
     }
 
+    private void setLoadedLabelInvisible() {
+        Platform.runLater(() ->{
+            labelLoaded1.setVisible(false);
+            labelLoaded2.setVisible(false);
+            labelLoaded3.setVisible(false);
+        });
+    }
+
     @FXML
     private void setPowerupHad() {
         playerController = Data.getInstance().getPlayerController();
@@ -3117,7 +3145,18 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
                 this.firstWeaponHad.setImage(new Image("weapon/" + Converter.weaponNameInvert(weaponsHad.get(0).getName()) + ".png"));
                 this.firstWeaponHad.setVisible(true);
+
             });
+
+            if(weaponsHad.get(0).isLoaded()){
+                Platform.runLater(() ->{
+                    setLabelWeaponLoaded1("Loaded");
+                });
+            } else {
+                Platform.runLater(() ->{
+                    setLabelWeaponLoaded1("Not Loaded");
+                });
+            }
 
         }else if(weaponsHad.size() == 2){
             Platform.runLater(() -> {
@@ -3126,6 +3165,21 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                 this.secondWeaponHad.setImage(new Image("weapon/" + Converter.weaponNameInvert(weaponsHad.get(1).getName()) + ".png"));
                 this.firstWeaponHad.setVisible(true);
                 this.secondWeaponHad.setVisible(true);
+            });
+
+            Platform.runLater(() -> {
+
+                if (weaponsHad.get(0).isLoaded()) {
+                    setLabelWeaponLoaded1("Loaded");
+                } else {
+                    setLabelWeaponLoaded1("Not Loaded");
+                }
+                if (weaponsHad.get(1).isLoaded()) {
+                    labelLoaded2.setVisible(true);
+                    setLabelWeaponLoaded2("Loaded");
+                } else {
+                    setLabelWeaponLoaded2("Not Loaded");
+                }
             });
 
         }else if(weaponsHad.size() == 3){
@@ -3138,7 +3192,46 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                 this.secondWeaponHad.setVisible(true);
                 this.thirdWeaponHad.setVisible(true);
             });
+
+            Platform.runLater(() -> {
+
+                if (weaponsHad.get(0).isLoaded()) {
+                    setLabelWeaponLoaded1("Loaded");
+                } else {
+                    setLabelWeaponLoaded1("Not Loaded");
+                }
+                if (weaponsHad.get(1).isLoaded()) {
+                    labelLoaded2.setVisible(true);
+                    setLabelWeaponLoaded2("Loaded");
+                } else {
+                    setLabelWeaponLoaded2("Not Loaded");
+                }
+                if (weaponsHad.get(2).isLoaded()) {
+                    labelLoaded3.setVisible(true);
+                    setLabelWeaponLoaded3("Loaded");
+                } else {
+                    setLabelWeaponLoaded3("Not Loaded");
+                }
+            });
         }
+    }
+
+    private void setLabelWeaponLoaded1(String string) {
+        Platform.runLater(() ->{
+            labelLoaded1.setText(string);
+        });
+    }
+
+    private void setLabelWeaponLoaded2(String string) {
+        Platform.runLater(() ->{
+            labelLoaded2.setText(string);
+        });
+    }
+
+    private void setLabelWeaponLoaded3(String string) {
+        Platform.runLater(() ->{
+            labelLoaded3.setText(string);
+        });
     }
 
 
