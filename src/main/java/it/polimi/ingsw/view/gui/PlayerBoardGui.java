@@ -272,9 +272,11 @@ public class PlayerBoardGui extends Application {
             firstPlayerBoard.setImage(new Image("playerBoard/" + Converter.fromTokenColorToString(playerController.getPlayer().getColor()) + ".jpg"));
 
         } else {
-            playerController = Data.getInstance().getPlayerController();
-            firstPlayerBoard.setImage(new Image("playerBoardFF/" + Converter.fromTokenColorToString(playerController.getPlayer().getColor()) + ".jpg"));
-            resetSkulls(firstDeathCounterGrid);
+            Platform.runLater(() ->{
+                playerController = Data.getInstance().getPlayerController();
+                firstPlayerBoard.setImage(new Image("playerBoardFF/" + Converter.fromTokenColorToString(playerController.getPlayer().getColor()) + ".jpg"));
+                resetSkulls(firstDeathCounterGrid);
+            });
         }
 
         List<Player> otherPlayers = playerController.getOtherPlayers();
