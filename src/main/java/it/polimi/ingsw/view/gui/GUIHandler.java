@@ -2061,8 +2061,12 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
     private void addPlayer(GridPane grid, Image image, Integer index, Integer row) {
         
-        if(index == 2){
+        if(index == 3){
             index = 0;
+            row++;
+        }
+        if(index > 3){
+            index = 1;
             row++;
         }
 
@@ -3361,6 +3365,9 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     }
 
     public void usePowerup(MouseEvent mouseEvent) throws IOException {
+        guiHandler = Data.getInstance().getGuiHandler();
+        guiHandler.handleCloseDataPowerUp();
+
         client = Data.getInstance().getClient();
         playerController = Data.getInstance().getPlayerController();
 
@@ -3431,13 +3438,6 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         stage.setScene(new Scene(root, 469, 379));
         stage.setTitle("Data PowerUp");
         stage.show();
-
-
-        PauseTransition delay = new PauseTransition(Duration.millis(10));
-        delay.setOnFinished( event -> {
-            guiHandler.handleCloseDataPowerUp();
-        } );
-        delay.play();
     }
 
     private void setLabelPowerup() {
