@@ -9,15 +9,28 @@ import javafx.scene.image.ImageView;
 
 import java.util.List;
 
+/**
+ * this class shows the PowerUp's choose
+ */
 public class ChoosePowerup {
 
+    /**
+     * first element shows powerup's image
+     */
     @FXML
     private ImageView powerupImg1;
 
+    /**
+     * second element shows powerup's image
+     */
     @FXML
     private ImageView powerupImg2;
 
-
+    /**
+     * method that launch choose powerup and set right powerup img
+     * @param powerup
+     * @throws Exception
+     */
     public void launchChoosePowerup(List<Card> powerup) throws Exception {
 
         Platform.runLater(() -> {

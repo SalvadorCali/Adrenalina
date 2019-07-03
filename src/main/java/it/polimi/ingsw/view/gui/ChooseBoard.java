@@ -6,11 +6,21 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-
+/**
+ * class that show the Board Choose
+ */
 public class ChooseBoard extends Application {
 
+    /**
+     * the ChooseBoard's Stage
+     */
     private Stage primaryStage;
 
+    /**
+     * standard start method that load chooseboard.fxml
+     * @param primaryStage main stage
+     * @throws Exception
+     */
     @Override
     public void start(Stage primaryStage) throws Exception {
 

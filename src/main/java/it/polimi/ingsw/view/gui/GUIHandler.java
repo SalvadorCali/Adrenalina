@@ -3365,9 +3365,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     }
 
     public void usePowerup(MouseEvent mouseEvent) throws IOException {
-        guiHandler = Data.getInstance().getGuiHandler();
-        guiHandler.handleCloseDataPowerUp();
-
+        
         client = Data.getInstance().getClient();
         playerController = Data.getInstance().getPlayerController();
 

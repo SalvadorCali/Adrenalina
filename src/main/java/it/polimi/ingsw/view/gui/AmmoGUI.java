@@ -10,19 +10,53 @@ import javafx.scene.layout.HBox;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * this class check the ammos of a player
+ */
 public class AmmoGUI implements Initializable {
 
+    /**
+     * visible blueAmmo box
+     */
     @FXML private HBox blueHBox;
+    /**
+     * visible redAmmo box
+     */
     @FXML private HBox redHBox;
+    /**
+     * visible yellowAmmo box
+     */
     @FXML private HBox yellowHBox;
 
-
+    /**
+     * the PlayerController that contains datas about the player.
+     */
     private PlayerController playerController;
+    /**
+     * ammo's height
+     */
     private static final Integer HEIGHT_R = 40;
+    /**
+     * ammo's width
+     */
     private static final Integer WIDTH_R = 40;
+    /**
+     * boolean used for updating thread
+     */
     private boolean connected = true;
+    /**
+     * spacing between every ammo
+     */
     private static final Double SPACING = 10.0;
 
+    /**
+     * time occurs to update ammo
+     */
+    private static final Integer TIME_CHECK = 10000;
+
+    /**
+     * method that runs ammo's thread
+     */
     public void setAmmo() {
 
         Thread thread2 = new Thread(this::checkAmmo);
@@ -30,6 +64,9 @@ public class AmmoGUI implements Initializable {
         thread2.start();
     }
 
+    /**
+     * method that updates ammoBox every 10 seconds
+     */
     public void checkAmmo(){
         while(connected) {
             Platform.runLater(() -> {
@@ -39,7 +76,7 @@ public class AmmoGUI implements Initializable {
 
             try {
 
-                Thread.sleep(10000);
+                Thread.sleep(TIME_CHECK);
 
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -47,7 +84,9 @@ public class AmmoGUI implements Initializable {
         }
     }
 
-
+    /**
+     * method that update every ammo's box
+     */
     public void setAmmoBoxGrid(){
 
         playerController = Data.getInstance().getPlayerController();
@@ -81,6 +120,11 @@ public class AmmoGUI implements Initializable {
         }
     }
 
+    /**
+     * method that make easy to add ammo to HBox
+     * @param box Hbox can be blue, red, yellow. Can contains ammo
+     * @param color represents ammo's color
+     */
     public void setBox(HBox box, String color){
         Image image = new Image("singleAmmo/" + color + ".png");
         ImageView imv = new ImageView(image);
@@ -92,6 +136,9 @@ public class AmmoGUI implements Initializable {
         });
     }
 
+    /**
+     * method that reset all the ammoBox
+     */
     public void resetAmmos(){
         Platform.runLater(() ->{
             redHBox.getChildren().clear();
@@ -100,10 +147,19 @@ public class AmmoGUI implements Initializable {
         });
     }
 
+    /**
+     * method that set spacing between every ammo
+     * @param box receive the HBox that need the spacing
+     */
     public void setSpacing(HBox box){
         box.setSpacing(SPACING);
     }
 
+    /**
+     * standard initialize method
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         setSpacing(blueHBox);
