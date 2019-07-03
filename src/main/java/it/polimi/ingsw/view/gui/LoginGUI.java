@@ -8,11 +8,21 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 
-
+/**
+ * class that launch login, extends application from javafx
+ */
 public class LoginGUI extends Application {
 
+    /**
+     * primary stage's login
+     */
     Stage primaryStage;
 
+    /**
+     * standard start method that load logingui.fxml
+     * @param primaryStage
+     * @throws Exception
+     */
     public synchronized void start(Stage primaryStage) throws Exception {
 
         Parent adrenalineLog = FXMLLoader.load(getClass().getClassLoader().getResource("LoginGUI.fxml"));
@@ -23,13 +33,6 @@ public class LoginGUI extends Application {
         this.primaryStage.show();
 
     }
-
-
-
-    public void closeLogin() {
-        this.primaryStage.close();
-    }
-
-
+    
 }
 

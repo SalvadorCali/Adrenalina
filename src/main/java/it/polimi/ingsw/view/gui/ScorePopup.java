@@ -10,13 +10,23 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * this class shows the Score of the game and it appears every time one player dies or at the end of the game
+ */
 public class ScorePopup {
 
+    /**
+     * these label contains player's name
+     */
     @FXML private Label firstScoreLabel;
     @FXML private Label secondScoreLabel;
     @FXML private Label thirdScoreLabel;
     @FXML private Label fourthScoreLabel;
     @FXML private Label fifthScoreLabel;
+
+    /**
+     * these label contains player's score number
+     */
     @FXML private Label firstPlayerScoreNum;
     @FXML private Label secondPlayerScoreNum;
     @FXML private Label thirdPlayerScoreNum;

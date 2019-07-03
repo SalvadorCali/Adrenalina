@@ -12,12 +12,21 @@ import javafx.stage.Stage;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * this class shows a popup that display the disconnected player's name
+ */
 public class Popup extends Application implements Initializable {
 
+    /**
+     * this label contains the disconnected player's name
+     */
     @FXML Label labelPlayerDisconnected;
 
-    String object;
-
+    /**
+     * standard start method that load popup.fxml
+     * @param stage
+     * @throws Exception
+     */
     @Override
     public void start(Stage stage) throws Exception {
 
@@ -29,13 +38,21 @@ public class Popup extends Application implements Initializable {
         stage.show();
     }
 
-
+    /**
+     * standard initialize method
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
     }
 
-
+    /**
+     * method that setText
+     * @param object name's player
+     * @throws Exception
+     */
     public void showPopup1(String object) throws Exception {
 
         labelPlayerDisconnected.setText(object);
