@@ -1,9 +1,7 @@
 package it.polimi.ingsw.view.cli;
 
-//import it.polimi.ingsw.controller.GameController;
 import it.polimi.ingsw.model.enums.Color;
 import it.polimi.ingsw.model.enums.TokenColor;
-//import it.polimi.ingsw.model.gamecomponents.Game;
 import it.polimi.ingsw.model.gamecomponents.Ammo;
 import it.polimi.ingsw.model.gamecomponents.Player;
 import it.polimi.ingsw.model.gamecomponents.Token;

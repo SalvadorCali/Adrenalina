@@ -1,9 +1,7 @@
 package it.polimi.ingsw.view.gui;
 
 import it.polimi.ingsw.controller.PlayerController;
-import it.polimi.ingsw.model.enums.Color;
 import it.polimi.ingsw.model.enums.TokenColor;
-import it.polimi.ingsw.model.gamecomponents.Ammo;
 import it.polimi.ingsw.model.gamecomponents.Player;
 import it.polimi.ingsw.model.gamecomponents.Token;
 import it.polimi.ingsw.util.Converter;
@@ -11,18 +9,14 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
-import java.net.URL;
 import java.util.List;
-import java.util.ResourceBundle;
 
 public class PlayerBoardGui extends Application {
 

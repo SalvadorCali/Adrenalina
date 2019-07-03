@@ -17,7 +17,6 @@ import it.polimi.ingsw.network.enums.Outcome;
 import it.polimi.ingsw.util.Config;
 import it.polimi.ingsw.util.Converter;
 import it.polimi.ingsw.util.Printer;
-import it.polimi.ingsw.view.cli.MapCLI;
 import it.polimi.ingsw.view.ViewInterface;
 import javafx.animation.PauseTransition;
 import javafx.application.Application;

@@ -2,7 +2,6 @@ package it.polimi.ingsw.view.cli;
 
 import it.polimi.ingsw.model.enums.TokenColor;
 import it.polimi.ingsw.model.gamecomponents.Token;
-import it.polimi.ingsw.util.Converter;
 import it.polimi.ingsw.util.Printer;
 
 import java.util.List;
