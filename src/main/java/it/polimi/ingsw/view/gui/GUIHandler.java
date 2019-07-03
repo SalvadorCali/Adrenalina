@@ -3792,11 +3792,11 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         for(int i = 0; i < moveRel.length; i++) {
             if(moveRel[1] != null){
                 Platform.runLater(() ->{
-                    labelShowMoveGrab.setText("  " + moveRel[0] + "  " + moveRel[1]);
+                    labelShowMoveRel.setText("  " + moveRel[0] + "  " + moveRel[1]);
                 });
             } else if(moveRel[0] != null){
                 Platform.runLater(() ->{
-                    labelShowMoveGrab.setText("  " + moveRel[0]);
+                    labelShowMoveRel.setText("  " + moveRel[0]);
                 });
             }
         }
