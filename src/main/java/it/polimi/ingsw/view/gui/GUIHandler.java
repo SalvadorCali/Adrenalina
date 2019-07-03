@@ -1801,7 +1801,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
             if (this.weaponReload1.equals("yes") && this.weaponReload2.equals(" ") && this.weaponReload3.equals("yes")) {
                 try {
-                    client.moveAndReload(Converter.fromStringToDirection(this.moveReload[0]), Converter.weaponNameInvert(playerController.getWeapons().get(2).getName()));
+                    client.moveAndReload(Converter.fromStringToDirection(moveRel[0]), Converter.weaponNameInvert(playerController.getWeapons().get(2).getName()));
 
                 } catch (IOException e) {
                     e.printStackTrace();
