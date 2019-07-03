@@ -18,15 +18,26 @@ import javafx.stage.Stage;
 
 import java.util.List;
 
+/**
+ * this class shows all the playerBoard and displays damages, marks
+ */
 public class PlayerBoardGui extends Application {
 
+    /**
+     * these two variable are used for damage and marks dimension
+     */
     private static final double STANDARD_HEIGHT = 40;
     private static final double SMALL_HEIGHT = 20;
+
+    /**
+     * these imageView contain image of playerboard
+     */
     @FXML private ImageView firstPlayerBoard;
     @FXML private ImageView secondPlayerBoard;
     @FXML private ImageView thirdPlayerBoard;
     @FXML private ImageView fourthPlayerBoard;
     @FXML private ImageView fifthPlayerBoard;
+
     @FXML private GridPane firstDamageGrid;
     @FXML private GridPane secondDamageGrid;
     @FXML private GridPane thirdDamageGrid;
