@@ -3294,6 +3294,8 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         if(playerController.getFinalFrenzyActions().equals(FinalFrenzyAction.TWO_ACTIONS) || playerController.getAdrenalineZone().equals(AdrenalineZone.SECOND)) {
             this.moveReload[0] = move;
             Printer.println("2963: " + this.moveReload[0]);
+            //aggiunto
+            Data.getInstance().setMoveRel(moveReload);
 
         } else if(playerController.getFinalFrenzyActions().equals(FinalFrenzyAction.ONE_ACTION)){
             if (this.countMoveRel < MAX_MOVEMENT - 1) {
