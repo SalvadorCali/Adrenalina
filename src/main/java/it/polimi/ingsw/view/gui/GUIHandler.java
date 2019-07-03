@@ -576,14 +576,14 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     private void notifyFinalFrenzy() {
         Platform.runLater(() ->{
             guiHandler = Data.getInstance().getGuiHandler();
-            guiHandler.setLabelStatement("final frenzy");
+            guiHandler.setLabelStatement("Final Frenzy");
         });
     }
 
     private void notifyNotTurn() {
         Platform.runLater(() ->{
             guiHandler = Data.getInstance().getGuiHandler();
-            guiHandler.setLabelStatement("it's not your turn");
+            guiHandler.setLabelStatement("It's not your turn.");
         });
     }
 
@@ -591,7 +591,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     private void notifyEndTurn() {
         Platform.runLater(() ->{
             guiHandler = Data.getInstance().getGuiHandler();
-            guiHandler.setLabelStatement("your turn is ended");
+            guiHandler.setLabelStatement("Your turn is ended.");
             guiHandler.disableButtons();
         });
     }
