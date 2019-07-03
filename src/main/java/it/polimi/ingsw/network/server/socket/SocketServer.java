@@ -395,29 +395,32 @@ public class SocketServer implements Runnable, ServerInterface {
      */
     private void moveAndReloadOneDirection(){
         try {
-            String firstWeapon;
-            String secondWeapon;
-            String thirdWeapon;
+            //String firstWeapon;
+            //String secondWeapon;
+            //String thirdWeapon;
             Direction firstDirection = (Direction) objectInputStream.readObject();
+            Printer.println(firstDirection);
             int weaponsSize = objectInputStream.readInt();
+            Printer.println(weaponsSize);
             switch (weaponsSize){
                 case 0:
                     serverController.moveAndReload(clientName, firstDirection);
                     break;
                 case 1:
-                    firstWeapon = objectInputStream.readUTF();
+                    String firstWeapon = objectInputStream.readUTF();
+                    Printer.println(firstWeapon);
                     serverController.moveAndReload(clientName, firstDirection, firstWeapon);
                     break;
                 case 2:
-                    firstWeapon = objectInputStream.readUTF();
-                    secondWeapon = objectInputStream.readUTF();
-                    serverController.moveAndReload(clientName, firstDirection, firstWeapon, secondWeapon);
+                    String firstWeapon1 = objectInputStream.readUTF();
+                    String secondWeapon = objectInputStream.readUTF();
+                    serverController.moveAndReload(clientName, firstDirection, firstWeapon1, secondWeapon);
                     break;
                 case 3:
-                    firstWeapon = objectInputStream.readUTF();
-                    secondWeapon = objectInputStream.readUTF();
-                    thirdWeapon = objectInputStream.readUTF();
-                    serverController.moveAndReload(clientName, firstDirection, firstWeapon, secondWeapon, thirdWeapon);
+                    String firstWeapon2 = objectInputStream.readUTF();
+                    String secondWeapon2 = objectInputStream.readUTF();
+                    String thirdWeapon = objectInputStream.readUTF();
+                    serverController.moveAndReload(clientName, firstDirection, firstWeapon2, secondWeapon2, thirdWeapon);
                     break;
                 default:
                     break;
