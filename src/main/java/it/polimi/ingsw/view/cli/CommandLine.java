@@ -1059,6 +1059,16 @@ public class CommandLine implements ViewInterface {
     }
 
     /**
+     * Prints the score and that the game is end.
+     * @param scoreList the score of the game.
+     */
+    private void notifyEndGame(Map<TokenColor, Integer> scoreList){
+        Printer.println(StringCLI.SERVER + StringCLI.GAME_END);
+        Printer.println(StringCLI.SERVER + StringCLI.KILLSHOT_SCORE);
+        scoreList.forEach((c,i)->Printer.println(c + StringCLI.COLON + StringCLI.SPACE + i));
+    }
+
+    /**
      * Notify the reload action, showing if a weapon card was reloaded or not.
      * @param outcome the result of the action.
      */
@@ -1239,6 +1249,9 @@ public class CommandLine implements ViewInterface {
                 break;
             case SCORE:
                 notifyScore((Map<TokenColor, Integer>) object);
+                break;
+            case END_GAME:
+                notifyEndGame((Map<TokenColor, Integer>) object);
                 break;
             case RECONNECTION:
                 notifyReconnection(outcome, (String) object);

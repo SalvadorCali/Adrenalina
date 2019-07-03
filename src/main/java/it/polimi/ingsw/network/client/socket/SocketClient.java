@@ -497,7 +497,9 @@ public class SocketClient implements ClientInterface, Runnable, Serializable {
                 outcome = (Outcome) objectInputStream.readObject();
                 gameData = (GameData) objectInputStream.readObject();
                 playerControllerSetterWithCurrentPlayer(gameData);
-                view.notify(message);
+                if(outcome.equals(Outcome.RIGHT)){
+                    view.notify(message);
+                }
                 break;
             case NOT_TURN:
                 view.notify(message);
@@ -575,6 +577,7 @@ public class SocketClient implements ClientInterface, Runnable, Serializable {
                 view.notify(message, outcome);
                 break;
             case SCORE:
+            case END_GAME:
                 outcome = (Outcome) objectInputStream.readObject();
                 gameData = (GameData) objectInputStream.readObject();
                 view.notify(message, outcome, gameData.getScoreList());
