@@ -91,6 +91,47 @@ class GameTest {
     }
 
     /**
+     * Tests the score during the final frenzy.
+     */
+    @Test
+    void scoringFinalFrenzyTest(){
+        Game game = createGame();
+        game.getPlayers().get(1).getPlayerBoard().setFinalFrenzy(true);
+        game.setFinalFrenzy(true);
+        game.scoring();
+        Map<TokenColor, Integer> scoreList = game.getScoreList();
+        assertEquals(14, scoreList.get(TokenColor.BLUE).intValue());
+        assertEquals(16, scoreList.get(TokenColor.YELLOW).intValue());
+        assertEquals(8, scoreList.get(TokenColor.GREY).intValue());
+        assertEquals(0, scoreList.get(TokenColor.PURPLE).intValue());
+    }
+
+    /**
+     * Tests the score after the final frenzy.
+     */
+    @Test
+    void scoringEndGame(){
+        Game game = createGame();
+        game.getPlayers().get(1).getPlayerBoard().setFinalFrenzy(true);
+        game.setFinalFrenzy(true);
+        game.setEndPhase(true);
+        game.scoring();
+        Map<TokenColor, Integer> scoreList = game.getScoreList();
+        assertEquals(13, scoreList.get(TokenColor.BLUE).intValue());
+        assertEquals(24, scoreList.get(TokenColor.YELLOW).intValue());
+        assertEquals(8, scoreList.get(TokenColor.GREY).intValue());
+        assertEquals(0, scoreList.get(TokenColor.PURPLE).intValue());
+
+        game = createGame2();
+        game.scoring();
+        Map<TokenColor, Integer> scoreList2 = game.getScoreList();
+        assertEquals(10, scoreList2.get(TokenColor.BLUE).intValue());
+        assertEquals(12, scoreList2.get(TokenColor.YELLOW).intValue());
+        assertEquals(7, scoreList2.get(TokenColor.GREY).intValue());
+        assertEquals(0, scoreList2.get(TokenColor.PURPLE).intValue());
+    }
+
+    /**
      * Tests that the killshot track is correctly initialized.
      */
     @Test
@@ -191,6 +232,48 @@ class GameTest {
                 TokenColor.YELLOW, TokenColor.GREY, TokenColor.YELLOW);
         game.addPlayer(player);
 
+        game.createScoreList();
+        return game;
+    }
+
+    /**
+     * Setup a game to use in these tests.
+     * @return a prepared Game.
+     */
+    Game createGame2(){
+        GameController gameController = new GameController();
+        Game game = gameController.getGame();
+        Player player = new Player(TokenColor.BLUE);
+        player.setPlayerBoard(new PlayerBoard());
+        player.getPlayerBoard().addDamage(TokenColor.YELLOW);
+        game.addPlayer(player);
+        game.setCurrentPlayer(player);
+
+        player = new Player(TokenColor.YELLOW);
+        player.setPlayerBoard(new PlayerBoard());
+        player.getPlayerBoard().addDamage(TokenColor.BLUE, TokenColor.BLUE, TokenColor.GREY,
+                TokenColor.GREY, TokenColor.BLUE, TokenColor.GREY,
+                TokenColor.GREY, TokenColor.BLUE);
+        game.addPlayer(player);
+
+        player = new Player(TokenColor.GREY);
+        player.setPlayerBoard(new PlayerBoard());
+        player.getPlayerBoard().addDamage(TokenColor.BLUE, TokenColor.BLUE, TokenColor.YELLOW,
+                TokenColor.YELLOW, TokenColor.BLUE, TokenColor.YELLOW,
+                TokenColor.YELLOW, TokenColor.BLUE, TokenColor.YELLOW);
+        player.getPlayerBoard().setFinalFrenzy(true);
+        game.addPlayer(player);
+
+        player = new Player(TokenColor.PURPLE);
+        player.setPlayerBoard(new PlayerBoard());
+        player.getPlayerBoard().addDamage(TokenColor.BLUE, TokenColor.BLUE, TokenColor.YELLOW,
+                TokenColor.YELLOW, TokenColor.GREY, TokenColor.YELLOW,
+                TokenColor.YELLOW);
+        player.getPlayerBoard().setFinalFrenzy(true);
+        game.addPlayer(player);
+
+        game.setEndPhase(true);
+        game.setFinalFrenzy(true);
         game.createScoreList();
         return game;
     }

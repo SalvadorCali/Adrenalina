@@ -164,7 +164,7 @@ class PlayerBoardTest {
         playerColors.add(TokenColor.GREY);
         Map<TokenColor, Score> newScore = playerBoard.scoring(playerColors);
 
-        assertEquals(3, newScore.get(TokenColor.BLUE).getScore());
+        assertEquals(2, newScore.get(TokenColor.BLUE).getScore());
         assertEquals(1, newScore.get(TokenColor.YELLOW).getScore());
         assertEquals(1, newScore.get(TokenColor.PURPLE).getScore());
         assertEquals(0, newScore.get(TokenColor.GREY).getScore());

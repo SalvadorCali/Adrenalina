@@ -124,6 +124,10 @@ public class Game implements Serializable {
         killshotIndex = 0;
     }
 
+    public void setEndPhase(boolean endPhase) {
+        this.endPhase = endPhase;
+    }
+
     /**
      * Getter of the boolean respawnPhase.
      * @return the value of the boolean respawnPhase.
@@ -389,16 +393,20 @@ public class Game implements Serializable {
      * Update the standing of the players in the game.
      */
     public void scoring(){
-        Map<TokenColor, Score> tmpScoreList;
-        ArrayList<TokenColor> tmpPlayerColors = new ArrayList<>();
-        for(Player player : players){
-            if(player.getPlayerBoard().isDead()){
+        if(endPhase && finalFrenzy){
+            Map<TokenColor, Score> tmpScoreList;
+            ArrayList<TokenColor> tmpPlayerColors = new ArrayList<>();
+            for(Player player : players){
                 for (TokenColor playerColor : playerColors) {
                     if (!playerColor.equals(player.getColor())) {
                         tmpPlayerColors.add(playerColor);
                     }
                 }
-                tmpScoreList = player.getPlayerBoard().scoring(tmpPlayerColors);
+                if(player.isDead()){
+                    tmpScoreList = player.getPlayerBoard().scoring(tmpPlayerColors);
+                }else{
+                    tmpScoreList = player.getPlayerBoard().scoringFinalFrenzy(tmpPlayerColors);
+                }
                 tmpPlayerColors.clear();
                 for(int i=0; i<playerColors.size(); i++){
                     if(tmpScoreList.containsKey(playerColors.get(i))){
@@ -408,8 +416,29 @@ public class Game implements Serializable {
                     }
                 }
             }
+        }else{
+            Map<TokenColor, Score> tmpScoreList;
+            ArrayList<TokenColor> tmpPlayerColors = new ArrayList<>();
+            for(Player player : players){
+                if(player.getPlayerBoard().isDead()){
+                    for (TokenColor playerColor : playerColors) {
+                        if (!playerColor.equals(player.getColor())) {
+                            tmpPlayerColors.add(playerColor);
+                        }
+                    }
+                    tmpScoreList = player.getPlayerBoard().scoring(tmpPlayerColors);
+                    tmpPlayerColors.clear();
+                    for(int i=0; i<playerColors.size(); i++){
+                        if(tmpScoreList.containsKey(playerColors.get(i))){
+                            int actualScore = scoreList.get(playerColors.get(i));
+                            actualScore+= tmpScoreList.get(playerColors.get(i)).getScore();
+                            scoreList.replace(players.get(i).getColor(), actualScore);
+                        }
+                    }
+                }
+            }
+            doubleKill();
         }
-        doubleKill();
     }
 
     /**
