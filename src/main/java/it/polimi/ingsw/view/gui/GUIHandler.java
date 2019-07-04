@@ -3173,7 +3173,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
             playerboard.setAll();
 
             Stage stage = new Stage();
-            stage.setScene(new Scene(root, 1218, 755));
+            stage.setScene(new Scene(root, 1130, 722));
             stage.setTitle("PlayerBoards");
             stage.show();
 
