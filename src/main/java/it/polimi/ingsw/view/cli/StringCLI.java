@@ -37,6 +37,7 @@ public class StringCLI {
     public static final String SERVER = "[SERVER]";
     public static final String COMMANDS = "Please, insert <help> to see a list of commands.";
     public static final String CHOOSE_DIRECTION = "Choose a direction:";
+    public static final String ERROR = "Error";
 
     //insert commands
     public static final String COMMANDS_LIST = "List of Commands:";

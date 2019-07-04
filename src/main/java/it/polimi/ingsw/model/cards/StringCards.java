@@ -33,10 +33,10 @@ public class StringCards {
     /**
      * Caps powerups.
      */
-    static final String TARGETINGSCOPECAPS = "TARGETING SCOPE";
-    static final String NEWTONCAPS = "NEWTON";
-    static final String TAGBACKGRENADECAPS = "TAGBACK GRENADE";
-    static final String TELEPORTERCAPS = "TELEPORTER";
+    public static final String TARGETINGSCOPECAPS = "TARGETING SCOPE";
+    public static final String NEWTONCAPS = "NEWTON";
+    public static final String TAGBACKGRENADECAPS = "TAGBACK GRENADE";
+    public static final String TELEPORTERCAPS = "TELEPORTER";
 
 
     /**

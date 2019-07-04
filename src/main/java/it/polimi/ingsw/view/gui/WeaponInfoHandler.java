@@ -109,7 +109,7 @@ public class WeaponInfoHandler {
                         StringCLI.IN_PULVERIZE_MODE + StringCLI.SPACE + StringCLI.TWO + StringCLI.SPACE + StringCLI.VICTIM + StringCLI.SPACE + StringCLI.DIRECTION + StringCLI.NEW_LINE +
                         StringCLI.IN_PULVERIZE_MODE + StringCLI.SPACE + StringCLI.TWO + StringCLI.SPACE + StringCLI.VICTIM + StringCLI.SPACE + StringCLI.FIRST_DIRECTION + StringCLI.SPACE + StringCLI.SECOND_DIRECTION;
             default:
-                return "Wrong Name";
+                return StringCLI.ERROR;
         }
     }
 
@@ -118,19 +118,19 @@ public class WeaponInfoHandler {
      * @param namePowerup
      * @return
      */
-
     public String getInfoPowerUp(String namePowerup){
         switch (namePowerup){
-            case "TARGETING SCOPE":
-                return "1 victim, 1 ammo";
-            case "NEWTON":
-                return "1 victim, 1 or 2 directions";
-            case "TAGBACK GRENADE":
-                return "1 victim";
-            case "TELEPORTER":
-                return "square position";
+            case StringCards.TARGETINGSCOPECAPS:
+                return StringCLI.EFFECT + StringCLI.SPACE + StringCLI.VICTIM + StringCLI.SPACE + StringCLI.AMMO;
+            case StringCards.NEWTONCAPS:
+                return StringCLI.EFFECT + StringCLI.SPACE + StringCLI.VICTIM + StringCLI.SPACE + StringCLI.FIRST_DIRECTION + StringCLI.NEW_LINE +
+                        StringCLI.EFFECT + StringCLI.SPACE + StringCLI.VICTIM + StringCLI.SPACE + StringCLI.FIRST_DIRECTION + StringCLI.SPACE + StringCLI.SECOND_DIRECTION;
+            case StringCards.TAGBACKGRENADECAPS:
+                return StringCLI.EFFECT + StringCLI.SPACE + StringCLI.VICTIM;
+            case StringCards.TELEPORTERCAPS:
+                return StringCLI.EFFECT + StringCLI.SPACE + StringCLI.SQUARE_X + StringCLI.SPACE + StringCLI.SQUARE_Y;
             default:
-                return "Wrong Name";
+                return StringCLI.ERROR;
         }
     }
 }
