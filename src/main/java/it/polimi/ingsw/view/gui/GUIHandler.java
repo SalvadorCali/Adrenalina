@@ -7,6 +7,7 @@ import it.polimi.ingsw.model.cards.Card;
 import it.polimi.ingsw.model.cards.PowerupCard;
 import it.polimi.ingsw.model.cards.WeaponCard;
 import it.polimi.ingsw.model.enums.*;
+import it.polimi.ingsw.model.enums.Color;
 import it.polimi.ingsw.model.gamecomponents.Square;
 import it.polimi.ingsw.model.gamecomponents.Token;
 import it.polimi.ingsw.network.client.ClientInterface;
@@ -38,6 +39,7 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.awt.*;
 import java.io.IOException;
 
 import java.net.URL;
@@ -83,9 +85,18 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     @FXML private Label mainPlayerLabel;
     @FXML private Label labelDisconnect;
     @FXML private ImageView bannerDisconnect;
+    @FXML private ImageView firstWeapon;
+    @FXML private ImageView secondWeapon;
+    @FXML private ImageView thirdWeapon;
+    @FXML private Label labelGrab;
+    @FXML private Label labelReload;
+    @FXML private ImageView bannerReload;
+    @FXML private Label labelShoot;
+    @FXML private Label labelShowMove;
+    @FXML private Label labelEndTurn;
 
     /**
-     * these are the grids of the mainBoard used for displaying players and ammos
+     * these are the grids of the mainBoard used for displaying players and ammos or skulls and color that represents the turns
      */
     @FXML private GridPane gridSkulls;
     @FXML private GridPane grid00;
@@ -100,6 +111,8 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     @FXML private GridPane grid22;
     @FXML private GridPane grid13;
     @FXML private GridPane grid23;
+    @FXML private GridPane gridKillshotTrack2;
+
 
     /**
      * these elements are used for moveGrab action
@@ -110,54 +123,39 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     @FXML private ImageView rightArrowGrab;
     @FXML private ImageView leftArrowGrab;
     @FXML private Button enterMoveGrab;
-    @FXML private ImageView firstWeapon;
-    @FXML private ImageView secondWeapon;
-    @FXML private ImageView thirdWeapon;
-    @FXML private Label labelGrab;
-    @FXML private Label labelShoot;
-    @FXML private Label labelShowMove;
+    @FXML private Label labelShowMoveGrab;
+
+    /**
+     * These elements are used for Reload and MoveandReload
+     */
     @FXML private Label labelErrorMoveReload;
     @FXML private TextField txtWeaponReload1;
     @FXML private TextField txtWeaponReload2;
     @FXML private TextField txtWeaponReload3;
     @FXML private Button buttonReload;
-
-    @FXML private GridPane gridKillshotTrack2;
-
-    @FXML private ImageView firstPowerUpD;
-    @FXML private ImageView secondPowerUpD;
-    @FXML private ImageView thirdPowerUpD;
-    @FXML private ImageView fourthPowerUpD;
-
-    @FXML private TextField directionTxtField2;
-    @FXML private TextField directionTxtField3;
-    @FXML private TextField directionTxtField4;
+    @FXML private ImageView upArrowMoveReload;
+    @FXML private ImageView leftArrowMoveReload;
+    @FXML private ImageView rightArrowMoveReload;
+    @FXML private ImageView downArrowMoveReload;
+    @FXML private Button enterMoveReload;
+    @FXML private Label labelShowMoveRel;
 
 
-    @FXML
-    RadioButton socketButton;
+    /**
+     * These elements are used for the login window
+     */
+    @FXML RadioButton socketButton;
+    @FXML RadioButton rmiButton;
+    @FXML TextField nicknameField;
+    @FXML TextField addressField;
+    @FXML TextField colorField;
+    @FXML Label statusConnectionLabel;
+    @FXML Button loginButton;
+    @FXML Label connectionErrorLabel;
 
-    @FXML
-    RadioButton rmiButton;
-
-    @FXML
-    TextField nicknameField;
-
-    @FXML
-    TextField addressField;
-
-    @FXML
-    TextField colorField;
-
-    @FXML
-    Label statusConnectionLabel;
-
-    @FXML
-    Button loginButton;
-
-    @FXML
-    Label connectionErrorLabel;
-
+    /**
+     * These elements are used for the ChooseBoard Popup
+     */
     @FXML private ImageView firstBoard;
     @FXML private ImageView secondBoard;
     @FXML private ImageView thirdBoard;
@@ -165,10 +163,20 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     @FXML private Label labelErrorSkull;
     @FXML private TextField skullText;
     @FXML private Button enterButton;
+
+    /**
+     * These imgviews are used when player has to choose powerup
+     */
     @FXML private ImageView powerupImg1;
     @FXML private ImageView powerupImg2;
-    @FXML private Label labelEndTurn;
 
+    /**
+     * These are used for displaying PowerUps, Weapons that players had and for shooting, dropping or discarding.
+     */
+    @FXML private ImageView firstPowerUpD;
+    @FXML private ImageView secondPowerUpD;
+    @FXML private ImageView thirdPowerUpD;
+    @FXML private ImageView fourthPowerUpD;
     @FXML private ImageView firstWeaponHad;
     @FXML private ImageView secondWeaponHad;
     @FXML private ImageView thirdWeaponHad;
@@ -181,7 +189,13 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     @FXML private Label labelLoaded1;
     @FXML private Label labelLoaded2;
     @FXML private Label labelLoaded3;
+    @FXML private Button usePowerup1;
+    @FXML private Button usePowerup2;
+    @FXML private Button usePowerup3;
 
+    /**
+     * These elements are used for insert various data when someone is shooting.
+     */
     @FXML private TextField modeTxtField;
     @FXML private TextField firstVictimTxtField;
     @FXML private TextField secondVictimTxtField;
@@ -192,21 +206,13 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     @FXML private TextField basicTxtField;
     @FXML private Button shootDataButton;
     @FXML private Label labelInfoWeapon;
+    @FXML private TextField directionTxtField2;
+    @FXML private TextField directionTxtField3;
+    @FXML private TextField directionTxtField4;
 
-    @FXML private Label labelReload;
-    @FXML private ImageView bannerReload;
-
-    @FXML private ImageView upArrowMoveReload;
-    @FXML private ImageView leftArrowMoveReload;
-    @FXML private ImageView rightArrowMoveReload;
-    @FXML private ImageView downArrowMoveReload;
-    @FXML private Button enterMoveReload;
-    @FXML private Label labelShowMoveRel;
-
-    @FXML private Button usePowerup1;
-    @FXML private Button usePowerup2;
-    @FXML private Button usePowerup3;
-
+    /**
+     * These elements are used for insert data when using a powerup.
+     */
     @FXML private TextField victimTxtFieldPowerUp;
     @FXML private TextField ammoTxtFieldPowerUp;
     @FXML private TextField yTxtFieldPowerUp;
@@ -216,43 +222,36 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     @FXML private Label labelInfoPowerup;
     @FXML private Button buttonUsePowerUpData;
 
-    @FXML private Label labelShowMoveGrab;
-
+    /**
+     * Some final variables
+     */
     private static final int ROWS = 3;
     private static final int COLUMNS = 4;
-    private static final int NUM_SQUARES=12;
-    private static final int MAX_NUM_PLAYER=5;
     private static final int MAX_MOVEMENT = 3;
     private static final double GRID_WIDTH = 25;
     private static final double GRID_HEIGHT = 25;
-    private static final int MAX_WEAPONS = 3;
     private static final double STANDARD_HEIGHT = 40;
+    private static final int MAX_SKULLS = 8;
+    private static final int MIN_SKULLS = 1;
+    private static final String SPACE = " ";
 
-    private GameController gameController;
-    private String currentPlayer;
+    /**
+     * main variables
+     */
     private Square[][] arena = new Square[ROWS][COLUMNS];
-    private Stage scene;
-    private boolean disconnected = false;
-    private ChoosePowerup choosePowerup = new ChoosePowerup();
     private Popup popup = new Popup();
     private String movement[] = new String[MAX_MOVEMENT + 1];
     private Integer countMove = 0;
     private PlayerController playerController;
     private ClientInterface client;
-    private ChooseBoard chooseBoard = new ChooseBoard();
-    private LoginGUI loginGUI;
-    public boolean connected = false;
     private boolean checkTurn = true;
     private String playerName;
     private String address;
     private String colorPlayer;
-    private boolean isRunning = true;
     private Integer boardType;
     private Integer skull;
     private int startedGame = 0;
-    private Integer powerup;
     private GUIHandler guiHandler;
-    private Stage primaryStage;
     private PlayerBoardGui playerboard;
     private ScorePopup scorePopup;
     private Integer countMovementTwoAction = 0;
@@ -263,13 +262,15 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     private Integer countMoveRel = 0;
     private WeaponInfoHandler weaponInfoHandler = new WeaponInfoHandler();
     private AmmoGUI ammoGUI;
-    private String weaponReload1 = " ";
-    private String weaponReload2 = " ";
-    private String weaponReload3 = " ";
+    private String weaponReload1 = SPACE;
+    private String weaponReload2 = SPACE;
+    private String weaponReload3 = SPACE;
 
-    //starting methods
-    //
-    //
+    /**
+     * Standard method that launches the first window which is the Login
+     * @param stage
+     * @throws Exception if it doesn't load the LoginGUI.fxml
+     */
     @Override
     public void start(Stage stage) throws Exception {
 
@@ -286,9 +287,8 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
 
     //login methods
-
     /**
-     * Check what button is selected and starts
+     * Check what button is selected and if is selected one of them it launches the right connection method
      * @param playerName
      * @param address
      * @param colorPlayer
@@ -310,6 +310,9 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         }
     }
 
+    /**
+     * This method check if txtfields are empties, if not launches clickButton method
+     */
     public synchronized void tryConnection(){
 
         playerName = nicknameField.getText();
@@ -334,13 +337,20 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
     }
 
-
+    /**
+     * This method takes a string and set it to StatusConnectionLabel on the Login
+     * @param text
+     */
     public void setConnectionText(String text){
         Platform.runLater(() ->{
             statusConnectionLabel.setText(text);
         });
     }
 
+    /**
+     * This method takes a string and set it to ConnectionErrorLabel on the Login
+     * @param text
+     */
     public void setErrorText(String text){
         Platform.runLater(() -> {
             connectionErrorLabel.setText(text);
@@ -349,10 +359,11 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
 
 
-
     //chooseBoard methods
-    //
-    //
+
+    /**
+     * These methods set the player's choose of the right board
+     */
     public void chooseBoard0(){
 
          this.boardType = 0;
@@ -374,6 +385,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         this.boardType = 3;
         Data.getInstance().setBoardType(3);
     }
+
 
     public void reload(MouseEvent mouseEvent) throws IOException {
         playerController = Data.getInstance().getPlayerController();
@@ -435,7 +447,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
                 labelErrorSkull.setText("Board not chosen");
 
-            } else if (skull > 8 || skull < 1) {
+            } else if (skull > MAX_SKULLS || skull < MIN_SKULLS) {
 
                 labelErrorSkull.setText("Wrong skull number");
 
@@ -748,6 +760,8 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                 thread.setDaemon(true);
                 thread.start();
 
+                stage.setResizable(true);
+
                 disableButtons();
                 guiHandler.setLabelStatement(StringCLI.SERVER + object + StringCLI.SPACE + StringCLI.RECONNECTED); //gia presente
                 this.startedGame++;
@@ -915,6 +929,8 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                     stage.setTitle("Adrenaline's Board");
                     stage.show();
 
+                    stage.setResizable(true);
+
                     Thread thread = new Thread(this::checkPosition);
                     thread.setDaemon(true);
                     thread.start();
@@ -955,6 +971,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                     stage.setScene(new Scene(root, 1189, 710));
                     stage.setTitle("Adrenaline's Board");
                     stage.show();
+                    stage.setResizable(true);
 
                     Thread thread = new Thread(this::checkPosition);
                     thread.setDaemon(true);
@@ -3119,6 +3136,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
             stage.setTitle("PlayerBoards");
             stage.show();
 
+            stage.setResizable(true);
         });
     }
 
@@ -3335,7 +3353,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                 }
 
                 Stage stage = new Stage();
-                stage.setScene(new Scene(root, 222, 256));
+                stage.setScene(new Scene(root, 255, 234));
                 stage.setTitle("Move and Reload Popup");
                 stage.show();
 
