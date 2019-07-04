@@ -90,6 +90,9 @@ class GameTest {
         assertEquals(0, scoreList.get(TokenColor.PURPLE).intValue());
     }
 
+    /**
+     * Tests the score during the final frenzy.
+     */
     @Test
     void scoringFinalFrenzyTest(){
         Game game = createGame();
@@ -103,6 +106,9 @@ class GameTest {
         assertEquals(0, scoreList.get(TokenColor.PURPLE).intValue());
     }
 
+    /**
+     * Tests the score after the final frenzy.
+     */
     @Test
     void scoringEndGame(){
         Game game = createGame();
@@ -119,9 +125,9 @@ class GameTest {
         game = createGame2();
         game.scoring();
         Map<TokenColor, Integer> scoreList2 = game.getScoreList();
-        assertEquals(8, scoreList2.get(TokenColor.BLUE).intValue());
+        assertEquals(10, scoreList2.get(TokenColor.BLUE).intValue());
         assertEquals(12, scoreList2.get(TokenColor.YELLOW).intValue());
-        assertEquals(9, scoreList2.get(TokenColor.GREY).intValue());
+        assertEquals(7, scoreList2.get(TokenColor.GREY).intValue());
         assertEquals(0, scoreList2.get(TokenColor.PURPLE).intValue());
     }
 
@@ -230,6 +236,10 @@ class GameTest {
         return game;
     }
 
+    /**
+     * Setup a game to use in these tests.
+     * @return a prepared Game.
+     */
     Game createGame2(){
         GameController gameController = new GameController();
         Game game = gameController.getGame();
@@ -243,8 +253,7 @@ class GameTest {
         player.setPlayerBoard(new PlayerBoard());
         player.getPlayerBoard().addDamage(TokenColor.BLUE, TokenColor.BLUE, TokenColor.GREY,
                 TokenColor.GREY, TokenColor.BLUE, TokenColor.GREY,
-                TokenColor.GREY, TokenColor.BLUE, TokenColor.GREY,
-                TokenColor.GREY);
+                TokenColor.GREY, TokenColor.BLUE);
         game.addPlayer(player);
 
         player = new Player(TokenColor.GREY);

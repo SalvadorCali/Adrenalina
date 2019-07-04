@@ -283,8 +283,8 @@ public class PlayerBoard implements Serializable {
     }
 
     /**
-     * ???
-     * @return ???
+     * Returns the correct list of numbers used for the scoring.
+     * @return a list of numbers.
      */
     private ArrayList<Integer> getScoreValues(){
         ArrayList<Integer> scoreValues;
@@ -312,10 +312,11 @@ public class PlayerBoard implements Serializable {
         }
         return scoreValues;
     }
+
     /**
-     * ???
-     * @param playerColors ???
-     * @return ???
+     * Gives to each user the correct score.
+     * @param playerColors
+     * @return
      */
     Map<TokenColor, Score> scoring(ArrayList<TokenColor> playerColors){
         Score score;
@@ -377,6 +378,11 @@ public class PlayerBoard implements Serializable {
         return scoreList;
     }
 
+    /**
+     * Finds
+     * @param playerColors
+     * @return
+     */
     Map<TokenColor, Score> scoringFinalFrenzy(ArrayList<TokenColor> playerColors){
         Score score;
         List<Score> turnScores = new ArrayList<>();
@@ -386,7 +392,6 @@ public class PlayerBoard implements Serializable {
 
         int scoreValuesIndex = 0;
         ArrayList<Integer> scoreValues = getScoreValues();
-        scoreValues.forEach(s->Printer.println(s));
         int number = turnScores.size();
         for(int k=0; k<number; k++){
             int max = 0;
@@ -431,12 +436,11 @@ public class PlayerBoard implements Serializable {
                 }
             }
         }
-        scoreList.forEach((k, j)-> Printer.println(k + " " + j.getScore()));
         return scoreList;
     }
 
     /**
-     * ???
+     * Resets the damages on the board.
      */
     public void resetBoard(){
         if(!getOverkill().equals(TokenColor.NONE)){
