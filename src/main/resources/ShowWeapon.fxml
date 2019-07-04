@@ -7,14 +7,14 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="554.0" prefWidth="522.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.gui.GUIHandler">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="554.0" prefWidth="522.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.gui.GUIHandler">
    <children>
       <Label layoutX="78.0" layoutY="14.0" text="Your Weapons and PowerUps" textFill="WHITE">
          <font>
             <Font name="Alien League Regular" size="29.0" />
          </font>
       </Label>
-      <ImageView fx:id="firstWeaponHad" fitHeight="200.0" fitWidth="118.0" layoutX="25.0" layoutY="75.0" visible="false">
+      <ImageView fx:id="firstWeaponHad" fitHeight="200.0" fitWidth="118.0" layoutX="32.0" layoutY="75.0" visible="false">
          <image>
             <Image url="@weapon/hellion.png" />
          </image>
@@ -24,12 +24,12 @@
             <Image url="@powerup/Y/NEWTON.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="secondWeaponHad" fitHeight="200.0" fitWidth="118.0" layoutX="191.0" layoutY="75.0" visible="false">
+      <ImageView fx:id="secondWeaponHad" fitHeight="200.0" fitWidth="118.0" layoutX="202.0" layoutY="75.0" visible="false">
          <image>
             <Image url="@weapon/hellion.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="thirdWeaponHad" fitHeight="200.0" fitWidth="118.0" layoutX="364.0" layoutY="75.0" visible="false">
+      <ImageView fx:id="thirdWeaponHad" fitHeight="200.0" fitWidth="118.0" layoutX="370.0" layoutY="75.0" visible="false">
          <image>
             <Image url="@weapon/hellion.png" />
          </image>
@@ -44,15 +44,15 @@
             <Image url="@powerup/Y/NEWTON.png" />
          </image>
       </ImageView>
-      <Button fx:id="shootButton1" layoutX="25.0" layoutY="282.0" mnemonicParsing="false" onMouseClicked="#shootFirstWeapon" text="Shoot1">
+      <Button fx:id="shootButton1" layoutX="32.0" layoutY="282.0" mnemonicParsing="false" onMouseClicked="#shootFirstWeapon" text="Shoot1">
          <font>
             <Font name="Alien League Regular" size="14.0" />
          </font></Button>
-      <Button fx:id="shootButton2" layoutX="191.0" layoutY="282.0" mnemonicParsing="false" onMouseClicked="#shootSecondWeapon" text="Shoot2">
+      <Button fx:id="shootButton2" layoutX="201.0" layoutY="282.0" mnemonicParsing="false" onMouseClicked="#shootSecondWeapon" text="Shoot2">
          <font>
             <Font name="Alien League Regular" size="14.0" />
          </font></Button>
-      <Button fx:id="shootButton3" layoutX="375.0" layoutY="282.0" mnemonicParsing="false" onMouseClicked="#shootThirdWeapon" text="Shoot3">
+      <Button fx:id="shootButton3" layoutX="370.0" layoutY="282.0" mnemonicParsing="false" onMouseClicked="#shootThirdWeapon" text="Shoot3">
          <font>
             <Font name="Alien League Regular" size="14.0" />
          </font></Button>
@@ -68,15 +68,15 @@
          <font>
             <Font name="Alien League Regular" size="14.0" />
          </font></Button>
-      <Button fx:id="dropButton1W" layoutX="94.0" layoutY="282.0" mnemonicParsing="false" onMouseClicked="#dropFirstWeapon" text="Drop1">
+      <Button fx:id="dropButton1W" layoutX="98.0" layoutY="282.0" mnemonicParsing="false" onMouseClicked="#dropFirstWeapon" text="Drop1">
          <font>
             <Font name="Alien League Regular" size="14.0" />
          </font></Button>
-      <Button fx:id="dropButton2W" layoutX="261.0" layoutY="282.0" mnemonicParsing="false" onMouseClicked="#dropSecondWeapon" text="Drop2">
+      <Button fx:id="dropButton2W" layoutX="267.0" layoutY="282.0" mnemonicParsing="false" onMouseClicked="#dropSecondWeapon" text="Drop2">
          <font>
             <Font name="Alien League Regular" size="14.0" />
          </font></Button>
-      <Button fx:id="dropButton3W" layoutX="440.0" layoutY="282.0" mnemonicParsing="false" onMouseClicked="#dropThirdWeapon" text="Drop3">
+      <Button fx:id="dropButton3W" layoutX="436.0" layoutY="282.0" mnemonicParsing="false" onMouseClicked="#dropThirdWeapon" text="Drop3">
          <font>
             <Font name="Alien League Regular" size="14.0" />
          </font></Button>
@@ -104,19 +104,19 @@
          <font>
             <Font name="Alien League Regular" size="14.0" />
          </font></Button>
-      <Label fx:id="labelLoaded1" layoutX="60.0" layoutY="302.0" prefHeight="43.0" prefWidth="68.0" text="Loaded" textFill="WHITE" visible="false">
+      <Label fx:id="labelLoaded1" alignment="CENTER" layoutX="60.0" layoutY="302.0" prefHeight="43.0" prefWidth="68.0" text="Loaded" textFill="WHITE" visible="false">
          <font>
-            <Font size="13.0" />
+            <Font name="Alien League Regular" size="13.0" />
          </font>
       </Label>
-      <Label fx:id="labelLoaded2" layoutX="227.0" layoutY="302.0" prefHeight="43.0" prefWidth="68.0" text="Loaded" textFill="WHITE" visible="false">
+      <Label fx:id="labelLoaded2" alignment="CENTER" layoutX="229.0" layoutY="302.0" prefHeight="43.0" prefWidth="68.0" text="Loaded" textFill="WHITE" visible="false">
          <font>
-            <Font size="13.0" />
+            <Font name="Alien League Regular" size="13.0" />
          </font>
       </Label>
-      <Label fx:id="labelLoaded3" layoutX="406.0" layoutY="302.0" prefHeight="43.0" prefWidth="68.0" text="Loaded" textFill="WHITE" visible="false">
+      <Label fx:id="labelLoaded3" alignment="CENTER" layoutX="399.0" layoutY="302.0" prefHeight="43.0" prefWidth="68.0" text="Loaded" textFill="WHITE" visible="false">
          <font>
-            <Font size="13.0" />
+            <Font name="Alien League Regular" size="13.0" />
          </font>
       </Label>
    </children>

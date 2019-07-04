@@ -717,12 +717,12 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         playerController = Data.getInstance().getPlayerController();
         Platform.runLater(() -> {
             if (outcome.equals(Outcome.RIGHT)) {
-                setLabelStatement(playerController.getWeapon() + StringCLI.SPACE + StringCLI.RELOADED);
+                setLabelStatement(StringCLI.SERVER + StringCLI.SPACE + playerController.getWeapon() + StringCLI.SPACE + StringCLI.RELOADED);
                 guiHandler = Data.getInstance().getGuiHandler();
                 guiHandler.disableButtonWhenReload();
 
             } else {
-                setLabelStatement(playerController.getWeapon() + StringCLI.SPACE + StringCLI.NOT_RELOADED);
+                setLabelStatement(StringCLI.SERVER + StringCLI.SPACE + playerController.getWeapon() + StringCLI.SPACE + StringCLI.NOT_RELOADED);
             }
         });
     }
@@ -1015,6 +1015,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                     //guiHandler.addWeapon();
                     guiHandler.setLabelTurn();
                     guiHandler.setLabelMainPlayer();
+                    guiHandler.setLabelStatement(StringCLI.SERVER + StringCLI.NEW_TURN);
 
                     Data.getInstance().setGuiHandler(guiHandler);
 
@@ -1034,6 +1035,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                 }else{
                     guiHandler.enableButtons();
                     guiHandler.setLabelTurn();
+                    guiHandler.setLabelStatement(StringCLI.SERVER + StringCLI.NEW_TURN);
                 }
 
 
@@ -3363,7 +3365,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                 });
             } else {
                 Platform.runLater(() ->{
-                    setLabelWeaponLoaded1("Not Loaded");
+                    setLabelWeaponLoaded1("Unloaded");
                 });
             }
 
@@ -3382,13 +3384,13 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                 if (weaponsHad.get(0).isLoaded()) {
                     setLabelWeaponLoaded1("Loaded");
                 } else {
-                    setLabelWeaponLoaded1("Not Loaded");
+                    setLabelWeaponLoaded1("Unloaded");
                 }
                 if (weaponsHad.get(1).isLoaded()) {
 
                     setLabelWeaponLoaded2("Loaded");
                 } else {
-                    setLabelWeaponLoaded2("Not Loaded");
+                    setLabelWeaponLoaded2("Unloaded");
                 }
             });
 
@@ -3410,17 +3412,17 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                 if (weaponsHad.get(0).isLoaded()) {
                     setLabelWeaponLoaded1("Loaded");
                 } else {
-                    setLabelWeaponLoaded1("Not Loaded");
+                    setLabelWeaponLoaded1("Unloaded");
                 }
                 if (weaponsHad.get(1).isLoaded()) {
                     setLabelWeaponLoaded2("Loaded");
                 } else {
-                    setLabelWeaponLoaded2("Not Loaded");
+                    setLabelWeaponLoaded2("Unloaded");
                 }
                 if (weaponsHad.get(2).isLoaded()) {
                     setLabelWeaponLoaded3("Loaded");
                 } else {
-                    setLabelWeaponLoaded3("Not Loaded");
+                    setLabelWeaponLoaded3("Unloaded");
                 }
             });
         }

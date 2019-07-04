@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="712.0" prefWidth="1189.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.gui.GUIHandler">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="712.0" prefWidth="1189.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.gui.GUIHandler">
    <children>
       <ImageView fx:id="mapImage" fitHeight="710.0" fitWidth="952.0" preserveRatio="true">
          <image>
@@ -119,14 +119,14 @@
             <Font name="Alien League Regular" size="23.0" />
          </font>
       </Label>
-      <Label layoutX="987.0" layoutY="431.0" text="Turn:" textFill="WHITE">
+      <Label layoutX="1008.0" layoutY="434.0" text="Turn:" textFill="WHITE">
          <font>
-            <Font name="Alien League Regular" size="30.0" />
+            <Font name="Alien League Regular" size="24.0" />
          </font>
       </Label>
-      <Label fx:id="playerTurnLabel" layoutX="1076.0" layoutY="427.0" prefHeight="39.0" prefWidth="100.0" text="Gianni" textFill="WHITE">
+      <Label fx:id="playerTurnLabel" layoutX="1063.0" layoutY="427.0" prefHeight="39.0" prefWidth="128.0" text="Gianni" textFill="WHITE">
          <font>
-            <Font name="Alien League Regular" size="30.0" />
+            <Font name="Alien League Regular" size="24.0" />
          </font>
       </Label>
       <GridPane fx:id="grid01" hgap="5.0" layoutX="337.0" layoutY="182.0" prefHeight="108.0" prefWidth="100.0" vgap="5.0">

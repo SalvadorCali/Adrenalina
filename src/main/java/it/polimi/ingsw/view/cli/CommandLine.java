@@ -1074,9 +1074,9 @@ public class CommandLine implements ViewInterface {
      */
     private void notifyReload(Outcome outcome){
         if(outcome.equals(Outcome.RIGHT)){
-            Printer.println(playerController.getWeapon() + StringCLI.SPACE + StringCLI.RELOADED);
+            Printer.println(StringCLI.SERVER + StringCLI.SPACE + playerController.getWeapon() + StringCLI.SPACE + StringCLI.RELOADED);
         }else{
-            Printer.println(playerController.getWeapon() + StringCLI.SPACE + StringCLI.NOT_RELOADED);
+            Printer.println(StringCLI.SERVER + StringCLI.SPACE + playerController.getWeapon() + StringCLI.SPACE + StringCLI.NOT_RELOADED);
         }
     }
 

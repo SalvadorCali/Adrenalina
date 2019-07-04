@@ -241,6 +241,9 @@ public class Converter {
      * @return a Color.
      */
     public static Color fromStringToColor(String color){
+        if(color == null){
+            return Color.NONE;
+        }
         switch(color){
             case B:
                 return Color.BLUE;
