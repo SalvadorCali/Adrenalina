@@ -220,6 +220,51 @@ public class StringCLI {
     public static final String AMMO = "<ammo>";
 
     //descriptions
+    public static final String LOCK_RIFLE_BASIC = "Deal 2 damage and 1 mark to 1 target you can see.";
+    public static final String LOCK_RIFLE_SECOND = "Deal 1 mark to a different target you can see.";
+    public static final String MACHINE_GUN_BASIC = "Choose 1 or 2 targets you can see and deal 1 damage to each";
+    public static final String MACHINE_GUN_SECOND = "Deal 1 additional damage to one of those targets.";
+    public static final String MACHINE_GUN_THIRD = "Deal 1 additional damage to the other of those targets and/or deal 1 damage to a different target you can see.";
+    public static final String THOR_BASIC = "Deal 2 damage to 1 target you can see";
+    public static final String THOR_SECOND = "Deal 1 damage to a second target that your first target can see.";
+    public static final String THOR_THIRD = "Deal 2 damage to a third target that your second target can see. You cannot use this effect unless you first use the second effect.";
+    public static final String PLASMA_GUN_BASIC = "Deal 2 damage to 1 target you can see";
+    public static final String PLASMA_GUN_SECOND = "Move 1 or 2 squares. This effect can be used either before or after the basic effect.";
+    public static final String PLASMA_GUN_THIRD = "Deal 1 additional damage to your target.";
+    public static final String WHISPER_BASIC = "Deal 3 damage and 1 mark to 1 target you can see.Your target must be at least 2 moves away from you.";
+    public static final String ELECTROSCYTHE_BASIC = "Deal 1 damage to every other player on your square";
+    public static final String ELECTROSCYTHE_SECOND = "Deal 2 damage to every other player on your square.";
+    public static final String TRACTOR_BEAM_FIRST = "Move a target 0,1 or 2 squares to a square you can see, and give it 1 damage";
+    public static final String TRACTOR_BEAM_SECOND = "Choose a target 0, 1, or 2 moves away from you. Move the target to your square and deal 3 damage to it.";
+    public static final String VORTEX_CANNON_BASIC = "Choose a square you can see, but not your square.Call it the vortex. Choose a target on the vortex or 1 move away from it.Move it onto the vortex and give it 2 damage";
+    public static final String VORTEX_CANNON_SECOND = "Choose up to 2 other targets on the vortex or 1 move away from it. Move them onto the vortex and give them each 1 damage.";
+    public static final String FURNACE_FIRST = "Choose a room you can see, but not the room you are in.Deal 1 damage to every";
+    public static final String FURNACE_SECOND = "Choose a square exactly one move away. Deal 1 damage and 1 mark to everyone on that square.";
+    public static final String HEATSEEKER_BASIC = "Choose 1 target you cannot see and deal 3 damage to it. Notes: Yes,this can only hit targets you cannot see.";
+    public static final String HELLION_FIRST = "Deal 1 damage to 1 target you can see at least 1 move away.Then give 1 mark to that target and everyone else on that square.";
+    public static final String HELLION_SECOND = "Deal 1 damage to 1 target you can see at least 1 move away. Then give 2 marks to that target and everyone else on that square.";
+    public static final String FLAMETHROWER_FIRST = "Choose a square 1 move away and possibly a second square 1 more move away in the same direction. On each square, you may choose 1 target and give it 1 damage.";
+    public static final String FLAMETHROWER_SECOND = "Choose 2 squares as above. Deal 2 damage to everyone on the first square and 1 damage to everyone on the second square.";
+    public static final String GRENADE_LAUNCHER_BASIC = "Deal 1 damage to 1 target you can see.Then you may move the target 1 square.";
+    public static final String GRENADE_LAUNCHER_SECOND = " Deal 1 damage to every player on a square you can see. You can use this before or after the basic effect's move.";
+    public static final String ROCKET_LAUNCHER_BASIC = "Deal 2 damage to 1 target you can see that is not on your square.Then you may move the target 1 square.";
+    public static final String ROCKET_LAUNCHER_SECOND = "Move 1 or 2 squares. This effect can be used either before or after the basic effect.";
+    public static final String ROCKET_LAUNCHER_THIRD = "During the basic effect, deal 1 damage to every player on your target's original square – including the target, even if you move it.";
+    public static final String RAILGUN_FIRST = "Choose a cardinal direction and 1 target in that direction.Deal 3 damage to it.";
+    public static final String RAILGUN_SECOND = "Choose a cardinal direction and 1 or 2 targets in that direction. Deal 2 damage to each.";
+    public static final String CYBERBLADE_BASIC = "Deal 2 damage to 1 target on your square.";
+    public static final String CYBERBLADE_SECOND = "Move 1 square before or after the basic effect.";
+    public static final String CYBERBLADE_THIRD = "Deal 2 damage to a different target on your square. The shadowstep may be used before or after this effect.";
+    public static final String ZX2_FIRST = "Deal 1 damage and 2 marks to 1 target you can see.";
+    public static final String ZX2_SECOND = "Choose up to 3 targets you can see and deal 1 mark to each.";
+    public static final String SHOTGUN_FIRST = "Deal 3 damage to 1 target on your square. If you want, you may then move the target 1 square.";
+    public static final String SHOTGUN_SECOND =  "Deal 2 damage to 1 target on any square exactly one move away.";
+    public static final String POWER_GLOVE_FIRST = "Choose 1 target on any square exactly 1 move away. Move onto that square and give the target 1 damage and 2 marks.";
+    public static final String POWER_GLOVE_SECOND = "Choose a square exactly 1 move away. Move onto that square. You may deal 2 damage to 1 target there. If you want, you may move 1 more square in that same direction (but only if it is a legal move). You may deal 2 damage to 1 target there, as well.";
+    public static final String SHOCKWAVE_FIRST = "Choose up to 3 targets on different squares, each exactly 1 move away.Deal 1 damage to each target.";
+    public static final String SHOCKWAVE_SECOND = "Deal 1 damage to all targets that are exactly 1 move away.";
+    public static final String SLEDGEHAMMER_FIRST = "Deal 2 damage to 1 target on your square.";
+    public static final String SLEDGEHAMMER_SECOND = "Deal 3 damage to 1 target on your square, then move that target 0, 1, or 2 squares in one direction.";
 
 
     //do you want
