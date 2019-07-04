@@ -157,9 +157,9 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     @FXML
     private Label playerTurnLabel;
 
-    @FXML
-    private Label labelStatusPlayer;
+    @FXML private Label labelStatusPlayer;
     @FXML private ImageView imageWeapon;
+    @FXML private Label mainPlayerLabel;
 
     @FXML private Label labelDisconnect;
     @FXML private ImageView bannerDisconnect;
@@ -792,6 +792,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                 guiHandler.setMapImage();
                 //guiHandler.addWeapon();
                 guiHandler.setLabelTurn();
+                guiHandler.setLabelMainPlayer();
 
                 Data.getInstance().setGuiHandler(guiHandler);
 
@@ -811,6 +812,14 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
             }else{
                 guiHandler.setLabelStatement(object + " reconnected");
             }
+        });
+    }
+
+    private void setLabelMainPlayer() {
+        playerController = Data.getInstance().getPlayerController();
+
+        Platform.runLater(() ->{
+            mainPlayerLabel.setText(playerController.getPlayer().getUsername());
         });
     }
 
@@ -948,6 +957,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                     guiHandler.setMapImage();
                     //guiHandler.addWeapon();
                     guiHandler.setLabelTurn();
+                    guiHandler.setLabelMainPlayer();
 
                     Data.getInstance().setGuiHandler(guiHandler);
 
@@ -987,6 +997,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                     guiHandler.setMapImage();
                     //guiHandler.addWeapon();
                     guiHandler.setLabelTurn();
+                    guiHandler.setLabelMainPlayer();
 
 
                     Data.getInstance().setGuiHandler(guiHandler);
