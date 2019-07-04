@@ -1,5 +1,8 @@
 package it.polimi.ingsw.view.gui;
 
+import it.polimi.ingsw.model.cards.StringCards;
+import it.polimi.ingsw.view.cli.StringCLI;
+
 /**
  * this class is helpful for Weapon infos
  */
@@ -11,50 +14,102 @@ public class WeaponInfoHandler {
      */
     public String getInfoWeapon(String nameWeapon){
         switch(nameWeapon){
-            case "LOCK RIFLE":
-                return "Basic effect: 1 victim \n With second lock: 1 or 2 victims";
-            case "MACHINE GUN":
-                return "Basic effect: 1 or 2 victims \n With focus shot: 1 or 2 victims \n With turret tripod: 2 or 3 victims";
-            case "T.H.O.R.":
-                return "Basic effect: 1 victim \n With chain reaction: 2 victims \n With high voltage: 3 victims";
-            case "PLASMA GUN":
-                return "Basic effect: 1 victim \n With phase glide: 1 victim, 1 or 2 directions \n With charged shot: 1 victim, from 0 to 2 directions";
-            case "WHISPER":
-                return "Effect: 1 victim";
-            case "ELECTROSCYTHE":
-                return "Only effect";
-            case "TRACTOR BEAM":
-                return "Basic mode: 1 victim, from 0 to 2 directions \n In punisher mode: 1 victim";
-            case "VORTEX CANNON":
-                return "Basic effect: 1 victim, square position \n With black hole: 2 or 3 victims, square position";
-            case "FURNACE":
-                return "Basic mode: square position \n In cozy fire mode: square position";
-            case "HEATSEEKER":
-                return "Effect: 1 victim";
-            case "HELLION":
-                return "Basic mode: 1 victim \n In nano-tracer mode: 1 victim";
-            case "FLAMETHROWER":
-                return "Basic mode: 1 or 2 victim, 1 direction \n In barbecue mode: 1 direction";
-            case "GRENADE LAUNCHER":
-                return "Basic effect: 1 victim, 0 or 1 direction \n With extra grenade: 1 victim, 0 or 1 direction, square position";
-            case "ROCKET LAUNCHER":
-                return "Basic effect: 1 victim, 0 or 1 direction \n With rocket jump: 1 victim, 0 or 1 direction, \n With rocket jump: 1 or 2 directions";
-            case "RAILGUN":
-                return "Basic mode: 1 victim, 1 direction \n In piercing mode: 1 or 2 victims, 1 direction";
-            case "CYBERBLADE":
-                return "Basic effect: 1 victim \n With shadow step: 1 victim, 1 direction \n With slice and dice: 2 victim, 1 direction";
-            case "ZX-2":
-                return "Basic mode: 1 victim \n In scanner mode: from 1 to 3 victims";
-            case "SHOTGUN":
-                return "Basic mode: 1 victim, 0 or 1 direction \n In long barrel mode: 1 victim";
-            case "POWER GLOVE":
-                return "Basic mode: 1 victim \n In rocket fist mode: from 0 to 2 victims, 1 or 2 directions";
-            case "SHOCKWAVE":
-                return "Basic mode: from 0 to 3 victims \n In tsunami mode: only effect";
-            case "SLEDGEHAMMER":
-                return "Basic mode: victim \n In pulverize mode: 1 victim, from 0 to 2 directions";
+            case StringCards.LOCKRIFLECAPS:
+                return StringCLI.BASIC_EFFECT + StringCLI.SPACE + StringCLI.VICTIM + StringCLI.NEW_LINE +
+                        StringCLI.WITH_SECOND_LOCK + StringCLI.SPACE + StringCLI.FIRST_VICTIM + StringCLI.SPACE + StringCLI.SECOND_VICTIM;
+            case StringCards.MACHINEGUNCAPS:
+                return StringCLI.BASIC_EFFECT + StringCLI.SPACE  + StringCLI.ONE + StringCLI.SPACE + StringCLI.FIRST_VICTIM + StringCLI.NEW_LINE +
+                        StringCLI.BASIC_EFFECT + StringCLI.SPACE + StringCLI.ONE + StringCLI.SPACE + StringCLI.FIRST_VICTIM + StringCLI.SPACE + StringCLI.SECOND_VICTIM + StringCLI.NEW_LINE +
+                        StringCLI.WITH_FOCUS_SHOT + StringCLI.SPACE + StringCLI.TWO + StringCLI.SPACE + StringCLI.FIRST_VICTIM + StringCLI.NEW_LINE +
+                        StringCLI.WITH_FOCUS_SHOT + StringCLI.SPACE + StringCLI.TWO + StringCLI.SPACE + StringCLI.FIRST_VICTIM + StringCLI.SPACE + StringCLI.SECOND_VICTIM + StringCLI.NEW_LINE +
+                        StringCLI.WITH_TURRET_TRIPOD + StringCLI.SPACE + StringCLI.THREE + StringCLI.SPACE + StringCLI.VICTIM + StringCLI.SPACE + StringCLI.VICTIM + StringCLI.NEW_LINE +
+                        StringCLI.WITH_TURRET_TRIPOD + StringCLI.SPACE + StringCLI.THREE + StringCLI.SPACE + StringCLI.VICTIM + StringCLI.SPACE + StringCLI.VICTIM + StringCLI.SPACE + StringCLI.VICTIM;
+            case StringCards.THORCAPS:
+                return StringCLI.BASIC_EFFECT + StringCLI.SPACE + StringCLI.VICTIM + StringCLI.NEW_LINE +
+                        StringCLI.WITH_CHAIN_REACTION + StringCLI.SPACE + StringCLI.FIRST_VICTIM + StringCLI.SPACE + StringCLI.SECOND_VICTIM + StringCLI.NEW_LINE +
+                        StringCLI.WITH_HIGH_VOLTAGE + StringCLI.SPACE + StringCLI.FIRST_VICTIM + StringCLI.SPACE + StringCLI.SECOND_VICTIM + StringCLI.SPACE + StringCLI.THIRD_VICTIM;
+            case StringCards.PLASMAGUNCAPS:
+                return StringCLI.BASIC_EFFECT + StringCLI.SPACE + StringCLI.ONE + StringCLI.SPACE + StringCLI.VICTIM + StringCLI.NEW_LINE +
+                        StringCLI.WITH_PHASE_GLIDE + StringCLI.SPACE + StringCLI.TWO + StringCLI.SPACE + StringCLI.VICTIM + StringCLI.SPACE + StringCLI.FIRST_DIRECTION + StringCLI.NEW_LINE +
+                        StringCLI.WITH_PHASE_GLIDE + StringCLI.SPACE + StringCLI.TWO + StringCLI.SPACE + StringCLI.VICTIM + StringCLI.SPACE + StringCLI.FIRST_DIRECTION + StringCLI.SPACE + StringCLI.SECOND_DIRECTION + StringCLI.NEW_LINE +
+                        StringCLI.WITH_CHARGED_SHOT + StringCLI.SPACE + StringCLI.THREE + StringCLI.SPACE + StringCLI.VICTIM + StringCLI.NEW_LINE +
+                        StringCLI.WITH_CHARGED_SHOT + StringCLI.SPACE + StringCLI.THREE + StringCLI.SPACE + StringCLI.VICTIM + StringCLI.SPACE + StringCLI.FIRST_DIRECTION + StringCLI.NEW_LINE +
+                        StringCLI.WITH_CHARGED_SHOT + StringCLI.SPACE + StringCLI.THREE + StringCLI.SPACE + StringCLI.VICTIM + StringCLI.SPACE + StringCLI.FIRST_DIRECTION + StringCLI.SPACE + StringCLI.SECOND_DIRECTION;
+            case StringCards.WHISPERCAPS:
+                return StringCLI.EFFECT + StringCLI.SPACE + StringCLI.VICTIM;
+            case StringCards.ELECTROSCYTHECAPS:
+                return StringCLI.BASIC_MODE + StringCLI.SPACE + StringCLI.ONE + StringCLI.NEW_LINE +
+                        StringCLI.IN_REAPER_MODE + StringCLI.SPACE + StringCLI.TWO;
+            case StringCards.TRACTORBEAMCAPS:
+                return StringCLI.BASIC_MODE + StringCLI.SPACE + StringCLI.ONE + StringCLI.SPACE + StringCLI.VICTIM + StringCLI.NEW_LINE +
+                        StringCLI.BASIC_MODE + StringCLI.SPACE + StringCLI.ONE + StringCLI.SPACE + StringCLI.VICTIM + StringCLI.SPACE + StringCLI.FIRST_DIRECTION + StringCLI.NEW_LINE +
+                        StringCLI.BASIC_MODE + StringCLI.SPACE + StringCLI.ONE + StringCLI.SPACE + StringCLI.VICTIM + StringCLI.SPACE + StringCLI.FIRST_DIRECTION + StringCLI.SPACE + StringCLI.SECOND_DIRECTION + StringCLI.NEW_LINE +
+                        StringCLI.IN_PUNISHER_MODE + StringCLI.SPACE + StringCLI.TWO + StringCLI.SPACE + StringCLI.VICTIM;
+            case StringCards.VORTEXCANNONCAPS:
+                return StringCLI.BASIC_EFFECT + StringCLI.SPACE + StringCLI.VICTIM + StringCLI.SPACE + StringCLI.SQUARE_X + StringCLI.SPACE + StringCLI.SQUARE_Y + StringCLI.NEW_LINE +
+                        StringCLI.WITH_BLACK_HOLE + StringCLI.SPACE + StringCLI.FIRST_VICTIM + StringCLI.SPACE + StringCLI.SECOND_VICTIM + StringCLI.SPACE + StringCLI.SQUARE_X + StringCLI.SPACE + StringCLI.SQUARE_Y + StringCLI.NEW_LINE +
+                        StringCLI.WITH_BLACK_HOLE + StringCLI.SPACE + StringCLI.FIRST_VICTIM + StringCLI.SPACE + StringCLI.SECOND_VICTIM + StringCLI.SPACE + StringCLI.THIRD_VICTIM + StringCLI.SPACE + StringCLI.SQUARE_X + StringCLI.SPACE + StringCLI.SQUARE_Y;
+            case StringCards.FURNACECAPS:
+                return StringCLI.BASIC_MODE + StringCLI.SPACE + StringCLI.ONE + StringCLI.SPACE + StringCLI.SQUARE_X + StringCLI.SPACE + StringCLI.SQUARE_Y + StringCLI.NEW_LINE +
+                        StringCLI.IN_COZY_FIRE_MODE + StringCLI.SPACE + StringCLI.TWO + StringCLI.SPACE + StringCLI.SQUARE_X + StringCLI.SPACE + StringCLI.SQUARE_Y;
+            case StringCards.HEATSEEKERCAPS:
+                return StringCLI.EFFECT + StringCLI.SPACE + StringCLI.VICTIM;
+            case StringCards.HELLIONCAPS:
+                return StringCLI.BASIC_MODE + StringCLI.SPACE + StringCLI.ONE + StringCLI.SPACE + StringCLI.VICTIM + StringCLI.NEW_LINE +
+                        StringCLI.IN_NANO_TRACER_MODE + StringCLI.SPACE + StringCLI.TWO + StringCLI.SPACE + StringCLI.VICTIM;
+            case StringCards.FLAMETHROWERCAPS:
+                return StringCLI.BASIC_MODE + StringCLI.SPACE + StringCLI.FIRST_VICTIM + StringCLI.SPACE + StringCLI.DIRECTION + StringCLI.NEW_LINE +
+                        StringCLI.BASIC_MODE + StringCLI.SPACE + StringCLI.FIRST_VICTIM + StringCLI.SPACE + StringCLI.SECOND_VICTIM + StringCLI.SPACE + StringCLI.DIRECTION + StringCLI.NEW_LINE +
+                        StringCLI.IN_BARBECUE_MODE + StringCLI.SPACE + StringCLI.DIRECTION;
+            case StringCards.GRENADELAUNCHERCAPS:
+                return StringCLI.BASIC_EFFECT + StringCLI.SPACE + StringCLI.VICTIM + StringCLI.NEW_LINE +
+                        StringCLI.BASIC_EFFECT + StringCLI.SPACE + StringCLI.VICTIM + StringCLI.SPACE + StringCLI.DIRECTION + StringCLI.NEW_LINE +
+                        StringCLI.WITH_EXTRA_GRENADE + StringCLI.SPACE + StringCLI.VICTIM + StringCLI.SPACE + StringCLI.SQUARE_X + StringCLI.SPACE + StringCLI.SQUARE_Y + StringCLI.NEW_LINE +
+                        StringCLI.WITH_EXTRA_GRENADE + StringCLI.SPACE + StringCLI.VICTIM + StringCLI.SPACE + StringCLI.SQUARE_X + StringCLI.SPACE + StringCLI.SQUARE_Y + StringCLI.SPACE + StringCLI.DIRECTION;
+            case StringCards.ROCKETLAUNCHERCAPS:
+                return StringCLI.BASIC_EFFECT + StringCLI.SPACE + StringCLI.VICTIM + StringCLI.NEW_LINE +
+                        StringCLI.BASIC_EFFECT + StringCLI.SPACE + StringCLI.VICTIM + StringCLI.SPACE + StringCLI.VICTIM_DIRECTION + StringCLI.NEW_LINE +
+                        StringCLI.WITH_ROCKET_JUMP + StringCLI.SPACE + StringCLI.VICTIM + StringCLI.NEW_LINE +
+                        StringCLI.WITH_ROCKET_JUMP + StringCLI.SPACE + StringCLI.VICTIM + StringCLI.SPACE + StringCLI.VICTIM_DIRECTION + StringCLI.NEW_LINE +
+                        StringCLI.WITH_ROCKET_JUMP + StringCLI.SPACE + StringCLI.SHOOTER_DIRECTION + StringCLI.NEW_LINE +
+                        StringCLI.WITH_ROCKET_JUMP + StringCLI.SPACE + StringCLI.SHOOTER_DIRECTION + StringCLI.SPACE + StringCLI.SHOOTER_DIRECTION;
+            case StringCards.RAILGUNCAPS:
+                return StringCLI.BASIC_MODE + StringCLI.SPACE + StringCLI.ONE + StringCLI.SPACE + StringCLI.VICTIM + StringCLI.SPACE + StringCLI.DIRECTION + StringCLI.NEW_LINE +
+                        StringCLI.IN_PIERCING_MODE + StringCLI.SPACE + StringCLI.TWO + StringCLI.SPACE + StringCLI.VICTIM + StringCLI.SPACE + StringCLI.DIRECTION + StringCLI.NEW_LINE +
+                        StringCLI.IN_PIERCING_MODE + StringCLI.SPACE + StringCLI.TWO + StringCLI.SPACE + StringCLI.FIRST_VICTIM + StringCLI.SPACE + StringCLI.SECOND_VICTIM + StringCLI.SPACE + StringCLI.DIRECTION;
+            case StringCards.CYBERBLADECAPS:
+                return StringCLI.BASIC_EFFECT + StringCLI.SPACE + StringCLI.ONE + StringCLI.SPACE + StringCLI.VICTIM + StringCLI.NEW_LINE +
+                        StringCLI.WITH_SHADOW_STEP + StringCLI.SPACE + StringCLI.TWO + StringCLI.SPACE + StringCLI.VICTIM + StringCLI.SPACE + StringCLI.DIRECTION + StringCLI.NEW_LINE +
+                        StringCLI.WITH_SLICE_AND_DICE + StringCLI.SPACE + StringCLI.THREE + StringCLI.SPACE + StringCLI.FIRST_VICTIM + StringCLI.SPACE + StringCLI.SECOND_VICTIM + StringCLI.SPACE + StringCLI.DIRECTION;
+            case StringCards.ZX2CAPS:
+                return StringCLI.BASIC_MODE + StringCLI.SPACE + StringCLI.ONE + StringCLI.SPACE + StringCLI.VICTIM + StringCLI.NEW_LINE +
+                        StringCLI.IN_SCANNER_MODE + StringCLI.SPACE + StringCLI.TWO + StringCLI.SPACE + StringCLI.FIRST_VICTIM + StringCLI.NEW_LINE +
+                        StringCLI.IN_SCANNER_MODE + StringCLI.SPACE + StringCLI.TWO + StringCLI.SPACE + StringCLI.FIRST_VICTIM + StringCLI.SPACE + StringCLI.SECOND_VICTIM + StringCLI.NEW_LINE +
+                        StringCLI.IN_SCANNER_MODE + StringCLI.SPACE + StringCLI.TWO + StringCLI.SPACE + StringCLI.FIRST_VICTIM + StringCLI.SPACE + StringCLI.SECOND_VICTIM + StringCLI.SPACE + StringCLI.THIRD_VICTIM;
+            case StringCards.SHOTGUNCAPS:
+                return StringCLI.BASIC_MODE + StringCLI.SPACE + StringCLI.ONE + StringCLI.SPACE + StringCLI.VICTIM + StringCLI.NEW_LINE +
+                        StringCLI.BASIC_MODE + StringCLI.SPACE + StringCLI.ONE + StringCLI.SPACE + StringCLI.VICTIM + StringCLI.SPACE + StringCLI.DIRECTION + StringCLI.NEW_LINE +
+                        StringCLI.IN_LONG_BARREL_MODE + StringCLI.SPACE + StringCLI.TWO + StringCLI.SPACE + StringCLI.VICTIM;
+            case StringCards.POWERGLOVECAPS:
+                return StringCLI.BASIC_MODE + StringCLI.SPACE + StringCLI.ONE + StringCLI.SPACE + StringCLI.VICTIM + StringCLI.NEW_LINE +
+                        StringCLI.IN_ROCKET_FIST_MODE + StringCLI.SPACE + StringCLI.TWO + StringCLI.SPACE + StringCLI.DIRECTION + StringCLI.NEW_LINE +
+                        StringCLI.IN_ROCKET_FIST_MODE + StringCLI.SPACE + StringCLI.TWO + StringCLI.SPACE + StringCLI.FIRST_DIRECTION + StringCLI.SPACE + StringCLI.SECOND_DIRECTION + StringCLI.NEW_LINE +
+                        StringCLI.IN_ROCKET_FIST_MODE + StringCLI.SPACE + StringCLI.TWO + StringCLI.SPACE + StringCLI.VICTIM + StringCLI.SPACE + StringCLI.DIRECTION + StringCLI.NEW_LINE +
+                        StringCLI.IN_ROCKET_FIST_MODE + StringCLI.SPACE + StringCLI.TWO + StringCLI.SPACE + StringCLI.VICTIM + StringCLI.SPACE + StringCLI.FIRST_DIRECTION + StringCLI.SPACE + StringCLI.SECOND_DIRECTION + StringCLI.NEW_LINE +
+                        StringCLI.IN_ROCKET_FIST_MODE + StringCLI.SPACE + StringCLI.TWO + StringCLI.SPACE + StringCLI.FIRST_VICTIM + StringCLI.SPACE + StringCLI.SECOND_VICTIM + StringCLI.SPACE + StringCLI.DIRECTION + StringCLI.NEW_LINE +
+                        StringCLI.IN_ROCKET_FIST_MODE + StringCLI.SPACE + StringCLI.TWO + StringCLI.SPACE + StringCLI.FIRST_VICTIM + StringCLI.SPACE + StringCLI.SECOND_VICTIM + StringCLI.SPACE + StringCLI.FIRST_DIRECTION + StringCLI.SPACE + StringCLI.SECOND_DIRECTION;
+            case StringCards.SHOCKWAVECAPS:
+                return StringCLI.BASIC_MODE + StringCLI.SPACE + StringCLI.ONE + StringCLI.SPACE + StringCLI.FIRST_VICTIM + StringCLI.NEW_LINE +
+                        StringCLI.BASIC_MODE + StringCLI.SPACE + StringCLI.ONE + StringCLI.SPACE + StringCLI.FIRST_VICTIM + StringCLI.SPACE + StringCLI.SECOND_VICTIM + StringCLI.NEW_LINE +
+                        StringCLI.BASIC_MODE + StringCLI.SPACE + StringCLI.ONE + StringCLI.SPACE + StringCLI.FIRST_VICTIM + StringCLI.SPACE + StringCLI.SECOND_VICTIM + StringCLI.SPACE + StringCLI.THIRD_VICTIM + StringCLI.NEW_LINE +
+                        StringCLI.IN_TSUNAMI_MODE + StringCLI.SPACE + StringCLI.TWO;
+            case StringCards.SLEDGEHAMMERCAPS:
+                return StringCLI.BASIC_MODE + StringCLI.SPACE + StringCLI.ONE + StringCLI.SPACE + StringCLI.VICTIM + StringCLI.NEW_LINE +
+                        StringCLI.IN_PULVERIZE_MODE + StringCLI.SPACE + StringCLI.TWO + StringCLI.SPACE + StringCLI.VICTIM + StringCLI.NEW_LINE +
+                        StringCLI.IN_PULVERIZE_MODE + StringCLI.SPACE + StringCLI.TWO + StringCLI.SPACE + StringCLI.VICTIM + StringCLI.SPACE + StringCLI.DIRECTION + StringCLI.NEW_LINE +
+                        StringCLI.IN_PULVERIZE_MODE + StringCLI.SPACE + StringCLI.TWO + StringCLI.SPACE + StringCLI.VICTIM + StringCLI.SPACE + StringCLI.FIRST_DIRECTION + StringCLI.SPACE + StringCLI.SECOND_DIRECTION;
             default:
-                return "Wrong Name";
+                return StringCLI.ERROR;
         }
     }
 
@@ -63,19 +118,19 @@ public class WeaponInfoHandler {
      * @param namePowerup
      * @return
      */
-
     public String getInfoPowerUp(String namePowerup){
         switch (namePowerup){
-            case "TARGETING SCOPE":
-                return "1 victim, 1 ammo";
-            case "NEWTON":
-                return "1 victim, 1 or 2 directions";
-            case "TAGBACK GRENADE":
-                return "1 victim";
-            case "TELEPORTER":
-                return "square position";
+            case StringCards.TARGETINGSCOPECAPS:
+                return StringCLI.EFFECT + StringCLI.SPACE + StringCLI.VICTIM + StringCLI.SPACE + StringCLI.AMMO;
+            case StringCards.NEWTONCAPS:
+                return StringCLI.EFFECT + StringCLI.SPACE + StringCLI.VICTIM + StringCLI.SPACE + StringCLI.FIRST_DIRECTION + StringCLI.NEW_LINE +
+                        StringCLI.EFFECT + StringCLI.SPACE + StringCLI.VICTIM + StringCLI.SPACE + StringCLI.FIRST_DIRECTION + StringCLI.SPACE + StringCLI.SECOND_DIRECTION;
+            case StringCards.TAGBACKGRENADECAPS:
+                return StringCLI.EFFECT + StringCLI.SPACE + StringCLI.VICTIM;
+            case StringCards.TELEPORTERCAPS:
+                return StringCLI.EFFECT + StringCLI.SPACE + StringCLI.SQUARE_X + StringCLI.SPACE + StringCLI.SQUARE_Y;
             default:
-                return "Wrong Name";
+                return StringCLI.ERROR;
         }
     }
 }

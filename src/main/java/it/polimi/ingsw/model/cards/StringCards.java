@@ -8,35 +8,35 @@ public class StringCards {
     /**
      * Caps weapons.
      */
-    static final String LOCKRIFLECAPS = "LOCK RIFLE";
-    static final String ELECTROSCYTHECAPS = "ELECTROSCYTHE";
-    static final String MACHINEGUNCAPS = "MACHINE GUN";
-    static final String TRACTORBEAMCAPS = "TRACTOR BEAM";
-    static final String THORCAPS = "T.H.O.R.";
-    static final String VORTEXCANNONCAPS = "VORTEX CANNON";
-    static final String FURNACECAPS = "FURNACE";
-    static final String PLASMAGUNCAPS = "PLASMA GUN";
-    static final String HEATSEEKERCAPS = "HEATSEEKER";
-    static final String WHISPERCAPS = "WHISPER";
-    static final String HELLIONCAPS = "HELLION";
-    static final String FLAMETHROWERCAPS = "FLAMETHROWER";
-    static final String ZX2CAPS = "ZX-2";
-    static final String GRENADELAUNCHERCAPS = "GRENADE LAUNCHER";
-    static final String SHOTGUNCAPS = "SHOTGUN";
-    static final String ROCKETLAUNCHERCAPS = "ROCKET LAUNCHER";
-    static final String POWERGLOVECAPS = "POWER GLOVE";
-    static final String RAILGUNCAPS = "RAILGUN";
-    static final String CYBERBLADECAPS = "CYBERBLADE";
-    static final String SLEDGEHAMMERCAPS = "SLEDGEHAMMER";
-    static final String SHOCKWAVECAPS = "SHOCKWAVE";
+    public static final String LOCKRIFLECAPS = "LOCK RIFLE";
+    public static final String ELECTROSCYTHECAPS = "ELECTROSCYTHE";
+    public static final String MACHINEGUNCAPS = "MACHINE GUN";
+    public static final String TRACTORBEAMCAPS = "TRACTOR BEAM";
+    public static final String THORCAPS = "T.H.O.R.";
+    public static final String VORTEXCANNONCAPS = "VORTEX CANNON";
+    public static final String FURNACECAPS = "FURNACE";
+    public static final String PLASMAGUNCAPS = "PLASMA GUN";
+    public static final String HEATSEEKERCAPS = "HEATSEEKER";
+    public static final String WHISPERCAPS = "WHISPER";
+    public static final String HELLIONCAPS = "HELLION";
+    public static final String FLAMETHROWERCAPS = "FLAMETHROWER";
+    public static final String ZX2CAPS = "ZX-2";
+    public static final String GRENADELAUNCHERCAPS = "GRENADE LAUNCHER";
+    public static final String SHOTGUNCAPS = "SHOTGUN";
+    public static final String ROCKETLAUNCHERCAPS = "ROCKET LAUNCHER";
+    public static final String POWERGLOVECAPS = "POWER GLOVE";
+    public static final String RAILGUNCAPS = "RAILGUN";
+    public static final String CYBERBLADECAPS = "CYBERBLADE";
+    public static final String SLEDGEHAMMERCAPS = "SLEDGEHAMMER";
+    public static final String SHOCKWAVECAPS = "SHOCKWAVE";
 
     /**
      * Caps powerups.
      */
-    static final String TARGETINGSCOPECAPS = "TARGETING SCOPE";
-    static final String NEWTONCAPS = "NEWTON";
-    static final String TAGBACKGRENADECAPS = "TAGBACK GRENADE";
-    static final String TELEPORTERCAPS = "TELEPORTER";
+    public static final String TARGETINGSCOPECAPS = "TARGETING SCOPE";
+    public static final String NEWTONCAPS = "NEWTON";
+    public static final String TAGBACKGRENADECAPS = "TAGBACK GRENADE";
+    public static final String TELEPORTERCAPS = "TELEPORTER";
 
 
     /**
