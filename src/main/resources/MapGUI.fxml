@@ -21,12 +21,12 @@
       <ImageView fx:id="weaponRed1" fitHeight="136.0" fitWidth="92.0" layoutX="22.0" layoutY="233.0" onMouseClicked="#showWeaponRed1" pickOnBounds="true" preserveRatio="true" rotate="90.0" />
       <ImageView fx:id="weaponRed2" fitHeight="145.0" fitWidth="92.0" layoutX="17.0" layoutY="333.0" onMouseClicked="#showWeaponRed2" pickOnBounds="true" preserveRatio="true" rotate="90.0" />
       <ImageView fx:id="weaponRed3" fitHeight="144.0" fitWidth="100.0" layoutX="15.0" layoutY="438.0" onMouseClicked="#showWeaponRed3" pickOnBounds="true" preserveRatio="true" rotate="90.0" />
-      <ImageView fx:id="weaponYellow1" fitHeight="149.0" fitWidth="92.0" layoutX="828.0" layoutY="367.0" onMouseClicked="#showWeaponYellow1" pickOnBounds="true" preserveRatio="true" rotate="90.0" />
-      <ImageView fx:id="weaponYellow2" fitHeight="147.0" fitWidth="92.0" layoutX="828.0" layoutY="476.0" onMouseClicked="#showWeaponYellow2" pickOnBounds="true" preserveRatio="true" rotate="90.0" />
-      <ImageView fx:id="weaponYellow3" fitHeight="148.0" fitWidth="92.0" layoutX="828.0" layoutY="576.0" onMouseClicked="#showWeaponYellow3" pickOnBounds="true" preserveRatio="true" rotate="90.0" />
-      <ImageView fx:id="weaponBlue1" fitHeight="136.0" fitWidth="92.0" layoutX="697.0" layoutY="-1.0" onMouseClicked="#showWeaponBlue1" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="weaponBlue2" fitHeight="136.0" fitWidth="92.0" layoutX="593.0" layoutY="-1.0" onMouseClicked="#showWeaponBlue2" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="weaponBlue3" fitHeight="136.0" fitWidth="100.0" layoutX="487.0" layoutY="-2.0" onMouseClicked="#showWeaponBlue3" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="weaponYellow1" fitHeight="143.0" fitWidth="92.0" layoutX="818.0" layoutY="371.0" onMouseClicked="#showWeaponYellow1" pickOnBounds="true" preserveRatio="true" rotate="90.0" />
+      <ImageView fx:id="weaponYellow2" fitHeight="147.0" fitWidth="92.0" layoutX="816.0" layoutY="476.0" onMouseClicked="#showWeaponYellow2" pickOnBounds="true" preserveRatio="true" rotate="90.0" />
+      <ImageView fx:id="weaponYellow3" fitHeight="148.0" fitWidth="92.0" layoutX="816.0" layoutY="576.0" onMouseClicked="#showWeaponYellow3" pickOnBounds="true" preserveRatio="true" rotate="90.0" />
+      <ImageView fx:id="weaponBlue1" fitHeight="143.0" fitWidth="107.0" layoutX="698.0" layoutY="-8.0" onMouseClicked="#showWeaponBlue1" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="weaponBlue2" fitHeight="143.0" fitWidth="107.0" layoutX="595.0" layoutY="-8.0" onMouseClicked="#showWeaponBlue2" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="weaponBlue3" fitHeight="143.0" fitWidth="107.0" layoutX="492.0" layoutY="-9.0" onMouseClicked="#showWeaponBlue3" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="deckPowerup" fitHeight="96.0" fitWidth="70.0" layoutX="839.0" layoutY="34.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@boardElem/AD_powerups_IT_02.png" />
@@ -330,8 +330,8 @@
             <Font name="Alien League Regular" size="23.0" />
          </font>
       </Label>
-      <Label layoutX="990.0" layoutY="340.0" prefHeight="39.0" prefWidth="301.0" text="Note: if you reload you won't" textFill="WHITE" />
-      <Label layoutX="990.0" layoutY="356.0" prefHeight="30.0" prefWidth="214.0" text=" be able to do other actions" textFill="WHITE" />
+      <Label layoutX="981.0" layoutY="337.0" prefHeight="39.0" prefWidth="301.0" text="Note: if you reload you won't" textFill="WHITE" />
+      <Label layoutX="981.0" layoutY="353.0" prefHeight="30.0" prefWidth="214.0" text=" be able to do other actions" textFill="WHITE" />
       <ImageView fx:id="bannerAmmo" fitHeight="45.0" fitWidth="200.0" layoutX="962.0" layoutY="245.0" mouseTransparent="true" onMouseClicked="#launchAmmo">
          <image>
             <Image url="@boardElem/banner.png" />
@@ -365,7 +365,7 @@
             <Insets bottom="10.0" left="10.0" right="10.0" top="15.0" />
          </padding>
       </GridPane>
-      <Label fx:id="mainPlayerLabel" layoutX="29.0" layoutY="640.0" prefHeight="39.0" prefWidth="79.0" text="Gianni" textFill="WHITE">
+      <Label fx:id="mainPlayerLabel" layoutX="13.0" layoutY="640.0" prefHeight="39.0" prefWidth="184.0" text="Gianni" textFill="WHITE">
          <font>
             <Font name="Alien League Regular" size="30.0" />
          </font>

@@ -38,6 +38,9 @@
             <Font name="Alien League Regular" size="14.0" />
          </font></Button>
       <Label fx:id="labelErrorMoveReload" layoutX="65.0" layoutY="213.0" text="Error: Insert Movement!" textFill="WHITE" visible="false" />
-      <Label fx:id="labelShowMoveRel" layoutX="7.0" layoutY="195.0" prefHeight="17.0" prefWidth="243.0" text=" " textFill="WHITE" />
+      <Label fx:id="labelShowMoveRel" layoutX="7.0" layoutY="195.0" prefHeight="17.0" prefWidth="243.0" text=" " textFill="WHITE">
+         <font>
+            <Font name="Alien League Regular" size="15.0" />
+         </font></Label>
    </children>
 </AnchorPane>

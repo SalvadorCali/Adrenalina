@@ -13,22 +13,22 @@
       </Label>
       <Label fx:id="firstScoreLabel" layoutX="76.0" layoutY="80.0" text="First Player">
          <font>
-            <Font size="15.0" />
+            <Font name="Alien League Regular" size="20.0" />
          </font>
       </Label>
       <Label fx:id="secondScoreLabel" layoutX="76.0" layoutY="126.0" text="Second Player">
          <font>
-            <Font size="15.0" />
+            <Font name="Alien League Regular" size="20.0" />
          </font>
       </Label>
       <Label fx:id="thirdScoreLabel" layoutX="76.0" layoutY="170.0" text="Third Player" visible="false">
          <font>
-            <Font size="15.0" />
+            <Font name="Alien League Regular" size="20.0" />
          </font>
       </Label>
       <Label fx:id="fourthScoreLabel" layoutX="76.0" layoutY="217.0" text="Fourth Player" visible="false">
          <font>
-            <Font size="15.0" />
+            <Font name="Alien League Regular" size="20.0" />
          </font>
       </Label>
       <Label fx:id="fifthScoreLabel" layoutX="76.0" layoutY="265.0" text="Fifth Player" visible="false">
@@ -38,7 +38,7 @@
       </Label>
       <Label fx:id="firstPlayerScoreNum" layoutX="295.0" layoutY="80.0" text="0">
          <font>
-            <Font size="15.0" />
+            <Font name="Alien League Regular" size="20.0" />
          </font>
       </Label>
       <Label fx:id="secondPlayerScoreNum" layoutX="295.0" layoutY="126.0" text="0">

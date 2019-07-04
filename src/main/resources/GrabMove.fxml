@@ -37,6 +37,9 @@
          <font>
             <Font name="Alien League Regular" size="14.0" />
          </font></Button>
-      <Label fx:id="labelShowMoveGrab" layoutX="7.0" layoutY="191.0" prefHeight="17.0" prefWidth="243.0" text=" " textFill="WHITE" />
+      <Label fx:id="labelShowMoveGrab" layoutX="7.0" layoutY="191.0" prefHeight="17.0" prefWidth="243.0" text=" " textFill="WHITE">
+         <font>
+            <Font name="Alien League Regular" size="15.0" />
+         </font></Label>
    </children>
 </AnchorPane>

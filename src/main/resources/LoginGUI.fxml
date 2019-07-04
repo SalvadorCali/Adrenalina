@@ -20,24 +20,54 @@
                   <Image url="@LoginBackground.jpg" />
                </image>
             </ImageView>
-            <TextField fx:id="nicknameField" layoutX="217.0" layoutY="158.0" opacity="0.8" promptText="Nickname" />
-            <TextField fx:id="addressField" layoutX="217.0" layoutY="208.0" opacity="0.8" promptText="Address" />
+            <TextField fx:id="nicknameField" layoutX="217.0" layoutY="158.0" opacity="0.8" promptText="Nickname">
+               <font>
+                  <Font name="Alien League Regular" size="17.0" />
+               </font></TextField>
+            <TextField fx:id="addressField" layoutX="217.0" layoutY="208.0" opacity="0.8" promptText="Address">
+               <font>
+                  <Font name="Alien League Regular" size="17.0" />
+               </font></TextField>
             <RadioButton fx:id="socketButton" layoutX="64.0" layoutY="171.0" mnemonicParsing="false" text="Socket" textFill="WHITE">
                <toggleGroup>
                   <ToggleGroup fx:id="connection" />
-               </toggleGroup></RadioButton>
-            <RadioButton fx:id="rmiButton" layoutX="64.0" layoutY="213.0" mnemonicParsing="false" text="Rmi" textFill="WHITE" toggleGroup="$connection" />
-            <TextField fx:id="colorField" layoutX="217.0" layoutY="257.0" opacity="0.8" promptText="Color" />
-            <Button fx:id="loginButton" layoutX="274.0" layoutY="330.0" mnemonicParsing="false" text="Login" onMouseClicked="#tryConnection" />
-            <Label fx:id="statusConnectionLabel" layoutX="145.0" layoutY="373.0" text="Offline" textFill="WHITE" />
+               </toggleGroup>
+               <font>
+                  <Font name="Alien League Regular" size="16.0" />
+               </font></RadioButton>
+            <RadioButton fx:id="rmiButton" layoutX="64.0" layoutY="213.0" mnemonicParsing="false" text="Rmi" textFill="WHITE" toggleGroup="$connection">
+               <font>
+                  <Font name="Alien League Regular" size="16.0" />
+               </font></RadioButton>
+            <TextField fx:id="colorField" layoutX="217.0" layoutY="257.0" opacity="0.8" promptText="Color">
+               <font>
+                  <Font name="Alien League Regular" size="17.0" />
+               </font></TextField>
+            <Button fx:id="loginButton" layoutX="267.0" layoutY="327.0" mnemonicParsing="false" onMouseClicked="#tryConnection" text="Login">
+               <font>
+                  <Font name="Alien League Regular" size="19.0" />
+               </font></Button>
+            <Label fx:id="statusConnectionLabel" layoutX="145.0" layoutY="373.0" text="Offline" textFill="WHITE">
+               <font>
+                  <Font name="Alien League Regular" size="17.0" />
+               </font></Label>
             <Label layoutX="169.0" layoutY="14.0" text="Adrenaline" textFill="#33a192">
                <font>
                   <Font name="Alien League Regular" size="68.0" />
                </font>
             </Label>
-            <Label fx:id="statusConnectionLabel1" layoutX="14.0" layoutY="373.0" text="Connection Status:" textFill="WHITE" />
-            <Label layoutX="14.0" layoutY="412.0" text="Error:" textFill="WHITE" />
-            <Label fx:id="connectionErrorLabel" layoutX="133.0" layoutY="412.0" text="None" textFill="WHITE" />
+            <Label fx:id="statusConnectionLabel1" layoutX="14.0" layoutY="373.0" text="Connection Status:" textFill="WHITE">
+               <font>
+                  <Font name="Alien League Regular" size="15.0" />
+               </font></Label>
+            <Label layoutX="14.0" layoutY="412.0" text="Error:" textFill="WHITE">
+               <font>
+                  <Font name="Alien League Regular" size="15.0" />
+               </font></Label>
+            <Label fx:id="connectionErrorLabel" layoutX="133.0" layoutY="412.0" text="None" textFill="WHITE">
+               <font>
+                  <Font name="Alien League Regular" size="16.0" />
+               </font></Label>
          </children>
       </Pane>
    </children>

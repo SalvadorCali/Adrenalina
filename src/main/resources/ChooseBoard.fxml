@@ -37,36 +37,39 @@
       </ImageView>
       <Label layoutX="122.0" layoutY="190.0" text="basic board" textFill="WHITE">
          <font>
-            <Font size="15.0" />
+            <Font name="Alien League Regular" size="16.0" />
          </font>
       </Label>
-      <Label layoutX="413.0" layoutY="192.0" text="generic board" textFill="WHITE">
+      <Label layoutX="403.0" layoutY="190.0" text="generic board" textFill="WHITE">
          <font>
-            <Font size="15.0" />
+            <Font name="Alien League Regular" size="17.0" />
          </font>
       </Label>
-      <Label layoutX="109.0" layoutY="350.0" text="4 players board" textFill="WHITE">
+      <Label layoutX="103.0" layoutY="350.0" text="4 players board" textFill="WHITE">
          <font>
-            <Font size="15.0" />
+            <Font name="Alien League Regular" size="17.0" />
          </font>
       </Label>
-      <Label layoutX="401.0" layoutY="351.0" text="4-5 players board" textFill="WHITE">
+      <Label layoutX="387.0" layoutY="350.0" text="4-5 players board" textFill="WHITE">
          <font>
-            <Font size="15.0" />
+            <Font name="Alien League Regular" size="17.0" />
          </font>
       </Label>
-      <Label layoutX="77.0" layoutY="201.0" text=" (3 players reccomended)" textFill="WHITE">
+      <Label layoutX="81.0" layoutY="205.0" text=" (3 players reccomended)" textFill="WHITE">
          <font>
-            <Font size="15.0" />
+            <Font name="Alien League Regular" size="15.0" />
          </font>
       </Label>
-      <Label layoutX="363.0" layoutY="203.0" text="(3-4 players reccomended)" textFill="WHITE">
+      <Label layoutX="361.0" layoutY="205.0" text="(3-4 players reccomended)" textFill="WHITE">
          <font>
-            <Font size="15.0" />
+            <Font name="Alien League Regular" size="16.0" />
          </font>
       </Label>
       <TextField fx:id="skullText" layoutX="226.0" layoutY="400.0" promptText="insert skull" />
-      <Button fx:id="enterButton" layoutX="426.0" layoutY="400.0" mnemonicParsing="false" onMouseClicked="#chooseBoardButton" text="Enter" />
+      <Button fx:id="enterButton" layoutX="426.0" layoutY="400.0" mnemonicParsing="false" onMouseClicked="#chooseBoardButton" text="Enter">
+         <font>
+            <Font name="Alien League Regular" size="14.0" />
+         </font></Button>
       <Label fx:id="labelErrorSkull" layoutX="226.0" layoutY="432.0" prefHeight="21.0" prefWidth="149.0" textFill="WHITE">
          <font>
             <Font size="15.0" />
@@ -74,12 +77,12 @@
       </Label>
       <Label layoutX="59.0" layoutY="402.0" text="insert skulls' number:" textFill="WHITE">
          <font>
-            <Font size="15.0" />
+            <Font name="Alien League Regular" size="16.0" />
          </font>
       </Label>
       <Label layoutX="87.0" layoutY="422.0" text="(from 5 to 8)" textFill="WHITE">
          <font>
-            <Font size="15.0" />
+            <Font name="Alien League Regular" size="16.0" />
          </font>
       </Label>
    </children>

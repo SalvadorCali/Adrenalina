@@ -14,16 +14,28 @@
          </font>
       </Label>
       <TextField fx:id="txtWeaponReload1" layoutX="218.0" layoutY="55.0" prefHeight="25.0" prefWidth="60.0" />
-      <Label layoutX="14.0" layoutY="59.0" prefHeight="17.0" prefWidth="187.0" text="reload first (yes/no)?" />
-      <Button fx:id="buttonReload" layoutX="143.0" layoutY="175.0" mnemonicParsing="false" onMouseClicked="#reload" text="Reload" />
+      <Label layoutX="14.0" layoutY="59.0" prefHeight="17.0" prefWidth="187.0" text="reload first (yes/no)?">
+         <font>
+            <Font name="Alien League Regular" size="15.0" />
+         </font></Label>
+      <Button fx:id="buttonReload" layoutX="143.0" layoutY="175.0" mnemonicParsing="false" onMouseClicked="#reload" text="Reload">
+         <font>
+            <Font name="Alien League Regular" size="14.0" />
+         </font></Button>
       <Label layoutX="224.0" layoutY="94.0" prefHeight="21.0" prefWidth="109.0" text="Reloaded" visible="false">
          <font>
             <Font size="15.0" />
          </font>
       </Label>
-      <Label layoutX="14.0" layoutY="98.0" prefHeight="17.0" prefWidth="187.0" text="reload second (yes/no)?" />
+      <Label layoutX="14.0" layoutY="98.0" prefHeight="17.0" prefWidth="187.0" text="reload second (yes/no)?">
+         <font>
+            <Font name="Alien League Regular" size="15.0" />
+         </font></Label>
       <TextField fx:id="txtWeaponReload2" layoutX="218.0" layoutY="94.0" prefHeight="25.0" prefWidth="60.0" />
-      <Label layoutX="14.0" layoutY="139.0" prefHeight="17.0" prefWidth="187.0" text="reload third(yes/no)?" />
+      <Label layoutX="14.0" layoutY="139.0" prefHeight="17.0" prefWidth="187.0" text="reload third(yes/no)?">
+         <font>
+            <Font name="Alien League Regular" size="15.0" />
+         </font></Label>
       <TextField fx:id="txtWeaponReload3" layoutX="218.0" layoutY="135.0" prefHeight="25.0" prefWidth="60.0" />
    </children>
 </AnchorPane>

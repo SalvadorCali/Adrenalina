@@ -13,30 +13,72 @@
             <Font name="Alien League Regular" size="24.0" />
          </font>
       </Label>
-      <Label layoutX="40.0" layoutY="76.0" text="Mode:" textFill="WHITE" />
+      <Label layoutX="40.0" layoutY="76.0" text="Mode:" textFill="WHITE">
+         <font>
+            <Font name="Alien League Regular" size="17.0" />
+         </font></Label>
       <TextField fx:id="modeTxtField" layoutX="40.0" layoutY="99.0" prefHeight="25.0" prefWidth="79.0" />
-      <Label layoutX="40.0" layoutY="152.0" text="First Victim:" textFill="WHITE" />
-      <TextField fx:id="firstVictimTxtField" layoutX="40.0" layoutY="175.0" />
-      <Label layoutX="40.0" layoutY="222.0" text="Second Victim:" textFill="WHITE" />
-      <TextField fx:id="secondVictimTxtField" layoutX="40.0" layoutY="245.0" />
-      <Label layoutX="237.0" layoutY="76.0" text="Third Victim:" textFill="WHITE" />
-      <TextField fx:id="thirdVictimTxtField" layoutX="236.0" layoutY="99.0" />
-      <Label layoutX="427.0" layoutY="75.0" text="Direction1:" textFill="WHITE" />
-      <TextField fx:id="directionTxtField" layoutX="427.0" layoutY="98.0" prefHeight="25.0" prefWidth="51.0" />
-      <Button fx:id="shootDataButton" layoutX="236.0" layoutY="290.0" mnemonicParsing="false" onMouseClicked="#setShoot" text="Shoot!" />
-      <Label layoutX="330.0" layoutY="222.0" text="Insert X:" textFill="WHITE" />
-      <TextField layoutX="330.0" layoutY="245.0" prefHeight="25.0" prefWidth="43.0" fx:id="xTxtField" />
-      <Label layoutX="405.0" layoutY="222.0" text="Insert Y:" textFill="WHITE" />
-      <TextField fx:id="yTxtField" layoutX="405.0" layoutY="245.0" prefHeight="25.0" prefWidth="43.0" />
-      <Label layoutX="139.0" layoutY="76.0" text="BasicFirst:" textFill="WHITE" />
+      <Label layoutX="40.0" layoutY="133.0" text="First Victim:" textFill="WHITE">
+         <font>
+            <Font name="Alien League Regular" size="17.0" />
+         </font></Label>
+      <TextField fx:id="firstVictimTxtField" layoutX="40.0" layoutY="156.0" />
+      <Label layoutX="40.0" layoutY="187.0" text="Second Victim:" textFill="WHITE">
+         <font>
+            <Font name="Alien League Regular" size="17.0" />
+         </font></Label>
+      <TextField fx:id="secondVictimTxtField" layoutX="40.0" layoutY="210.0" />
+      <Label layoutX="41.0" layoutY="247.0" text="Third Victim:" textFill="WHITE">
+         <font>
+            <Font name="Alien League Regular" size="17.0" />
+         </font></Label>
+      <TextField fx:id="thirdVictimTxtField" layoutX="40.0" layoutY="270.0" />
+      <Label layoutX="289.0" layoutY="74.0" text="Direction1:" textFill="WHITE">
+         <font>
+            <Font name="Alien League Regular" size="16.0" />
+         </font></Label>
+      <TextField fx:id="directionTxtField" layoutX="289.0" layoutY="97.0" prefHeight="25.0" prefWidth="51.0" />
+      <Button fx:id="shootDataButton" layoutX="227.0" layoutY="293.0" mnemonicParsing="false" onMouseClicked="#setShoot" text="Shoot!">
+         <font>
+            <Font name="Alien League Regular" size="17.0" />
+         </font></Button>
+      <Label layoutX="289.0" layoutY="222.0" text="Insert X:" textFill="WHITE">
+         <font>
+            <Font name="Alien League Regular" size="16.0" />
+         </font></Label>
+      <TextField layoutX="289.0" layoutY="245.0" prefHeight="25.0" prefWidth="43.0" fx:id="xTxtField" />
+      <Label layoutX="396.0" layoutY="222.0" text="Insert Y:" textFill="WHITE">
+         <font>
+            <Font name="Alien League Regular" size="16.0" />
+         </font></Label>
+      <TextField fx:id="yTxtField" layoutX="396.0" layoutY="245.0" prefHeight="25.0" prefWidth="43.0" />
+      <Label layoutX="139.0" layoutY="76.0" text="BasicFirst:" textFill="WHITE">
+         <font>
+            <Font name="Alien League Regular" size="17.0" />
+         </font></Label>
       <TextField fx:id="basicTxtField" layoutX="139.0" layoutY="99.0" prefHeight="25.0" prefWidth="67.0" promptText="true/false" />
-      <Label fx:id="labelInfoWeapon" layoutX="41.0" layoutY="329.0" prefHeight="117.0" prefWidth="442.0" textFill="WHITE" wrapText="true" />
-      <Label layoutX="40.0" layoutY="307.0" prefHeight="32.0" prefWidth="111.0" text="what to specify:" textFill="WHITE" wrapText="true" />
-      <Label layoutX="322.0" layoutY="150.0" text="Direction3:" textFill="WHITE" />
-      <TextField fx:id="directionTxtField3" layoutX="322.0" layoutY="172.0" prefHeight="25.0" prefWidth="51.0" />
-      <Label layoutX="241.0" layoutY="150.0" text="Direction2:" textFill="WHITE" />
-      <TextField fx:id="directionTxtField2" layoutX="241.0" layoutY="173.0" prefHeight="25.0" prefWidth="51.0" />
-      <Label layoutX="424.0" layoutY="149.0" text="Direction4:" textFill="WHITE" />
-      <TextField fx:id="directionTxtField4" layoutX="427.0" layoutY="171.0" prefHeight="25.0" prefWidth="51.0" />
+      <Label fx:id="labelInfoWeapon" layoutX="41.0" layoutY="329.0" prefHeight="117.0" prefWidth="442.0" textFill="WHITE" wrapText="true">
+         <font>
+            <Font name="Alien League Regular" size="15.0" />
+         </font></Label>
+      <Label layoutX="40.0" layoutY="307.0" prefHeight="32.0" prefWidth="128.0" text="what to specify:" textFill="WHITE" wrapText="true">
+         <font>
+            <Font name="Alien League Regular" size="17.0" />
+         </font></Label>
+      <Label layoutX="288.0" layoutY="147.0" text="Direction3:" textFill="WHITE">
+         <font>
+            <Font name="Alien League Regular" size="16.0" />
+         </font></Label>
+      <TextField fx:id="directionTxtField3" layoutX="288.0" layoutY="169.0" prefHeight="25.0" prefWidth="51.0" />
+      <Label layoutX="393.0" layoutY="74.0" text="Direction2:" textFill="WHITE">
+         <font>
+            <Font name="Alien League Regular" size="16.0" />
+         </font></Label>
+      <TextField fx:id="directionTxtField2" layoutX="393.0" layoutY="97.0" prefHeight="25.0" prefWidth="51.0" />
+      <Label layoutX="393.0" layoutY="145.0" text="Direction4:" textFill="WHITE">
+         <font>
+            <Font name="Alien League Regular" size="16.0" />
+         </font></Label>
+      <TextField fx:id="directionTxtField4" layoutX="396.0" layoutY="167.0" prefHeight="25.0" prefWidth="51.0" />
    </children>
 </AnchorPane>
