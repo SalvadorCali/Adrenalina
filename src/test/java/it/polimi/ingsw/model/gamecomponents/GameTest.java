@@ -115,6 +115,14 @@ class GameTest {
         assertEquals(24, scoreList.get(TokenColor.YELLOW).intValue());
         assertEquals(8, scoreList.get(TokenColor.GREY).intValue());
         assertEquals(0, scoreList.get(TokenColor.PURPLE).intValue());
+
+        game = createGame2();
+        game.scoring();
+        Map<TokenColor, Integer> scoreList2 = game.getScoreList();
+        assertEquals(8, scoreList2.get(TokenColor.BLUE).intValue());
+        assertEquals(12, scoreList2.get(TokenColor.YELLOW).intValue());
+        assertEquals(9, scoreList2.get(TokenColor.GREY).intValue());
+        assertEquals(0, scoreList2.get(TokenColor.PURPLE).intValue());
     }
 
     /**
@@ -218,6 +226,45 @@ class GameTest {
                 TokenColor.YELLOW, TokenColor.GREY, TokenColor.YELLOW);
         game.addPlayer(player);
 
+        game.createScoreList();
+        return game;
+    }
+
+    Game createGame2(){
+        GameController gameController = new GameController();
+        Game game = gameController.getGame();
+        Player player = new Player(TokenColor.BLUE);
+        player.setPlayerBoard(new PlayerBoard());
+        player.getPlayerBoard().addDamage(TokenColor.YELLOW);
+        game.addPlayer(player);
+        game.setCurrentPlayer(player);
+
+        player = new Player(TokenColor.YELLOW);
+        player.setPlayerBoard(new PlayerBoard());
+        player.getPlayerBoard().addDamage(TokenColor.BLUE, TokenColor.BLUE, TokenColor.GREY,
+                TokenColor.GREY, TokenColor.BLUE, TokenColor.GREY,
+                TokenColor.GREY, TokenColor.BLUE, TokenColor.GREY,
+                TokenColor.GREY);
+        game.addPlayer(player);
+
+        player = new Player(TokenColor.GREY);
+        player.setPlayerBoard(new PlayerBoard());
+        player.getPlayerBoard().addDamage(TokenColor.BLUE, TokenColor.BLUE, TokenColor.YELLOW,
+                TokenColor.YELLOW, TokenColor.BLUE, TokenColor.YELLOW,
+                TokenColor.YELLOW, TokenColor.BLUE, TokenColor.YELLOW);
+        player.getPlayerBoard().setFinalFrenzy(true);
+        game.addPlayer(player);
+
+        player = new Player(TokenColor.PURPLE);
+        player.setPlayerBoard(new PlayerBoard());
+        player.getPlayerBoard().addDamage(TokenColor.BLUE, TokenColor.BLUE, TokenColor.YELLOW,
+                TokenColor.YELLOW, TokenColor.GREY, TokenColor.YELLOW,
+                TokenColor.YELLOW);
+        player.getPlayerBoard().setFinalFrenzy(true);
+        game.addPlayer(player);
+
+        game.setEndPhase(true);
+        game.setFinalFrenzy(true);
         game.createScoreList();
         return game;
     }
