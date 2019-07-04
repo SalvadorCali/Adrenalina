@@ -47,122 +47,63 @@ import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 
+/**
+ * This is the main class for the Gui, it shows the mainBoard with all the interactions that can be done by the players.
+ * It extends Application from javafx, it implements Initializable always from javafx and ViewInteface used for receiveing message, notify from the server.
+ */
 public class GUIHandler extends Application implements ViewInterface, Initializable {
 
-    @FXML
-    private ImageView mapImage;
-
-    @FXML
-    private ImageView weaponRed1;
-
-    @FXML
-    private ImageView weaponRed2;
-
-    @FXML
-    private ImageView weaponRed3;
-
-    @FXML
-    private ImageView weaponYellow1;
-
-    @FXML
-    private ImageView weaponYellow2;
-
-    @FXML
-    private ImageView weaponYellow3;
-
-    @FXML
-    private ImageView weaponBlue1;
-
-    @FXML
-    private ImageView weaponBlue2;
-
-    @FXML
-    private ImageView weaponBlue3;
-
-    @FXML
-    private ImageView deckPowerup;
-
-    @FXML
-    private ImageView deckWeapon;
-
-    @FXML
-    private ImageView deckAmmo;
-
-    @FXML
-    private GridPane gridSkulls;
-
-    @FXML
-    private GridPane grid00;
-
-    @FXML
-    private GridPane grid10;
-
-    @FXML
-    private GridPane grid20;
-
-    @FXML
-    private GridPane grid03;
-
-    @FXML
-    private GridPane grid01;
-
-    @FXML
-    private GridPane grid11;
-
-    @FXML
-    private GridPane grid02;
-
-    @FXML
-    private GridPane grid12;
-
-    @FXML
-    private GridPane grid21;
-
-    @FXML
-    private GridPane grid22;
-
-    @FXML
-    private GridPane grid13;
-
-    @FXML
-    private GridPane grid23;
-
-    @FXML
-    private ImageView bannerShoot;
-
-    @FXML
-    private ImageView bannerGrab;
-
-    @FXML
-    private ImageView bannerEndTurn;
-
-    @FXML
-    private ImageView upArrow;
-
-    @FXML
-    private ImageView rightArrow;
-
-    @FXML
-    private ImageView downArrow;
-
-    @FXML
-    private ImageView leftArrow;
-
-    @FXML
-    private ImageView bannerShowWeapon;
-
-    @FXML
-    private ImageView bannerShowDamage1;
-
-    @FXML
-    private Label playerTurnLabel;
-
+    /**
+     * these are the elements of the mainBoard that includes: board, weapons, decks, banners for actions, some labels.
+     */
+    @FXML private ImageView mapImage;
+    @FXML private ImageView weaponRed1;
+    @FXML private ImageView weaponRed2;
+    @FXML private ImageView weaponRed3;
+    @FXML private ImageView weaponYellow1;
+    @FXML private ImageView weaponYellow2;
+    @FXML private ImageView weaponYellow3;
+    @FXML private ImageView weaponBlue1;
+    @FXML private ImageView weaponBlue2;
+    @FXML private ImageView weaponBlue3;
+    @FXML private ImageView deckPowerup;
+    @FXML private ImageView deckWeapon;
+    @FXML private ImageView bannerShoot;
+    @FXML private ImageView bannerGrab;
+    @FXML private ImageView bannerEndTurn;
+    @FXML private ImageView upArrow;
+    @FXML private ImageView rightArrow;
+    @FXML private ImageView downArrow;
+    @FXML private ImageView leftArrow;
+    @FXML private ImageView bannerShowWeapon;
+    @FXML private ImageView bannerShowDamage1;
+    @FXML private Label playerTurnLabel;
     @FXML private Label labelStatusPlayer;
     @FXML private ImageView imageWeapon;
     @FXML private Label mainPlayerLabel;
-
     @FXML private Label labelDisconnect;
     @FXML private ImageView bannerDisconnect;
+
+    /**
+     * these are the grids of the mainBoard used for displaying players and ammos
+     */
+    @FXML private GridPane gridSkulls;
+    @FXML private GridPane grid00;
+    @FXML private GridPane grid10;
+    @FXML private GridPane grid20;
+    @FXML private GridPane grid03;
+    @FXML private GridPane grid01;
+    @FXML private GridPane grid11;
+    @FXML private GridPane grid02;
+    @FXML private GridPane grid12;
+    @FXML private GridPane grid21;
+    @FXML private GridPane grid22;
+    @FXML private GridPane grid13;
+    @FXML private GridPane grid23;
+
+    /**
+     * these elements are used for moveGrab action
+     */
     @FXML private Button enterMove;
     @FXML private ImageView upArrowGrab;
     @FXML private ImageView downArrowGrab;
@@ -180,6 +121,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     @FXML private TextField txtWeaponReload2;
     @FXML private TextField txtWeaponReload3;
     @FXML private Button buttonReload;
+
     @FXML private GridPane gridKillshotTrack2;
 
     @FXML private ImageView firstPowerUpD;
