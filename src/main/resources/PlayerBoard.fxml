@@ -10,44 +10,44 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="755.0" prefWidth="1218.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.gui.PlayerBoardGui">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="722.0" prefWidth="1130.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.gui.PlayerBoardGui">
    <children>
-      <ImageView fx:id="firstPlayerBoard" fitHeight="293.0" fitWidth="1000.0" layoutY="62.0" preserveRatio="true">
+      <ImageView fx:id="firstPlayerBoard" fitHeight="293.0" fitWidth="1000.0" layoutX="65.0" layoutY="76.0" preserveRatio="true">
          <image>
             <Image url="@playerBoard/blue.jpg" />
          </image>
       </ImageView>
-      <Label layoutX="476.0" layoutY="14.0" text="Your PlayerBoard" textFill="WHITE">
+      <Label layoutX="417.0" layoutY="14.0" text="Your PlayerBoard" textFill="WHITE">
          <font>
             <Font name="Alien League Regular" size="36.0" />
          </font>
       </Label>
-      <Label layoutX="527.0" layoutY="337.0" text="other boards" textFill="WHITE">
+      <Label layoutX="465.0" layoutY="341.0" text="other boards" textFill="WHITE">
          <font>
             <Font name="Alien League Regular" size="32.0" />
          </font>
       </Label>
-      <ImageView fx:id="secondPlayerBoard" fitHeight="115.0" fitWidth="679.0" layoutX="57.0" layoutY="420.0" preserveRatio="true" visible="false">
+      <ImageView fx:id="secondPlayerBoard" fitHeight="115.0" fitWidth="679.0" layoutX="64.0" layoutY="388.0" preserveRatio="true" visible="false">
          <image>
             <Image url="@playerBoard/blue.jpg" />
          </image>
       </ImageView>
-      <ImageView fx:id="fourthPlayerBoard" fitHeight="115.0" fitWidth="679.0" layoutX="647.0" layoutY="422.0" preserveRatio="true" visible="false">
+      <ImageView fx:id="fourthPlayerBoard" fitHeight="115.0" fitWidth="679.0" layoutX="65.0" layoutY="564.0" preserveRatio="true" visible="false">
          <image>
             <Image url="@playerBoard/blue.jpg" />
          </image>
       </ImageView>
-      <ImageView fx:id="thirdPlayerBoard" fitHeight="115.0" fitWidth="679.0" layoutX="57.0" layoutY="609.0" preserveRatio="true" visible="false">
+      <ImageView fx:id="thirdPlayerBoard" fitHeight="115.0" fitWidth="679.0" layoutX="600.0" layoutY="388.0" preserveRatio="true" visible="false">
          <image>
             <Image url="@playerBoard/blue.jpg" />
          </image>
       </ImageView>
-      <ImageView fx:id="fifthPlayerBoard" fitHeight="115.0" fitWidth="679.0" layoutX="647.0" layoutY="609.0" preserveRatio="true" visible="false">
+      <ImageView fx:id="fifthPlayerBoard" fitHeight="115.0" fitWidth="679.0" layoutX="599.0" layoutY="568.0" preserveRatio="true" visible="false">
          <image>
             <Image url="@playerBoard/blue.jpg" />
          </image>
       </ImageView>
-      <GridPane fx:id="firstDamageGrid" gridLinesVisible="true" hgap="10.0" layoutX="85.0" layoutY="152.0" prefHeight="67.0" prefWidth="673.0">
+      <GridPane fx:id="firstDamageGrid" gridLinesVisible="true" hgap="10.0" layoutX="150.0" layoutY="166.0" prefHeight="67.0" prefWidth="673.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -72,7 +72,7 @@
             <Insets />
          </opaqueInsets>
       </GridPane>
-      <GridPane fx:id="secondDamageGrid" layoutX="100.0" layoutY="466.0" prefHeight="27.0" prefWidth="310.0">
+      <GridPane fx:id="secondDamageGrid" layoutX="107.0" layoutY="434.0" prefHeight="27.0" prefWidth="310.0">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -94,7 +94,7 @@
             <Insets left="5.0" />
          </padding>
       </GridPane>
-      <GridPane fx:id="thirdDamageGrid" layoutX="100.0" layoutY="653.0" prefHeight="27.0" prefWidth="310.0">
+      <GridPane fx:id="thirdDamageGrid" layoutX="643.0" layoutY="432.0" prefHeight="27.0" prefWidth="310.0">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -116,7 +116,7 @@
             <Insets left="5.0" />
          </padding>
       </GridPane>
-      <GridPane fx:id="fourthDamageGrid" layoutX="685.0" layoutY="466.0" prefHeight="27.0" prefWidth="316.0">
+      <GridPane fx:id="fourthDamageGrid" layoutX="103.0" layoutY="608.0" prefHeight="27.0" prefWidth="316.0">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -138,7 +138,7 @@
             <Insets left="5.0" />
          </padding>
       </GridPane>
-      <GridPane fx:id="fifthDamageGrid" layoutX="691.0" layoutY="653.0" prefHeight="27.0" prefWidth="310.0">
+      <GridPane fx:id="fifthDamageGrid" layoutX="643.0" layoutY="612.0" prefHeight="27.0" prefWidth="310.0">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -160,7 +160,7 @@
             <Insets left="5.0" />
          </padding>
       </GridPane>
-      <GridPane fx:id="firstDeathCounterGrid" layoutX="206.0" layoutY="241.0" prefHeight="61.0" prefWidth="323.0">
+      <GridPane fx:id="firstDeathCounterGrid" layoutX="271.0" layoutY="255.0" prefHeight="61.0" prefWidth="323.0">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -173,7 +173,7 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
       </GridPane>
-      <GridPane fx:id="secondDeathCounterGrid" layoutX="153.0" layoutY="506.0" prefHeight="19.0" prefWidth="147.0">
+      <GridPane fx:id="secondDeathCounterGrid" layoutX="160.0" layoutY="474.0" prefHeight="19.0" prefWidth="147.0">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -186,7 +186,7 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
       </GridPane>
-      <GridPane fx:id="thirdDeathCounterGrid" layoutX="155.0" layoutY="697.0" prefHeight="19.0" prefWidth="147.0">
+      <GridPane fx:id="thirdDeathCounterGrid" layoutX="698.0" layoutY="476.0" prefHeight="19.0" prefWidth="147.0">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -199,7 +199,7 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
       </GridPane>
-      <GridPane fx:id="fourthDeathCounterGrid" layoutX="746.0" layoutY="506.0" prefHeight="19.0" prefWidth="147.0">
+      <GridPane fx:id="fourthDeathCounterGrid" layoutX="164.0" layoutY="648.0" prefHeight="19.0" prefWidth="147.0">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -212,7 +212,7 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
       </GridPane>
-      <GridPane fx:id="fifthDeathCounterGrid" layoutX="746.0" layoutY="697.0" prefHeight="19.0" prefWidth="147.0">
+      <GridPane fx:id="fifthDeathCounterGrid" layoutX="698.0" layoutY="656.0" prefHeight="19.0" prefWidth="147.0">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -225,7 +225,7 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
       </GridPane>
-      <GridPane fx:id="marksGrid" layoutX="544.0" layoutY="69.0" prefHeight="45.0" prefWidth="161.0">
+      <GridPane fx:id="marksGrid" layoutX="609.0" layoutY="83.0" prefHeight="45.0" prefWidth="161.0">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -235,7 +235,7 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
       </GridPane>
-      <GridPane fx:id="thirdPlayerMarks" layoutX="319.0" layoutY="609.0" prefHeight="27.0" prefWidth="90.0">
+      <GridPane fx:id="thirdPlayerMarks" layoutX="862.0" layoutY="388.0" prefHeight="27.0" prefWidth="90.0">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -245,7 +245,7 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
       </GridPane>
-      <GridPane fx:id="fifthPlayerMarks" layoutX="902.0" layoutY="609.0" prefHeight="27.0" prefWidth="90.0">
+      <GridPane fx:id="fifthPlayerMarks" layoutX="854.0" layoutY="568.0" prefHeight="27.0" prefWidth="90.0">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -255,7 +255,7 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
       </GridPane>
-      <GridPane fx:id="fourthPlayerMarks" layoutX="902.0" layoutY="420.0" prefHeight="27.0" prefWidth="90.0">
+      <GridPane fx:id="fourthPlayerMarks" layoutX="320.0" layoutY="562.0" prefHeight="27.0" prefWidth="90.0">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -265,7 +265,7 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
       </GridPane>
-      <GridPane fx:id="secondPlayerMarks" layoutX="311.0" layoutY="420.0" prefHeight="27.0" prefWidth="90.0">
+      <GridPane fx:id="secondPlayerMarks" layoutX="318.0" layoutY="388.0" prefHeight="27.0" prefWidth="90.0">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />

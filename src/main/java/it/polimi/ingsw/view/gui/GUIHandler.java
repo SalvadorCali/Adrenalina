@@ -715,14 +715,15 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     }
 
     private void notifyReload(Outcome outcome) {
+        playerController = Data.getInstance().getPlayerController();
         Platform.runLater(() -> {
             if (outcome.equals(Outcome.RIGHT)) {
-                setLabelStatement("reloaded!");
+                setLabelStatement(playerController.getWeapon() + StringCLI.SPACE + StringCLI.RELOADED);
                 guiHandler = Data.getInstance().getGuiHandler();
                 guiHandler.disableButtonWhenReload();
 
             } else {
-                setLabelStatement("not reloaded!");
+                setLabelStatement(playerController.getWeapon() + StringCLI.SPACE + StringCLI.NOT_RELOADED);
             }
         });
     }
@@ -732,9 +733,9 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         guiHandler = Data.getInstance().getGuiHandler();
         Platform.runLater(() ->{
             if(outcome.equals(Outcome.RIGHT)){
-                guiHandler.setLabelStatement("Weapon dropped");
+                guiHandler.setLabelStatement(StringCLI.SERVER + StringCLI.WEAPON_DROP + StringCLI.SPACE + StringCLI.DROPPED);
             }else{
-                guiHandler.setLabelStatement("Weapon not dropped");
+                guiHandler.setLabelStatement(StringCLI.SERVER + StringCLI.WEAPON_DROP + StringCLI.SPACE + StringCLI.NOT_DROPPED);
             }
         });
     }
@@ -744,9 +745,9 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
         Platform.runLater(() ->{
             if(outcome.equals(Outcome.RIGHT)){
-                guiHandler.setLabelStatement("Powerup dropped");
+                guiHandler.setLabelStatement(StringCLI.SERVER + StringCLI.POWERUP_DROP + StringCLI.SPACE + StringCLI.DROPPED);
             }else{
-                guiHandler.setLabelStatement("Powerup not dropped");
+                guiHandler.setLabelStatement(StringCLI.SERVER + StringCLI.POWERUP_DROP + StringCLI.SPACE + StringCLI.NOT_DROPPED);
             }
         });
     }
@@ -756,10 +757,10 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
         Platform.runLater(() ->{
             if(outcome.equals(Outcome.RIGHT)){
-                guiHandler.setLabelStatement("Powerup discarded");
+                guiHandler.setLabelStatement(StringCLI.SERVER + StringCLI.POWERUP_DROP + StringCLI.SPACE + StringCLI.DISCARDED);
 
             }else{
-                guiHandler.setLabelStatement("Powerup not discarded");
+                guiHandler.setLabelStatement(StringCLI.SERVER + StringCLI.POWERUP_DROP + StringCLI.SPACE + StringCLI.NOT_DISCARDED);
             }
         });
     }
@@ -806,11 +807,11 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                 thread.start();
 
                 disableButtons();
-                guiHandler.setLabelStatement(object + " reconnected"); //gia presente
+                guiHandler.setLabelStatement(StringCLI.SERVER + object + StringCLI.SPACE + StringCLI.RECONNECTED); //gia presente
                 this.startedGame++;
 
             }else{
-                guiHandler.setLabelStatement(object + " reconnected");
+                guiHandler.setLabelStatement(StringCLI.SERVER + object + StringCLI.SPACE + StringCLI.RECONNECTED);
             }
         });
     }
@@ -829,52 +830,58 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
         Platform.runLater(() ->{
             if(outcome.equals(Outcome.RIGHT) || outcome.equals(Outcome.ALL)){
-                guiHandler.setLabelStatement( playerController.getPowerup() + " used!");
+                guiHandler.setLabelStatement(StringCLI.SERVER + playerController.getPowerup() + StringCLI.SPACE + StringCLI.USED);
             }else if(outcome.equals(Outcome.WRONG)){
-                guiHandler.setLabelStatement( playerController.getPowerup() + " not used!");
+                guiHandler.setLabelStatement(StringCLI.SERVER + playerController.getPowerup() + StringCLI.SPACE + StringCLI.NOT_USED);
             }
         });
     }
 
     private void notifyShoot(Outcome outcome) {
+        playerController = Data.getInstance().getPlayerController();
         guiHandler = Data.getInstance().getGuiHandler();
         Platform.runLater(() -> {
             switch(outcome){
                 case RIGHT:
-                    guiHandler.setLabelStatement("shoot");
+                    guiHandler.setLabelStatement(StringCLI.SERVER + playerController.getCurrentPlayer() + StringCLI.SPACE + StringCLI.SHOT);
                     break;
                 case ALL:
-                    guiHandler.setLabelStatement("shoot");
+                    guiHandler.setLabelStatement(StringCLI.SERVER + playerController.getCurrentPlayer() + StringCLI.SPACE + StringCLI.SHOT);
                     break;
                 case WRONG:
-                    guiHandler.setLabelStatement("didn't shoot");
+                    guiHandler.setLabelStatement(StringCLI.SERVER + StringCLI.NOT_SHOT);
                     break;
                 default:
-                    guiHandler.setLabelStatement("didn't shoot");
+                    guiHandler.setLabelStatement(StringCLI.SERVER + StringCLI.NOT_SHOT);
                     break;
             }
         });
     }
 
     private void notifyGrab(Outcome outcome) {
+        playerController = Data.getInstance().getPlayerController();
         guiHandler = Data.getInstance().getGuiHandler();
-        if(outcome.equals(Outcome.RIGHT) || outcome.equals(Outcome.ALL)){
-            guiHandler.setLabelStatement("Grabbed");
+        if(outcome.equals(Outcome.RIGHT)){
+            guiHandler.setLabelStatement(StringCLI.SERVER + playerController.getCurrentPlayer() + StringCLI.SPACE + StringCLI.GRABBED);
+            resetMoveGrab();
+        }else if(outcome.equals(Outcome.ALL)){
+            guiHandler.setLabelStatement(StringCLI.SERVER + playerController.getCurrentPlayer() + StringCLI.SPACE + StringCLI.USER_GRABBED);
             resetMoveGrab();
         }else{
-            guiHandler.setLabelStatement("Not grabbed");
+            guiHandler.setLabelStatement(StringCLI.SERVER + StringCLI.NOT_GRABBED);
             resetMoveGrab();
         }
     }
 
     private void notifyMovement(Outcome outcome) {
+        playerController = Data.getInstance().getPlayerController();
         guiHandler = Data.getInstance().getGuiHandler();
         if (outcome.equals(Outcome.RIGHT) || outcome.equals(Outcome.ALL)) {
-            guiHandler.setLabelStatement("Player moved");
+            guiHandler.setLabelStatement(StringCLI.SERVER + playerController.getCurrentPlayer() + StringCLI.SPACE + StringCLI.MOVED);
             guiHandler.resetMovement();
 
         } else {
-            guiHandler.setLabelStatement("Player didn't move");
+            guiHandler.setLabelStatement(StringCLI.SERVER + StringCLI.NOT_MOVED);
             guiHandler.resetMovement();
         }
     }

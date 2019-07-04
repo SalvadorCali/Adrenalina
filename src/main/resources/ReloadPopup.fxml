@@ -6,15 +6,15 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="208.0" prefWidth="338.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.gui.GUIHandler">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="208.0" prefWidth="338.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.gui.GUIHandler">
    <children>
-      <Label layoutX="47.0" layoutY="14.0" text="Do you want to reload weapons?">
+      <Label layoutX="47.0" layoutY="14.0" text="Do you want to reload weapons?" textFill="WHITE">
          <font>
             <Font name="Alien League Regular" size="18.0" />
          </font>
       </Label>
       <TextField fx:id="txtWeaponReload1" layoutX="218.0" layoutY="55.0" prefHeight="25.0" prefWidth="60.0" />
-      <Label layoutX="14.0" layoutY="59.0" prefHeight="17.0" prefWidth="187.0" text="reload first (yes/no)?">
+      <Label layoutX="14.0" layoutY="59.0" prefHeight="17.0" prefWidth="187.0" text="reload first (yes/no)?" textFill="WHITE">
          <font>
             <Font name="Alien League Regular" size="15.0" />
          </font></Label>
@@ -27,12 +27,12 @@
             <Font size="15.0" />
          </font>
       </Label>
-      <Label layoutX="14.0" layoutY="98.0" prefHeight="17.0" prefWidth="187.0" text="reload second (yes/no)?">
+      <Label layoutX="14.0" layoutY="98.0" prefHeight="17.0" prefWidth="187.0" text="reload second (yes/no)?" textFill="WHITE">
          <font>
             <Font name="Alien League Regular" size="15.0" />
          </font></Label>
       <TextField fx:id="txtWeaponReload2" layoutX="218.0" layoutY="94.0" prefHeight="25.0" prefWidth="60.0" />
-      <Label layoutX="14.0" layoutY="139.0" prefHeight="17.0" prefWidth="187.0" text="reload third(yes/no)?">
+      <Label layoutX="14.0" layoutY="139.0" prefHeight="17.0" prefWidth="187.0" text="reload third (yes/no)?" textFill="WHITE">
          <font>
             <Font name="Alien League Regular" size="15.0" />
          </font></Label>
