@@ -59,7 +59,7 @@
       <Button fx:id="discardButton1" layoutX="106.0" layoutY="513.0" mnemonicParsing="false" onMouseClicked="#discardFirstPowerup" prefHeight="25.0" prefWidth="62.0" text="Discard1" />
       <Button fx:id="discardButton2" layoutX="280.0" layoutY="513.0" mnemonicParsing="false" onMouseClicked="#discardSecondPowerup" prefHeight="25.0" prefWidth="62.0" text="Discard2" />
       <Button fx:id="discardButton3" layoutX="454.0" layoutY="513.0" mnemonicParsing="false" onMouseClicked="#discardThirdPowerup" prefHeight="25.0" prefWidth="68.0" text="Discard3" />
-      <Label fx:id="labelLoaded1" layoutX="60.0" layoutY="302.0" prefHeight="43.0" prefWidth="68.0" text="Loaded" textFill="WHITE">
+      <Label fx:id="labelLoaded1" layoutX="60.0" layoutY="302.0" prefHeight="43.0" prefWidth="68.0" text="Loaded" textFill="WHITE" visible="false">
          <font>
             <Font size="13.0" />
          </font>
