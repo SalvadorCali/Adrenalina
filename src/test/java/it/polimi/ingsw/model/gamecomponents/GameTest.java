@@ -90,6 +90,33 @@ class GameTest {
         assertEquals(0, scoreList.get(TokenColor.PURPLE).intValue());
     }
 
+    @Test
+    void scoringFinalFrenzyTest(){
+        Game game = createGame();
+        game.getPlayers().get(1).getPlayerBoard().setFinalFrenzy(true);
+        game.setFinalFrenzy(true);
+        game.scoring();
+        Map<TokenColor, Integer> scoreList = game.getScoreList();
+        assertEquals(14, scoreList.get(TokenColor.BLUE).intValue());
+        assertEquals(16, scoreList.get(TokenColor.YELLOW).intValue());
+        assertEquals(8, scoreList.get(TokenColor.GREY).intValue());
+        assertEquals(0, scoreList.get(TokenColor.PURPLE).intValue());
+    }
+
+    @Test
+    void scoringEndGame(){
+        Game game = createGame();
+        game.getPlayers().get(1).getPlayerBoard().setFinalFrenzy(true);
+        game.setFinalFrenzy(true);
+        game.setEndPhase(true);
+        game.scoring();
+        Map<TokenColor, Integer> scoreList = game.getScoreList();
+        assertEquals(13, scoreList.get(TokenColor.BLUE).intValue());
+        assertEquals(24, scoreList.get(TokenColor.YELLOW).intValue());
+        assertEquals(8, scoreList.get(TokenColor.GREY).intValue());
+        assertEquals(0, scoreList.get(TokenColor.PURPLE).intValue());
+    }
+
     /**
      * Tests that the killshot track is correctly initialized.
      */

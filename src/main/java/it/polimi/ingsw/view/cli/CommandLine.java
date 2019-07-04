@@ -844,7 +844,7 @@ public class CommandLine implements ViewInterface {
             Printer.print(StringCLI.NEW_LINE);
         });
         Printer.println(StringCLI.SERVER + StringCLI.INSERT_COMMAND);
-        Printer.print(StringCLI.CHOOSE_COMMAND);
+        Printer.println(StringCLI.CHOOSE_COMMAND);
     }
 
     /**
@@ -908,6 +908,11 @@ public class CommandLine implements ViewInterface {
             printWeaponsAndPowerups();
             printSquare();
             Printer.println(StringCLI.NEW_LINE + StringCLI.SERVER + StringCLI.COMMANDS);
+        }else{
+            printGameBoard();
+            printPlayerBoard();
+            printWeaponsAndPowerups();
+            printSquare();
         }
     }
 

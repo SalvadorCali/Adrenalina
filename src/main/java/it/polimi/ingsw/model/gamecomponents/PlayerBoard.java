@@ -2,6 +2,7 @@ package it.polimi.ingsw.model.gamecomponents;
 
 import it.polimi.ingsw.model.enums.AdrenalineZone;
 import it.polimi.ingsw.model.enums.TokenColor;
+import it.polimi.ingsw.util.Printer;
 
 import java.io.Serializable;
 import java.util.*;
@@ -273,7 +274,7 @@ public class PlayerBoard implements Serializable {
         for(TokenColor color : playerColors){
             scoreList.put(color, new Score(color, 0));
         }
-        for(int i=0; i<maxDamage; i++){
+        for(int i=0; i<damageIndex; i++){
             score = scoreList.get(damageBoard[i].getFirstColor());
             score.setScore(score.getScore() + 1);
             scoreList.replace(damageBoard[i].getFirstColor(), score);
@@ -292,7 +293,7 @@ public class PlayerBoard implements Serializable {
             numbers = new Integer[]{2,1,1,1};
             scoreValues = new ArrayList<>(Arrays.asList(numbers));
         }else{
-            if(deathNumber == 1){
+            if(deathNumber == 1 || deathNumber == 0){
                 numbers = new Integer[]{8,6,4,2};
                 scoreValues = new ArrayList<>(Arrays.asList(numbers));
             }else if(deathNumber == 2){
@@ -368,17 +369,72 @@ public class PlayerBoard implements Serializable {
                 }
             }
         }
-
-        score = scoreList.get(getFirstBlood());
-        score.setScore(score.getScore() + 1);
-        scoreList.replace(getFirstBlood(), score);
-        /*
-        score = scoreList.get(getKillshot());
-        score.setScore(score.getScore() + 1);
-        scoreList.replace(getKillshot(), score);
-        */
+        if(!finalFrenzy){
+            score = scoreList.get(getFirstBlood());
+            score.setScore(score.getScore() + 1);
+            scoreList.replace(getFirstBlood(), score);
+        }
         return scoreList;
     }
+
+    Map<TokenColor, Score> scoringFinalFrenzy(ArrayList<TokenColor> playerColors){
+        Score score;
+        List<Score> turnScores = new ArrayList<>();
+        scoreList = createScoreList(playerColors);
+        scoreList.forEach((k, j)-> Printer.println(k + " " + j.getScore()));
+        scoreList.forEach((key, value) -> turnScores.add(value));
+
+        int scoreValuesIndex = 0;
+        ArrayList<Integer> scoreValues = getScoreValues();
+        scoreValues.forEach(s->Printer.println(s));
+        int number = turnScores.size();
+        for(int k=0; k<number; k++){
+            int max = 0;
+            for (Score turnScore : turnScores) {
+                max = Math.max(max, turnScore.getScore());
+            }
+            if(max != 0){
+                ArrayList<Score> maximumScores = new ArrayList<>();
+                for (Score turnScore : turnScores) {
+                    if (max == turnScore.getScore()) {
+                        maximumScores.add(turnScore);
+                    }
+                }
+                if(maximumScores.size() > 1){
+                    evaluate_max:
+                    for(int i=0; i<damageIndex; i++){
+                        for(int j=0; j<maximumScores.size(); j++){
+                            if(damageBoard[i].getFirstColor().equals(maximumScores.get(j).getColor())){
+                                scoreList.replace(damageBoard[i].getFirstColor(), new Score(damageBoard[i].getFirstColor(), scoreValues.get(scoreValuesIndex)));
+                                scoreValuesIndex++;
+                                for(int l=0; l<turnScores.size(); l++){
+                                    if(maximumScores.get(j).equals(turnScores.get(l))){
+                                        turnScores.remove(l);
+                                        break;
+                                    }
+                                }
+                                maximumScores.remove(j);
+                                break evaluate_max;
+                            }
+                        }
+                    }
+                }else{
+                    scoreList.replace(maximumScores.get(0).getColor(), new Score(maximumScores.get(0).getColor(), scoreValues.get(scoreValuesIndex)));
+                    scoreValuesIndex++;
+                    for(int l=0; l<turnScores.size(); l++){
+                        if(maximumScores.get(0).equals(turnScores.get(l))){
+                            turnScores.remove(l);
+                            break;
+                        }
+                    }
+                    maximumScores.remove(0);
+                }
+            }
+        }
+        scoreList.forEach((k, j)-> Printer.println(k + " " + j.getScore()));
+        return scoreList;
+    }
+
     /**
      * ???
      */
