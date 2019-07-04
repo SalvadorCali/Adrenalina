@@ -5,201 +5,201 @@ package it.polimi.ingsw.view.cli;
  */
 public class StringCLI {
     //commands
-    static final String HELP = "help";
-    static final String LOGIN = "login";
-    static final String DISCONNECT = "disconnect";
-    static final String BOARD = "board";
-    static final String DROP = "drop";
-    static final String DISCARD = "discard";
-    static final String CHOOSE = "choose";
-    static final String SHOW = "show";
-    static final String MOVE = "move";
-    static final String GRAB = "grab";
-    static final String SHOOT = "shoot";
-    static final String POWERUP = "powerup";
-    static final String RELOAD = "reload";
-    static final String RESPAWN = "respawn";
-    static final String END = "end";
+    public static final String HELP = "help";
+    public static final String LOGIN = "login";
+    public static final String DISCONNECT = "disconnect";
+    public static final String BOARD = "board";
+    public static final String DROP = "drop";
+    public static final String DISCARD = "discard";
+    public static final String CHOOSE = "choose";
+    public static final String SHOW = "show";
+    public static final String MOVE = "move";
+    public static final String GRAB = "grab";
+    public static final String SHOOT = "shoot";
+    public static final String POWERUP = "powerup";
+    public static final String RELOAD = "reload";
+    public static final String RESPAWN = "respawn";
+    public static final String END = "end";
 
     //components
-    static final String SCORE = "score";
-    static final String PLAYERBOARD = "playerboard";
-    static final String AMMOS = "ammos";
-    static final String POWERUPS = "powerups";
-    static final String WEAPONS = "weapons";
-    static final String WEAPON = "weapon";
-    static final String SQUARE = "square";
-    static final String OTHERS = "others";
+    public static final String SCORE = "score";
+    public static final String PLAYERBOARD = "playerboard";
+    public static final String AMMOS = "ammos";
+    public static final String POWERUPS = "powerups";
+    public static final String WEAPONS = "weapons";
+    public static final String WEAPON = "weapon";
+    public static final String SQUARE = "square";
+    public static final String OTHERS = "others";
 
     //messages
-    static final String INVALID_COMMAND = "Invalid Command. Please insert a valid command:";
-    static final String INSERT_COMMAND = "Please, insert the following command ->";
-    static final String SERVER = "[SERVER]";
-    static final String COMMANDS = "Please, insert <help> to see a list of commands.";
-    static final String CHOOSE_DIRECTION = "Choose a direction:";
+    public static final String INVALID_COMMAND = "Invalid Command. Please insert a valid command:";
+    public static final String INSERT_COMMAND = "Please, insert the following command ->";
+    public static final String SERVER = "[SERVER]";
+    public static final String COMMANDS = "Please, insert <help> to see a list of commands.";
+    public static final String CHOOSE_DIRECTION = "Choose a direction:";
 
     //insert commands
-    static final String COMMANDS_LIST = "List of Commands:";
-    static final String HELP_COMMAND = "help : gives you the list of commands";
-    static final String LOGIN_COMMAND = "login <username> <color> :";
-    static final String LOGIN_COMMAND_2 = "login <username> <color> : connects you to the game";
-    static final String DISCONNECT_COMMAND = "disconnect : disconnects you from the game";
-    static final String SHOW_COMMAND = "show <object> : shows you the requested object";
-    static final String MOVE_COMMAND = "move <first_direction, ..., last_direction> : moves your player";
-    static final String SHOOT_COMMAND = "shoot <weapon_name> : shoots using the requested weapon";
-    static final String GRAB_COMMAND = "grab <0, 1, 2, 3> <direction> : grabs (0 for ammos, 1-2-3 for weapons)";
-    static final String END_COMMAND = "end : ends your turn";
-    static final String CHOOSE_COMMAND = "choose <choosen_powerup> :";
+    public static final String COMMANDS_LIST = "List of Commands:";
+    public static final String HELP_COMMAND = "help : gives you the list of commands";
+    public static final String LOGIN_COMMAND = "login <username> <color> :";
+    public static final String LOGIN_COMMAND_2 = "login <username> <color> : connects you to the game";
+    public static final String DISCONNECT_COMMAND = "disconnect : disconnects you from the game";
+    public static final String SHOW_COMMAND = "show <object> : shows you the requested object";
+    public static final String MOVE_COMMAND = "move <first_direction, ..., last_direction> : moves your player";
+    public static final String SHOOT_COMMAND = "shoot <weapon_name> : shoots using the requested weapon";
+    public static final String GRAB_COMMAND = "grab <0, 1, 2, 3> <direction> : grabs (0 for ammos, 1-2-3 for weapons)";
+    public static final String END_COMMAND = "end : ends your turn";
+    public static final String CHOOSE_COMMAND = "choose <choosen_powerup> :";
 
     //login
-    static final String WRONG_USERNAME = "Username already used! Please choose another username:";
-    static final String CONNECTED = "connected!";
+    public static final String WRONG_USERNAME = "Username already used! Please choose another username:";
+    public static final String CONNECTED = "connected!";
 
     //spawn
-    static final String CHOOSE_POWERUP = "Please, choose one of these powerups:";
+    public static final String CHOOSE_POWERUP = "Please, choose one of these powerups:";
 
     //disconnect
-    static final String DISCONNECTED = "disconnected!";
+    public static final String DISCONNECTED = "disconnected!";
 
     //color
-    static final String WRONG_COLOR = "Invalid color! Please choose another color:";
-    static final String YOUR_COLOR = "Your color is";
+    public static final String WRONG_COLOR = "Invalid color! Please choose another color:";
+    public static final String YOUR_COLOR = "Your color is";
 
     //square
-    static final String YOUR_SQUARE = "In your square:";
-    static final String WEAPONS_SQUARE = "Weapons:";
-    static final String AMMOS_SQUARE = "Ammos:";
-    static final String AMMO_CARD = "AmmoCard:";
-    static final String POWERUP_CAPS = "POWERUP";
-    static final String INVALID_SQUARE = "Invalid square!";
+    public static final String YOUR_SQUARE = "In your square:";
+    public static final String WEAPONS_SQUARE = "Weapons:";
+    public static final String AMMOS_SQUARE = "Ammos:";
+    public static final String AMMO_CARD = "AmmoCard:";
+    public static final String POWERUP_CAPS = "POWERUP";
+    public static final String INVALID_SQUARE = "Invalid square!";
 
     //board
-    static final String CHOOSE_BOARD = "Please, choose one of these boards:";
-    static final String BOARD_COMMAND = "board <choosen_board> <skulls number>: ";
-    static final String FIRST_PLAYER_BOARD = "The first player is choosing the board...";
+    public static final String CHOOSE_BOARD = "Please, choose one of these boards:";
+    public static final String BOARD_COMMAND = "board <choosen_board> <skulls number>: ";
+    public static final String FIRST_PLAYER_BOARD = "The first player is choosing the board...";
 
     //turn
-    static final String NEW_TURN = "It's your turn!";
-    static final String END_TURN = "Your turn is ended!";
-    static final String NOT_TURN = "It's not your turn!";
+    public static final String NEW_TURN = "It's your turn!";
+    public static final String END_TURN = "Your turn is ended!";
+    public static final String NOT_TURN = "It's not your turn!";
 
     //game
-    static final String GAME_BEGUN = "Game is already begun!";
-    static final String GAME_STARTED = "Game is started!";
-    static final String GAME_END = "Game end!";
+    public static final String GAME_BEGUN = "Game is already begun!";
+    public static final String GAME_STARTED = "Game is started!";
+    public static final String GAME_END = "Game end!";
 
     //move
-    static final String MOVED = "moved!";
-    static final String NOT_MOVED = "not moved!";
+    public static final String MOVED = "moved!";
+    public static final String NOT_MOVED = "not moved!";
 
     //grab
-    static final String GRABBED = "grabbed!";
-    static final String NOT_GRABBED = "Not grabbed!";
-    static final String USER_GRABBED = "grabbed!";
+    public static final String GRABBED = "grabbed!";
+    public static final String NOT_GRABBED = "Not grabbed!";
+    public static final String USER_GRABBED = "grabbed!";
 
     //shoot
-    static final String SHOT = "Shot!";
-    static final String NOT_SHOT = "Not shot!";
-    static final String WANT_MOVE = "Do you want to move?";
-    static final String CHOOSE_DIRECTIONS = "Choose up to 2 directions:";
-    static final String WANT_RELOAD = "Do you want to reload?:";
-    static final String CHOOSE_WEAPON = "Choose weapon to reload:";
+    public static final String SHOT = "Shot!";
+    public static final String NOT_SHOT = "Not shot!";
+    public static final String WANT_MOVE = "Do you want to move?";
+    public static final String CHOOSE_DIRECTIONS = "Choose up to 2 directions:";
+    public static final String WANT_RELOAD = "Do you want to reload?:";
+    public static final String CHOOSE_WEAPON = "Choose weapon to reload:";
 
     //powerup
-    static final String USED = "used!";
-    static final String NOT_USED = "not used!";
-    static final String TARGETING_SCOPE = "targetingscope";
-    static final String TAGBACK_GRENADE = "tagbackgrenade";
-    static final String NEWTON = "newton";
-    static final String TELEPORTER = "teleporter";
+    public static final String USED = "used!";
+    public static final String NOT_USED = "not used!";
+    public static final String TARGETING_SCOPE = "targetingscope";
+    public static final String TAGBACK_GRENADE = "tagbackgrenade";
+    public static final String NEWTON = "newton";
+    public static final String TELEPORTER = "teleporter";
 
     //reload
-    static final String RELOADED = "reloaded!";
-    static final String NOT_RELOADED = "not reloaded!";
+    public static final String RELOADED = "reloaded!";
+    public static final String NOT_RELOADED = "not reloaded!";
 
     //score
-    static final String KILLSHOT_SCORE = "Score:";
+    public static final String KILLSHOT_SCORE = "Score:";
 
     //reconnection
-    static final String RECONNECTED = "reconnected!";
+    public static final String RECONNECTED = "reconnected!";
 
     //discard and drop
-    static final String WEAPON_DROP = "Weapon";
-    static final String POWERUP_DROP = "Powerup";
-    static final String DROPPED = "dropped!";
-    static final String NOT_DROPPED = "not dropped!";
-    static final String DISCARDED = "discarded!";
-    static final String NOT_DISCARDED = "not discarded!";
+    public static final String WEAPON_DROP = "Weapon";
+    public static final String POWERUP_DROP = "Powerup";
+    public static final String DROPPED = "dropped!";
+    public static final String NOT_DROPPED = "not dropped!";
+    public static final String DISCARDED = "discarded!";
+    public static final String NOT_DISCARDED = "not discarded!";
 
     //final frenzy
-    static final String FINAL_FRENZY = "Final Frenzy!!!";
+    public static final String FINAL_FRENZY = "Final Frenzy!!!";
 
     //respawn
-    static final String RESPAWN_POWERUP = "Please, discard a powerup to respawn:";
-    static final String RESPAWN_COMMAND = "respawn <powerup_number> :";
+    public static final String RESPAWN_POWERUP = "Please, discard a powerup to respawn:";
+    public static final String RESPAWN_COMMAND = "respawn <powerup_number> :";
 
     //yours
-    static final String YOUR_WEAPONS = "Your weapons:";
-    static final String YOUR_POWERUPS = "Your powerups:";
+    public static final String YOUR_WEAPONS = "Your weapons:";
+    public static final String YOUR_POWERUPS = "Your powerups:";
 
     //inputs
-    static final String YES = "yes";
-    static final String YES_INPUT = "<yes>";
-    static final String NO_INPUT = "<no>";
+    public static final String YES = "yes";
+    public static final String YES_INPUT = "<yes>";
+    public static final String NO_INPUT = "<no>";
 
     //weapons
-    static final String LOCK_RIFLE = "lockrifle";
-    static final String MACHINE_GUN = "machinegun";
-    static final String THOR = "thor";
-    static final String PLASMA_GUN = "plasmagun";
-    static final String WHISPER = "whisper";
-    static final String ELECTROSCYTHE = "electroscythe";
-    static final String TRACTOR_BEAM = "tractorbeam";
-    static final String VORTEX_CANNON = "vortexcannon";
-    static final String FURNACE = "furnace";
-    static final String HEATSEEKER = "heatseeker";
-    static final String HELLION = "hellion";
-    static final String FLAMETHROWER = "flamethrower";
-    static final String GRENADE_LAUNCHER = "grenadelauncher";
-    static final String ROCKET_LAUNCHER = "rocketlauncher";
-    static final String RAILGUN = "railgun";
-    static final String CYBERBLADE = "cyberblade";
-    static final String CYBERBLADE_2 = "cyberblade2";
-    static final String ZX_2 = "zx-2";
-    static final String SHOTGUN = "shotgun";
-    static final String POWER_GLOVE = "powerglove";
-    static final String SHOCKWAVE = "shockwave";
-    static final String SLEDGEHAMMER = "sledgehammer";
+    public static final String LOCK_RIFLE = "lockrifle";
+    public static final String MACHINE_GUN = "machinegun";
+    public static final String THOR = "thor";
+    public static final String PLASMA_GUN = "plasmagun";
+    public static final String WHISPER = "whisper";
+    public static final String ELECTROSCYTHE = "electroscythe";
+    public static final String TRACTOR_BEAM = "tractorbeam";
+    public static final String VORTEX_CANNON = "vortexcannon";
+    public static final String FURNACE = "furnace";
+    public static final String HEATSEEKER = "heatseeker";
+    public static final String HELLION = "hellion";
+    public static final String FLAMETHROWER = "flamethrower";
+    public static final String GRENADE_LAUNCHER = "grenadelauncher";
+    public static final String ROCKET_LAUNCHER = "rocketlauncher";
+    public static final String RAILGUN = "railgun";
+    public static final String CYBERBLADE = "cyberblade";
+    public static final String CYBERBLADE_2 = "cyberblade2";
+    public static final String ZX_2 = "zx-2";
+    public static final String SHOTGUN = "shotgun";
+    public static final String POWER_GLOVE = "powerglove";
+    public static final String SHOCKWAVE = "shockwave";
+    public static final String SLEDGEHAMMER = "sledgehammer";
 
     //weapons' effects
-    static final String EFFECT = "Effect:";
-    static final String BASIC_EFFECT = "Basic effect:";
-    static final String WITH_SECOND_LOCK = "With second lock:";
-    static final String WITH_FOCUS_SHOT = "With focus shot:";
-    static final String WITH_TURRET_TRIPOD = "With turret tripod:";
-    static final String WITH_CHAIN_REACTION = "With chain reaction:";
-    static final String WITH_HIGH_VOLTAGE = "With high voltage:";
-    static final String WITH_PHASE_GLIDE = "With phase glide:";
-    static final String WITH_CHARGED_SHOT = "With charged shot:";
-    static final String WITH_BLACK_HOLE = "With black hole:";
-    static final String WITH_EXTRA_GRENADE = "With extra grenade:";
-    static final String WITH_ROCKET_JUMP = "With rocket jump:";
-    static final String WITH_SHADOW_STEP = "With shadow step:";
-    static final String WITH_SLICE_AND_DICE = "With slice and dice:";
+    public static final String EFFECT = "Effect:";
+    public static final String BASIC_EFFECT = "Basic effect:";
+    public static final String WITH_SECOND_LOCK = "With second lock:";
+    public static final String WITH_FOCUS_SHOT = "With focus shot:";
+    public static final String WITH_TURRET_TRIPOD = "With turret tripod:";
+    public static final String WITH_CHAIN_REACTION = "With chain reaction:";
+    public static final String WITH_HIGH_VOLTAGE = "With high voltage:";
+    public static final String WITH_PHASE_GLIDE = "With phase glide:";
+    public static final String WITH_CHARGED_SHOT = "With charged shot:";
+    public static final String WITH_BLACK_HOLE = "With black hole:";
+    public static final String WITH_EXTRA_GRENADE = "With extra grenade:";
+    public static final String WITH_ROCKET_JUMP = "With rocket jump:";
+    public static final String WITH_SHADOW_STEP = "With shadow step:";
+    public static final String WITH_SLICE_AND_DICE = "With slice and dice:";
 
     //weapons' modes
-    static final String BASIC_MODE = "Basic mode:";
-    static final String IN_REAPER_MODE = "In reaper mode:";
-    static final String IN_PUNISHER_MODE = "In punisher mode:";
-    static final String IN_COZY_FIRE_MODE = "In cozy fire mode:";
-    static final String IN_NANO_TRACER_MODE = "In nano-tracer mode:";
-    static final String IN_BARBECUE_MODE = "In barbecue mode:";
-    static final String IN_PIERCING_MODE = "In piercing mode:";
-    static final String IN_SCANNER_MODE = "In scanner mode:";
-    static final String IN_LONG_BARREL_MODE = "In long barrel mode:";
-    static final String IN_ROCKET_FIST_MODE = "In rocket fist mode:";
-    static final String IN_TSUNAMI_MODE = "In tsunami mode:";
-    static final String IN_PULVERIZE_MODE = "In pulverize mode:";
+    public static final String BASIC_MODE = "Basic mode:";
+    public static final String IN_REAPER_MODE = "In reaper mode:";
+    public static final String IN_PUNISHER_MODE = "In punisher mode:";
+    public static final String IN_COZY_FIRE_MODE = "In cozy fire mode:";
+    public static final String IN_NANO_TRACER_MODE = "In nano-tracer mode:";
+    public static final String IN_BARBECUE_MODE = "In barbecue mode:";
+    public static final String IN_PIERCING_MODE = "In piercing mode:";
+    public static final String IN_SCANNER_MODE = "In scanner mode:";
+    public static final String IN_LONG_BARREL_MODE = "In long barrel mode:";
+    public static final String IN_ROCKET_FIST_MODE = "In rocket fist mode:";
+    public static final String IN_TSUNAMI_MODE = "In tsunami mode:";
+    public static final String IN_PULVERIZE_MODE = "In pulverize mode:";
 
     //effects
     public static final String PARAMETERS = "Parameters:";
@@ -223,15 +223,15 @@ public class StringCLI {
 
 
     //do you want
-    static final String CHOOSE_EFFECT = "Choose your effect:";
-    static final String MOVE_FIRST = "Do you want to move first?:";
-    static final String SECOND_EFFECT_FIRST = "Do you want to use the second effect first?:";
-    static final String MOVE_AFTER_THIRD = "Do you want to move after the third effect?:";
+    public static final String CHOOSE_EFFECT = "Choose your effect:";
+    public static final String MOVE_FIRST = "Do you want to move first?:";
+    public static final String SECOND_EFFECT_FIRST = "Do you want to use the second effect first?:";
+    public static final String MOVE_AFTER_THIRD = "Do you want to move after the third effect?:";
 
     //generic
     public static final String SPACE = " ";
-    static final String MULTIPLE_SPACE = "   ";
-    static final String COLON = ":";
+    public static final String MULTIPLE_SPACE = "   ";
+    public static final String COLON = ":";
     public static final String NEW_LINE = "\n";
-    static final String OR = "or";
+    public static final String OR = "or";
 }

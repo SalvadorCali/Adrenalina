@@ -168,8 +168,8 @@
             "color": "green",
             "north": "none",
             "south": "door",
-            "east": "door",
-            "west": "none"
+            "east": "none",
+            "west": "door"
           },
           {
             "type": "spawn",
