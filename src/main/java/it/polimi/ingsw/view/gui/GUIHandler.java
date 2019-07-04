@@ -1092,6 +1092,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+                break;
             case RECONNECTION:
                 notifyReconnection(outcome, (String) object);
                 break;
