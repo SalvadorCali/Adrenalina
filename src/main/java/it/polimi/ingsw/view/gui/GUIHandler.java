@@ -18,6 +18,7 @@ import it.polimi.ingsw.util.Config;
 import it.polimi.ingsw.util.Converter;
 import it.polimi.ingsw.util.Printer;
 import it.polimi.ingsw.view.ViewInterface;
+import it.polimi.ingsw.view.cli.StringCLI;
 import javafx.animation.PauseTransition;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -580,14 +581,14 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     private void notifyFinalFrenzy() {
         Platform.runLater(() ->{
             guiHandler = Data.getInstance().getGuiHandler();
-            guiHandler.setLabelStatement("Final Frenzy");
+            guiHandler.setLabelStatement(StringCLI.SERVER + StringCLI.FINAL_FRENZY);
         });
     }
 
     private void notifyNotTurn() {
         Platform.runLater(() ->{
             guiHandler = Data.getInstance().getGuiHandler();
-            guiHandler.setLabelStatement("It's not your turn.");
+            guiHandler.setLabelStatement(StringCLI.SERVER + StringCLI.NOT_TURN);
         });
     }
 
@@ -595,7 +596,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     private void notifyEndTurn() {
         Platform.runLater(() ->{
             guiHandler = Data.getInstance().getGuiHandler();
-            guiHandler.setLabelStatement("Your turn is ended.");
+            guiHandler.setLabelStatement(StringCLI.SERVER + StringCLI.END_TURN);
             guiHandler.disableButtons();
         });
     }
