@@ -234,6 +234,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     private static final int MAX_SKULLS = 8;
     private static final int MIN_SKULLS = 1;
     private static final String SPACE = " ";
+    private static final String YES = "yes";
 
     /**
      * main variables
@@ -386,56 +387,10 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         Data.getInstance().setBoardType(3);
     }
 
-
-    public void reload(MouseEvent mouseEvent) throws IOException {
-        playerController = Data.getInstance().getPlayerController();
-
-        if(!playerController.isFinalFrenzy()) {
-            if (this.txtWeaponReload1.getText().equals("yes")) {
-                reloadClient1();
-            }
-            if (this.txtWeaponReload2.getText().equals("yes")) {
-                reloadClient2();
-            }
-            if (this.txtWeaponReload3.getText().equals("yes")) {
-                reloadClient3();
-            }
-        }
-
-        if(playerController.isFinalFrenzy() && playerController.getFinalFrenzyActions().equals(FinalFrenzyAction.TWO_ACTIONS)){
-
-            if (this.txtWeaponReload1.getText().equals("yes")) {
-                this.weaponReload1 = "yes";
-            }
-            if (this.txtWeaponReload2.getText().equals("yes")) {
-                this.weaponReload2 = "yes";
-            }
-            if (this.txtWeaponReload3.getText().equals("yes")) {
-                this.weaponReload3 = "yes";
-            }
-
-            reloadClientTwoActions();
-        }
-
-        if(playerController.isFinalFrenzy() && playerController.getFinalFrenzyActions().equals(FinalFrenzyAction.ONE_ACTION)){
-
-            if (this.txtWeaponReload1.getText().equals("yes")) {
-                this.weaponReload1 = "yes";
-            }
-            if (this.txtWeaponReload2.getText().equals("yes")) {
-                this.weaponReload2 = "yes";
-            }
-            if (this.txtWeaponReload3.getText().equals("yes")) {
-                this.weaponReload3 = "yes";
-            }
-
-            reloadClientOneAction();
-        }
-
-        Stage stage = (Stage) buttonReload.getScene().getWindow();
-        stage.close();
-    }
-
+    /**
+     * This method check if the player has choosen the boardType and the right number of skulls (turns).
+     * Then set the board and the skulls.
+     */
     public void chooseBoardButton(){
 
         skull = Integer.valueOf(skullText.getText());
@@ -464,10 +419,67 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     }
 
 
+    /**
+     * This method is launched when reloadButton is pressed, check what weapons the player wants to reload
+     * @param mouseEvent
+     * @throws IOException throws IOException if fails to reload with reloadClient
+     */
+    public void reload(MouseEvent mouseEvent) throws IOException {
+        playerController = Data.getInstance().getPlayerController();
+
+        if(!playerController.isFinalFrenzy()) {
+            if (this.txtWeaponReload1.getText().equals(YES)) {
+                reloadClient1();
+            }
+            if (this.txtWeaponReload2.getText().equals(YES)) {
+                reloadClient2();
+            }
+            if (this.txtWeaponReload3.getText().equals(YES)) {
+                reloadClient3();
+            }
+        }
+
+        if(playerController.isFinalFrenzy() && playerController.getFinalFrenzyActions().equals(FinalFrenzyAction.TWO_ACTIONS)){
+
+            if (this.txtWeaponReload1.getText().equals(YES)) {
+                this.weaponReload1 = YES;
+            }
+            if (this.txtWeaponReload2.getText().equals(YES)) {
+                this.weaponReload2 = YES;
+            }
+            if (this.txtWeaponReload3.getText().equals(YES)) {
+                this.weaponReload3 = YES;
+            }
+
+            reloadClientTwoActions();
+        }
+
+        if(playerController.isFinalFrenzy() && playerController.getFinalFrenzyActions().equals(FinalFrenzyAction.ONE_ACTION)){
+
+            if (this.txtWeaponReload1.getText().equals(YES)) {
+                this.weaponReload1 = YES;
+            }
+            if (this.txtWeaponReload2.getText().equals(YES)) {
+                this.weaponReload2 = YES;
+            }
+            if (this.txtWeaponReload3.getText().equals(YES)) {
+                this.weaponReload3 = YES;
+            }
+
+            reloadClientOneAction();
+        }
+
+        Stage stage = (Stage) buttonReload.getScene().getWindow();
+        stage.close();
+    }
+
 
     //choosePowerup methods
-    //
-    //
+
+    /**
+     * These methods are used for the choose of the powerups
+     * @throws IOException
+     */
     public void choosePowerup1() throws IOException {
 
         Data.getInstance().setPowerup(2);
@@ -490,6 +502,9 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         }
     }
 
+    /**
+     * These methods helps to close the powerups stages
+     */
     public void handleCloseAction1() {
         Stage stage = (Stage) powerupImg1.getScene().getWindow();
         stage.close();
@@ -502,19 +517,25 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
 
     //viewInterface methods
-    //
-    //
 
     @Override
     public void start() {
 
     }
 
+    /**
+     *
+     * @param playerController the PlayerController that will be set.
+     */
     @Override
     public void setPlayerController(PlayerController playerController) {
         this.playerController = playerController;
     }
 
+    /**
+     * This notify receive only one message from the server.
+     * @param message a message.
+     */
     @Override
     public void notify(Message message) {
         switch (message){
@@ -532,6 +553,9 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         }
     }
 
+    /**
+     * This method set the LabelStatement on the mainBoard with Final Frenzy
+     */
     private void notifyFinalFrenzy() {
         Platform.runLater(() ->{
             guiHandler = Data.getInstance().getGuiHandler();
@@ -539,6 +563,9 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         });
     }
 
+    /**
+     * This method set the LabelStatement on the mainBoard when is not your turn
+     */
     private void notifyNotTurn() {
         Platform.runLater(() ->{
             guiHandler = Data.getInstance().getGuiHandler();
@@ -546,6 +573,9 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         });
     }
 
+    /**
+     * This method set the LabelStatement on the mainBoard when your turn ends
+     */
     @FXML
     private void notifyEndTurn() {
         Platform.runLater(() ->{
@@ -555,6 +585,11 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         });
     }
 
+    /**
+     * These notify takes a message and the outcome of the action from the server.
+     * @param message a message.
+     * @param outcome the outcome of the action.
+     */
     @Override
     public void notify(Message message, Outcome outcome) {
         switch (message) {
@@ -603,6 +638,10 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         }
     }
 
+    /**
+     * This method launch DiscardPowerUp.fxml when a player has to respawn, he needs to discard a powerup
+     * @param outcome
+     */
     public void notifyRespawn(Outcome outcome) {
         Platform.runLater(() ->{
 
@@ -630,7 +669,9 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         });
     }
 
-
+    /**
+     * This method set the powerup's images on the DiscardPowerup.fxml
+     */
     private void setPowerupImageRespawn() {
 
         playerController = Data.getInstance().getPlayerController();
@@ -668,6 +709,10 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         });
     }
 
+    /**
+     * This method show if the player has reloaded or not a weapon
+     * @param outcome
+     */
     private void notifyReload(Outcome outcome) {
         playerController = Data.getInstance().getPlayerController();
         Platform.runLater(() -> {
@@ -682,7 +727,10 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         });
     }
 
-
+    /**
+     * This method notify on the mainBoard if the dropWeapon has succeded or not, depends on outcome
+     * @param outcome
+     */
     private void notifyDropWeapon(Outcome outcome) {
         guiHandler = Data.getInstance().getGuiHandler();
         Platform.runLater(() ->{
@@ -694,6 +742,10 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         });
     }
 
+    /**
+     * This method notify on the mainBoard if the dropPowerup has succeded or not, depends on outcome
+     * @param outcome
+     */
     private void notifyDropPowerup(Outcome outcome) {
         guiHandler = Data.getInstance().getGuiHandler();
 
@@ -706,6 +758,10 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         });
     }
 
+    /**
+     * This method notify on the mainBoard if the discardPowerup has succeded or not, depends on outcome
+     * @param outcome
+     */
     private void notifyDiscardPowerup(Outcome outcome) {
         guiHandler = Data.getInstance().getGuiHandler();
 
@@ -719,6 +775,11 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         });
     }
 
+    /**
+     * This method is used when a player is trying to reconnect to the match, if outcome is right it launches MapGUI.fxml
+     * @param outcome
+     * @param object
+     */
     private void notifyReconnection(Outcome outcome, String object) {
 
         Platform.runLater(() ->{
@@ -772,6 +833,9 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         });
     }
 
+    /**
+     * This method set the mainPlayerLabel with the right name's player
+     */
     private void setLabelMainPlayer() {
         playerController = Data.getInstance().getPlayerController();
 
@@ -780,6 +844,10 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         });
     }
 
+    /**
+     * This method notify if powerup is used with success or not
+     * @param outcome
+     */
     private void notifyPowerup(Outcome outcome) {
         playerController = Data.getInstance().getPlayerController();
         guiHandler = Data.getInstance().getGuiHandler();
@@ -793,6 +861,10 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         });
     }
 
+    /**
+     * This method notify if a player shot or not with his weapon
+     * @param outcome
+     */
     private void notifyShoot(Outcome outcome) {
         playerController = Data.getInstance().getPlayerController();
         guiHandler = Data.getInstance().getGuiHandler();
@@ -814,6 +886,10 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         });
     }
 
+    /**
+     * This method notify if the player has grabbed or not weapons or ammo
+     * @param outcome
+     */
     private void notifyGrab(Outcome outcome) {
         playerController = Data.getInstance().getPlayerController();
         guiHandler = Data.getInstance().getGuiHandler();
@@ -829,6 +905,10 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         }
     }
 
+    /**
+     * This method notify if the player's move has succeded or not
+     * @param outcome
+     */
     private void notifyMovement(Outcome outcome) {
         playerController = Data.getInstance().getPlayerController();
         guiHandler = Data.getInstance().getGuiHandler();
@@ -842,14 +922,23 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         }
     }
 
-    private void setLabelStatement(String move) {
+    /**
+     * This method helps to set labelStatusPlayer when is called
+     * @param string
+     */
+    private void setLabelStatement(String string) {
         guiHandler = Data.getInstance().getGuiHandler();
         Platform.runLater(() ->{
             guiHandler.labelStatusPlayer.setVisible(true);
-            guiHandler.labelStatusPlayer.setText(move);
+            guiHandler.labelStatusPlayer.setText(string);
         });
     }
 
+    /**
+     * This method loads if outcome is right ChooseBoard.fxml that is created for choosing the BoardType and the Skulls' number
+     * If outcome is wrong, it launches a Waiting Popup
+     * @param outcome
+     */
     private void notifyBoard(Outcome outcome){
         Platform.runLater(() ->{
             if(outcome.equals(Outcome.RIGHT)){
@@ -896,7 +985,12 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         });
     }
 
-
+    /**
+     * This method is launched when there is a new turn. The first time executed it loads MapGUI.fxml,
+     * The next times executed enables if outcome is right or disables the buttons if outcome is wrong
+     * @param outcome
+     * @throws Exception if fails to load MapGUI.fxml
+     */
     private void notifyNewTurn(Outcome outcome) throws Exception {
         Platform.runLater(() -> {
 
@@ -989,7 +1083,9 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         });
     }
 
-
+    /**
+     * This method sets the right skulls number and changes the skulls to damages if is the case
+     */
     public void setSkulls() {
 
         playerController = Data.getInstance().getPlayerController();
@@ -1016,6 +1112,12 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         }
     }
 
+    /**
+     * This method helps to add elements on the KillShotTrack2
+     * @param image
+     * @param col
+     * @param row
+     */
     private void addImgOnKillshot2(Image image, int col, int row) {
         ImageView imv = new ImageView(image);
         imv.setFitWidth(STANDARD_HEIGHT);
@@ -1026,12 +1128,23 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         });
     }
 
+    /**
+     * This method removes all the elements on the gridSkulls
+     * @param col
+     * @param row
+     */
     private void removeSkullImgOnKillshot(int col, int row) {
         Platform.runLater(() ->{
             gridSkulls.getChildren().remove(col, row);
         });
     }
 
+    /**
+     * This method helps to add the proper Image to the gridSkulls (killshotTrack)
+     * @param image
+     * @param col
+     * @param row
+     */
     public void addImgOnKillshot(Image image, int col, int row){
         ImageView imv = new ImageView(image);
         imv.setFitWidth(STANDARD_HEIGHT);
