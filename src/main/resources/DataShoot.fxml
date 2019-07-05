@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="454.0" prefWidth="522.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.gui.GUIHandler">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="538.0" prefWidth="522.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.gui.GUIHandler">
    <children>
       <Label layoutX="135.0" layoutY="14.0" text="Insert Data for Shooting" textFill="WHITE">
          <font>
@@ -57,11 +57,11 @@
             <Font name="Alien League Regular" size="17.0" />
          </font></Label>
       <TextField fx:id="basicTxtField" layoutX="139.0" layoutY="99.0" prefHeight="25.0" prefWidth="67.0" promptText="true/false" />
-      <Label fx:id="labelInfoWeapon" layoutX="41.0" layoutY="329.0" prefHeight="117.0" prefWidth="442.0" textFill="WHITE" wrapText="true">
+      <Label fx:id="labelInfoWeapon" layoutX="40.0" layoutY="346.0" prefHeight="187.0" prefWidth="442.0" textFill="WHITE" wrapText="true">
          <font>
             <Font name="Alien League Regular" size="15.0" />
          </font></Label>
-      <Label layoutX="40.0" layoutY="307.0" prefHeight="32.0" prefWidth="128.0" text="what to specify:" textFill="WHITE" wrapText="true">
+      <Label layoutX="41.0" layoutY="314.0" prefHeight="32.0" prefWidth="128.0" text="what to specify:" textFill="WHITE" wrapText="true">
          <font>
             <Font name="Alien League Regular" size="17.0" />
          </font></Label>

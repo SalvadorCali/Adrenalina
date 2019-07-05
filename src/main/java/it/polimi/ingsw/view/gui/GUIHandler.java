@@ -1361,7 +1361,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
     /**
      * This method launches ChoosePowerup.fxml, that allows to choose a PowerUp
-     * @param object
+     * @param object list of powerup cards
      */
     private void notifySpawnLocation(List<Card> object) {
         Platform.runLater(()-> {
@@ -1392,7 +1392,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
     /**
      * This method allows to set the right powerup Img
-     * @param powerup
+     * @param powerup list of powerups on the choosePowerup window
      */
     @FXML
     private void setPowerupImage(List<Card> powerup) {
@@ -1414,9 +1414,9 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     }
 
     /**
-     * Standar initialize method
-     * @param url
-     * @param resourceBundle
+     * Standard initialize method
+     * @param url location used to resolve relative paths for roots objects
+     * @param resourceBundle used to localize the root object or null if it was not localized
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -1791,7 +1791,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
     /**
      * Standard main method for being launched from Client
-     * @param args
+     * @param args standard args
      */
     public static void main(String[] args) {
         Application.launch(args);
@@ -1800,29 +1800,28 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
     /**
      * These methods are used for set the move on the mainBoard
-     * @param event
-     * @throws IOException
+     * @param event when player clicks
      */
     @FXML
-    private void moveUp(MouseEvent event) throws IOException {
+    private void moveUp(MouseEvent event){
         saveMovement("up");
         setLabelMovement();
     }
 
     @FXML
-    private void moveDown(MouseEvent event) throws IOException {
+    private void moveDown(MouseEvent event) {
         saveMovement("down");
         setLabelMovement();
     }
 
     @FXML
-    private void moveLeft(MouseEvent event) throws IOException {
+    private void moveLeft(MouseEvent event){
         saveMovement("left");
         setLabelMovement();
     }
 
     @FXML
-    private void moveRight(MouseEvent event) throws IOException {
+    private void moveRight(MouseEvent event) {
         saveMovement("right");
         setLabelMovement();
     }
@@ -1854,7 +1853,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
     /**
      * This method save the movement done by the players
-     * @param move
+     * @param move receive move for MoveAction
      */
     public void saveMovement(String move){
         playerController = Data.getInstance().getPlayerController();
@@ -1977,7 +1976,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
      * This method check which weapons the player wants to reload, then it reloads the desired weapons if possible,
      * also moves the player if there were moveReload moves
      * then launches showWeapon.fxml
-     * @throws IOException if moveAndReload fails
+     * @throws IOException if moveAndReload.fxml fails
      */
     private void reloadClientTwoActions() throws IOException {
         playerController = Data.getInstance().getPlayerController();
@@ -2421,7 +2420,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     /**
      * One of the main methods of the mainBoard, it receives the game's arena and check for every position if there are players,
      * then displays players on the board calling addPlayer method
-     * @param arena
+     * @param arena of the current match
      */
     public void placePlayers(Square[][] arena){
         playerController = Data.getInstance().getPlayerController();
@@ -2528,10 +2527,10 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
     /**
      * This method helps to addPlayer to a specific grid, it takes gridPane, Image with color of the player and right position thanks to row and index that represents the coloumn
-     * @param grid
-     * @param image
-     * @param index
-     * @param row
+     * @param grid grid that contains players or ammos
+     * @param image image of players or ammos
+     * @param index represents column of the grid
+     * @param row represents row of the grid
      */
     private void addPlayer(GridPane grid, Image image, Integer index, Integer row) {
         
@@ -2583,7 +2582,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
     /**
      * These methods set all the moves for moveAndGrab Action
-     * @param mouseEvent
+     * @param mouseEvent when the player clicks
      */
     public void moveUpGrab(MouseEvent mouseEvent) {
         playerController = Data.getInstance().getPlayerController();
@@ -2631,7 +2630,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
     /**
      * This method save the movement for moveGrab when there is final frenzy
-     * @param movement
+     * @param movement received for moveGrab action
      */
     public void saveMovementFinalFrenzy(String movement){
         playerController = Data.getInstance().getPlayerController();
@@ -2652,8 +2651,8 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
     /**
      * This method checks the moves from the movesGrab and grab the right ammo, if there is a weapon it launches ChooseWeapon.fxml
-     * @param mouseEvent
-     * @throws IOException
+     * @param mouseEvent when player clicks
+     * @throws IOException if fails to load fxml file
      */
     public void confirmMovementGrab(MouseEvent mouseEvent) throws IOException {
 
@@ -3141,7 +3140,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
     /**
      * this method is used for grabbing the first weapon img
-     * @param mouseEvent
+     * @param mouseEvent when player clicks
      */
     public void grabFirstImg(MouseEvent mouseEvent) {
 
@@ -3227,7 +3226,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
     /**
      * this method is used for grabbing the second weapon img
-     * @param mouseEvent
+     * @param mouseEvent when player clicks
      */
     public void grabSecondImg(MouseEvent mouseEvent){
 
@@ -3311,7 +3310,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
     /**
      * this method is used for grabbing the third weapon img
-     * @param mouseEvent
+     * @param mouseEvent when player clicks
      */
     public void grabThirdImg(MouseEvent mouseEvent) {
 
@@ -3463,7 +3462,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
     /**
      *This method launches the PlayerBoard.fxml with all the playerBoards
-     * @param mouseEvent
+     * @param mouseEvent when player clicks
      */
     public void showDamageBoard(MouseEvent mouseEvent) {
         Platform.runLater(() ->{
@@ -3490,7 +3489,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
     /**
      * This method launches ShowWeapon.fxml that shows all the weapons and powerups that a player has
-     * @param mouseEvent
+     * @param mouseEvent when player clicks
      */
     public void showWeapon(MouseEvent mouseEvent) {
         Platform.runLater(() ->{
@@ -3678,7 +3677,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
     /**
      * This method set labelLoaded1 of the first weapon
-     * @param string
+     * @param string contains load String
      */
     private void setLabelWeaponLoaded1(String string) {
         Platform.runLater(() ->{
@@ -3688,7 +3687,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
     /**
      * This method set labelLoaded2 of the second weapon
-     * @param string
+     * @param string contains load String
      */
     private void setLabelWeaponLoaded2(String string) {
         Platform.runLater(() ->{
@@ -3698,7 +3697,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
     /**
      * This method set labelLoaded3 of the third weapon
-     * @param string
+     * @param string contains load String
      */
     private void setLabelWeaponLoaded3(String string) {
         Platform.runLater(() ->{
@@ -3709,7 +3708,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     /**
      * This method is used for shooting action, launch showWeapon method in the first case,
      * in the second launches MoveAndReload.fxml
-     * @param mouseEvent
+     * @param mouseEvent when the player clicks
      */
     public void shoot(MouseEvent mouseEvent) {
         playerController = Data.getInstance().getPlayerController();
@@ -3742,8 +3741,8 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     }
 
     /**
-     * These methods set which weapon is choosen for shooting action
-     * @param mouseEvent
+     * These methods set which weapon is chosen for shooting action
+     * @param mouseEvent when the player clicks
      */
     public void shootFirstWeapon(MouseEvent mouseEvent) {
         Data.getInstance().setWeaponShoot(0);
@@ -3783,7 +3782,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
             guiHandler.setLabelWeapon(playerController.getWeapons().get(weaponNum).getName());
 
             Stage stage = new Stage();
-            stage.setScene(new Scene(root, 522, 454));
+            stage.setScene(new Scene(root, 522, 538));
             stage.setTitle("Data Shoot");
             stage.show();
         });
@@ -3793,7 +3792,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
     /**
      * This method sets the info needed for shooting with the choosen weapon
-     * @param name
+     * @param name name of the weapon
      */
     private void setLabelWeapon(String name) {
         String textWeapon = weaponInfoHandler.getInfoWeapon(name);
@@ -3804,7 +3803,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
     /**
      * This method sets and checks the data for shooting
-     * @param mouseEvent
+     * @param mouseEvent when the player clicks
      */
     public void setShoot(MouseEvent mouseEvent) {
         client = Data.getInstance().getClient();
@@ -3901,7 +3900,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
     /**
      * This method disconnects the player
-     * @param mouseEvent
+     * @param mouseEvent when the player clicks
      */
     public void disconnect(MouseEvent mouseEvent) {
 
@@ -3915,7 +3914,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
     /**
      * These methods set moves for MoveAndReload action
-     * @param mouseEvent
+     * @param mouseEvent when the player clicks
      */
     public void upMoveRel(MouseEvent mouseEvent){
         setMoveRel("up");
@@ -3939,7 +3938,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
     /**
      * This method save the moves from the player and for the MoveAndReload action
-     * @param move
+     * @param move move of the moveAndReload action
      */
     private void setMoveRel(String move) {
         playerController = Data.getInstance().getPlayerController();
@@ -3961,8 +3960,8 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
     /**
      * This method launches ShowWeapon.fxml after the MoveAndReload action
-     * @param mouseEvent
-     * @throws IOException
+     * @param mouseEvent when player clicks
+     * @throws IOException if fails to load fxml file
      */
     public void confirmMoveRel(MouseEvent mouseEvent) throws IOException {
         playerController = Data.getInstance().getPlayerController();
@@ -4009,7 +4008,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
     /**
      * This method is needed for moveAndReload if a player is in ZoneTwo phase
-     * @throws IOException
+     * @throws IOException if fails to load fxml file
      */
     private void moveReloadZoneTwo() throws IOException {
         client = Data.getInstance().getClient();
@@ -4035,8 +4034,8 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
     /**
      * these methods are used to set which powerup player wants to use and launches launchPowerUpData
-     * @param mouseEvent
-     * @throws IOException
+     * @param mouseEvent when player clicks
+     * @throws IOException if fails to load fxml file
      */
     public void useThirdPowerup(MouseEvent mouseEvent) throws IOException {
         Data.getInstance().setNumPowerup(2);
@@ -4055,8 +4054,8 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
     /**
      * This method checks and receives the data when a player is using a powerup
-     * @param mouseEvent
-     * @throws IOException
+     * @param mouseEvent when player clicks
+     * @throws IOException if fails to load fxml file
      */
     public void usePowerup(MouseEvent mouseEvent) throws IOException {
         
@@ -4115,7 +4114,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
     /**
      * This class loads DataPowerup.fxml, it contains all the powerup Data that the player has to insert
-     * @throws IOException
+     * @throws IOException if fails to load fxml file
      */
     private void launchPowerupData() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("DataPowerUp.fxml"));
@@ -4145,8 +4144,8 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
     /**
      * This method show the weapon Red1
-     * @param mouseEvent
-     * @throws IOException
+     * @param mouseEvent when player clicks
+     * @throws IOException if fails to load fxml file
      */
     public void showWeaponRed1(MouseEvent mouseEvent) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("WeaponDetail.fxml"));
@@ -4163,8 +4162,8 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
     /**
      * This method show the weapon Red2
-     * @param mouseEvent
-     * @throws IOException
+     * @param mouseEvent when player clicks
+     * @throws IOException if fails to load fxml file
      */
     public void showWeaponRed2(MouseEvent mouseEvent) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("WeaponDetail.fxml"));
@@ -4181,8 +4180,8 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
     /**
      * This method show the weapon Red3
-     * @param mouseEvent
-     * @throws IOException
+     * @param mouseEvent when player clicks
+     * @throws IOException if fails to load fxml file
      */
     public void showWeaponRed3(MouseEvent mouseEvent) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("WeaponDetail.fxml"));
@@ -4199,8 +4198,8 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
     /**
      * This method show the weapon Yellow1
-     * @param mouseEvent
-     * @throws IOException
+     * @param mouseEvent when player clicks
+     * @throws IOException if fails to load fxml file
      */
     public void showWeaponYellow1(MouseEvent mouseEvent) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("WeaponDetail.fxml"));
@@ -4217,8 +4216,8 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
     /**
      * This method show the weapon Yellow2
-     * @param mouseEvent
-     * @throws IOException
+     * @param mouseEvent when player clicks
+     * @throws IOException if fails to load fxml file
      */
     public void showWeaponYellow2(MouseEvent mouseEvent) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("WeaponDetail.fxml"));
@@ -4235,8 +4234,8 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
     /**
      * This method show the weapon Yellow3
-     * @param mouseEvent
-     * @throws IOException
+     * @param mouseEvent when player clicks
+     * @throws IOException if fails to load fxml file
      */
     public void showWeaponYellow3(MouseEvent mouseEvent) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("WeaponDetail.fxml"));
@@ -4253,8 +4252,8 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
     /**
      * This method show the weapon Blue1
-     * @param mouseEvent
-     * @throws IOException
+     * @param mouseEvent when player clicks
+     * @throws IOException if fails to load fxml file
      */
     public void showWeaponBlue1(MouseEvent mouseEvent) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("WeaponDetail.fxml"));
@@ -4271,8 +4270,8 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
     /**
      * This method show the weapon Blue2
-     * @param mouseEvent
-     * @throws IOException
+     * @param mouseEvent when player clicks
+     * @throws IOException if fails to load fxml file
      */
     public void showWeaponBlue2(MouseEvent mouseEvent) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("WeaponDetail.fxml"));
@@ -4289,8 +4288,8 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
     /**
      * This method show the weapon Blue3
-     * @param mouseEvent
-     * @throws IOException
+     * @param mouseEvent when player clicks
+     * @throws IOException if fails to load fxml file
      */
     public void showWeaponBlue3(MouseEvent mouseEvent) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("WeaponDetail.fxml"));
@@ -4307,7 +4306,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
     /**
      * This method set the image of the weapons
-     * @param image
+     * @param image weapon's image
      */
     public void setImageWeapon(Image image){
         Platform.runLater(() ->{
@@ -4338,8 +4337,8 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
     /**
      * This method drop the first weapon
-     * @param mouseEvent
-     * @throws IOException
+     * @param mouseEvent when player clicks
+     * @throws IOException when client fails to drop weapon
      */
     public void dropFirstWeapon(MouseEvent mouseEvent) throws IOException {
         client = Data.getInstance().getClient();
@@ -4352,8 +4351,8 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
     /**
      * This method drop the second weapon
-     * @param mouseEvent
-     * @throws IOException
+     * @param mouseEvent when player clicks
+     * @throws IOException when client fails to drop weapon
      */
     public void dropSecondWeapon(MouseEvent mouseEvent) throws IOException {
         client = Data.getInstance().getClient();
@@ -4367,8 +4366,8 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
     /**
      * This method drop the third weapon
-     * @param mouseEvent
-     * @throws IOException
+     * @param mouseEvent when player clicks
+     * @throws IOException when client fails to drop weapon
      */
     public void dropThirdWeapon(MouseEvent mouseEvent) throws IOException {
         client = Data.getInstance().getClient();
@@ -4382,8 +4381,8 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
     /**
      * This method drops the first powerup
-     * @param mouseEvent
-     * @throws IOException
+     * @param mouseEvent when player clicks
+     * @throws IOException when client fails to drop powerup
      */
     public void dropFirstPowerup(MouseEvent mouseEvent) throws IOException {
         client = Data.getInstance().getClient();
@@ -4396,8 +4395,8 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
     /**
      * This method drops the second powerup
-     * @param mouseEvent
-     * @throws IOException
+     * @param mouseEvent when player clicks
+     * @throws IOException when client fails to drop powerup
      */
     public void dropSecondPowerup(MouseEvent mouseEvent) throws IOException {
         client = Data.getInstance().getClient();
@@ -4410,8 +4409,8 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
     /**
      * This method drops the third powerup
-     * @param mouseEvent
-     * @throws IOException
+     * @param mouseEvent when player clicks
+     * @throws IOException when client fails to drop powerup
      */
     public void dropThirdPowerup(MouseEvent mouseEvent) throws IOException {
         client = Data.getInstance().getClient();
@@ -4424,8 +4423,8 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
     /**
      * This method discards the first powerup
-     * @param mouseEvent
-     * @throws IOException
+     * @param mouseEvent when player clicks
+     * @throws IOException when client fails to discard powerup
      */
     public void discardFirstPowerup(MouseEvent mouseEvent) throws IOException {
         client = Data.getInstance().getClient();
@@ -4438,8 +4437,8 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
     /**
      * This method discards the second powerup
-     * @param mouseEvent
-     * @throws IOException
+     * @param mouseEvent when player clicks
+     * @throws IOException when client fails to discard powerup
      */
     public void discardSecondPowerup(MouseEvent mouseEvent) throws IOException {
         client = Data.getInstance().getClient();
@@ -4452,8 +4451,8 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
     /**
      * This method discards the third powerup
-     * @param mouseEvent
-     * @throws IOException
+     * @param mouseEvent when player clicks
+     * @throws IOException when client fails to discard powerup
      */
     public void discardThirdPowerup(MouseEvent mouseEvent) throws IOException {
         client = Data.getInstance().getClient();
@@ -4466,8 +4465,8 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
     /**
      * This method discards the first powerup needed for respawning the player
-     * @param mouseEvent
-     * @throws IOException
+     * @param mouseEvent when player clicks
+     * @throws IOException when client fails to respawn
      */
     public void discardPw1(MouseEvent mouseEvent) {
 
@@ -4484,8 +4483,8 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
     /**
      * This method discards the second powerup needed for respawning the player
-     * @param mouseEvent
-     * @throws IOException
+     * @param mouseEvent when players clicks
+     * @throws IOException when client fails to respawn
      */
     public void discardPw2(MouseEvent mouseEvent) {
 
@@ -4502,8 +4501,8 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
     /**
      * This method discards the third powerup needed for respawning the player
-     * @param mouseEvent
-     * @throws IOException
+     * @param mouseEvent when player clicks
+     * @throws IOException when client fails to respawn
      */
     public void discardPw3(MouseEvent mouseEvent) {
 
@@ -4520,8 +4519,8 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
     /**
      * This method discards the fourth powerup needed for respawning the player
-     * @param mouseEvent
-     * @throws IOException
+     * @param mouseEvent when player clicks
+     * @throws IOException when client fails to respawn
      */
     public void discardPw4(MouseEvent mouseEvent) {
 
@@ -4568,11 +4567,11 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
             //} else
                 if(this.moveFrenzyTwoActions[1] != null){
                 Platform.runLater(() ->{
-                    labelShowMoveGrab.setText("  " + this.moveFrenzyTwoActions[0] + "  " + this.moveFrenzyTwoActions[1]);
+                    labelShowMoveGrab.setText(DOUBLE_SPACE + this.moveFrenzyTwoActions[0] + DOUBLE_SPACE + this.moveFrenzyTwoActions[1]);
                 });
             } else if(this.moveFrenzyTwoActions[0] != null){
                 Platform.runLater(() ->{
-                    labelShowMoveGrab.setText("  " + this.moveFrenzyTwoActions[0]);
+                    labelShowMoveGrab.setText(DOUBLE_SPACE + this.moveFrenzyTwoActions[0]);
                 });
             }
                 //else if(this.moveFrenzyTwoActions[3] != null){
@@ -4590,15 +4589,15 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         for(int i = 0; i < this.moveFrenzyOneActions.length; i++) {
             if(this.moveFrenzyOneActions[2] != null){
                 Platform.runLater(() ->{
-                    labelShowMoveGrab.setText("  " + this.moveFrenzyOneActions[0] + "  " + this.moveFrenzyOneActions[1] + "  " + this.moveFrenzyOneActions[2]);
+                    labelShowMoveGrab.setText(DOUBLE_SPACE + this.moveFrenzyOneActions[0] + DOUBLE_SPACE + this.moveFrenzyOneActions[1] + DOUBLE_SPACE + this.moveFrenzyOneActions[2]);
                 });
             } else if(this.moveFrenzyOneActions[1] != null){
                 Platform.runLater(() ->{
-                    labelShowMoveGrab.setText("  " + this.moveFrenzyOneActions[0] + "  " + this.moveFrenzyOneActions[1]);
+                    labelShowMoveGrab.setText(DOUBLE_SPACE + this.moveFrenzyOneActions[0] + DOUBLE_SPACE + this.moveFrenzyOneActions[1]);
                 });
             } else if(this.moveFrenzyOneActions[0] != null){
                 Platform.runLater(() ->{
-                    labelShowMoveGrab.setText("  " + this.moveFrenzyOneActions[0]);
+                    labelShowMoveGrab.setText(DOUBLE_SPACE + this.moveFrenzyOneActions[0]);
                 });
             }
         }
@@ -4621,11 +4620,11 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         for(int i = 0; i < moveRel.length; i++) {
             if(moveRel[1] != null){
                 Platform.runLater(() ->{
-                    labelShowMoveRel.setText("  " + moveRel[0] + "  " + moveRel[1]);
+                    labelShowMoveRel.setText(DOUBLE_SPACE + moveRel[0] + DOUBLE_SPACE + moveRel[1]);
                 });
             } else if(moveRel[0] != null){
                 Platform.runLater(() ->{
-                    labelShowMoveRel.setText("  " + moveRel[0]);
+                    labelShowMoveRel.setText(DOUBLE_SPACE + moveRel[0]);
                 });
             }
         }
