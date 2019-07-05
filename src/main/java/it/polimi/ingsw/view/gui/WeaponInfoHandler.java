@@ -10,7 +10,7 @@ public class WeaponInfoHandler {
     /**
      * get Info of every weapon, what is needed when you shoot
      * @param nameWeapon
-     * @return
+     * @return info about weapons
      */
     public String getInfoWeapon(String nameWeapon){
         switch(nameWeapon){
@@ -115,8 +115,7 @@ public class WeaponInfoHandler {
 
     /**
      * get Info of every powerup
-     * @param namePowerup
-     * @return
+     * @param namePowerup info about powerup
      */
     public String getInfoPowerUp(String namePowerup){
         switch (namePowerup){

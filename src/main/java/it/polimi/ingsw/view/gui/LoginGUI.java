@@ -20,8 +20,8 @@ public class LoginGUI extends Application {
 
     /**
      * standard start method that load logingui.fxml
-     * @param primaryStage
-     * @throws Exception
+     * @param primaryStage primaryStage of login
+     * @throws Exception if doesn't load fxml file
      */
     public synchronized void start(Stage primaryStage) throws Exception {
 

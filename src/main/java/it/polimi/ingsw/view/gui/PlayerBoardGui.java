@@ -82,8 +82,8 @@ public class PlayerBoardGui extends Application {
 
     /**
      * standard start method that loads playerboard.fxml
-     * @param stage
-     * @throws Exception
+     * @param stage stage of the playerboard.fxml
+     * @throws Exception if doesn't load fxml file
      */
     @Override
     public void start(Stage stage) throws Exception {
@@ -210,10 +210,10 @@ public class PlayerBoardGui extends Application {
 
     /**
      * this method takes an image and add that on the first player's marksGrid
-     * @param image
-     * @param marksGrid
-     * @param i
-     * @param row
+     * @param image image of a mark
+     * @param marksGrid right marksGrid of the player
+     * @param i represent column of the gridpane
+     * @param row represent row of the gridpane
      */
     private void addMarkGrid(Image image, GridPane marksGrid, int i, int row) {
         ImageView imv = new ImageView(image);
@@ -226,10 +226,10 @@ public class PlayerBoardGui extends Application {
 
     /**
      * this method takes an image and add that on every player's marksGrid
-     * @param marksGrid
-     * @param image
-     * @param i
-     * @param row
+     * @param marksGrid right marksGrid of the player
+     * @param image image of a mark
+     * @param i represent column of the gridpane
+     * @param row represent row of the gridpane
      */
     private void addMarkGrid2(GridPane marksGrid, Image image, int i, int row) {
         ImageView imv = new ImageView(image);
@@ -258,10 +258,10 @@ public class PlayerBoardGui extends Application {
 
     /**
      * add image to the first player's damageGrid
-     * @param damageGrid
-     * @param image
-     * @param i
-     * @param row
+     * @param damageGrid first player Damage Grid
+     * @param image of damageTears
+     * @param i represent column of the gridpane
+     * @param row represent row of the gridpane
      */
     private void addDamageOnGrid(GridPane damageGrid, Image image, int i, int row) {
         ImageView imv = new ImageView(image);
@@ -274,10 +274,10 @@ public class PlayerBoardGui extends Application {
 
     /**
      * add image to every player's damageGrid except for the first one
-     * @param damageGrid
-     * @param image
-     * @param i
-     * @param row
+     * @param damageGrid other players Damage Grid
+     * @param image of damageTears
+     * @param i represent column of the gridpane
+     * @param row represent row of the gridpane
      */
     private void addDamageOnGrid2(GridPane damageGrid, Image image, int i, int row) {
         ImageView imv = new ImageView(image);
@@ -425,7 +425,7 @@ public class PlayerBoardGui extends Application {
 
     /**
      * reset every gridPane's elements
-     * @param gridPane
+     * @param gridPane generic gridpane of various players
      */
     private void resetSkulls(GridPane gridPane) {
         Platform.runLater(() ->{

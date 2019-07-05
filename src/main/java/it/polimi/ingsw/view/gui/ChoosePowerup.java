@@ -28,10 +28,9 @@ public class ChoosePowerup {
 
     /**
      * method that launch choose powerup and set right powerup img
-     * @param powerup
-     * @throws Exception
+     * @param powerup list of powerup can be chosen
      */
-    public void launchChoosePowerup(List<Card> powerup) throws Exception {
+    public void launchChoosePowerup(List<Card> powerup) {
 
         Platform.runLater(() -> {
             for (int i = 0; i < powerup.size(); i++) {

@@ -35,7 +35,7 @@ public class ScorePopup {
 
     /**
      * main method that add the score for each player
-     * @param score
+     * @param score Map with tokenColor and int that represents the score
      */
     public void setScore(Map<TokenColor, Integer> score) {
 

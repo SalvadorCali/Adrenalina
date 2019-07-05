@@ -19,7 +19,7 @@ public class ChooseBoard extends Application {
     /**
      * standard start method that load chooseboard.fxml
      * @param primaryStage main stage
-     * @throws Exception
+     * @throws Exception if doesn't load chooseBoard.fxml
      */
     @Override
     public void start(Stage primaryStage) throws Exception {

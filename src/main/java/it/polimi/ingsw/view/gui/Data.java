@@ -46,7 +46,7 @@ public class Data{
 
     /**
      * setBoardType Int
-     * @param boardType
+     * @param boardType int represents the number of boardtype
      */
     public void setBoardType(Integer boardType) {
         this.boardType = boardType;
@@ -54,7 +54,7 @@ public class Data{
 
     /**
      * get BoardType Int
-     * @return
+     * @return int that represents the number of boardtype
      */
     public Integer getBoardType(){
         return this.boardType;
@@ -62,7 +62,7 @@ public class Data{
 
     /**
      * set skull Int
-     * @param skull
+     * @param skull represents turn's number
      */
     public void setSkull(Integer skull) {
         this.skull = skull;
@@ -70,7 +70,7 @@ public class Data{
 
     /**
      * get skull Int
-     * @return
+     * @return skull represents turn's number
      */
     public Integer getSkull(){
         return this.skull;
@@ -78,7 +78,7 @@ public class Data{
 
     /**
      * set Int Powerup
-     * @param powerup
+     * @param powerup represent the powerup's choose
      */
     public void setPowerup(Integer powerup) {
         this.powerup = powerup;
@@ -86,7 +86,7 @@ public class Data{
 
     /**
      * get Int powerup
-     * @return
+     * @return the choose of powerup
      */
     public Integer getPowerup() {
         return this.powerup;
@@ -94,7 +94,7 @@ public class Data{
 
     /**
      * set Client
-     * @param client
+     * @param client from clientInterface
      */
     public void setClient(ClientInterface client){
         this.client = client;
@@ -102,7 +102,7 @@ public class Data{
 
     /**
      * get Client
-     * @return
+     * @return client requested
      */
     public ClientInterface getClient() {
         return client;
@@ -110,7 +110,7 @@ public class Data{
 
     /**
      * get playerController
-     * @return
+     * @return playercontroller
      */
     public PlayerController getPlayerController() {
         return playerController;
@@ -126,7 +126,7 @@ public class Data{
 
     /**
      * get GuiHandler Controller
-     * @return
+     * @return guiHandler class
      */
     public GUIHandler getGuiHandler() {
         return guiHandler;
@@ -142,7 +142,7 @@ public class Data{
 
     /**
      * get MoveGrab string
-     * @return
+     * @return the string of movegrab
      */
     public String getMoveGrab() {
         return moveGrab;
@@ -150,7 +150,7 @@ public class Data{
 
     /**
      * set moveGrab String
-     * @param moveGrab
+     * @param moveGrab movegrab String
      */
     public void setMoveGrab(String moveGrab) {
         this.moveGrab = moveGrab;
@@ -158,7 +158,7 @@ public class Data{
 
     /**
      * get Weapon choosen for shoot
-     * @return
+     * @return weapon chosen
      */
     public Integer getWeaponShoot() {
         return weaponShoot;
@@ -173,7 +173,7 @@ public class Data{
 
     /**
      * get guiHandler Controller
-     * @return
+     * @return the controller of the showWeapon
      */
     public GUIHandler getGuiHandlerWeapon() {
         return guiHandlerWeapon;
@@ -189,7 +189,7 @@ public class Data{
 
     /**
      * get powerup choosen
-     * @return
+     * @return chosen powerup
      */
     public Integer getNumPowerup() {
         return numPowerup;
@@ -205,7 +205,7 @@ public class Data{
 
     /**
      * get final frenzy int
-     * @return
+     * @return 1 if it is final frenzy, 0 otherwise
      */
     public Integer getFinalFrenzy() {
         return finalFrenzy;
@@ -221,7 +221,7 @@ public class Data{
 
     /**
      * get first weapon reloaded
-     * @return
+     * @return c
      */
     public String getWeaponReloaded1() {
         return weaponReloaded1;
@@ -236,7 +236,7 @@ public class Data{
 
     /**
      * get second weapon reloaded
-     * @return
+     * @return second weapon reloaded
      */
     public String getWeaponReloaded2() {
         return weaponReloaded2;
@@ -251,7 +251,7 @@ public class Data{
 
     /**
      * get third weapon reloaded
-     * @return
+     * @return third weapon reloaded
      */
     public String getWeaponReloaded3() {
         return weaponReloaded3;
@@ -266,7 +266,7 @@ public class Data{
 
     /**
      * get moveGrab arrayString Two
-     * @return
+     * @return array for the movegrab of two actions
      */
     public String[] getMoveGrabTwoActions() {
         return moveGrabTwoActions;
@@ -281,7 +281,7 @@ public class Data{
 
     /**
      * get moveGrab arrayString One
-     * @return
+     * @return array for the movegrab of one action
      */
     public String[] getMoveGrabOneAction() {
         return moveGrabOneAction;
@@ -296,7 +296,7 @@ public class Data{
 
     /**
      * get moveRel arrayString
-     * @return
+     * @return moveReload array string
      */
     public String[] getMoveRel() {
         return moveRel;

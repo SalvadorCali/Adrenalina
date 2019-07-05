@@ -24,8 +24,8 @@ public class Popup extends Application implements Initializable {
 
     /**
      * standard start method that load popup.fxml
-     * @param stage
-     * @throws Exception
+     * @param stage main stage of popup class
+     * @throws Exception if doesn't load popup.fxml
      */
     @Override
     public void start(Stage stage) throws Exception {
@@ -40,8 +40,8 @@ public class Popup extends Application implements Initializable {
 
     /**
      * standard initialize method
-     * @param url
-     * @param resourceBundle
+     * @param url location used to resolve relative paths for roots objects
+     * @param resourceBundle used to localize the root object or null if it was not localized
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -51,11 +51,9 @@ public class Popup extends Application implements Initializable {
     /**
      * method that setText
      * @param object name's player
-     * @throws Exception
      */
-    public void showPopup1(String object) throws Exception {
+    public void showPopup1(String object) {
 
         labelPlayerDisconnected.setText(object);
-        //start(new Stage());
     }
 }

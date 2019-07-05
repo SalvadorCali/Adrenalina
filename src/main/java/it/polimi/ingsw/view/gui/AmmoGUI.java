@@ -157,8 +157,8 @@ public class AmmoGUI implements Initializable {
 
     /**
      * standard initialize method
-     * @param url
-     * @param resourceBundle
+     * @param url location used to resolve relative paths for roots objects
+     * @param resourceBundle used to localize the root object or null if it was not localized
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
