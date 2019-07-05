@@ -2243,7 +2243,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                     }
                 }
 
-                if (this.weaponReload1.equals(YES) && this.weaponReload2.equals(SPACE) && this.weaponReload3.equals(SPACE)) {
+                if (this.weaponReload1.equals(YES) && this.weaponReload2.equals(SPACE) && this.weaponReload3.equals(YES)) {
                     try {
                         client.moveAndReload(Converter.fromStringToDirection(moveRel[0]), Converter.weaponNameInvert(playerController.getWeapons().get(0).getName()), Converter.weaponNameInvert(playerController.getWeapons().get(2).getName()));
                     } catch (IOException e) {
