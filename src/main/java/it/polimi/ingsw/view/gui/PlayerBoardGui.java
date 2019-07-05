@@ -5,6 +5,7 @@ import it.polimi.ingsw.model.enums.TokenColor;
 import it.polimi.ingsw.model.gamecomponents.Player;
 import it.polimi.ingsw.model.gamecomponents.Token;
 import it.polimi.ingsw.util.Converter;
+import it.polimi.ingsw.util.Printer;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -463,7 +464,7 @@ public class PlayerBoardGui extends Application {
                 Thread.sleep(TIME_CHECK);
 
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                Printer.err(e);
             }
         }
     }
