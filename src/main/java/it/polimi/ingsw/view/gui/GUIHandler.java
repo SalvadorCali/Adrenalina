@@ -558,12 +558,14 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     }
 
     /**
-     * This method set the LabelStatement on the mainBoard with Final Frenzy
+     * This method set the LabelStatement on the mainBoard with Final Frenzy and disable reload button
      */
     private void notifyFinalFrenzy() {
         Platform.runLater(() ->{
             guiHandler = Data.getInstance().getGuiHandler();
             guiHandler.setLabelStatement(StringCLI.SERVER + StringCLI.FINAL_FRENZY);
+            labelReload.setDisable(true);
+            bannerReload.setDisable(true);
         });
     }
 
@@ -835,6 +837,11 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
             }else{
                 guiHandler.setLabelStatement(StringCLI.SERVER + object + StringCLI.SPACE + StringCLI.RECONNECTED);
+
+                if(playerController.isFinalFrenzy()){
+                    labelReload.setDisable(true);
+                    bannerReload.setDisable(true);
+                }
             }
         });
     }
@@ -988,7 +995,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                     Parent pop = popupBoard.load();
 
                     Stage stage = new Stage();
-                    stage.setScene(new Scene(pop, 234, 153));
+                    stage.setScene(new Scene(pop, 271, 153));
                     stage.setTitle("Board choosing...");
                     stage.show();
 
@@ -1058,6 +1065,11 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                     guiHandler.enableButtons();
                     guiHandler.setLabelTurn();
                     guiHandler.setLabelStatement(StringCLI.SERVER + StringCLI.NEW_TURN);
+
+                    if(playerController.isFinalFrenzy()){
+                        labelReload.setDisable(true);
+                        bannerReload.setDisable(true);
+                    }
                 }
 
 
@@ -1105,6 +1117,11 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                 }else{
                     guiHandler.disableButtons();
                     guiHandler.setLabelTurn();
+
+                    if(playerController.isFinalFrenzy()){
+                        labelReload.setDisable(true);
+                        bannerReload.setDisable(true);
+                    }
                 }
             }
         });
