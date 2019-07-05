@@ -2763,6 +2763,35 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                                 stage.setTitle("Choose Weapon");
                                 stage.show();
                             }
+                        }else{
+                            if (!playerController.getGameBoard().getArena()[x][y].isSpawn()) {
+                                try {
+                                    client.grab(0);
+                                } catch (IOException e) {
+                                    Printer.err(e);
+                                }
+                            } else {
+                                FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ChooseWeapon.fxml"));
+                                Parent root = null;
+                                try {
+                                    root = loader.load();
+                                } catch (IOException e) {
+                                    Printer.err(e);
+                                }
+
+                                Data.getInstance().setMoveGrab(null);
+                                guiHandler = loader.getController();
+
+                                List<WeaponCard> weapon = playerController.getGameBoard().getArena()[x][y].getWeapons();
+                                guiHandler.setWeaponInvisible();
+                                guiHandler.setWeaponImage(weapon);
+
+
+                                Stage stage = new Stage();
+                                stage.setScene(new Scene(root, 496, 269));
+                                stage.setTitle("Choose Weapon");
+                                stage.show();
+                            }
                         }
 
                     } else if (moveGrab == "down") {
@@ -2785,6 +2814,35 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                                 guiHandler = loader.getController();
 
                                 Data.getInstance().setMoveGrab("down");
+
+                                List<WeaponCard> weapon = playerController.getGameBoard().getArena()[x][y].getWeapons();
+                                guiHandler.setWeaponInvisible();
+                                guiHandler.setWeaponImage(weapon);
+
+
+                                Stage stage = new Stage();
+                                stage.setScene(new Scene(root, 496, 269));
+                                stage.setTitle("Choose Weapon");
+                                stage.show();
+                            }
+                        }else{
+                            if (!playerController.getGameBoard().getArena()[x][y].isSpawn()) {
+                                try {
+                                    client.grab(0);
+                                } catch (IOException e) {
+                                    Printer.err(e);
+                                }
+                            } else {
+                                FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ChooseWeapon.fxml"));
+                                Parent root = null;
+                                try {
+                                    root = loader.load();
+                                } catch (IOException e) {
+                                    Printer.err(e);
+                                }
+
+                                Data.getInstance().setMoveGrab(null);
+                                guiHandler = loader.getController();
 
                                 List<WeaponCard> weapon = playerController.getGameBoard().getArena()[x][y].getWeapons();
                                 guiHandler.setWeaponInvisible();
@@ -2830,6 +2888,35 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                                 stage.setTitle("Choose Weapon");
                                 stage.show();
                             }
+                        }else{
+                            if (!playerController.getGameBoard().getArena()[x][y].isSpawn()) {
+                                try {
+                                    client.grab(0);
+                                } catch (IOException e) {
+                                    Printer.err(e);
+                                }
+                            } else {
+                                FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ChooseWeapon.fxml"));
+                                Parent root = null;
+                                try {
+                                    root = loader.load();
+                                } catch (IOException e) {
+                                    Printer.err(e);
+                                }
+
+                                Data.getInstance().setMoveGrab(null);
+                                guiHandler = loader.getController();
+
+                                List<WeaponCard> weapon = playerController.getGameBoard().getArena()[x][y].getWeapons();
+                                guiHandler.setWeaponInvisible();
+                                guiHandler.setWeaponImage(weapon);
+
+
+                                Stage stage = new Stage();
+                                stage.setScene(new Scene(root, 496, 269));
+                                stage.setTitle("Choose Weapon");
+                                stage.show();
+                            }
                         }
 
                     }
@@ -2857,6 +2944,35 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                                 List<WeaponCard> weapon = playerController.getGameBoard().getArena()[x][y].getWeapons();
                                 guiHandler.setWeaponInvisible();
                                 guiHandler.setWeaponImage(weapon);
+
+                                Stage stage = new Stage();
+                                stage.setScene(new Scene(root, 496, 269));
+                                stage.setTitle("Choose Weapon");
+                                stage.show();
+                            }
+                        }else{
+                            if (!playerController.getGameBoard().getArena()[x][y].isSpawn()) {
+                                try {
+                                    client.grab(0);
+                                } catch (IOException e) {
+                                    Printer.err(e);
+                                }
+                            } else {
+                                FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ChooseWeapon.fxml"));
+                                Parent root = null;
+                                try {
+                                    root = loader.load();
+                                } catch (IOException e) {
+                                    Printer.err(e);
+                                }
+
+                                Data.getInstance().setMoveGrab(null);
+                                guiHandler = loader.getController();
+
+                                List<WeaponCard> weapon = playerController.getGameBoard().getArena()[x][y].getWeapons();
+                                guiHandler.setWeaponInvisible();
+                                guiHandler.setWeaponImage(weapon);
+
 
                                 Stage stage = new Stage();
                                 stage.setScene(new Scene(root, 496, 269));
@@ -2910,9 +3026,13 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                 }
 
             } else if(this.moveFrenzyTwoActions[1] == null) {
-                x = x + Converter.fromStringDirToIntegerX(this.moveFrenzyTwoActions[0]);
-                y = y + Converter.fromStringDirToIntegerY(this.moveFrenzyTwoActions[0]);
-
+                Direction first = Converter.fromStringToDirection(this.moveFrenzyTwoActions[0]);
+                if(playerController.getGameBoard().canMove(playerController.getPlayer(), first)){
+                    x = x + Converter.fromStringDirToIntegerX(this.moveFrenzyTwoActions[0]);
+                    y = y + Converter.fromStringDirToIntegerY(this.moveFrenzyTwoActions[0]);
+                }else{
+                    this.moveFrenzyTwoActions[0] = null;
+                }
                 if (!playerController.getGameBoard().getArena()[x][y].isSpawn()) {
                     try {
                         this.client.grab(0, Converter.fromStringToDirection(this.moveFrenzyTwoActions[0]));
@@ -2940,13 +3060,18 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                     stage.setTitle("Choose Weapon");
                     stage.show();
                 }
-            } else {
-
-                x = x + Converter.fromStringDirToIntegerX(this.moveFrenzyTwoActions[0]);
-                x = x + Converter.fromStringDirToIntegerX(this.moveFrenzyTwoActions[1]);
-                y = y + Converter.fromStringDirToIntegerY(this.moveFrenzyTwoActions[0]);
-                y = y + Converter.fromStringDirToIntegerY(this.moveFrenzyTwoActions[1]);
-
+            } else{
+                Direction first = Converter.fromStringToDirection(this.moveFrenzyTwoActions[0]);
+                Direction second = Converter.fromStringToDirection(this.moveFrenzyTwoActions[1]);
+                if(playerController.getGameBoard().canMove(playerController.getPlayer(), first, second)){
+                    x = x + Converter.fromStringDirToIntegerX(this.moveFrenzyTwoActions[0]);
+                    x = x + Converter.fromStringDirToIntegerX(this.moveFrenzyTwoActions[1]);
+                    y = y + Converter.fromStringDirToIntegerY(this.moveFrenzyTwoActions[0]);
+                    y = y + Converter.fromStringDirToIntegerY(this.moveFrenzyTwoActions[1]);
+                }else{
+                    this.moveFrenzyTwoActions[0] = null;
+                    this.moveFrenzyTwoActions[1] = null;
+                }
                 if (!playerController.getGameBoard().getArena()[x][y].isSpawn()) {
                     try {
                         this.client.grab(0, Converter.fromStringToDirection(this.moveFrenzyTwoActions[0]), Converter.fromStringToDirection(this.moveFrenzyTwoActions[1]));
@@ -3015,10 +3140,13 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                     stage.show();
                 }
             } else if(this.moveFrenzyOneActions[1] == null) {
-
-                x = x + Converter.fromStringDirToIntegerX(this.moveFrenzyOneActions[0]);
-                y = y + Converter.fromStringDirToIntegerY(this.moveFrenzyOneActions[0]);
-
+                Direction first = Converter.fromStringToDirection(this.moveFrenzyOneActions[0]);
+                if(playerController.getGameBoard().canMove(playerController.getPlayer(), first)){
+                    x = x + Converter.fromStringDirToIntegerX(this.moveFrenzyOneActions[0]);
+                    y = y + Converter.fromStringDirToIntegerY(this.moveFrenzyOneActions[0]);
+                }else{
+                    this.moveFrenzyOneActions[0] = null;
+                }
                 if (!playerController.getGameBoard().getArena()[x][y].isSpawn()) {
                     try {
                         this.client.grab(0, Converter.fromStringToDirection(this.moveFrenzyOneActions[0]));
@@ -3048,12 +3176,17 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                 }
 
             } else if(this.moveFrenzyOneActions[2] == null){
-
-                x = x + Converter.fromStringDirToIntegerX(this.moveFrenzyOneActions[0]);
-                x = x + Converter.fromStringDirToIntegerX(this.moveFrenzyOneActions[1]);
-                y = y + Converter.fromStringDirToIntegerY(this.moveFrenzyOneActions[0]);
-                y = y + Converter.fromStringDirToIntegerY(this.moveFrenzyOneActions[1]);
-
+                Direction first = Converter.fromStringToDirection(this.moveFrenzyOneActions[0]);
+                Direction second = Converter.fromStringToDirection(this.moveFrenzyOneActions[1]);
+                if(playerController.getGameBoard().canMove(playerController.getPlayer(), first, second)){
+                    x = x + Converter.fromStringDirToIntegerX(this.moveFrenzyOneActions[0]);
+                    x = x + Converter.fromStringDirToIntegerX(this.moveFrenzyOneActions[1]);
+                    y = y + Converter.fromStringDirToIntegerY(this.moveFrenzyOneActions[0]);
+                    y = y + Converter.fromStringDirToIntegerY(this.moveFrenzyOneActions[1]);
+                }else{
+                    this.moveFrenzyOneActions[0] = null;
+                    this.moveFrenzyOneActions[1] = null;
+                }
                 if (!playerController.getGameBoard().getArena()[x][y].isSpawn()) {
                     try {
                         this.client.grab(0, Converter.fromStringToDirection(this.moveFrenzyOneActions[0]), Converter.fromStringToDirection(this.moveFrenzyOneActions[1]));
@@ -3083,14 +3216,21 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                 }
 
             } else {
-
-                x = x + Converter.fromStringDirToIntegerX(this.moveFrenzyOneActions[0]);
-                x = x + Converter.fromStringDirToIntegerX(this.moveFrenzyOneActions[1]);
-                x = x +  Converter.fromStringDirToIntegerX(this.moveFrenzyOneActions[2]);
-                y = y + Converter.fromStringDirToIntegerY(this.moveFrenzyOneActions[0]);
-                y = y + Converter.fromStringDirToIntegerY(this.moveFrenzyOneActions[1]);
-                y = y + Converter.fromStringDirToIntegerY(this.moveFrenzyOneActions[2]);
-
+                Direction first = Converter.fromStringToDirection(this.moveFrenzyOneActions[0]);
+                Direction second = Converter.fromStringToDirection(this.moveFrenzyOneActions[1]);
+                Direction third = Converter.fromStringToDirection(this.moveFrenzyOneActions[2]);
+                if(playerController.getGameBoard().canMove(playerController.getPlayer(), first, second, third)){
+                    x = x + Converter.fromStringDirToIntegerX(this.moveFrenzyOneActions[0]);
+                    x = x + Converter.fromStringDirToIntegerX(this.moveFrenzyOneActions[1]);
+                    x = x +  Converter.fromStringDirToIntegerX(this.moveFrenzyOneActions[2]);
+                    y = y + Converter.fromStringDirToIntegerY(this.moveFrenzyOneActions[0]);
+                    y = y + Converter.fromStringDirToIntegerY(this.moveFrenzyOneActions[1]);
+                    y = y + Converter.fromStringDirToIntegerY(this.moveFrenzyOneActions[2]);
+                }else{
+                    this.moveFrenzyOneActions[0] = null;
+                    this.moveFrenzyOneActions[1] = null;
+                    this.moveFrenzyOneActions[2] = null;
+                }
                 if (!playerController.getGameBoard().getArena()[x][y].isSpawn()) {
                     try {
                         this.client.grab(0, Converter.fromStringToDirection(this.moveFrenzyOneActions[0]), Converter.fromStringToDirection(this.moveFrenzyOneActions[1]), Converter.fromStringToDirection(this.moveFrenzyOneActions[2]));

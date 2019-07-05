@@ -192,10 +192,10 @@ public class PlayerBoard implements Serializable {
             if(!revengeMarks.isEmpty()){
                 damageIndex = findRevengeMarks(color, damageIndex);
             }
-            if(damageIndex >= 2 && damageIndex < 5){
+            if(damageIndex > 2 && damageIndex <= 5){
                 adrenalineZone = AdrenalineZone.FIRST;
             }
-            else if(damageIndex >= 5){
+            else if(damageIndex > 5){
                 adrenalineZone = AdrenalineZone.SECOND;
             }
             if(damageIndex == 11){
