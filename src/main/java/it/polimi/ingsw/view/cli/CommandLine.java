@@ -1323,8 +1323,8 @@ public class CommandLine implements ViewInterface {
         Square square = playerController.getGameBoard().getArena()[playerController.getPlayer().getPosition().getX()][playerController.getPlayer().getPosition().getY()];
         if(square.getAmmoCard() != null){
             Printer.print(StringCLI.AMMO_CARD + StringCLI.SPACE);
-            Printer.print(square.getAmmoCard().getFirstAmmo().getColor() + ", " +
-                    square.getAmmoCard().getSecondAmmo().getColor() + ", ");
+            Printer.print(square.getAmmoCard().getFirstAmmo().getColor() + StringCLI.FLOAT + StringCLI.SPACE +
+                    square.getAmmoCard().getSecondAmmo().getColor() + StringCLI.FLOAT + StringCLI.SPACE);
             if(square.getAmmoCard().isPowerup()){
                 Printer.println(StringCLI.POWERUP_CAPS);
             }else{

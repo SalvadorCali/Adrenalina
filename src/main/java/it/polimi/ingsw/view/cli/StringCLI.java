@@ -276,6 +276,7 @@ public class StringCLI {
 
     //generic
     public static final String SPACE = " ";
+    public static final String FLOAT = ",";
     public static final String MULTIPLE_SPACE = "   ";
     public static final String COLON = ":";
     public static final String NEW_LINE = "\n";

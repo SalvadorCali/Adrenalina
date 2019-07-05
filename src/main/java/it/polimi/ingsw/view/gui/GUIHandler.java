@@ -302,7 +302,6 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     }
 
 
-    //login methods
     /**
      * Check what button is selected and if is selected one of them it launches the right connection method
      * @param playerName name of the player
@@ -373,9 +372,6 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         });
     }
 
-
-
-    //chooseBoard methods
 
     /**
      * These methods set the player's choose of the right board
@@ -619,7 +615,6 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                 notifyBoard(outcome);
                 break;
             case GAME:
-                Printer.println("New Game");
                 break;
             case MOVE:
                 notifyMovement(outcome);
@@ -697,9 +692,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
             for (int i = 0; i < powerupRespawn.size(); i++) {
 
                 String color = Converter.fromColorToLetter(powerupRespawn.get(i).getColor());
-                Printer.println("color: " + i + " " + color);
                 String name = powerupRespawn.get(i).getName();
-                Printer.println(name);
 
                 Image image = new Image("powerup/" + color + "/" + name + ".png");
 
@@ -797,7 +790,6 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
         Platform.runLater(() ->{
             if(outcome.equals(Outcome.RIGHT)){
-                //aggiunto
                 Stage stagelogin = (Stage) loginButton.getScene().getWindow();
                 stagelogin.close();
 
@@ -819,7 +811,6 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
                 guiHandler = loader.getController();
                 guiHandler.setMapImage();
-                //guiHandler.addWeapon();
                 guiHandler.setLabelTurn();
                 guiHandler.setLabelMainPlayer();
                 guiHandler.setPlayerImg();
@@ -838,7 +829,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                 stage.setResizable(true);
 
                 disableButtons();
-                guiHandler.setLabelStatement(StringCLI.SERVER + object + StringCLI.SPACE + StringCLI.RECONNECTED); //gia presente
+                guiHandler.setLabelStatement(StringCLI.SERVER + object + StringCLI.SPACE + StringCLI.RECONNECTED);
                 this.startedGame++;
 
                 MouseEvent mouseDisconnect = null;
@@ -1041,7 +1032,6 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
                     guiHandler = loader.getController();
                     guiHandler.setMapImage();
-                    //guiHandler.addWeapon();
                     guiHandler.setLabelTurn();
                     guiHandler.setLabelMainPlayer();
                     guiHandler.setLabelStatement(StringCLI.SERVER + StringCLI.NEW_TURN);
@@ -1089,7 +1079,6 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
                     guiHandler = loader.getController();
                     guiHandler.setMapImage();
-                    //guiHandler.addWeapon();
                     guiHandler.setLabelTurn();
                     guiHandler.setLabelMainPlayer();
                     guiHandler.setPlayerImg();
@@ -1335,15 +1324,16 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     private void notifyLogin(Outcome outcome, String object) {
         Platform.runLater(() -> {
             switch (outcome) {
-                case WRONG:{
+                case WRONG:
                     setErrorText("Username already used");
-                }
-                case RIGHT: {
+                    break;
+                case RIGHT:
                     setConnectionText(object + " connected, waiting for other players");
-                }
-                case ALL:{
+                    break;
+
+                case ALL:
                     setConnectionText(object + " connected, waiting...");
-                }
+                    break;
             }
         });
     }
@@ -1358,6 +1348,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
             switch (outcome) {
                 case WRONG:
                     setErrorText("Invalid color");
+                    break;
             }
         });
     }
@@ -1475,7 +1466,6 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                 guiHandler.placePlayers(playerController.getGameBoard().getArena());
                 guiHandler.addAmmo();
                 guiHandler.addWeapon();
-                //guiHandler.removeWeapon();
             });
 
             try{
@@ -2150,7 +2140,6 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
             }
         }
 
-        //inserito da cali
         Platform.runLater(() ->{
 
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ShowWeapon.fxml"));
@@ -2384,7 +2373,6 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                     }
                 }
             }
-            //inserito da cali
             Platform.runLater(() ->{
 
                 FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ShowWeapon.fxml"));
@@ -2459,9 +2447,6 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
      */
     public void placePlayers(Square[][] arena){
         playerController = Data.getInstance().getPlayerController();
-        //MapCLI mapCLI = new MapCLI(playerController.getGameBoard());
-        //mapCLI.printMap();
-
 
         if(!arena[0][0].getPlayers().isEmpty()){
             for(int index = 0, row = 0; index <  arena[0][0].getPlayers().size(); index++){
@@ -4054,54 +4039,43 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
         if(modeTxtField.getText().equals("1") || modeTxtField.getText().equals("2") || modeTxtField.getText().equals("3")) {
             mode = Integer.valueOf(modeTxtField.getText());
-            Printer.println(mode);
         }
 
         if(basicTxtField.getText().equals("true") || basicTxtField.getText().equals("false")) {
             basicFirst = Boolean.parseBoolean(basicTxtField.getText());
-            Printer.println(basicFirst);
         }
 
         if (firstVictimTxtField.getText().equals("blue") || firstVictimTxtField.getText().equals("green") || firstVictimTxtField.getText().equals("purple") || firstVictimTxtField.getText().equals("grey") || firstVictimTxtField.getText().equals("yellow")) {
             firstVictim = firstVictimTxtField.getText();
-            Printer.println(firstVictim);
         }
 
         if (secondVictimTxtField.getText().equals("blue") || secondVictimTxtField.getText().equals("green") || secondVictimTxtField.getText().equals("purple") || secondVictimTxtField.getText().equals("grey") || secondVictimTxtField.getText().equals("yellow")) {
             secondVictim = secondVictimTxtField.getText();
-            Printer.println(secondVictim);
         }
 
         if(thirdVictimTxtField.getText().equals("blue") || thirdVictimTxtField.getText().equals("green") || thirdVictimTxtField.getText().equals("purple") || thirdVictimTxtField.getText().equals("grey") || thirdVictimTxtField.getText().equals("yellow")) {
             thirdVictim = thirdVictimTxtField.getText();
-            Printer.println(thirdVictim);
         }
 
         if(directionTxtField.getText().equals("up") || directionTxtField.getText().equals("down") || directionTxtField.getText().equals("left") || directionTxtField.getText().equals("right")) {
             direction = Converter.fromStringToDirection(directionTxtField.getText());
-            Printer.println(direction);
         }
 
         if(directionTxtField2.getText().equals("up") || directionTxtField2.getText().equals("down") || directionTxtField2.getText().equals("left") || directionTxtField2.getText().equals("right")) {
             direction2 = Converter.fromStringToDirection(directionTxtField2.getText());
-            Printer.println(direction2);
         }
 
         if(directionTxtField3.getText().equals("up") || directionTxtField3.getText().equals("down") || directionTxtField3.getText().equals("left") || directionTxtField3.getText().equals("right")) {
             direction3 = Converter.fromStringToDirection(directionTxtField3.getText());
-            Printer.println(direction3);
         }
 
         if(directionTxtField4.getText().equals("up") || directionTxtField4.getText().equals("down") || directionTxtField4.getText().equals("left") || directionTxtField4.getText().equals("right")) {
             direction4 = Converter.fromStringToDirection(directionTxtField4.getText());
-            Printer.println(direction4);
         }
 
         if(!xTxtField.getText().isEmpty() && !yTxtField.getText().isEmpty()) {
             x = Integer.valueOf(xTxtField.getText());
             y = Integer.valueOf(yTxtField.getText());
-            Printer.println(x);
-            Printer.println(y);
         }
 
         try {
@@ -4174,8 +4148,6 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
         if(playerController.getFinalFrenzyActions().equals(FinalFrenzyAction.TWO_ACTIONS) || playerController.getAdrenalineZone().equals(AdrenalineZone.SECOND)) {
             this.moveReload[0] = move;
-            Printer.println("2963: " + this.moveReload[0]);
-            //aggiunto
             Data.getInstance().setMoveRel(moveReload);
 
         } else if(playerController.getFinalFrenzyActions().equals(FinalFrenzyAction.ONE_ACTION)){
@@ -4789,11 +4761,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
      */
     private void setLabelMoveGrabTwoActions() {
         for(int i = 0; i < this.moveFrenzyTwoActions.length; i++) {
-            //if(this.moveFrenzyTwoActions[2] != null){
-                //Platform.runLater(() ->{
-                  //  labelShowMoveGrab.setText("  " + this.moveFrenzyTwoActions[0] + "  " + this.moveFrenzyTwoActions[1] + "  " + this.moveFrenzyTwoActions[2]);
-                //});
-            //} else
+
                 if(this.moveFrenzyTwoActions[1] != null){
                 Platform.runLater(() ->{
                     labelShowMoveGrab.setText(DOUBLE_SPACE + this.moveFrenzyTwoActions[0] + DOUBLE_SPACE + this.moveFrenzyTwoActions[1]);
@@ -4803,11 +4771,6 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                     labelShowMoveGrab.setText(DOUBLE_SPACE + this.moveFrenzyTwoActions[0]);
                 });
             }
-                //else if(this.moveFrenzyTwoActions[3] != null){
-                //Platform.runLater(() ->{
-                  //  labelShowMoveGrab.setText("  " + this.moveFrenzyTwoActions[0] + "  " + this.moveFrenzyTwoActions[1] + "  " + this.moveFrenzyTwoActions[2] + "  " + this.moveFrenzyTwoActions[3]);
-                //});
-            //}
         }
     }
 
