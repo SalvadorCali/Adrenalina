@@ -575,8 +575,6 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         Platform.runLater(() ->{
             guiHandler = Data.getInstance().getGuiHandler();
             guiHandler.setLabelStatement(StringCLI.SERVER + StringCLI.FINAL_FRENZY);
-            labelReload.setDisable(true);
-            bannerReload.setDisable(true);
         });
     }
 
@@ -848,11 +846,6 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
             }else{
                 guiHandler.setLabelStatement(StringCLI.SERVER + object + StringCLI.SPACE + StringCLI.RECONNECTED);
-
-                if(playerController.isFinalFrenzy()){
-                    labelReload.setDisable(true);
-                    bannerReload.setDisable(true);
-                }
             }
         });
     }
@@ -1076,11 +1069,6 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                     guiHandler.enableButtons();
                     guiHandler.setLabelTurn();
                     guiHandler.setLabelStatement(StringCLI.SERVER + StringCLI.NEW_TURN);
-
-                    if(playerController.isFinalFrenzy()){
-                        labelReload.setDisable(true);
-                        bannerReload.setDisable(true);
-                    }
                 }
 
 
@@ -1128,11 +1116,6 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                 }else{
                     guiHandler.disableButtons();
                     guiHandler.setLabelTurn();
-
-                    if(playerController.isFinalFrenzy()){
-                        labelReload.setDisable(true);
-                        bannerReload.setDisable(true);
-                    }
                 }
             }
         });
