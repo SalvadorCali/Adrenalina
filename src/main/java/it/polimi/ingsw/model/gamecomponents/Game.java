@@ -5,7 +5,6 @@ import it.polimi.ingsw.model.cards.Card;
 import it.polimi.ingsw.model.cards.effects.ActionInterface;
 import it.polimi.ingsw.model.enums.*;
 import it.polimi.ingsw.util.Config;
-import it.polimi.ingsw.util.Printer;
 
 import java.io.Serializable;
 import java.util.*;
@@ -668,7 +667,6 @@ public class Game implements Serializable {
         gamePhase = false;
         endPhase = true;
         scoring();
-        Printer.println(scoreList);
     }
 
 }

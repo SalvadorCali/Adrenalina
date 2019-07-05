@@ -292,7 +292,6 @@ public class SocketServer implements Runnable, ServerInterface {
                 serverController.grab(clientName, choice);
             }else if(directionsSize == 1){
                 first = (Direction) objectInputStream.readObject();
-                Printer.println(first);
                 serverController.grab(clientName, choice, first);
             }else{
                 first = (Direction) objectInputStream.readObject();
@@ -347,23 +346,14 @@ public class SocketServer implements Runnable, ServerInterface {
         try {
             Direction first, second, third, fourth;
             String weaponName = objectInputStream.readUTF();
-            Printer.println(weaponName);
             int effectNumber = objectInputStream.readInt();
-            Printer.println(effectNumber);
             boolean basicFirst = objectInputStream.readBoolean();
-            Printer.println(basicFirst);
             TokenColor firstVictim = (TokenColor) objectInputStream.readObject();
-            Printer.println(firstVictim);
             TokenColor secondVictim = (TokenColor) objectInputStream.readObject();
-            Printer.println(secondVictim);
             TokenColor thirdVictim = (TokenColor) objectInputStream.readObject();
-            Printer.println(thirdVictim);
             int x = objectInputStream.readInt();
-            Printer.println(x);
             int y = objectInputStream.readInt();
-            Printer.println(y);
             int directionsLength = objectInputStream.readInt();
-            Printer.println(directionsLength);
             if(directionsLength == 1){
                 first = (Direction) objectInputStream.readObject();
                 serverController.shoot(weaponName, effectNumber, basicFirst, clientName, firstVictim, secondVictim, thirdVictim, x, y, first);
@@ -395,20 +385,14 @@ public class SocketServer implements Runnable, ServerInterface {
      */
     private void moveAndReloadOneDirection(){
         try {
-            //String firstWeapon;
-            //String secondWeapon;
-            //String thirdWeapon;
             Direction firstDirection = (Direction) objectInputStream.readObject();
-            Printer.println(firstDirection);
             int weaponsSize = objectInputStream.readInt();
-            Printer.println(weaponsSize);
             switch (weaponsSize){
                 case 0:
                     serverController.moveAndReload(clientName, firstDirection);
                     break;
                 case 1:
                     String firstWeapon = objectInputStream.readUTF();
-                    Printer.println(firstWeapon);
                     serverController.moveAndReload(clientName, firstDirection, firstWeapon);
                     break;
                 case 2:

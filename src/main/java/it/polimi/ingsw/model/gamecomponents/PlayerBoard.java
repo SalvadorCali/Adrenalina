@@ -2,7 +2,6 @@ package it.polimi.ingsw.model.gamecomponents;
 
 import it.polimi.ingsw.model.enums.AdrenalineZone;
 import it.polimi.ingsw.model.enums.TokenColor;
-import it.polimi.ingsw.util.Printer;
 
 import java.io.Serializable;
 import java.util.*;
@@ -387,7 +386,6 @@ public class PlayerBoard implements Serializable {
         Score score;
         List<Score> turnScores = new ArrayList<>();
         scoreList = createScoreList(playerColors);
-        scoreList.forEach((k, j)-> Printer.println(k + " " + j.getScore()));
         scoreList.forEach((key, value) -> turnScores.add(value));
 
         int scoreValuesIndex = 0;

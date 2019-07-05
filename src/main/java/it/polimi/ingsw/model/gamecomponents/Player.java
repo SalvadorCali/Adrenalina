@@ -7,7 +7,6 @@ import it.polimi.ingsw.model.enums.Direction;
 import it.polimi.ingsw.model.enums.FinalFrenzyAction;
 import it.polimi.ingsw.model.enums.TokenColor;
 import it.polimi.ingsw.util.Config;
-import it.polimi.ingsw.util.Printer;
 
 import java.io.Serializable;
 import java.util.ArrayList;

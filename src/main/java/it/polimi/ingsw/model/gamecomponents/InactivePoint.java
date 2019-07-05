@@ -45,6 +45,7 @@ public class InactivePoint extends Square implements Serializable {
      */
     @Override
     public void grab(ActionInterface actionInterface, int choice) {
+        //empty method for inactive point
     }
 
     /**
@@ -53,6 +54,7 @@ public class InactivePoint extends Square implements Serializable {
      */
     @Override
     public void fill(ActionInterface actionInterface) {
+        //empty method for inactive point
     }
 
     /**
@@ -84,6 +86,6 @@ public class InactivePoint extends Square implements Serializable {
 
     @Override
     public void drop(Card card) {
-
+        //empty method for inactive point
     }
 }

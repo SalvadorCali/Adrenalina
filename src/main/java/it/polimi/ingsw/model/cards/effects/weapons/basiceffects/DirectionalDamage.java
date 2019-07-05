@@ -90,11 +90,9 @@ public class DirectionalDamage extends BasicEffect {
             canUse = actionInterface.sameSquare(currentPlayer,victim);
         if(canUse) {
             firstMoveControl(actionInterface);
-            Printer.println(canUse);
             if(canUse) {
                 actionInterface.move(direction, player);
                 victimControl(actionInterface);
-                Printer.println(canUse);
                 if (canUse && !effectName.equals(RAILGUNMOD1EFFECT)) {
                     secondMoveControl(actionInterface);
                     if (!effectName.equals(FLAMETHROWERMOD2EFFECT) && !effectName.equals(SLEDGEHAMMEREFFECT)&& secondVictim != null)

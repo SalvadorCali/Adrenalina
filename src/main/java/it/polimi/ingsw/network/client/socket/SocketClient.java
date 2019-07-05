@@ -383,13 +383,10 @@ public class SocketClient implements ClientInterface, Runnable, Serializable {
         objectOutputStream.writeObject(Message.MOVE_RELOAD_1);
         objectOutputStream.flush();
         objectOutputStream.writeObject(firstDirection);
-        Printer.println(firstDirection);
         objectOutputStream.flush();
         objectOutputStream.writeInt(weapons.length);
-        Printer.println(weapons.length);
         objectOutputStream.flush();
         for(String weapon : weapons){
-            Printer.println(weapon);
             objectOutputStream.writeUTF(weapon);
             objectOutputStream.flush();
         }

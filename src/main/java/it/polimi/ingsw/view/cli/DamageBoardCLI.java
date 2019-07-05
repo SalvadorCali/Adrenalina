@@ -303,26 +303,6 @@ public class DamageBoardCLI {
      * @param points the current maximum points assigned after the death.
      */
     private void print(Integer[] damage, String[] colorDamage, String[] mark, String[] colorMark, String[] ammoColor, String[] ammoVal, String[] points){
-        /*
-        Printer.print("        ");
-        //Printer.print("                      ");
-        Printer.print(" _Ammos_ _ _ _ _ _ _ _ _Marks_\n" + RESET);
-        Printer.print("        ");
-        Printer.print("|" + " " + ammoColor[0] + ammoVal[0] + SPACE + ammoColor[1] + ammoVal[1] + SPACE + ammoColor[2] + ammoVal[2] + SPACE + ammoColor[3] + ammoVal[3] + SPACE + ammoColor[4] + ammoVal[4] + SPACE + ammoColor[5] + ammoVal[5] + SPACE + ammoColor[6] + ammoVal[6] + SPACE + ammoColor[7] + ammoVal[7] + SPACE + ammoColor[8] + ammoVal[8] + GREY + " " + RESET);
-        //Printer.print("                      ");
-        Printer.print("| ");
-        Printer.print("|" + " " + colorMark[0] + mark[0] + " " + colorMark[1] + mark[1] + " " + colorMark[2] + mark[2] + " " + RESET + "|\n");
-        Printer.print("        ");
-        Printer.print("|_ _ _ _ _ _ _ _ _ _|_|_ _ _ _|\n" + RESET);
-        Printer.print("        ");
-        Printer.print("|" + colorDamage[0] + damage[0] + SPACE + colorDamage[1] + damage[1] + SPACE + GREY + "|" + SPACE + colorDamage[2] + damage[2] + SPACE + colorDamage[3] + damage[3] + SPACE + colorDamage[4] + damage[4] + SPACE + GREY + "|" + SPACE + colorDamage[5] + damage[5] + SPACE + colorDamage[6] + damage[6] + SPACE + colorDamage[7] + damage[7] + SPACE + colorDamage[8] + damage[8] + SPACE + colorDamage[9] + damage[9] + SPACE + GREY + "|" + SPACE + colorDamage[10] + damage[10] + SPACE + colorDamage[11] + damage[11] + RESET + "|\n");
-        Printer.print("        ");
-        Printer.print("|¯ ¯ ¯ ¯ ¯ ¯|¯ ¯ ¯ ¯ ¯ ¯ ¯ ¯ ¯\n" + RESET);
-        Printer.print("        ");
-        Printer.print("|" + points[0] + SPACE + points[1] + SPACE + points[2] + SPACE + points[3] + SPACE + points[4] + SPACE + points[5] + "|\n");
-        Printer.print("        ");
-        Printer.print(" ¯ ¯ ¯ ¯ ¯ ¯\n" + RESET);*/
-
         Printer.print(SPACE + SPACE + SPACE + SPACE + SPACE + SPACE + SPACE + SPACE);
         Printer.print(SPACE + HORIZONTAL + AMMOS + HORIZONTAL + SPACE + HORIZONTAL + SPACE + HORIZONTAL + SPACE + HORIZONTAL + SPACE + HORIZONTAL + SPACE + HORIZONTAL + SPACE + HORIZONTAL + SPACE + HORIZONTAL + SPACE + HORIZONTAL + MARKS + HORIZONTAL + NEW_LINE + RESET);
         Printer.print(SPACE + SPACE + SPACE + SPACE + SPACE + SPACE + SPACE + SPACE);

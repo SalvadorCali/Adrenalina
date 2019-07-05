@@ -85,7 +85,6 @@ public class KillshotTrackCLI {
                     damage[i] = SKULL;
                     colorDamage[i] = assignKillshots(colorDamage, i);
                     if(!colorDamage[i].equals(BLACK)){
-                        //damage[i] = Converter.fromTokenColorToCLIColor(killshotTrack.get(i).getFirstColor());
                         damage[i] = KILLSHOT;
                     }
                 }
@@ -93,7 +92,6 @@ public class KillshotTrackCLI {
                     overkill[i] = KILLSHOT;
                     colorOverkill[i] = assignOverkills(colorOverkill, i);
                     if(!colorDamage[i].equals(BLACK)){
-                        //damage[i] = Converter.fromTokenColorToCLIColor(killshotTrack.get(i).getFirstColor());
                         overkill[i] = KILLSHOT;
                     }
                 }
@@ -162,15 +160,6 @@ public class KillshotTrackCLI {
      * @param colorOverkill the overkills' color.
      */
     private void print(String[] damage, String[] colorDamage, String[] overkill, String[] colorOverkill){
-        /**
-         Printer.print(" _ _ _ _ _ _ _ _\n" + RESET);
-         Printer.print("|" + colorDamage[0] + damage[0] + SPACE + colorDamage[1] + damage[1] + SPACE + colorDamage[2] + damage[2] + SPACE + colorDamage[3] + damage[3] + SPACE + colorDamage[4] + damage[4] + SPACE + colorDamage[5] + damage[5] + SPACE + colorDamage[6] + damage[6] + SPACE + colorDamage[7] + damage[7] + RESET + "|" + "\n");
-         //Printer.print(" ¯ ¯ ¯ ¯ ¯ ¯ ¯ ¯\n" + RESET);
-         //Printer.print("| | | | | | | | |\n" + RESET);
-         //Printer.print(" _ _ _ _ _ _ _ _\n" + RESET);
-         Printer.print("|" + colorOverkill[0] + overkill[0] + SPACE + colorOverkill[1] + overkill[1] + SPACE + colorOverkill[2] + overkill[2] + SPACE + colorOverkill[3] + overkill[3] + SPACE + colorOverkill[4] + overkill[4] + SPACE + colorOverkill[5] + overkill[5] + SPACE + colorOverkill[6] + overkill[6] + SPACE + colorOverkill[7] + overkill[7] + RESET + "|" + "\n");
-         Printer.print(" ¯ ¯ ¯ ¯ ¯ ¯ ¯ ¯\n" + RESET);
-         */
         Printer.print(SPACE + HORIZONTAL + SPACE + HORIZONTAL + SPACE + HORIZONTAL + SPACE + HORIZONTAL + SPACE + HORIZONTAL + SPACE + HORIZONTAL + SPACE + HORIZONTAL + SPACE + HORIZONTAL + NEW_LINE + RESET);
         Printer.print(VERTICAL + colorDamage[0] + damage[0] + SPACE + colorDamage[1] + damage[1] + SPACE + colorDamage[2] + damage[2] + SPACE + colorDamage[3] + damage[3] + SPACE + colorDamage[4] + damage[4] + SPACE + colorDamage[5] + damage[5] + SPACE + colorDamage[6] + damage[6] + SPACE + colorDamage[7] + damage[7] + RESET + VERTICAL + NEW_LINE);
         Printer.print(VERTICAL + colorOverkill[0] + overkill[0] + SPACE + colorOverkill[1] + overkill[1] + SPACE + colorOverkill[2] + overkill[2] + SPACE + colorOverkill[3] + overkill[3] + SPACE + colorOverkill[4] + overkill[4] + SPACE + colorOverkill[5] + overkill[5] + SPACE + colorOverkill[6] + overkill[6] + SPACE + colorOverkill[7] + overkill[7] + RESET + VERTICAL + NEW_LINE);

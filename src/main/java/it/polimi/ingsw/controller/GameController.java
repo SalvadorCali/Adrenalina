@@ -398,12 +398,10 @@ public class GameController{
         for(WeaponCard w : player.getWeapons()){
             if(w.getName().equals(weaponNameUpp)){
                 if(w.reloadAmmoControl(player)) {
-                    Printer.println(weaponNameUpp + " RELOADED");
                     player.updateAmmoBox(w.getReloadRedAmmos(), w.getReloadBlueAmmos(),w.getReloadYellowAmmos());
                     w.load();
                     return true;
                 }else{
-                    Printer.println(weaponNameUpp + " NOT RELOADED");
                     return false;
                 }
             }
@@ -453,16 +451,10 @@ public class GameController{
             }
         }else{
             if(player.canUseAction()) {
-                Printer.println("CanUse: " + player.canUseAction());
                 if (directions.length > 0) {
-                    Printer.println("Lunghezza: " + directions.length);
                     Position position = new Position(player.getPosition().getX(), player.getPosition().getY());
-                    Printer.println("X: " + player.getPosition().getX());
-                    Printer.println("Y: " + player.getPosition().getY());
                     if (canMove(player, directions)) {
                         position.incrementPosition(directions);
-                        Printer.println("Nuova X: " + position.getX());
-                        Printer.println("Nuova Y: " + position.getY());
                         int x = position.getX();
                         int y = position.getY();
                         if(game.getBoard().getArena()[x][y].canGrab(actionInterface, choice)){
@@ -534,14 +526,9 @@ public class GameController{
         weaponNameUpp = Converter.weaponName(weaponName);
         if(canShoot){
             for (WeaponCard w : shooter.getWeapons()) {
-                Printer.println("carica:" + w.getName() + " " + w.isLoaded());
-                Printer.println("canuse:" + shooter.canUseAction());
-                Printer.println("canShoot:" + canShoot);
                 if (w.getName().equals(weaponNameUpp) && w.isLoaded() && shooter.canUseAction()) {
-                    Printer.println("sparo");
                     setData(basicfirst, shooter, firstVictim, secondVictim, thirdVictim, x, y, directions);
                     if (mod >= 0 && mod < w.getEffects().size() && w.getEffects().get(mod).canUseEffect(actionInterface)) {
-                        Printer.println(weaponNameUpp + "USED");
                         w.getEffects().get(mod).useEffect(actionInterface);
                         w.unload();
                         shooter.increaseActionNumber();
@@ -551,7 +538,6 @@ public class GameController{
                             inverseMoveAndReload(shooter);
                             canShoot = true;
                         }
-                        Printer.println(weaponNameUpp + "NOT USED");
                         return false;
                     }
                 }else{
@@ -642,12 +628,10 @@ public class GameController{
             if (p.getName().equals(powerupNameUpp)){
                 setData(shooter, victim, x, y, ammo, directions);
                 if (p.getEffect().canUseEffect(actionInterface)) {
-                    Printer.println(powerupNameUpp + "USED");
                     p.getEffect().useEffect(actionInterface);
                     shooter.getPowerups().remove(p);
                     return true;
                 } else {
-                    Printer.println(powerupName + "NOT USED");
                     return false;
                 }
             }

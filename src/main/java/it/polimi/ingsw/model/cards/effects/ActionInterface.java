@@ -19,8 +19,6 @@ public interface ActionInterface {
 
     void playerMark(Player shooter, Player victim);
 
-    //void playerMark(TokenColor color, int markPower);
-
     boolean isVisible(TokenColor victim);
 
     boolean isVisible(Player shooter, Player victim);
@@ -96,6 +94,4 @@ public interface ActionInterface {
     boolean isDamaged();
 
     boolean isActive(Position position);
-
-
 }

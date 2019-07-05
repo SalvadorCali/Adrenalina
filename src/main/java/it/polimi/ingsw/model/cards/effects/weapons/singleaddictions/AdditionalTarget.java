@@ -3,7 +3,6 @@ package it.polimi.ingsw.model.cards.effects.weapons.singleaddictions;
 import it.polimi.ingsw.model.cards.effects.ActionInterface;
 import it.polimi.ingsw.model.cards.effects.Effect;
 import it.polimi.ingsw.model.gamecomponents.Player;
-import it.polimi.ingsw.util.Printer;
 import static it.polimi.ingsw.model.cards.StringCards.*;
 
 
@@ -73,7 +72,6 @@ public class AdditionalTarget extends SingleAddictionEffect {
     public boolean canUseEffect(ActionInterface actionInterface) {
         setData(actionInterface);
         if(basicFirst) {
-            Printer.println(actionInterface.ammoControl(redAmmos, blueAmmos, yellowAmmos));
             canUse = super.effect.canUseEffect(actionInterface) && actionInterface.ammoControl(redAmmos, blueAmmos, yellowAmmos);
             if (canUse && !effectName.equals(PLASMAGUNDOUBLEEFFECT) && !effectName.equals(MACHINEGUNEFFECT)) {
                 if (effectName.equals(LOCKRIFLEEFFECT)) {

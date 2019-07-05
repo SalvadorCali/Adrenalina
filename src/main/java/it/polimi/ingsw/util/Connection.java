@@ -22,29 +22,6 @@ public class Connection {
      */
     private Connection(){}
 
-    public static List<InetAddress> getAddresses() throws SocketException {
-        Enumeration<NetworkInterface> networkInterfaces = NetworkInterface.getNetworkInterfaces();
-        List<InetAddress> addressesList = new ArrayList<>();
-        while(networkInterfaces.hasMoreElements()) {
-            NetworkInterface networkInterface = networkInterfaces.nextElement();
-            Enumeration<InetAddress> addresses = networkInterface.getInetAddresses();
-            while(addresses.hasMoreElements()){
-                InetAddress address = addresses.nextElement();
-
-                if(address instanceof Inet4Address && !address.isLoopbackAddress()){
-                    addressesList.add(address);
-                }
-
-                /*
-                if(address.isSiteLocalAddress()){
-                    addressesList.add(address);
-                }
-                */
-            }
-        }
-        return addressesList;
-    }
-
     /**
      * Finds the ip addresses and return the correct one.
      * @return the correct ip address.
@@ -58,23 +35,17 @@ public class Connection {
             Enumeration<InetAddress> addresses = networkInterface.getInetAddresses();
             while(addresses.hasMoreElements()){
                 InetAddress address = addresses.nextElement();
-                //if(address instanceof Inet4Address && !address.isLoopbackAddress() && address.isSiteLocalAddress()){
                 if(address instanceof Inet4Address && !address.isLoopbackAddress()){
                     addressesList.add(address);
                 }
             }
         }
-        //&& addressesList.size() < 4
         if(addressesList.size() > 1){
-            addressesList.forEach(a->Printer.println(a.toString()));
             if(addressesList.get(0).toString().contains(ETHERNET)){
                 return addressesList.get(0);
             }else{
                 return addressesList.get(1);
             }
-        //}
-        //else if(addressesList.size() > 3) {
-            //return addressesList.get(3);
         }else{
             return addressesList.get(0);
         }

@@ -104,11 +104,7 @@ public class CommandLine implements ViewInterface {
         if(string.hasMoreTokens()){
             switch(string.nextToken()){
                 case StringCLI.HELP:
-                    if(playerController.isFinalFrenzy()){
-                        helpFinalFrenzy();
-                    }else{
-                        help();
-                    }
+                    help();
                     break;
                 case StringCLI.LOGIN:
                     if(!login(string)){
@@ -212,25 +208,6 @@ public class CommandLine implements ViewInterface {
         Printer.println(StringCLI.MOVE_COMMAND);
         Printer.println(StringCLI.GRAB_COMMAND);
         Printer.println(StringCLI.SHOOT_COMMAND);
-        Printer.println(StringCLI.END_COMMAND);
-    }
-
-    /**
-     * Shows the list of commands during final frenzy.
-     */
-    private void helpFinalFrenzy(){
-        Printer.println(StringCLI.COMMANDS_LIST);
-        Printer.println(StringCLI.DISCONNECT_COMMAND);
-        Printer.println(StringCLI.SHOW_COMMAND);
-        if(playerController.getFinalFrenzyActions().equals(FinalFrenzyAction.ONE_ACTION)){
-            Printer.println(StringCLI.MOVE_COMMAND);
-            Printer.println(StringCLI.GRAB_COMMAND);
-            Printer.println(StringCLI.SHOOT_COMMAND);
-        }else{
-            Printer.println(StringCLI.MOVE_COMMAND);
-            Printer.println(StringCLI.GRAB_COMMAND);
-            Printer.println(StringCLI.SHOOT_COMMAND);
-        }
         Printer.println(StringCLI.END_COMMAND);
     }
 
@@ -549,7 +526,6 @@ public class CommandLine implements ViewInterface {
         Printer.println(playerController.getPlayer().isMoveAndReload());
         String weapon;
         if(input.hasMoreTokens()){
-            //weapon = input.nextToken();
             if(playerController.getAdrenalineZone().equals(AdrenalineZone.SECOND)){
                 Printer.println(StringCLI.WANT_MOVE + StringCLI.SPACE + StringCLI.YES_INPUT + StringCLI.SPACE + StringCLI.NO_INPUT);
                 try {
