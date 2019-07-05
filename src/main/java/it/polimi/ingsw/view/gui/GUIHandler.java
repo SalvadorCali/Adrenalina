@@ -2691,7 +2691,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                         Data.getInstance().setMoveGrab(null);
 
                         List<WeaponCard> weapon = playerController.getGameBoard().getArena()[x][y].getWeapons();
-
+                        guiHandler.setWeaponInvisible();
                         guiHandler.setWeaponImage(weapon);
 
                         Stage stage = new Stage();
@@ -2725,6 +2725,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                                 guiHandler = loader.getController();
 
                                 List<WeaponCard> weapon = playerController.getGameBoard().getArena()[x][y].getWeapons();
+                                guiHandler.setWeaponInvisible();
                                 guiHandler.setWeaponImage(weapon);
 
 
@@ -2757,6 +2758,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                                 Data.getInstance().setMoveGrab("down");
 
                                 List<WeaponCard> weapon = playerController.getGameBoard().getArena()[x][y].getWeapons();
+                                guiHandler.setWeaponInvisible();
                                 guiHandler.setWeaponImage(weapon);
 
 
@@ -2790,6 +2792,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                                 Data.getInstance().setMoveGrab("left");
 
                                 List<WeaponCard> weapon = playerController.getGameBoard().getArena()[x][y].getWeapons();
+                                guiHandler.setWeaponInvisible();
                                 guiHandler.setWeaponImage(weapon);
 
 
@@ -2823,6 +2826,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                                 guiHandler = loader.getController();
 
                                 List<WeaponCard> weapon = playerController.getGameBoard().getArena()[x][y].getWeapons();
+                                guiHandler.setWeaponInvisible();
                                 guiHandler.setWeaponImage(weapon);
 
                                 Stage stage = new Stage();
@@ -2867,7 +2871,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                     Data.getInstance().setMoveGrab(null);
 
                     List<WeaponCard> weapon = playerController.getGameBoard().getArena()[x][y].getWeapons();
-
+                    guiHandler.setWeaponInvisible();
                     guiHandler.setWeaponImage(weapon);
 
                     Stage stage = new Stage();
@@ -2899,6 +2903,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                     guiHandler = loader.getController();
 
                     List<WeaponCard> weapon = playerController.getGameBoard().getArena()[x][y].getWeapons();
+                    guiHandler.setWeaponInvisible();
                     guiHandler.setWeaponImage(weapon);
 
                     Stage stage = new Stage();
@@ -2932,6 +2937,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                     guiHandler = loader.getController();
 
                     List<WeaponCard> weapon = playerController.getGameBoard().getArena()[x][y].getWeapons();
+                    guiHandler.setWeaponInvisible();
                     guiHandler.setWeaponImage(weapon);
 
                     Stage stage = new Stage();
@@ -2971,6 +2977,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                     guiHandler = loader.getController();
 
                     List<WeaponCard> weapon = playerController.getGameBoard().getArena()[x][y].getWeapons();
+                    guiHandler.setWeaponInvisible();
                     guiHandler.setWeaponImage(weapon);
 
                     Stage stage = new Stage();
@@ -3002,6 +3009,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                     guiHandler = loader.getController();
 
                     List<WeaponCard> weapon = playerController.getGameBoard().getArena()[x][y].getWeapons();
+                    guiHandler.setWeaponInvisible();
                     guiHandler.setWeaponImage(weapon);
 
                     Stage stage = new Stage();
@@ -3036,6 +3044,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                     guiHandler = loader.getController();
 
                     List<WeaponCard> weapon = playerController.getGameBoard().getArena()[x][y].getWeapons();
+                    guiHandler.setWeaponInvisible();
                     guiHandler.setWeaponImage(weapon);
 
                     Stage stage = new Stage();
@@ -3075,6 +3084,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                     guiHandler = loader.getController();
 
                     List<WeaponCard> weapon = playerController.getGameBoard().getArena()[x][y].getWeapons();
+                    guiHandler.setWeaponInvisible();
                     guiHandler.setWeaponImage(weapon);
 
                     Stage stage = new Stage();
@@ -3090,29 +3100,39 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     }
 
     /**
+     * Set weapons on the chooseWeapon invisible
+     */
+    private void setWeaponInvisible() {
+        this.firstWeapon.setVisible(false);
+        this.secondWeapon.setVisible(false);
+        this.thirdWeapon.setVisible(false);
+    }
+
+    /**
      * This method takes the lists of player's weapons and it sets the right weapon img
-     * @param weapon
+     * @param weapon lists of weapons
      */
     @FXML
     private void setWeaponImage(List<WeaponCard> weapon) {
         Platform.runLater(() ->{
-            this.firstWeapon.setVisible(true);
-            this.secondWeapon.setVisible(true);
-            this.thirdWeapon.setVisible(true);
+
 
             if(weapon.size() >= 1) {
                 if (weapon.get(0) != null) {
                     this.firstWeapon.setImage(new Image("weapon/" + Converter.weaponNameInvert(weapon.get(0).getName()) + ".png"));
+                    this.firstWeapon.setVisible(true);
                 }
             }
             if(weapon.size() >= 2) {
                 if (weapon.get(1) != null) {
                     this.secondWeapon.setImage(new Image("weapon/" + Converter.weaponNameInvert(weapon.get(1).getName()) + ".png"));
+                    this.secondWeapon.setVisible(true);
                 }
             }
             if(weapon.size() >= 3) {
                 if (weapon.get(2) != null) {
                     this.thirdWeapon.setImage(new Image("weapon/" + Converter.weaponNameInvert(weapon.get(2).getName()) + ".png"));
+                    this.thirdWeapon.setVisible(true);
                 }
             }
 

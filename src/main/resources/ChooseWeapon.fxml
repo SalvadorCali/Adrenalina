@@ -13,17 +13,17 @@
             <Font name="Alien League Regular" size="22.0" />
          </font>
       </Label>
-      <ImageView fx:id="firstWeapon" fitHeight="200.0" fitWidth="118.0" layoutX="14.0" layoutY="55.0" onMouseClicked="#grabFirstImg">
+      <ImageView fx:id="firstWeapon" fitHeight="200.0" fitWidth="118.0" layoutX="14.0" layoutY="55.0" onMouseClicked="#grabFirstImg" visible="false">
          <image>
             <Image url="@weapon/cyberblade.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="secondWeapon" fitHeight="200.0" fitWidth="118.0" layoutX="189.0" layoutY="55.0" onMouseClicked="#grabSecondImg">
+      <ImageView fx:id="secondWeapon" fitHeight="200.0" fitWidth="118.0" layoutX="189.0" layoutY="55.0" onMouseClicked="#grabSecondImg" visible="false">
          <image>
             <Image url="@weapon/cyberblade.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="thirdWeapon" fitHeight="200.0" fitWidth="118.0" layoutX="364.0" layoutY="55.0" onMouseClicked="#grabThirdImg">
+      <ImageView fx:id="thirdWeapon" fitHeight="200.0" fitWidth="118.0" layoutX="364.0" layoutY="55.0" onMouseClicked="#grabThirdImg" visible="false">
          <image>
             <Image url="@weapon/cyberblade.png" />
          </image>
