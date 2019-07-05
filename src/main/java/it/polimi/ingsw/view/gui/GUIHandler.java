@@ -413,7 +413,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                 try {
                     setBoard();
                 } catch (IOException | InterruptedException e) {
-                    e.printStackTrace();
+                    Printer.err(e);
                 }
                 Stage stage = (Stage) enterButton.getScene().getWindow();
                 stage.close();
@@ -490,7 +490,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         try {
             setPowerup();
         } catch (IOException e) {
-            e.printStackTrace();
+            Printer.err(e);
         }
     }
 
@@ -501,7 +501,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         try {
             setPowerup();
         } catch (IOException e) {
-            e.printStackTrace();
+            Printer.err(e);
         }
     }
 
@@ -600,7 +600,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                 try {
                     notifyNewTurn(outcome);
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    Printer.err(e);
                 }
                 break;
             case BOARD:
@@ -653,7 +653,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
             try {
                 root = loader.load();
             } catch (IOException e) {
-                e.printStackTrace();
+                Printer.err(e);
             }
 
             guiHandler = loader.getController();
@@ -679,8 +679,6 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
         playerController = Data.getInstance().getPlayerController();
         List<PowerupCard> powerupRespawn = playerController.getPlayer().getPowerups();
-        Printer.println("psize: " + playerController.getPlayer().getPowerups().size());
-        Printer.println("posize: " + powerupRespawn.size());
 
         Platform.runLater(()->{
 
@@ -797,14 +795,14 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                 try {
                     root = loader.load();
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    Printer.err(e);
                 }
 
                 client = Data.getInstance().getClient();
                 try {
                     Data.getInstance().setPlayerController(client.getPlayerController());
                 } catch (RemoteException e) {
-                    e.printStackTrace();
+                    Printer.err(e);
                 }
 
                 guiHandler = loader.getController();
@@ -966,7 +964,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                     delay.play();
 
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    Printer.err(e);
                 }
 
             }else{
@@ -985,7 +983,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                     delay.play();
 
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    Printer.err(e);
                 }
             }
         });
@@ -1011,7 +1009,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                     try {
                         root = loader.load();
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        Printer.err(e);
                     }
 
                     playerController = Data.getInstance().getPlayerController();
@@ -1058,7 +1056,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                     try {
                         root = loader.load();
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        Printer.err(e);
                     }
 
                     playerController = Data.getInstance().getPlayerController();
@@ -1194,14 +1192,14 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                 try {
                     notifyScore((Map<TokenColor, Integer>) object);
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    Printer.err(e);
                 }
                 break;
             case END_GAME:
                 try {
                     notifyEndGame((Map<TokenColor, Integer>) object);
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    Printer.err(e);
                 }
                 break;
             case RECONNECTION:
@@ -1234,7 +1232,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
             try {
                 root = loader3.load();
             } catch (IOException e) {
-                e.printStackTrace();
+                Printer.err(e);
             }
 
             scorePopup = loader3.getController();
@@ -1349,7 +1347,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                         stage.setTitle("Disconnection Popup");
                         stage.show();
                     } catch (Exception e) {
-                        e.printStackTrace();
+                        Printer.err(e);
                     }
                 });
                 break;
@@ -1385,7 +1383,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                 delay.play();
 
             } catch (Exception e) {
-                e.printStackTrace();
+                Printer.err(e);
             }
         });
     }
@@ -1448,7 +1446,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                 Thread.sleep(TIME_UPDATING_MAIN_BOARD);
 
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                Printer.err(e);
             }
         }
     }
@@ -1761,7 +1759,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
             client = Data.getInstance().getClient();
             this.client.board(Data.getInstance().getBoardType() + 1, Data.getInstance().getSkull());
         } catch (IOException e) {
-            e.printStackTrace();
+            Printer.err(e);
         }
     }
 
@@ -1785,7 +1783,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
             this.client = Data.getInstance().getClient();
             this.client.choose(Data.getInstance().getPowerup());
         } catch (IOException e) {
-            e.printStackTrace();
+            Printer.err(e);
         }
     }
 
@@ -1920,7 +1918,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
             try {
                 root = loader.load();
             } catch (IOException e) {
-                e.printStackTrace();
+                Printer.err(e);
             }
 
             Stage stage = new Stage();
@@ -1940,7 +1938,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         try {
             client.reload(Converter.weaponNameInvert(playerController.getWeapons().get(0).getName()));
         } catch (IOException e) {
-            e.printStackTrace();
+            Printer.err(e);
         }
     }
 
@@ -1954,7 +1952,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         try {
             client.reload(Converter.weaponNameInvert(playerController.getWeapons().get(1).getName()));
         } catch (IOException e) {
-            e.printStackTrace();
+            Printer.err(e);
         }
     }
 
@@ -1968,7 +1966,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         try {
             client.reload(Converter.weaponNameInvert(playerController.getWeapons().get(2).getName()));
         } catch (IOException e) {
-            e.printStackTrace();
+            Printer.err(e);
         }
     }
 
@@ -1988,7 +1986,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                 try {
                     client.moveAndReload(Converter.fromStringToDirection(moveRel[0]), Converter.weaponNameInvert(playerController.getWeapons().get(0).getName()));
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    Printer.err(e);
                 }
             }
 
@@ -1996,7 +1994,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                 try {
                     client.moveAndReload(Converter.fromStringToDirection(moveRel[0]), Converter.weaponNameInvert(playerController.getWeapons().get(0).getName()), Converter.weaponNameInvert(playerController.getWeapons().get(1).getName()));
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    Printer.err(e);
                 }
             }
 
@@ -2004,7 +2002,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                 try {
                     client.moveAndReload(Converter.fromStringToDirection(moveRel[0]), Converter.weaponNameInvert(playerController.getWeapons().get(0).getName()), Converter.weaponNameInvert(playerController.getWeapons().get(1).getName()), Converter.weaponNameInvert(playerController.getWeapons().get(2).getName()));
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    Printer.err(e);
                 }
             }
 
@@ -2012,7 +2010,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                 try {
                     client.moveAndReload(Converter.fromStringToDirection(moveRel[0]), Converter.weaponNameInvert(playerController.getWeapons().get(1).getName()), Converter.weaponNameInvert(playerController.getWeapons().get(2).getName()));
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    Printer.err(e);
                 }
             }
 
@@ -2020,7 +2018,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                 try {
                     client.moveAndReload(Converter.fromStringToDirection(moveRel[0]), Converter.weaponNameInvert(playerController.getWeapons().get(1).getName()));
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    Printer.err(e);
                 }
             }
 
@@ -2029,7 +2027,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                     client.moveAndReload(Converter.fromStringToDirection(moveRel[0]), Converter.weaponNameInvert(playerController.getWeapons().get(2).getName()));
 
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    Printer.err(e);
                 }
             }
 
@@ -2037,7 +2035,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                 try {
                     client.moveAndReload(Converter.fromStringToDirection(moveRel[0]), Converter.weaponNameInvert(playerController.getWeapons().get(0).getName()), Converter.weaponNameInvert(playerController.getWeapons().get(2).getName()));
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    Printer.err(e);
                 }
             }
 
@@ -2045,7 +2043,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                 try {
                     client.moveAndReload(Converter.fromStringToDirection(moveRel[0]));
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    Printer.err(e);
                 }
             }
         }else{
@@ -2053,7 +2051,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                 try {
                     client.moveAndReload(null, Converter.weaponNameInvert(playerController.getWeapons().get(0).getName()));
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    Printer.err(e);
                 }
             }
 
@@ -2061,7 +2059,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                 try {
                     client.moveAndReload(null, Converter.weaponNameInvert(playerController.getWeapons().get(0).getName()), Converter.weaponNameInvert(playerController.getWeapons().get(1).getName()));
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    Printer.err(e);
                 }
             }
 
@@ -2069,7 +2067,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                 try {
                     client.moveAndReload(null, Converter.weaponNameInvert(playerController.getWeapons().get(0).getName()), Converter.weaponNameInvert(playerController.getWeapons().get(1).getName()), Converter.weaponNameInvert(playerController.getWeapons().get(2).getName()));
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    Printer.err(e);
                 }
             }
 
@@ -2077,7 +2075,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                 try {
                     client.moveAndReload(null, Converter.weaponNameInvert(playerController.getWeapons().get(1).getName()), Converter.weaponNameInvert(playerController.getWeapons().get(2).getName()));
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    Printer.err(e);
                 }
             }
 
@@ -2085,7 +2083,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                 try {
                     client.moveAndReload(null, Converter.weaponNameInvert(playerController.getWeapons().get(1).getName()));
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    Printer.err(e);
                 }
             }
 
@@ -2094,7 +2092,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                     client.moveAndReload(null, Converter.weaponNameInvert(playerController.getWeapons().get(2).getName()));
 
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    Printer.err(e);
                 }
             }
 
@@ -2102,7 +2100,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                 try {
                     client.moveAndReload(null, Converter.weaponNameInvert(playerController.getWeapons().get(0).getName()), Converter.weaponNameInvert(playerController.getWeapons().get(2).getName()));
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    Printer.err(e);
                 }
             }
 
@@ -2110,7 +2108,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                 try {
                     client.moveAndReload(null);
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    Printer.err(e);
                 }
             }
         }
@@ -2123,7 +2121,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
             try {
                 root = loader.load();
             } catch (IOException e) {
-                e.printStackTrace();
+                Printer.err(e);
             }
 
             guiHandler = loader.getController();
@@ -2157,7 +2155,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                     try {
                         client.moveAndReload(Converter.fromStringToDirection(moveRel[0]), Converter.fromStringToDirection(moveRel[1]), Converter.weaponNameInvert(playerController.getWeapons().get(0).getName()));
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        Printer.err(e);
                     }
                 }
 
@@ -2165,7 +2163,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                     try {
                         client.moveAndReload(Converter.fromStringToDirection(moveRel[0]), Converter.fromStringToDirection(moveRel[1]), Converter.weaponNameInvert(playerController.getWeapons().get(0).getName()), Converter.weaponNameInvert(playerController.getWeapons().get(1).getName()));
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        Printer.err(e);
                     }
                 }
 
@@ -2173,7 +2171,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                     try {
                         client.moveAndReload(Converter.fromStringToDirection(moveRel[0]), Converter.fromStringToDirection(moveRel[1]), Converter.weaponNameInvert(playerController.getWeapons().get(0).getName()), Converter.weaponNameInvert(playerController.getWeapons().get(1).getName()), Converter.weaponNameInvert(playerController.getWeapons().get(2).getName()));
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        Printer.err(e);
                     }
                 }
 
@@ -2181,7 +2179,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                     try {
                         client.moveAndReload(Converter.fromStringToDirection(moveRel[0]), Converter.fromStringToDirection(moveRel[1]), Converter.weaponNameInvert(playerController.getWeapons().get(1).getName()), Converter.weaponNameInvert(playerController.getWeapons().get(2).getName()));
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        Printer.err(e);
                     }
                 }
 
@@ -2189,7 +2187,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                     try {
                         client.moveAndReload(Converter.fromStringToDirection(moveRel[0]), Converter.fromStringToDirection(moveRel[1]), Converter.weaponNameInvert(playerController.getWeapons().get(1).getName()));
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        Printer.err(e);
                     }
                 }
 
@@ -2198,7 +2196,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                         client.moveAndReload(Converter.fromStringToDirection(moveRel[0]), Converter.fromStringToDirection(moveRel[1]), Converter.weaponNameInvert(playerController.getWeapons().get(2).getName()));
 
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        Printer.err(e);
                     }
                 }
 
@@ -2206,7 +2204,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                     try {
                         client.moveAndReload(Converter.fromStringToDirection(moveRel[0]), Converter.fromStringToDirection(moveRel[1]), Converter.weaponNameInvert(playerController.getWeapons().get(0).getName()), Converter.weaponNameInvert(playerController.getWeapons().get(2).getName()));
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        Printer.err(e);
                     }
                 }
 
@@ -2214,7 +2212,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                     try {
                         client.moveAndReload(Converter.fromStringToDirection(moveRel[0]), Converter.fromStringToDirection(moveRel[1]));
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        Printer.err(e);
                     }
                 }
             }else if(moveRel[1] == null){
@@ -2222,7 +2220,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                     try {
                         client.moveAndReload(Converter.fromStringToDirection(moveRel[0]), Converter.weaponNameInvert(playerController.getWeapons().get(0).getName()));
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        Printer.err(e);
                     }
                 }
 
@@ -2230,7 +2228,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                     try {
                         client.moveAndReload(Converter.fromStringToDirection(moveRel[0]), Converter.weaponNameInvert(playerController.getWeapons().get(0).getName()), Converter.weaponNameInvert(playerController.getWeapons().get(1).getName()));
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        Printer.err(e);
                     }
                 }
 
@@ -2238,7 +2236,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                     try {
                         client.moveAndReload(Converter.fromStringToDirection(moveRel[0]), Converter.weaponNameInvert(playerController.getWeapons().get(0).getName()), Converter.weaponNameInvert(playerController.getWeapons().get(1).getName()), Converter.weaponNameInvert(playerController.getWeapons().get(2).getName()));
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        Printer.err(e);
                     }
                 }
 
@@ -2246,7 +2244,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                     try {
                         client.moveAndReload(Converter.fromStringToDirection(moveRel[0]), Converter.weaponNameInvert(playerController.getWeapons().get(1).getName()), Converter.weaponNameInvert(playerController.getWeapons().get(2).getName()));
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        Printer.err(e);
                     }
                 }
 
@@ -2254,7 +2252,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                     try {
                         client.moveAndReload(Converter.fromStringToDirection(moveRel[0]), Converter.weaponNameInvert(playerController.getWeapons().get(1).getName()));
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        Printer.err(e);
                     }
                 }
 
@@ -2263,7 +2261,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                         client.moveAndReload(Converter.fromStringToDirection(moveRel[0]), Converter.weaponNameInvert(playerController.getWeapons().get(2).getName()));
 
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        Printer.err(e);
                     }
                 }
 
@@ -2271,7 +2269,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                     try {
                         client.moveAndReload(Converter.fromStringToDirection(moveRel[0]), Converter.weaponNameInvert(playerController.getWeapons().get(0).getName()), Converter.weaponNameInvert(playerController.getWeapons().get(2).getName()));
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        Printer.err(e);
                     }
                 }
 
@@ -2279,7 +2277,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                     try {
                         client.moveAndReload(Converter.fromStringToDirection(moveRel[0]));
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        Printer.err(e);
                     }
                 }
             }else{
@@ -2288,7 +2286,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                     try {
                         client.moveAndReload(null, Converter.weaponNameInvert(playerController.getWeapons().get(0).getName()));
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        Printer.err(e);
                     }
                 }
 
@@ -2296,7 +2294,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                     try {
                         client.moveAndReload(null, Converter.weaponNameInvert(playerController.getWeapons().get(0).getName()), Converter.weaponNameInvert(playerController.getWeapons().get(1).getName()));
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        Printer.err(e);
                     }
                 }
 
@@ -2304,7 +2302,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                     try {
                         client.moveAndReload(null, Converter.weaponNameInvert(playerController.getWeapons().get(0).getName()), Converter.weaponNameInvert(playerController.getWeapons().get(1).getName()), Converter.weaponNameInvert(playerController.getWeapons().get(2).getName()));
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        Printer.err(e);
                     }
                 }
 
@@ -2312,7 +2310,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                     try {
                         client.moveAndReload(null, Converter.weaponNameInvert(playerController.getWeapons().get(1).getName()), Converter.weaponNameInvert(playerController.getWeapons().get(2).getName()));
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        Printer.err(e);
                     }
                 }
 
@@ -2320,7 +2318,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                     try {
                         client.moveAndReload(null, Converter.weaponNameInvert(playerController.getWeapons().get(1).getName()));
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        Printer.err(e);
                     }
                 }
 
@@ -2329,7 +2327,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                         client.moveAndReload(null, Converter.weaponNameInvert(playerController.getWeapons().get(2).getName()));
 
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        Printer.err(e);
                     }
                 }
 
@@ -2337,7 +2335,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                     try {
                         client.moveAndReload(null, Converter.weaponNameInvert(playerController.getWeapons().get(0).getName()), Converter.weaponNameInvert(playerController.getWeapons().get(2).getName()));
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        Printer.err(e);
                     }
                 }
 
@@ -2345,7 +2343,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                     try {
                         client.moveAndReload(null);
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        Printer.err(e);
                     }
                 }
             }
@@ -2357,7 +2355,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                 try {
                     root = loader.load();
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    Printer.err(e);
                 }
 
                 guiHandler = loader.getController();
@@ -2413,7 +2411,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
             this.client.endTurn();
             setLabelTurn();
         } catch (IOException e1) {
-            e1.printStackTrace();
+            Printer.err(e1);
         }
     }
 
@@ -2567,7 +2565,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
             try {
                 root = loader.load();
             } catch (IOException e) {
-                e.printStackTrace();
+                Printer.err(e);
             }
 
             Stage stage = new Stage();
@@ -2674,7 +2672,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                         try {
                             client.grab(0);
                         } catch (IOException e) {
-                            e.printStackTrace();
+                            Printer.err(e);
                         }
                     } else {
                         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ChooseWeapon.fxml"));
@@ -2682,7 +2680,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                         try {
                             root = loader.load();
                         } catch (IOException e) {
-                            e.printStackTrace();
+                            Printer.err(e);
                         }
 
                         guiHandler = loader.getController();
@@ -2709,7 +2707,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                                 try {
                                     client.grab(0, Direction.UP);
                                 } catch (IOException e) {
-                                    e.printStackTrace();
+                                    Printer.err(e);
                                 }
                             } else {
                                 FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ChooseWeapon.fxml"));
@@ -2717,7 +2715,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                                 try {
                                     root = loader.load();
                                 } catch (IOException e) {
-                                    e.printStackTrace();
+                                    Printer.err(e);
                                 }
 
                                 Data.getInstance().setMoveGrab("up");
@@ -2742,7 +2740,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                                 try {
                                     client.grab(0, Direction.DOWN);
                                 } catch (IOException e) {
-                                    e.printStackTrace();
+                                    Printer.err(e);
                                 }
                             } else {
                                 FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ChooseWeapon.fxml"));
@@ -2750,7 +2748,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                                 try {
                                     root = loader.load();
                                 } catch (IOException e) {
-                                    e.printStackTrace();
+                                    Printer.err(e);
                                 }
                                 guiHandler = loader.getController();
 
@@ -2776,7 +2774,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                                 try {
                                     this.client.grab(0, Direction.LEFT);
                                 } catch (IOException e) {
-                                    e.printStackTrace();
+                                    Printer.err(e);
                                 }
                             } else {
                                 FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ChooseWeapon.fxml"));
@@ -2784,7 +2782,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                                 try {
                                     root = loader.load();
                                 } catch (IOException e) {
-                                    e.printStackTrace();
+                                    Printer.err(e);
                                 }
                                 guiHandler = loader.getController();
 
@@ -2810,7 +2808,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                                 try {
                                     this.client.grab(0, Direction.RIGHT);
                                 } catch (IOException e) {
-                                    e.printStackTrace();
+                                    Printer.err(e);
                                 }
                             } else {
                                 FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ChooseWeapon.fxml"));
@@ -2818,7 +2816,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                                 try {
                                     root = loader.load();
                                 } catch (IOException e) {
-                                    e.printStackTrace();
+                                    Printer.err(e);
                                 }
 
                                 Data.getInstance().setMoveGrab("right");
@@ -2853,7 +2851,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                     try {
                         client.grab(0);
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        Printer.err(e);
                     }
                 } else if(playerController.getGameBoard().getArena()[x][y].isSpawn()){
 
@@ -2862,7 +2860,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                     try {
                         root = loader.load();
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        Printer.err(e);
                     }
 
                     guiHandler = loader.getController();
@@ -2887,7 +2885,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                     try {
                         this.client.grab(0, Converter.fromStringToDirection(this.moveFrenzyTwoActions[0]));
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        Printer.err(e);
                     }
 
                 } else if(playerController.getGameBoard().getArena()[x][y].isSpawn()){
@@ -2896,7 +2894,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                     try {
                         root = loader.load();
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        Printer.err(e);
                     }
 
                     guiHandler = loader.getController();
@@ -2921,7 +2919,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                     try {
                         this.client.grab(0, Converter.fromStringToDirection(this.moveFrenzyTwoActions[0]), Converter.fromStringToDirection(this.moveFrenzyTwoActions[1]));
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        Printer.err(e);
                     }
 
                 } else if(playerController.getGameBoard().getArena()[x][y].isSpawn()){
@@ -2930,7 +2928,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                     try {
                         root = loader.load();
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        Printer.err(e);
                     }
 
                     guiHandler = loader.getController();
@@ -2961,7 +2959,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                     try {
                         this.client.grab(0);
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        Printer.err(e);
                     }
 
                 } else if(playerController.getGameBoard().getArena()[x][y].isSpawn()){
@@ -2970,7 +2968,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                     try {
                         root = loader.load();
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        Printer.err(e);
                     }
 
                     guiHandler = loader.getController();
@@ -2993,7 +2991,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                     try {
                         this.client.grab(0, Converter.fromStringToDirection(this.moveFrenzyOneActions[0]));
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        Printer.err(e);
                     }
 
                 } else if(playerController.getGameBoard().getArena()[x][y].isSpawn()){
@@ -3002,7 +3000,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                     try {
                         root = loader.load();
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        Printer.err(e);
                     }
 
                     guiHandler = loader.getController();
@@ -3028,7 +3026,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                     try {
                         this.client.grab(0, Converter.fromStringToDirection(this.moveFrenzyOneActions[0]), Converter.fromStringToDirection(this.moveFrenzyOneActions[1]));
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        Printer.err(e);
                     }
 
                 } else if(playerController.getGameBoard().getArena()[x][y].isSpawn()){
@@ -3037,7 +3035,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                     try {
                         root = loader.load();
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        Printer.err(e);
                     }
 
                     guiHandler = loader.getController();
@@ -3053,9 +3051,6 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                 }
 
             } else {
-                Printer.println(this.moveFrenzyOneActions[0]);
-                Printer.println(this.moveFrenzyOneActions[1]);
-                Printer.println(this.moveFrenzyOneActions[2]);
 
                 x = x + Converter.fromStringDirToIntegerX(this.moveFrenzyOneActions[0]);
                 x = x + Converter.fromStringDirToIntegerX(this.moveFrenzyOneActions[1]);
@@ -3068,7 +3063,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                     try {
                         this.client.grab(0, Converter.fromStringToDirection(this.moveFrenzyOneActions[0]), Converter.fromStringToDirection(this.moveFrenzyOneActions[1]), Converter.fromStringToDirection(this.moveFrenzyOneActions[2]));
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        Printer.err(e);
                     }
 
                 } else if(playerController.getGameBoard().getArena()[x][y].isSpawn()){
@@ -3077,7 +3072,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                     try {
                         root = loader.load();
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        Printer.err(e);
                     }
 
                     guiHandler = loader.getController();
@@ -3155,14 +3150,14 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                 try {
                     this.client.grab(1, Converter.fromStringToDirection(move));
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    Printer.err(e);
                 }
 
             } else {
                 try {
                     this.client.grab(1);
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    Printer.err(e);
                 }
 
             }
@@ -3173,20 +3168,20 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                 try {
                     client.grab(1);
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    Printer.err(e);
                 }
 
             } else if(moveFrenzyTwo[1] == null){
                 try {
                     client.grab(1, Converter.fromStringToDirection(moveFrenzyTwo[0]));
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    Printer.err(e);
                 }
             } else {
                 try {
                     client.grab(1, Converter.fromStringToDirection(moveFrenzyTwo[0]), Converter.fromStringToDirection(moveFrenzyTwo[1]));
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    Printer.err(e);
                 }
             }
 
@@ -3195,26 +3190,26 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                 try {
                     client.grab(1);
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    Printer.err(e);
                 }
 
             } else if(moveFrenzyOne[1] == null){
                 try {
                     client.grab(1, Converter.fromStringToDirection(moveFrenzyOne[0]));
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    Printer.err(e);
                 }
             } else if(moveFrenzyOne[2] == null) {
                 try {
                     client.grab(1, Converter.fromStringToDirection(moveFrenzyOne[0]), Converter.fromStringToDirection(moveFrenzyOne[1]));
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    Printer.err(e);
                 }
             } else {
                 try {
                     client.grab(1, Converter.fromStringToDirection(moveFrenzyOne[0]), Converter.fromStringToDirection(moveFrenzyOne[1]), Converter.fromStringToDirection(moveFrenzyOne[2]));
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    Printer.err(e);
                 }
             }
         }
@@ -3241,14 +3236,14 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                 try {
                     this.client.grab(2, Converter.fromStringToDirection(move));
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    Printer.err(e);
                 }
 
             } else {
                 try {
                     this.client.grab(2);
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    Printer.err(e);
                 }
             }
         } else if((!playerController.isFinalFrenzy() && !playerController.getAdrenalineZone().equals(AdrenalineZone.DEFAULT)) || (playerController.isFinalFrenzy() && playerController.getFinalFrenzyActions().equals(FinalFrenzyAction.TWO_ACTIONS))){
@@ -3257,20 +3252,20 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                 try {
                     client.grab(2);
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    Printer.err(e);
                 }
 
             } else if(moveFrenzyTwo[1] == null){
                 try {
                     client.grab(2, Converter.fromStringToDirection(moveFrenzyTwo[0]));
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    Printer.err(e);
                 }
             } else {
                 try {
                     client.grab(2, Converter.fromStringToDirection(moveFrenzyTwo[0]), Converter.fromStringToDirection(moveFrenzyTwo[1]));
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    Printer.err(e);
                 }
             }
 
@@ -3280,26 +3275,26 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                 try {
                     client.grab(2);
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    Printer.err(e);
                 }
 
             } else if(moveFrenzyOne[1] == null){
                 try {
                     client.grab(2, Converter.fromStringToDirection(moveFrenzyOne[0]));
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    Printer.err(e);
                 }
             } else if(moveFrenzyOne[2] == null) {
                 try {
                     client.grab(2, Converter.fromStringToDirection(moveFrenzyOne[0]), Converter.fromStringToDirection(moveFrenzyOne[1]));
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    Printer.err(e);
                 }
             } else {
                 try {
                     client.grab(2, Converter.fromStringToDirection(moveFrenzyOne[0]), Converter.fromStringToDirection(moveFrenzyOne[1]), Converter.fromStringToDirection(moveFrenzyOne[2]));
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    Printer.err(e);
                 }
             }
         }
@@ -3326,14 +3321,14 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                 try {
                     this.client.grab(3, Converter.fromStringToDirection(move));
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    Printer.err(e);
                 }
 
             } else {
                 try {
                     this.client.grab(3);
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    Printer.err(e);
                 }
             }
         } else if((!playerController.isFinalFrenzy() && !playerController.getAdrenalineZone().equals(AdrenalineZone.DEFAULT)) || (playerController.isFinalFrenzy() && playerController.getFinalFrenzyActions().equals(FinalFrenzyAction.TWO_ACTIONS))){
@@ -3342,20 +3337,20 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                 try {
                     client.grab(3);
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    Printer.err(e);
                 }
 
             } else if(moveFrenzyTwo[1] == null){
                 try {
                     client.grab(3, Converter.fromStringToDirection(moveFrenzyTwo[0]));
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    Printer.err(e);
                 }
             } else {
                 try {
                     client.grab(3, Converter.fromStringToDirection(moveFrenzyTwo[0]), Converter.fromStringToDirection(moveFrenzyTwo[1]));
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    Printer.err(e);
                 }
             }
 
@@ -3365,26 +3360,26 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                 try {
                     client.grab(3);
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    Printer.err(e);
                 }
 
             } else if(moveFrenzyOne[1] == null){
                 try {
                     client.grab(3, Converter.fromStringToDirection(moveFrenzyOne[0]));
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    Printer.err(e);
                 }
             } else if(moveFrenzyOne[2] == null) {
                 try {
                     client.grab(3, Converter.fromStringToDirection(moveFrenzyOne[0]), Converter.fromStringToDirection(moveFrenzyOne[1]));
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    Printer.err(e);
                 }
             } else {
                 try {
                     client.grab(3, Converter.fromStringToDirection(moveFrenzyOne[0]), Converter.fromStringToDirection(moveFrenzyOne[1]), Converter.fromStringToDirection(moveFrenzyOne[2]));
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    Printer.err(e);
                 }
             }
         }
@@ -3472,7 +3467,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
             try {
                 root = loader.load();
             } catch (IOException e) {
-                e.printStackTrace();
+                Printer.err(e);
             }
 
             playerboard = loader.getController();
@@ -3499,7 +3494,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
             try {
                 root = loader.load();
             } catch (IOException e) {
-                e.printStackTrace();
+                Printer.err(e);
             }
 
             guiHandler = loader.getController();
@@ -3535,7 +3530,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                 Thread.sleep(5000);
 
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                Printer.err(e);
             }
         }
     }
@@ -3727,7 +3722,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                 try {
                     root = loader.load();
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    Printer.err(e);
                 }
 
                 Stage stage = new Stage();
@@ -3775,7 +3770,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
             try {
                 root = loader.load();
             } catch (IOException e) {
-                e.printStackTrace();
+                Printer.err(e);
             }
 
             guiHandler = loader.getController();
@@ -3891,7 +3886,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
             }
 
         } catch (IOException e) {
-            e.printStackTrace();
+            Printer.err(e);
         }
 
         Stage stage = (Stage) modeTxtField.getScene().getWindow();
@@ -3908,7 +3903,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         try {
             client.disconnect();
         } catch (RemoteException e) {
-            e.printStackTrace();
+            Printer.err(e);
         }
     }
 
@@ -3978,7 +3973,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                 try {
                     root = loader.load();
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    Printer.err(e);
                 }
 
                 guiHandler = loader.getController();
@@ -4323,7 +4318,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         try {
             root = loader.load();
         } catch (IOException e) {
-            e.printStackTrace();
+            Printer.err(e);
         }
 
         ammoGUI = loader.getController();
@@ -4477,7 +4472,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         try {
             client.respawn(1);
         } catch (IOException e) {
-            e.printStackTrace();
+            Printer.err(e);
         }
     }
 
@@ -4495,7 +4490,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         try {
             client.respawn(2);
         } catch (IOException e) {
-            e.printStackTrace();
+            Printer.err(e);
         }
     }
 
@@ -4513,7 +4508,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         try {
             client.respawn(3);
         } catch (IOException e) {
-            e.printStackTrace();
+            Printer.err(e);
         }
     }
 
@@ -4531,7 +4526,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         try {
             client.respawn(4);
         } catch (IOException e) {
-            e.printStackTrace();
+            Printer.err(e);
         }
     }
 

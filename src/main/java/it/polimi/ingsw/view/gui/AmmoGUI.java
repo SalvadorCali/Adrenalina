@@ -1,6 +1,7 @@
 package it.polimi.ingsw.view.gui;
 
 import it.polimi.ingsw.controller.PlayerController;
+import it.polimi.ingsw.util.Printer;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -79,7 +80,7 @@ public class AmmoGUI implements Initializable {
                 Thread.sleep(TIME_CHECK);
 
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                Printer.err(e);
             }
         }
     }
