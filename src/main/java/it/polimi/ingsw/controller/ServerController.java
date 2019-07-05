@@ -259,9 +259,11 @@ public class ServerController {
      * @param skulls the number of skulls of the killshot track.
      */
     public void chooseBoardType(int boardType, int skulls){
-        gameController.setBoardTypePhase(false);
-        gameController.setBoard(boardType, skulls);
-        spawnLocation();
+        if(gameController.isBoardTypePhase()){
+            gameController.setBoardTypePhase(false);
+            gameController.setBoard(boardType, skulls);
+            spawnLocation();
+        }
     }
 
     /**
@@ -370,17 +372,19 @@ public class ServerController {
      * @param choice the choosen powerup.
      */
     public void choose(String username, int choice){
-        users.get(username).setSpawned(true);
-        if(choice == 1){
-            gameController.addPowerup(users.get(username), powerupsSpawn.get(username).get(1));
-        }else if(choice == 2){
-            gameController.addPowerup(users.get(username), powerupsSpawn.get(username).get(0));
-        }
-        //users.get(username).addPowerup((PowerupCard) powerupsSpawn.get(username).get(0));
-        gameController.setPlayer(users.get(username), powerupsSpawn.get(username).get(choice - 1).getColor());
-        spawnedPlayers++;
-        if(spawnedPlayers == servers.size() + disconnectedUsers.size()){
-            startGame();
+        if(!users.get(username).isSpawned()){
+            users.get(username).setSpawned(true);
+            if(choice == 1){
+                gameController.addPowerup(users.get(username), powerupsSpawn.get(username).get(1));
+            }else if(choice == 2){
+                gameController.addPowerup(users.get(username), powerupsSpawn.get(username).get(0));
+            }
+            //users.get(username).addPowerup((PowerupCard) powerupsSpawn.get(username).get(0));
+            gameController.setPlayer(users.get(username), powerupsSpawn.get(username).get(choice - 1).getColor());
+            spawnedPlayers++;
+            if(spawnedPlayers == servers.size() + disconnectedUsers.size()){
+                startGame();
+            }
         }
     }
 
@@ -491,7 +495,7 @@ public class ServerController {
                     Printer.err(e);
                 }
             });
-            if(users.size()<Config.MIN_PLAYERS){
+            if(users.size()<Config.MIN_PLAYERS - 1){
                 endGame();
                 return;
             }
