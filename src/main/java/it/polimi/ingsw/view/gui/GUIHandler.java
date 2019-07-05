@@ -1181,7 +1181,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
             imv.setFitHeight(STANDARD_HEIGHT);
 
         } else{
-            imv.setFitWidth(STANDARD_WIDTH);
+            imv.setFitWidth(STANDARD_HEIGHT);
             imv.setFitHeight(STANDARD_HEIGHT);
         }
         Platform.runLater(() ->{
@@ -1214,7 +1214,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
             imv.setFitHeight(STANDARD_HEIGHT);
         } else{
             imv.setFitHeight(STANDARD_HEIGHT);
-            imv.setFitWidth(STANDARD_WIDTH);
+            imv.setFitWidth(STANDARD_HEIGHT);
         }
         Platform.runLater(() ->{
             gridSkulls.add(imv, col, row);
@@ -3735,7 +3735,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
         Platform.runLater(() ->{
             shootButton1.setDisable(true);
             shootButton2.setDisable(true);
-            shootButton2.setDisable(true);
+            shootButton3.setDisable(true);
             usePowerup1.setDisable(true);
             usePowerup2.setDisable(true);
             usePowerup3.setDisable(true);
@@ -3776,6 +3776,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                 this.firstPowerupHad.setImage(new Image("powerup/" + Converter.fromColorToLetter(powerupsHad.get(0).getColor()) + "/" + powerupsHad.get(0).getName() + ".png"));
                 this.firstPowerupHad.setVisible(true);
 
+                usePowerup1.setDisable(false);
                 dropButton1.setDisable(false);
                 discardButton1.setDisable(false);
             });
@@ -3787,6 +3788,9 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                 this.secondPowerupHad.setImage(new Image("powerup/" + Converter.fromColorToLetter(powerupsHad.get(1).getColor()) + "/" + powerupsHad.get(1).getName() + ".png"));
                 this.firstPowerupHad.setVisible(true);
                 this.secondPowerupHad.setVisible(true);
+
+                usePowerup1.setDisable(false);
+                usePowerup2.setDisable(false);
                 dropButton1.setDisable(false);
                 discardButton1.setDisable(false);
                 dropButton2.setDisable(false);
@@ -3802,6 +3806,10 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                 this.firstPowerupHad.setVisible(true);
                 this.secondPowerupHad.setVisible(true);
                 this.thirdPowerupHad.setVisible(true);
+
+                usePowerup1.setDisable(false);
+                usePowerup2.setDisable(false);
+                usePowerup3.setDisable(false);
                 dropButton1.setDisable(false);
                 discardButton1.setDisable(false);
                 dropButton2.setDisable(false);
@@ -3849,6 +3857,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                 this.secondWeaponHad.setImage(new Image("weapon/" + Converter.weaponNameInvert(weaponsHad.get(1).getName()) + ".png"));
                 this.firstWeaponHad.setVisible(true);
                 this.secondWeaponHad.setVisible(true);
+
                 shootButton1.setDisable(false);
                 shootButton2.setDisable(false);
                 dropButton1W.setDisable(false);
