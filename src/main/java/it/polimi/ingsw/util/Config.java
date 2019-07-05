@@ -33,7 +33,7 @@ public class Config {
     /**
      * Time for the turn of each user.
      */
-    public static int TURN_TIME = 500000;
+    public static int TURN_TIME = 100000;
 
     /**
      * Setter for the turn time.
