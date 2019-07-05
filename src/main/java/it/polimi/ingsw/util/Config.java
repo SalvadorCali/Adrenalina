@@ -63,7 +63,7 @@ public class Config {
     /**
      * Time for the choice of the board.
      */
-    public static int BOARD_TYPE_TIME = 1000;
+    public static int BOARD_TYPE_TIME = 20000;
 
     /**
      * Setter for the board type time.
@@ -75,7 +75,7 @@ public class Config {
     /**
      * Time for the choice of the spawn.
      */
-    public static int SPAWN_LOCATION_TIME = 1000;
+    public static int SPAWN_LOCATION_TIME = 20000;
 
     /**
      * Setter for the spawn location time.
@@ -94,7 +94,7 @@ public class Config {
     /**
      * Minimum number of players.
      */
-    public static final int MIN_PLAYERS = 2;
+    public static final int MIN_PLAYERS = 3;
     /**
      * Maximum number of actions for each turn.
      */
