@@ -272,7 +272,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
     /**
      * Standard method that launches the first window which is the Login
-     * @param stage
+     * @param stage main stage of the login
      * @throws Exception if it doesn't load the LoginGUI.fxml
      */
     @Override
@@ -293,9 +293,9 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     //login methods
     /**
      * Check what button is selected and if is selected one of them it launches the right connection method
-     * @param playerName
-     * @param address
-     * @param colorPlayer
+     * @param playerName name of the player
+     * @param address address of the player
+     * @param colorPlayer color of the player
      */
     public synchronized void clickButton(String playerName, String address, String colorPlayer){
 
@@ -343,7 +343,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
     /**
      * This method takes a string and set it to StatusConnectionLabel on the Login
-     * @param text
+     * @param text info about connection
      */
     public void setConnectionText(String text){
         Platform.runLater(() ->{
@@ -353,7 +353,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
     /**
      * This method takes a string and set it to ConnectionErrorLabel on the Login
-     * @param text
+     * @param text info about connection error
      */
     public void setErrorText(String text){
         Platform.runLater(() -> {
@@ -424,7 +424,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
     /**
      * This method is launched when reloadButton is pressed, check what weapons the player wants to reload
-     * @param mouseEvent
+     * @param mouseEvent when player clicks
      * @throws IOException throws IOException if fails to reload with reloadClient
      */
     public void reload(MouseEvent mouseEvent) throws IOException {
@@ -643,7 +643,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
     /**
      * This method launch DiscardPowerUp.fxml when a player has to respawn, he needs to discard a powerup
-     * @param outcome
+     * @param outcome if need to respawn or not
      */
     public void notifyRespawn(Outcome outcome) {
         Platform.runLater(() ->{
@@ -714,7 +714,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
     /**
      * This method show if the player has reloaded or not a weapon
-     * @param outcome
+     * @param outcome if reloaded or not
      */
     private void notifyReload(Outcome outcome) {
         playerController = Data.getInstance().getPlayerController();
@@ -732,7 +732,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
     /**
      * This method notify on the mainBoard if the dropWeapon has succeded or not, depends on outcome
-     * @param outcome
+     * @param outcome if dropped or not
      */
     private void notifyDropWeapon(Outcome outcome) {
         guiHandler = Data.getInstance().getGuiHandler();
@@ -747,7 +747,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
     /**
      * This method notify on the mainBoard if the dropPowerup has succeded or not, depends on outcome
-     * @param outcome
+     * @param outcome if dropped or not
      */
     private void notifyDropPowerup(Outcome outcome) {
         guiHandler = Data.getInstance().getGuiHandler();
@@ -763,7 +763,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
     /**
      * This method notify on the mainBoard if the discardPowerup has succeded or not, depends on outcome
-     * @param outcome
+     * @param outcome if discarded or not
      */
     private void notifyDiscardPowerup(Outcome outcome) {
         guiHandler = Data.getInstance().getGuiHandler();
@@ -780,8 +780,8 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
     /**
      * This method is used when a player is trying to reconnect to the match, if outcome is right it launches MapGUI.fxml
-     * @param outcome
-     * @param object
+     * @param outcome if reconnected or not
+     * @param object name of the player that reconnects
      */
     private void notifyReconnection(Outcome outcome, String object) {
 
@@ -852,7 +852,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
     /**
      * This method notify if powerup is used with success or not
-     * @param outcome
+     * @param outcome if used or not the powerup
      */
     private void notifyPowerup(Outcome outcome) {
         playerController = Data.getInstance().getPlayerController();
@@ -869,7 +869,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
     /**
      * This method notify if a player shot or not with his weapon
-     * @param outcome
+     * @param outcome if shot or not
      */
     private void notifyShoot(Outcome outcome) {
         playerController = Data.getInstance().getPlayerController();
@@ -894,7 +894,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
     /**
      * This method notify if the player has grabbed or not weapons or ammo
-     * @param outcome
+     * @param outcome if grabbed or not
      */
     private void notifyGrab(Outcome outcome) {
         playerController = Data.getInstance().getPlayerController();
@@ -913,7 +913,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
     /**
      * This method notify if the player's move has succeded or not
-     * @param outcome
+     * @param outcome if movement is done or failed
      */
     private void notifyMovement(Outcome outcome) {
         playerController = Data.getInstance().getPlayerController();
@@ -930,7 +930,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
     /**
      * This method helps to set labelStatusPlayer when is called
-     * @param string
+     * @param string various strings
      */
     private void setLabelStatement(String string) {
         guiHandler = Data.getInstance().getGuiHandler();
@@ -943,7 +943,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     /**
      * This method loads if outcome is right ChooseBoard.fxml that is created for choosing the BoardType and the Skulls' number
      * If outcome is wrong, it launches a Waiting Popup
-     * @param outcome
+     * @param outcome if you have to choose board or not
      */
     private void notifyBoard(Outcome outcome){
         Platform.runLater(() ->{
@@ -994,7 +994,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     /**
      * This method is launched when there is a new turn. The first time executed it loads MapGUI.fxml,
      * The next times executed enables if outcome is right or disables the buttons if outcome is wrong
-     * @param outcome
+     * @param outcome if is new turn or not
      * @throws Exception if fails to load MapGUI.fxml
      */
     private void notifyNewTurn(Outcome outcome) throws Exception {
@@ -1128,9 +1128,9 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
     /**
      * This method helps to add elements on the KillShotTrack2
-     * @param image
-     * @param col
-     * @param row
+     * @param image of damage
+     * @param col represents column
+     * @param row represents row
      */
     private void addImgOnKillshot2(Image image, int col, int row) {
         ImageView imv = new ImageView(image);
@@ -1144,8 +1144,8 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
     /**
      * This method removes all the elements on the gridSkulls
-     * @param col
-     * @param row
+     * @param col represents columns
+     * @param row represents row
      */
     private void removeSkullImgOnKillshot(int col, int row) {
         Platform.runLater(() ->{
@@ -1155,9 +1155,9 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
     /**
      * This method helps to add the proper Image to the gridSkulls (killshotTrack)
-     * @param image
-     * @param col
-     * @param row
+     * @param image of the skulls or damage
+     * @param col represents columns
+     * @param row represents row
      */
     public void addImgOnKillshot(Image image, int col, int row){
         ImageView imv = new ImageView(image);
@@ -1214,7 +1214,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
     /**
      * This method takes the score of the match when is ended the game
-     * @param object
+     * @param object map that represents the score
      * @throws IOException if is not launched notify score
      */
     private void notifyEndGame(Map<TokenColor, Integer> object) throws IOException {
@@ -1224,7 +1224,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
     /**
      * NotifyScore displays the Score of the match, it takes a Map with TokenColor and Integer for every players
-     * @param object
+     * @param object map that represents the score
      * @throws IOException when fails to load ScorePopup.fxml
      */
     private void notifyScore(Map<TokenColor, Integer> object) throws IOException {
@@ -1249,9 +1249,9 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
     /**
      * This method receive three parameters for connecting to the server with RMI
-     * @param name
-     * @param host
-     * @param color
+     * @param name name of the player
+     * @param host host of the player
+     * @param color color of the player
      * if doens't find the server's host it sets the error on the Login
      */
     private void connectToRMI(String name, String host, String color) {
@@ -1273,9 +1273,9 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
     /**
      * This method receive three parameters for connecting to the server with Socket
-     * @param name
-     * @param host
-     * @param color
+     * @param name name of the player
+     * @param host host of the player
+     * @param color color of the player
      * if doens't find the server's host it sets the error on the Login
      */
     private void connectToSocket(String name, String host, String color) {
@@ -1294,8 +1294,8 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
     /**
      * This method check and shows if player has written the right info when he is trying to connect from the Login
-     * @param outcome
-     * @param object
+     * @param outcome if connected or not
+     * @param object username of the Player
      */
     private void notifyLogin(Outcome outcome, String object) {
         Platform.runLater(() -> {
@@ -1315,8 +1315,8 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
     /**
      * This method is triggered when the player has written wrong color
-     * @param outcome
-     * @param object
+     * @param outcome if has written wrong color
+     * @param object wrong color
      */
     private void notifyColor(Outcome outcome, TokenColor object) {
         Platform.runLater(() -> {
@@ -1329,8 +1329,8 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
     /**
      * This method load Popup.fxml when a player has disconnected
-     * @param outcome
-     * @param object
+     * @param outcome if is disconnected or not
+     * @param object name of the Player has disconnected
      */
     private void notifyDisconnection(Outcome outcome, String object) {
 
