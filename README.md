@@ -31,9 +31,9 @@
 ## Deliverables
 
 * [*Initial UML*](https://github.com/SalvadorCali/am03-ing-sw-2019-Bernasconi-Calici-Comelli/blob/master/deliverables/Initial-UML.pdf)
-* [*Final UML*](https://github.com/SalvadorCali/am03-ing-sw-2019-Bernasconi-Calici-Comelli/tree/master/deliverables)
-* [*server.jar*](https://github.com/SalvadorCali/am03-ing-sw-2019-Bernasconi-Calici-Comelli/tree/master/deliverables)
-* [*client.jar*](https://github.com/SalvadorCali/am03-ing-sw-2019-Bernasconi-Calici-Comelli/tree/master/deliverables)
+* [*Final UML*](https://github.com/SalvadorCali/am03-ing-sw-2019-Bernasconi-Calici-Comelli/blob/master/deliverables/Final-UML.pdf)
+* [*server.jar*](https://github.com/SalvadorCali/am03-ing-sw-2019-Bernasconi-Calici-Comelli/blob/master/deliverables/server.jar)
+* [*client.jar*](https://github.com/SalvadorCali/am03-ing-sw-2019-Bernasconi-Calici-Comelli/blob/master/deliverables/client.jar)
 * [*Communication*](https://github.com/SalvadorCali/am03-ing-sw-2019-Bernasconi-Calici-Comelli/blob/master/deliverables/Communication.pdf)
 
 ## Getting Started
