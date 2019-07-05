@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="722.0" prefWidth="1130.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.gui.PlayerBoardGui">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="722.0" prefWidth="1130.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.gui.PlayerBoardGui">
    <children>
       <ImageView fx:id="firstPlayerBoard" fitHeight="293.0" fitWidth="1000.0" layoutX="65.0" layoutY="76.0" preserveRatio="true">
          <image>
@@ -27,6 +27,66 @@
             <Font name="Alien League Regular" size="32.0" />
          </font>
       </Label>
+      <ImageView fx:id="secondPlayerWeapon3" fitHeight="142.0" fitWidth="90.0" layoutX="286.0" layoutY="360.0" visible="false">
+         <image>
+            <Image url="@weapon/cyberblade.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="secondPlayerWeapon2" fitHeight="142.0" fitWidth="90.0" layoutX="195.0" layoutY="361.0" visible="false">
+         <image>
+            <Image url="@weapon/cyberblade.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="secondPlayerWeapon1" fitHeight="142.0" fitWidth="90.0" layoutX="105.0" layoutY="361.0" visible="false">
+         <image>
+            <Image url="@weapon/cyberblade.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="thirdPlayerWeapon3" fitHeight="142.0" fitWidth="90.0" layoutX="962.0" layoutY="360.0" visible="false">
+         <image>
+            <Image url="@weapon/cyberblade.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="thirdPlayerWeapon2" fitHeight="142.0" fitWidth="90.0" layoutX="871.0" layoutY="361.0" visible="false">
+         <image>
+            <Image url="@weapon/cyberblade.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="thirdPlayerWeapon1" fitHeight="142.0" fitWidth="90.0" layoutX="781.0" layoutY="361.0" visible="false">
+         <image>
+            <Image url="@weapon/cyberblade.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="fourthPlayerWeapon3" fitHeight="142.0" fitWidth="90.0" layoutX="283.0" layoutY="536.0" visible="false">
+         <image>
+            <Image url="@weapon/cyberblade.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="fourthPlayerWeapon2" fitHeight="142.0" fitWidth="90.0" layoutX="192.0" layoutY="537.0" visible="false">
+         <image>
+            <Image url="@weapon/cyberblade.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="fourthPlayerWeapon1" fitHeight="142.0" fitWidth="90.0" layoutX="102.0" layoutY="537.0" visible="false">
+         <image>
+            <Image url="@weapon/cyberblade.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="fifthPlayerWeapon3" fitHeight="142.0" fitWidth="90.0" layoutX="962.0" layoutY="539.0" visible="false">
+         <image>
+            <Image url="@weapon/cyberblade.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="fifthPlayerWeapon2" fitHeight="142.0" fitWidth="90.0" layoutX="871.0" layoutY="540.0" visible="false">
+         <image>
+            <Image url="@weapon/cyberblade.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="fifthPlayerWeapon1" fitHeight="142.0" fitWidth="90.0" layoutX="781.0" layoutY="540.0" visible="false">
+         <image>
+            <Image url="@weapon/cyberblade.png" />
+         </image>
+      </ImageView>
       <ImageView fx:id="secondPlayerBoard" fitHeight="115.0" fitWidth="679.0" layoutX="64.0" layoutY="388.0" preserveRatio="true" visible="false">
          <image>
             <Image url="@playerBoard/blue.jpg" />

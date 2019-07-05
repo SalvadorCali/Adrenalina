@@ -1,6 +1,7 @@
 package it.polimi.ingsw.view.gui;
 
 import it.polimi.ingsw.controller.PlayerController;
+import it.polimi.ingsw.model.cards.WeaponCard;
 import it.polimi.ingsw.model.enums.TokenColor;
 import it.polimi.ingsw.model.gamecomponents.Player;
 import it.polimi.ingsw.model.gamecomponents.Token;
@@ -70,6 +71,23 @@ public class PlayerBoardGui extends Application {
     @FXML private GridPane thirdPlayerMarks;
     @FXML private GridPane fourthPlayerMarks;
     @FXML private GridPane fifthPlayerMarks;
+
+    /**
+     * ImageViews used for showing weapons of other players
+     */
+    @FXML private ImageView secondPlayerWeapon1;
+    @FXML private ImageView secondPlayerWeapon2;
+    @FXML private ImageView secondPlayerWeapon3;
+    @FXML private ImageView thirdPlayerWeapon1;
+    @FXML private ImageView thirdPlayerWeapon2;
+    @FXML private ImageView thirdPlayerWeapon3;
+    @FXML private ImageView fourthPlayerWeapon1;
+    @FXML private ImageView fourthPlayerWeapon2;
+    @FXML private ImageView fourthPlayerWeapon3;
+    @FXML private ImageView fifthPlayerWeapon1;
+    @FXML private ImageView fifthPlayerWeapon2;
+    @FXML private ImageView fifthPlayerWeapon3;
+
 
     /**
      * playerController that contains datas about the player.
@@ -457,6 +475,8 @@ public class PlayerBoardGui extends Application {
                 setMarksGridOtherPlayers();
                 setFirstPlayerDeathCounter();
                 setOtherPlayersDeath();
+                setInvisibleWeapons();
+                setOtherPlayersWeapons();
             });
 
             try {
@@ -467,5 +487,122 @@ public class PlayerBoardGui extends Application {
                 Printer.err(e);
             }
         }
+    }
+
+    /**
+     * set all weapon's images invisible
+     */
+    private void setInvisibleWeapons() {
+        Platform.runLater(() ->{
+            secondPlayerWeapon1.setVisible(false);
+            secondPlayerWeapon2.setVisible(false);
+            secondPlayerWeapon3.setVisible(false);
+            thirdPlayerWeapon1.setVisible(false);
+            thirdPlayerWeapon2.setVisible(false);
+            thirdPlayerWeapon3.setVisible(false);
+            fourthPlayerWeapon1.setVisible(false);
+            fourthPlayerWeapon2.setVisible(false);
+            fourthPlayerWeapon3.setVisible(false);
+            fifthPlayerWeapon1.setVisible(false);
+            fifthPlayerWeapon2.setVisible(false);
+            fifthPlayerWeapon3.setVisible(false);
+        });
+    }
+
+    /**
+     * this method is used for add images of weapon's other players
+     */
+    private void setOtherPlayersWeapons() {
+        playerController = Data.getInstance().getPlayerController();
+        numOtherPlayers = playerController.getOtherPlayers().size();
+
+        if(numOtherPlayers >= 1){
+            List<WeaponCard> weapons = playerController.getOtherPlayers().get(0).getWeapons();
+
+            if(weapons.size() >= 1){
+                String url = "weapon/" + Converter.weaponNameInvert(weapons.get(0).getName()) + ".png";
+                Image image = new Image(url);
+                setWeaponImage(image, secondPlayerWeapon1);
+            }
+            if(weapons.size() >= 2){
+                String url = "weapon/" + Converter.weaponNameInvert(weapons.get(1).getName()) + ".png";
+                Image image = new Image(url);
+                setWeaponImage(image, secondPlayerWeapon2);
+            }
+            if(weapons.size() == 3){
+                String url = "weapon/" + Converter.weaponNameInvert(weapons.get(2).getName()) + ".png";
+                Image image = new Image(url);
+                setWeaponImage(image, secondPlayerWeapon3);
+            }
+        }
+        if(numOtherPlayers >= 2){
+            List<WeaponCard> weapons = playerController.getOtherPlayers().get(1).getWeapons();
+
+            if(weapons.size() >= 1){
+                String url = "weapon/" + Converter.weaponNameInvert(weapons.get(0).getName()) + ".png";
+                Image image = new Image(url);
+                setWeaponImage(image, thirdPlayerWeapon1);
+            }
+            if(weapons.size() >= 2){
+                String url = "weapon/" + Converter.weaponNameInvert(weapons.get(1).getName()) + ".png";
+                Image image = new Image(url);
+                setWeaponImage(image, thirdPlayerWeapon2);
+            }
+            if(weapons.size() == 3){
+                String url = "weapon/" + Converter.weaponNameInvert(weapons.get(2).getName()) + ".png";
+                Image image = new Image(url);
+                setWeaponImage(image, thirdPlayerWeapon3);
+            }
+        }
+        if(numOtherPlayers >= 3){
+            List<WeaponCard> weapons = playerController.getOtherPlayers().get(2).getWeapons();
+
+            if(weapons.size() >= 1){
+                String url = "weapon/" + Converter.weaponNameInvert(weapons.get(0).getName()) + ".png";
+                Image image = new Image(url);
+                setWeaponImage(image, fourthPlayerWeapon1);
+            }
+            if(weapons.size() >= 2){
+                String url = "weapon/" + Converter.weaponNameInvert(weapons.get(1).getName()) + ".png";
+                Image image = new Image(url);
+                setWeaponImage(image, fourthPlayerWeapon2);
+            }
+            if(weapons.size() == 3){
+                String url = "weapon/" + Converter.weaponNameInvert(weapons.get(2).getName()) + ".png";
+                Image image = new Image(url);
+                setWeaponImage(image, fourthPlayerWeapon3);
+            }
+        }
+        if(numOtherPlayers == 4){
+            List<WeaponCard> weapons = playerController.getOtherPlayers().get(3).getWeapons();
+
+            if(weapons.size() >= 1){
+                String url = "weapon/" + Converter.weaponNameInvert(weapons.get(0).getName()) + ".png";
+                Image image = new Image(url);
+                setWeaponImage(image, fifthPlayerWeapon1);
+            }
+            if(weapons.size() >= 2){
+                String url = "weapon/" + Converter.weaponNameInvert(weapons.get(1).getName()) + ".png";
+                Image image = new Image(url);
+                setWeaponImage(image, fifthPlayerWeapon2);
+            }
+            if(weapons.size() == 3){
+                String url = "weapon/" + Converter.weaponNameInvert(weapons.get(2).getName()) + ".png";
+                Image image = new Image(url);
+                setWeaponImage(image, fifthPlayerWeapon3);
+            }
+        }
+    }
+
+    /**
+     * This method helps to set the right weapon image and to set it visible
+     * @param image image of weapon
+     * @param imv imageview where image will be stored
+     */
+    private void setWeaponImage(Image image, ImageView imv) {
+        Platform.runLater(()->{
+            imv.setVisible(true);
+            imv.setImage(image);
+        });
     }
 }

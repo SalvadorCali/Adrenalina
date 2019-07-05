@@ -92,6 +92,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     @FXML private Label labelShoot;
     @FXML private Label labelShowMove;
     @FXML private Label labelEndTurn;
+    @FXML private ImageView playerColorImage;
 
     /**
      * these are the grids of the mainBoard used for displaying players and ammos or skulls and color that represents the turns
@@ -810,6 +811,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                 //guiHandler.addWeapon();
                 guiHandler.setLabelTurn();
                 guiHandler.setLabelMainPlayer();
+                guiHandler.setPlayerImg();
 
                 Data.getInstance().setGuiHandler(guiHandler);
 
@@ -834,6 +836,18 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
             }else{
                 guiHandler.setLabelStatement(StringCLI.SERVER + object + StringCLI.SPACE + StringCLI.RECONNECTED);
             }
+        });
+    }
+
+    /**
+     * Set the color of the player on the mainBoard
+     */
+    private void setPlayerImg() {
+        playerController = Data.getInstance().getPlayerController();
+        Image image = new Image("colorPlayer/" + Converter.fromTokenColorToString(playerController.getPlayer().getColor()) + ".png");
+
+        Platform.runLater(() ->{
+            playerColorImage.setImage(image);
         });
     }
 
@@ -1020,6 +1034,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                     guiHandler.setLabelTurn();
                     guiHandler.setLabelMainPlayer();
                     guiHandler.setLabelStatement(StringCLI.SERVER + StringCLI.NEW_TURN);
+                    guiHandler.setPlayerImg();
 
                     Data.getInstance().setGuiHandler(guiHandler);
 
@@ -1066,7 +1081,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                     //guiHandler.addWeapon();
                     guiHandler.setLabelTurn();
                     guiHandler.setLabelMainPlayer();
-
+                    guiHandler.setPlayerImg();
 
                     Data.getInstance().setGuiHandler(guiHandler);
 

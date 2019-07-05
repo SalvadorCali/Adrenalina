@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="712.0" prefWidth="1189.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.gui.GUIHandler">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="712.0" prefWidth="1189.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.gui.GUIHandler">
    <children>
       <ImageView fx:id="mapImage" fitHeight="710.0" fitWidth="952.0" preserveRatio="true">
          <image>
@@ -375,5 +375,10 @@
             <Font name="Alien League Regular" size="24.0" />
          </font>
       </Label>
+      <ImageView fx:id="playerColorImage" fitHeight="30.0" fitWidth="33.0" layoutX="13.0" layoutY="678.0">
+         <image>
+            <Image url="@colorPlayer/blue.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>
