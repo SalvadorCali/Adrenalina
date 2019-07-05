@@ -191,6 +191,16 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     @FXML private Button usePowerup1;
     @FXML private Button usePowerup2;
     @FXML private Button usePowerup3;
+    @FXML private Button dropButton1W;
+    @FXML private Button dropButton2W;
+    @FXML private Button dropButton3W;
+    @FXML private Button dropButton1;
+    @FXML private Button dropButton2;
+    @FXML private Button dropButton3;
+    @FXML private Button discardButton1;
+    @FXML private Button discardButton2;
+    @FXML private Button discardButton3;
+
 
     /**
      * These elements are used for insert various data when someone is shooting.
@@ -230,6 +240,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
     private static final double GRID_WIDTH = 25;
     private static final double GRID_HEIGHT = 25;
     private static final double STANDARD_HEIGHT = 40;
+    private static final double STANDARD_WIDTH = 20;
     private static final int MAX_SKULLS = 8;
     private static final int MIN_SKULLS = 1;
     private static final String SPACE = " ";
@@ -1139,19 +1150,19 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
         for (int i = 0; i < skulls; i++) {
             if(killShot.get(i).getFirstColor().equals(TokenColor.SKULL)) {
-                addImgOnKillshot(imageSkull, i, 0);
+                addImgOnKillshot(imageSkull, i, 0, true);
 
             } else if(!killShot.get(i).getFirstColor().equals(TokenColor.SKULL)){
                 Image image = new Image("damageTears/" + Converter.fromTokenColorToString(killShot.get(i).getFirstColor()) + ".png");
                 removeSkullImgOnKillshot(i, 0);
-                addImgOnKillshot(image, i, 0);
+                addImgOnKillshot(image, i, 0, true);
             }
 
             if(killShot.get(i).getSecondColor().equals(TokenColor.SKULL)){
-                addImgOnKillshot2(imageSkull, i, 0);
+                addImgOnKillshot2(imageSkull, i, 0, true);
             } else if(!killShot.get(i).getSecondColor().equals(TokenColor.SKULL) && !killShot.get(i).getSecondColor().equals(TokenColor.NONE)){
                 Image image = new Image("damageTears/" + Converter.fromTokenColorToString(killShot.get(i).getSecondColor()) + ".png");
-                addImgOnKillshot2(image, i, 0);
+                addImgOnKillshot2(image, i, 0, false);
             }
         }
     }
@@ -1162,11 +1173,17 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
      * @param col represents column
      * @param row represents row
      */
-    private void addImgOnKillshot2(Image image, int col, int row) {
+    private void addImgOnKillshot2(Image image, int col, int row, boolean isSkull) {
         ImageView imv = new ImageView(image);
-        imv.setFitWidth(STANDARD_HEIGHT);
-        imv.setFitHeight(STANDARD_HEIGHT);
 
+        if(!isSkull) {
+            imv.setFitWidth(STANDARD_HEIGHT);
+            imv.setFitHeight(STANDARD_HEIGHT);
+
+        } else{
+            imv.setFitWidth(STANDARD_WIDTH);
+            imv.setFitHeight(STANDARD_HEIGHT);
+        }
         Platform.runLater(() ->{
             gridKillshotTrack2.add(imv, col, row);
         });
@@ -1189,11 +1206,16 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
      * @param col represents columns
      * @param row represents row
      */
-    public void addImgOnKillshot(Image image, int col, int row){
+    public void addImgOnKillshot(Image image, int col, int row, boolean isSkull) {
         ImageView imv = new ImageView(image);
-        imv.setFitWidth(STANDARD_HEIGHT);
-        imv.setFitHeight(STANDARD_HEIGHT);
 
+        if(!isSkull) {
+            imv.setFitWidth(STANDARD_HEIGHT);
+            imv.setFitHeight(STANDARD_HEIGHT);
+        } else{
+            imv.setFitHeight(STANDARD_HEIGHT);
+            imv.setFitWidth(STANDARD_WIDTH);
+        }
         Platform.runLater(() ->{
             gridSkulls.add(imv, col, row);
         });
@@ -3693,6 +3715,7 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
             Platform.runLater(() -> {
 
                 guiHandler = Data.getInstance().getGuiHandlerWeapon();
+                guiHandler.disableWeaponButtons();
                 guiHandler.setWeaponHad();
                 guiHandler.setPowerupHad();
             });
@@ -3705,6 +3728,27 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                 Printer.err(e);
             }
         }
+    }
+
+
+    private void disableWeaponButtons() {
+        Platform.runLater(() ->{
+            shootButton1.setDisable(true);
+            shootButton2.setDisable(true);
+            shootButton2.setDisable(true);
+            usePowerup1.setDisable(true);
+            usePowerup2.setDisable(true);
+            usePowerup3.setDisable(true);
+            discardButton1.setDisable(true);
+            discardButton2.setDisable(true);
+            discardButton3.setDisable(true);
+            dropButton1.setDisable(true);
+            dropButton2.setDisable(true);
+            dropButton3.setDisable(true);
+            dropButton1W.setDisable(true);
+            dropButton2W.setDisable(true);
+            dropButton3W.setDisable(true);
+        });
     }
 
     /**
@@ -3731,6 +3775,9 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
                 this.firstPowerupHad.setImage(new Image("powerup/" + Converter.fromColorToLetter(powerupsHad.get(0).getColor()) + "/" + powerupsHad.get(0).getName() + ".png"));
                 this.firstPowerupHad.setVisible(true);
+
+                dropButton1.setDisable(false);
+                discardButton1.setDisable(false);
             });
 
         }else if(powerupsHad.size() == 2){
@@ -3740,6 +3787,10 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                 this.secondPowerupHad.setImage(new Image("powerup/" + Converter.fromColorToLetter(powerupsHad.get(1).getColor()) + "/" + powerupsHad.get(1).getName() + ".png"));
                 this.firstPowerupHad.setVisible(true);
                 this.secondPowerupHad.setVisible(true);
+                dropButton1.setDisable(false);
+                discardButton1.setDisable(false);
+                dropButton2.setDisable(false);
+                discardButton2.setDisable(false);
             });
 
         }else if(powerupsHad.size() == 3){
@@ -3751,6 +3802,12 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                 this.firstPowerupHad.setVisible(true);
                 this.secondPowerupHad.setVisible(true);
                 this.thirdPowerupHad.setVisible(true);
+                dropButton1.setDisable(false);
+                discardButton1.setDisable(false);
+                dropButton2.setDisable(false);
+                discardButton2.setDisable(false);
+                dropButton3.setDisable(false);
+                discardButton3.setDisable(false);
             });
         }
     }
@@ -3769,6 +3826,8 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
 
                 this.firstWeaponHad.setImage(new Image("weapon/" + Converter.weaponNameInvert(weaponsHad.get(0).getName()) + ".png"));
                 this.firstWeaponHad.setVisible(true);
+                shootButton1.setDisable(false);
+                dropButton1W.setDisable(false);
 
             });
 
@@ -3790,6 +3849,10 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                 this.secondWeaponHad.setImage(new Image("weapon/" + Converter.weaponNameInvert(weaponsHad.get(1).getName()) + ".png"));
                 this.firstWeaponHad.setVisible(true);
                 this.secondWeaponHad.setVisible(true);
+                shootButton1.setDisable(false);
+                shootButton2.setDisable(false);
+                dropButton1W.setDisable(false);
+                dropButton2W.setDisable(false);
             });
 
             Platform.runLater(() -> {
@@ -3817,6 +3880,13 @@ public class GUIHandler extends Application implements ViewInterface, Initializa
                 this.firstWeaponHad.setVisible(true);
                 this.secondWeaponHad.setVisible(true);
                 this.thirdWeaponHad.setVisible(true);
+
+                shootButton1.setDisable(false);
+                shootButton2.setDisable(false);
+                shootButton3.setDisable(false);
+                dropButton1W.setDisable(false);
+                dropButton2W.setDisable(false);
+                dropButton3W.setDisable(false);
             });
 
             Platform.runLater(() -> {
