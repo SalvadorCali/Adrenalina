@@ -314,8 +314,8 @@ public class PlayerBoard implements Serializable {
 
     /**
      * Gives to each user the correct score.
-     * @param playerColors
-     * @return
+     * @param playerColors the shooters' colors.
+     * @return the score after the death.
      */
     Map<TokenColor, Score> scoring(ArrayList<TokenColor> playerColors){
         Score score;
@@ -378,9 +378,9 @@ public class PlayerBoard implements Serializable {
     }
 
     /**
-     * Finds
-     * @param playerColors
-     * @return
+     * Finds the correct score during the final frenzy.
+     * @param playerColors the color of the shooters.
+     * @return the score.
      */
     Map<TokenColor, Score> scoringFinalFrenzy(ArrayList<TokenColor> playerColors){
         Score score;
