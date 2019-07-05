@@ -1,12 +1,6 @@
 package it.polimi.ingsw.controller;
 
-import it.polimi.ingsw.controller.ServerController;
-import it.polimi.ingsw.util.Printer;
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -84,19 +78,4 @@ public class ServerControllerManager {
         }
 
     }
-
-    public static void save(){
-        try {
-            FileOutputStream file = new FileOutputStream("file.txt");
-            ObjectOutputStream outputStream = new ObjectOutputStream(file);
-            outputStream.writeObject(serverControllers.get(0));
-            outputStream.close();
-            file.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
 }

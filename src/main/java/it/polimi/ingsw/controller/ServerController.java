@@ -481,12 +481,6 @@ public class ServerController {
             users.get(username).setDisconnected(true);
             disconnectedUsers.put(username, users.get(username));
             users.remove(username);
-            /*
-            if(users.size()<Config.MIN_PLAYERS){
-                endGame();
-                return;
-            }
-             */
             Printer.println(username + DISCONNECTED);
             servers.remove(username);
             gameData.setUsername(username);
@@ -497,6 +491,10 @@ public class ServerController {
                     Printer.err(e);
                 }
             });
+            if(users.size()<Config.MIN_PLAYERS){
+                endGame();
+                return;
+            }
             if(gameController.isBoardTypePhase() && players.get(0).getUsername().equals(username)){
                 chooseBoardType(1, 5);
             }

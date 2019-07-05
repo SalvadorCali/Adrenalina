@@ -21,7 +21,7 @@ import java.util.Map;
 /**
  * Class which represents the controller of an entire game.
  */
-public class GameController {
+public class GameController{
 
     /**
      * Weapons present in the game.
@@ -237,10 +237,12 @@ public class GameController {
      */
     private void inverseMoveAndReload(Player player){
         if(moveAndReloadData.getSecondDirection() != null){
-            game.getBoard().move(Converter.fromDirectionToOpposite(moveAndReloadData.getSecondDirection()), player);
+            Direction secondDirection = Converter.fromDirectionToOpposite(moveAndReloadData.getSecondDirection());
+            game.getBoard().move(secondDirection, player);
         }
         if(moveAndReloadData.getFirstDirection() != null){
-            game.getBoard().move(Converter.fromDirectionToOpposite(moveAndReloadData.getFirstDirection()), player);
+            Direction firstDirection = Converter.fromDirectionToOpposite(moveAndReloadData.getFirstDirection());
+            game.getBoard().move(firstDirection, player);
         }
         for(int i=0; i<moveAndReloadData.getWeapons().size(); i++){
             String weapon = Converter.weaponName(moveAndReloadData.getWeapons().get(i));

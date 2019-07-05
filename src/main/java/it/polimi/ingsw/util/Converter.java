@@ -193,6 +193,9 @@ public class Converter {
      * @return a Direction.
      */
     public static Direction fromStringToDirection(String direction){
+        if(direction == null){
+            return null;
+        }
         switch(direction){
             case UP:
                 return Direction.UP;
